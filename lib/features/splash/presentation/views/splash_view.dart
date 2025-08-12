@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/splash/presentation/views/widgets/zoom_fade.dart';
 
 class SplashView extends StatefulWidget {
@@ -32,7 +33,11 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     _mainCtl.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(const Duration(seconds: 1), () {
-       //   Navigator.pushReplacementNamed(context, '/home'); // عدل route هنا
+        Navigator.pushReplacement(
+  context,
+  MaterialPageRoute(builder: (context) => const OnboardView()),
+);
+ // عدل route هنا
         });
       }
     });
@@ -46,7 +51,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
   Widget _logoSvg(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final logoWidth = screenWidth * 0.67; // 50% من عرض الشاشة
+    final logoWidth = screenWidth * 0.7; // 50% من عرض الشاشة
     final logoHeight =
         logoWidth / 5.8125; // الحفاظ على نفس النسبة الأصلية// 45% من عرض الشاشة
     return SizedBox(
