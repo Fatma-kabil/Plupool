@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
-import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/splash/presentation/views/widgets/zoom_fade.dart';
 
 class SplashView extends StatefulWidget {
@@ -26,17 +26,19 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
     // نخلي الأنيميشن يبدأ بعد أول Frame
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+      _mainCtl.reset();
       _mainCtl.forward();
+    }
     });
 
     // بعد انتهاء الأنيميشن انتقل للشاشة التالية
     _mainCtl.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(const Duration(seconds: 1), () {
-        Navigator.pushReplacement(
-  context,
-  MaterialPageRoute(builder: (context) => const OnboardView()),
-);
+       context.goNamed('onboarding');
+
+
  // عدل route هنا
         });
       }

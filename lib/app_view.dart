@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/features/splash/presentation/views/splash_view.dart';
+import 'package:plupool/core/app_router.dart';
 
 // ignore: camel_case_types
 class plupoolApp extends StatelessWidget {
@@ -7,6 +7,9 @@ class plupoolApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false,home: SplashView(),);
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+       routerConfig: appRouter,
+      );
   }
 }
