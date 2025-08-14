@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class OnboardingIndicator extends StatelessWidget {
   final int length;
@@ -19,8 +20,8 @@ class OnboardingIndicator extends StatelessWidget {
         (i) => AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           margin: const EdgeInsets.symmetric(horizontal: 4),
-          width: 20,
-          height: 8,
+          width: SizeConfig.w(20),
+          height: SizeConfig.w(8),
           decoration: BoxDecoration(
             color: currentIndex == i
                 ? const Color(0xFF12A0FF)

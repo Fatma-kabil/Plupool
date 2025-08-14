@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class OnboardingControls extends StatelessWidget {
   final VoidCallback onNext;
@@ -15,7 +16,7 @@ class OnboardingControls extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+      padding:  EdgeInsets.symmetric(vertical:SizeConfig.h(30) , horizontal: SizeConfig.w(20)),
       child: Column(
         children: [
           Row(

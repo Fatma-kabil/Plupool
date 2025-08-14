@@ -21,24 +21,17 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
     _mainCtl = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 6),
     );
 
     // نخلي الأنيميشن يبدأ بعد أول Frame
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) {
-      _mainCtl.reset();
-      _mainCtl.forward();
-    }
-    });
+       _mainCtl.forward();
 
     // بعد انتهاء الأنيميشن انتقل للشاشة التالية
     _mainCtl.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Future.delayed(const Duration(seconds: 1), () {
-       context.goNamed('onboarding');
-
-
+        Future.delayed(const Duration(seconds: 3), () {
+        context.go('/onboarding');
  // عدل route هنا
         });
       }

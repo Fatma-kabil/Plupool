@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/onboarding/data/on_boarding_data.dart';
 
 
@@ -16,27 +18,23 @@ class OnboardingPage extends StatelessWidget {
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(
-            padding: const EdgeInsets.only(left: 38, right: 38, bottom: 100),
+            padding:  EdgeInsets.only( bottom:SizeConfig.h(100)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   item.title,
+                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style:AppTextStyles.styleBold22(context)
                 ),
                 const SizedBox(height: 10),
                 Text(
                   item.subtitle,
+                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white70,
-                  ),
+                  style: AppTextStyles.styleRegular20(context),
+                  
                 ),
               ],
             ),

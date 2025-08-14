@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/onboarding/data/on_boarding_data.dart';
 import 'package:plupool/features/onboarding/presentation/views/widgets/on_boarding_controls.dart';
 import 'package:plupool/features/onboarding/presentation/views/widgets/on_boarding_indecator.dart';
@@ -31,7 +32,9 @@ class _OnboardViewState extends State<OnboardView> {
 
   @override
   Widget build(BuildContext context) {
+     SizeConfig.init(context);
     return Scaffold(
+      
       body: Column(
         children: [
           Expanded(
@@ -51,7 +54,7 @@ class _OnboardViewState extends State<OnboardView> {
             onSkip: _skip,
             
           ),
-          const SizedBox(height: 50),
+           SizedBox(height: SizeConfig.h(50)),
         ],
       ),
     );
