@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-
 class AppTextStyles {
-  static TextStyle styleBold22(BuildContext context ) {
+  static TextStyle styleBold22(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontSize: 22),
       fontWeight: FontWeight.w700,
       color: Color(0xffFFFFFF),
-       height: 1.65,
+      height: 1.65,
     );
   }
 
@@ -16,19 +15,18 @@ class AppTextStyles {
       fontSize: getResponsiveFontSize(context, fontSize: 20),
       fontWeight: FontWeight.w400,
       color: Color(0xffFFFFFF).withOpacity(0.8),
-       height: 1.65,
+      height: 1.65,
     );
   }
 
   static TextStyle styleMedium20(BuildContext context) {
     return TextStyle(
-     fontSize: getResponsiveFontSize(context, fontSize: 20),
+      fontSize: getResponsiveFontSize(context, fontSize: 20),
       fontWeight: FontWeight.w500,
       color: Color(0xff12A0FF),
     );
   }
 }
-
 
 double getResponsiveFontSize(BuildContext context, {required double fontSize}) {
   double scaleFactor = getScaleFactor(context);
@@ -44,10 +42,8 @@ double getScaleFactor(BuildContext context) {
   double width = MediaQuery.sizeOf(context).width;
 
   if (width < 800) {
-    return width / 550;
-  } else if (width <1300) {
-    return width / 1000;
+    return width / 450;
   } else {
-    return width / 1920;
+    return width / 50;
   }
 }
