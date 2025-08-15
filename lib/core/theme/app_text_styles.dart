@@ -10,6 +10,24 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle styleBold20(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(context, fontSize: 22),
+      fontWeight: FontWeight.w700,
+      color: Colors.black,
+      height: 1.65,
+    );
+  }
+
+  static TextStyle styleSemiBold16(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(context, fontSize: 16),
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+      height: 1.65,
+    );
+  }
+
   static TextStyle styleRegular20(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontSize: 20),

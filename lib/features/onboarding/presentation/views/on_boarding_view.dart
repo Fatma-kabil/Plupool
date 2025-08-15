@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/onboarding/data/on_boarding_data.dart';
 import 'package:plupool/features/onboarding/presentation/views/widgets/on_boarding_controls.dart';
@@ -23,16 +24,18 @@ class _OnboardViewState extends State<OnboardView> {
       );
     } else {
       // اذهب للصفحة التالية بعد الـ Onboarding
+       context.go('/selectrole');
     }
   }
 
   void _skip() {
     // تخطي الـ Onboarding
+     context.go('/selectrole');
   }
 
   @override
   Widget build(BuildContext context) {
-     SizeConfig.init(context);
+    
     return Scaffold(
       
       body: Column(

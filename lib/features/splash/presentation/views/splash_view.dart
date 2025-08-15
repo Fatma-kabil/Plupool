@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/splash/presentation/views/widgets/zoom_fade.dart';
 
 class SplashView extends StatefulWidget {
@@ -15,9 +16,8 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   late final AnimationController _mainCtl;
 
   @override
-   void initState() {
+  void initState() {
     super.initState();
-    
 
     _mainCtl = AnimationController(
       vsync: this,
@@ -25,14 +25,14 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     );
 
     // نخلي الأنيميشن يبدأ بعد أول Frame
-       _mainCtl.forward();
+    _mainCtl.forward();
 
     // بعد انتهاء الأنيميشن انتقل للشاشة التالية
     _mainCtl.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(const Duration(seconds: 3), () {
-        context.go('/onboarding');
- // عدل route هنا
+          context.go('/onboarding');
+          // عدل route هنا
         });
       }
     });
@@ -58,6 +58,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return Scaffold(
       backgroundColor: appColor,
       body: Center(
