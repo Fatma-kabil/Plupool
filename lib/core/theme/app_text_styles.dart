@@ -10,9 +10,9 @@ class AppTextStyles {
     );
   }
 
-  static TextStyle styleBold20(BuildContext context) {
+  static TextStyle styleBold20 (BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 22),
+      fontSize: getResponsiveFontSize(context, fontSize: 20),
       fontWeight: FontWeight.w700,
       color: Colors.black,
       height: 1.65,

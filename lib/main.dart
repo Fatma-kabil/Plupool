@@ -4,4 +4,4 @@ import 'package:flutter/material.dart';
 import 'package:plupool/app_view.dart';
 
 void main() => runApp(DevicePreview(
-      enabled: true, builder: (context) => const plupoolApp()));
+      enabled: true, builder: (context) => const PlupoolApp()));
