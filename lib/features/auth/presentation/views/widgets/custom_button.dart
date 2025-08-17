@@ -6,7 +6,7 @@ import 'package:plupool/core/utils/size_config.dart';
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key, required this.title, required this.onPressed});
   final String title;
-  final void Function()? onPressed; 
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor,
-          minimumSize: Size(double.infinity, SizeConfig.h( 57)),
+          minimumSize: Size(double.infinity, SizeConfig.h(57)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
           title,
           style: AppTextStyles.styleBold20(
             context,
-          ).copyWith(color: Colors.white, fontSize:isWide ? 35:null ),
+          ).copyWith(color: Colors.white, fontSize: isWide ? 38 : null),
         ),
       ),
     );
