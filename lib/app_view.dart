@@ -1,7 +1,8 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:plupool/core/app_router.dart';
+import 'package:plupool/core/utils/size_config.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 // ignore: camel_case_types
 class PlupoolApp extends StatelessWidget {
@@ -9,6 +10,7 @@ class PlupoolApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      SizeConfig.init(context);
     return MaterialApp.router(
       locale: DevicePreview.locale(context) ?? const Locale('ar'),
       supportedLocales: const [

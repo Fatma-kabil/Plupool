@@ -23,5 +23,4 @@ class SizeConfig {
     return (inputHeight / 740.6666) * screenHeight;
   }
 
-  static bool isWide =SizeConfig.screenWidth > 800;
 }

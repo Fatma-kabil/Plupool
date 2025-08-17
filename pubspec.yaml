@@ -31,6 +31,8 @@ dependencies:
   animated_text_kit: ^4.2.3
   cupertino_icons: ^1.0.8
   device_preview: ^1.3.1
+  intl_phone_field:
+  phone_input:
   flutter:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4
@@ -38,6 +40,7 @@ dependencies:
   flutter_native_splash: ^2.4.6
   flutter_svg: ^2.2.0
   go_router: ^16.1.0
+  nation_code_picker: ^1.1.0
   path_drawing: ^1.0.1
 
 dev_dependencies:

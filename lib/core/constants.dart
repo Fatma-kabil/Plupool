@@ -1,4 +1,3 @@
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -7,7 +6,9 @@ import 'package:plupool/features/auth/data/models/role_item_model.dart';
 final Color appColor = Color(0xFF12A0FF);
 
 final String logo = 'assets/images/logo.svg';
-
+final Color textFieldColor = Color(0xffF9FAFA);
+final Color textFieldBorderColor = Color(0xffE6E9EA);
+final Color hintTextColor = Color(0xffC9CECF);
 
 const List<RoleItemModel> kRoleItems = [
   RoleItemModel(
@@ -20,7 +21,7 @@ const List<RoleItemModel> kRoleItems = [
     color: Color(0xffFF8D17), // Light Green
     imageUrl: 'assets/images/worker.png',
     title: 'الدخول كفني',
-    iconColor:Color(0xffFFB76C),
+    iconColor: Color(0xffFFB76C),
   ),
   RoleItemModel(
     color: Color(0xFF9623FF), // Light Orange
@@ -29,4 +30,3 @@ const List<RoleItemModel> kRoleItems = [
     iconColor: Color(0xffC07BFF),
   ),
 ];
-
