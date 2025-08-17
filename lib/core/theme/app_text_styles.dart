@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/constants.dart';
 
 class AppTextStyles {
   static TextStyle styleBold22(BuildContext context) {
@@ -10,7 +11,7 @@ class AppTextStyles {
     );
   }
 
-  static TextStyle styleBold20 (BuildContext context) {
+  static TextStyle styleBold20(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontSize: 20),
       fontWeight: FontWeight.w700,
@@ -45,13 +46,27 @@ class AppTextStyles {
     );
   }
 
- static TextStyle styleRegular16(BuildContext context) {
+  static TextStyle styleMedium18(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(context, fontSize: 18),
+      fontWeight: FontWeight.w500,
+      color: Color(0xffA4ACAD),
+    );
+  }
+
+  static TextStyle styleNormal18(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(context, fontSize: 18),
+      fontWeight: FontWeight.w400,
+      color: buttonColor,
+    );
+  }
+
+  static TextStyle styleRegular16(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontSize: 20),
       fontWeight: FontWeight.w400,
       color: Color(0xffC9CECF),
-      
-      
     );
   }
 }

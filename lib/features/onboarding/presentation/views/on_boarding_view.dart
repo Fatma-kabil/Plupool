@@ -30,7 +30,7 @@ class _OnboardViewState extends State<OnboardView> {
 
   void _skip() {
     // تخطي الـ Onboarding
-     context.go('/selectrole');
+     context.push('/selectrole');
   }
 
   @override

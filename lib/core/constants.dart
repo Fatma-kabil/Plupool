@@ -9,6 +9,7 @@ final String logo = 'assets/images/logo.svg';
 final Color textFieldColor = Color(0xffF9FAFA);
 final Color textFieldBorderColor = Color(0xffE6E9EA);
 final Color hintTextColor = Color(0xffC9CECF);
+final Color buttonColor = Color(0xff0083DB);
 
 const List<RoleItemModel> kRoleItems = [
   RoleItemModel(

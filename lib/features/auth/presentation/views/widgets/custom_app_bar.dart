@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
@@ -8,8 +9,7 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-   bool isWide =SizeConfig.screenWidth > 800;
+    bool isWide = SizeConfig.screenWidth > 800;
 
     return Padding(
       padding: EdgeInsets.only(top: SizeConfig.h(50)),
@@ -20,12 +20,14 @@ class CustomAppBar extends StatelessWidget {
             title,
             style: AppTextStyles.styleBold20(
               context,
-            ).copyWith(fontSize:  isWide ? 50 :22),
+            ).copyWith(fontSize: isWide ? 50 : 22),
           ),
           SizedBox(width: SizeConfig.w(65)),
           IconButton(
             icon: Icon(Icons.chevron_right, size: SizeConfig.h(38)),
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {
+              context.pop();
+            },
           ),
         ],
       ),
