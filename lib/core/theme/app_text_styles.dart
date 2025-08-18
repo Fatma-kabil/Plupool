@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 
 class AppTextStyles {
+
+   static TextStyle styleBold26(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(context, fontSize: 26),
+      fontWeight: FontWeight.w700,
+      color: Color(0xff141F1F),
+      height: 1.65,
+    );
+  }
   static TextStyle styleBold22(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontSize: 22),

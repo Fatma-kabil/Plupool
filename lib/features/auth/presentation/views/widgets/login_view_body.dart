@@ -39,7 +39,7 @@ class LoginViewBody extends StatelessWidget {
           ),
           SizedBox(height: 20),
           GestureDetector(
-            onTap: () {},
+            onTap: () {context.push('/passwordrecovery');},
             child: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: isWide ? SizeConfig.w(30) : SizeConfig.w(15),
