@@ -6,6 +6,7 @@ import 'package:plupool/features/auth/presentation/views/widgets/auth_footer.dar
 import 'package:plupool/features/auth/presentation/views/widgets/custom_app_bar.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_button.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_divider.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/google_button.dart';
 
 import 'package:plupool/features/auth/presentation/views/widgets/login_form.dart';
 
@@ -63,6 +64,7 @@ class LoginViewBody extends StatelessWidget {
           SizedBox(height: 60),
           CustomDivider(),
           SizedBox(height: 20),
+          GoogleButton(),
         ],
       ),
     );
