@@ -69,6 +69,13 @@ class AppTextStyles {
       color: Color(0xffC9CECF),
     );
   }
+  static TextStyle styleMedium16(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(context, fontSize: 16),
+      fontWeight: FontWeight.w500,
+      color: Color(0xff4E5556),
+    );
+  }
 }
 
 double getResponsiveFontSize(BuildContext context, {required double fontSize}) {

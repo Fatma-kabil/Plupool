@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -61,18 +62,16 @@ class LoginViewBody extends StatelessWidget {
             title: 'تسجيل دخول',
           ),
           SizedBox(height: 10),
-          AuthFooter(),
+          AuthFooter(text: "لا تمتلك حساب؟", textbutton: "قم بإنشاء حساب ",onTap: () => context.push( '/signup'),),
           SizedBox(height: 60),
           CustomDivider(),
           SizedBox(height: 20),
           GoogleButton(),
-           SizedBox(height: SizeConfig.h(60)), // يوزع المسافة المتبقية بالتساوي
-  
-          GuestContinue(onTap: () {
-            
-          }),
-           // يوزع المسافة المتبقية بالتساوي
-  
+          SizedBox(height: SizeConfig.h(60)), // يوزع المسافة المتبقية بالتساوي
+
+          GuestContinue(onTap: () {}),
+
+          // يوزع المسافة المتبقية بالتساوي
         ],
       ),
     );
