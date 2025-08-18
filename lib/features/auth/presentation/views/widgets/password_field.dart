@@ -4,9 +4,10 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class PasswordField extends StatefulWidget {
-  const PasswordField({super.key, required this.controller, this.validator});
+  const PasswordField({super.key, required this.controller, this.validator, this.hintText});
    final TextEditingController controller;
   final String? Function(String?)? validator;
+  final String? hintText;
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -26,7 +27,7 @@ class _PasswordFieldState extends State<PasswordField> {
       cursorColor: Colors.black,
       obscureText: obscure,
       decoration: InputDecoration(
-        hintText: 'كلمة المرور',
+        hintText:widget. hintText ??'كلمة المرور',
          hintStyle: AppTextStyles.styleRegular16(context).copyWith(fontSize:isWide?25: null,),
         prefixIcon: IconButton(
           icon: Icon(obscure ? Icons.visibility : Icons.visibility_off, color:hintTextColor),
