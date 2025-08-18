@@ -2,6 +2,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/auth/presentation/views/password_recovery.dart';
+import 'package:plupool/features/auth/presentation/views/resset_password.dart';
 import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
 import 'package:plupool/features/auth/presentation/views/sign_up_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
@@ -40,6 +41,11 @@ final GoRouter appRouter = GoRouter(
       path: '/passwordrecovery',
       name: 'passwordrecovery',
       builder: (context, state) => const PasswordRecovery(),
+    ),
+    GoRoute(
+      path: '/ressetpassword',
+      name: 'ressetpassword',
+      builder: (context, state) => const RessetPassword(),
     ),
     
   ],

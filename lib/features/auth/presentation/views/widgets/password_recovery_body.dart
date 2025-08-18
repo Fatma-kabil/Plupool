@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_app_bar.dart';
@@ -35,6 +36,7 @@ class PasswordRecoveryBody extends StatelessWidget {
           CustomButton(
             onPressed: () {
               // Handle the verification logic here
+              context.push('/ressetpassword');
             },
             title: ' تحقق من الرمز',
           ),
@@ -42,9 +44,10 @@ class PasswordRecoveryBody extends StatelessWidget {
           GestureDetector(
             child: Text(
               'إعادة إرسال الرمز',
-              style: AppTextStyles.styleMedium18(
-                context,
-              ).copyWith(color: Color(0xff0CD6BE),fontSize: isWide?26:null),
+              style: AppTextStyles.styleMedium18(context).copyWith(
+                color: Color(0xff0CD6BE),
+                fontSize: isWide ? 26 : null,
+              ),
             ),
           ),
         ],
