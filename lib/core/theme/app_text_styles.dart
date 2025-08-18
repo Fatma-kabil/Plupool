@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class AppTextStyles {
 
@@ -13,7 +14,7 @@ class AppTextStyles {
   }
   static TextStyle styleBold22(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 22),
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?40: 22),
       fontWeight: FontWeight.w700,
       color: Color(0xffFFFFFF),
       height: 1.65,
@@ -22,7 +23,7 @@ class AppTextStyles {
 
   static TextStyle styleBold20(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 20),
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?35: 20),
       fontWeight: FontWeight.w700,
       color: Colors.black,
       height: 1.65,
@@ -31,7 +32,7 @@ class AppTextStyles {
 
   static TextStyle styleSemiBold16(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 16),
+      fontSize: getResponsiveFontSize(context, fontSize: SizeConfig.isWideScreen?34:16),
       fontWeight: FontWeight.w600,
       color: Colors.white,
       height: 1.65,
@@ -40,7 +41,7 @@ class AppTextStyles {
 
   static TextStyle styleRegular20(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 20),
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?35: 20),
       fontWeight: FontWeight.w400,
       color: Color(0xffFFFFFF).withOpacity(0.8),
       height: 1.65,
@@ -48,7 +49,7 @@ class AppTextStyles {
   }
     static TextStyle styleRegular18(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 18),
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?24: 18),
       fontWeight: FontWeight.w400,
       color: Color(0xff141F1F),
       height: 1.65,
@@ -57,7 +58,7 @@ class AppTextStyles {
 
   static TextStyle styleMedium20(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 20),
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?30: 20),
       fontWeight: FontWeight.w500,
       color: Color(0xff12A0FF),
     );
@@ -65,7 +66,7 @@ class AppTextStyles {
 
   static TextStyle styleMedium18(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 18),
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?26: 18),
       fontWeight: FontWeight.w500,
       color: Color(0xffA4ACAD),
     );
@@ -73,7 +74,7 @@ class AppTextStyles {
 
   static TextStyle styleNormal18(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 18),
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?24: 18),
       fontWeight: FontWeight.w400,
       color: buttonColor,
     );
@@ -81,14 +82,14 @@ class AppTextStyles {
 
   static TextStyle styleRegular16(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 20),
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?25: 20),
       fontWeight: FontWeight.w400,
       color: Color(0xffC9CECF),
     );
   }
   static TextStyle styleMedium16(BuildContext context) {
     return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 16),
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?25: 16),
       fontWeight: FontWeight.w500,
       color: Color(0xff4E5556),
     );

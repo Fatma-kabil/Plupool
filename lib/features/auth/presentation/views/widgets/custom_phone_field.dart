@@ -21,7 +21,7 @@ class _CustomPhoneFieldState extends State<CustomPhoneField> {
 
   @override
   Widget build(BuildContext context) {
-     bool isWide =SizeConfig.screenWidth > 800;
+  
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -78,7 +78,7 @@ class _CustomPhoneFieldState extends State<CustomPhoneField> {
                  
                     border: InputBorder.none,
                     hintText:  " 010-98776554(${_selectedNationCode.dialCode})",                    // ✅ هنا هنضيف الكود
-                   hintStyle: AppTextStyles.styleRegular16(context).copyWith(fontSize:isWide?25: 14,color:  Color(0xff6C7278),)
+                   hintStyle: AppTextStyles.styleRegular16(context).copyWith(fontSize:SizeConfig.isWideScreen?25: 14,color:  Color(0xff6C7278),)
                   ),
                   
                 ),

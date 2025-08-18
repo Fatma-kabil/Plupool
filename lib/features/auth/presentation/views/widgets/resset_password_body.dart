@@ -15,7 +15,7 @@ class RessetPasswordBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     bool isWide = SizeConfig.screenWidth > 800;
+     
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -24,14 +24,11 @@ class RessetPasswordBody extends StatelessWidget {
            SizedBox(height: SizeConfig.h(20)),
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: isWide ? SizeConfig.w(30) : SizeConfig.w(15),
+              horizontal: SizeConfig.isWideScreen ? SizeConfig.w(30) : SizeConfig.w(15),
             ),
             child: Text(
               'قم بإنشاء كلمة مرور جديدة لتسجيل الدخول',
-              style: AppTextStyles.styleRegular18(context).copyWith(
-                
-                fontSize: isWide ? 24 : null,
-              ),
+              style: AppTextStyles.styleRegular18(context),
               textDirection: TextDirection.rtl,
             ),
           ),

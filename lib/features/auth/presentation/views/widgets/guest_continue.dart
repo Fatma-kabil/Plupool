@@ -17,7 +17,7 @@ class _GuestContinueState extends State<GuestContinue>
 
   @override
   Widget build(BuildContext context) {
-    bool isWide = SizeConfig.screenWidth > 800;
+    
     return GestureDetector(
       onTapDown: (_) {
         setState(() => _pressed = true);
@@ -45,7 +45,7 @@ class _GuestContinueState extends State<GuestContinue>
               "المتابعة كزائر",
               style: AppTextStyles.styleMedium20(context).copyWith(
                 color: Color(0xff646464),
-                fontSize: isWide ? 26 : null,
+                fontSize: SizeConfig.isWideScreen ? 26 : null,
               ),
               textAlign: TextAlign.center,
             ),

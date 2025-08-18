@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/size_config.dart';
+
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({super.key, required this.controller, this.validator});
@@ -10,7 +10,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     bool isWide =SizeConfig.screenWidth > 800;
+    
     return TextFormField(
       controller: controller,
       validator: validator,
@@ -20,7 +20,7 @@ class CustomTextField extends StatelessWidget {
   
       decoration: InputDecoration(
         hintText: 'الاسم بالكامل',
-         hintStyle: AppTextStyles.styleRegular16(context).copyWith(fontSize:isWide?25: null,),
+         hintStyle: AppTextStyles.styleRegular16(context),
        
         fillColor: textFieldColor,
         filled: true,

@@ -16,16 +16,16 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
-    bool isWide = SizeConfig.screenWidth > 800;
+    
+    
     return   Padding(
-  padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(isWide ? 30 : 15)),
+  padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(SizeConfig.isWideScreen ? 30 : 15)),
   child: Row(
     textDirection: TextDirection.rtl,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Baseline(
-        baseline:isWide?39: 33, // 👈 جرّبي تزودي/تنقصي الرقم حسب حجم الخط
+        baseline:SizeConfig.isWideScreen?39: 33, // 👈 جرّبي تزودي/تنقصي الرقم حسب حجم الخط
         baselineType: TextBaseline.alphabetic,
         child: Transform.scale(
           scale: 1.2,
@@ -57,13 +57,13 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
               TextSpan(
                 text: "من خلال إنشاء حساب، فإنك توافق على ",
                 style: AppTextStyles.styleMedium16(context)
-                    .copyWith(fontSize: isWide ? 25 : null),
+                   
               ),
               TextSpan(
                 text: "الشروط والأحكام",
                 style: AppTextStyles.styleMedium16(context).copyWith(
                   color: buttonColor,
-                  fontSize: isWide ? 25 : null,
+                
                 ),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
@@ -73,7 +73,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
               TextSpan(
                 text: " الخاصة بنا",
                 style: AppTextStyles.styleMedium16(context)
-                    .copyWith(fontSize: isWide ? 25 : null),
+                    
               ),
             ],
           ),

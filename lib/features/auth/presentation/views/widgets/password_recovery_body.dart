@@ -11,7 +11,7 @@ class PasswordRecoveryBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isWide = SizeConfig.screenWidth > 800;
+  
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -19,13 +19,13 @@ class PasswordRecoveryBody extends StatelessWidget {
           SizedBox(height: SizeConfig.h(20)),
           Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: isWide ? SizeConfig.w(30) : SizeConfig.w(15),
+              horizontal: SizeConfig.isWideScreen ? SizeConfig.w(30) : SizeConfig.w(15),
             ),
             child: Text(
               'أدخل الرمز المرسل إلى رقم هاتفك ********011 لاستعادة كلمة المرور.',
               style: AppTextStyles.styleNormal18(context).copyWith(
                 color: Color(0xff4E5556),
-                fontSize: isWide ? 24 : null,
+              
               ),
               textDirection: TextDirection.rtl,
             ),
@@ -46,7 +46,7 @@ class PasswordRecoveryBody extends StatelessWidget {
               'إعادة إرسال الرمز',
               style: AppTextStyles.styleMedium18(context).copyWith(
                 color: Color(0xff0CD6BE),
-                fontSize: isWide ? 26 : null,
+                
               ),
             ),
           ),

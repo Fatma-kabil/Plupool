@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_footer.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_app_bar.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_button.dart';
@@ -18,7 +17,7 @@ class SignUpViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
+    
 
     return SingleChildScrollView(
       child: Column(

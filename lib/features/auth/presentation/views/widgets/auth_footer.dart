@@ -14,7 +14,7 @@ class AuthFooter extends StatelessWidget {
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    bool isWide = SizeConfig.screenWidth > 800;
+    
     return Row(
       textDirection: TextDirection.rtl,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -23,7 +23,7 @@ class AuthFooter extends StatelessWidget {
           text,
           style: AppTextStyles.styleMedium18(
             context,
-          ).copyWith(fontSize: isWide ? 28 : null),
+          ).copyWith(fontSize: SizeConfig.isWideScreen ? 28 : null),
         ),
         GestureDetector(
           onTap: onTap,
@@ -31,7 +31,7 @@ class AuthFooter extends StatelessWidget {
             textbutton,
             style: AppTextStyles.styleNormal18(
               context,
-            ).copyWith(fontSize: isWide ? 28 : null),
+            ).copyWith(fontSize: SizeConfig.isWideScreen ? 28 : null),
           ),
         ),
       ],

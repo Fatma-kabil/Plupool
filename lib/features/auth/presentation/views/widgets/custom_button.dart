@@ -10,9 +10,9 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isWide = SizeConfig.screenWidth > 800;
+    
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(isWide ? 30 : 15)),
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(SizeConfig.isWideScreen ? 30 : 15)),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor,
@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
           title,
           style: AppTextStyles.styleBold20(
             context,
-          ).copyWith(color: Colors.white, fontSize: isWide ? 38 : null),
+          ).copyWith(color: Colors.white, fontSize: SizeConfig.isWideScreen ? 38 : null),
         ),
       ),
     );

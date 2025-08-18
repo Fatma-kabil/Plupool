@@ -9,7 +9,7 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isWide = SizeConfig.screenWidth > 800;
+  
 
     return Padding(
       padding: EdgeInsets.only(top: SizeConfig.h(50)),
@@ -20,7 +20,7 @@ class CustomAppBar extends StatelessWidget {
             title,
             style: AppTextStyles.styleBold20(
               context,
-            ).copyWith(fontSize: isWide ? 50 : 22),
+            ).copyWith(fontSize: SizeConfig.isWideScreen ? 50 : 22),
           ),
           SizedBox(width: SizeConfig.w(65)),
           IconButton(

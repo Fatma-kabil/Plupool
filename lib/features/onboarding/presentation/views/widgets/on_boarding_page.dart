@@ -30,22 +30,14 @@ class OnboardingPage extends StatelessWidget {
                     item.title,
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.center,
-                    style: SizeConfig.screenWidth > 800
-                        ? AppTextStyles.styleBold22(
-                            context,
-                          ).copyWith(fontSize: 40)
-                        : AppTextStyles.styleBold22(context),
+                    style: AppTextStyles.styleBold22(context),
                   ),
                   const SizedBox(height: 10),
                   Text(
                     item.subtitle,
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.center,
-                    style: SizeConfig.screenWidth > 800
-                        ? AppTextStyles.styleRegular20(
-                            context,
-                          ).copyWith(fontSize: 35)
-                        : AppTextStyles.styleRegular20(context),
+                    style: AppTextStyles.styleRegular20(context),
                   ),
                 ],
               ),

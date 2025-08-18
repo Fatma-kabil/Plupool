@@ -10,24 +10,25 @@ class SelectRoleViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: SizeConfig.h(146),left:SizeConfig.h(20),right:   SizeConfig.w(15) ),
+      padding: EdgeInsets.only(
+        top: SizeConfig.h(146),
+        left: SizeConfig.h(20),
+        right: SizeConfig.w(15),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-             textDirection: TextDirection.rtl,
+            textDirection: TextDirection.rtl,
             "كيف تريد استخدام Blupool ؟",
-            style: SizeConfig.screenWidth > 800
-                ? AppTextStyles.styleBold20(context).copyWith(fontSize: 35)
-                : AppTextStyles.styleBold20(context),
+            style: AppTextStyles.styleBold20(context),
           ),
           SizedBox(height: SizeConfig.h(70)),
           Expanded(
             child: ListView.separated(
               padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
               itemCount: kRoleItems.length,
-              separatorBuilder: (context, index) =>
-                  SizedBox(height: 20),
+              separatorBuilder: (context, index) => SizedBox(height: 20),
               itemBuilder: (context, index) {
                 return SelectRoleItem(item: kRoleItems[index]);
               },

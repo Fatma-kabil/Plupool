@@ -8,17 +8,17 @@ class CustomDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-      bool isWide = SizeConfig.screenWidth > 800;
+      
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: isWide ? SizeConfig.w(30) : SizeConfig.w(15),
+        horizontal: SizeConfig.isWideScreen ? SizeConfig.w(30) : SizeConfig.w(15),
       ),
       child: Row(
         children:  [
           Expanded(child: Divider(thickness: 1)),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Text("أو",style: AppTextStyles.styleMedium20(context).copyWith(color: Colors.black,fontSize: isWide?26:null),),
+            child: Text("أو",style: AppTextStyles.styleMedium20(context).copyWith(color: Colors.black,fontSize: SizeConfig.isWideScreen?26:null),),
           ),
           Expanded(child: Divider(thickness: 1)),
         ],

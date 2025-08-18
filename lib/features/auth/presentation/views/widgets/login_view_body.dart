@@ -23,7 +23,7 @@ class LoginViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    bool isWide = SizeConfig.screenWidth > 800;
+    
 
     return SingleChildScrollView(
       child: Column(
@@ -42,7 +42,7 @@ class LoginViewBody extends StatelessWidget {
             onTap: () {context.push('/passwordrecovery');},
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: isWide ? SizeConfig.w(30) : SizeConfig.w(15),
+                horizontal: SizeConfig.isWideScreen ? SizeConfig.w(30) : SizeConfig.w(15),
               ),
               child: Text(
                 'نسيت كلمه المرور؟',

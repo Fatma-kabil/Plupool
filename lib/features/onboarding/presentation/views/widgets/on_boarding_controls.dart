@@ -44,13 +44,9 @@ class OnboardingControls extends StatelessWidget {
                 onTap: onSkip,
                 child: Text(
                   "تخطي",
-                  style: SizeConfig.screenWidth > 800
-                      ? AppTextStyles.styleMedium20(
-                          context,
-                        ).copyWith(fontSize: 30, color: Color(0xffB3B3B3))
-                      : AppTextStyles.styleMedium20(
-                          context,
-                        ).copyWith(color: Color(0xffB3B3B3)),
+                  style: AppTextStyles.styleMedium20(
+                    context,
+                  ).copyWith(color: Color(0xffB3B3B3)),
                 ),
               ),
             ],

@@ -35,10 +35,10 @@ class _PasswordRecoveryRowState extends State<PasswordRecoveryRow> {
 
   @override
   Widget build(BuildContext context) {
-    bool isWide = SizeConfig.screenWidth > 800;
+    
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: isWide ? SizeConfig.w(30) : SizeConfig.w(15),
+        horizontal: SizeConfig.isWideScreen ? SizeConfig.w(30) : SizeConfig.w(15),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

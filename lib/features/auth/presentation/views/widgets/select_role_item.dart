@@ -11,8 +11,6 @@ class SelectRoleItem extends StatelessWidget {
   final RoleItemModel item;
   @override
   Widget build(BuildContext context) {
-    bool isWide = SizeConfig.screenWidth > 800;
-
     return Container(
       decoration: BoxDecoration(
         color: item.color,
@@ -20,7 +18,7 @@ class SelectRoleItem extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: isWide ? 17 : 10.0,
+          horizontal: SizeConfig.isWideScreen ? 17 : 10.0,
           vertical: 13,
         ),
         child: Row(
@@ -36,14 +34,12 @@ class SelectRoleItem extends StatelessWidget {
               child: Text(
                 textDirection: TextDirection.rtl,
                 item.title,
-                style: AppTextStyles.styleSemiBold16(
-                  context,
-                ).copyWith(fontSize: isWide ? 34 : null),
+                style: AppTextStyles.styleSemiBold16(context),
               ),
             ),
             SizedBox(width: 8),
             CircleAvatar(
-              radius: SizeConfig.w(isWide ? 18 : 14),
+              radius: SizeConfig.w(SizeConfig.isWideScreen ? 18 : 14),
               backgroundImage: AssetImage(
                 item.imageUrl,
               ), // الصورة هنا هتكون دائرية
