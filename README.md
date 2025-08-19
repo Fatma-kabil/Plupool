@@ -18,8 +18,13 @@
 - **Role Selection** 👥  
   Lets users choose their role (e.g., guest, member, admin, etc.) to personalize the app experience.  
 
-- **Login Screen** 🔐  
-  Secure and user-friendly login form with phone & password authentication, Google sign-in, and an option to continue as a guest.  
+- **Authentication Flow** 🔐
+  - **Login** – Phone & password, Google sign-in, or continue as guest.
+  - **Signup** – Smooth registration for new users.
+  - **OTP Verification** – One-time code verification ( SMS).
+  - **Reset Password** – Secure password reset flow.
+
+ 
 
 ---
 
