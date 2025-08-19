@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
     _mainCtl = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 4),
+      duration: const Duration(seconds: 5),
     );
 
     // نخلي الأنيميشن يبدأ بعد أول Frame
