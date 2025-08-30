@@ -3,6 +3,6 @@ import '../entities/role.dart';
 
 
 abstract class SelectRoleRepository {
-Future<void> saveRole(Role role);
-Future<Role?> getSavedRole();
+Future<void> selectRole(Role role);
+//Future<Role?> getSavedRole();
 }
