@@ -11,40 +11,25 @@ class OnboardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //  final isWide = SizeConfig.screenWidth > SizeConfig.screenHeight;
-    return Center(
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(
-            item.image,
-            fit: BoxFit.fill, // تملى الشاشة
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          item.image,
+          fit: BoxFit.cover, // تملى الشاشة
+        ),
+        Positioned(
+          top: SizeConfig.h(505),
+          left: 0,
+          right: 0,
+          child: Text(
+            item.title,
+            textDirection: TextDirection.rtl,
+            textAlign: TextAlign.center,
+            style: AppTextStyles.styleMedium20(context),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(bottom: SizeConfig.h(100)),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    item.title,
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.styleBold22(context),
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    item.subtitle,
-                    textDirection: TextDirection.rtl,
-                    textAlign: TextAlign.center,
-                    style: AppTextStyles.styleRegular20(context),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
@@ -15,7 +16,7 @@ class CustomButton extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(SizeConfig.isWideScreen ? 30 : 15)),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColor,
+         // backgroundColor: buttonColor,
           minimumSize: Size(double.infinity, SizeConfig.h(57)),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),

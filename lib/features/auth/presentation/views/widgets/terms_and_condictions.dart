@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
@@ -30,7 +31,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
         child: Transform.scale(
           scale: 1.2,
           child: Checkbox(
-            activeColor: buttonColor,
+           // activeColor: buttonColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
               side: BorderSide(color: Color(0xffDDDFDF), width: 2),
@@ -62,7 +63,7 @@ class _TermsAndConditionsState extends State<TermsAndConditions> {
               TextSpan(
                 text: "الشروط والأحكام",
                 style: AppTextStyles.styleMedium16(context).copyWith(
-                  color: buttonColor,
+               //   color: buttonColor,
                 
                 ),
                 recognizer: TapGestureRecognizer()

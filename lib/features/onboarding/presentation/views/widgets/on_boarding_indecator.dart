@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class OnboardingIndicator extends StatelessWidget {
@@ -19,14 +20,14 @@ class OnboardingIndicator extends StatelessWidget {
         length,
         (i) => AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          margin: const EdgeInsets.symmetric(horizontal: 4),
-          width: SizeConfig.w(20),
-          height: SizeConfig.w(8),
+          margin: const EdgeInsets.symmetric(horizontal: 2),
+          width: SizeConfig.w(28),
+          height: SizeConfig.w(3),
           decoration: BoxDecoration(
             color: currentIndex == i
-                ? const Color(0xFF12A0FF)
-                : const Color(0xffE4E4E4),
-            borderRadius: BorderRadius.circular(100),
+                ? AppColors.kprimarycolor
+                : const Color(0xffD6D6D6),
+            borderRadius: BorderRadius.circular(2),
           ),
         ),
       ),

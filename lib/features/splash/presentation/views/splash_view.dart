@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/splash/presentation/views/widgets/zoom_fade.dart';
 
@@ -52,7 +52,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     return SizedBox(
       width: logoWidth,
       height: logoHeight,
-      child: SvgPicture.asset(logo),
+   //   child: SvgPicture.asset(logo),
     );
   }
 
@@ -60,7 +60,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-      backgroundColor: appColor,
+   //   backgroundColor: appColor,
       body: Center(
         child: ZoomFadeBgPro(controller: _mainCtl, child: _logoSvg(context)),
       ),

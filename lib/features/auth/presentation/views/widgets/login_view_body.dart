@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_footer.dart';
@@ -49,7 +50,8 @@ class LoginViewBody extends StatelessWidget {
                 textAlign: TextAlign.start,
                 style: AppTextStyles.styleMedium20(
                   context,
-                ).copyWith(color: buttonColor),
+                ).copyWith(//color: buttonColor
+                ),
               ),
             ),
           ),

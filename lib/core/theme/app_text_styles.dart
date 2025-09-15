@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
-class AppTextStyles {
+  class AppTextStyles { 
 
-   static TextStyle styleBold26(BuildContext context) {
-    return TextStyle(
-      fontSize: getResponsiveFontSize(context, fontSize: 26),
-      fontWeight: FontWeight.w700,
-      color: Color(0xff141F1F),
-      height: 1.65,
-    );
-  }
+  
   static TextStyle styleBold22(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?40: 22),
@@ -25,8 +18,8 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?35: 20),
       fontWeight: FontWeight.w700,
-      color: Colors.black,
-      height: 1.65,
+      color: Color(0xffF6F6F6),
+      
     );
   }
 
@@ -60,7 +53,9 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?30: 20),
       fontWeight: FontWeight.w500,
-      color: Color(0xff12A0FF),
+      color: Color(0xff333333),
+       height: 1.65,
+       
     );
   }
 
@@ -76,7 +71,15 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?24: 18),
       fontWeight: FontWeight.w400,
-      color: buttonColor,
+     // color: buttonColor,
+    );
+  }
+
+  static TextStyle styleNormal20(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(context, fontSize:SizeConfig.isWideScreen?24: 20),
+      fontWeight: FontWeight.w700,
+      color: Color(0xffF6F6F6),
     );
   }
 

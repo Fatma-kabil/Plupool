@@ -29,32 +29,29 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animated_text_kit: ^4.2.3
+  bloc: ^8.1.0
   cupertino_icons: ^1.0.8
+  dartz: ^0.10.1
   device_preview: ^1.3.1
-  intl_phone_field:
-  phone_input:
+  dio: null
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.2
   flutter_launcher_icons: ^0.14.4
   flutter_localization: ^0.3.3
   flutter_native_splash: ^2.4.6
   flutter_svg: ^2.2.0
+  get_it: null
   go_router: ^16.1.0
-  nation_code_picker: ^1.1.0
-  path_drawing: ^1.0.1
-  get_it:
-  dio:
-  shared_preferences: ^2.1.1
-  dartz: ^0.10.1
-  bloc: ^8.1.0
-  flutter_bloc: ^8.1.2
-  equatable: ^2.0.5
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  intl_phone_field: null
+  nation_code_picker: ^1.1.0
+  path_drawing: ^1.0.1
   path_provider: ^2.0.15
-
-  
-
+  phone_input: null
+  shared_preferences: ^2.1.1
 
 dev_dependencies:
   flutter_lints: ^5.0.0

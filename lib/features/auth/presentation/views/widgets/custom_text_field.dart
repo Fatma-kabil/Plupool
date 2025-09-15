@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 
 
@@ -22,18 +23,18 @@ class CustomTextField extends StatelessWidget {
         hintText: 'الاسم بالكامل',
          hintStyle: AppTextStyles.styleRegular16(context),
        
-        fillColor: textFieldColor,
+     //   fillColor: textFieldColor,
         filled: true,
         border: OutlineInputBorder(
-    borderSide: BorderSide(color: textFieldBorderColor),
+  //  borderSide: BorderSide(color: textFieldBorderColor),
     borderRadius: BorderRadius.circular(12),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: textFieldBorderColor),
+//    borderSide: BorderSide(color: textFieldBorderColor),
     borderRadius: BorderRadius.circular(12),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: textFieldBorderColor, width: 2),
+  //  borderSide: BorderSide(color: textFieldBorderColor, width: 2),
     borderRadius: BorderRadius.circular(12),
   ),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
@@ -48,25 +49,25 @@ class _PasswordRecoveryRowState extends State<PasswordRecoveryRow> {
             width: SizeConfig.w(66),
             height: SizeConfig.h(56),
             child: TextField(
-              cursorColor: buttonColor,
+            //  cursorColor: buttonColor,
               controller: controllers[index],
               focusNode: focusNodes[index],
               textAlign: TextAlign.center,
               maxLength: 1,
               keyboardType: TextInputType.number,
-              style: AppTextStyles.styleBold26(context),
+            //  style: AppTextStyles.styleBold26(context),
               decoration: InputDecoration(
                 counterText: "", // يخفي عداد الأحرف
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: textFieldBorderColor, width: 1.5),
+              //    borderSide: BorderSide(color: textFieldBorderColor, width: 1.5),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: buttonColor, width: 2), // 👈 border أزرق عند التركيز
+               //   borderSide: BorderSide(color: buttonColor, width: 2), // 👈 border أزرق عند التركيز
                 ),
                 filled: true,
-                fillColor: textFieldColor,
+              //  fillColor: textFieldColor,
               ),
               onChanged: (value) {
                 if (value.isNotEmpty && index < codeLength - 1) {
