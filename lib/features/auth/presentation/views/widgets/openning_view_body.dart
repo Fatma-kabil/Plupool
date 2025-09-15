@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/theme/app_colors.dart';
-import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/openning_view_footer.dart';
 
 class OpenningViewBody extends StatelessWidget {
   const OpenningViewBody({super.key});
@@ -25,33 +24,7 @@ class OpenningViewBody extends StatelessWidget {
           bottom: 45,
           left: 0,
           right: 0,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.kprimarycolor,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), // ✅ صححت هنا
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12.0),
-                      child: Text(
-                        "تسجيل الدخول",
-                        style: AppTextStyles.styleBold20(context),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          child: OpenningViewFooter(),
         ),
       ],
     );
