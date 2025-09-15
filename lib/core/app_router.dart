@@ -1,6 +1,7 @@
 
 import 'package:go_router/go_router.dart';
 import 'package:plupool/features/auth/presentation/views/openning_view.dart';
+import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 
@@ -23,6 +24,11 @@ final GoRouter appRouter = GoRouter(
       path: '/openning',
       name: 'openning',
       builder: (context, state) => const OpenningView(),
+    ),
+     GoRoute(
+      path: '/selectrole',
+      name: 'selectrole',
+      builder: (context, state) => const SelectRoleView(),
     ),
     
   ],

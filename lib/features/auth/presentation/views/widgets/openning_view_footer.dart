@@ -1,14 +1,12 @@
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_text_btn.dart';
 
 class OpenningViewFooter extends StatelessWidget {
-  const OpenningViewFooter({
-    super.key,
-  });
+  const OpenningViewFooter({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +19,15 @@ class OpenningViewFooter extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                context.go('/selectrole');
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
-    
+
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10), // ✅ صححت هنا
-                  side: BorderSide(
-                    color: AppColors.kprimarycolor,
-                    width: 1,
-                  ),
+                  side: BorderSide(color: AppColors.kprimarycolor, width: 1),
                 ),
               ),
               child: Padding(
