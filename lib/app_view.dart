@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:plupool/core/app_router.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 // ...existing imports...
@@ -15,11 +16,10 @@ class PlupoolApp extends StatelessWidget {
     return MaterialApp.router(
       theme: ThemeData(
         fontFamily: 'Cairo',
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: AppColors.kScaffoldColor,
       ),
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
-     
     );
   }
 }
