@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:nation_code_picker/nation_code_picker.dart';
-import 'package:plupool/core/constants.dart';
-import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 

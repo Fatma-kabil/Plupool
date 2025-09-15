@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
   class AppTextStyles { 
@@ -55,6 +54,7 @@ import 'package:plupool/core/utils/size_config.dart';
       fontWeight: FontWeight.w500,
       color: Color(0xff333333),
        height: 1.65,
+       
        
     );
   }

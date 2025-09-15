@@ -12,7 +12,7 @@ class OpenningViewBody extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         Image.asset(
-          'assets/images/openning.jpg',
+          'assets/images/openning.png',
           fit: BoxFit.fill, // تملى الشاشة
         ),
         Positioned(
@@ -26,22 +26,27 @@ class OpenningViewBody extends StatelessWidget {
           left: 0,
           right: 0,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.kprimarycolor,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: double.infinity),
-                      borderRadius: BorderRadius.circular(10), // ✅ صححت هنا
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.kprimarycolor,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10), // ✅ صححت هنا
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    "تسجيل الدخول",
-                    style: AppTextStyles.styleBold20(context),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12.0),
+                      child: Text(
+                        "تسجيل الدخول",
+                        style: AppTextStyles.styleBold20(context),
+                      ),
+                    ),
                   ),
                 ),
               ],
