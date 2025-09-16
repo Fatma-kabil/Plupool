@@ -20,7 +20,7 @@ class OpenningViewFooter extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                context.go('/selectrole');
+                context.push('/selectrole');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,

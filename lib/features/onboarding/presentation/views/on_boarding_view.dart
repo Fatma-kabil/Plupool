@@ -29,7 +29,7 @@ class _OnboardViewState extends State<OnboardView> {
   }
 
   void _skip() {
-    context.push('/openning');
+    context.go('/openning');
   }
 
   @override
