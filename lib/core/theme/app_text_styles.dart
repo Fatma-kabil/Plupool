@@ -13,6 +13,16 @@ class AppTextStyles {
       color: Color(0xffF6F6F6),
     );
   }
+  static TextStyle styleBold13(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 23 : 13,
+      ),
+      fontWeight: FontWeight.w700,
+      color: Color(0xff999999),
+    );
+  }
 
   static TextStyle styleSemiBold20(BuildContext context) {
     return TextStyle(
@@ -120,6 +130,15 @@ class AppTextStyles {
       ),
       fontWeight: FontWeight.w400,
       color: Color(0xff777777),
+    );
+  }static TextStyle styleRegular14(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 24 : 14,
+      ),
+      fontWeight: FontWeight.w400,
+      color: Color(0xff555555),
     );
   }
   

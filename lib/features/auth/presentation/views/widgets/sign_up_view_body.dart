@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_header.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/custom_text_btn.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_text_form_field.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/divider_with_text.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/google_btn.dart';
 // استدعاء الكاستم
 
 class SignUpViewBody extends StatefulWidget {
@@ -21,42 +23,92 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(22.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          AuthHeader(
-            title: "أنشئ ملفك الشخصي الآن",
-            subtitle: "أدخل بياناتك حتي تستفيد بكل الخدمات",
-          ),
-          SizedBox(height: 20),
-          Text(
-            'رقم الهاتف',
-            style: AppTextStyles.styleSemiBold16(context)
-                .copyWith(color: Colors.black),
-            textAlign: TextAlign.start,
-          ),
-          SizedBox(height: 10),
-          CustomTextFormField(hintText: 'أدخل رقم الهاتف', icon: Icons.phone),
-          SizedBox(height: 20),
-          Text(
-            '*الرقم لن يكون مرئيا للمستخدمين الاخرين في التطبيق',
-            style: AppTextStyles.styleRegular10(context),
-            textDirection: TextDirection.rtl,
-          ),
-          SizedBox(height: 18),
-
-          // ✅ إضافة الكاستم Checkbox
-          CustomCheckbox(
-            value: acceptedTerms,
-            onChanged: (val) {
-              setState(() {
-                acceptedTerms = val;
-              });
-            },
-            label: 'الموافقة علي  الشروط والأحكام وسياسة الخصوصية',
-           
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            AuthHeader(
+              title: "أنشئ ملفك الشخصي الآن",
+              subtitle: "أدخل بياناتك حتي تستفيد بكل الخدمات",
+            ),
+            SizedBox(height: 20),
+            Text(
+              'رقم الهاتف',
+              style: AppTextStyles.styleSemiBold16(context)
+                  .copyWith(color: Colors.black),
+              textAlign: TextAlign.start,
+            ),
+            SizedBox(height: 10),
+            CustomTextFormField(hintText: 'أدخل رقم الهاتف', icon: Icons.phone),
+            SizedBox(height: 20),
+            Text(
+              '*الرقم لن يكون مرئيا للمستخدمين الاخرين في التطبيق',
+              style: AppTextStyles.styleRegular10(context),
+              textDirection: TextDirection.rtl,
+            ),
+            SizedBox(height: 18),
+        
+            // ✅ إضافة الكاستم Checkbox
+            CustomCheckbox(
+              value: acceptedTerms,
+              onChanged: (val) {
+                setState(() {
+                  acceptedTerms = val;
+                });
+              },
+              label: 'الموافقة علي الشروط والأحكام وسياسة الخصوصية',
+             
+            ),
+            SizedBox(height: 68),
+            CustomTextBtn(text: 'إرسال رمز التحقق',onPressed: () {
+              // إضافة وظيفة الزر هنا
+            },),
+            SizedBox(height: 38),
+            DividerWithText(text: 'إنشاء حساب عن طريق'),
+            SizedBox(height: 47),
+            GoogleBtn(),
+            SizedBox(height: 42),
+            GestureDetector(
+              onTap: () {
+                // إضافة وظيفة التبديل إلى تسجيل الدخول هنا
+              },
+              child: Center(
+                child: Text(
+                  'تخطي',
+                  style: AppTextStyles.styleSemiBold16(context).copyWith(
+                    decoration: TextDecoration.underline,
+                    color: Color(0xff1A1A1A)
+                      
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 37),
+            Row(
+              textDirection: TextDirection.rtl,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+              'لدي حساب بالفعل',
+                  style: AppTextStyles.styleBold13(context)
+                   
+                ),
+                GestureDetector(
+                  onTap: () {
+                    // إضافة وظيفة التبديل إلى تسجيل الدخول هنا
+                  },
+                  child: Text(
+                    'تسجيل الدخول',
+                    style: AppTextStyles.styleSemiBold14(context)
+                        .copyWith(color: AppColors.kprimarycolor, decoration: TextDecoration.underline,),
+                      
+                  ),
+                ),
+              ],
+            ),
+        
+          ],
+        ),
       ),
     );
   }

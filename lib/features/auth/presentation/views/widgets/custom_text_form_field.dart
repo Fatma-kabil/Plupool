@@ -31,15 +31,18 @@ class CustomTextFormField extends StatelessWidget {
           hintText: hintText,
           hintStyle: AppTextStyles.styleRegular13(context),
           contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
-          prefix: Padding(
-        padding: const EdgeInsets.only(left: 1), // تحكمي هنا في المسافة بين الايقونة والنص
-        child: Icon(
-          icon,
-          size: SizeConfig.w(18),
-          color: AppColors.hintTextColor,
-        ),
-      ),
- 
+           // ✅ أيقونة على اليمين (لأننا RTL)
+          prefixIcon: Icon(
+            icon,
+            size: SizeConfig.w(18),
+            color: AppColors.hintTextColor,
+          ),
+
+          // ✅ تقليل المساحة المحجوزة للأيقونة
+          prefixIconConstraints: const BoxConstraints(
+            minWidth: 10,  // الافتراضي 48 → صغّرناه
+           
+          ),
            enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
