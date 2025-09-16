@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class AppTextStyles {
@@ -34,6 +35,16 @@ class AppTextStyles {
     );
   }
 
+   static TextStyle styleSemiBold32(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 60 : 32,
+      ),
+      fontWeight: FontWeight.w600,
+      color: AppColors.kprimarycolor,
+    );
+  }
   static TextStyle styleMedium20(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -43,6 +54,30 @@ class AppTextStyles {
       fontWeight: FontWeight.w500,
       color: Color(0xff333333),
       height: 1.65,
+    );
+  }
+  
+  static TextStyle stylelight14(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 24 : 14,
+      ),
+      fontWeight: FontWeight.w300,
+      color: Color(0xff555555),
+    
+    );
+  }
+  
+  static TextStyle styleMedium16(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 28 : 16,
+      ),
+      fontWeight: FontWeight.w500,
+      color: AppColors.kprimarycolor
+      
     );
   }
 }

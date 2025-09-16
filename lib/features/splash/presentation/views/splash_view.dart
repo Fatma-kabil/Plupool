@@ -72,7 +72,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
             setState(() => _showText = true);
             await Future.delayed(const Duration(milliseconds: 150));
             _textController.forward().whenComplete(() async {
-              await Future.delayed(const Duration(seconds: 2));
+              await Future.delayed(const Duration(seconds: 4));
               if (mounted) {
                 context.go('/onboarding');
               }

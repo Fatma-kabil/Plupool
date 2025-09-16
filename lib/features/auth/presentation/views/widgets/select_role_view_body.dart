@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/custom_back_button.dart';
 import 'role_card.dart';
 
 class SelectRoleViewBody extends StatelessWidget {
@@ -8,41 +10,66 @@ class SelectRoleViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.all(22.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 40),
-          Text(
-            "اختر دورك",
-        //    style: AppTextStyles.styleBold24(context),
-            textAlign: TextAlign.center,
+          const SizedBox(height: 20),
+
+          // زر الرجوع باستخدام go_router
+          CustomBackButton(),
+
+          const SizedBox(height: 17),
+
+          // العنوان
+          Center(
+            child: Text(
+              "اختر دورك",
+              style: AppTextStyles.styleSemiBold32(context),
+              textAlign: TextAlign.center,
+            ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            "حدد نوع حسابك للحصول على تجربة مخصصة",
-        
-            textAlign: TextAlign.center,
+
+          //  const SizedBox(height: 8),
+          Center(
+            child: Text(
+              "حدد نوع حسابك للحصول على تجربة مخصصة",
+              textAlign: TextAlign.center,
+              style: AppTextStyles.styleMedium16(context),
+            ),
           ),
-          const SizedBox(height: 32),
-          RoleCard(
-            title: "صاحب حمام سباحة",
-            subtitle: "احجز خدمات الإنشاء أو الصيانة و تابع حمامك بخدمات ذكية",
-            icon: Icons.pool,
-            onTap: () {},
-          ),
-          RoleCard(
-            title: "فني صيانة",
-            subtitle: "احصل على فرص عمل، تقييمات، وزود دخلك بسهولة",
-            icon: Icons.build,
-            onTap: () {},
-          ),
-          RoleCard(
-            title: "أمثل شركة أو مطور عقاري",
-            subtitle: "تعاون معنا في تنفيذ حمامات سباحة ذكية وخدمات المشاريع الكبرى",
-            icon: Icons.business,
-            onTap: () {},
-          ),
+
+          const SizedBox(height: 22),
+
+          // الكروت
+         Expanded(
+  child: ListView.separated(
+    itemCount: roles.length,
+    separatorBuilder: (context, index) => const SizedBox(height: 16),
+    itemBuilder: (context, index) {
+      final role = roles[index];
+      return RoleCard(
+        role: role,
+        onTap: () {
+          if (index == 0) {
+            // صاحب حمام سباحة
+            print("اخترت صاحب حمام سباحة");
+            // context.go("/owner");
+          } else if (index == 1) {
+            // فني صيانة
+            print("اخترت فني صيانة");
+            // context.go("/technician");
+          } else if (index == 2) {
+            // شركة أو مطور عقاري
+            print("اخترت شركة أو مطور عقاري");
+            // context.go("/company");
+          }
+        },
+      );
+    },
+  ),
+),
+
         ],
       ),
     );
