@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/features/auth/presentation/views/openning_view.dart';
 import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
 import 'package:plupool/features/auth/presentation/views/sign_up_view.dart';
+import 'package:plupool/features/auth/presentation/views/success_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
@@ -48,6 +49,11 @@ final GoRouter appRouter = GoRouter(
       path: '/verification',
       name: 'verification',
       builder: (context, state) => const VerificationView(),
+    ),
+     GoRoute(
+      path: '/success',
+      name: 'success',
+      builder: (context, state) => const SuccessView(),
     ),
     
   ],
