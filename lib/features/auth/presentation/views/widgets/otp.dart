@@ -11,7 +11,7 @@ class Otp extends StatefulWidget {
 }
 
 class _OtpState extends State<Otp> {
-  final int codeLength = 4;
+  final int codeLength = 5;
   late List<TextEditingController> controllers;
   late List<FocusNode> focusNodes;
 

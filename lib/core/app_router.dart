@@ -1,5 +1,6 @@
 
 import 'package:go_router/go_router.dart';
+import 'package:plupool/features/auth/presentation/views/customer_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/openning_view.dart';
 import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
 import 'package:plupool/features/auth/presentation/views/sign_up_view.dart';
@@ -54,6 +55,11 @@ final GoRouter appRouter = GoRouter(
       path: '/success',
       name: 'success',
       builder: (context, state) => const SuccessView(),
+    ),
+    GoRoute(
+      path: '/customersetup',
+      name: 'customersetup',
+      builder: (context, state) => const CustomerSetupView(),
     ),
     
   ],
