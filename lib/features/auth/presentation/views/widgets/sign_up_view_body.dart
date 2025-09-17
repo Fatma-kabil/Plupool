@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_header.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
@@ -64,6 +65,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               text: 'إرسال رمز التحقق',
               onPressed: () {
                 // إضافة وظيفة الزر هنا
+                context.push('/verification');
               },
             ),
             SizedBox(height: 38),

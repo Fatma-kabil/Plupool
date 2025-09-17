@@ -9,20 +9,29 @@ class VerificationViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AuthHeader(
-          title: 'تحقق من رقمك',
-          subtitle:
-              'بعتنالك رمز مكون من 5 أرقام على رقمك المنتهي بـ \n****1234',
+    return Padding(
+      padding: const EdgeInsets.all(22.0),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            AuthHeader(
+              title: 'تحقق من رقمك',
+              subtitle:
+                  'بعتنالك رمز مكون من 5 أرقام على رقمك المنتهي بـ \n****1234',
+            ),
+            SizedBox(height: 36),
+            Otp(),
+            SizedBox(height: 107),
+            CustomTextBtn(text: 'تأكيد', onPressed: () {}),
+            SizedBox(height: 48),
+            AuthSwitchRow(
+              leadingText: 'ما استلمتش الرمز؟ أعد الإرسال خلال ',
+              actionText: 'خلال 30 ثانية',
+              onTap: () {},
+            ),
+          ],
         ),
-        SizedBox(height: 36),
-        Otp(),
-        SizedBox(height: 107),
-        CustomTextBtn(text: 'تأكيد', onPressed: () {}),
-        SizedBox(height: 48),
-        AuthSwitchRow(leadingText: 'ما استلمتش الرمز؟ أعد الإرسال خلال ', actionText: 'خلال 30 ثانية', onTap: () {}),
-      ],
+      ),
     );
   }
 }
