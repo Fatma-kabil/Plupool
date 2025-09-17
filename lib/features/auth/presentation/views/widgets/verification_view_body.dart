@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_header.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/custom_text_btn.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/otp.dart';
 
 class VerificationViewBody extends StatelessWidget {
@@ -17,6 +19,9 @@ class VerificationViewBody extends StatelessWidget {
         SizedBox(height: 36),
         Otp(),
         SizedBox(height: 107),
+        CustomTextBtn(text: 'تأكيد', onPressed: () {}),
+        SizedBox(height: 48),
+        AuthSwitchRow(leadingText: 'ما استلمتش الرمز؟ أعد الإرسال خلال ', actionText: 'خلال 30 ثانية', onTap: () {}),
       ],
     );
   }
