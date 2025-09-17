@@ -1,0 +1,137 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:country_picker/country_picker.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
+
+class PhoneInputField extends StatefulWidget {
+  const PhoneInputField({super.key});
+
+  @override
+  State<PhoneInputField> createState() => _PhoneInputFieldState();
+}
+
+class _PhoneInputFieldState extends State<PhoneInputField> {
+  String selectedCountryCode = '+20';
+  String selectedCountryFlag = '🇪🇬';
+
+  void _showCountryPicker() {
+    showCountryPicker(
+      context: context,
+      showPhoneCode: true,
+      onSelect: (country) {
+        setState(() {
+          selectedCountryCode = '+${country.phoneCode}';
+          selectedCountryFlag = country.flagEmoji;
+        });
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: TextField(
+        keyboardType: TextInputType.phone,
+        decoration: InputDecoration(
+          hint: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 2.0),
+                child: Icon(
+                  Icons.phone,
+                  size: SizeConfig.w(13),
+                  color: Color(0xffBBBBBB),
+                ),
+              ),
+              SizedBox(width: 4),
+
+              Text(
+                'أدخل رقم الهاتف',
+                style: AppTextStyles.styleRegular13(
+                  context,
+                ).copyWith(color: Color(0xffBBBBBB)),
+              ),
+            ],
+          ),
+
+          filled: true,
+          fillColor: Colors.transparent,
+          // خلي TextField نفسه شفاف
+          prefixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
+          ),
+
+          suffixIcon: Padding(
+            padding: const EdgeInsets.only(
+              left: 8,
+              right: 6,
+              top: 3,
+              bottom: 3,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(5),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 0,
+                  ), //
+                  decoration: BoxDecoration(
+                    color: const Color.fromRGBO(191, 191, 191, 0.2),
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                      color: const Color(0xFFD6D6D6),
+                      width: 1,
+                    ),
+                  ),
+                  child: InkWell(
+                    onTap: _showCountryPicker,
+                    child: Row(
+                      textDirection: TextDirection.ltr,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          selectedCountryFlag,
+                          style: TextStyle(fontSize: SizeConfig.w(20)),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          '($selectedCountryCode)',
+                          style: AppTextStyles.styleRegular13(
+                            context,
+                          ).copyWith(color: Color(0xff000000)),
+                        ),
+
+                        Icon(Icons.arrow_drop_down, size: SizeConfig.w(13)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: Color(0xFFD6D6D6), width: 1),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: Color(0xFFD6D6D6), width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: const BorderSide(color: Color(0xFF0077B6), width: 1.5),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 14,
+            horizontal: 10,
+          ),
+        ),
+      ),
+    );
+  }
+}

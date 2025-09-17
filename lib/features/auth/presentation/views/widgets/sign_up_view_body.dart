@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_header.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_text_btn.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/custom_text_form_field.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/divider_with_text.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/google_btn.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
 // استدعاء الكاستم
 
 class SignUpViewBody extends StatefulWidget {
@@ -34,12 +34,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             SizedBox(height: 20),
             Text(
               'رقم الهاتف',
-              style: AppTextStyles.styleSemiBold16(context)
-                  .copyWith(color: Colors.black),
+              style: AppTextStyles.styleSemiBold16(
+                context,
+              ).copyWith(color: Colors.black),
               textAlign: TextAlign.start,
             ),
             SizedBox(height: 10),
-            CustomTextFormField(hintText: 'أدخل رقم الهاتف', icon: Icons.phone),
+            PhoneInputField(),
             SizedBox(height: 20),
             Text(
               '*الرقم لن يكون مرئيا للمستخدمين الاخرين في التطبيق',
@@ -47,7 +48,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               textDirection: TextDirection.rtl,
             ),
             SizedBox(height: 18),
-        
+
             // ✅ إضافة الكاستم Checkbox
             CustomCheckbox(
               value: acceptedTerms,
@@ -57,12 +58,14 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 });
               },
               label: 'الموافقة علي الشروط والأحكام وسياسة الخصوصية',
-             
             ),
             SizedBox(height: 68),
-            CustomTextBtn(text: 'إرسال رمز التحقق',onPressed: () {
-              // إضافة وظيفة الزر هنا
-            },),
+            CustomTextBtn(
+              text: 'إرسال رمز التحقق',
+              onPressed: () {
+                // إضافة وظيفة الزر هنا
+              },
+            ),
             SizedBox(height: 38),
             DividerWithText(text: 'إنشاء حساب عن طريق'),
             SizedBox(height: 47),
@@ -77,36 +80,19 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   'تخطي',
                   style: AppTextStyles.styleSemiBold16(context).copyWith(
                     decoration: TextDecoration.underline,
-                    color: Color(0xff1A1A1A)
-                      
+                    color: Color(0xff1A1A1A),
                   ),
                 ),
               ),
             ),
             SizedBox(height: 37),
-            Row(
-              textDirection: TextDirection.rtl,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-              'لدي حساب بالفعل',
-                  style: AppTextStyles.styleBold13(context)
-                   
-                ),
-                GestureDetector(
-                  onTap: () {
-                    // إضافة وظيفة التبديل إلى تسجيل الدخول هنا
-                  },
-                  child: Text(
-                    'تسجيل الدخول',
-                    style: AppTextStyles.styleSemiBold14(context)
-                        .copyWith(color: AppColors.kprimarycolor, decoration: TextDecoration.underline,),
-                      
-                  ),
-                ),
-              ],
+
+            AuthSwitchRow(
+              leadingText: 'لدي حساب بالفعل',
+              actionText: 'تسجيل الدخول',
+              onTap: () {},
             ),
-        
+            // إضافة وظيفة التبديل إلى تسجيل الدخول هنا
           ],
         ),
       ),
