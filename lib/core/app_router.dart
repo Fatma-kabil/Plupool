@@ -6,6 +6,7 @@ import 'package:plupool/features/auth/presentation/views/sign_up_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
+import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 
 
 
@@ -13,6 +14,11 @@ final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
+      name: 'splasherapper',
+      builder: (context, state) => const SplashWrapper(),
+    ),
+    GoRoute(
+      path: '/splash',
       name: 'splash',
       builder: (context, state) => const SplashView(),
     ),

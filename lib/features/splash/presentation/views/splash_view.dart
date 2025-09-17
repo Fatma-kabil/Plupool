@@ -22,66 +22,85 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   late final Animation<double> _textFadeAnimation;
 
   bool _showText = false;
+@override
+void initState() {
+  super.initState();
 
-  @override
-  void initState() {
-    super.initState();
+  _waveController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1500),
+  );
 
-    _waveController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1500),
-    )..repeat();
+  _fillController = AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 4),
+  );
 
-    _fillController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 4),
-    );
+  _fillAnimation = CurvedAnimation(
+    parent: _fillController,
+    curve: Curves.linear,
+  );
 
-    _fillAnimation = CurvedAnimation(
-      parent: _fillController,
-      curve: Curves.linear,
-    );
+  _circleController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 700),
+  );
 
-    _circleController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 700),
-    );
+  _textController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 700),
+  );
 
-    _textController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 700),
-    );
+  _textSlideAnimation = CurvedAnimation(
+    parent: _textController,
+    curve: Curves.easeOut,
+  );
 
-    _textSlideAnimation = CurvedAnimation(
-      parent: _textController,
-      curve: Curves.easeOut,
-    );
+  _textFadeAnimation = Tween<double>(begin: 0, end: 1)
+      .animate(CurvedAnimation(parent: _textController, curve: Curves.easeIn));
 
-    _textFadeAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _textController, curve: Curves.easeIn));
+  // Optional: listeners لو حابب (مش ضروري لو AnimatedBuilder بيستمع)
+  _waveController.addListener(() { if (mounted) setState(() {}); });
+  _fillController.addListener(() { if (mounted) setState(() {}); });
+  _circleController.addListener(() { if (mounted) setState(() {}); });
+  _textController.addListener(() { if (mounted) setState(() {}); });
 
-    _fillController.forward();
-    _fillController.addStatusListener((status) {
-      if (status == AnimationStatus.completed && mounted) {
-        _waveController.stop();
+  // مهم: نبدأ كل الـ animations بعد أول frame وبالقيمة 0
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (!mounted) return;
 
-        _circleController.forward().whenComplete(() async {
-          if (mounted) {
-            setState(() => _showText = true);
-            await Future.delayed(const Duration(milliseconds: 150));
-            _textController.forward().whenComplete(() async {
-              await Future.delayed(const Duration(seconds: 4));
-              if (mounted) {
-                context.go('/onboarding');
-              }
-            });
-          }
-        });
-      }
-    });
-  }
+    // رجّع القيم لـ 0 للتأكّد
+    _waveController.reset();
+    _fillController.value = 0.0;
+    _circleController.value = 0.0;
+    _textController.value = 0.0;
+
+    // ابدأ الموجة وملء الدايرة في نفس اللحظة (من 0)
+    _waveController.repeat();
+    _fillController.forward(from: 0.0);
+  });
+
+  // لما يخلص الـ fillController زي ما عندك
+  _fillController.addStatusListener((status) {
+    if (status == AnimationStatus.completed && mounted) {
+      _waveController.stop();
+
+      // ابدأ الـ circle والـ text من البداية (from: 0) عشان يتأكدوا بيبتدوا من أول
+      _circleController.forward(from: 0.0).whenComplete(() async {
+        if (mounted) {
+          setState(() => _showText = true);
+          await Future.delayed(const Duration(milliseconds: 150));
+          _textController.forward(from: 0.0).whenComplete(() async {
+            await Future.delayed(const Duration(seconds: 2));
+            if (mounted) {
+              context.go('/onboarding');
+            }
+          });
+        }
+      });
+    }
+  });
+}
 
   @override
   void didChangeDependencies() {
