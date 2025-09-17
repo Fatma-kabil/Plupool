@@ -71,7 +71,9 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             SizedBox(height: 38),
             DividerWithText(text: 'إنشاء حساب عن طريق'),
             SizedBox(height: 47),
-            GoogleBtn(),
+            GoogleBtn(onTap: () {
+              context.push('/verification');
+            },),
             SizedBox(height: 42),
             GestureDetector(
               onTap: () {

@@ -5,7 +5,14 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class PhoneInputField extends StatefulWidget {
-  const PhoneInputField({super.key});
+  const PhoneInputField({
+    super.key,
+    this.validator,
+    this.controller,
+  });
+
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   @override
   State<PhoneInputField> createState() => _PhoneInputFieldState();
@@ -32,7 +39,9 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: TextField(
+      child: TextFormField(
+        controller: widget.controller,
+        validator: widget.validator, // ✅ استخدام الـ validator اللي جاي من بره
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
           hint: Row(
@@ -42,44 +51,34 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                 child: Icon(
                   Icons.phone,
                   size: SizeConfig.w(13),
-                  color: Color(0xffBBBBBB),
+                  color: const Color(0xffBBBBBB),
                 ),
               ),
-              SizedBox(width: 4),
-
+              const SizedBox(width: 4),
               Text(
                 'أدخل رقم الهاتف',
                 style: AppTextStyles.styleRegular13(
                   context,
-                ).copyWith(color: Color(0xffBBBBBB)),
+                ).copyWith(color: const Color(0xffBBBBBB)),
               ),
             ],
           ),
-
           filled: true,
           fillColor: Colors.transparent,
-          // خلي TextField نفسه شفاف
+
           prefixIconConstraints: const BoxConstraints(
             minWidth: 0,
             minHeight: 0,
           ),
 
           suffixIcon: Padding(
-            padding: const EdgeInsets.only(
-              left: 8,
-              right: 6,
-              top: 3,
-              bottom: 3,
-            ),
+            padding: const EdgeInsets.only(left: 8, right: 6, top: 3, bottom: 3),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 4,
-                    vertical: 0,
-                  ), //
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(191, 191, 191, 0.2),
                     borderRadius: BorderRadius.circular(5),
@@ -103,9 +102,8 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                           '($selectedCountryCode)',
                           style: AppTextStyles.styleRegular13(
                             context,
-                          ).copyWith(color: Color(0xff000000)),
+                          ).copyWith(color: const Color(0xff000000)),
                         ),
-
                         Icon(Icons.arrow_drop_down, size: SizeConfig.w(13)),
                       ],
                     ),
@@ -114,6 +112,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
               ),
             ),
           ),
+
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
             borderSide: const BorderSide(color: Color(0xFFD6D6D6), width: 1),
@@ -126,10 +125,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
             borderRadius: BorderRadius.circular(5),
             borderSide: const BorderSide(color: Color(0xFF0077B6), width: 1.5),
           ),
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 14,
-            horizontal: 10,
-          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
         ),
       ),
     );
