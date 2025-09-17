@@ -5,6 +5,7 @@ import 'package:plupool/features/auth/presentation/views/openning_view.dart';
 import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
 import 'package:plupool/features/auth/presentation/views/sign_up_view.dart';
 import 'package:plupool/features/auth/presentation/views/success_view.dart';
+import 'package:plupool/features/auth/presentation/views/tech_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
@@ -15,7 +16,7 @@ import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/splasherapper',
       name: 'splasherapper',
       builder: (context, state) => const SplashWrapper(),
     ),
@@ -60,6 +61,11 @@ final GoRouter appRouter = GoRouter(
       path: '/customersetup',
       name: 'customersetup',
       builder: (context, state) => const CustomerSetupView(),
+    ),
+     GoRoute(
+      path: '/',
+      name: 'techsetup',
+      builder: (context, state) => const TechSetupView(),
     ),
     
   ],
