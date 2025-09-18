@@ -29,7 +29,7 @@ class _ForgetPasswordScreenBodyState extends State<ForgetPasswordScreenBody> {
     if (_formKey.currentState?.validate() ?? false) {
       // هنا هتحطي اللوجيك لإرسال كود التحقق
       debugPrint('Email/Phone: ${_emailController.text}');
-      context.push('/verficationforgetpassword');
+      context.push('/verificationforgetpassword');
     }
   }
 

@@ -1,5 +1,5 @@
-
 import 'package:go_router/go_router.dart';
+import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
 import 'package:plupool/features/auth/presentation/views/customer_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/forget_password_screen.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
@@ -16,89 +16,82 @@ import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 
-
-
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
       path: '/',
       name: 'splasherapper',
-      builder: (context, state) => const SplashWrapper(),
+      pageBuilder: (context, state) => buildTransitionPage(const SplashWrapper()),
     ),
     GoRoute(
       path: '/splash',
       name: 'splash',
-      builder: (context, state) => const SplashView(),
+      pageBuilder: (context, state) => buildTransitionPage(const SplashView()),
     ),
-   
     GoRoute(
       path: '/onboarding',
       name: 'onboarding',
-      builder: (context, state) => const OnboardView(),
+      pageBuilder: (context, state) => buildTransitionPage(const OnboardView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/openning',
       name: 'openning',
-      builder: (context, state) => const OpenningView(),
+      pageBuilder: (context, state) => buildTransitionPage(const OpenningView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/selectrole',
       name: 'selectrole',
-      builder: (context, state) => const SelectRoleView(),
+      pageBuilder: (context, state) => buildTransitionPage(const SelectRoleView()),
     ),
     GoRoute(
       path: '/signup',
       name: 'signup',
-      builder: (context, state) => const SignUpView(),
+      pageBuilder: (context, state) => buildTransitionPage(const SignUpView()),
     ),
-    
     GoRoute(
       path: '/verification',
       name: 'verification',
-      builder: (context, state) => const VerificationView(),
+      pageBuilder: (context, state) => buildTransitionPage(const VerificationView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/success',
       name: 'success',
-      builder: (context, state) => const SuccessView(),
+      pageBuilder: (context, state) => buildTransitionPage(const SuccessView()),
     ),
     GoRoute(
       path: '/customersetup',
       name: 'customersetup',
-      builder: (context, state) => const CustomerSetupView(),
+      pageBuilder: (context, state) => buildTransitionPage(const CustomerSetupView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/techsetup',
       name: 'techsetup',
-      builder: (context, state) => const TechSetupView(),
+      pageBuilder: (context, state) => buildTransitionPage(const TechSetupView()),
     ),
     GoRoute(
       path: '/login',
       name: 'login',
-      builder: (context, state) => const LoginView(),
+      pageBuilder: (context, state) => buildTransitionPage(const LoginView()),
     ),
-
-     GoRoute(
+    GoRoute(
       path: '/forgetpassword',
       name: 'forgetpassword',
-      builder: (context, state) => const ForgetPasswordScreen(),
+      pageBuilder: (context, state) => buildTransitionPage(const ForgetPasswordScreen()),
     ),
-
-     GoRoute(
+    GoRoute(
       path: '/verificationforgetpassword',
       name: 'verificationforgetpassword',
-      builder: (context, state) => const VerificationForgetPasswordView(),
+      pageBuilder: (context, state) => buildTransitionPage(const VerificationForgetPasswordView()),
     ),
-     GoRoute(
-      path: '/newpasword',
-      name:'newpasword',
-      builder: (context, state) => const NewPasswordView(),
+    GoRoute(
+      path: '/newpassword',
+      name: 'newpassword',
+      pageBuilder: (context, state) => buildTransitionPage(const NewPasswordView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/newpaswordsuccess',
-      name:'newpaswordsuccess',
-      builder: (context, state) => const NewPasswordSuccess(),
+      name: 'newpaswordsuccess',
+      pageBuilder: (context, state) => buildTransitionPage(const NewPasswordSuccess()),
     ),
-    
   ],
 );
