@@ -14,7 +14,10 @@ class OpenningViewFooter extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
-          CustomTextBtn(text: "تسجيل الدخول", onPressed: () {}),
+          CustomTextBtn(text: "تسجيل الدخول", onPressed: () {
+
+             context.push('/login');
+          }),
           SizedBox(height: SizeConfig.h(35)),
           SizedBox(
             width: double.infinity,

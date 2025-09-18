@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_back_button.dart';
@@ -74,7 +75,9 @@ class _TechSetupViewBodyState extends State<TechSetupViewBody> {
             AuthSwitchRow(
               leadingText: 'لدي حساب بالفعل',
               actionText: "تسجيل الدخول",
-              onTap: () {},
+              onTap: () {
+                 context.push('/login');
+              },
             ),
             SizedBox(height: 107),
           ],

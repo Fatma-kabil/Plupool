@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_header.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
@@ -63,9 +64,11 @@ class _CustomerSetupViewBodyState extends State<CustomerSetupViewBody> {
             AuthSwitchRow(
               leadingText: 'لدي حساب بالفعل',
               actionText: "تسجيل الدخول",
-              onTap: () {},
+              onTap: () {
+                context.push('/login');
+              },
             ),
-            SizedBox(height: 50,)
+            SizedBox(height: 114,)
           ],
         ),
       ),
