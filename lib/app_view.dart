@@ -15,6 +15,11 @@ class PlupoolApp extends StatelessWidget {
 
     return MaterialApp.router(
       theme: ThemeData(
+        
+  splashColor: Colors.transparent,
+  highlightColor: Colors.transparent,
+
+
         fontFamily: 'Cairo',
         scaffoldBackgroundColor: AppColors.kScaffoldColor,
       ),

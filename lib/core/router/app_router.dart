@@ -12,6 +12,7 @@ import 'package:plupool/features/auth/presentation/views/success_view.dart';
 import 'package:plupool/features/auth/presentation/views/tech_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_forget_password_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
+import 'package:plupool/features/home/presentaation/views/customer/main_home_customer_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
@@ -19,7 +20,7 @@ import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/splasherapper',
       name: 'splasherapper',
       pageBuilder: (context, state) => buildTransitionPage(const SplashWrapper()),
     ),
@@ -92,6 +93,11 @@ final GoRouter appRouter = GoRouter(
       path: '/newpaswordsuccess',
       name: 'newpaswordsuccess',
       pageBuilder: (context, state) => buildTransitionPage(const NewPasswordSuccess()),
+    ),
+    GoRoute(
+      path: '/',
+      name: 'MainHomeCustomerView',
+      pageBuilder: (context, state) => buildTransitionPage(const MainHomeCustomerView()),
     ),
   ],
 );
