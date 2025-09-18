@@ -29,6 +29,7 @@ class _ForgetPasswordScreenBodyState extends State<ForgetPasswordScreenBody> {
     if (_formKey.currentState?.validate() ?? false) {
       // هنا هتحطي اللوجيك لإرسال كود التحقق
       debugPrint('Email/Phone: ${_emailController.text}');
+      context.push('/verficationforgetpassword');
     }
   }
 
@@ -50,9 +51,10 @@ class _ForgetPasswordScreenBodyState extends State<ForgetPasswordScreenBody> {
               const SizedBox(height: 16),
               Text(
                 'البريد الإلكتروني أو رقم الهاتف',
-                style: AppTextStyles.styleSemiBold16(context)
-                    .copyWith(color: const Color(0xff333333)),
-                    textDirection: TextDirection.rtl,
+                style: AppTextStyles.styleSemiBold16(
+                  context,
+                ).copyWith(color: const Color(0xff333333)),
+                textDirection: TextDirection.rtl,
               ),
               const SizedBox(height: 8),
               CustomTextFormField(
@@ -65,7 +67,6 @@ class _ForgetPasswordScreenBodyState extends State<ForgetPasswordScreenBody> {
               const SizedBox(height: 113),
 
               // ✅ Spacer بدل الـ SizedBox الكبير
-              
               Center(
                 child: CustomTextBtn(
                   text: 'إرسال رمز التحقق',
@@ -73,7 +74,7 @@ class _ForgetPasswordScreenBodyState extends State<ForgetPasswordScreenBody> {
                 ),
               ),
 
-           const SizedBox(height: 180),
+              const SizedBox(height: 180),
 
               Center(
                 child: AuthSwitchRow(
@@ -82,7 +83,7 @@ class _ForgetPasswordScreenBodyState extends State<ForgetPasswordScreenBody> {
                   onTap: () => context.push('/login'),
                 ),
               ),
-          //    SizedBox(height: 121,)
+              //    SizedBox(height: 121,)
             ],
           ),
         ),
