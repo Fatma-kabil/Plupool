@@ -65,6 +65,7 @@ class _CustomerSetupViewBodyState extends State<CustomerSetupViewBody> {
               actionText: "تسجيل الدخول",
               onTap: () {},
             ),
+            SizedBox(height: 50,)
           ],
         ),
       ),

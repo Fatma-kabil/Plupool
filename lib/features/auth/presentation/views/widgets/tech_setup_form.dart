@@ -5,22 +5,26 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_text_form_field.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';// ✅ استيراد الفاليديتور
-class CustomerSetupForm extends StatefulWidget {
-  const CustomerSetupForm({super.key, required this.formKey});
+import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart'; // ✅ استيراد الفاليديتور
+
+class TechSetupForm extends StatefulWidget {
+  const TechSetupForm({super.key, required this.formKey});
   final GlobalKey<FormState> formKey; // ✅ استقبلنا المفتاح من البرنت
 
   @override
-  State<CustomerSetupForm> createState() => _CustomerSetupFormState();
+  State<TechSetupForm> createState() => _TechSetupFormState();
 }
 
-class _CustomerSetupFormState extends State<CustomerSetupForm> {
+class _TechSetupFormState extends State<TechSetupForm> {
   File? _profileImage;
 
   final _nameController = TextEditingController();
   final _locationController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  final _buildController = TextEditingController();
+  final _workController = TextEditingController();
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
@@ -84,8 +88,9 @@ class _CustomerSetupFormState extends State<CustomerSetupForm> {
           // ✅ الاسم
           Text(
             'الاسم',
-            style: AppTextStyles.styleSemiBold16(context)
-                .copyWith(color: const Color(0xff333333)),
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: const Color(0xff333333)),
           ),
           const SizedBox(height: 4),
           CustomTextFormField(
@@ -99,8 +104,9 @@ class _CustomerSetupFormState extends State<CustomerSetupForm> {
           // ✅ مكان الإقامة
           Text(
             'مكان الاقامه',
-            style: AppTextStyles.styleSemiBold16(context)
-                .copyWith(color: const Color(0xff333333)),
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: const Color(0xff333333)),
           ),
           const SizedBox(height: 4),
           CustomTextFormField(
@@ -114,8 +120,9 @@ class _CustomerSetupFormState extends State<CustomerSetupForm> {
           // ✅ البريد الإلكتروني
           Text(
             'البريد الالكتروني',
-            style: AppTextStyles.styleSemiBold16(context)
-                .copyWith(color: const Color(0xff333333)),
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: const Color(0xff333333)),
           ),
           const SizedBox(height: 4),
           CustomTextFormField(
@@ -123,22 +130,23 @@ class _CustomerSetupFormState extends State<CustomerSetupForm> {
             hintText: 'أدخل بريدك الالكتروني',
             icon: Icons.email_outlined,
             keyboardType: TextInputType.emailAddress,
-            validator: (v)  => Validators.email(v),
+            validator: (v) => Validators.email(v),
           ),
           const SizedBox(height: 14),
 
           // ✅ كلمة المرور
           Text(
             'كلمة المرور',
-            style: AppTextStyles.styleSemiBold16(context)
-                .copyWith(color: const Color(0xff333333)),
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: const Color(0xff333333)),
           ),
           const SizedBox(height: 4),
           CustomTextFormField(
             controller: _passwordController,
             hintText: 'أدخل كلمة المرور',
             icon: Icons.lock_clock_outlined,
-         //   sufficon: Icons.visibility,
+            //   sufficon: Icons.visibility,
             obscureText: true,
             keyboardType: TextInputType.visiblePassword,
             validator: (v) => Validators.password(v),
@@ -148,21 +156,44 @@ class _CustomerSetupFormState extends State<CustomerSetupForm> {
           // ✅ رقم الهاتف
           Text(
             'رقم الهاتف',
-            style: AppTextStyles.styleSemiBold16(context)
-                .copyWith(color: const Color(0xff333333)),
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: const Color(0xff333333)),
           ),
           const SizedBox(height: 4),
-          PhoneInputField(
-            validator: (v) => Validators.phone(v),
-          ),
-          const SizedBox(height: 4),
+          PhoneInputField(validator: (v) => Validators.phone(v)),
+
+          const SizedBox(height: 14),
 
           Text(
-            '*الرقم لن يكون مرئيا للمستخدمين الاخرين في التطبيق',
-            style: AppTextStyles.styleRegular10(context),
-            textDirection: TextDirection.rtl,
+            ' المهارات',
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: const Color(0xff333333)),
           ),
-          const SizedBox(height: 18),
+          const SizedBox(height: 4),
+          CustomTextFormField(
+            controller: _buildController,
+            hintText: 'أدخل  مهاراتك هنا...',
+            icon: Icons.build_outlined,
+            validator: (v) => Validators.required(v),
+          ),
+          const SizedBox(height: 14),
+          Text(
+            ' عدد سنية الخبرة',
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: const Color(0xff333333)),
+          ),
+          const SizedBox(height: 4),
+          CustomTextFormField(
+            controller: _workController,
+            hintText: 'أدخل  عدد سنين خبرتك هنا...',
+            icon: Icons.work_history_outlined,
+            keyboardType: TextInputType.number,
+            validator: (v) => Validators.required(v),
+          ),
+          SizedBox(height: 12),
         ],
       ),
     );
