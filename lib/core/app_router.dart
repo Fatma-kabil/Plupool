@@ -1,6 +1,7 @@
 
 import 'package:go_router/go_router.dart';
 import 'package:plupool/features/auth/presentation/views/customer_setup_view.dart';
+import 'package:plupool/features/auth/presentation/views/forget_password_screen.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/auth/presentation/views/openning_view.dart';
 import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
@@ -69,9 +70,15 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const TechSetupView(),
     ),
     GoRoute(
-      path: '/',
+      path: '/login',
       name: 'login',
       builder: (context, state) => const LoginView(),
+    ),
+
+     GoRoute(
+      path: '/',
+      name: 'forgetpassword',
+      builder: (context, state) => const ForgetPasswordScreen(),
     ),
     
   ],

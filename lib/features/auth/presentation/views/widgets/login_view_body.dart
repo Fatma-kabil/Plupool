@@ -36,7 +36,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               textDirection: TextDirection.rtl,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    context.push('/forgetpassword');
+                  },
                   child: Text(
                     ' نسيت كلمة المرور  ',
                     style: AppTextStyles.styleSemiBold14(context).copyWith(
@@ -82,7 +84,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 context.push('/signup');
               },
             ),
-            SizedBox(height: 104,)
+            SizedBox(height: 104),
           ],
         ),
       ),
