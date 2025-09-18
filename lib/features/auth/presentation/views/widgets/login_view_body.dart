@@ -81,7 +81,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               leadingText: ' ليس لدي حساب ',
               actionText: ' انشاء حساب',
               onTap: () {
-                context.push('/signup');
+                context.go('/signup');
               },
             ),
             SizedBox(height: 104),

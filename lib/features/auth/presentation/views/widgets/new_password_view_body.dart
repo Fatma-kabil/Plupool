@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/validators.dart';
@@ -29,6 +30,7 @@ class _NewPasswordViewBodyState extends State<NewPasswordViewBody> {
     if (_formKey.currentState?.validate() ?? false) {
       // هنا تقدر تضيف اللوجيك لحفظ كلمة المرور
       debugPrint("Password: ${_passwordController.text}");
+      context.push('/newpaswordsuccess');
     }
   }
 

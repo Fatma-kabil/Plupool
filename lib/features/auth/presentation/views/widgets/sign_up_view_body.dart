@@ -94,7 +94,9 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             AuthSwitchRow(
               leadingText: 'لدي حساب بالفعل',
               actionText: 'تسجيل الدخول',
-              onTap: () {},
+              onTap: () {
+                context.go('/login');
+              },
             ),
             // إضافة وظيفة التبديل إلى تسجيل الدخول هنا
           ],
