@@ -62,7 +62,7 @@ class _ForgetPasswordScreenBodyState extends State<ForgetPasswordScreenBody> {
                 hintText: 'أدخل البريد الإلكتروني أو رقم الهاتف',
                 icon: Icons.alternate_email,
                 keyboardType: TextInputType.emailAddress,
-                validator: (v) => Validators.email(v),
+                validator: (v) => Validators.emailOrPhoneValidator(v),
               ),
               const SizedBox(height: 113),
 

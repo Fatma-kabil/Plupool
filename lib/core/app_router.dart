@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/features/auth/presentation/views/customer_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/forget_password_screen.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
+import 'package:plupool/features/auth/presentation/views/new_password_view.dart';
 import 'package:plupool/features/auth/presentation/views/openning_view.dart';
 import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
 import 'package:plupool/features/auth/presentation/views/sign_up_view.dart';
@@ -83,9 +84,14 @@ final GoRouter appRouter = GoRouter(
     ),
 
      GoRoute(
-      path: '/',
+      path: '/verificationforgetpassword',
       name: 'verificationforgetpassword',
       builder: (context, state) => const VerificationForgetPasswordView(),
+    ),
+     GoRoute(
+      path: '/',
+      name:'newpasword',
+      builder: (context, state) => const NewPasswordView(),
     ),
     
   ],

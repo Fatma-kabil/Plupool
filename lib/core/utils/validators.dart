@@ -59,4 +59,21 @@ class Validators {
     if (v != original) return 'كلمة المرور غير متطابقة';
     return null;
   }
+
+ static String? emailOrPhoneValidator(String? value) {
+  if (value == null || value.trim().isEmpty) {
+    return 'هذا الحقل مطلوب';
+  }
+
+  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  final phoneRegex = RegExp(r'^(?:\+?\d{1,3})?[0-9]{8,14}$');
+
+  if (!emailRegex.hasMatch(value.trim()) &&
+      !phoneRegex.hasMatch(value.trim())) {
+    return 'أدخل بريد إلكتروني صالح أو رقم هاتف صحيح';
+  }
+
+  return null;
+}
+
 }
