@@ -13,6 +13,7 @@ class AppTextStyles {
       color: Color(0xffF6F6F6),
     );
   }
+
   static TextStyle styleBold13(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -34,7 +35,8 @@ class AppTextStyles {
       color: Color(0xffFFFFFF),
     );
   }
-   static TextStyle styleSemiBold16(BuildContext context) {
+
+  static TextStyle styleSemiBold16(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -44,7 +46,8 @@ class AppTextStyles {
       color: Color(0xff525252),
     );
   }
-   static TextStyle styleSemiBold14(BuildContext context) {
+
+  static TextStyle styleSemiBold14(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -55,7 +58,7 @@ class AppTextStyles {
     );
   }
 
-   static TextStyle styleSemiBold32(BuildContext context) {
+  static TextStyle styleSemiBold32(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -65,7 +68,8 @@ class AppTextStyles {
       color: AppColors.kprimarycolor,
     );
   }
-    static TextStyle styleSemiBold25(BuildContext context) {
+
+  static TextStyle styleSemiBold25(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -75,6 +79,7 @@ class AppTextStyles {
       color: Color(0xff333333),
     );
   }
+
   static TextStyle styleMedium20(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -86,7 +91,7 @@ class AppTextStyles {
       height: 1.65,
     );
   }
-  
+
   static TextStyle stylelight14(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -95,11 +100,11 @@ class AppTextStyles {
       ),
       fontWeight: FontWeight.w300,
       color: Color(0xff555555),
-    
+      height: 1.5,
     );
   }
-  
-   static TextStyle styleRegular16(BuildContext context) {
+
+  static TextStyle styleRegular16(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -109,8 +114,8 @@ class AppTextStyles {
       color: Color(0xff808080),
     );
   }
-  
-   static TextStyle styleRegular13(BuildContext context) {
+
+  static TextStyle styleRegular13(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -120,9 +125,8 @@ class AppTextStyles {
       color: AppColors.hintTextColor,
     );
   }
-  
-  
-   static TextStyle styleRegular10(BuildContext context) {
+
+  static TextStyle styleRegular10(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -131,7 +135,9 @@ class AppTextStyles {
       fontWeight: FontWeight.w400,
       color: Color(0xff777777),
     );
-  }static TextStyle styleRegular14(BuildContext context) {
+  }
+
+  static TextStyle styleRegular14(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -141,7 +147,7 @@ class AppTextStyles {
       color: Color(0xff555555),
     );
   }
-  
+
   static TextStyle styleMedium16(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -149,11 +155,10 @@ class AppTextStyles {
         fontSize: SizeConfig.isWideScreen ? 28 : 16,
       ),
       fontWeight: FontWeight.w500,
-      color: AppColors.kprimarycolor
-      
+      color: AppColors.kprimarycolor,
     );
   }
-  
+
   static TextStyle styleMedium25(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -161,8 +166,7 @@ class AppTextStyles {
         fontSize: SizeConfig.isWideScreen ? 35 : 25,
       ),
       fontWeight: FontWeight.w500,
-      color: AppColors.kprimarycolor
-      
+      color: AppColors.kprimarycolor,
     );
   }
 }

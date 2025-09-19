@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -27,60 +29,68 @@ class RoleCard extends StatelessWidget {
             boxShadow: const [
               BoxShadow(
                 color: Color.fromRGBO(0, 0, 0, 0.25),
-          offset: Offset(1, 1),
-          blurRadius: 1,
-          spreadRadius: 0,
+                offset: Offset(1, 1),
+                blurRadius: 1,
+                spreadRadius: -1,
               ),
             ],
           ),
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 9),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.start, // يبدأ من اليمين
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // الأيقونة على اليمين
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(28),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.28),
-                      offset: Offset(1, 1),
-                      blurRadius: 4,
-                       spreadRadius: 0,
+              /// ✅ الأيقونة جوه InnerShadow
+              InnerShadow(
+                shadows: const [
+                  Shadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.25),
+                    offset: Offset(1, 1),
+                    blurRadius: 3,
+                  ),
+                ],
+                child: Container(
+              //    width: 53,
+              //    height: 53,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 9),
+                    child: Center(
+                      child: SvgPicture.asset(
+                        role.image,
+                        width: SizeConfig.w(28),
+                        height: SizeConfig.h(28),
+                        color: AppColors.kprimarycolor,
+                      ),
                     ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    role.icon,
-                    color: AppColors.kprimarycolor,
-                    size: 28,
                   ),
                 ),
               ),
+
               const SizedBox(width: 12),
+
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       role.title,
-                      textAlign: TextAlign.right, // يبدأ من اليمين
+                      textAlign: TextAlign.right,
                       style: AppTextStyles.styleMedium20(context)
                           .copyWith(color: Colors.black),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       role.subtitle,
-                      textAlign: TextAlign.right, // يبدأ من اليمين
+                      textAlign: TextAlign.right,
                       style: AppTextStyles.stylelight14(context),
                     ),
                   ],
                 ),
               ),
-            ].reversed.toList(), // <<< هنا العكس خلي الأيقونة على اليمين
+            ].reversed.toList(), // <<< يخلي الأيقونة على اليمين
           ),
         ),
       ),
