@@ -40,7 +40,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) => buildTransitionPage(const OpenningView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/selectrole',
       name: 'selectrole',
       pageBuilder: (context, state) => buildTransitionPage(const SelectRoleView()),
     ),
@@ -95,7 +95,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) => buildTransitionPage(const NewPasswordSuccess()),
     ),
     GoRoute(
-      path: '/cfdse',
+      path: '/',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) => buildTransitionPage(const MainHomeCustomerView()),
     ),
