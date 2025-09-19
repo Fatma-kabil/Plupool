@@ -21,6 +21,7 @@ class CustomerHomeView extends StatelessWidget {
               },
             ),
           ),
+          SizedBox(height: 57,),
         ],
       ),
     );

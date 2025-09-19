@@ -42,6 +42,40 @@ class CustomHeader extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: 10),
+        GestureDetector(
+          onTap: () {
+            
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+          
+              border: Border.all(color: AppColors.kprimarycolor),
+            ),
+            child: Padding(
+              padding: EdgeInsetsGeometry.all(5),
+              child: GestureDetector(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.phone,
+                      color: AppColors.kprimarycolor,
+                      size: SizeConfig.w(16),
+                    ),
+                    SizedBox(width: 2),
+                    Text(
+                      'تواصل معنا',
+                      style: AppTextStyles.styleBold13(
+                        context,
+                      ).copyWith(color: AppColors.kprimarycolor),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
 
         const Spacer(),
 
