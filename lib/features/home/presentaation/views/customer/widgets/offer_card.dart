@@ -13,7 +13,7 @@ class OfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-     // margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 13),
+      margin: const EdgeInsets.only(right: 15, ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Color(0xffAAAAAA)),
@@ -39,7 +39,7 @@ class OfferCard extends StatelessWidget {
             Text(offer.title,
                 style:
                     AppTextStyles.styleSemiBold20(context).copyWith(color: AppColors.kprimarycolor)),
-            const SizedBox(height: 6),
+            const SizedBox(height: 5),
             Text(offer.desc,
                 style: AppTextStyles.styleRegular16(context).copyWith(color: AppColors.ktextcolor)),
             const SizedBox(height: 10),
@@ -56,7 +56,7 @@ class OfferCard extends StatelessWidget {
                         ),
               ],
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, ),
               child: Row(

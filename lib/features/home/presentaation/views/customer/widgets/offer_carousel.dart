@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_card.dart';
 
 import 'package:plupool/core/constants.dart';
@@ -38,8 +39,9 @@ class _OffersCarouselState extends State<OffersCarousel> {
       children: [
         /// PageView
         SizedBox(
-          height: 400,
+          height: SizeConfig.h(350),
           child: PageView.builder(
+             padEnds: false,
             controller: _pageController,
             itemCount: offers.length,
             onPageChanged: (index) {
@@ -50,15 +52,8 @@ class _OffersCarouselState extends State<OffersCarousel> {
               return AnimatedBuilder(
                 animation: _pageController,
                 builder: (context, child) {
-                  double scale = 1.0;
-                  if (_pageController.position.haveDimensions) {
-                    scale = (_pageController.page! - index).abs();
-                    scale = (1 - (scale * 0.1)).clamp(0.9, 1.0);
-                  }
-                  return Transform.scale(
-                    scale: scale,
-                    child: OfferCard(offer: offer),
-                  );
+                 
+                  return OfferCard(offer: offer);
                 },
               );
             },
@@ -77,21 +72,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
               onTap: () => _goToPage(_currentPage - 1),
             ),
             const SizedBox(width: 16),
-            Row(
-              children: List.generate(
-                offers.length,
-                (index) => Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: _currentPage == index ? 12 : 8,
-                  height: _currentPage == index ? 12 : 8,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _currentPage == index ? Colors.blue : Colors.grey,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 16),
+           
             ArrowButton(
               icon: Icons.arrow_forward,
               enabled: _currentPage < offers.length - 1,
@@ -120,20 +101,10 @@ class ArrowButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: enabled ? onTap : null,
-      child: Container(
-        height: 40,
-        width: 40,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: enabled ? Colors.blue : Colors.grey,
-          ),
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.white,
-        ),
-        child: Icon(
-          icon,
-          color: enabled ? Colors.blue : Colors.grey,
-        ),
+      child: Icon(
+        icon,
+        size: SizeConfig.w(20),
+        color: enabled ? Color(0xff2B2B2B) : Color(0xff777777),
       ),
     );
   }
