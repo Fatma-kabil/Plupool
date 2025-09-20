@@ -101,7 +101,7 @@ final List<OfferModel> offers = [
 final List<ProjectCardModel> projects = [
   ProjectCardModel(
     title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
-    description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
+    description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 شهور.',
     imageUrl: 'assets/images/project1.png',
   ),
   ProjectCardModel(
@@ -110,7 +110,7 @@ final List<ProjectCardModel> projects = [
     imageUrl: 'assets/images/project2.png',
   ),
   ProjectCardModel(
-    title: '"تصميم ثلاثي الأبعاد – حمام داخلي',
+    title: 'تصميم ثلاثي الأبعاد – حمام داخلي',
     description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
     imageUrl: 'assets/images/project3.png',
   ),
