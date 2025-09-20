@@ -4,6 +4,7 @@ class OfferModel {
   final String oldPrice;
   final String newPrice;
   final String image;
+  final String offerPercentage;
 
   const OfferModel({
     required this.title,
@@ -11,5 +12,6 @@ class OfferModel {
     required this.oldPrice,
     required this.newPrice,
     required this.image,
+    required this.offerPercentage,
   });
 }

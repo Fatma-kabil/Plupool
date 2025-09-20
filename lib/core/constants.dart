@@ -78,6 +78,7 @@ final List<OfferModel> offers = [
     oldPrice: "2500 EGP",
     newPrice: "2000 EGP",
     image: "assets/images/offercard1.png",
+    offerPercentage: '% خصم 10'
   ),
   OfferModel(
     title: "عرض صيانة",
@@ -85,6 +86,7 @@ final List<OfferModel> offers = [
     oldPrice: "2000 EGP",
     newPrice: "1600 EGP",
     image: "assets/images/offercard2.png",
+    offerPercentage: '% خصم 15'
   ),
   OfferModel(
     title: " عرض إنشاء",
@@ -92,6 +94,7 @@ final List<OfferModel> offers = [
     oldPrice: "3000 EGP",
     newPrice: "2000 EGP",
     image: "assets/images/offercard3.png",
+    offerPercentage: '% خصم 20'
   ),
 ];
 
@@ -99,17 +102,22 @@ final List<ProjectCardModel> projects = [
   ProjectCardModel(
     title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
     description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
-    imageUrl: 'assets/images/customer_user.png',
+    imageUrl: 'assets/images/project1.png',
   ),
   ProjectCardModel(
-    title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
-    description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
-    imageUrl: 'assets/images/customer_user.png',
+    title: 'صيانة حمام سباحة – نادي خاص',
+    description: 'تنظيف وفحص كيميائي للمياه مرتين أسبوعياً للحفاظ على الجودة',
+    imageUrl: 'assets/images/project2.png',
   ),
   ProjectCardModel(
-    title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
-    description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
-    imageUrl: 'assets/images/customer_user.png',
+    title: '"تصميم ثلاثي الأبعاد – حمام داخلي',
+    description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
+    imageUrl: 'assets/images/project3.png',
+  ),
+  ProjectCardModel(
+    title: 'تنظيف حمام سباحة – خدمة دورية',
+    description: 'تنظيف شامل للمياه والفلاتر والجدران للحفاظ على نقاء وجودة حمام السباحة.',
+    imageUrl: 'assets/images/project4.png',
   ),
   // تقدر تضيف صور تانية هنا
 ];

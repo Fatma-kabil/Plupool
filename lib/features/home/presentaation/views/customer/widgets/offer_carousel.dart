@@ -39,7 +39,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
       children: [
         /// PageView
         SizedBox(
-          height: SizeConfig.h(350),
+          height: SizeConfig.h(371),
           child: PageView.builder(
              padEnds: false,
             controller: _pageController,
