@@ -14,6 +14,7 @@ class ProjectCard extends StatelessWidget {
     return Stack(
       children: [
         Container(
+          margin: const EdgeInsets.only(right: 10),
           width: double.infinity,
           height: SizeConfig.h(230),
           decoration: BoxDecoration(
@@ -26,9 +27,9 @@ class ProjectCard extends StatelessWidget {
         ),
         Positioned(
           bottom: 10,
-          right: 10,
+          right: 15,
           child: Column(
-            //     crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
                 projects.title,
@@ -38,10 +39,12 @@ class ProjectCard extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
+                
                 projects.description,
                 style: AppTextStyles.styleRegular13(
                   context,
                 ).copyWith(color: Color(0xffBBBBBB)),
+                textDirection: TextDirection.rtl,
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/project_card.dart';
 
 class ProjectsCarousel extends StatefulWidget {
@@ -16,7 +17,8 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.8);
+    // مهم: viewportFraction = 1.0 علشان الكارد ياخد العرض كله
+    _pageController = PageController(viewportFraction: 1.0);
   }
 
   void _goToPage(int index) {
@@ -35,8 +37,11 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
       children: [
         /// PageView
         SizedBox(
-          height: 220,
+         
+          width: double.infinity,
+          height: SizeConfig.h(230),
           child: PageView.builder(
+            padEnds: false,
             controller: _pageController,
             itemCount: projects.length,
             onPageChanged: (index) {
@@ -44,10 +49,7 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
             },
             itemBuilder: (context, index) {
               final project = projects[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: ProjectCard(projects:  project),
-              );
+              return ProjectCard(projects: project);
             },
           ),
         ),
@@ -63,7 +65,7 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
               enabled: _currentPage > 0,
               onTap: () => _goToPage(_currentPage - 1),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 15),
             ArrowButton(
               icon: Icons.arrow_forward,
               enabled: _currentPage < projects.length - 1,
@@ -94,18 +96,17 @@ class ArrowButton extends StatelessWidget {
     return GestureDetector(
       onTap: enabled ? onTap : null,
       child: Container(
-        height: 40,
-        width: 40,
+        height: SizeConfig.h(29),
+        width:  SizeConfig.w(29),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.white,
-          border: Border.all(
-            color: enabled ? Colors.black : Colors.grey,
-          ),
+          borderRadius: BorderRadius.circular(14),
+          color: Color(0xff2B8EC2),
+         
         ),
         child: Icon(
           icon,
-          color: enabled ? Colors.black : Colors.grey,
+          size: SizeConfig.w(20),
+          color:  Colors.white,
         ),
       ),
     );

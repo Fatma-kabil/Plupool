@@ -41,33 +41,29 @@ final List<PromoCardModel> items = [
     },
   ),
   PromoCardModel(
-    title: "إنشاء حمامات السباحة",
-    iconPath: "assets/icons/construct.svg",
-    imagePath: "assets/images/phone.png",
+    title: "تصميم ثلاثي الأبعاد",
+    iconPath: "assets/icons/design.svg",
+    imagePath: "assets/images/promocard2.png",
     features: [
-      "ضمان 10 سنين لأي إصلاح متعلق بإنشاء الحمام",
-      "فترة صيانة مجانية تصل لمدة 3 شهور بعد الإنشاء",
-      "ضمان لمدة 3 سنين على الطرمبات والموتاير",
+      "تجربة تصميم تفاعلي لحمام السباحة الخاص \nبك قبل التنفيذ، مع إمكانية مشاهدة جميع \nالتفاصيل في عرض ثلاثي الأبعاد واقعي",
     ],
     cardcolor: Color(0xffCDF7EC),
-    textcolor: Color(0xff048F6B),
-    titlecolor: Color.fromARGB(255, 7, 194, 144),
+    textcolor: AppColors.kScenderycolor,
+    titlecolor: AppColors.kScenderycolor,
     onButtonTap: () {
       // TODO: ضيفي الأكشن هنا
     },
   ),
   PromoCardModel(
-    title: "إنشاء حمامات السباحة",
-    iconPath: "assets/icons/construct.svg",
-    imagePath: "assets/images/phone.png",
+    title: "  صيانة حمامات السباحة",
+    iconPath: "assets/icons/services.svg",
+    imagePath: "assets/images/promocrd3.png",
     features: [
-      "ضمان 10 سنين لأي إصلاح متعلق بإنشاء الحمام",
-      "فترة صيانة مجانية تصل لمدة 3 شهور بعد الإنشاء",
-      "ضمان لمدة 3 سنين على الطرمبات والموتاير",
+      "تُعد صيانة حمامات السباحة مهمة جداً لضمان السلامة\nونظافه الحمام وموازنة كيماويات المياه. تشمل تنظيف \nالحمام، فحص الكلور والحمض، تنظيف الفلاتر، وصيانة \nالطلمبات.",
     ],
-    cardcolor: Color(0xffCCE4F0),
-    textcolor: AppColors.kprimarycolor,
-    titlecolor: Color(0xff006398),
+    cardcolor: Color(0xffFFECD2),
+    textcolor: AppColors.kThiredColor,
+    titlecolor:AppColors.kThiredColor,
     onButtonTap: () {
       // TODO: ضيفي الأكشن هنا
     },
@@ -81,21 +77,21 @@ final List<OfferModel> offers = [
     desc: "جلسة تنظيف مجانية عند حجز 3 جلسات",
     oldPrice: "2500 EGP",
     newPrice: "2000 EGP",
-    image: "assets/images/customer_user.png",
+    image: "assets/images/offercard1.png",
   ),
   OfferModel(
     title: "عرض صيانة",
-    desc: "جلسة فحص مجانية عند الاشتراك السنوي",
-    oldPrice: "1500 EGP",
-    newPrice: "1000 EGP",
-    image: "assets/images/customer_user.png",
+    desc: " أول شهر صيانة مجاناً عند الاشتراك السنوي",
+    oldPrice: "2000 EGP",
+    newPrice: "1600 EGP",
+    image: "assets/images/offercard2.png",
   ),
   OfferModel(
-    title: "عرض اشتراك",
-    desc: "خصم 20% على الباقة الذهبية",
-    oldPrice: "5000 EGP",
-    newPrice: "4000 EGP",
-    image: "assets/images/customer_user.png",
+    title: " عرض إنشاء",
+    desc: " خصم 15% على أول حمام سباحة تنشئه معنا" ,
+    oldPrice: "3000 EGP",
+    newPrice: "2000 EGP",
+    image: "assets/images/offercard3.png",
   ),
 ];
 
@@ -105,12 +101,12 @@ final List<ProjectCardModel> projects = [
     description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
     imageUrl: 'assets/images/customer_user.png',
   ),
-   ProjectCardModel(
+  ProjectCardModel(
     title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
     description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
     imageUrl: 'assets/images/customer_user.png',
   ),
-   ProjectCardModel(
+  ProjectCardModel(
     title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
     description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
     imageUrl: 'assets/images/customer_user.png',
