@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/features/auth/data/models/role_card_item.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
+import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 
 final List<RoleCardItemModel> roles = [
@@ -32,9 +33,9 @@ final List<PromoCardModel> items = [
       "فترة صيانة مجانية تصل لمدة 3 شهور بعد الإنشاء",
       "ضمان لمدة 3 سنين على الطرمبات والموتاير",
     ],
-   cardcolor: Color(0xffCCE4F0),
-   textcolor: AppColors.kprimarycolor,
-   titlecolor: Color(0xff006398),
+    cardcolor: Color(0xffCCE4F0),
+    textcolor: AppColors.kprimarycolor,
+    titlecolor: Color(0xff006398),
     onButtonTap: () {
       // TODO: ضيفي الأكشن هنا
     },
@@ -48,9 +49,9 @@ final List<PromoCardModel> items = [
       "فترة صيانة مجانية تصل لمدة 3 شهور بعد الإنشاء",
       "ضمان لمدة 3 سنين على الطرمبات والموتاير",
     ],
-     cardcolor: Color(0xffCDF7EC),
+    cardcolor: Color(0xffCDF7EC),
     textcolor: Color(0xff048F6B),
-    titlecolor:Color.fromARGB(255, 7, 194, 144) ,
+    titlecolor: Color.fromARGB(255, 7, 194, 144),
     onButtonTap: () {
       // TODO: ضيفي الأكشن هنا
     },
@@ -64,9 +65,9 @@ final List<PromoCardModel> items = [
       "فترة صيانة مجانية تصل لمدة 3 شهور بعد الإنشاء",
       "ضمان لمدة 3 سنين على الطرمبات والموتاير",
     ],
-     cardcolor: Color(0xffCCE4F0),
-   textcolor: AppColors.kprimarycolor,
- titlecolor: Color(0xff006398),
+    cardcolor: Color(0xffCCE4F0),
+    textcolor: AppColors.kprimarycolor,
+    titlecolor: Color(0xff006398),
     onButtonTap: () {
       // TODO: ضيفي الأكشن هنا
     },
@@ -74,28 +75,45 @@ final List<PromoCardModel> items = [
   // تقدر تكرري كروت تانية هنا
 ];
 
+final List<OfferModel> offers = [
+  OfferModel(
+    title: "عرض تنظيف",
+    desc: "جلسة تنظيف مجانية عند حجز 3 جلسات",
+    oldPrice: "2500 EGP",
+    newPrice: "2000 EGP",
+    image: "assets/images/customer_user.png",
+  ),
+  OfferModel(
+    title: "عرض صيانة",
+    desc: "جلسة فحص مجانية عند الاشتراك السنوي",
+    oldPrice: "1500 EGP",
+    newPrice: "1000 EGP",
+    image: "assets/images/customer_user.png",
+  ),
+  OfferModel(
+    title: "عرض اشتراك",
+    desc: "خصم 20% على الباقة الذهبية",
+    oldPrice: "5000 EGP",
+    newPrice: "4000 EGP",
+    image: "assets/images/customer_user.png",
+  ),
+];
 
-   final List<OfferModel> offers = [
-    OfferModel(
-      title: "عرض تنظيف",
-      desc: "جلسة تنظيف مجانية عند حجز 3 جلسات",
-      oldPrice: "2500 EGP",
-      newPrice: "2000 EGP",
-      image: "assets/images/customer_user.png",
-    ),
-    OfferModel(
-      title: "عرض صيانة",
-      desc: "جلسة فحص مجانية عند الاشتراك السنوي",
-      oldPrice: "1500 EGP",
-      newPrice: "1000 EGP",
-      image: "assets/images/customer_user.png",
-    ),
-    OfferModel(
-      title: "عرض اشتراك",
-      desc: "خصم 20% على الباقة الذهبية",
-      oldPrice: "5000 EGP",
-      newPrice: "4000 EGP",
-      image: "assets/images/customer_user.png",
-    ),
-  ];
-
+final List<ProjectCardModel> projects = [
+  ProjectCardModel(
+    title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
+    description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
+    imageUrl: 'assets/images/customer_user.png',
+  ),
+   ProjectCardModel(
+    title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
+    description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
+    imageUrl: 'assets/images/customer_user.png',
+  ),
+   ProjectCardModel(
+    title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
+    description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 \nشهور.',
+    imageUrl: 'assets/images/customer_user.png',
+  ),
+  // تقدر تضيف صور تانية هنا
+];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/features/home/data/models/header_model.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_section.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/projects_section.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/promo_carousel.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/custom_header.dart';
 
@@ -26,7 +27,9 @@ class CustomerHomeView extends StatelessWidget {
           SizedBox(height: 35),
           PromoCarousel(),
           SizedBox(height: 29),
-          OfferSection()
+          OfferSection(),
+          SizedBox(height: 27),
+          ProjectsSection()
         ],
       ),
     );
