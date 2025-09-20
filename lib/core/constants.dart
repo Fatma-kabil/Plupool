@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/features/auth/data/models/role_card_item.dart';
+import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 
 final List<RoleCardItemModel> roles = [
@@ -72,3 +73,29 @@ final List<PromoCardModel> items = [
   ),
   // تقدر تكرري كروت تانية هنا
 ];
+
+
+   final List<OfferModel> offers = [
+    OfferModel(
+      title: "عرض تنظيف",
+      desc: "جلسة تنظيف مجانية عند حجز 3 جلسات",
+      oldPrice: "2500 EGP",
+      newPrice: "2000 EGP",
+      image: "assets/images/customer_user.png",
+    ),
+    OfferModel(
+      title: "عرض صيانة",
+      desc: "جلسة فحص مجانية عند الاشتراك السنوي",
+      oldPrice: "1500 EGP",
+      newPrice: "1000 EGP",
+      image: "assets/images/customer_user.png",
+    ),
+    OfferModel(
+      title: "عرض اشتراك",
+      desc: "خصم 20% على الباقة الذهبية",
+      oldPrice: "5000 EGP",
+      newPrice: "4000 EGP",
+      image: "assets/images/customer_user.png",
+    ),
+  ];
+
