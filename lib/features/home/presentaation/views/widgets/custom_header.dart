@@ -34,7 +34,7 @@ class CustomHeader extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
               child: Center(
                 child: SvgPicture.asset(
-                  model.notificationIcon,
+                  "assets/icons/notification.svg",
                   width: SizeConfig.w(19),
                   height: SizeConfig.h(19),
                 ),
@@ -54,7 +54,7 @@ class CustomHeader extends StatelessWidget {
               border: Border.all(color: AppColors.kprimarycolor),
             ),
             child: Padding(
-              padding: EdgeInsetsGeometry.all(5),
+              padding: EdgeInsets.all(5),
               child: GestureDetector(
                 child: Row(
                   children: [
