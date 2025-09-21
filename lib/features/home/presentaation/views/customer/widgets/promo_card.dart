@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/booking_card.dart';
 
 class PromoCard extends StatelessWidget {
   final PromoCardModel model;
@@ -30,11 +31,10 @@ class PromoCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      textDirection: TextDirection.rtl,
                       model.title,
-                      style: AppTextStyles.styleSemiBold16(
-                        context,
-                      ).copyWith(color: model.titlecolor),
+                      textDirection: TextDirection.rtl,
+                      style: AppTextStyles.styleSemiBold16(context)
+                          .copyWith(color: model.titlecolor),
                     ),
                     const SizedBox(width: 4),
                     SvgPicture.asset(
@@ -51,39 +51,38 @@ class PromoCard extends StatelessWidget {
                 ...model.features.map(
                   (feature) => Padding(
                     padding: const EdgeInsets.only(bottom: 8),
-                    child:Row(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  textDirection: TextDirection.rtl, // مهم عشان العربي
-  children: [
-    Text(
-      "•",
-      style: AppTextStyles.styleRegular13(context)
-          .copyWith(color: model.textcolor),
-    ),
-    const SizedBox(width: 6),
-    Expanded(
-      child: Text(
-        feature,
-        style: AppTextStyles.styleRegular13(context)
-            .copyWith(color: model.textcolor),
-        textAlign: TextAlign.right,
-        textDirection: TextDirection.rtl,
-      ),
-    ),
-  ],
-),
-
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      textDirection: TextDirection.rtl,
+                      children: [
+                        Text(
+                          "•",
+                          style: AppTextStyles.styleRegular13(context)
+                              .copyWith(color: model.textcolor),
+                        ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            feature,
+                            style: AppTextStyles.styleRegular13(context)
+                                .copyWith(color: model.textcolor),
+                            textAlign: TextAlign.right,
+                            textDirection: TextDirection.rtl,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
 
-                const SizedBox(height: 60), // مساحة عشان نسيب مكان للصورة
+                const SizedBox(height: 60),
               ],
             ),
           ),
 
           /// الصورة ملزوقة في آخر الكارد
           Positioned(
-            bottom: 0, // هنا 0 عشان تلزق في النهاية
+            bottom: 0,
             left: 20,
             child: Image.asset(
               model.imagePath,
@@ -93,9 +92,9 @@ class PromoCard extends StatelessWidget {
             ),
           ),
 
-          /// الزرار شمال تحت
+          /// الزرار يمين تحت
           Positioned(
-            bottom: 25, // برضه 0 عشان يلمس الحافة
+            bottom: 25,
             right: 35,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
@@ -103,17 +102,31 @@ class PromoCard extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 6,
-                  horizontal: 25,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 6, horizontal: 25),
               ),
-              onPressed: model.onButtonTap,
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (context) => BookingCard(
+                    onConfirm: (date, time) {
+                      Navigator.pop(context); // يقفل الدايالوج بعد التأكيد
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            "تم الحجز في: ${date.day}/${date.month}/${date.year} - ${time.format(context)}",
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
               child: Text(
                 "احجز الان",
-                style: AppTextStyles.styleBold16(
-                  context,
-                ).copyWith(color: model.titlecolor),
+                style: AppTextStyles.styleBold16(context)
+                    .copyWith(color: model.titlecolor),
               ),
             ),
           ),

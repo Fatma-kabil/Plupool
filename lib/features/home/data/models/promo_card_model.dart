@@ -7,7 +7,7 @@ class PromoCardModel {
   final Color textcolor;
    final Color titlecolor;
   final Color cardcolor;
-  final VoidCallback? onButtonTap;
+  
   final String imagePath; // صورة الموبايل
 
   PromoCardModel({
@@ -17,7 +17,6 @@ class PromoCardModel {
     required this.features,
     required this.textcolor,
     required this.titlecolor,
-    this.onButtonTap,
     required this.imagePath,
   });
 }

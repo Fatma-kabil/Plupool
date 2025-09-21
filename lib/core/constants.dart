@@ -37,9 +37,7 @@ final List<PromoCardModel> items = [
     cardcolor: Color(0xffCCE4F0),
     textcolor: AppColors.kprimarycolor,
     titlecolor: Color(0xff006398),
-    onButtonTap: () {
-      // TODO: ضيفي الأكشن هنا
-    },
+   
   ),
   PromoCardModel(
     title: "تصميم ثلاثي الأبعاد",
@@ -51,9 +49,7 @@ final List<PromoCardModel> items = [
     cardcolor: Color(0xffCDF7EC),
     textcolor: AppColors.kScenderycolor,
     titlecolor: AppColors.kScenderycolor,
-    onButtonTap: () {
-      // TODO: ضيفي الأكشن هنا
-    },
+   
   ),
   PromoCardModel(
     title: "  صيانة حمامات السباحة",
@@ -65,9 +61,7 @@ final List<PromoCardModel> items = [
     cardcolor: Color(0xffFFECD2),
     textcolor: AppColors.kThiredColor,
     titlecolor:AppColors.kThiredColor,
-    onButtonTap: () {
-      // TODO: ضيفي الأكشن هنا
-    },
+    
   ),
   // تقدر تكرري كروت تانية هنا
 ];
