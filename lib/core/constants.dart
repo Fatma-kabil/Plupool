@@ -4,6 +4,7 @@ import 'package:plupool/features/auth/data/models/role_card_item.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
+import 'package:plupool/features/home/data/models/review_card_model.dart';
 
 final List<RoleCardItemModel> roles = [
   RoleCardItemModel(
@@ -120,4 +121,20 @@ final List<ProjectCardModel> projects = [
     imageUrl: 'assets/images/project4.png',
   ),
   // تقدر تضيف صور تانية هنا
+];
+
+
+final List<ReviewCardModel> reviews = [
+ ReviewCardModel( name: "Ahmed Hassan",
+      avatarUrl: "assets/images/user1.png",
+      rating: 5,
+      timeAgo: "2 days ago",
+      comment: "خدمة ممتازة وفريق محترف جدًا",),
+       ReviewCardModel(
+      name: "Ali Ahmed",
+      avatarUrl:  "assets/images/user2.png",
+      rating: 4,
+      timeAgo: "3 days ago",
+      comment: "جودة عالية في التنفيذ والمتابعة",
+    ),
 ];

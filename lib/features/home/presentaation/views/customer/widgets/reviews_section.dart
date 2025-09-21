@@ -3,6 +3,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/comment_input.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_list.dart';
 
 class ReviewSection extends StatelessWidget {
   const ReviewSection({super.key});
@@ -34,12 +35,11 @@ class ReviewSection extends StatelessWidget {
               ),
             ),
             SizedBox(width: 34),
-             Text(
+            Text(
               "قيّم تجربتك معنا",
-              style: AppTextStyles.styleSemiBold16(context).copyWith(
-                color: Color(0xff555555),
-                
-              ),
+              style: AppTextStyles.styleSemiBold16(
+                context,
+              ).copyWith(color: Color(0xff555555)),
             ),
           ],
         ),
@@ -48,33 +48,7 @@ class ReviewSection extends StatelessWidget {
         const SizedBox(height: 16),
 
         /// شريط الترتيب
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            /// Dropdown للأجدد
-            Row(
-              children: const [
-                Icon(Icons.arrow_drop_down, color: Colors.black54),
-                Text(
-                  "الأجدد",
-                  style: TextStyle(fontSize: 14, color: Colors.black87),
-                ),
-              ],
-            ),
-
-            /// الترتيب حسب:
-            const Text(
-              "الترتيب حسب:",
-              style: TextStyle(fontSize: 14, color: Colors.black87),
-            ),
-
-            /// عدد التعليقات
-            const Text(
-              "5 تعليقات",
-              style: TextStyle(fontSize: 14, color: Colors.black87),
-            ),
-          ],
-        ),
+        ReviewsList(),
       ],
     );
   }
