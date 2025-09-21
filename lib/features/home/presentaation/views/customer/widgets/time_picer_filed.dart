@@ -45,7 +45,8 @@ class TimePickerField extends StatelessWidget {
                   selectedTime != null
                       ? selectedTime!.format(context)
                       : "3.00 PM",
-                  textDirection: TextDirection.rtl,
+                //    textAlign: TextAlign.start,
+                  textDirection: TextDirection.ltr,
                   style: AppTextStyles.styleRegular13(context).copyWith(
                     color: selectedTime != null
                         ? const Color(0xFF006398)

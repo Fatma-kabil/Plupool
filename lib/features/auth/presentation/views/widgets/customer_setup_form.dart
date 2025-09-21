@@ -120,7 +120,7 @@ class _CustomerSetupFormState extends State<CustomerSetupForm> {
           const SizedBox(height: 4),
           CustomTextFormField(
             controller: _emailController,
-            hintText: '(اختياري)أدخل بريدك الالكتروني',
+            hintText: 'أدخل بريدك الالكتروني(اختياري)',
             icon: Icons.email_outlined,
             keyboardType: TextInputType.emailAddress,
         //    validator: (v)  => Validators.email(v),

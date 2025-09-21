@@ -33,7 +33,6 @@ class _BookingCardState extends State<BookingCard> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            
             colorScheme: ColorScheme.light(
               primary: AppColors.kprimarycolor, // اللون الأساسي (الأزرق الغامق)
             ),
@@ -56,6 +55,44 @@ class _BookingCardState extends State<BookingCard> {
 
   Future<void> _pickTime() async {
     final picked = await showTimePicker(
+      cancelText: 'إلغاء',
+      confirmText: 'تأكيد',
+
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            timePickerTheme: TimePickerThemeData(
+              // لون AM/PM
+              dayPeriodColor: MaterialStateColor.resolveWith((states) {
+                if (states.contains(MaterialState.selected)) {
+                  return const Color.fromARGB(
+                    255,
+                    165,
+                    217,
+                    245,
+                  ); // لون الخلفية لما تختار AM/PM
+                }
+                return Colors.white; // لون الخلفية العادي
+              }),
+            ),
+            colorScheme: ColorScheme.light(
+              primary:  const Color.fromARGB(
+                    255,
+                    165,
+                    217,
+                    245,
+                  )// اللون الأساسي (الأزرق الغامق)
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    AppColors.kprimarycolor, // لون أزرار (إلغاء - تأكيد)
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
       context: context,
       initialTime: TimeOfDay.now(),
     );

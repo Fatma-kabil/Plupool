@@ -33,8 +33,9 @@ class PromoCard extends StatelessWidget {
                     Text(
                       model.title,
                       textDirection: TextDirection.rtl,
-                      style: AppTextStyles.styleSemiBold16(context)
-                          .copyWith(color: model.titlecolor),
+                      style: AppTextStyles.styleSemiBold16(
+                        context,
+                      ).copyWith(color: model.titlecolor),
                     ),
                     const SizedBox(width: 4),
                     SvgPicture.asset(
@@ -57,15 +58,17 @@ class PromoCard extends StatelessWidget {
                       children: [
                         Text(
                           "•",
-                          style: AppTextStyles.styleRegular13(context)
-                              .copyWith(color: model.textcolor),
+                          style: AppTextStyles.styleRegular13(
+                            context,
+                          ).copyWith(color: model.textcolor),
                         ),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
                             feature,
-                            style: AppTextStyles.styleRegular13(context)
-                                .copyWith(color: model.textcolor),
+                            style: AppTextStyles.styleRegular13(
+                              context,
+                            ).copyWith(color: model.textcolor),
                             textAlign: TextAlign.right,
                             textDirection: TextDirection.rtl,
                           ),
@@ -86,24 +89,26 @@ class PromoCard extends StatelessWidget {
             left: 20,
             child: Image.asset(
               model.imagePath,
-              width: SizeConfig.w(91),
+              width: SizeConfig.w(90),
               height: SizeConfig.h(96),
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
 
           /// الزرار يمين تحت
           Positioned(
             bottom: 25,
-            right: 35,
+            right: 30,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: model.textcolor, width: 1),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 6, horizontal: 25),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6,
+                  horizontal: 25,
+                ),
               ),
               onPressed: () {
                 showDialog(
@@ -125,8 +130,9 @@ class PromoCard extends StatelessWidget {
               },
               child: Text(
                 "احجز الان",
-                style: AppTextStyles.styleBold16(context)
-                    .copyWith(color: model.titlecolor),
+                style: AppTextStyles.styleBold16(
+                  context,
+                ).copyWith(color: model.titlecolor),
               ),
             ),
           ),

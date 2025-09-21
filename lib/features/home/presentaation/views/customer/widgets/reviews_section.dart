@@ -14,7 +14,7 @@ class ReviewSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
-          "تقييم الخدمة من عملائنا مالكي الحمامات",
+          "تقييم الخدمة من عملائنا  ",
           style: AppTextStyles.styleBold16(
             context,
           ).copyWith(color: AppColors.ktextcolor),

@@ -39,14 +39,16 @@ class CommentInput extends StatelessWidget {
           child: TextField(
             cursorColor: AppColors.kprimarycolor,
             textAlign: TextAlign.right,
+    
             decoration: InputDecoration(
+              isDense: true,
               hintText: "...اكتب تعليقك هنا",
               hintStyle: AppTextStyles.styleRegular13(
                 context,
               ).copyWith(color: const Color(0xffBBBBBB)),
               contentPadding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 8,
+                horizontal: 12,
+                vertical: 7,
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
@@ -65,7 +67,7 @@ class CommentInput extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
                 borderSide: const BorderSide(
-                   color: Color(0xffD6D6D6),
+                  color: Color(0xffD6D6D6),
                   width: 1.5,
                 ),
               ),
