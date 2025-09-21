@@ -21,14 +21,34 @@ class _BookingCardState extends State<BookingCard> {
   TimeOfDay? selectedTime;
 
   final dateFormat = intl.DateFormat('dd/MM/yyyy');
-
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365)),
+      cancelText: 'إلغاء',
+      confirmText: 'تأكيد',
+
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            
+            colorScheme: ColorScheme.light(
+              primary: AppColors.kprimarycolor, // اللون الأساسي (الأزرق الغامق)
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    AppColors.kprimarycolor, // لون أزرار (إلغاء - تأكيد)
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
+
     if (picked != null) {
       setState(() => selectedDate = picked);
     }
