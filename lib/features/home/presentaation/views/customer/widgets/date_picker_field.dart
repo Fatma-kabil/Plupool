@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-
 class DatePickerField extends StatelessWidget {
   final DateTime? selectedDate;
   final intl.DateFormat dateFormat;
   final VoidCallback onTap;
+  final String? errorText; // << هنا
 
   const DatePickerField({
     super.key,
     required this.selectedDate,
     required this.dateFormat,
     required this.onTap,
+    this.errorText,
   });
 
   @override
@@ -31,7 +32,11 @@ class DatePickerField extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.textFieldBorderColor),
+              border: Border.all(
+                color: errorText != null
+                    ? Colors.red
+                    : AppColors.textFieldBorderColor,
+              ),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
@@ -64,6 +69,14 @@ class DatePickerField extends StatelessWidget {
             ),
           ),
         ),
+        if (errorText != null) ...[
+          const SizedBox(height: 6),
+          Text(
+            errorText!,
+            style: AppTextStyles.styleRegular13(context)
+                .copyWith(color: Colors.red),
+          ),
+        ],
       ],
     );
   }

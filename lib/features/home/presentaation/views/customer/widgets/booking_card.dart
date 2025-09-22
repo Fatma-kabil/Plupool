@@ -5,6 +5,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_text_btn.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/date_picker_field.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/done_card.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/time_picer_filed.dart';
 
 class BookingCard extends StatefulWidget {
@@ -15,12 +16,15 @@ class BookingCard extends StatefulWidget {
   @override
   State<BookingCard> createState() => _BookingCardState();
 }
-
 class _BookingCardState extends State<BookingCard> {
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
 
+  String? dateError;
+  String? timeError;
+
   final dateFormat = intl.DateFormat('dd/MM/yyyy');
+
   Future<void> _pickDate() async {
     final picked = await showDatePicker(
       context: context,
@@ -29,17 +33,15 @@ class _BookingCardState extends State<BookingCard> {
       lastDate: DateTime.now().add(const Duration(days: 365)),
       cancelText: 'إلغاء',
       confirmText: 'تأكيد',
-
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary: AppColors.kprimarycolor, // اللون الأساسي (الأزرق الغامق)
+              primary: AppColors.kprimarycolor,
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor:
-                    AppColors.kprimarycolor, // لون أزرار (إلغاء - تأكيد)
+                foregroundColor: AppColors.kprimarycolor,
               ),
             ),
           ),
@@ -49,7 +51,10 @@ class _BookingCardState extends State<BookingCard> {
     );
 
     if (picked != null) {
-      setState(() => selectedDate = picked);
+      setState(() {
+        selectedDate = picked;
+        dateError = null; // مسح الخطأ لو اختار
+      });
     }
   }
 
@@ -57,36 +62,15 @@ class _BookingCardState extends State<BookingCard> {
     final picked = await showTimePicker(
       cancelText: 'إلغاء',
       confirmText: 'تأكيد',
-
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            timePickerTheme: TimePickerThemeData(
-              // لون AM/PM
-              dayPeriodColor: WidgetStateColor.resolveWith((states) {
-                if (states.contains(WidgetState.selected)) {
-                  return const Color.fromARGB(
-                    255,
-                    165,
-                    217,
-                    245,
-                  ); // لون الخلفية لما تختار AM/PM
-                }
-                return Colors.white; // لون الخلفية العادي
-              }),
-            ),
-            colorScheme: ColorScheme.light(
-              primary:  const Color.fromARGB(
-                    255,
-                    165,
-                    217,
-                    245,
-                  )// اللون الأساسي (الأزرق الغامق)
+            colorScheme: const ColorScheme.light(
+              primary: Color.fromARGB(255, 165, 217, 245),
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                foregroundColor:
-                    AppColors.kprimarycolor, // لون أزرار (إلغاء - تأكيد)
+                foregroundColor: AppColors.kprimarycolor,
               ),
             ),
           ),
@@ -97,7 +81,10 @@ class _BookingCardState extends State<BookingCard> {
       initialTime: TimeOfDay.now(),
     );
     if (picked != null) {
-      setState(() => selectedTime = picked);
+      setState(() {
+        selectedTime = picked;
+        timeError = null; // مسح الخطأ لو اختار
+      });
     }
   }
 
@@ -126,27 +113,43 @@ class _BookingCardState extends State<BookingCard> {
               Text(
                 "حدد اليوم والوقت المناسب، وسيتواصل معك فريق PluPool لتأكيد تفاصيل الخدمة.",
                 textDirection: TextDirection.rtl,
-                style: AppTextStyles.styleRegular16(
-                  context,
-                ).copyWith(color: const Color(0xff777777)),
+                style: AppTextStyles.styleRegular16(context)
+                    .copyWith(color: const Color(0xff777777)),
                 textAlign: TextAlign.center,
               ),
-
               const SizedBox(height: 19),
               DatePickerField(
                 selectedDate: selectedDate,
                 dateFormat: dateFormat,
                 onTap: _pickDate,
+                errorText: dateError,
               ),
               const SizedBox(height: 20),
-              TimePickerField(selectedTime: selectedTime, onTap: _pickTime),
+              TimePickerField(
+                selectedTime: selectedTime,
+                onTap: _pickTime,
+                errorText: timeError,
+              ),
               const SizedBox(height: 40),
               CustomTextBtn(
                 text: 'تأكيد الحجز',
                 onPressed: () {
+                  setState(() {
+                    if (selectedDate == null) {
+                      dateError = "يجب اختيار التاريخ";
+                    }
+                    if (selectedTime == null) {
+                      timeError = "يجب اختيار الوقت";
+                    }
+                  });
+
                   if (selectedDate != null && selectedTime != null) {
                     widget.onConfirm?.call(selectedDate!, selectedTime!);
-                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (context) => DoneCard(),
+                    );
                   }
                 },
               ),

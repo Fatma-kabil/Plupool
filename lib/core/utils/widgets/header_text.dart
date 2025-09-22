@@ -12,6 +12,7 @@ class HeaderText extends StatelessWidget {
       children: [
         Center(
           child: Text(
+            textDirection: TextDirection.rtl,
             title,
             style: AppTextStyles.styleSemiBold25(context),
             textAlign: TextAlign.center,
@@ -23,6 +24,7 @@ class HeaderText extends StatelessWidget {
         // ✅ النص الوصفي
         Center(
           child: Text(
+            textDirection: TextDirection.rtl,
             subtitle,
             textAlign: TextAlign.center,
             style: AppTextStyles.styleRegular16(context),

@@ -5,11 +5,13 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 class TimePickerField extends StatelessWidget {
   final TimeOfDay? selectedTime;
   final VoidCallback onTap;
+  final String? errorText; // جديد
 
   const TimePickerField({
     super.key,
     required this.selectedTime,
     required this.onTap,
+    this.errorText,
   });
 
   @override
@@ -28,7 +30,11 @@ class TimePickerField extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
             decoration: BoxDecoration(
-              border: Border.all(color: AppColors.textFieldBorderColor),
+              border: Border.all(
+                color: errorText != null
+                    ? Colors.red
+                    : AppColors.textFieldBorderColor,
+              ),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
@@ -45,7 +51,6 @@ class TimePickerField extends StatelessWidget {
                   selectedTime != null
                       ? selectedTime!.format(context)
                       : "3.00 PM",
-                //    textAlign: TextAlign.start,
                   textDirection: TextDirection.ltr,
                   style: AppTextStyles.styleRegular13(context).copyWith(
                     color: selectedTime != null
@@ -63,6 +68,14 @@ class TimePickerField extends StatelessWidget {
             ),
           ),
         ),
+        if (errorText != null) ...[
+          const SizedBox(height: 6),
+          Text(
+            errorText!,
+            style: AppTextStyles.styleRegular13(context)
+                .copyWith(color: Colors.red),
+          ),
+        ],
       ],
     );
   }
