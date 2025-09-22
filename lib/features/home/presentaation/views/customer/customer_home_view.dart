@@ -4,6 +4,7 @@ import 'package:plupool/features/home/presentaation/views/customer/widgets/offer
 import 'package:plupool/features/home/presentaation/views/customer/widgets/projects_section.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/promo_carousel.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_section.dart';
+import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_header.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/custom_header.dart';
 
 class CustomerHomeView extends StatelessWidget {
@@ -15,16 +16,17 @@ class CustomerHomeView extends StatelessWidget {
       padding: EdgeInsets.only(top: 12, left: 17, right: 17),
       child: ListView(
         children: [
-          CustomHeader(
-            model: HeaderModel(
-              username: "سارة",
-              subtitle: "صاحب حمام سباحة",
-              avatarUrl: "assets/images/customer_user.png",
-              onNotificationTap: () {
+     //     CustomHeader(
+      //      model: HeaderModel(
+        //      username: "سارة",
+         //     subtitle: "صاحب حمام سباحة",
+         //     avatarUrl: "assets/images/customer_user.png",
+         //     onNotificationTap: () {
                 // TODO: افتح صفحة الإشعارات
-              },
-            ),
-          ),
+           //   },
+        //    ),
+       //   ),
+       GuestHeader(),
           SizedBox(height: 35),
           PromoCarousel(),
           SizedBox(height: 29),
