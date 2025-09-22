@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_header.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/custom_text_btn.dart';
+import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/customer_setup_form.dart';
 class CustomerSetupViewBody extends StatefulWidget {
   const CustomerSetupViewBody({super.key});

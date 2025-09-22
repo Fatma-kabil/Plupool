@@ -4,7 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_back_button.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/custom_text_btn.dart';
+import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/tech_setup_form.dart';
 
 class TechSetupViewBody extends StatefulWidget {

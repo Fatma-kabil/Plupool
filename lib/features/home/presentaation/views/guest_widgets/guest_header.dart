@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
 
 class GuestHeader extends StatelessWidget {
   const GuestHeader({super.key});
@@ -14,7 +15,13 @@ class GuestHeader extends StatelessWidget {
       children: [
         // 🔔 أيقونة الإشعارات
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (context) => ErrorCard(),
+            );
+          },
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -64,7 +71,7 @@ class GuestHeader extends StatelessWidget {
                     border: Border.all(color: AppColors.kprimarycolor),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(7.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: SvgPicture.asset(
                       "assets/icons/user.svg",
                       width: SizeConfig.w(18),

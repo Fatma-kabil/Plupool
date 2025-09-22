@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/widgets/header_text.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_back_button.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/custom_text_btn.dart';
+import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/success_image.dart';
 
 class SuccessViewBody extends StatelessWidget {

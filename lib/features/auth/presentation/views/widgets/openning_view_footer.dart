@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/custom_text_btn.dart';
+import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 
 class OpenningViewFooter extends StatelessWidget {
   const OpenningViewFooter({super.key});
