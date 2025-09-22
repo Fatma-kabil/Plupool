@@ -63,8 +63,8 @@ class _BookingCardState extends State<BookingCard> {
           data: Theme.of(context).copyWith(
             timePickerTheme: TimePickerThemeData(
               // لون AM/PM
-              dayPeriodColor: MaterialStateColor.resolveWith((states) {
-                if (states.contains(MaterialState.selected)) {
+              dayPeriodColor: WidgetStateColor.resolveWith((states) {
+                if (states.contains(WidgetState.selected)) {
                   return const Color.fromARGB(
                     255,
                     165,
