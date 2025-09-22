@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/size_config.dart';
+
 import 'package:plupool/core/utils/widgets/custom_back_button.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/customer_construct_card.dart';
+import 'package:plupool/features/construct/presentation/views/widgets/customer_construct_card.dart';
 
 class CustomerConstructView extends StatelessWidget {
   const CustomerConstructView({super.key});

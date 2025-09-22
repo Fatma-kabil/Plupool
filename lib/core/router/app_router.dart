@@ -12,7 +12,7 @@ import 'package:plupool/features/auth/presentation/views/success_view.dart';
 import 'package:plupool/features/auth/presentation/views/tech_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_forget_password_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
-import 'package:plupool/features/home/presentaation/views/customer/main_home_customer_view.dart';
+import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';

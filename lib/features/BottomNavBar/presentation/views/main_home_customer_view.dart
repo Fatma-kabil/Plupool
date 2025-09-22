@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/presentaation/views/customer/customer_construct_view.dart';
+import 'package:plupool/features/construct/presentation/views/customer_construct_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/customer_home_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/store_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/more_view.dart';
