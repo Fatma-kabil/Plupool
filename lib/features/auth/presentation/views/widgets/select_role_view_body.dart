@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/custom_back_button.dart';
+import 'package:plupool/core/utils/widgets/custom_back_button.dart';
 import 'role_card.dart';
 
 class SelectRoleViewBody extends StatelessWidget {

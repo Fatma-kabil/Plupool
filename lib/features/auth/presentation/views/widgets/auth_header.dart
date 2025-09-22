@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/custom_back_button.dart';
+import 'package:plupool/core/utils/widgets/custom_back_button.dart';
 
 class AuthHeader extends StatelessWidget {
   const AuthHeader({

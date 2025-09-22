@@ -134,6 +134,7 @@ class AppTextStyles {
       ),
       fontWeight: FontWeight.w400,
       color: AppColors.hintTextColor,
+      height: 1.8
     );
   }
 
