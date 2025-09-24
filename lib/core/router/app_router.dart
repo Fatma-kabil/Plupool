@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
+import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_view.dart';
 import 'package:plupool/features/auth/presentation/views/customer_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/forget_password_screen.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
@@ -95,9 +96,14 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) => buildTransitionPage(const NewPasswordSuccess()),
     ),
     GoRoute(
-      path: '/',
+      path: '/MainHomeCustomerView',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) => buildTransitionPage(const MainHomeCustomerView()),
+    ),
+     GoRoute(
+      path: '/',
+      name: 'MainHomeTechView',
+      pageBuilder: (context, state) => buildTransitionPage(const MainHomeTechView()),
     ),
   ],
 );
