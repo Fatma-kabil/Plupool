@@ -1,15 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class PhoneInputField extends StatefulWidget {
-  const PhoneInputField({
-    super.key,
-    this.validator,
-    this.controller,
-  });
+  const PhoneInputField({super.key, this.validator, this.controller});
 
   final String? Function(String?)? validator;
   final TextEditingController? controller;
@@ -40,6 +37,7 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+        cursorColor: AppColors.kprimarycolor,
         controller: widget.controller,
         validator: widget.validator, // ✅ استخدام الـ validator اللي جاي من بره
         keyboardType: TextInputType.phone,
@@ -72,41 +70,36 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
           ),
 
           suffixIcon: Padding(
-            padding: const EdgeInsets.only(left: 8, right: 6, top: 3, bottom: 3),
+            padding: const EdgeInsets.only(
+              left: 8,
+              right: 6,
+              top: 3,
+              bottom: 3,
+            ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 0),
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(191, 191, 191, 0.2),
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                      color: const Color(0xFFD6D6D6),
-                      width: 1,
-                    ),
-                  ),
-                  child: InkWell(
-                    onTap: _showCountryPicker,
-                    child: Row(
-                      textDirection: TextDirection.ltr,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          selectedCountryFlag,
-                          style: TextStyle(fontSize: SizeConfig.w(20)),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          '($selectedCountryCode)',
-                          style: AppTextStyles.styleRegular13(
-                            context,
-                          ).copyWith(color: const Color(0xff000000)),
-                        ),
-                        Icon(Icons.arrow_drop_down, size: SizeConfig.w(13)),
-                      ],
-                    ),
+                child: InkWell(
+                  onTap: _showCountryPicker,
+                  child: Row(
+                    textDirection: TextDirection.ltr,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.arrow_drop_down, size: SizeConfig.w(15)),
+                       const SizedBox(width: 4),
+                      Text(
+                        selectedCountryFlag,
+                        style: TextStyle(fontSize: SizeConfig.w(15)),
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        '($selectedCountryCode)',
+                        style: AppTextStyles.styleRegular13(
+                          context,
+                        ).copyWith(color: const Color(0xff000000)),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -114,18 +107,21 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
           ),
 
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Color(0xFFD6D6D6), width: 1),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Color(0xFFD6D6D6), width: 1),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
+            borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Color(0xFF0077B6), width: 1.5),
           ),
-          contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 0,
+            horizontal: 10,
+          ),
         ),
       ),
     );

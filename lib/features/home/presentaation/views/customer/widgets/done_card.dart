@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/widgets/header_text.dart';
 import 'package:plupool/core/utils/widgets/success_image.dart';

@@ -42,6 +42,7 @@ class CommentInput extends StatelessWidget {
     
             decoration: InputDecoration(
               isDense: true,
+              
               hintText: "...اكتب تعليقك هنا",
               hintStyle: AppTextStyles.styleRegular13(
                 context,

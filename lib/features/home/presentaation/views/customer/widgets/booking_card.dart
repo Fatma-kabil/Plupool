@@ -65,8 +65,23 @@ class _BookingCardState extends State<BookingCard> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Color.fromARGB(255, 165, 217, 245),
+            timePickerTheme: TimePickerThemeData(
+              // لون AM/PM
+              dayPeriodColor: MaterialStateColor.resolveWith((states) {
+                if (states.contains(MaterialState.selected)) {
+                  return const Color.fromARGB(
+                    255,
+                    165,
+                    217,
+                    245,
+                  ); // لون الخلفية لما تختار AM/PM
+                }
+                return Colors.white; // لون الخلفية العادي
+              }),
+            ),
+            
+            colorScheme:  ColorScheme.light(
+              primary: Color(0xFFCCE4F0),
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(

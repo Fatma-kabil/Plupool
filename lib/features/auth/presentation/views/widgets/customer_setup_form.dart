@@ -18,7 +18,7 @@ class _CustomerSetupFormState extends State<CustomerSetupForm> {
   File? _profileImage;
 
   final _nameController = TextEditingController();
-  final _locationController = TextEditingController();
+  
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -96,21 +96,7 @@ class _CustomerSetupFormState extends State<CustomerSetupForm> {
           ),
           const SizedBox(height: 14),
 
-          // ✅ مكان الإقامة
-          Text(
-            'مكان الاقامه',
-            style: AppTextStyles.styleSemiBold16(context)
-                .copyWith(color: const Color(0xff333333)),
-          ),
-          const SizedBox(height: 4),
-          CustomTextFormField(
-            controller: _locationController,
-            hintText: 'ادخل مكان الاقامه',
-            icon: Icons.location_on_outlined,
-            validator: (v) => Validators.required(v, fieldName: 'مكان الإقامة'),
-          ),
-          const SizedBox(height: 14),
-
+         
           // ✅ البريد الإلكتروني
           Text(
             'البريد الالكتروني',
