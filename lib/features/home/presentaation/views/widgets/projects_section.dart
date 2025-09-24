@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/projects_carusel.dart';
+import 'package:plupool/features/home/presentaation/views/widgets/projects_carusel.dart';
 
 class ProjectsSection extends StatelessWidget {
   const ProjectsSection({super.key});

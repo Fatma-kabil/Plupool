@@ -4,7 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/widgets/build_nav_item.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_home_view.dart';
 import 'package:plupool/features/profile/presentation/views/tech_profile_view.dart';
-import 'package:plupool/features/services/presentation/views/tech_store_view.dart';
+import 'package:plupool/features/store/presentation/views/tech_store_view.dart';
 import 'package:plupool/features/tasks/presentation/views/tech_task_view.dart';
 
 class MainHomeTechView extends StatefulWidget {
@@ -49,7 +49,7 @@ class _MainHomeTechViewState extends State<MainHomeTechView> {
             buildNavItem(icon: 'assets/icons/home.svg', label: 'الرئيسيه'),
             buildNavItem(icon: 'assets/icons/tasks.svg', label: 'المهام'),
             buildNavItem(icon: 'assets/icons/store.svg', label: 'المتجر'),
-            buildNavItem(icon: 'assets/icons/user.svg', label: 'حسابي'),
+            buildNavItem(icon: 'assets/icons/profile.svg', label: 'حسابي'),
              
           ],
         ),

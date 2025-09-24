@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/project_card.dart';
+import 'package:plupool/features/home/presentaation/views/widgets/project_card.dart';
 
 class ProjectsCarousel extends StatefulWidget {
   const ProjectsCarousel({super.key});
