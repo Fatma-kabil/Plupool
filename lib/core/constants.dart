@@ -5,6 +5,7 @@ import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
+import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 
 final List<RoleCardItemModel> roles = [
   RoleCardItemModel(
@@ -142,3 +143,51 @@ final Map<String, bool> options = {
     "كيماويات (10)": false,
     "قطع غيار (6)": false,
   };
+
+  
+  final List<ProductModel> products = [
+    ProductModel(
+      name: "مضخة مياه عالية الكفاءة",
+      image: "assets/images/mach_pro1.png",
+      originalPrice: 3000,
+      salesCount: 75,
+      discountPercent: 20,
+    ),
+    ProductModel(
+      name: "مضخة PluPool Pro 2000",
+      image:  "assets/images/mach_pro2.png",
+      originalPrice: 2500,
+      salesCount: 25,
+      discountPercent: 5,
+
+    ),
+   ProductModel(
+      name: "مضخة مياه عالية الكفاءة",
+      image: "assets/images/mach_pro1.png",
+      originalPrice: 40000,
+      salesCount: 40,
+   //   discountPercent: 20,
+    ),
+    ProductModel(
+      name: "مضخة PluPool Pro 2000",
+      image:  "assets/images/mach_pro2.png",
+      originalPrice: 200,
+      salesCount: 35,
+   //   discountPercent: 5,
+
+    ),ProductModel(
+      name: "مضخة مياه عالية الكفاءة",
+      image: "assets/images/mach_pro1.png",
+      originalPrice: 2800,
+      salesCount: 85,
+    //  discountPercent: 20,
+    ),
+    ProductModel(
+      name: "مضخة PluPool Pro 2000",
+      image:  "assets/images/mach_pro2.png",
+      originalPrice: 4100,
+      salesCount: 4,
+      discountPercent: 5,
+
+    ),
+  ];
