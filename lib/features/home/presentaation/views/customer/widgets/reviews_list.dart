@@ -1,58 +1,41 @@
-
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/load_more_button.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/review_card.dart';
 
-class ReviewsList extends StatelessWidget {
-  const ReviewsList({
-    super.key,
-  });
+class ReviewsList extends StatefulWidget {
+  const ReviewsList({super.key});
+
+  @override
+  State<ReviewsList> createState() => _ReviewsListState();
+}
+
+class _ReviewsListState extends State<ReviewsList> {
+  String selected = "الكل";
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
+         
           children: [
             /// Dropdown للأجدد
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xff999999)),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.arrow_drop_down, color: Color(0xff999999)),
-                    SizedBox(width: 5),
-                    Text(
-                      "الأجدد",
-                      style: AppTextStyles.styleRegular16(
-                        context,
-                      ).copyWith(color: Color(0xff999999)),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(width: 5,),
-        
-            /// الترتيب حسب:
-            Text(
-              textDirection: TextDirection.rtl,
-              "الترتيب حسب: ",
-              style: AppTextStyles.styleRegular16(
-                context,
-              ).copyWith(color: Color(0xff777777)),
+            FilterOption(
+              value: selected,
+              items: const ["الكل", "الأحدث", "الأقدم"],
+              onChanged: (val) {
+                if (val != null) {
+                  setState(() {
+                    selected = val;
+                  });
+                }
+              },
             ),
             Spacer(),
-        
+
             /// عدد التعليقات
             Text(
               textDirection: TextDirection.rtl,
@@ -63,9 +46,9 @@ class ReviewsList extends StatelessWidget {
             ),
           ],
         ),
-               
+
         const SizedBox(height: 27),
-        
+
         /// قائمة الريفيوهات
         ListView.builder(
           itemCount: reviews.length,
@@ -75,7 +58,7 @@ class ReviewsList extends StatelessWidget {
             return ReviewCard(review: reviews[index]);
           },
         ),
-        
+
         const SizedBox(height: 25),
         Center(
           child: LoadMoreButton(
@@ -84,7 +67,7 @@ class ReviewsList extends StatelessWidget {
             },
           ),
         ),
-         const SizedBox(height: 51),
+        const SizedBox(height: 51),
       ],
     );
   }
