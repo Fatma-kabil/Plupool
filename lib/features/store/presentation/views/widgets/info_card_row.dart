@@ -14,7 +14,7 @@ class InfoCardsRow extends StatelessWidget {
           flex: 1,
           child: MetricCard(
             icon: "assets/icons/track.svg", // شحن/توصيل
-            value: "24س",
+            value: "24 h",
             label: 'توصيل',
           ),
         ),
