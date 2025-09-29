@@ -3,6 +3,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/features/store/presentation/views/widgets/action_raw.dart';
 import 'package:plupool/features/store/presentation/views/widgets/filter_button.dart';
+import 'package:plupool/features/store/presentation/views/widgets/filter_dialog.dart';
 import 'package:plupool/features/store/presentation/views/widgets/info_card_row.dart';
 
 class StoreView extends StatefulWidget {
@@ -30,7 +31,12 @@ class _StoreViewState extends State<StoreView> {
           SizedBox(height: 16),
           Row(
             children: [
-              FilterButton(onTap: () {}),
+              FilterButton(onTap: () {
+                 showDialog(
+          context: context,
+          builder: (context) => FilterDialog(),
+        );
+              }),
               Spacer(),
 
               /// Dropdown للأجدد

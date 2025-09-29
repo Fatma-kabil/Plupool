@@ -70,7 +70,7 @@ class FilterOption extends StatelessWidget {
                 /// شكل القائمة
                 dropdownStyleData: DropdownStyleData(
                   //  maxHeight: 200,
-                  width: SizeConfig.w(120),
+                  width: 115,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white,

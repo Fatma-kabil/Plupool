@@ -132,3 +132,13 @@ final List<ReviewCardModel> reviews = [
       comment: "جودة عالية في التنفيذ والمتابعة",
     ),
 ];
+final Map<String, bool> options = {
+    "طلمبات (24)": false,
+    "فلاتر (38)": false,
+    "سخانات (18)": false,
+    "إكسسوارات (48)": false,
+    "إكسسوارات (18)": false,
+    "أدوات نظافة (18)": false,
+    "كيماويات (10)": false,
+    "قطع غيار (6)": false,
+  };

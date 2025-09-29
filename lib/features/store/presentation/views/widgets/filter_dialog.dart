@@ -1,0 +1,121 @@
+import 'package:flutter/material.dart';
+import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+
+class FilterDialog extends StatefulWidget {
+  const FilterDialog({super.key});
+
+  @override
+  State<FilterDialog> createState() => FilterDialogState();
+}
+
+class FilterDialogState extends State<FilterDialog> {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.white,
+      insetPadding: const EdgeInsets.all(16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 17,
+          right: 17,
+          top: 34,
+          bottom: 66,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            /// شبكة الاختيارات (2 أعمدة زي الصورة)
+            GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              childAspectRatio: 4,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              physics: const NeverScrollableScrollPhysics(),
+              children: options.keys.map((key) {
+                return Row(
+                  textDirection: TextDirection.rtl,
+                  children: [
+                    Checkbox(
+                      value: options[key],
+                      activeColor: AppColors.kprimarycolor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          6,
+                        ), // 👈 border radius
+                      ),
+                      side: BorderSide(
+                        // 👈 لون الـ border
+                        color: Color(0xffAAAAAA),
+                        width: 2,
+                      ),
+                      onChanged: (val) {
+                        setState(() {
+                          options[key] = val ?? false;
+                        });
+                      },
+                    ),
+                    Expanded(
+                      child: Text(
+                        key,
+                        textAlign: TextAlign.right, // ✅ النص يبدأ من اليمين
+                        textDirection: TextDirection.rtl,
+                        style: AppTextStyles.styleSemiBold16(
+                          context,
+                        ).copyWith(color: AppColors.ktextcolor),
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 50),
+
+            /// الأزرار تحت (إلغاء + تصفية)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                OutlinedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: AppColors.kprimarycolor),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text(
+                    "إلغاء",
+                    style: AppTextStyles.styleBold16(
+                      context,
+                    ).copyWith(color: AppColors.kprimarycolor),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // هنا تقدري تعملي فلترة حقيقية بالقيم المختارة
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.kprimarycolor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text(
+                    "تصفية",
+                    style: AppTextStyles.styleBold16(
+                      context,
+                    ).copyWith(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
