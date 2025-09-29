@@ -17,37 +17,49 @@ class StoreView extends StatefulWidget {
 
 class _StoreViewState extends State<StoreView> {
   String selected = "الكل";
-  final int topCount = 3; // 👈 عدد العناصر اللي تاخد بادج
+  final int topCount = 1; // 👈 عدد العناصر اللي تاخد بادج
 
- final List<ProductModel> products = [
-  ProductModel(
-    name: "منتج 1",
-    image: "assets/images/project1.png",
-    originalPrice: 200,
-    salesCount: 30,
-    discountPercent: 20, // خصم 20%
-  ),
-  ProductModel(
-    name: "منتج 2",
-    image: "assets/images/project2.png",
-    originalPrice: 500,
-    salesCount: 10,
-  ),
-  ProductModel(
-    name: "منتج 3",
-    image: "assets/images/project3.png",
-    originalPrice: 100,
-    salesCount: 50,
-    discountPercent: 10, // خصم 10%
-  ),
-  ProductModel(
-    name: "منتج 4",
-    image: "assets/images/project4.png",
-    originalPrice: 300,
-    salesCount: 20,
-  ),
-];
-
+  final List<ProductModel> products = [
+    ProductModel(
+      name: "منتج 1",
+      image: "assets/images/project1.png",
+      originalPrice: 200,
+      salesCount: 30,
+      discountPercent: 20, // خصم 20%
+    ),
+    ProductModel(
+      name: "منتج 2",
+      image: "assets/images/project2.png",
+      originalPrice: 500,
+      salesCount: 10,
+    ),
+    ProductModel(
+      name: "منتج 3",
+      image: "assets/images/project3.png",
+      originalPrice: 100,
+      salesCount: 50,
+    ),
+    ProductModel(
+      name: "منتج 4",
+      image: "assets/images/project4.png",
+      originalPrice: 300,
+      salesCount: 20,
+      discountPercent: 10, // خصم 10%
+    ),
+    ProductModel(
+      name: "منتج 3",
+      image: "assets/images/project3.png",
+      originalPrice: 40,
+      salesCount: 68,
+    ),
+    ProductModel(
+      name: "منتج 4",
+      image: "assets/images/project4.png",
+      originalPrice: 800,
+      salesCount: 34,
+      // خصم 10%
+    ),
+  ];
 
   List<ProductModel> get filteredProducts {
     List<ProductModel> list = [...products];
@@ -82,8 +94,50 @@ class _StoreViewState extends State<StoreView> {
             )
             .toList();
         break;
-    }
+      case "الكل":
+        // 1- خصومات
+        list = list.map((p) {
+          if (p.hasDiscount) {
+            return p.copyWith(badge: ProductBadge.discount);
+          }
+          return p;
+        }).toList();
 
+        // 2- الأكثر مبيعاً
+        List<ProductModel> sortedBySales = [...list];
+        sortedBySales.sort((a, b) => b.salesCount.compareTo(a.salesCount));
+        for (int i = 0; i < sortedBySales.length && i < topCount; i++) {
+          final idx = list.indexOf(sortedBySales[i]);
+          if (list[idx].badge == ProductBadge.none) {
+            list[idx] = list[idx].copyWith(badge: ProductBadge.bestSeller);
+          }
+        }
+
+        // 3- الأعلى سعراً
+        List<ProductModel> sortedByHighPrice = [...list];
+        sortedByHighPrice.sort(
+          (a, b) => b.originalPrice.compareTo(a.originalPrice),
+        );
+        for (int i = 0; i < sortedByHighPrice.length && i < topCount; i++) {
+          final idx = list.indexOf(sortedByHighPrice[i]);
+          if (list[idx].badge == ProductBadge.none) {
+            list[idx] = list[idx].copyWith(badge: ProductBadge.highPrice);
+          }
+        }
+
+        // 4- الأقل سعراً
+        List<ProductModel> sortedByLowPrice = [...list];
+        sortedByLowPrice.sort(
+          (a, b) => a.originalPrice.compareTo(b.originalPrice),
+        );
+        for (int i = 0; i < sortedByLowPrice.length && i < topCount; i++) {
+          final idx = list.indexOf(sortedByLowPrice[i]);
+          if (list[idx].badge == ProductBadge.none) {
+            list[idx] = list[idx].copyWith(badge: ProductBadge.lowPrice);
+          }
+        }
+        break;
+    }
     return list;
   }
 
@@ -119,7 +173,7 @@ class _StoreViewState extends State<StoreView> {
                 items: const [
                   "الكل",
                   "العروض",
-                  "الأكثر شيوعا",
+                  "الأكثر مبيعا",
                   "الأعلي سعرا",
                   "الأقل سعرا",
                 ],
@@ -128,8 +182,8 @@ class _StoreViewState extends State<StoreView> {
             ],
           ),
           GridView.builder(
-             shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: filteredProducts.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

@@ -21,6 +21,21 @@ class ProductCard extends StatelessWidget {
     }
   }
 
+  Color getBadgeColor(ProductBadge badge) {
+    switch (badge) {
+      case ProductBadge.discount:
+        return Colors.red; // خصم
+      case ProductBadge.bestSeller:
+        return Colors.green; // الأكثر مبيعاً
+      case ProductBadge.highPrice:
+        return Colors.blue; // الأعلى سعراً
+      case ProductBadge.lowPrice:
+        return Colors.orange; // الأقل سعراً
+      case ProductBadge.none:
+        return Colors.transparent;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final badgeText = getBadgeText(product.badge);
@@ -30,23 +45,28 @@ class ProductCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Stack(
         children: [
-          Image.asset(product.image,
-              fit: BoxFit.cover, width: double.infinity, height: 160),
+          Image.asset(
+            product.image,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: 160,
+          ),
           if (badgeText != null)
             Positioned(
               top: 8,
               right: 8,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.red,
+                  color: getBadgeColor(product.badge), // 👈 اللون حسب الـ badge
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   badgeText,
                   style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -60,8 +80,10 @@ class ProductCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(product.name,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  Text(
+                    product.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   Row(
                     children: [
                       if (product.hasDiscount) // 👈 لو في خصم
