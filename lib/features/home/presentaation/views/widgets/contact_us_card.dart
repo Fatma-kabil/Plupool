@@ -14,7 +14,8 @@ class ContactUsCard extends StatefulWidget {
 
 class _ContactUsCardState extends State<ContactUsCard> {
    bool _isSubmitted = false;
-
+  final _formKey = GlobalKey<FormState>(); // ✅ مفتاح للفورم
+  final TextEditingController _noteController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return  _isSubmitted
@@ -23,56 +24,61 @@ class _ContactUsCardState extends State<ContactUsCard> {
     
      Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 44, bottom: 50),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // 🟢 العنوان
-          Text(
-            "تواصل معنا لإدارة وصيانة حمام السباحة",
-            style: AppTextStyles.styleBold16(
-              context,
-            ).copyWith(color: Colors.black),
-            textAlign: TextAlign.center,
-          ),
-
-          const SizedBox(height: 8),
-
-          // 🟢 الوصف
-          Text(
-            "اختر نوع الخدمة وأخبرنا بملاحظاتك لنخدمك بشكل أفضل",
-            style: AppTextStyles.styleRegular13(
-              context,
-            ).copyWith(color: Color(0xff777777)),
-            textAlign: TextAlign.center,
-          ),
-
-          const SizedBox(height: 14),
-
-          // 🟢 عنوان فرعي
-          Align(
-            alignment: Alignment.centerRight,
-            child: Text(
-              "الملاحظات",
-              style: AppTextStyles.styleSemiBold16(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // 🟢 العنوان
+            Text(
+              "تواصل معنا لإدارة وصيانة حمام السباحة",
+              style: AppTextStyles.styleBold16(
                 context,
-              ).copyWith(color: AppColors.ktextcolor),
+              ).copyWith(color: Colors.black),
+              textAlign: TextAlign.center,
             ),
-          ),
-
-          const SizedBox(height: 8),
-          // 🟢 TextField مع أيقونة مرفقات في الأسفل يسار
-          NoteField(),
-
-          const SizedBox(height: 40),
-
-          // 🟢 زر الإرسال
-          CustomTextBtn(text: 'إرسال', onPressed: () {
-             setState(() {
-                      _isSubmitted = true;
-                    });
-          }),
-        ],
+        
+            const SizedBox(height: 8),
+        
+            // 🟢 الوصف
+            Text(
+              "اختر نوع الخدمة وأخبرنا بملاحظاتك لنخدمك بشكل أفضل",
+              style: AppTextStyles.styleRegular13(
+                context,
+              ).copyWith(color: Color(0xff777777)),
+              textAlign: TextAlign.center,
+            ),
+        
+            const SizedBox(height: 14),
+        
+            // 🟢 عنوان فرعي
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                "الملاحظات",
+                style: AppTextStyles.styleSemiBold16(
+                  context,
+                ).copyWith(color: AppColors.ktextcolor),
+              ),
+            ),
+        
+            const SizedBox(height: 8),
+            // 🟢 TextField مع أيقونة مرفقات في الأسفل يسار
+            NoteField(controller: _noteController,),
+        
+            const SizedBox(height: 40),
+        
+            // 🟢 زر الإرسال
+            CustomTextBtn(text: 'إرسال', onPressed: () {
+               if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          _isSubmitted = true;
+                        });
+                      }
+            }),
+          ],
+        ),
       ),
     );
   }
