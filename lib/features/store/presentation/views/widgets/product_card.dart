@@ -26,7 +26,7 @@ class ProductCard extends StatelessWidget {
             spreadRadius: 0, // الانتشار
           ),
         ],
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
         //   border: Border.all(color: Color(0xffAAAAAA)),
         color: Colors.white,
       ),
@@ -100,7 +100,7 @@ class ProductCard extends StatelessWidget {
                 const SizedBox(width: 6),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 13),
 
             // 👇 زرار اضف الى السلة
             SizedBox(
@@ -111,7 +111,7 @@ class ProductCard extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                 ),
                 onPressed: onPressed,
                 icon: Icon(

@@ -14,14 +14,15 @@ class CartBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle,
-      ),
-      child: Text(
-        "$count",
-        style: AppTextStyles.styleRegular6(context),
+      padding: const EdgeInsets.all(3),
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      child: Center(
+        child: Text(
+          "$count",
+          style: AppTextStyles.styleRegular10(
+            context,
+          ).copyWith(color: Colors.white),
+        ),
       ),
     );
   }

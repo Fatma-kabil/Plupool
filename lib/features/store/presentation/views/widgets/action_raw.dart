@@ -24,7 +24,7 @@ class ActionsRow extends StatelessWidget {
             children: [
               Icon(
                 Icons.shopping_cart_outlined,
-                size: SizeConfig.w(15),
+                size: SizeConfig.w(20),
                 color: AppColors.kprimarycolor,
               ),
               Positioned(
@@ -42,7 +42,7 @@ class ActionsRow extends StatelessWidget {
           child: Icon(
             Icons.search,
             color: AppColors.kprimarycolor,
-            size: SizeConfig.w(15),
+            size: SizeConfig.w(20),
           ),
         ),
       ],
