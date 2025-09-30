@@ -33,7 +33,8 @@ class ProductCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
         child: Column(
-          mainAxisSize: MainAxisSize.min, // 👈 حل المشكلة
+          mainAxisSize: MainAxisSize.max, // 👈 ياخد المساحة كاملة
+          //   mainAxisSize: MainAxisSize.min, // 👈 حل المشكلة
           //  crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ClipRRect(
@@ -100,8 +101,8 @@ class ProductCard extends StatelessWidget {
                 const SizedBox(width: 6),
               ],
             ),
-            const SizedBox(height: 13),
-
+            //     const SizedBox(height: 13),
+            const Spacer(), // 👈 يزق الزرار لتحت
             // 👇 زرار اضف الى السلة
             SizedBox(
               width: double.infinity,
@@ -109,7 +110,7 @@ class ProductCard extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.kprimarycolor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(7),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 4),
                 ),

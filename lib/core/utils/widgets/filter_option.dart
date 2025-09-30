@@ -30,7 +30,7 @@ class FilterOption extends StatelessWidget {
           ),
 
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
             child: DropdownButtonHideUnderline(
               child: DropdownButton2<String>(
                 value: value,
