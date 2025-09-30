@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/header_model.dart';
+import 'package:plupool/features/home/presentaation/views/widgets/contact_us_card.dart';
 
 class CustomHeader extends StatelessWidget {
   final HeaderModel model;
@@ -45,12 +46,21 @@ class CustomHeader extends StatelessWidget {
         SizedBox(width: 10),
         GestureDetector(
           onTap: () {
-            
+            showDialog(
+              context: context,
+              builder: (context) => const Dialog(
+                backgroundColor: Colors.white,
+                insetPadding: EdgeInsets.all(
+                  20,
+                ), // يتحكم في المسافة حوالين الدايلوج
+                child: ContactUsCard(), // 👈 بيرجع الويدجت اللي فوق
+              ),
+            );
           },
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-          
+
               border: Border.all(color: AppColors.kprimarycolor),
             ),
             child: Padding(
