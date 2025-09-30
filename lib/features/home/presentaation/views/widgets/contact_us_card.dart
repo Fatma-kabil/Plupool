@@ -2,14 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
+import 'package:plupool/features/home/presentaation/views/widgets/done_contact_us_card.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/note_field.dart';
 
-class ContactUsCard extends StatelessWidget {
+class ContactUsCard extends StatefulWidget {
   const ContactUsCard({super.key});
 
   @override
+  State<ContactUsCard> createState() => _ContactUsCardState();
+}
+
+class _ContactUsCardState extends State<ContactUsCard> {
+   bool _isSubmitted = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
+    return  _isSubmitted
+        ? const DoneContactUsCard()
+        :
+    
+     Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 44, bottom: 50),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -55,7 +67,11 @@ class ContactUsCard extends StatelessWidget {
           const SizedBox(height: 40),
 
           // 🟢 زر الإرسال
-          CustomTextBtn(text: 'إرسال', onPressed: () {}),
+          CustomTextBtn(text: 'إرسال', onPressed: () {
+             setState(() {
+                      _isSubmitted = true;
+                    });
+          }),
         ],
       ),
     );
