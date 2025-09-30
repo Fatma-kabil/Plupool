@@ -1,3 +1,5 @@
+
+
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_view.dart';
@@ -15,6 +17,7 @@ import 'package:plupool/features/auth/presentation/views/verification_forget_pas
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
+import 'package:plupool/features/services/presentation/views/services_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 
@@ -23,7 +26,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/splasherapper',
       name: 'splasherapper',
-      pageBuilder: (context, state) => buildTransitionPage(const SplashWrapper()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const SplashWrapper()),
     ),
     GoRoute(
       path: '/splash',
@@ -38,12 +42,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/openning',
       name: 'openning',
-      pageBuilder: (context, state) => buildTransitionPage(const OpenningView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const OpenningView()),
     ),
     GoRoute(
       path: '/selectrole',
       name: 'selectrole',
-      pageBuilder: (context, state) => buildTransitionPage(const SelectRoleView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const SelectRoleView()),
     ),
     GoRoute(
       path: '/signup',
@@ -53,7 +59,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/verification',
       name: 'verification',
-      pageBuilder: (context, state) => buildTransitionPage(const VerificationView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const VerificationView()),
     ),
     GoRoute(
       path: '/success',
@@ -63,12 +70,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/customersetup',
       name: 'customersetup',
-      pageBuilder: (context, state) => buildTransitionPage(const CustomerSetupView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const CustomerSetupView()),
     ),
     GoRoute(
       path: '/techsetup',
       name: 'techsetup',
-      pageBuilder: (context, state) => buildTransitionPage(const TechSetupView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const TechSetupView()),
     ),
     GoRoute(
       path: '/login',
@@ -78,32 +87,44 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/forgetpassword',
       name: 'forgetpassword',
-      pageBuilder: (context, state) => buildTransitionPage(const ForgetPasswordScreen()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const ForgetPasswordScreen()),
     ),
     GoRoute(
       path: '/verificationforgetpassword',
       name: 'verificationforgetpassword',
-      pageBuilder: (context, state) => buildTransitionPage(const VerificationForgetPasswordView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const VerificationForgetPasswordView()),
     ),
     GoRoute(
       path: '/newpassword',
       name: 'newpassword',
-      pageBuilder: (context, state) => buildTransitionPage(const NewPasswordView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const NewPasswordView()),
     ),
     GoRoute(
       path: '/newpaswordsuccess',
       name: 'newpaswordsuccess',
-      pageBuilder: (context, state) => buildTransitionPage(const NewPasswordSuccess()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const NewPasswordSuccess()),
     ),
     GoRoute(
       path: '/',
       name: 'MainHomeCustomerView',
-      pageBuilder: (context, state) => buildTransitionPage(const MainHomeCustomerView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const MainHomeCustomerView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/MainHomeTechView',
       name: 'MainHomeTechView',
-      pageBuilder: (context, state) => buildTransitionPage(const MainHomeTechView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const MainHomeTechView()),
+    ),
+    GoRoute(
+      path: '/servicesview',
+      name: 'servicesview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const ServicesView()),
     ),
   ],
 );

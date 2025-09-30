@@ -4,9 +4,9 @@ import 'package:intl/intl.dart' as intl;
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/date_picker_field.dart';
+import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/done_card.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/time_picer_filed.dart';
+import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
 
 class BookingCard extends StatefulWidget {
   final void Function(DateTime date, TimeOfDay time)? onConfirm;
@@ -175,3 +175,21 @@ class _BookingCardState extends State<BookingCard> {
     );
   }
 }
+
+
+ //showDialog(
+   //               context: context,
+     //             barrierDismissible: true,
+       //           builder: (context) => BookingCard(
+         //           onConfirm: (date, time) {
+           //           Navigator.pop(context); // يقفل الدايالوج بعد التأكيد
+             //         ScaffoldMessenger.of(context).showSnackBar(
+               //         SnackBar(
+                 //         content: Text(
+                   //         "تم الحجز في: ${date.day}/${date.month}/${date.year} - ${time.format(context)}",
+                       //   ),
+                     //   ),
+                     // );
+                   // },
+                 // ),
+               // );

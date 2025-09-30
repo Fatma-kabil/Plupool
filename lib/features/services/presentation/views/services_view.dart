@@ -4,8 +4,8 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/services/presentation/views/widgets/coming_soon_card.dart';
 import 'package:plupool/features/services/presentation/views/widgets/service_card.dart';
 
-class CustomerServicesView extends StatelessWidget {
-  const CustomerServicesView({super.key});
+class ServicesView extends StatelessWidget {
+  const ServicesView({super.key});
 
   @override
   Widget build(BuildContext context) {

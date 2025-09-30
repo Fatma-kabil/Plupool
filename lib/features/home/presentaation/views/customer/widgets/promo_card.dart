@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/booking_card.dart';
+
 
 class PromoCard extends StatelessWidget {
   final PromoCardModel model;
@@ -111,25 +113,12 @@ class PromoCard extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                showDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (context) => BookingCard(
-                    onConfirm: (date, time) {
-                      Navigator.pop(context); // يقفل الدايالوج بعد التأكيد
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            "تم الحجز في: ${date.day}/${date.month}/${date.year} - ${time.format(context)}",
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                );
+                context.read<BottomNavCubit>().changeCurrentIndex(
+                  1,
+                ); // 1 = صفحة الخدمات
               },
               child: Text(
-                "احجز الان",
+                "ابدأ الان",
                 style: AppTextStyles.styleBold16(
                   context,
                 ).copyWith(color: model.titlecolor),
