@@ -191,3 +191,10 @@ final Map<String, bool> options = {
 
     ),
   ];
+
+   final moods = [
+    {"image": "assets/icons/relax.svg", "label": "Relax"},
+    {"image": "assets/icons/romantic.svg", "label": "Romantic"},
+    {"image": "assets/icons/party.svg", "label": "Party"},
+    {"image": "assets/icons/night.svg", "label": "Night"},
+  ];

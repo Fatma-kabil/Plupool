@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/features/services/presentation/views/widgets/coming_soon_card.dart';
+import 'package:plupool/features/services/presentation/views/widgets/mood_control_design.dart';
 import 'package:plupool/features/services/presentation/views/widgets/service_card.dart';
 
 class ServicesView extends StatelessWidget {
@@ -44,7 +44,7 @@ class ServicesView extends StatelessWidget {
               },
             ),
                 const SizedBox(height: 63),
-                ComingSoonCard(),
+                MoodControlsDesign(),
                  const SizedBox(height: 70),
           ],
         ),
