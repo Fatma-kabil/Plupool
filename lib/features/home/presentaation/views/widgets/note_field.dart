@@ -1,21 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
-import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/functions/pick_file.dart';
+import 'package:plupool/features/home/presentaation/views/widgets/attach_file_bitton.dart';
+import 'note_text_field.dart';
+import 'attached_file.dart';
+import 'error_message.dart'; // ✅ استدعاء الفانكشن الجديدة
 
-class NoteField extends StatelessWidget {
+class NoteField extends StatefulWidget {
   final TextEditingController controller;
 
   const NoteField({super.key, required this.controller});
 
   @override
+  State<NoteField> createState() => _NoteFieldState();
+}
+
+class _NoteFieldState extends State<NoteField> {
+  String? attachedFileName;
+
+  Future<void> _pickFile() async {
+    final fileName = await pickFile(); // ✅ استخدمنا الهيلبر
+    if (fileName != null) {
+      setState(() {
+        attachedFileName = fileName;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FormField<String>(
       validator: (value) {
-        // ✅ هنا تستدعي الفاليديتور من فايل الفاليديت
-        if (controller.text.trim().isEmpty) {
-          return "من فضلك اكتب ملاحظاتك";
+        if (widget.controller.text.trim().isEmpty &&
+            (attachedFileName == null || attachedFileName!.isEmpty)) {
+          return "من فضلك اكتب ملاحظاتك أو أرفق ملف";
         }
         return null;
       },
@@ -23,74 +41,32 @@ class NoteField extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: field.hasError
-                          ? Colors
-                                .red // ✅ البوردر يبقى أحمر لو فيه خطأ
-                          : AppColors.textFieldBorderColor,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextFormField(
-                    controller: controller,
-                    maxLines: 5,
-                    textAlign: TextAlign.right,
-                    onChanged: (val) => field.didChange(val),
-                    decoration: InputDecoration(
-                      hint: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            'أكتب ملاحظاتك هنا.....',
-                            style: AppTextStyles.styleRegular13(
-                              context,
-                            ).copyWith(color: AppColors.hintTextColor),
-                            textAlign: TextAlign.right,
-                            textDirection: TextDirection.rtl,
-                          ),
-                          const SizedBox(width: 4),
-                          SvgPicture.asset('assets/icons/notes.svg'),
-                        ],
-                      ),
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.all(8),
-                    ),
-                  ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: field.hasError
+                      ? Colors.red
+                      : AppColors.textFieldBorderColor,
+                  width: 1,
                 ),
-                Positioned(
-                  bottom: 2,
-                  left: 2,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.attach_file,
-                      color: const Color(0xffBBBBBB),
-                      size: SizeConfig.w(24),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            // ✅ الرسالة تظهر تحت الكونتينر
-            if (field.hasError)
-              Align(
-                alignment: Alignment.centerRight, // ✅ يلزق النص على اليمين
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 5, right: 8),
-                  child: Text(
-                    field.errorText!,
-                    style: const TextStyle(color: Colors.red, fontSize: 12),
-                    textAlign: TextAlign.right,
-                    textDirection: TextDirection.rtl, // ✅ اتجاه عربي
-                  ),
-                ),
+                borderRadius: BorderRadius.circular(10),
               ),
+              child: Stack(
+                children: [
+                  NoteTextField(
+                    controller: widget.controller,
+                    onChanged: field.didChange,
+                  ),
+                  if (attachedFileName != null)
+                    AttachedFile(
+                      fileName: attachedFileName!,
+                      onRemove: () => setState(() => attachedFileName = null),
+                    ),
+                  AttachFileButton(onPickFile: _pickFile),
+                ],
+              ),
+            ),
+            if (field.hasError) ErrorMessage(message: field.errorText!),
           ],
         );
       },
