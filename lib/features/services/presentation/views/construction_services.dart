@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/widgets/custom_back_button.dart';
+import 'package:plupool/features/services/presentation/views/widgets/customer_construct_card.dart';
 import 'package:plupool/features/services/presentation/views/widgets/service_banner.dart';
 
 class ConstructionServices extends StatelessWidget {
@@ -19,6 +20,7 @@ class ConstructionServices extends StatelessWidget {
           SizedBox(height: 15),
           ServiceBanner(),
           SizedBox(height: 32),
+          CustomerConstructCard()
         ],
       ),
     );

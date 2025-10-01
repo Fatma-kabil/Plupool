@@ -113,6 +113,17 @@ class AppTextStyles {
     );
   }
 
+  static TextStyle styleMedium14(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 26 : 14,
+      ),
+      fontWeight: FontWeight.w500,
+      color: AppColors.kprimarycolor,
+      height: 1.65,
+    );
+  }
   static TextStyle stylelight14(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
