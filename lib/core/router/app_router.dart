@@ -17,6 +17,7 @@ import 'package:plupool/features/auth/presentation/views/verification_forget_pas
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
+import 'package:plupool/features/services/presentation/views/construction_services_view.dart';
 import 'package:plupool/features/services/presentation/views/services_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
@@ -125,6 +126,12 @@ final GoRouter appRouter = GoRouter(
       name: 'servicesview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const ServicesView()),
+    ),
+     GoRoute(
+      path: '/constructionservicesview',
+      name: 'constructionservicesview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const ConstructionServicesView()),
     ),
   ],
 );
