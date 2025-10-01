@@ -1,20 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({
-    super.key,
-  });
-
+  const CustomBackButton({super.key, this.onTap});
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
-      
       decoration: BoxDecoration(
-        
         color: Colors.white, // var(--White-50, #FFF)
         borderRadius: BorderRadius.circular(23),
         boxShadow: const [
@@ -28,14 +23,12 @@ class CustomBackButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(3.0),
         child: GestureDetector(
+          onTap: onTap ?? () => context.pop(), // 👈 هنا الافتراضي
           child: Icon(
             Icons.arrow_back,
             color: AppColors.kprimarycolor,
             size: SizeConfig.w(20),
-          ),
-          onTap: () {
-            context.pop(); // go_router back
-          },
+          )
         ),
       ),
     );
