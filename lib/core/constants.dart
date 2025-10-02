@@ -224,7 +224,7 @@ final pools = [
     // لاحظ هنا
   ),
   PoolModel(
-    title: "Pool Olympic – الحمام الأوليمبي",
+    title: "   الحمام الأوليمبي -  Pool Olympic",
     description: "حمام بمعايير قياسية يستخدم في المسابقات والتدريبات.",
     features: [
       "مثالي للرياضة والسباقات الرسمية.",
@@ -245,7 +245,7 @@ final pools = [
   ),
 
   PoolModel(
-    title: "Pool Kids – حمام الأطفال",
+    title: "حمام الأطفال- Pool Kids",
     description: "حمام صغير بعمق قليل مع أنظمة أمان مخصصة للأطفال.",
     features: [
       "أمان كامل ومناسب للعب الصغيرين.",
@@ -264,7 +264,7 @@ final pools = [
     videoUrl: "assets/videos/pool.mp4",
   ),
   PoolModel(
-    title: "Pool Indoor – الحمام الداخلي",
+    title: "الحمام الداخلي- Pool Indoor ",
     description: "حمام سباحة مغطى داخل مبنى أو فيلا، محمي من العوامل الجوية.",
     features: [
       "استخدامه متاح طول السنة بدون تأثر بالطقس.",
@@ -282,7 +282,7 @@ final pools = [
     videoUrl: "assets/videos/pool.mp4",
   ),
   PoolModel(
-    title: "Pool Lap – حمام التدريب",
+    title:  " حمام التدريب- Pool Lap ",
     description: "حمام ضيق وطويل مخصص للسباحة الرياضية واللياقة.",
     features: [
       "تصميم عملي للتمرين والحفاظ على اللياقة.",

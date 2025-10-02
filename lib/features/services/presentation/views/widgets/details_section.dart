@@ -17,26 +17,32 @@ class DetailsSection extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
+   
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             pool.title,
-            style: AppTextStyles.styleBold16(context)
-                .copyWith(color: AppColors.ktextcolor),
+            style: AppTextStyles.styleBold16(
+              context,
+            ).copyWith(color: AppColors.ktextcolor),
+
+            //   textDirection: TextDirection.rtl,
           ),
           const SizedBox(height: 4),
 
           Text(
             pool.description,
-            style: AppTextStyles.styleRegular13(context)
-                .copyWith(color: const Color(0xff777777)),
+            style: AppTextStyles.styleRegular13(
+              context,
+            ).copyWith(color: const Color(0xff777777)),
           ),
           const SizedBox(height: 4),
 
           Text(
             "المميزات:",
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: Colors.black),
+            style: AppTextStyles.styleMedium16(
+              context,
+            ).copyWith(color: Colors.black),
           ),
           const SizedBox(height: 6),
 
@@ -52,7 +58,9 @@ class DetailsSection extends StatelessWidget {
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text.rich(
-                      TextSpan(children: highlightWord(context, feature, "مناسب لـ:")),
+                      TextSpan(
+                        children: highlightWord(context, feature, "مناسب لـ:"),
+                      ),
                     ),
                   ),
                 ],
@@ -62,6 +70,7 @@ class DetailsSection extends StatelessWidget {
 
           const SizedBox(height: 10),
           CustomTextBtn(text: 'احجز الان', onPressed: () {}),
+        
         ],
       ),
     );
