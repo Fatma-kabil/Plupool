@@ -50,7 +50,7 @@ class DesignPoolCard extends StatelessWidget {
               onPressed: () {},
               style: OutlinedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 13,
+                  vertical: 11,
                   horizontal: 10,
                 ),
                 shape: RoundedRectangleBorder(

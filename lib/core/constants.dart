@@ -224,7 +224,7 @@ final pools = [
     // لاحظ هنا
   ),
   PoolModel(
-    title: "   الحمام الأوليمبي -  Pool Olympic",
+    title: "الحمام الأوليمبي -  Pool Olympic",
     description: "حمام بمعايير قياسية يستخدم في المسابقات والتدريبات.",
     features: [
       "مثالي للرياضة والسباقات الرسمية.",
@@ -273,7 +273,7 @@ final pools = [
     videoUrl: "assets/videos/pool.mp4",
   ),
   PoolModel(
-    title: "Pool Plunge – حمام الغطس الصغير",
+    title: "حمام الغطس الصغير-Pool Plunge",
     description: "حمام صغير الحجم مخصص للاسترخاء والتبريد مش للسباحة الطويلة.",
     features: [
       "اقتصادي ويوفر رفاهية في مساحات صغيرة.",
@@ -282,7 +282,7 @@ final pools = [
     videoUrl: "assets/videos/pool.mp4",
   ),
   PoolModel(
-    title:  " حمام التدريب- Pool Lap ",
+    title:  "حمام التدريب- Pool Lap ",
     description: "حمام ضيق وطويل مخصص للسباحة الرياضية واللياقة.",
     features: [
       "تصميم عملي للتمرين والحفاظ على اللياقة.",
