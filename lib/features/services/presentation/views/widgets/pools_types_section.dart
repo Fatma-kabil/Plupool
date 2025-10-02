@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/features/services/data/models/pool_model.dart';
-import 'package:plupool/features/services/presentation/views/widgets/pool_card.dart';
+import 'package:plupool/features/services/presentation/views/widgets/pool_list.dart';
 
 class PoolsTypesSection extends StatelessWidget {
   const PoolsTypesSection({super.key});
@@ -18,18 +17,9 @@ class PoolsTypesSection extends StatelessWidget {
             context,
           ).copyWith(color: AppColors.ktextcolor),
         ),
-        SizedBox(height: 20),
-        PoolCard(
-          pool: PoolModel(
-            title: " حمام السباحة الأوفر فلو - Overflow Pool",
-
-            description: "نظام متطور بيخلي المياه تنساب من كل الجوانب لحوض جانبي، وبترجع تاني للحمام بعد فلترتها.",
-            features: [" مظهر فاخر وسطح مياه ثابت على مستوى الأرضية", " تنقية المياه باستمرار مما يعطي امانصحي اكثر وتقليل البكتيريا", "  مناسب لـ: الفيلات الفخمة، الفنادق، والمنتجعات السياحية."],
-            videoUrl: "assets/videos/pool.mp4",
-
-            // لاحظ هنا
-          ),
-        ),
+        SizedBox(height: 10),
+    
+        PoolsList(),
       ],
     );
   }
