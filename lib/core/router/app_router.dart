@@ -1,5 +1,3 @@
-
-
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_view.dart';
@@ -17,6 +15,7 @@ import 'package:plupool/features/auth/presentation/views/verification_forget_pas
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
+import 'package:plupool/features/services/data/models/pool_model.dart';
 import 'package:plupool/features/services/presentation/views/construction_services_view.dart';
 import 'package:plupool/features/services/presentation/views/reserve_construction_view.dart';
 import 'package:plupool/features/services/presentation/views/services_view.dart';
@@ -128,7 +127,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const ServicesView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/constructionservicesview',
       name: 'constructionservicesview',
       pageBuilder: (context, state) =>
@@ -137,8 +136,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/reserveconstructionview',
       name: 'reserveconstructionview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const ReserveConstructionView()),
+      pageBuilder: (context, state) {
+        final pool = state.extra as PoolModel; // ✅ استقبلنا الموديل
+        return buildTransitionPage(ReserveConstructionView(pool: pool));
+      },
     ),
   ],
 );
