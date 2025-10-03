@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 
 class FilterDialog extends StatefulWidget {
   const FilterDialog({super.key});
@@ -78,21 +79,7 @@ class FilterDialogState extends State<FilterDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                OutlinedButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: AppColors.kprimarycolor),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    "إلغاء",
-                    style: AppTextStyles.styleBold16(
-                      context,
-                    ).copyWith(color: AppColors.kprimarycolor),
-                  ),
-                ),
+                CustomOutlinedBtn(text: "إلغاء"),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
