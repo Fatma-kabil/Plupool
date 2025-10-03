@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+
 class DatePickerField extends StatelessWidget {
   final DateTime? selectedDate;
-  final intl.DateFormat dateFormat;
+  final String Function(DateTime)? dateFormat;
+
   final VoidCallback onTap;
   final String? errorText; // << هنا
 
@@ -23,8 +24,9 @@ class DatePickerField extends StatelessWidget {
       children: [
         Text(
           "اختيار اليوم",
-          style: AppTextStyles.styleSemiBold16(context)
-              .copyWith(color: AppColors.ktextcolor),
+          style: AppTextStyles.styleSemiBold16(
+            context,
+          ).copyWith(color: AppColors.ktextcolor),
         ),
         const SizedBox(height: 12),
         GestureDetector(
@@ -40,6 +42,7 @@ class DatePickerField extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
+              
               children: [
                 Icon(
                   Icons.calendar_today,
@@ -51,7 +54,8 @@ class DatePickerField extends StatelessWidget {
                 const SizedBox(width: 3),
                 Text(
                   selectedDate != null
-                      ? dateFormat.format(selectedDate!)
+                      ? dateFormat?.call(selectedDate!) ??
+                            selectedDate.toString()
                       : "dd/mm/yy",
                   style: AppTextStyles.styleRegular13(context).copyWith(
                     color: selectedDate != null
@@ -73,8 +77,9 @@ class DatePickerField extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             errorText!,
-            style: AppTextStyles.styleRegular13(context)
-                .copyWith(color: Colors.red),
+            style: AppTextStyles.styleRegular13(
+              context,
+            ).copyWith(color: Colors.red),
           ),
         ],
       ],

@@ -1,7 +1,6 @@
 class Validators {
   // ✅ دوال مساعدة للـ Null & Trim
-  static bool _isNullOrEmpty(String? v) =>
-      v == null || v.trim().isEmpty;
+  static bool _isNullOrEmpty(String? v) => v == null || v.trim().isEmpty;
 
   // ✅ حقل مطلوب
   static String? required(String? v, {String fieldName = 'الحقل'}) {
@@ -13,8 +12,10 @@ class Validators {
   static String? name(String? v, {int minLength = 3, int maxLength = 50}) {
     if (_isNullOrEmpty(v)) return 'الاسم مطلوب';
     final value = v!.trim();
-    if (value.length < minLength) return 'الاسم قصير جدًا (يجب أن يكون $minLength أحرف على الأقل)';
-    if (value.length > maxLength) return 'الاسم طويل جدًا (بحد أقصى $maxLength حرف)';
+    if (value.length < minLength)
+      return 'الاسم قصير جدًا (يجب أن يكون $minLength أحرف على الأقل)';
+    if (value.length > maxLength)
+      return 'الاسم طويل جدًا (بحد أقصى $maxLength حرف)';
     return null;
   }
 
@@ -37,8 +38,12 @@ class Validators {
   }
 
   // ✅ كلمة المرور
-  static String? password(String? v,
-      {int minLength = 6, bool requireNumber = true, bool requireUpper = false}) {
+  static String? password(
+    String? v, {
+    int minLength = 6,
+    bool requireNumber = true,
+    bool requireUpper = false,
+  }) {
     if (_isNullOrEmpty(v)) return 'كلمة المرور مطلوبة';
     final value = v!;
     if (value.length < minLength) {
@@ -60,20 +65,32 @@ class Validators {
     return null;
   }
 
- static String? emailOrPhoneValidator(String? value) {
-  if (value == null || value.trim().isEmpty) {
-    return 'هذا الحقل مطلوب';
-  }
+  // ✅ التحقق من أن القيمة رقم
+ static String? number(String? v, {String fieldName = 'الرقم'}) {
+  if (_isNullOrEmpty(v)) return '$fieldName مطلوب';
 
-  final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  final phoneRegex = RegExp(r'^(?:\+?\d{1,3})?[0-9]{8,14}$');
-
-  if (!emailRegex.hasMatch(value.trim()) &&
-      !phoneRegex.hasMatch(value.trim())) {
-    return 'أدخل بريد إلكتروني صالح أو رقم هاتف صحيح';
+  final value = num.tryParse(v!.trim());
+  if (value == null) {
+    return '$fieldName يجب أن يكون رقمًا';
   }
 
   return null;
 }
 
+
+  static String? emailOrPhoneValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'هذا الحقل مطلوب';
+    }
+
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    final phoneRegex = RegExp(r'^(?:\+?\d{1,3})?[0-9]{8,14}$');
+
+    if (!emailRegex.hasMatch(value.trim()) &&
+        !phoneRegex.hasMatch(value.trim())) {
+      return 'أدخل بريد إلكتروني صالح أو رقم هاتف صحيح';
+    }
+
+    return null;
+  }
 }
