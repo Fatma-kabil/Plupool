@@ -65,31 +65,7 @@ class _CustomPoolDetailsFormState extends State<CustomPoolDetailsForm> {
             ),
           ),
           prefixIconConstraints: const BoxConstraints(minWidth: 0),
-          suffixIcon: Padding(
-            padding: const EdgeInsets.only(right: 12.0, left: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min, // يخلي العمود أصغر ما يمكن
-              children: [
-                Transform.translate(
-                  offset: const Offset(0, 5), // ينزل السهم لفوق شوي
-                  child: Icon(
-                    Icons.arrow_drop_up,
-                    size: SizeConfig.w(18),
-                    color: Colors.grey,
-                  ),
-                ),
-                Transform.translate(
-                  offset: const Offset(0, -5), // يرفع السهم لتحت شوي
-                  child: Icon(
-                    Icons.arrow_drop_down,
-                    size: SizeConfig.w(18),
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
-            ),
-          ),
+         
 
           // 👇 زرار إظهار/إخفاء الباسورد
           enabledBorder: OutlineInputBorder(
