@@ -37,7 +37,7 @@ class ReserveConstructionView extends StatelessWidget {
                     .copyWith(color: AppColors.kprimarycolor),
               ),
               const SizedBox(height: 12),
-              PoolReservationForm(onConfirm: onConfirm),
+              PoolReservationForm(onConfirm: onConfirm,poolTitle: pool.title,),
               const SizedBox(height: 28),
               CustomOutlinedBtn(
                 text: "إلغاء",

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
-import 'package:plupool/core/utils/functions/handle_pool_reservation_submit.dart';
 import 'package:plupool/core/utils/functions/pick_date_fun.dart';
 import 'package:plupool/core/utils/functions/pick_time_fun.dart';
 import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
-import 'package:plupool/core/utils/widgets/custom_text_form_field.dart';
 import 'package:plupool/features/services/data/models/pool_reservation_model.dart';
 import 'package:plupool/features/services/presentation/views/widgets/custom_pool_details%20_form.dart';
+import 'package:plupool/features/services/presentation/views/widgets/reservation_details_dialog.dart';
 
 class PoolReservationForm extends StatefulWidget {
+  final String poolTitle;
   final void Function(PoolReservation reservation)? onConfirm;
 
-  const PoolReservationForm({super.key, this.onConfirm});
+  const PoolReservationForm({
+    super.key,
+    this.onConfirm,
+    required this.poolTitle,
+  });
 
   @override
   State<PoolReservationForm> createState() => _PoolReservationFormState();
@@ -43,15 +45,37 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
   }
 
   void _onConfirmPressed() {
-    handlePoolReservationSubmit(
-      selectedDate: selectedDate,
-      selectedTime: selectedTime,
-      widthController: _widthController,
-      heightController: _heightController,
-      depthController: _depthController,
-      formKey: _formKey,
-      onConfirm: widget.onConfirm!,
+    setState(() {
+      dateError = selectedDate == null ? "من فضلك اختر التاريخ" : null;
+      timeError = selectedTime == null ? "من فضلك اختر الوقت" : null;
+    });
+
+    // تحقق من الـ TextFormFields
+    if (!_formKey.currentState!.validate()) return;
+
+    // تحقق من التاريخ والوقت
+    if (selectedDate == null || selectedTime == null) return;
+
+    final reservation = PoolReservation(
+      title: widget.poolTitle,
+      date: selectedDate,
+      time: selectedTime,
+      width: double.tryParse(_widthController.text) ?? 0.0,
+      height: double.tryParse(_heightController.text) ?? 0.0,
+      depth: double.tryParse(_depthController.text) ?? 0.0,
+    );
+
+    // نفذ onConfirm لو متعرف
+    if (widget.onConfirm != null) {
+      widget.onConfirm!(reservation);
+    }
+
+    // اعرض تفاصيل الحجز في Dialog
+    showDialog(
       context: context,
+      builder: (_) => ReservationDetailsDialog(
+        reservation: reservation,
+      ),
     );
   }
 
@@ -73,9 +97,7 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
         const SizedBox(height: 12),
         CustomPoolDetailsForm(
           iconpath: iconPath,
-
           controller: controller,
-
           hintText: hint,
           validator: (v) => Validators.number(v),
         ),
@@ -88,7 +110,6 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
     return Form(
       key: _formKey,
       child: Column(
-      //  textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           DatePickerField(
@@ -141,7 +162,10 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
             iconPath: 'assets/icons/tall.svg',
           ),
           const SizedBox(height: 30),
-          CustomTextBtn(onPressed: _onConfirmPressed, text: 'تأكيد الحجز'),
+          CustomTextBtn(
+            onPressed: _onConfirmPressed,
+            text: 'تأكيد الحجز',
+          ),
         ],
       ),
     );
