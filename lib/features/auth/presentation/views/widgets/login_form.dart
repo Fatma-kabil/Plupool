@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/validators.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/custom_text_form_field.dart';
+import 'package:plupool/core/utils/widgets/custom_text_form_field.dart';
 
 class LoginForm extends StatelessWidget {
   LoginForm({super.key});

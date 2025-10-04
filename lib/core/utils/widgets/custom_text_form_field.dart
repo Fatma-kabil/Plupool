@@ -7,12 +7,12 @@ class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
-     this.icon,
+    this.icon,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.validator,
     this.controller,
-    this.prefixIcon,
+    this.prefixIcon, 
   });
 
   final String hintText;
@@ -22,6 +22,7 @@ class CustomTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final Widget? prefixIcon;
+  
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -66,7 +67,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             vertical: 10.0,
             horizontal: 14.0,
           ),
-          
+
           prefixIcon: Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child:
