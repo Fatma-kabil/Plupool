@@ -12,7 +12,7 @@ class VerficationForgetPasswordViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(22.0),
+        padding: const EdgeInsets.only(left: 22.0, right: 22, bottom: 22),
         child: Column(
           children: [
             AuthHeader(
@@ -24,9 +24,10 @@ class VerficationForgetPasswordViewBody extends StatelessWidget {
             Otp(),
             SizedBox(height: 107),
             CustomTextBtn(
+           width: double.infinity,
               text: 'تأكيد',
               onPressed: () {
-              context.push('/newpassword');
+                context.push('/newpassword');
                 // إضافة وظيفة الزر هنا
                 //     context.push('/verification');
               },

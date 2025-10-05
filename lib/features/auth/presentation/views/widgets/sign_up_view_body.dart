@@ -23,7 +23,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(22.0),
+      padding: const EdgeInsets.only(left: 22,right: 22,bottom: 22),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -62,6 +62,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             ),
             SizedBox(height: 68),
             CustomTextBtn(
+              width: double.infinity,
               text: 'إرسال رمز التحقق',
               onPressed: () {
                 // إضافة وظيفة الزر هنا

@@ -37,7 +37,7 @@ class _NewPasswordViewBodyState extends State<NewPasswordViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(22.0),
+     padding: const EdgeInsets.only(left: 22,right: 22,bottom: 22),
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -100,7 +100,9 @@ class _NewPasswordViewBodyState extends State<NewPasswordViewBody> {
               const SizedBox(height: 109),
 
               Center(
-                child: CustomTextBtn(text: 'حفظ', onPressed: _saveNewPassword),
+                child: CustomTextBtn(
+                  width: double.infinity,
+                  text: 'حفظ', onPressed: _saveNewPassword),
               ),
             ],
           ),

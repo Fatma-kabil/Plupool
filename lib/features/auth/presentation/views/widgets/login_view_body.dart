@@ -22,7 +22,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.all(22),
+      padding: EdgeInsetsGeometry.only(left: 22,right: 22,bottom: 22,),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -61,6 +61,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             ),
             SizedBox(height: 59),
             CustomTextBtn(
+              width: double.infinity,
               text: ' تسجيل الدخول ',
               onPressed: () {
                 // إضافة وظيفة الزر هنا

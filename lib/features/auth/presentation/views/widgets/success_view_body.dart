@@ -39,6 +39,7 @@ class SuccessViewBody extends StatelessWidget {
 
             // ✅ زر التالي
             CustomTextBtn(
+              width: double.infinity,
               text: 'التالي',
               onPressed: () {
                 // هنا تحط النافيجيشن اللي بعد النجاح

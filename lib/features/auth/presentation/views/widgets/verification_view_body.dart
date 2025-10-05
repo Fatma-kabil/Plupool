@@ -11,7 +11,7 @@ class VerificationViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(22.0),
+       padding: const EdgeInsets.only(left: 22,right: 22,bottom: 22),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -24,6 +24,7 @@ class VerificationViewBody extends StatelessWidget {
             Otp(),
             SizedBox(height: 107),
             CustomTextBtn(
+              width: double.infinity,
               text: 'تأكيد',
               onPressed: () {
                 context.push('/success');

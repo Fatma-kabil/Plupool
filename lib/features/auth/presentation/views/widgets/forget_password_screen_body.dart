@@ -36,7 +36,7 @@ class _ForgetPasswordScreenBodyState extends State<ForgetPasswordScreenBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(22),
+      padding: const EdgeInsets.only(left: 22,right: 22,bottom: 22),
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -69,6 +69,7 @@ class _ForgetPasswordScreenBodyState extends State<ForgetPasswordScreenBody> {
               // ✅ Spacer بدل الـ SizedBox الكبير
               Center(
                 child: CustomTextBtn(
+                  width: double.infinity,
                   text: 'إرسال رمز التحقق',
                   onPressed: _sendResetCode,
                 ),
