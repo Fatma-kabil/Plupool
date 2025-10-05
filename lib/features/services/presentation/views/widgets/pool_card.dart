@@ -28,7 +28,7 @@ class PoolCard extends StatelessWidget {
             children: [
               VideoSection(videoUrl: pool.videoUrl),
               DetailsSection(pool: pool),
-                CustomTextBtn(text: 'احجز الان', onPressed:onPressed ),
+                CustomTextBtn(text: 'احجز الان', onPressed:onPressed ,width: double.infinity,),
             ],
           ),
         ),

@@ -163,6 +163,7 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
           ),
           const SizedBox(height: 30),
           CustomTextBtn(
+            width: double.infinity,
             onPressed: _onConfirmPressed,
             text: 'تأكيد الحجز',
           ),

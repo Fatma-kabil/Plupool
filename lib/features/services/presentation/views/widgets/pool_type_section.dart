@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/features/services/data/models/pool_reservation_model.dart';
-
 class PoolTypeSection extends StatelessWidget {
-  final PoolReservation reservation;
+  final String title;
 
-  const PoolTypeSection({super.key, required this.reservation});
+  const PoolTypeSection({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +15,9 @@ class PoolTypeSection extends StatelessWidget {
       children: [
         Text(
           'نوع حمام السباحة',
-          style: AppTextStyles.styleBold16(context)
-              .copyWith(color: AppColors.ktextcolor),
+          style: AppTextStyles.styleBold16(
+            context,
+          ).copyWith(color: AppColors.ktextcolor),
         ),
         const SizedBox(height: 15),
         Row(
@@ -31,9 +30,10 @@ class PoolTypeSection extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             Text(
-              reservation.title,
-              style: AppTextStyles.styleRegular13(context)
-                  .copyWith(color: const Color(0xff006398)),
+              title,
+              style: AppTextStyles.styleRegular13(
+                context,
+              ).copyWith(color: const Color(0xff006398)),
             ),
           ],
         ),

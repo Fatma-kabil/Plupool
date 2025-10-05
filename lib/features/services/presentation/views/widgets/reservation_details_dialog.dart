@@ -37,11 +37,12 @@ class ReservationDetailsDialog extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 textDirection: TextDirection.rtl,
                 children: [
-                  PoolTypeSection(reservation: reservation),
+                  PoolTypeSection(title: reservation.title),
                   const SizedBox(height: 20),
                   DateTimeSection(reservation: reservation),
                   const SizedBox(height: 20),
                   DimensionsSection(reservation: reservation),
+                  const SizedBox(height: 20),
                   const CloseSection(),
                 ],
               ),

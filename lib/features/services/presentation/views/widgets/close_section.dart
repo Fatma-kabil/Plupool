@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
+import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 
 class CloseSection extends StatelessWidget {
   const CloseSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      child: const Text("إغلاق"),
-      onPressed: () => Navigator.of(context).pop(),
+    return Row(
+      textDirection: TextDirection.rtl,
+
+      children: [
+        CustomTextBtn(text: "تأكيد  الحجز", onPressed: () {}, padding: 8),
+        Spacer(),
+        CustomOutlinedBtn(
+          text: "تعديل",
+          trailing: Icon(
+            Icons.edit_note_sharp,
+            color: AppColors.kprimarycolor,
+            size: 24,
+          ),
+        ),
+      ],
     );
   }
 }
