@@ -44,6 +44,7 @@ class ReservationDetailsDialog extends StatelessWidget {
                   DimensionsSection(reservation: reservation),
                   const SizedBox(height: 20),
                   const CloseSection(),
+                   const SizedBox(height: 10),
                 ],
               ),
             ),

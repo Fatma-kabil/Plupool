@@ -71,7 +71,7 @@ class Validators {
 
   final value = num.tryParse(v!.trim());
   if (value == null) {
-    return '$fieldName يجب أن يكون رقمًا';
+    return 'يجب أن يكون رقمًا';
   }
 
   return null;
