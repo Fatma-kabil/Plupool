@@ -15,9 +15,9 @@ import 'package:plupool/features/auth/presentation/views/verification_forget_pas
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
-import 'package:plupool/features/services/data/models/pool_model.dart';
-import 'package:plupool/features/services/presentation/views/construction_services_view.dart';
-import 'package:plupool/features/services/presentation/views/reserve_construction_view.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
+import 'package:plupool/features/consruction_service/presentation/views/construction_services_view.dart';
+import 'package:plupool/features/consruction_service/presentation/views/reserve_construction_view.dart';
 import 'package:plupool/features/services/presentation/views/services_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';

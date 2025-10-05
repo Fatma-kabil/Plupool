@@ -4,7 +4,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/highlight_word.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/services/data/models/pool_model.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 
 class DetailsSection extends StatelessWidget {
   final PoolModel pool;

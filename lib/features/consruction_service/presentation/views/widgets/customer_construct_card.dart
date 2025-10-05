@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/services/presentation/views/widgets/more_details_row.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/more_details_row.dart';
 
 class CustomerConstructCard extends StatelessWidget {
   const CustomerConstructCard({super.key});

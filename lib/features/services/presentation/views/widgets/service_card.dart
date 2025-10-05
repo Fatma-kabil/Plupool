@@ -81,6 +81,7 @@ class ServiceCard extends StatelessWidget {
           ),
           const SizedBox(height: 36),
           CustomTextBtn(
+            width: double.infinity,
             text: buttonText,
             onPressed: onPressed,
           ), // 👈 الزرار بياخد النص

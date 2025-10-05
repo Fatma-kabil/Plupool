@@ -7,9 +7,9 @@ import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
-import 'package:plupool/features/services/data/models/pool_reservation_model.dart';
-import 'package:plupool/features/services/presentation/views/widgets/custom_pool_details%20_form.dart';
-import 'package:plupool/features/services/presentation/views/widgets/reservation_details_dialog.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_reservation_model.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/custom_pool_details%20_form.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/reservation_details_dialog.dart';
 
 class PoolReservationForm extends StatefulWidget {
   final String poolTitle;

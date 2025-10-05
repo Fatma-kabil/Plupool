@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
-import 'package:plupool/features/services/data/models/pool_reservation_model.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_reservation_model.dart';
 
 class DateTimeSection extends StatelessWidget {
   final PoolReservation reservation;

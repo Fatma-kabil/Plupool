@@ -4,10 +4,10 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_back_button.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
-import 'package:plupool/features/services/data/models/pool_model.dart';
-import 'package:plupool/features/services/data/models/pool_reservation_model.dart';
-import 'package:plupool/features/services/presentation/views/widgets/pool_construct_reservation_form.dart';
-import 'package:plupool/features/services/presentation/views/widgets/pool_reserved_header_card.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_reservation_model.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/pool_construct_reservation_form.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/pool_reserved_header_card.dart';
 
 class ReserveConstructionView extends StatelessWidget {
   final PoolModel pool;

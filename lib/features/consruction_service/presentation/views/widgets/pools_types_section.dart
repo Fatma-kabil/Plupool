@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/features/services/presentation/views/widgets/pool_list.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/pool_list.dart';
 
 class PoolsTypesSection extends StatelessWidget {
   const PoolsTypesSection({super.key});

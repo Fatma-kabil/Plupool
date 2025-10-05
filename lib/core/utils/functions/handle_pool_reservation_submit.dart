@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/features/services/data/models/pool_reservation_model.dart';
-import 'package:plupool/features/services/presentation/views/widgets/reservation_details_dialog.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_reservation_model.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/reservation_details_dialog.dart';
 
 void handlePoolReservationSubmit({
   required PoolReservation reservation,

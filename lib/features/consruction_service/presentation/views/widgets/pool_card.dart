@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
-import 'package:plupool/features/services/data/models/pool_model.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'video_section.dart';
 import 'details_section.dart';
 

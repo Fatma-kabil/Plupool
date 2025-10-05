@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 
-import 'package:plupool/features/services/presentation/views/widgets/pool_card.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/pool_card.dart';
 
 class PoolsList extends StatelessWidget {
   const PoolsList({super.key});

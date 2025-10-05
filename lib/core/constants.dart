@@ -5,7 +5,7 @@ import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
-import 'package:plupool/features/services/data/models/pool_model.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 
 final List<RoleCardItemModel> roles = [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
-import 'package:plupool/features/services/presentation/views/widgets/done_card.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/done_card.dart';
 
 class CloseSection extends StatelessWidget {
   const CloseSection({super.key});

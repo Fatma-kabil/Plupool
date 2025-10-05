@@ -29,11 +29,14 @@ class PoolTypeSection extends StatelessWidget {
               width: 15,
             ),
             const SizedBox(width: 5),
-            Text(
-              title,
-              style: AppTextStyles.styleRegular13(
-                context,
-              ).copyWith(color: const Color(0xff006398)),
+            Expanded(
+              child: Text(
+                title,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis, // 👈 يخليها تعمل نقط (...)
+                style: AppTextStyles.styleRegular13(context)
+                    .copyWith(color: const Color(0xff006398)),
+              ),
             ),
           ],
         ),
