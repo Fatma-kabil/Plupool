@@ -14,6 +14,7 @@ import 'package:plupool/features/auth/presentation/views/tech_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_forget_password_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
+import 'package:plupool/features/maintenance/presentation/views/maintenance_service_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/consruction_service/presentation/views/construction_services_view.dart';
@@ -25,7 +26,7 @@ import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/splasherapper',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -110,7 +111,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const NewPasswordSuccess()),
     ),
     GoRoute(
-      path: '/xcd',
+      path: '/',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCustomerView()),
@@ -140,6 +141,12 @@ final GoRouter appRouter = GoRouter(
         final pool = state.extra as PoolModel; // ✅ استقبلنا الموديل
         return buildTransitionPage(ReserveConstructionView(pool: pool));
       },
+    ),
+    GoRoute(
+      path: '/maintenanceserviceview',
+      name: 'maintenanceserviceview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const MaintenanceServiceView()),
     ),
   ],
 );

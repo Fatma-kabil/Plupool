@@ -5,7 +5,6 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/services/presentation/views/widgets/mood_control_design.dart';
 import 'package:plupool/features/services/presentation/views/widgets/service_card.dart';
 
-
 class ServicesView extends StatelessWidget {
   const ServicesView({super.key});
 
@@ -45,7 +44,8 @@ class ServicesView extends StatelessWidget {
               iconPath: 'assets/icons/proocardicon3.svg',
               buttonText: "اطلب صيانة",
               onPressed: () {
-                print("صيانة حمامات سباحة");
+                context.push('/maintenanceserviceview');
+              
               },
             ),
 
