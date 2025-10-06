@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/maintenance_section.dart';
+import 'package:plupool/features/maintenance/presentation/views/widgets/srevices_packages_section.dart';
 
 class MaintenanceServiceView extends StatefulWidget {
   const MaintenanceServiceView({super.key});
@@ -23,7 +24,11 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabs.length, vsync: this, initialIndex: 1);
+    _tabController = TabController(
+      length: tabs.length,
+      vsync: this,
+      initialIndex: 1,
+    );
     _tabController.addListener(() {
       setState(() {});
     });
@@ -44,9 +49,8 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
         child: Padding(
           padding: const EdgeInsets.only(top: 30, left: 16, right: 16),
           child: Column(
-          //  textDirection: TextDirection.rtl,
+            //  textDirection: TextDirection.rtl,
             children: [
-              
               SizedBox(height: 15),
               // ✅ الجزء العلوي - Tabs buttons
               Row(
@@ -120,10 +124,8 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                   controller: _tabController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: const [
-                     ServicesPackagesView(),
-                       MaintenanceSection(),
-                   
-                 
+                    ServicesPackagesSection(),
+                    MaintenanceSection(),
                   ],
                 ),
               ),
@@ -134,19 +136,3 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
     );
   }
 }
-
-// 👇 محتوى تبويب "باقات الخدمات"
-class ServicesPackagesView extends StatelessWidget {
-  const ServicesPackagesView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        "💼 محتوى باقات الخدمات",
-        style: AppTextStyles.styleBold16(context),
-      ),
-    );
-  }
-}
-
