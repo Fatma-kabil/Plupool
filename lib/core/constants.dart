@@ -318,7 +318,7 @@ final maintenancePools = [
   ),
   MaintenancePoolModel(
     title: "  3. المعدات Equipment Maintenance",
-    imageUrl: "assets/images/offercard1.png",
+    imageUrl: "assets/images/equipment.png",
     features: [
       "فحص الفلاتر.",
       "صيانة المضخات.",
