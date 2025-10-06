@@ -7,7 +7,7 @@ import 'package:plupool/core/utils/functions/pick_time_fun.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
-import 'package:plupool/features/consruction_service/presentation/views/widgets/done_card.dart';
+import 'package:plupool/features/maintenance/presentation/views/widgets/confirm_maintenance_booking%20card.dart';
 
 // استيراد الفانكشنات الجديدة
 
@@ -41,7 +41,6 @@ class _BookingCardState extends State<BookingCard> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
-          
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
@@ -76,7 +75,7 @@ class _BookingCardState extends State<BookingCard> {
               ),
               const SizedBox(height: 20),
               TimePickerField(
-                   dirc: CrossAxisAlignment.start,
+                dirc: CrossAxisAlignment.start,
                 selectedTime: selectedTime,
                 onTap: () async {
                   final picked = await pickTimeFun(context);
@@ -107,8 +106,17 @@ class _BookingCardState extends State<BookingCard> {
                     widget.onConfirm?.call(selectedDate!, selectedTime!);
                     showDialog(
                       context: context,
-                      barrierDismissible: true,
-                      builder: (context) => const DoneCard(),
+                      barrierDismissible: false,
+                      builder: (context) {
+                        return Dialog(
+                          backgroundColor: Colors.transparent,
+                          insetPadding: const EdgeInsets.all(16),
+                          child: ConfirmMaintenanceBookingCard(
+                            date: selectedDate,
+                            time: selectedTime,
+                          ),
+                        );
+                      },
                     );
                   }
                 },

@@ -24,7 +24,7 @@ class MaintenanceSection extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           MaintenancePoolsList(),
-         
+
           CustomTextBtn(
             text: 'احجز الان',
             onPressed: () {
@@ -34,20 +34,13 @@ class MaintenanceSection extends StatelessWidget {
                 builder: (context) => BookingCard(
                   onConfirm: (date, time) {
                     Navigator.pop(context); // يقفل الدايالوج بعد التأكيد
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          "تم الحجز في: ${date.day}/${date.month}/${date.year} - ${time.format(context)}",
-                        ),
-                      ),
-                    );
                   },
                 ),
               );
             },
             width: double.infinity,
           ),
-           const SizedBox(height: 27),
+          const SizedBox(height: 27),
         ],
       ),
     );
