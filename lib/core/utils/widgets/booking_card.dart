@@ -41,6 +41,7 @@ class _BookingCardState extends State<BookingCard> {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
+          
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
@@ -59,6 +60,7 @@ class _BookingCardState extends State<BookingCard> {
               ),
               const SizedBox(height: 19),
               DatePickerField(
+                dirc: CrossAxisAlignment.start,
                 selectedDate: selectedDate,
                 dateFormat: formatDate,
                 onTap: () async {
@@ -74,6 +76,7 @@ class _BookingCardState extends State<BookingCard> {
               ),
               const SizedBox(height: 20),
               TimePickerField(
+                   dirc: CrossAxisAlignment.start,
                 selectedTime: selectedTime,
                 onTap: () async {
                   final picked = await pickTimeFun(context);
@@ -89,6 +92,7 @@ class _BookingCardState extends State<BookingCard> {
               const SizedBox(height: 40),
               CustomTextBtn(
                 text: 'تأكيد الحجز',
+                width: double.infinity,
                 onPressed: () {
                   setState(() {
                     if (selectedDate == null) {

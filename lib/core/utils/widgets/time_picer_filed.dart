@@ -7,18 +7,19 @@ class TimePickerField extends StatelessWidget {
   final TimeOfDay? selectedTime;
   final VoidCallback onTap;
   final String? errorText; // جديد
-
+ final CrossAxisAlignment? dirc;
   const TimePickerField({
     super.key,
     required this.selectedTime,
     required this.onTap,
     this.errorText,
+     this.dirc = CrossAxisAlignment.end
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: dirc!,
       children: [
         Text(
           "اختيار الوقت",

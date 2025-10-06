@@ -23,7 +23,7 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabs.length, vsync: this);
+    _tabController = TabController(length: tabs.length, vsync: this, initialIndex: 1);
     _tabController.addListener(() {
       setState(() {});
     });
@@ -42,10 +42,12 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 48, left: 16, right: 16),
+          padding: const EdgeInsets.only(top: 30, left: 16, right: 16),
           child: Column(
           //  textDirection: TextDirection.rtl,
             children: [
+              
+              SizedBox(height: 15),
               // ✅ الجزء العلوي - Tabs buttons
               Row(
                 //   textDirection: TextDirection.rtl,
