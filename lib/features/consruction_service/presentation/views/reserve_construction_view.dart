@@ -31,7 +31,7 @@ class ReserveConstructionView extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               Text(
-                '*املأ النموذج لحجز موعد إنشاء حمام السباحة الخاص بك',
+                '*املأ النموذج للتواصل وحجز موعد انشاء حمام السباحة الخاص بك',
                 textDirection: TextDirection.rtl,
                 style: AppTextStyles.styleRegular16(context)
                     .copyWith(color: AppColors.kprimarycolor),

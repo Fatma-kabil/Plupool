@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+
 class PoolTypeSection extends StatelessWidget {
   final String title;
 
@@ -22,6 +23,7 @@ class PoolTypeSection extends StatelessWidget {
         const SizedBox(height: 15),
         Row(
           textDirection: TextDirection.rtl,
+          mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
               'assets/icons/pool-ladder.svg',
@@ -29,11 +31,12 @@ class PoolTypeSection extends StatelessWidget {
               width: 15,
             ),
             const SizedBox(width: 5),
-            Expanded(
+            Flexible(
+              fit: FlexFit.loose, // 👈 يمنع تمدد النص لمسافة فاضية
               child: Text(
                 title,
                 maxLines: 1,
-                overflow: TextOverflow.ellipsis, // 👈 يخليها تعمل نقط (...)
+                overflow: TextOverflow.ellipsis,
                 style: AppTextStyles.styleRegular13(context)
                     .copyWith(color: const Color(0xff006398)),
               ),

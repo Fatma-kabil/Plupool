@@ -5,7 +5,7 @@ class PoolReservation {
   final DateTime? date;
   final TimeOfDay? time;
   final double width;
-  final double height;
+  final double tall;
   final double depth;
 
   const PoolReservation({
@@ -13,7 +13,7 @@ class PoolReservation {
     this.date,
     this.time,
     required this.width,
-    required this.height,
+    required this.tall,
     required this.depth,
   });
 
@@ -23,7 +23,7 @@ class PoolReservation {
       'date': date?.toIso8601String(), // null-safe
       'time': time != null ? '${time!.hour}:${time!.minute}' : null,
       'width': width,
-      'height': height,
+      'height': tall,
       'depth': depth,
     };
   }
@@ -36,7 +36,7 @@ class PoolReservation {
           ? _parseTime(json['time'])
           : null,
       width: (json['width'] as num).toDouble(),
-      height: (json['height'] as num).toDouble(),
+      tall: (json['height'] as num).toDouble(),
       depth: (json['depth'] as num).toDouble(),
     );
   }

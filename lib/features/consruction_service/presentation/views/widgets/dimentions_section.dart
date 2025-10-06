@@ -17,21 +17,21 @@ class DimensionsSection extends StatelessWidget {
       children: [
         _buildDimension(
           context,
+          title: 'الطول',
+          value: reservation.tall,
+          iconPath: 'assets/icons/tall.svg',
+        ),
+        _buildDimension(
+          context,
           title: 'العرض',
           value: reservation.width,
           iconPath: 'assets/icons/width.svg',
         ),
         _buildDimension(
           context,
-          title: 'الطول',
+          title: 'العمق',
           value: reservation.depth,
-          iconPath: 'assets/icons/tall.svg',
-        ),
-        _buildDimension(
-          context,
-          title: 'الارتفاع',
-          value: reservation.height,
-          iconPath: 'assets/icons/height.svg',
+          iconPath: 'assets/icons/depth.svg',
         ),
       ],
     );

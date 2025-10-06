@@ -32,14 +32,14 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
   String? timeError;
 
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _tallController = TextEditingController();
   final TextEditingController _widthController = TextEditingController();
-  final TextEditingController _heightController = TextEditingController();
   final TextEditingController _depthController = TextEditingController();
 
   @override
   void dispose() {
+    _tallController.dispose();
     _widthController.dispose();
-    _heightController.dispose();
     _depthController.dispose();
     super.dispose();
   }
@@ -60,8 +60,8 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
       title: widget.poolTitle,
       date: selectedDate,
       time: selectedTime,
+      tall: double.tryParse(_tallController.text) ?? 0.0,
       width: double.tryParse(_widthController.text) ?? 0.0,
-      height: double.tryParse(_heightController.text) ?? 0.0,
       depth: double.tryParse(_depthController.text) ?? 0.0,
     );
 
@@ -142,24 +142,24 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
           ),
           const SizedBox(height: 20),
           _buildTextField(
-            label: 'عرض حمام السباحة (بالمتر)',
-            controller: _widthController,
+            label: 'طول حمام السباحة (بالمتر)',
+            controller: _tallController,
             hint: '100 متر',
-            iconPath: 'assets/icons/width.svg',
+            iconPath: 'assets/icons/tall.svg',
           ),
           const SizedBox(height: 20),
           _buildTextField(
-            label: 'ارتفاع حمام السباحة (بالمتر)',
-            controller: _heightController,
+            label: 'عرض حمام السباحة (بالمتر)',
+            controller: _widthController,
             hint: '50 متر',
-            iconPath: 'assets/icons/height.svg',
+            iconPath: 'assets/icons/width.svg',
           ),
           const SizedBox(height: 20),
           _buildTextField(
             label: 'عمق حمام السباحة (بالمتر)',
             controller: _depthController,
             hint: '5 متر',
-            iconPath: 'assets/icons/tall.svg',
+            iconPath: 'assets/icons/depth.svg',
           ),
           const SizedBox(height: 30),
           CustomTextBtn(
