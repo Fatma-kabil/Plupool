@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/features/maintenance/presentation/views/widgets/maintenance_section.dart';
 
 class MaintenanceServiceView extends StatefulWidget {
   const MaintenanceServiceView({super.key});
@@ -43,7 +44,7 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
         child: Padding(
           padding: const EdgeInsets.only(top: 48, left: 16, right: 16),
           child: Column(
-            textDirection: TextDirection.rtl,
+          //  textDirection: TextDirection.rtl,
             children: [
               // ✅ الجزء العلوي - Tabs buttons
               Row(
@@ -117,8 +118,10 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                   controller: _tabController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: const [
-                    ServicesPackagesView(),
-                    MaintenanceSectionView(),
+                     ServicesPackagesView(),
+                       MaintenanceSection(),
+                   
+                 
                   ],
                 ),
               ),
@@ -145,17 +148,3 @@ class ServicesPackagesView extends StatelessWidget {
   }
 }
 
-// 👇 محتوى تبويب "خدمة الصيانة"
-class MaintenanceSectionView extends StatelessWidget {
-  const MaintenanceSectionView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        "🛠️ محتوى خدمة الصيانة",
-        style: AppTextStyles.styleBold16(context),
-      ),
-    );
-  }
-}

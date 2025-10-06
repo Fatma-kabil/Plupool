@@ -6,6 +6,7 @@ import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
+import 'package:plupool/features/maintenance/presentation/data/models/maintenance_pool_model.dart';
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 
 final List<RoleCardItemModel> roles = [
@@ -282,12 +283,62 @@ final pools = [
     videoUrl: "assets/videos/pool.mp4",
   ),
   PoolModel(
-    title:  "حمام التدريب- Pool Lap ",
+    title: "حمام التدريب- Pool Lap ",
     description: "حمام ضيق وطويل مخصص للسباحة الرياضية واللياقة.",
     features: [
       "تصميم عملي للتمرين والحفاظ على اللياقة.",
       "مناسب لـ: الرياضيين، المنازل الخاصة اللي أصحابها مهتمين بالرياضة.",
     ],
     videoUrl: "assets/videos/pool.mp4",
+  ),
+];
+
+final maintenancePools = [
+  MaintenancePoolModel(
+    title: " 1. التنظيف Cleaning",
+    imageUrl: "assets/images/cleanning.png",
+    features: [
+      "تنظيف شامل.",
+      "إزالة الشوائب العائمة.",
+      "تنظيف الأرضيات.",
+      "إزالة الرواسب وتلميع الجدران.",
+      "مكافحة الطحالب.",
+      "تعقيم دوري شامل للحفاظ على الأمان.",
+    ],
+  ),
+  MaintenancePoolModel(
+    title: " 2. جودة المياه Water Quality",
+    imageUrl: "assets/images/water_quality.png",
+    features: [
+      "ضبط الكلور.",
+      "توازن الـ PH.",
+      "ضبط مستوى المياه.",
+      "تغيير المياه للحفاظ على مستوى النقاء.",
+    ],
+  ),
+  MaintenancePoolModel(
+    title: "  3. المعدات Equipment Maintenance",
+    imageUrl: "assets/images/offercard1.png",
+    features: [
+      "فحص الفلاتر.",
+      "صيانة المضخات.",
+      "تنظيف المواسير وخطوط الفلترة.",
+      "متابعة لوحة التحكم.",
+    ],
+  ),
+  MaintenancePoolModel(
+    title: "  4. الإضافات والرفاهية Extras",
+    imageUrl: "assets/images/extra.png",
+    features: ["تنظيف الشلالات.", "خدمة الجاكوزي."],
+  ),
+  MaintenancePoolModel(
+    title: " 5. الأمان والوقاية Safety & Emergency",
+    imageUrl: "assets/images/safty.png",
+    features: [
+      "مواد آمنة.",
+      "كشف أعطال مبكر.",
+      "صيانة وقائية.",
+      "طوارئ فورية.",
+    ],
   ),
 ];
