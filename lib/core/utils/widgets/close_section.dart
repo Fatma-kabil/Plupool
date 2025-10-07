@@ -16,8 +16,11 @@ class CloseSection extends StatelessWidget {
         CustomTextBtn(
           text: "تأكيد  الحجز",
           onPressed: () {
-              Navigator.of(context).pop(); // 👈 يقفل الكارد اللي مفتوحة
-            showDialog(context: context, builder: (_) => DoneCard());
+            Navigator.of(
+              context,
+              rootNavigator: true,
+            ).popUntil((route) => route.isFirst);
+            showDialog(context: context, builder: (_) => const DoneCard());
           },
           padding: 8,
         ),

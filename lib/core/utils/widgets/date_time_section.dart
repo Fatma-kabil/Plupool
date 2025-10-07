@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
+
 class DateTimeSection extends StatelessWidget {
   final DateTime? date;
   final TimeOfDay? time;
+  final double? width;
 
-  const DateTimeSection({super.key, required this.date, required this.time, });
+  const DateTimeSection({
+    super.key,
+    required this.date,
+    required this.time,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +21,7 @@ class DateTimeSection extends StatelessWidget {
       textDirection: TextDirection.rtl,
       children: [
         _buildDateColumn(context),
-        const SizedBox(width: 50),
+        SizedBox(width: width ?? 50),
         _buildTimeColumn(context),
       ],
     );

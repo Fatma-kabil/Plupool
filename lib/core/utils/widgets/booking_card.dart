@@ -7,9 +7,6 @@ import 'package:plupool/core/utils/functions/pick_time_fun.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
-import 'package:plupool/features/maintenance/presentation/views/widgets/confirm_maintenance_booking%20card.dart';
-
-// استيراد الفانكشنات الجديدة
 
 class BookingCard extends StatefulWidget {
   final void Function(DateTime date, TimeOfDay time)? onConfirm;
@@ -52,9 +49,8 @@ class _BookingCardState extends State<BookingCard> {
               Text(
                 "حدد اليوم والوقت المناسب، وسيتواصل معك فريق PluPool لتأكيد تفاصيل الخدمة.",
                 textDirection: TextDirection.rtl,
-                style: AppTextStyles.styleRegular16(
-                  context,
-                ).copyWith(color: const Color(0xff777777)),
+                style: AppTextStyles.styleRegular16(context)
+                    .copyWith(color: const Color(0xff777777)),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 19),
@@ -94,30 +90,13 @@ class _BookingCardState extends State<BookingCard> {
                 width: double.infinity,
                 onPressed: () {
                   setState(() {
-                    if (selectedDate == null) {
-                      dateError = "يجب اختيار التاريخ";
-                    }
-                    if (selectedTime == null) {
-                      timeError = "يجب اختيار الوقت";
-                    }
+                    if (selectedDate == null) dateError = "يجب اختيار التاريخ";
+                    if (selectedTime == null) timeError = "يجب اختيار الوقت";
                   });
 
                   if (selectedDate != null && selectedTime != null) {
+                   
                     widget.onConfirm?.call(selectedDate!, selectedTime!);
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) {
-                        return Dialog(
-                          backgroundColor: Colors.transparent,
-                          insetPadding: const EdgeInsets.all(16),
-                          child: ConfirmMaintenanceBookingCard(
-                            date: selectedDate,
-                            time: selectedTime,
-                          ),
-                        );
-                      },
-                    );
                   }
                 },
               ),
@@ -128,22 +107,3 @@ class _BookingCardState extends State<BookingCard> {
     );
   }
 }
-
-
-
- //showDialog(
-   //               context: context,
-     //             barrierDismissible: true,
-       //           builder: (context) => BookingCard(
-         //           onConfirm: (date, time) {
-           //           Navigator.pop(context); // يقفل الدايالوج بعد التأكيد
-             //         ScaffoldMessenger.of(context).showSnackBar(
-               //         SnackBar(
-                 //         content: Text(
-                   //         "تم الحجز في: ${date.day}/${date.month}/${date.year} - ${time.format(context)}",
-                       //   ),
-                     //   ),
-                     // );
-                   // },
-                 // ),
-               // );

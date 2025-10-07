@@ -3,7 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/booking_card.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
+import 'package:plupool/features/maintenance/presentation/views/widgets/confirm_package_booking_card.dart';
 
 class ServicesPackagesSection extends StatefulWidget {
   const ServicesPackagesSection({super.key});
@@ -77,14 +79,16 @@ class _ServicesPackagesSectionState extends State<ServicesPackagesSection>
         const SizedBox(height: 25),
         Text(
           "باقات الخدمات",
-          style: AppTextStyles.styleBold16(context)
-              .copyWith(color: AppColors.ktextcolor),
+          style: AppTextStyles.styleBold16(
+            context,
+          ).copyWith(color: AppColors.ktextcolor),
         ),
         const SizedBox(height: 9),
         Text(
           "اختر خطة الصيانة المناسبة لاحتياجاتك",
-          style: AppTextStyles.styleRegular16(context)
-              .copyWith(color: const Color(0xff777777)),
+          style: AppTextStyles.styleRegular16(
+            context,
+          ).copyWith(color: const Color(0xff777777)),
         ),
         const SizedBox(height: 24),
 
@@ -110,36 +114,36 @@ class _ServicesPackagesSectionState extends State<ServicesPackagesSection>
 
         const SizedBox(height: 24),
 
-   AnimatedSwitcher(
-  duration: const Duration(milliseconds: 450),
-  switchInCurve: Curves.easeInOut,
-  switchOutCurve: Curves.easeInOut,
-  transitionBuilder: (child, animation) {
-    return FadeTransition(
-      opacity: animation,
-      child: ScaleTransition(
-        scale: Tween<double>(begin: 0.98, end: 1.0).animate(
-          CurvedAnimation(
-            parent: animation,
-            curve: Curves.easeInOut,
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 450),
+          switchInCurve: Curves.easeInOut,
+          switchOutCurve: Curves.easeInOut,
+          transitionBuilder: (child, animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(
+                scale: Tween<double>(begin: 0.98, end: 1.0).animate(
+                  CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+                ),
+                child: child,
+              ),
+            );
+          },
+          child: _buildPackageContent(
+            context,
+            _currentIndex,
+            key: ValueKey(_currentIndex),
           ),
         ),
-        child: child,
-      ),
-    );
-  },
-  child: _buildPackageContent(
-    context,
-    _currentIndex,
-    key: ValueKey(_currentIndex),
-  ),
-),
-
       ],
     );
   }
 
-  Widget _buildPackageContent(BuildContext context, int selectedIndex, {Key? key}) {
+  Widget _buildPackageContent(
+    BuildContext context,
+    int selectedIndex, {
+    Key? key,
+  }) {
     return SingleChildScrollView(
       key: key,
       child: Column(
@@ -152,13 +156,8 @@ class _ServicesPackagesSectionState extends State<ServicesPackagesSection>
           const SizedBox(height: 16),
           Container(
             width: double.infinity,
-             height: 202,
-            padding: const EdgeInsets.only(
-              left: 15,
-              right: 15,
-              top: 20,
-            
-            ),
+            height: 202,
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: const Color(0xffBBBBBB)),
@@ -176,8 +175,9 @@ class _ServicesPackagesSectionState extends State<ServicesPackagesSection>
                       Text(
                         textDirection: TextDirection.rtl,
                         _services[selectedIndex][i],
-                        style: AppTextStyles.styleRegular16(context)
-                            .copyWith(color: AppColors.ktextcolor),
+                        style: AppTextStyles.styleRegular16(
+                          context,
+                        ).copyWith(color: AppColors.ktextcolor),
                       ),
                       const SizedBox(width: 8),
                       SvgPicture.asset(
@@ -195,7 +195,30 @@ class _ServicesPackagesSectionState extends State<ServicesPackagesSection>
           CustomTextBtn(
             text: "اختيار الباقة",
             width: double.infinity,
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (context) => BookingCard(
+                  onConfirm: (date, time) {
+                    // بعد التأكيد نعرض كارت تأكيد الحجز
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => Dialog(
+                        backgroundColor: Colors.transparent,
+                        insetPadding: const EdgeInsets.all(16),
+                        child: ConfirmPackageBookingCard(
+                          date: date,
+                          time: time, packageType: _tabs[selectedIndex]
+
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
+            },
           ),
         ],
       ),

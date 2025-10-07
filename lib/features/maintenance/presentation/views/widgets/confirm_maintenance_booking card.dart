@@ -19,12 +19,13 @@ class ConfirmMaintenanceBookingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        
         width: SizeConfig.w(340),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.kScaffoldColor,
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 30),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
