@@ -13,6 +13,16 @@ class AppTextStyles {
       color: Color(0xffF6F6F6),
     );
   }
+  static TextStyle styleBold14(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 16 : 14,
+      ),
+      fontWeight: FontWeight.w700,
+      color: AppColors.ktextcolor,
+    );
+  }
    static TextStyle styleBold10(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
