@@ -21,6 +21,7 @@ class OfferCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 13),
         child: Column(
+          
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ClipRRect(
@@ -89,7 +90,7 @@ class OfferCard extends StatelessWidget {
             ),
            Spacer(),
             Padding(
-              padding: const EdgeInsets.only(left: 12,bottom: 15),
+              padding: const EdgeInsets.only(left: 12,bottom: 8),
               child: Row(
                 //  mainAxisAlignment: MainAxisAlignment.end,
                 children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/home/data/models/app_bar_model.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/service_request_card.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info_card_row.dart';
@@ -39,24 +40,25 @@ class TechHomeView extends StatelessWidget {
                 style: AppTextStyles.styleBold20(
                   context,
                 ).copyWith(color: Colors.black),
-
               ),
               Spacer(),
-              FilterButton(onTap: () {
-                
-              },)
+              FilterButton(onTap: () {}),
             ],
           ),
-           SizedBox(height: 30),
+          SizedBox(height: 30),
           ListView.builder(
             shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(), // 🚫 يمنع السكرول الداخلي
-        itemCount: requests.length,
-        itemBuilder: (context, index) =>
-            ServiceRequestCard(request: requests[index]),
-      ),
+            physics:
+                const NeverScrollableScrollPhysics(), // 🚫 يمنع السكرول الداخلي
+            itemCount: 3,
+            itemBuilder: (context, index) =>
+                ServiceRequestCard(request: requests[index]),
+          ),
+          SizedBox(height: 30),
+          OfferSection(offers: equipmentOffers),
           SizedBox(height: 30),
           ProjectsSection(),
+          SizedBox(height: 30),
         ],
       ),
     );

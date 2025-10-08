@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_card.dart';
 
-import 'package:plupool/core/constants.dart';
+
 
 class OffersCarousel extends StatefulWidget {
-  const OffersCarousel({super.key});
+   final List <OfferModel> offers;
+  const OffersCarousel({super.key, required this.offers});
 
   @override
   State<OffersCarousel> createState() => _OffersCarouselState();
@@ -24,7 +26,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
   }
 
   void _goToPage(int index) {
-    if (index >= 0 && index < offers.length) {
+    if (index >= 0 && index <widget.offers.length) {
       _pageController.animateToPage(
         index,
         duration: const Duration(milliseconds: 300),
@@ -39,16 +41,16 @@ class _OffersCarouselState extends State<OffersCarousel> {
       children: [
         /// PageView
         SizedBox(
-          height: SizeConfig.h(371),
+          height: SizeConfig.h(350),
           child: PageView.builder(
              padEnds: false,
             controller: _pageController,
-            itemCount: offers.length,
+            itemCount:widget.offers.length,
             onPageChanged: (index) {
               setState(() => _currentPage = index);
             },
             itemBuilder: (context, index) {
-              final offer = offers[index];
+              final offer = widget.offers[index];
               return AnimatedBuilder(
                 animation: _pageController,
                 builder: (context, child) {
@@ -75,7 +77,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
            
             ArrowButton(
               icon: Icons.arrow_forward,
-              enabled: _currentPage < offers.length - 1,
+              enabled: _currentPage <widget.offers.length - 1,
               onTap: () => _goToPage(_currentPage + 1),
             ),
           ],

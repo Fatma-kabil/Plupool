@@ -397,3 +397,32 @@ final maintenancePools = [
         status: RequestStatus.completed,
       ),
     ];
+
+    
+final List<OfferModel> equipmentOffers = [
+  OfferModel(
+    title: "معدات صيانة ",
+    desc: " طلمبة فلترة",
+    oldPrice: "2500 EGP",
+    newPrice: "2000 EGP",
+    image: "assets/images/mach_pro1.png",
+    offerPercentage: '% خصم 10',
+  ),
+  OfferModel(
+    title: "معدات إنشاء",
+    desc: "مجموعة إضاءة LED للمسابح",
+    oldPrice: "2000 EGP",
+    newPrice: "1600 EGP",
+    image: "assets/images/tech_offer2.png",
+    offerPercentage: '% خصم 15',
+  ),
+  
+  OfferModel(
+    title: "مواد كيميائية آمنة",
+    desc: "مواد كيميائية آمنة",
+    oldPrice: "3000 EGP",
+    newPrice: "2000 EGP",
+    image: "assets/images/tech_offer3.png",
+    offerPercentage: '% خصم 20',
+  ),
+];
