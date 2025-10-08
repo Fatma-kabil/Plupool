@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/functions/pick_file.dart';
-import 'package:plupool/features/home/presentaation/views/widgets/attach_file_bitton.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/attach_file_bitton.dart';
 import 'note_text_field.dart';
 import 'attached_file.dart';
-import 'error_message.dart'; // ✅ استدعاء الفانكشن الجديدة
+import '../../widgets/error_message.dart'; // ✅ استدعاء الفانكشن الجديدة
 
 class NoteField extends StatefulWidget {
   final TextEditingController controller;

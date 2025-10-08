@@ -3,13 +3,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/header_model.dart';
-import 'package:plupool/features/home/presentaation/views/widgets/contact_us_card.dart';
+import 'package:plupool/features/home/data/models/app_bar_model.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/contact_us_card.dart';
 
-class CustomHeader extends StatelessWidget {
-  final HeaderModel model;
+class CustomerAppbar extends StatelessWidget {
+  final AppbarModel model;
 
-  const CustomHeader({super.key, required this.model});
+  const CustomerAppbar({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {

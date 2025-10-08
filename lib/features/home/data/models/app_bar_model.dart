@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-class HeaderModel {
+class AppbarModel {
   final String username;
   final String subtitle;
   final String avatarUrl;
@@ -8,7 +8,7 @@ class HeaderModel {
   final VoidCallback? onNotificationTap;
   final VoidCallback? onContactTap;
 
-  HeaderModel({
+  AppbarModel({
     required this.username,
     required this.subtitle,
     required this.avatarUrl,

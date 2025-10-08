@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/features/home/data/models/header_model.dart';
+import 'package:plupool/features/home/data/models/app_bar_model.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/promo_carousel.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_section.dart';
-import 'package:plupool/features/home/presentaation/views/widgets/custom_header.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/customer_appbar.dart';
 
 class CustomerHomeView extends StatelessWidget {
   const CustomerHomeView({super.key});
@@ -15,8 +15,8 @@ class CustomerHomeView extends StatelessWidget {
       padding: EdgeInsets.only(top: 12, left: 17, right: 17),
       child: ListView(
         children: [
-          CustomHeader(
-            model: HeaderModel(
+          CustomerAppbar(
+            model: AppbarModel(
               username: "سارة",
              subtitle: "صاحب حمام سباحة",
               avatarUrl: "assets/images/customer_user.png",
