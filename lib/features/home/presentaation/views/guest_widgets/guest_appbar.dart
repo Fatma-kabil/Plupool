@@ -4,9 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/app_bar_model.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/contact_us_card.dart';
-
+import 'package:plupool/features/home/presentaation/views/widgets/notification_button.dart';
 class GuestAppbar extends StatelessWidget {
   final String role;
   const GuestAppbar({super.key, required this.role});
@@ -15,30 +13,7 @@ class GuestAppbar extends StatelessWidget {
     return Row(
       children: [
         // 🔔 أيقونة الإشعارات
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.25),
-                offset: Offset(0, 1),
-                blurRadius: 1,
-                spreadRadius: 0,
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
-            child: Center(
-              child: SvgPicture.asset(
-                "assets/icons/notification.svg",
-                width: SizeConfig.w(19),
-                height: SizeConfig.h(19),
-              ),
-            ),
-          ),
-        ),
+      NotificationButton(),
         SizedBox(width: 10),
         GestureDetector(
           onTap: () {},
