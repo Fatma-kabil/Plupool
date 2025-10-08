@@ -6,6 +6,8 @@ import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
+import 'package:plupool/features/home/data/models/service_request_model.dart';
+import 'package:plupool/features/home/domain/entities/request_status.dart';
 import 'package:plupool/features/maintenance/presentation/data/models/maintenance_pool_model.dart';
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 
@@ -365,3 +367,33 @@ final maintenancePools = [
       "مراجعة التسريبات البسيطة",
     ],
   ];
+
+   final requests = [
+      ServiceRequest(
+        title: 'عطل مفاجئ في المضخة',
+        date: '2025-09-22',
+        time: '1:00 م',
+        userName: 'علي حسين',
+        userImage: 'assets/images/ahmed.png',
+        location: 'مدينة نصر، القاهرة',
+        status: RequestStatus.urgent,
+      ),
+      ServiceRequest(
+        title: 'صيانة شهرية - المقطم',
+        date: '2025-09-22',
+        time: '11:00 ص',
+        userName: 'سارة حسن',
+        userImage: 'assets/images/customer_user.png',
+        location: 'المقطم، القاهرة',
+        status: RequestStatus.inProgress,
+      ),
+      ServiceRequest(
+        title: 'إصلاح نظام الفاتورة - المهندسين',
+        date: '2025-09-22',
+        time: '9:00 ص',
+        userName: 'خالد محمود',
+        userImage: 'assets/images/ahmed.png',
+        location: 'المهندسين، الجيزة',
+        status: RequestStatus.completed,
+      ),
+    ];

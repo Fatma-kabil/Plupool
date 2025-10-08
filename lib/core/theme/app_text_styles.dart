@@ -76,6 +76,16 @@ class AppTextStyles {
       color: Color(0xff525252),
     );
   }
+   static TextStyle styleSemiBold13(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 26 : 13,
+      ),
+      fontWeight: FontWeight.w600,
+     
+    );
+  }
    static TextStyle styleSemiBold25(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
