@@ -21,7 +21,7 @@ class MetricCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-    //   margin: const EdgeInsets.symmetric(horizontal: 6), // مسافة يمين وشمال
+      //   margin: const EdgeInsets.symmetric(horizontal: 6), // مسافة يمين وشمال
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -37,6 +37,7 @@ class MetricCard extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 icon,
+
                 height: SizeConfig.h(24),
                 width: SizeConfig.w(24),
               ),

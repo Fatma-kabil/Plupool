@@ -1,9 +1,8 @@
-// widgets/info_cards_row.dart
 import 'package:flutter/material.dart';
-import '../../../../../core/utils/widgets/metric_card.dart';
+import 'package:plupool/core/utils/widgets/metric_card.dart';
 
-class InfoCardsRow extends StatelessWidget {
-  const InfoCardsRow({super.key});
+class TechInfoCardRow extends StatelessWidget {
+  const TechInfoCardRow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,24 +12,24 @@ class InfoCardsRow extends StatelessWidget {
         Expanded(
           flex: 1,
           child: MetricCard(
-            icon: "assets/icons/track.svg", // شحن/توصيل
-            value: "24 H",
-            label: 'توصيل',
+            icon: "assets/icons/tasks.svg", // شحن/توصيل
+            value: "119",
+            label: 'مهام مكتملة',
           ),
         ),
 
-        const SizedBox(width: 5),
+        const SizedBox(width: 6),
 
         Expanded(
           flex: 1,
           child: MetricCard(
-            icon: "assets/icons/product.svg", // منتج/صندوق
-            value: "+150",
-            label: 'منتج',
+            icon: "assets/icons/week_tasks.svg", // منتج/صندوق
+            value: "10",
+            label: 'مهام الأسبوع',
           ),
         ),
 
-      const SizedBox(width: 5),
+      const SizedBox(width: 6),
 
         Expanded(
           flex: 1,

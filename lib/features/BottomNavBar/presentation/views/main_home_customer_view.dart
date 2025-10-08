@@ -24,60 +24,52 @@ class MainHomeCustomerView extends StatelessWidget {
       MoreView(),
     ];
 
-    return BlocProvider(
-      create: (_) => BottomNavCubit(),
-      child: BlocBuilder<BottomNavCubit, BottomNavState>(
-        builder: (context, state) {
-          final currentIndex = state.index;
+    return BlocBuilder<BottomNavCubit, BottomNavState>(
+      builder: (context, state) {
+        final currentIndex = state.index;
 
-          return Scaffold(
-            extendBody: true,
-            body: IndexedStack(index: currentIndex, children: pages),
+        return Scaffold(
+          extendBody: true,
+          body: IndexedStack(index: currentIndex, children: pages),
 
-            // ✅ يظهر بس في الهوم
-            floatingActionButton: currentIndex == 0
-                ? CustomFloatingActionButton()
-                : null,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.endFloat, // ✅ عاليمين تحت
+          // ✅ يظهر بس في الهوم
+          floatingActionButton: currentIndex == 0
+              ? CustomFloatingActionButton()
+              : null,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.endFloat, // ✅ عاليمين تحت
 
-            bottomNavigationBar: ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
-              child: BottomNavigationBar(
-                currentIndex: currentIndex,
-                onTap: (value) =>
-                    context.read<BottomNavCubit>().changeCurrentIndex(value),
-                backgroundColor: Colors.white,
-                type: BottomNavigationBarType.fixed,
-                showSelectedLabels: true,
-                showUnselectedLabels: true,
-                selectedItemColor: AppColors.kprimarycolor,
-                unselectedItemColor: const Color(0xffBBBBBB),
-                selectedLabelStyle: AppTextStyles.styleBold13(context),
-                unselectedLabelStyle: AppTextStyles.styleBold13(context),
-                items: [
-                  buildNavItem(
-                    icon: 'assets/icons/home.svg',
-                    label: 'الرئيسيه',
-                  ),
-                  buildNavItem(
-                    icon: 'assets/icons/services.svg',
-                    label: 'الخدمات',
-                  ),
-                  buildNavItem(
-                    icon: 'assets/icons/construct.svg',
-                    label: 'حمامي',
-                  ),
-                  buildNavItem(icon: 'assets/icons/store.svg', label: 'المتجر'),
-                  buildNavItem(icon: 'assets/icons/more.svg', label: 'المزيد'),
-                ],
-              ),
+          bottomNavigationBar: ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+            child: BottomNavigationBar(
+              currentIndex: currentIndex,
+              onTap: (value) =>
+                  context.read<BottomNavCubit>().changeCurrentIndex(value),
+              backgroundColor: Colors.white,
+              type: BottomNavigationBarType.fixed,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              selectedItemColor: AppColors.kprimarycolor,
+              unselectedItemColor: const Color(0xffBBBBBB),
+              selectedLabelStyle: AppTextStyles.styleBold13(context),
+              unselectedLabelStyle: AppTextStyles.styleBold13(context),
+              items: [
+                buildNavItem(icon: 'assets/icons/home.svg', label: 'الرئيسيه'),
+                buildNavItem(
+                  icon: 'assets/icons/services.svg',
+                  label: 'الخدمات',
+                ),
+                buildNavItem(
+                  icon: 'assets/icons/construct.svg',
+                  label: 'حمامي',
+                ),
+                buildNavItem(icon: 'assets/icons/store.svg', label: 'المتجر'),
+                buildNavItem(icon: 'assets/icons/more.svg', label: 'المزيد'),
+              ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

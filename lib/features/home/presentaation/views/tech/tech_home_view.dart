@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/features/home/data/models/app_bar_model.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_appbar.dart';
+import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info_card_row.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
 
 class TechHomeView extends StatelessWidget {
@@ -15,17 +16,18 @@ class TechHomeView extends StatelessWidget {
           TechAppbar(
             model: AppbarModel(
               username: "أحمد",
-             subtitle: " فني صيانه ",
+              subtitle: " فني صيانه ",
               avatarUrl: "assets/images/ahmed.png",
-             onNotificationTap: () {
-            //   TODO: افتح صفحة الإشعارات
-             },
+              onNotificationTap: () {
+                //   TODO: افتح صفحة الإشعارات
+              },
             ),
-        ),
-   
-          SizedBox(height: 35),
-             ProjectsSection(),
-        
+          ),
+
+          SizedBox(height: 30),
+          TechInfoCardRow(),
+          SizedBox(height: 30),
+          ProjectsSection(),
         ],
       ),
     );
