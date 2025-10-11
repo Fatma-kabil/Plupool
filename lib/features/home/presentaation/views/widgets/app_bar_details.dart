@@ -27,14 +27,14 @@ class AppBarDetails extends StatelessWidget {
                 context,
               ).copyWith(color: AppColors.ktextcolor),
             ),
-            SizedBox(width: 5),
+            SizedBox(width:SizeConfig.w( 5)),
             CircleAvatar(
               radius: SizeConfig.w(17),
               backgroundImage: AssetImage(model.avatarUrl),
             ),
           ],
         ),
-        SizedBox(height: 2),
+        SizedBox(height: SizeConfig.h(2)),
         //    const SizedBox(height: 4),
         Row(
           children: [
@@ -47,8 +47,8 @@ class AppBarDetails extends StatelessWidget {
             const SizedBox(width: 2),
             SvgPicture.asset(
               "assets/icons/user.svg",
-              width: SizeConfig.w(18),
-              height: SizeConfig.h(18),
+              width: SizeConfig.w(15),
+              height: SizeConfig.w(15),
               color: AppColors.kprimarycolor,
             ),
           ],

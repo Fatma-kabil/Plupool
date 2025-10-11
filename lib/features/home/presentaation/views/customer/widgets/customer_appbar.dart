@@ -18,7 +18,7 @@ class CustomerAppbar extends StatelessWidget {
       children: [
         // 🔔 أيقونة الإشعارات
         NotificationButton(onTap: model.onNotificationTap),
-        SizedBox(width: 10),
+        SizedBox(width: SizeConfig.w(10)),
         GestureDetector(
           onTap: () {
             showDialog(
@@ -39,7 +39,7 @@ class CustomerAppbar extends StatelessWidget {
               border: Border.all(color: AppColors.kprimarycolor),
             ),
             child: Padding(
-              padding: EdgeInsets.all(5),
+                padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(5) , vertical: SizeConfig.h(5)),
               child: GestureDetector(
                 child: Row(
                   children: [
@@ -48,7 +48,7 @@ class CustomerAppbar extends StatelessWidget {
                       color: AppColors.kprimarycolor,
                       size: SizeConfig.w(16),
                     ),
-                    SizedBox(width: 2),
+                    SizedBox(width: SizeConfig.w(2)),
                     Text(
                       'تواصل معنا',
                       style: AppTextStyles.styleBold13(

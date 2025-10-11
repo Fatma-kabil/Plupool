@@ -54,7 +54,7 @@ class GuestAppbar extends StatelessWidget {
                     context,
                   ).copyWith(color: AppColors.ktextcolor),
                 ),
-                SizedBox(width: 5),
+                SizedBox(width: SizeConfig.w(5)),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -62,11 +62,11 @@ class GuestAppbar extends StatelessWidget {
                     border: Border.all(color: AppColors.kprimarycolor),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(4.0),
+                     padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(4) , vertical: SizeConfig.h(4)),
                     child: SvgPicture.asset(
                       "assets/icons/user.svg",
                       width: SizeConfig.w(18),
-                      height: SizeConfig.h(18),
+                      height: SizeConfig.w(18),
                     ),
                   ),
                 ),

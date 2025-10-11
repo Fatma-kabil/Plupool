@@ -112,13 +112,13 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const NewPasswordSuccess()),
     ),
     GoRoute(
-      path: '/MainHomeCustomerView',
+      path: '/',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCustomerView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/MainHomeTechView',
       name: 'MainHomeTechView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeTechView()),

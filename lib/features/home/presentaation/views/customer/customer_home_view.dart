@@ -14,7 +14,7 @@ class CustomerHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: SizeConfig.h(12), left: SizeConfig.w(17) , right: SizeConfig.w(17)),
+      padding: EdgeInsets.only(top: SizeConfig.h(12), left: SizeConfig.w(15) , right: SizeConfig.w(15)),
       child: ListView(
         children: [
           CustomerAppbar(

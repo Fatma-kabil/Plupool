@@ -28,12 +28,12 @@ final void Function()? onTap;
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 6),
+          padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(5) , vertical: SizeConfig.h(6)),
           child: Center(
             child: SvgPicture.asset(
               "assets/icons/notification.svg",
               width: SizeConfig.w(19),
-              height: SizeConfig.h(19),
+              height: SizeConfig.w(19),
             ),
           ),
         ),
