@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
+import 'package:plupool/core/utils/functions/open_location.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
@@ -58,8 +59,8 @@ class TeskCard extends StatelessWidget {
                   backgroundImage: AssetImage(request.userImage),
                 ),
                 const SizedBox(width: 8),
-                
-              Column(
+
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
@@ -70,14 +71,10 @@ class TeskCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       textDirection: TextDirection.rtl,
                       children: [
-                        const Icon(
-                          Icons.location_on,
-                          size: 18,
-                          color: Color(0xff999999),
-                        ),
-                        //  const SizedBox(width: 3),
+                        const SizedBox(width: 3),
                         Text(
                           request.location,
                           style: AppTextStyles.styleRegular13(
@@ -89,10 +86,41 @@ class TeskCard extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
-                Container(
-child: Row( children: [Icon(Icons.abc)],
-),
-                )
+                GestureDetector(
+                  onTap:() => openLocation(request) ,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: colors['labelText']),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.w(14),
+                        vertical: SizeConfig.h(6),
+                      ),
+                      child: Row(
+                        textDirection: TextDirection.rtl,
+                        children: [
+                      
+                          
+                  
+                             Icon(
+                              Icons.location_on,
+                              color: colors['labelText'],
+                              size: SizeConfig.w(16),
+                            ),
+                          
+                          Text(
+                            'الموقع',
+                            style: AppTextStyles.styleSemiBold16(
+                              context,
+                            ).copyWith(color: colors['labelText']),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

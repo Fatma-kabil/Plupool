@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:plupool/core/constants.dart';
-import 'package:plupool/features/home/data/models/service_request_model.dart';
+import 'package:plupool/core/utils/functions/combine_data_time.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/service_request_card.dart';
 
 class WeeklyRequestsList extends StatelessWidget {
@@ -23,37 +23,11 @@ class WeeklyRequestsList extends StatelessWidget {
       }
     }).toList();
 
-    // 🔹 دالة تساعدنا نحول الوقت العربي لصيغة مفهومة
-    DateTime _combineDateTime(ServiceRequest r) {
-      final date = DateFormat('yyyy-MM-dd').parse(r.date);
-
-      // نحاول نقرأ الوقت (ص/م) بطريقة يدوية ومضمونة
-      final timeStr = r.time.trim();
-
-      // مثال: "9:00 ص" أو "1:30 م"
-      final parts = timeStr.split(' ');
-      if (parts.length < 2) return date;
-
-      final timePart = parts[0];
-      final period = parts[1]; // ص أو م
-
-      final timeNums = timePart.split(':');
-      int hour = int.parse(timeNums[0]);
-      int minute = timeNums.length > 1 ? int.parse(timeNums[1]) : 0;
-
-      if (period.contains('م') && hour < 12) {
-        hour += 12; // 1 م تبقى 13
-      } else if (period.contains('ص') && hour == 12) {
-        hour = 0; // 12 ص تبقى منتصف الليل
-      }
-
-      return DateTime(date.year, date.month, date.day, hour, minute);
-    }
-
+  
     // 🔸 الترتيب حسب التاريخ + الوقت بدقة
     upcomingWeekRequests.sort((a, b) {
-      final da = _combineDateTime(a);
-      final db = _combineDateTime(b);
+      final da = combineDateTime(a);
+      final db = combineDateTime(b);
       return da.compareTo(db);
     });
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' as flutter;
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
@@ -19,31 +20,39 @@ class _WeeklyTasksViewState extends flutter.State<WeeklyTasksView> {
   final now = DateTime.now();
 
   @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting('ar'); // ✅ إعداد دعم اللغة العربية
+  }
+
+  @override
   flutter.Widget build(flutter.BuildContext context) {
     final startDate = now;
     final endDate = now.add(const Duration(days: 6));
 
     final formattedRange =
-        "${DateFormat('MMMM d', 'en').format(startDate)} - ${DateFormat('MMMM d, yyyy', 'en').format(endDate)}";
+        "${DateFormat('d MMMM', 'ar').format(startDate)} - ${DateFormat('d MMMM yyyy', 'ar').format(endDate)}";
 
     return flutter.Scaffold(
       body: flutter.SafeArea(
         child: flutter.Padding(
           padding: flutter.EdgeInsets.symmetric(
             horizontal: SizeConfig.w(17),
-            vertical: SizeConfig.h(12),
+            vertical: SizeConfig.h(15),
           ),
           child: flutter.Column(
             crossAxisAlignment: flutter.CrossAxisAlignment.end,
             children: [
+            flutter. SizedBox(height: SizeConfig.h(10),),
               flutter.Text(
                 'مهام الأسبوع',
                 style: AppTextStyles.styleBold20(context)
                     .copyWith(color: AppColors.ktextcolor),
               ),
               flutter.Padding(
-                padding: flutter.EdgeInsets.only(top: SizeConfig.h(4)),
+                padding: flutter.EdgeInsets.only(top: SizeConfig.h(6)),
                 child: flutter.Text(
+                  textDirection:flutter.TextDirection.rtl,
                   formattedRange,
                   style: AppTextStyles.styleMedium16(context)
                       .copyWith(color: flutter.Color(0xff777777)),
@@ -51,7 +60,6 @@ class _WeeklyTasksViewState extends flutter.State<WeeklyTasksView> {
               ),
               flutter.SizedBox(height: SizeConfig.h(8)),
 
-              // ✅ شريط الأيام
               WeekDaysBar(
                 startDate: startDate,
                 selectedDayIndex: selectedDayIndex,
@@ -62,12 +70,12 @@ class _WeeklyTasksViewState extends flutter.State<WeeklyTasksView> {
 
               const flutter.Divider(),
 
-              // ✅ المهام الخاصة باليوم
               flutter.Expanded(
                 child: flutter.AnimatedSwitcher(
                   duration: const Duration(milliseconds: 300),
                   child: flutter.Padding(
-                    padding:  flutter.EdgeInsets.only(top: SizeConfig.h(8)),
+                    padding:
+                        flutter.EdgeInsets.symmetric(vertical: SizeConfig.h(8)),
                     child: TasksList(
                       key: flutter.ValueKey(selectedDayIndex),
                       startDate: startDate,

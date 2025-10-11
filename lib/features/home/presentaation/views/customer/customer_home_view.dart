@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/app_bar_model.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
@@ -13,7 +14,7 @@ class CustomerHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 12, left: 17, right: 17),
+      padding: EdgeInsets.only(top: SizeConfig.h(12), left: SizeConfig.w(17) , right: SizeConfig.w(17)),
       child: ListView(
         children: [
           CustomerAppbar(
