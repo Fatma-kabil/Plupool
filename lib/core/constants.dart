@@ -395,7 +395,7 @@ final maintenancePools = [
         userName: 'خالد محمود',
         userImage: 'assets/images/ahmed.png',
         location: 'المهندسين، الجيزة',
-        status: RequestStatus.completed,
+        status: RequestStatus.scheduled,
       ),
        ServiceRequest(
         title: 'إصلاح نظام الفاتورة - المهندسين',
@@ -404,7 +404,7 @@ final maintenancePools = [
         userName: 'خالد محمود',
         userImage: 'assets/images/ahmed.png',
         location: 'المهندسين، الجيزة',
-        status: RequestStatus.completed,
+        status: RequestStatus.scheduled,
       ),
        ServiceRequest(
         title: 'إصلاح نظام الفاتورة - المهندسين',
@@ -413,7 +413,7 @@ final maintenancePools = [
         userName: 'خالد محمود',
         userImage: 'assets/images/ahmed.png',
         location: 'المهندسين، الجيزة',
-        status: RequestStatus.completed,
+        status: RequestStatus.inProgress,
       ),
        ServiceRequest(
         title: 'إصلاح نظام الفاتورة - المهندسين',
@@ -422,7 +422,7 @@ final maintenancePools = [
         userName: 'خالد محمود',
         userImage: 'assets/images/ahmed.png',
         location: 'المهندسين، الجيزة',
-        status: RequestStatus.completed,
+        status: RequestStatus.urgent,
       ),
     ];
 

@@ -14,6 +14,7 @@ import 'package:plupool/features/auth/presentation/views/tech_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_forget_password_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
+import 'package:plupool/features/home/presentaation/views/tech/weekly_tasks_view.dart';
 import 'package:plupool/features/maintenance/presentation/views/maintenance_service_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
@@ -147,6 +148,12 @@ final GoRouter appRouter = GoRouter(
       name: 'maintenanceserviceview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MaintenanceServiceView()),
+    ),
+     GoRoute(
+      path: '/weeklytasksview',
+      name: 'weeklytasksview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const WeeklyTasksView()),
     ),
   ],
 );

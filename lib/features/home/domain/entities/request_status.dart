@@ -45,8 +45,8 @@ class RequestStatusColors {
 
       case RequestStatus.completed:
         return {
-         'border': const Color(0xFFCDF7EC), // mint green border
-'bg': const Color(0xFFCDF7EC),     // نفس الخلفية
+          'border': const Color(0xFFCDF7EC), // mint green border
+          'bg': const Color(0xFFCDF7EC), // نفس الخلفية
 
           'labelBg': const Color(0xFFACF1DF),
           'labelText': const Color(0xFF30DDB0),
@@ -56,7 +56,7 @@ class RequestStatusColors {
         return {
           'border': const Color(0xFFBBBBBB), // برتقالي فاتح
           'bg': AppColors.kScaffoldColor,
-          'labelBg': const Color(0xFFD48417),
+          'labelBg': const Color(0xFFFFECD2),
           'labelText': const Color(0xFFD48417), // برتقالي غامق
         };
     }
