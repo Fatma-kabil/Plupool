@@ -15,7 +15,7 @@ class PromoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 11),
+      margin:  EdgeInsets.only(right: SizeConfig.w(11) ),
       decoration: BoxDecoration(
         color: model.cardcolor,
         borderRadius: BorderRadius.circular(10),
@@ -24,7 +24,9 @@ class PromoCard extends StatelessWidget {
         children: [
           /// النصوص فوق
           Padding(
-            padding: const EdgeInsets.all(10),
+            padding:  EdgeInsets.symmetric
+            (horizontal:  SizeConfig.w(10),vertical:  SizeConfig.h(10)
+              ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -39,11 +41,11 @@ class PromoCard extends StatelessWidget {
                         context,
                       ).copyWith(color: model.titlecolor),
                     ),
-                    const SizedBox(width: 4),
+                     SizedBox(width: SizeConfig.w(4) ),
                     SvgPicture.asset(
                       model.iconPath,
-                      width: SizeConfig.w(24),
-                      height: SizeConfig.h(24),
+                      width: SizeConfig.w(20),
+                      height: SizeConfig.w(20),
                       color: model.textcolor,
                     ),
                   ],
@@ -53,7 +55,7 @@ class PromoCard extends StatelessWidget {
                 // قائمة المميزات
                 ...model.features.map(
                   (feature) => Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
+                    padding:  EdgeInsets.only(bottom: SizeConfig.h(8) ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       textDirection: TextDirection.rtl,
@@ -64,7 +66,7 @@ class PromoCard extends StatelessWidget {
                             context,
                           ).copyWith(color: model.textcolor),
                         ),
-                        const SizedBox(width: 6),
+                         SizedBox(width:  SizeConfig.w(6)),
                         Expanded(
                           child: Text(
                             feature,
@@ -88,28 +90,28 @@ class PromoCard extends StatelessWidget {
           /// الصورة ملزوقة في آخر الكارد
           Positioned(
             bottom: 0,
-            left: 20,
+            left:SizeConfig.h(20) ,
             child: Image.asset(
               model.imagePath,
               width: SizeConfig.w(90),
-              height: SizeConfig.h(96),
+              height: SizeConfig.w(96),
               fit: BoxFit.fill,
             ),
           ),
 
           /// الزرار يمين تحت
           Positioned(
-            bottom: 25,
-            right: 30,
+            bottom: SizeConfig.h(25),
+            right:SizeConfig.w(30) ,
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: model.textcolor, width: 1),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 6,
-                  horizontal: 25,
+                padding:  EdgeInsets.symmetric(
+                  vertical:  SizeConfig.h(6),
+                  horizontal:  SizeConfig.w(25),
                 ),
               ),
               onPressed: () {

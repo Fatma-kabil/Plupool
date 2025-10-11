@@ -30,7 +30,7 @@ class _PromoCarouselState extends State<PromoCarousel> {
       children: [
         SizedBox(
           //   width: SizeConfig.w(280),
-          height: SizeConfig.h(200), // ارتفاع الكارد + margin
+          height:SizeConfig.isWideScreen? SizeConfig.h(200):SizeConfig.w(200), // ارتفاع الكارد + margin
           child: PageView.builder(
             controller: _controller,
             itemCount: items.length,
@@ -45,7 +45,7 @@ class _PromoCarouselState extends State<PromoCarousel> {
             },
           ),
         ),
-        const SizedBox(height: 12),
+         SizedBox(height:SizeConfig.h(12) ),
 
         // مؤشر الصفحات
         Container(
@@ -55,7 +55,7 @@ class _PromoCarouselState extends State<PromoCarousel> {
             border: Border.all(color: Color(0xffAAAAAA)),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+            padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(6), vertical: SizeConfig.h(4) ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -63,18 +63,18 @@ class _PromoCarouselState extends State<PromoCarousel> {
                 items.length,
                 (index) => AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 2),
+                  margin:  EdgeInsets.symmetric(horizontal:  SizeConfig.w(2)),
                   width: _currentIndex == index
                       ? SizeConfig.w(8)
                       : SizeConfig.w(5),
                   height: _currentIndex == index
-                      ? SizeConfig.h(8)
-                      : SizeConfig.h(5),
+                      ? SizeConfig.w(8)
+                      : SizeConfig.w(5),
                   decoration: BoxDecoration(
                     color: _currentIndex == index
                         ? AppColors.kprimarycolor
                         : Color(0xffD4D4D4),
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(1000),
                   ),
                 ),
               ),
