@@ -7,7 +7,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 35 : 20,
+        fontSize: SizeConfig.isWideScreen ? 28 : 20,
       ),
       fontWeight: FontWeight.w700,
       color: Color(0xffF6F6F6),
@@ -27,7 +27,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 20 : 10,
+        fontSize: SizeConfig.isWideScreen ? 15 : 10,
       ),
       fontWeight: FontWeight.w700,
       color: Colors.white,
@@ -48,7 +48,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 23 : 13,
+        fontSize: SizeConfig.isWideScreen ? 17 : 13,
       ),
       fontWeight: FontWeight.w700,
       color: Color(0xff999999),
@@ -59,7 +59,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 34 : 20,
+        fontSize: SizeConfig.isWideScreen ? 25 : 20,
       ),
       fontWeight: FontWeight.w600,
       color: Color(0xffFFFFFF),
@@ -70,7 +70,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 32 : 16,
+        fontSize: SizeConfig.isWideScreen ? 20 : 16,
       ),
       fontWeight: FontWeight.w600,
       color: Color(0xff525252),
@@ -80,7 +80,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 26 : 13,
+        fontSize: SizeConfig.isWideScreen ? 17 : 13,
       ),
       fontWeight: FontWeight.w600,
      
@@ -90,7 +90,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 40 : 25,
+        fontSize: SizeConfig.isWideScreen ? 30 : 25,
       ),
       fontWeight: FontWeight.w600,
       color: AppColors.ktextcolor,
@@ -101,7 +101,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 32 : 16,
+        fontSize: SizeConfig.isWideScreen ? 20 : 14,
       ),
       fontWeight: FontWeight.w600,
       color: Color(0xff333333),
@@ -112,7 +112,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 60 : 32,
+        fontSize: SizeConfig.isWideScreen ? 26 : 32,
       ),
       fontWeight: FontWeight.w600,
       color: AppColors.kprimarycolor,
@@ -125,7 +125,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 30 : 20,
+        fontSize: SizeConfig.isWideScreen ? 24 : 20,
       ),
       fontWeight: FontWeight.w500,
       color: AppColors.ktextcolor,
@@ -137,7 +137,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 26 : 14,
+        fontSize: SizeConfig.isWideScreen ? 18 : 14,
       ),
       fontWeight: FontWeight.w500,
       color: AppColors.kprimarycolor,
@@ -148,7 +148,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 24 : 14,
+        fontSize: SizeConfig.isWideScreen ? 18 : 14,
       ),
       fontWeight: FontWeight.w300,
       color: Color(0xff555555),
@@ -160,7 +160,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 32 : 16,
+        fontSize: SizeConfig.isWideScreen ? 20 : 16,
       ),
       fontWeight: FontWeight.w400,
       color: Color(0xff808080),
@@ -172,7 +172,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 25 : 13,
+        fontSize: SizeConfig.isWideScreen ? 17 : 13,
       ),
       fontWeight: FontWeight.w400,
       color: AppColors.hintTextColor,
@@ -184,7 +184,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 20 : 10,
+        fontSize: SizeConfig.isWideScreen ? 15 : 10,
       ),
       fontWeight: FontWeight.w400,
       color: Color(0xff777777),
@@ -195,7 +195,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 24 : 14,
+        fontSize: SizeConfig.isWideScreen ? 18 : 14,
       ),
       fontWeight: FontWeight.w400,
       color: Color(0xff555555),
@@ -206,7 +206,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 14 : 6,
+        fontSize: SizeConfig.isWideScreen ? 10 : 6,
       ),
       fontWeight: FontWeight.w400,
       color: Colors.white,
@@ -217,7 +217,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 28 : 16,
+        fontSize: SizeConfig.isWideScreen ? 20 : 16,
       ),
       fontWeight: FontWeight.w500,
       color: AppColors.kprimarycolor,
@@ -228,7 +228,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 35 : 25,
+        fontSize: SizeConfig.isWideScreen ? 30 : 25,
       ),
       fontWeight: FontWeight.w500,
       color: AppColors.kprimarycolor,

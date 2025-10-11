@@ -23,4 +23,5 @@ class SizeConfig {
     return (inputHeight / 740.6666) * screenHeight;
   }
  static bool get isWideScreen => screenWidth > 800;
+  static bool get ismidwidthScreen => screenWidth > 400;
 }

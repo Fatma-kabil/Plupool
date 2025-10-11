@@ -149,7 +149,7 @@ final Map<String, bool> options = {
 
 final List<ProductModel> products = [
   ProductModel(
-    name: "مضخة مياه عالية الكفاءة",
+    name: "frdrsdgxdadsfgkuytrewxcxvbnk,مضخة مياه عالية الكفاءة",
     image: "assets/images/mach_pro1.png",
     originalPrice: 3000,
     salesCount: 75,
@@ -371,16 +371,17 @@ final maintenancePools = [
    final requests = [
       ServiceRequest(
         title: 'عطل مفاجئ في المضخة',
-        date: '2025-09-22',
+        date: '2025-10-13',
         time: '1:00 م',
         userName: 'علي حسين',
         userImage: 'assets/images/ahmed.png',
         location: 'مدينة نصر، القاهرة',
         status: RequestStatus.urgent,
       ),
+      
       ServiceRequest(
         title: 'صيانة شهرية - المقطم',
-        date: '2025-09-22',
+        date: '2025-10-11',
         time: '11:00 ص',
         userName: 'سارة حسن',
         userImage: 'assets/images/customer_user.png',
@@ -389,7 +390,34 @@ final maintenancePools = [
       ),
       ServiceRequest(
         title: 'إصلاح نظام الفاتورة - المهندسين',
-        date: '2025-09-22',
+        date: '2025-10-13',
+        time: '9:00 ص',
+        userName: 'خالد محمود',
+        userImage: 'assets/images/ahmed.png',
+        location: 'المهندسين، الجيزة',
+        status: RequestStatus.completed,
+      ),
+       ServiceRequest(
+        title: 'إصلاح نظام الفاتورة - المهندسين',
+        date: '2025-10-15',
+        time: '9:00 ص',
+        userName: 'خالد محمود',
+        userImage: 'assets/images/ahmed.png',
+        location: 'المهندسين، الجيزة',
+        status: RequestStatus.completed,
+      ),
+       ServiceRequest(
+        title: 'إصلاح نظام الفاتورة - المهندسين',
+        date: '2025-10-15',
+        time: '9:00 ص',
+        userName: 'خالد محمود',
+        userImage: 'assets/images/ahmed.png',
+        location: 'المهندسين، الجيزة',
+        status: RequestStatus.completed,
+      ),
+       ServiceRequest(
+        title: 'إصلاح نظام الفاتورة - المهندسين',
+        date: '2025-10-17',
         time: '9:00 ص',
         userName: 'خالد محمود',
         userImage: 'assets/images/ahmed.png',

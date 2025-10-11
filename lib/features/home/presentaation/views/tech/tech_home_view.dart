@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/app_bar_model.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/service_request_card.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info_card_row.dart';
+import 'package:plupool/features/home/presentaation/views/tech/widgets/weekly_request_test.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
-import 'package:plupool/features/store/presentation/views/widgets/filter_button.dart';
 
 class TechHomeView extends StatelessWidget {
   const TechHomeView({super.key});
@@ -15,7 +17,11 @@ class TechHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 12, left: 17, right: 17),
+      padding: EdgeInsets.only(
+        top: SizeConfig.h(12),
+        left: SizeConfig.w(17),
+        right: SizeConfig.w(17),
+      ),
       child: ListView(
         children: [
           TechAppbar(
@@ -42,18 +48,17 @@ class TechHomeView extends StatelessWidget {
                 ).copyWith(color: Colors.black),
               ),
               Spacer(),
-              FilterButton(onTap: () {}),
+              Text(
+                "عرض المزيد",
+                style: AppTextStyles.styleSemiBold16(context).copyWith(
+                  color: AppColors.kprimarycolor,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
             ],
           ),
           SizedBox(height: 30),
-          ListView.builder(
-            shrinkWrap: true,
-            physics:
-                const NeverScrollableScrollPhysics(), // 🚫 يمنع السكرول الداخلي
-            itemCount: 3,
-            itemBuilder: (context, index) =>
-                ServiceRequestCard(request: requests[index]),
-          ),
+         WeeklyRequestsList(),
           SizedBox(height: 30),
           OfferSection(offers: equipmentOffers),
           SizedBox(height: 30),
