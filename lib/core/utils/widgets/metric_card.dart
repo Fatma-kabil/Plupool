@@ -22,13 +22,14 @@ class MetricCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       //   margin: const EdgeInsets.symmetric(horizontal: 6), // مسافة يمين وشمال
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+      padding:  EdgeInsets.symmetric(vertical:SizeConfig.h(12) ,),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withOpacity(0.5),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: const Color(0xFFCDCDCD), width: 1),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
           // السطر العلوي: أيقونة + القيمة الكبيرة
@@ -56,6 +57,7 @@ class MetricCard extends StatelessWidget {
 
           // التسمية تحت (مركزة)
           Text(
+          
             label,
             textAlign: TextAlign.center,
             style: AppTextStyles.styleRegular14(

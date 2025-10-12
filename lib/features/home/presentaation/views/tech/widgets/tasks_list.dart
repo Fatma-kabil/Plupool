@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart' as flutter;
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/combine_data_time.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
@@ -30,20 +32,17 @@ class TasksList extends flutter.StatelessWidget {
 
     // ✅ ترتيب المهام حسب الوقت
     tasksForDay.sort((a, b) {
-  final da = combineDateTime(a);
-  final db = combineDateTime(b);
-  return da.compareTo(db);
-});
+      final da = combineDateTime(a);
+      final db = combineDateTime(b);
+      return da.compareTo(db);
+    });
 
     if (tasksForDay.isEmpty) {
       return flutter.Center(
         child: flutter.Text(
           textDirection: flutter.TextDirection.rtl,
           'النهارده بريك 😎',
-          style: flutter.TextStyle(
-            color: flutter.Colors.grey.shade600,
-            fontSize: 16,
-          ),
+          style: AppTextStyles.styleMedium20(context).copyWith(color: AppColors.ktextcolor),
         ),
       );
     }

@@ -19,7 +19,7 @@ class ServiceRequestCard extends StatelessWidget {
     final colors = RequestStatusColors.getColors(request.status);
 
     return Container(
-      margin: EdgeInsets.only(bottom: SizeConfig.h(10)),
+      margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
       decoration: BoxDecoration(
         color: colors['bg'],
         border: Border.all(color: colors['border']),

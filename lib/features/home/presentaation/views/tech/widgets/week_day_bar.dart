@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' as flutter;
 import 'package:intl/intl.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class WeekDaysBar extends flutter.StatelessWidget {
@@ -58,19 +59,18 @@ class WeekDaysBar extends flutter.StatelessWidget {
                   children: [
                     flutter.Text(
                       dayName,
-                      style: flutter.TextStyle(
-                        fontWeight: flutter.FontWeight.bold,
+                      style: AppTextStyles.styleBold16(context).copyWith(
+                      
                         color: isSelected
                             ? AppColors.kprimarycolor
                             : flutter.Colors.black87,
                       ),
                     ),
-                    const flutter.SizedBox(height: 4),
+                     flutter.SizedBox(height:SizeConfig.h(4) ),
                     flutter.Text(
                       dayNum,
-                      style: flutter.TextStyle(
-                        fontSize: 16,
-                        fontWeight: flutter.FontWeight.w600,
+                      style: AppTextStyles.styleBold16(context).copyWith(
+                      
                         color: isSelected
                             ? AppColors.kprimarycolor
                             : flutter.Colors.black87,
