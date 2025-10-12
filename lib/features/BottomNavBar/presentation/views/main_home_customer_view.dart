@@ -7,8 +7,8 @@ import 'package:plupool/features/BottomNavBar/presentation/views/widgets/build_n
 import 'package:plupool/features/BottomNavBar/presentation/views/widgets/custom_floating_action_btn.dart';
 import 'package:plupool/features/home/presentaation/views/customer/customer_home_view.dart';
 import 'package:plupool/features/myPool/presentation/views/mypool_view.dart';
+import 'package:plupool/features/profile/presentation/views/customer_profilr_view.dart';
 import 'package:plupool/features/store/presentation/views/store_view.dart';
-import 'package:plupool/features/more/presentation/views/more_view.dart';
 import 'package:plupool/features/services/presentation/views/services_view.dart';
 
 class MainHomeCustomerView extends StatelessWidget {
@@ -21,7 +21,7 @@ class MainHomeCustomerView extends StatelessWidget {
       ServicesView(),
       MyPoolView(),
       StoreView(),
-      MoreView(),
+      CustomerProfilrView(),
     ];
 
     return BlocBuilder<BottomNavCubit, BottomNavState>(
@@ -64,7 +64,7 @@ class MainHomeCustomerView extends StatelessWidget {
                   label: 'حمامي',
                 ),
                 buildNavItem(icon: 'assets/icons/store.svg', label: 'المتجر'),
-                buildNavItem(icon: 'assets/icons/more.svg', label: 'المزيد'),
+                buildNavItem(icon: 'assets/icons/profile.svg', label: 'حسابي'),
               ],
             ),
           ),
