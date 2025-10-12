@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 
 class BuildDataTimeRow extends StatelessWidget {
@@ -13,8 +14,8 @@ class BuildDataTimeRow extends StatelessWidget {
    Row(
     textDirection: TextDirection.rtl,
     children: [
-      const Icon(Icons.calendar_today, size: 12, color: Color(0xff999999)),
-      const SizedBox(width: 6),
+       Icon(Icons.calendar_today, size:SizeConfig.w(12) , color: Color(0xff999999)),
+       SizedBox(width: SizeConfig.w(6)),
       Text(
         textDirection: TextDirection.rtl,
         '${request.date}   - ${request.time}',

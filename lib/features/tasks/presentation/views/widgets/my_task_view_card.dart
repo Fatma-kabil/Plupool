@@ -3,6 +3,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/location_btn.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/build_data_time_row.dart';
@@ -14,9 +15,10 @@ class MyTaskViewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final colors = RequestStatusColors.getColors(request.status);
+    final colors = RequestStatusColors.getColors(request.status);
 
     return Container(
+      width: double.infinity,
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
       decoration: BoxDecoration(
         color: colors['bg'],
@@ -29,38 +31,54 @@ class MyTaskViewCard extends StatelessWidget {
           vertical: SizeConfig.h(12),
         ),
         child: Column(
-          //  crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // ---- العنوان و الحالة ----
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildStatusLabel(colors, context, request.status),
-                Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    _buildTitle(context),
-                    const SizedBox(height: 4),
-                    BuildDataTimeRow(request: request),
-                  ],
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      _buildTitle(context),
+                      const SizedBox(height: 4),
+                      BuildDataTimeRow(request: request),
+                    ],
+                  ),
                 ),
               ],
             ),
 
             const SizedBox(height: 10),
-            BuildUserSection(request: request),
+
+            // ---- بيانات المستخدم + زرار الموقع ----
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // ✅ لو الحالة inProgress يظهر الزرار الحقيقي
+                
+                  LocationBtn(request: request, colors: colors)
+              ,
+
+                // ✅ بيانات المستخدم
+                Flexible(child: BuildUserSection(request: request)),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 
-  /// ويدجت لعنوان الطلب
   Widget _buildTitle(BuildContext context) => Text(
-    request.title,
-    style: AppTextStyles.styleSemiBold16(
-      context,
-    ).copyWith(color: AppColors.ktextcolor),
-  );
+        request.title,
+        textAlign: TextAlign.right,
+        overflow: TextOverflow.ellipsis,
+        style: AppTextStyles.styleSemiBold16(context)
+            .copyWith(color: AppColors.ktextcolor),
+      );
 }
-
-  

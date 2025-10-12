@@ -7,8 +7,7 @@ class TechTaskView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
+    return SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
             horizontal: SizeConfig.w(17),
@@ -16,7 +15,7 @@ class TechTaskView extends StatelessWidget {
           ),
           child: TechTaskViewBody()
         ),
-      ),
+      
     );
   }
 }

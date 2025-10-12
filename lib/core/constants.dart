@@ -376,7 +376,7 @@ final maintenancePools = [
         userName: 'علي حسين',
         userImage: 'assets/images/ahmed.png',
         location: 'مدينة نصر، القاهرة',
-        status: RequestStatus.urgent,
+        status: RequestStatus.completed,
       ),
       
       ServiceRequest(

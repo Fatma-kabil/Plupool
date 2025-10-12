@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
-import 'package:plupool/core/utils/functions/open_location.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/location_btn.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/build_data_time_row.dart';
@@ -86,41 +86,7 @@ class TeskCard extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
-                GestureDetector(
-                  onTap:() => openLocation(request) ,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: colors['labelText']),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.w(14),
-                        vertical: SizeConfig.h(6),
-                      ),
-                      child: Row(
-                        textDirection: TextDirection.rtl,
-                        children: [
-                      
-                          
-                  
-                             Icon(
-                              Icons.location_on,
-                              color: colors['labelText'],
-                              size: SizeConfig.w(16),
-                            ),
-                          
-                          Text(
-                            'الموقع',
-                            style: AppTextStyles.styleSemiBold16(
-                              context,
-                            ).copyWith(color: colors['labelText']),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                LocationBtn(request: request, colors: colors),
               ],
             ),
           ],
