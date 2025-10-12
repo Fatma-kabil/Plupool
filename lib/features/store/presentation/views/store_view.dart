@@ -6,7 +6,7 @@ import 'package:plupool/core/utils/store_filter.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 import 'package:plupool/features/store/presentation/views/widgets/action_raw.dart';
-import 'package:plupool/features/store/presentation/views/widgets/filter_button.dart';
+import 'package:plupool/core/utils/widgets/filter_button.dart';
 import 'package:plupool/features/store/presentation/views/widgets/filter_dialog.dart';
 import 'package:plupool/features/store/presentation/views/widgets/info_card_row.dart';
 import 'package:plupool/features/store/presentation/views/widgets/products_grid.dart';

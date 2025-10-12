@@ -33,7 +33,7 @@ class FilterButton extends StatelessWidget {
             ),
           ],
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(12) , vertical: SizeConfig.h(8)),
         child: Row(
           children: [
             Text(
@@ -42,7 +42,7 @@ class FilterButton extends StatelessWidget {
                 context,
               ).copyWith(color: AppColors.kprimarycolor),
             ),
-            const SizedBox(width: 2),
+             SizedBox(width: SizeConfig.w(2)),
             SvgPicture.asset(
               iconPath,
               width: SizeConfig.w(13),
