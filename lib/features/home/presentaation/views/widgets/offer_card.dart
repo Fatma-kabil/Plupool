@@ -12,16 +12,18 @@ class OfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 15),
+      margin: EdgeInsets.only(right: SizeConfig.w(15)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Color(0xffAAAAAA)),
+        border: Border.all(color: Color(0xffAAAAAA).withOpacity(.5)),
         color: Colors.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 13),
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.w(10),
+          vertical: SizeConfig.h(13),
+        ),
         child: Column(
-          
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ClipRRect(
@@ -30,18 +32,18 @@ class OfferCard extends StatelessWidget {
                 children: [
                   Image.asset(
                     offer.image,
-                    height: SizeConfig.h(173),
+                    height:SizeConfig.isWideScreen? SizeConfig.w(173):SizeConfig.h(173),
                     width: SizeConfig.w(246),
                     fit: BoxFit.cover,
                   ),
 
                   Positioned(
-                    top: 12,
-                    right: 12,
+                    top: SizeConfig.h( 12),
+                    right: SizeConfig.w(12) ,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 9,
-                        vertical: 6,
+                      padding:  EdgeInsets.symmetric(
+                        horizontal:  SizeConfig.w(9),
+                        vertical:  SizeConfig.h(6),
                       ),
                       decoration: BoxDecoration(
                         color: Color(0xffEA5A65),
@@ -65,7 +67,7 @@ class OfferCard extends StatelessWidget {
                 context,
               ).copyWith(color: AppColors.kprimarycolor),
             ),
-            const SizedBox(height: 5),
+             SizedBox(height: SizeConfig.h(5) ),
             Text(
               textDirection: TextDirection.rtl,
               offer.desc,
@@ -73,7 +75,7 @@ class OfferCard extends StatelessWidget {
                 context,
               ).copyWith(color: AppColors.ktextcolor),
             ),
-            const SizedBox(height: 10),
+             SizedBox(height: SizeConfig.h(10)),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -84,13 +86,13 @@ class OfferCard extends StatelessWidget {
                     color: Color(0xff808080),
                   ),
                 ),
-                const SizedBox(width: 12),
+                 SizedBox(width: SizeConfig.w(12) ),
                 Text(offer.newPrice, style: AppTextStyles.styleBold16(context)),
               ],
             ),
-           Spacer(),
+            Spacer(),
             Padding(
-              padding: const EdgeInsets.only(left: 12,bottom: 8),
+              padding:  EdgeInsets.only(left: SizeConfig.w(12) , bottom: SizeConfig.h (8)),
               child: Row(
                 //  mainAxisAlignment: MainAxisAlignment.end,
                 children: [

@@ -30,7 +30,7 @@ class _PromoCarouselState extends State<PromoCarousel> {
       children: [
         SizedBox(
           //   width: SizeConfig.w(280),
-          height:SizeConfig.isWideScreen? SizeConfig.h(200):SizeConfig.w(200), // ارتفاع الكارد + margin
+          height:SizeConfig.isWideScreen? SizeConfig.w(170):SizeConfig.w(200), // ارتفاع الكارد + margin
           child: PageView.builder(
             controller: _controller,
             itemCount: items.length,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_card.dart';
+import 'package:plupool/features/home/presentaation/views/widgets/offer_card.dart';
 
 
 
@@ -41,7 +41,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
       children: [
         /// PageView
         SizedBox(
-          height: SizeConfig.h(350),
+          height: SizeConfig.isWideScreen? SizeConfig.w(290):SizeConfig.h(360),
           child: PageView.builder(
              padEnds: false,
             controller: _pageController,
@@ -62,7 +62,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
           ),
         ),
 
-        const SizedBox(height: 16),
+       SizedBox(height:SizeConfig.h(16) ),
 
         /// Indicators + Arrows
         Row(
@@ -105,7 +105,7 @@ class ArrowButton extends StatelessWidget {
       onTap: enabled ? onTap : null,
       child: Icon(
         icon,
-        size: SizeConfig.w(20),
+        size: SizeConfig.w(18),
         color: enabled ? Color(0xff2B2B2B) : Color(0xff777777),
       ),
     );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/app_bar_model.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_section.dart';
+import 'package:plupool/features/home/presentaation/views/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/promo_carousel.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_section.dart';

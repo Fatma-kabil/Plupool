@@ -5,7 +5,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/app_bar_model.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/offer_section.dart';
+import 'package:plupool/features/home/presentaation/views/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info_card_row.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/weekly_request_test.dart';
