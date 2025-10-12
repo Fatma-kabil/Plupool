@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class LoadMoreButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -14,7 +15,7 @@ class LoadMoreButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         side: BorderSide(color: AppColors.kprimarycolor),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+        padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(15) , vertical: SizeConfig.isWideScreen?SizeConfig.h(12):0),
       ),
       child: Text(
         "تحميل الكل",

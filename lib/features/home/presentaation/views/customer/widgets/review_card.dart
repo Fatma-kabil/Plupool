@@ -11,8 +11,8 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 9),
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      margin:  EdgeInsets.symmetric(vertical:SizeConfig.h(6) ),
+      padding:  EdgeInsets.symmetric(vertical:SizeConfig.w(20) , horizontal:SizeConfig.w(10) ),
       decoration: BoxDecoration(
         color: AppColors.kScaffoldColor,
         borderRadius: BorderRadius.circular(10),
@@ -23,16 +23,16 @@ class ReviewCard extends StatelessWidget {
         children: [
           /// Avatar
           ClipRRect(
-            borderRadius: BorderRadius.circular(34),
+            borderRadius: BorderRadius.circular(100),
             child: Image.asset(
               review.avatarUrl,
-              width: SizeConfig.w(48),
-              height: SizeConfig.h(48),
+              width: SizeConfig.w(38),
+              height: SizeConfig.w(38),
               fit: BoxFit.cover,
             ),
           ),
 
-          const SizedBox(width: 7),
+           SizedBox(width:SizeConfig.w(7) ),
 
           /// Name + Stars + Comment
           Expanded(
@@ -58,7 +58,7 @@ class ReviewCard extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 3),
+                 SizedBox(height:SizeConfig.h(3) ),
 
                 /// Stars
                 Row(
@@ -72,7 +72,7 @@ class ReviewCard extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 8),
+                 SizedBox(height:SizeConfig.w(8) ),
 
                 /// Comment
                 Align(

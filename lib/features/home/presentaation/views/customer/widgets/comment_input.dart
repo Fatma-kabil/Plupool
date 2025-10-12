@@ -13,8 +13,8 @@ class CommentInput extends StatelessWidget {
       children: [
         /// زر الإرسال (طائرة ورقية)
         Container(
-          width: SizeConfig.w(39),
-          height: SizeConfig.h(37),
+          width: SizeConfig.w(35),
+          height: SizeConfig.w(35),
           decoration: const BoxDecoration(
             shape: BoxShape.circle,
             color: Color(0xff0077B6), // أزرق
@@ -24,7 +24,7 @@ class CommentInput extends StatelessWidget {
             child: SvgPicture.asset(
               'assets/icons/Send.svg',
               width: SizeConfig.w(18), // صغّري/كبّري على حسب اللي يظبط
-              height: SizeConfig.h(18),
+              height: SizeConfig.w(18),
               colorFilter: const ColorFilter.mode(
                 Colors.white,
                 BlendMode.srcIn,
@@ -32,7 +32,7 @@ class CommentInput extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 12),
+        SizedBox(width:SizeConfig.w(12) ),
 
         /// TextField
         Expanded(
@@ -47,9 +47,9 @@ class CommentInput extends StatelessWidget {
               hintStyle: AppTextStyles.styleRegular13(
                 context,
               ).copyWith(color: const Color(0xffBBBBBB)),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 7,
+              contentPadding:  EdgeInsets.symmetric(
+                horizontal:SizeConfig.w(12) ,
+                vertical:SizeConfig.h(7) ,
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
@@ -76,11 +76,11 @@ class CommentInput extends StatelessWidget {
           ),
         ),
 
-        SizedBox(width: 12),
+        SizedBox(width:SizeConfig.w(12) ),
 
         /// صورة البروفايل
-        const CircleAvatar(
-          radius: 18,
+         CircleAvatar(
+          radius:SizeConfig.w(18) ,
           backgroundImage: AssetImage("assets/images/customer_user.png"),
         ),
       ],

@@ -18,7 +18,9 @@ class _ReviewsListState extends State<ReviewsList> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      
       children: [
+        SizedBox(height: 15,),
         Row(
          
           children: [
@@ -47,7 +49,7 @@ class _ReviewsListState extends State<ReviewsList> {
           ],
         ),
 
-        const SizedBox(height: 27),
+        const SizedBox(height: 20),
 
         /// قائمة الريفيوهات
         ListView.builder(

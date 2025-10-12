@@ -30,7 +30,7 @@ class FilterOption extends StatelessWidget {
           ),
 
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+            padding:  EdgeInsets.symmetric(vertical:SizeConfig.h(2) , horizontal: SizeConfig.w(6)),
             child: DropdownButtonHideUnderline(
               child: DropdownButton2<String>(
                 value: value,
@@ -105,7 +105,7 @@ class FilterOption extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(width: 5),
+         SizedBox(width: SizeConfig.w(5)),
 
         /// النص "الترتيب حسب"
         Text(

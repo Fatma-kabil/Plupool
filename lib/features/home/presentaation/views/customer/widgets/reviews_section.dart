@@ -34,7 +34,7 @@ class ReviewSection extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 34),
+            SizedBox(width:SizeConfig.w(34) ),
             Text(
               "قيّم تجربتك معنا",
               style: AppTextStyles.styleSemiBold16(
@@ -45,7 +45,7 @@ class ReviewSection extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         CommentInput(),
-        const SizedBox(height: 16),
+        const SizedBox(height: 17),
 
         /// شريط الترتيب
         ReviewsList(),
