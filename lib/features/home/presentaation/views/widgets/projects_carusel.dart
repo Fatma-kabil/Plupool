@@ -39,7 +39,7 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
         SizedBox(
          
           width: double.infinity,
-          height: SizeConfig.h(230),
+          height:SizeConfig.isWideScreen?SizeConfig.w(215): SizeConfig.h(230),
           child: PageView.builder(
             padEnds: false,
             controller: _pageController,
@@ -54,7 +54,7 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
           ),
         ),
 
-        const SizedBox(height: 16),
+         SizedBox(height:SizeConfig.h(16) ),
 
         /// Arrows
         Row(
@@ -65,7 +65,7 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
               enabled: _currentPage > 0,
               onTap: () => _goToPage(_currentPage - 1),
             ),
-            const SizedBox(width: 15),
+             SizedBox(width: SizeConfig.w(15)),
             ArrowButton(
               icon: Icons.arrow_forward,
               enabled: _currentPage < projects.length - 1,
@@ -96,16 +96,16 @@ class ArrowButton extends StatelessWidget {
     return GestureDetector(
       onTap: enabled ? onTap : null,
       child: Container(
-        height: SizeConfig.h(29),
-        width:  SizeConfig.w(29),
+        height: SizeConfig.w(25),
+        width:  SizeConfig.w(25),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(100),
           color: Color(0xff2B8EC2),
          
         ),
         child: Icon(
           icon,
-          size: SizeConfig.w(20),
+          size: SizeConfig.w(17),
           color:  Colors.white,
         ),
       ),

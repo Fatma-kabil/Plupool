@@ -13,9 +13,11 @@ class ProjectCard extends StatelessWidget {
       children: [
         /// الصورة الخلفية
         Container(
-          margin: const EdgeInsets.only(right: 10),
+      margin:  EdgeInsets.only(right: SizeConfig.w(10)),
           width: double.infinity,
-          height: SizeConfig.h(230),
+          height: SizeConfig.isWideScreen?SizeConfig.w(215): SizeConfig.h(230),
+          
+          
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
@@ -27,9 +29,9 @@ class ProjectCard extends StatelessWidget {
 
         /// طبقة سودة شفافة فوق الصورة
         Container(
-          margin: const EdgeInsets.only(right: 10),
+          margin:  EdgeInsets.only(right:SizeConfig.w(10) ),
           width: double.infinity,
-          height: SizeConfig.h(230),
+          height: SizeConfig.isWideScreen?SizeConfig.w(215): SizeConfig.h(230),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.black.withOpacity(0.45), // 🔹 هنا الـ overlay
@@ -38,9 +40,9 @@ class ProjectCard extends StatelessWidget {
 
         /// النصوص
         Positioned(
-          bottom: 13,
-          right: 23,
-          left: 50,
+          bottom:SizeConfig.h(13) ,
+          right: SizeConfig.w(23),
+          left: SizeConfig.w(50),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -49,7 +51,7 @@ class ProjectCard extends StatelessWidget {
                 style: AppTextStyles.styleSemiBold16(context)
                     .copyWith(color: Colors.white),
               ),
-              const SizedBox(height: 5),
+               SizedBox(height: SizeConfig.h(5)),
               Text(
                 projects.description,
                 style: AppTextStyles.styleRegular13(context)
