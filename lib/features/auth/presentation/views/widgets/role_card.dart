@@ -17,7 +17,7 @@ class RoleCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.w(9),
-        vertical: SizeConfig.w(10),
+        vertical: SizeConfig.h(10),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
@@ -35,7 +35,7 @@ class RoleCard extends StatelessWidget {
               ),
             ],
           ),
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 9),
+          padding:  EdgeInsets.symmetric(vertical:SizeConfig.h(20) , horizontal: SizeConfig.w(9)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -53,15 +53,15 @@ class RoleCard extends StatelessWidget {
               //    height: 53,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(28),
+                    borderRadius: BorderRadius.circular(1000),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 9),
+                    padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(9), vertical: SizeConfig.w(9)),
                     child: Center(
                       child: SvgPicture.asset(
                         role.image,
                         width: SizeConfig.w(28),
-                        height: SizeConfig.h(28),
+                        height:SizeConfig.h(28),
                         color: AppColors.kprimarycolor,
                       ),
                     ),
@@ -69,7 +69,7 @@ class RoleCard extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(width: 12),
+               SizedBox(width: SizeConfig.w(12)),
 
               Expanded(
                 child: Column(

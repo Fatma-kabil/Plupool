@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_back_button.dart';
 import 'role_card.dart';
 
@@ -11,11 +12,11 @@ class SelectRoleViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(22.0),
+      padding:  EdgeInsets.symmetric(vertical : SizeConfig.h(20.0) ,horizontal: SizeConfig.w(10)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
+          
 
           // زر الرجوع باستخدام go_router
           CustomBackButton(),

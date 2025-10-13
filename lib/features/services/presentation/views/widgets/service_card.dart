@@ -72,7 +72,7 @@ class ServiceCard extends StatelessWidget {
         AppColors.kprimarycolor,
         BlendMode.srcIn,
       ),
-      height: SizeConfig.h(24),
+      height: SizeConfig.w(24),
       width: SizeConfig.w(24),
     ),
   ),

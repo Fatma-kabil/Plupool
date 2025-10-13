@@ -11,7 +11,7 @@ class CustomBackButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white, // var(--White-50, #FFF)
-        borderRadius: BorderRadius.circular(23),
+        borderRadius: BorderRadius.circular(100),
         boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(0, 0, 0, 0.25), // rgba(0,0,0,0.25)
@@ -21,13 +21,13 @@ class CustomBackButton extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(3.0),
+        padding:  EdgeInsets.all(SizeConfig.w(3)),
         child: GestureDetector(
           onTap: onTap ?? () => context.pop(), // 👈 هنا الافتراضي
           child: Icon(
             Icons.arrow_back,
             color: AppColors.kprimarycolor,
-            size: SizeConfig.w(20),
+            size:SizeConfig.isWideScreen?SizeConfig.h(20): SizeConfig.w(20),
           )
         ),
       ),

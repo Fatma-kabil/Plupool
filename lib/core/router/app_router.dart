@@ -6,7 +6,6 @@ import 'package:plupool/features/auth/presentation/views/forget_password_screen.
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/auth/presentation/views/new_password_success.dart';
 import 'package:plupool/features/auth/presentation/views/new_password_view.dart';
-import 'package:plupool/features/auth/presentation/views/openning_view.dart';
 import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
 import 'package:plupool/features/auth/presentation/views/sign_up_view.dart';
 import 'package:plupool/features/auth/presentation/views/success_view.dart';
@@ -42,14 +41,9 @@ final GoRouter appRouter = GoRouter(
       name: 'onboarding',
       pageBuilder: (context, state) => buildTransitionPage(const OnboardView()),
     ),
+   
     GoRoute(
-      path: '/openning',
-      name: 'openning',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const OpenningView()),
-    ),
-    GoRoute(
-      path: '/selectrole',
+      path: '/',
       name: 'selectrole',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SelectRoleView()),
@@ -112,7 +106,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const NewPasswordSuccess()),
     ),
     GoRoute(
-      path: '/',
+      path: '/MainHomeCustomerView',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCustomerView()),
