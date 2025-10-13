@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/show_full_width_bottom_sheet.dart';
 import 'package:plupool/core/utils/widgets/filter_button.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/my_task_view_card.dart';
@@ -24,7 +25,11 @@ class TechTaskViewBody extends StatelessWidget {
               ).copyWith(color: AppColors.ktextcolor),
             ),
             Spacer(),
-            FilterButton(onTap: () {}),
+            FilterButton(
+              onTap: () {
+                showFullWidthBottomSheet(context);
+              },
+            ),
           ],
         ),
         SizedBox(height: 40),
@@ -39,7 +44,7 @@ class TechTaskViewBody extends StatelessWidget {
 
             // ✅ استخدمي if بشكل عادي داخل body
             if (request.status == RequestStatus.completed) {
-               return const SizedBox.shrink();
+              return const SizedBox.shrink();
             } else {
               return MyTaskViewCard(request: request);
             }
