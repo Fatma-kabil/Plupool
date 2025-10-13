@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'mood_button.dart';
 
 class MoodButtonsRow extends StatelessWidget {
@@ -19,7 +20,7 @@ class MoodButtonsRow extends StatelessWidget {
         final mood = moods[index];
         return Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
+            padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(4) ),
             child: MoodButton(
               image: mood["image"]!,
               label: mood["label"]!,

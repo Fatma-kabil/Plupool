@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/services/presentation/views/widgets/mood_control_design.dart';
 import 'package:plupool/features/services/presentation/views/widgets/service_card.dart';
 
@@ -12,7 +13,7 @@ class ServicesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
+        padding:  EdgeInsets.only(top:SizeConfig.h(60) , left:SizeConfig.w(16) , right: SizeConfig.h(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

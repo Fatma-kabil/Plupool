@@ -33,7 +33,7 @@ class ControlSwitchTile extends StatelessWidget {
               height: SizeConfig.h(24),
               width: SizeConfig.w(24),
             ),
-            const SizedBox(width: 4),
+             SizedBox(width: SizeConfig.w(4) ),
             Text(
               title,
               style: AppTextStyles.styleRegular16(

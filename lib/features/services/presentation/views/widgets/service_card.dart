@@ -25,7 +25,7 @@ class ServiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+      padding:  EdgeInsets.symmetric(vertical:SizeConfig.h(20) , horizontal: SizeConfig.w(15)),
       decoration: BoxDecoration(
         color: AppColors.kScaffoldColor,
         borderRadius: BorderRadius.circular(10),
@@ -49,7 +49,7 @@ class ServiceCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(title, style: AppTextStyles.styleMedium20(context)),
-                    const SizedBox(height: 8),
+                     SizedBox(height: SizeConfig.h(8)),
                     Text(
                       description,
                       textDirection: TextDirection.rtl,
@@ -60,26 +60,27 @@ class ServiceCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 24),
-              CircleAvatar(
-                backgroundColor: const Color(0xffCCE4F0),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SvgPicture.asset(
-                    iconPath,
-                    colorFilter: ColorFilter.mode(
-                      // ✅ صح
-                      AppColors.kprimarycolor,
-                      BlendMode.srcIn,
-                    ),
-                    height: SizeConfig.h(24),
-                    width: SizeConfig.w(24),
-                  ),
-                ),
-              ),
+               SizedBox(width:SizeConfig.w(24) ),
+             CircleAvatar(
+  radius:SizeConfig.isWideScreen? SizeConfig.w(14): SizeConfig.h(18),// 👈 يكبّر الـ Avatar
+  backgroundColor: const Color(0xffCCE4F0),
+  child: Padding(
+    padding: EdgeInsets.all(SizeConfig.w(8)),
+    child: SvgPicture.asset(
+      iconPath,
+      colorFilter: ColorFilter.mode(
+        AppColors.kprimarycolor,
+        BlendMode.srcIn,
+      ),
+      height: SizeConfig.h(24),
+      width: SizeConfig.w(24),
+    ),
+  ),
+),
+
             ],
           ),
-          const SizedBox(height: 36),
+           SizedBox(height:SizeConfig.h(36) ),
           CustomTextBtn(
             width: double.infinity,
             text: buttonText,

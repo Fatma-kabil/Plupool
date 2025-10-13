@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class CustomTextBtn extends StatelessWidget {
   const CustomTextBtn({
@@ -27,7 +28,7 @@ class CustomTextBtn extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding:  EdgeInsets.symmetric(vertical: padding ?? 12.0),
+          padding:  EdgeInsets.symmetric(vertical: padding ?? SizeConfig.h(12) ),
           child: Text(text, style: AppTextStyles.styleSemiBold20(context)),
         ),
       ),

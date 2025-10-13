@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/services/presentation/views/widgets/mood_button_row.dart';
 import 'package:plupool/features/services/presentation/views/widgets/mood_switches.dart';
 
@@ -34,11 +35,11 @@ class _MoodControlsDesignState extends State<MoodControlsDesign> {
       child: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              left: 10,
-              right: 10,
-              bottom: 22,
-              top: 22,
+            padding:  EdgeInsets.only(
+              left:SizeConfig.w(10) ,
+              right:SizeConfig.w(10) ,
+              bottom: SizeConfig.h(22),
+              top: SizeConfig.h(22),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,10 +56,10 @@ class _MoodControlsDesignState extends State<MoodControlsDesign> {
                   children: [
                     Icon(
                       Icons.auto_awesome,
-                      size: 20,
+                      size: SizeConfig.w(20),
                       color: Colors.orange.shade300,
                     ),
-                    const SizedBox(width: 6),
+                     SizedBox(width: SizeConfig.w(6)),
                     Text(
                       "قادمة قريبًا",
                       style: AppTextStyles.styleRegular16(
@@ -94,7 +95,7 @@ class _MoodControlsDesignState extends State<MoodControlsDesign> {
             top: 0,
             left: 0,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+              padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(12) , vertical: SizeConfig.h(5)),
               decoration: BoxDecoration(
                 color: const Color(0xff00B4D8),
                 borderRadius: const BorderRadius.only(

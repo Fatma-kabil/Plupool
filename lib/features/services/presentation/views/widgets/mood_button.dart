@@ -25,7 +25,7 @@ class MoodButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         //  width: 70,
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding:  EdgeInsets.symmetric(vertical: SizeConfig.h(10) ),
         decoration: BoxDecoration(
           color: isSelected
               ? const Color(0x4FCCE4F0)
@@ -45,7 +45,8 @@ class MoodButton extends StatelessWidget {
               height: SizeConfig.h(30),
               width: SizeConfig.w(30),
             ),
-            const SizedBox(height: 3),
+            
+             SizedBox(height: SizeConfig.h(3) ),
             Text(
               label,
               style: AppTextStyles.styleRegular16(
