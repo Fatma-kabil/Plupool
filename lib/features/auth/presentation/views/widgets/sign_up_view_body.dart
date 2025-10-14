@@ -5,8 +5,6 @@ import 'package:plupool/features/auth/presentation/views/widgets/auth_header.dar
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/divider_with_text.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/google_btn.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
 // استدعاء الكاستم
 
@@ -41,7 +39,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               textAlign: TextAlign.start,
             ),
             SizedBox(height: 10),
-            PhoneInputField(),
+          //  PhoneInputField(),
             SizedBox(height: 20),
             Text(
               '*الرقم لن يكون مرئيا للمستخدمين الاخرين في التطبيق',
@@ -70,12 +68,9 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               },
             ),
             SizedBox(height: 38),
-            DividerWithText(text: 'إنشاء حساب عن طريق'),
+           
             SizedBox(height: 47),
-            GoogleBtn(onTap: () {
-              context.push('/verification');
-            },),
-            SizedBox(height: 42),
+           
             GestureDetector(
               onTap: () {
                 // إضافة وظيفة التبديل إلى تسجيل الدخول هنا

@@ -6,10 +6,10 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class PhoneInputField extends StatefulWidget {
-  const PhoneInputField({super.key, this.validator, this.controller});
+  const PhoneInputField({super.key, this.validator,required this.controller});
 
   final String? Function(String?)? validator;
-  final TextEditingController? controller;
+  final TextEditingController controller;
 
   @override
   State<PhoneInputField> createState() => _PhoneInputFieldState();
@@ -45,14 +45,14 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
           hint: Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 2.0),
+                padding:  EdgeInsets.only(right: SizeConfig.w(2) ),
                 child: Icon(
                   Icons.phone,
-                  size: SizeConfig.w(13),
+                  size:SizeConfig.isWideScreen? SizeConfig.h(13):SizeConfig.w(13),
                   color: const Color(0xffBBBBBB),
                 ),
               ),
-              const SizedBox(width: 4),
+               SizedBox(width:  SizeConfig.w(4)),
               Text(
                 'أدخل رقم الهاتف',
                 style: AppTextStyles.styleRegular13(
@@ -70,11 +70,11 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
           ),
 
           suffixIcon: Padding(
-            padding: const EdgeInsets.only(
-              left: 8,
-              right: 6,
-              top: 3,
-              bottom: 3,
+            padding:  EdgeInsets.only(
+              left:SizeConfig.w(8) ,
+              right:SizeConfig.w(6) ,
+              top:SizeConfig.h(3) ,
+              bottom:SizeConfig.h(3) ,
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(5),
@@ -87,12 +87,12 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.arrow_drop_down, size: SizeConfig.w(15)),
-                       const SizedBox(width: 4),
+                        SizedBox(width:SizeConfig.w(4) ),
                       Text(
                         selectedCountryFlag,
                         style: TextStyle(fontSize: SizeConfig.w(15)),
                       ),
-                      const SizedBox(width: 4),
+                       SizedBox(width:SizeConfig.w(4) ),
                       Text(
                         '($selectedCountryCode)',
                         style: AppTextStyles.styleRegular13(
@@ -118,9 +118,9 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Color(0xFF0077B6), width: 1.5),
           ),
-          contentPadding: const EdgeInsets.symmetric(
+          contentPadding:  EdgeInsets.symmetric(
             vertical: 0,
-            horizontal: 10,
+            horizontal:SizeConfig.w(10) ,
           ),
         ),
       ),

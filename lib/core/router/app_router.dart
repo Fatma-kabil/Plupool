@@ -43,7 +43,7 @@ final GoRouter appRouter = GoRouter(
     ),
    
     GoRoute(
-      path: '/',
+      path: '/selectrole',
       name: 'selectrole',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SelectRoleView()),
@@ -77,7 +77,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const TechSetupView()),
     ),
     GoRoute(
-      path: '/login',
+      path: '/',
       name: 'login',
       pageBuilder: (context, state) => buildTransitionPage(const LoginView()),
     ),

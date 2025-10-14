@@ -138,9 +138,9 @@ class _CustomerSetupFormState extends State<CustomerSetupForm> {
                 .copyWith(color: const Color(0xff333333)),
           ),
           const SizedBox(height: 4),
-          PhoneInputField(
-            validator: (v) => Validators.phone(v),
-          ),
+         // PhoneInputField(
+         //   validator: (v) => Validators.phone(v),
+       //   ),
           const SizedBox(height: 4),
 
           Text(
