@@ -6,6 +6,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/login_form.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/verification_body.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/whatsapp_verification_note.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -16,53 +17,64 @@ class LoginViewBody extends StatefulWidget {
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
-  final _formKey = GlobalKey<FormState>(); // نقلنا المفتاح هنا ✅
-  final TextEditingController phoneController = TextEditingController(); // ✅
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController phoneController = TextEditingController();
+  bool showVerificationBody = false;
 
   @override
   void dispose() {
-    phoneController.dispose(); // 🧹 تنظيف بعد الاستخدام
+    phoneController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: SizeConfig.w(22),
-        right: SizeConfig.w(22),
-        bottom: SizeConfig.h(22),
-        top: SizeConfig.h(22),
+      padding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.w(22),
+        vertical: SizeConfig.h(22),
       ),
       child: SingleChildScrollView(
         child: Column(
           children: [
             Text(
               'أدخل رقم الموبايل لتسجيل الدخول لحسابك',
-              style: AppTextStyles.styleSemiBold20(
-                context,
-              ).copyWith(color: AppColors.ktextcolor),
+              style: AppTextStyles.styleSemiBold20(context)
+                  .copyWith(color: AppColors.ktextcolor),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 40),
-            LoginForm(formKey: _formKey, phoneController: phoneController),
-            SizedBox(height: 15),
-            WhatsappVerificationNote(),
-            SizedBox(height: SizeConfig.h(100)),
-            CustomTextBtn(
-              width: double.infinity,
-              text: 'إرسال رمز التحقق',
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  final phoneNumber = phoneController.text.trim();
-                  print("📱 رقم الهاتف المدخل: $phoneNumber");
+            SizedBox(height: SizeConfig.h(40)),
 
-                  // 🟢 هنا استخدمي الرقم في الخطوة التالية
-                  // sendOtp(phoneNumber);
-                }
-              },
+            // 🟩 نموذج تسجيل الدخول
+            LoginForm(
+              formKey: _formKey,
+              phoneController: phoneController,
             ),
-            SizedBox(height: SizeConfig.h(180)),
+            SizedBox(height: SizeConfig.h(15)),
+            const WhatsappVerificationNote(),
+
+            // 👇 هنا بنبدّل بين الزر وواجهة التحقق
+            if (!showVerificationBody) ...[
+              SizedBox(height: SizeConfig.h(100)),
+              CustomTextBtn(
+                width: double.infinity,
+                text: 'إرسال رمز التحقق',
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    final phoneNumber = phoneController.text.trim();
+                    debugPrint("📱 رقم الهاتف المدخل: $phoneNumber");
+                    setState(() => showVerificationBody = true);
+                  }
+                },
+              ),
+              SizedBox(height: SizeConfig.h(180)),
+            ] else ...[
+              SizedBox(height: SizeConfig.h(40)),
+              VerificationBody(phoneNumber: phoneController.text.trim()),
+              SizedBox(height: SizeConfig.h(70)),
+            ],
+
+            // 🔵 أسفل الشاشة — التحويل إلى التسجيل
             AuthSwitchRow(
               leadingText: ' ليس لدي حساب ',
               actionText: ' انشاء حساب',

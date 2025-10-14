@@ -11,7 +11,6 @@ import 'package:plupool/features/auth/presentation/views/sign_up_view.dart';
 import 'package:plupool/features/auth/presentation/views/success_view.dart';
 import 'package:plupool/features/auth/presentation/views/tech_setup_view.dart';
 import 'package:plupool/features/auth/presentation/views/verification_forget_password_view.dart';
-import 'package:plupool/features/auth/presentation/views/verification_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/weekly_tasks_view.dart';
 import 'package:plupool/features/maintenance/presentation/views/maintenance_service_view.dart';
@@ -53,12 +52,7 @@ final GoRouter appRouter = GoRouter(
       name: 'signup',
       pageBuilder: (context, state) => buildTransitionPage(const SignUpView()),
     ),
-    GoRoute(
-      path: '/verification',
-      name: 'verification',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const VerificationView()),
-    ),
+   
     GoRoute(
       path: '/success',
       name: 'success',

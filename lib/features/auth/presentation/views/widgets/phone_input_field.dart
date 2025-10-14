@@ -37,6 +37,8 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+         style: AppTextStyles.styleMedium20(context),
+         cursorHeight:SizeConfig.isWideScreen?SizeConfig.w(12): SizeConfig.h(20),
         cursorColor: AppColors.kprimarycolor,
         controller: widget.controller,
         validator: widget.validator, // ✅ استخدام الـ validator اللي جاي من بره

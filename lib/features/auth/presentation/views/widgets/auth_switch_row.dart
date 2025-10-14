@@ -5,13 +5,13 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 class AuthSwitchRow extends StatelessWidget {
   final String leadingText; // النص الأول (مثال: لدي حساب بالفعل)
   final String actionText;  // النص القابل للضغط (مثال: تسجيل الدخول)
-  final VoidCallback onTap; // الإجراء عند الضغط
+  final VoidCallback? onTap; // الإجراء عند الضغط
 
   const AuthSwitchRow({
     super.key,
     required this.leadingText,
     required this.actionText,
-    required this.onTap,
+     this.onTap,
   });
 
   @override

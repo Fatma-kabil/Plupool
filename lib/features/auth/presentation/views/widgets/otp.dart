@@ -57,6 +57,7 @@ class _OtpState extends State<Otp> {
           width: SizeConfig.w(49),
           height: SizeConfig.h(51),
           child: TextField(
+         //   cursorHeight:SizeConfig.isWideScreen?SizeConfig.w(7): SizeConfig.h(5),
             cursorColor: AppColors.kprimarycolor,
             controller: controllers[index],
             focusNode: focusNodes[index],
@@ -66,21 +67,22 @@ class _OtpState extends State<Otp> {
             style: AppTextStyles.styleMedium25(context),
             decoration: InputDecoration(
               counterText: "",
-              contentPadding: EdgeInsets.zero,
+              contentPadding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
+
               filled: true,
               fillColor: isFocused
                   ? Color(0xffE9F9FC)
                   : AppColors.kScaffoldColor, //, الخلفية لو عليه الدور
 
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
                   color: AppColors.kprimarycolor,
                   width: 1,
                 ),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(50),
+                borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
                   color: AppColors.kprimarycolor,
                   width: 1.5,
