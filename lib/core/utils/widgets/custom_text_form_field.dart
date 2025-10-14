@@ -3,7 +3,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
-class CustomTextFormField extends StatefulWidget {
+class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
@@ -25,35 +25,20 @@ class CustomTextFormField extends StatefulWidget {
   
 
   @override
-  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
-}
-
-class _CustomTextFormFieldState extends State<CustomTextFormField> {
-  late bool _obscure;
-
-  @override
-  void initState() {
-    super.initState();
-    _obscure = widget.obscureText; // نبدأ بنفس القيمة اللي اتبعتت
-  }
-
-  void _toggleObscure() {
-    setState(() {
-      _obscure = !_obscure;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Directionality(
+      
       textDirection: TextDirection.rtl,
       child: TextFormField(
+         style: AppTextStyles.styleMedium20(context),
+         cursorHeight:SizeConfig.isWideScreen?SizeConfig.w(12): SizeConfig.h(20),
         cursorColor: AppColors.kprimarycolor,
-        controller: widget.controller,
-        validator: widget.validator,
-        keyboardType: widget.keyboardType,
-        obscureText: _obscure,
+        controller: controller,
+        validator: validator,
+        keyboardType: keyboardType,
+        
         decoration: InputDecoration(
+          
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: AppColors.textFieldBorderColor,
@@ -61,36 +46,27 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             ),
             borderRadius: BorderRadius.circular(10.0),
           ),
-          hintText: widget.hintText,
+          hintText: hintText,
           hintStyle: AppTextStyles.styleRegular13(context),
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 10.0,
-            horizontal: 14.0,
+          contentPadding:  EdgeInsets.symmetric(
+            vertical:SizeConfig.h(10) ,
+            horizontal:SizeConfig.w(14) ,
           ),
 
           prefixIcon: Padding(
-            padding: const EdgeInsets.only(right: 16.0),
+            padding:  EdgeInsets.only(right: SizeConfig.h(14)),
             child:
-                widget.prefixIcon ??
+                prefixIcon ??
                 Icon(
-                  widget.icon,
-                  size: SizeConfig.w(18),
-                  color: AppColors.hintTextColor,
+                  icon,
+                  size:SizeConfig.isWideScreen? SizeConfig.h(13):SizeConfig.w(13),
+                  color: const Color(0xffBBBBBB),
                 ),
           ),
           prefixIconConstraints: const BoxConstraints(minWidth: 0),
 
           // 👇 زرار إظهار/إخفاء الباسورد
-          suffixIcon: widget.obscureText
-              ? IconButton(
-                  icon: Icon(
-                    _obscure ? Icons.visibility_off : Icons.visibility,
-                    size: SizeConfig.w(18),
-                    color: AppColors.hintTextColor,
-                  ),
-                  onPressed: _toggleObscure,
-                )
-              : null,
+         
 
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),

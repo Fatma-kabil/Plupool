@@ -19,6 +19,8 @@ class CustomCheckbox extends StatelessWidget {
     return InkWell(
       onTap: () => onChanged(!value),
       child: Row(
+      //   textDirection: TextDirection.rtl,
+     //   mainAxisAlignment: MainAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
           // النص على الشمال
@@ -33,8 +35,8 @@ class CustomCheckbox extends StatelessWidget {
           // الـ checkbox على اليمين
           AnimatedContainer(
             duration: const Duration(milliseconds: 150),
-            width: SizeConfig.w(15),
-            height: SizeConfig.h(15),
+            width:SizeConfig.isWideScreen?SizeConfig.h(10): SizeConfig.w(15),
+            height:SizeConfig.isWideScreen?SizeConfig.h(10): SizeConfig.w(15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3),
               border: Border.all(

@@ -21,7 +21,7 @@ class Validators {
 
   // ✅ رقم الموبايل (يدعم أرقام فقط بطول 8-15)
   static String? phone(String? v, {int min = 8, int max = 15}) {
-    if (_isNullOrEmpty(v)) return 'رقم الموبايل مطلوب';
+    if (_isNullOrEmpty(v)) return  ' رقم الموبايل مطلوب';
     final digits = v!.replaceAll(RegExp(r'\D'), '');
     if (digits.length < min || digits.length > max) {
       return 'رقم الموبايل غير صحيح (يجب أن يكون بين $min و $max رقم)';

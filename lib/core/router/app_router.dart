@@ -1,16 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_view.dart';
-import 'package:plupool/features/auth/presentation/views/customer_setup_view.dart';
-import 'package:plupool/features/auth/presentation/views/forget_password_screen.dart';
+import 'package:plupool/features/auth/presentation/views/customer_signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
-import 'package:plupool/features/auth/presentation/views/new_password_success.dart';
-import 'package:plupool/features/auth/presentation/views/new_password_view.dart';
 import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
-import 'package:plupool/features/auth/presentation/views/sign_up_view.dart';
-import 'package:plupool/features/auth/presentation/views/success_view.dart';
 import 'package:plupool/features/auth/presentation/views/tech_setup_view.dart';
-import 'package:plupool/features/auth/presentation/views/verification_forget_password_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/weekly_tasks_view.dart';
 import 'package:plupool/features/maintenance/presentation/views/maintenance_service_view.dart';
@@ -40,29 +34,19 @@ final GoRouter appRouter = GoRouter(
       name: 'onboarding',
       pageBuilder: (context, state) => buildTransitionPage(const OnboardView()),
     ),
-   
+
     GoRoute(
       path: '/selectrole',
       name: 'selectrole',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SelectRoleView()),
     ),
+
     GoRoute(
-      path: '/signup',
-      name: 'signup',
-      pageBuilder: (context, state) => buildTransitionPage(const SignUpView()),
-    ),
-   
-    GoRoute(
-      path: '/success',
-      name: 'success',
-      pageBuilder: (context, state) => buildTransitionPage(const SuccessView()),
-    ),
-    GoRoute(
-      path: '/customersetup',
-      name: 'customersetup',
+      path: '/',
+      name: 'customersignup',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const CustomerSetupView()),
+          buildTransitionPage(const CustomerSignupView()),
     ),
     GoRoute(
       path: '/techsetup',
@@ -71,34 +55,11 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const TechSetupView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/login',
       name: 'login',
       pageBuilder: (context, state) => buildTransitionPage(const LoginView()),
     ),
-    GoRoute(
-      path: '/forgetpassword',
-      name: 'forgetpassword',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const ForgetPasswordScreen()),
-    ),
-    GoRoute(
-      path: '/verificationforgetpassword',
-      name: 'verificationforgetpassword',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const VerificationForgetPasswordView()),
-    ),
-    GoRoute(
-      path: '/newpassword',
-      name: 'newpassword',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const NewPasswordView()),
-    ),
-    GoRoute(
-      path: '/newpaswordsuccess',
-      name: 'newpaswordsuccess',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const NewPasswordSuccess()),
-    ),
+
     GoRoute(
       path: '/MainHomeCustomerView',
       name: 'MainHomeCustomerView',
@@ -137,7 +98,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const MaintenanceServiceView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/weeklytasksview',
       name: 'weeklytasksview',
       pageBuilder: (context, state) =>
