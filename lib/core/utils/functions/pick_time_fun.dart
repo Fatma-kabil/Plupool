@@ -19,7 +19,7 @@ Future<TimeOfDay?> pickTimeFun(BuildContext context) async {
             }),
           ),
           colorScheme: const ColorScheme.light(
-            primary: const Color.fromARGB(255, 165, 217, 245),
+            primary: Color.fromARGB(255, 165, 217, 245),
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(

@@ -12,10 +12,12 @@ class Validators {
   static String? name(String? v, {int minLength = 3, int maxLength = 50}) {
     if (_isNullOrEmpty(v)) return 'الاسم مطلوب';
     final value = v!.trim();
-    if (value.length < minLength)
+    if (value.length < minLength) {
       return 'الاسم قصير جدًا (يجب أن يكون $minLength أحرف على الأقل)';
-    if (value.length > maxLength)
+    }
+    if (value.length > maxLength) {
       return 'الاسم طويل جدًا (بحد أقصى $maxLength حرف)';
+    }
     return null;
   }
 

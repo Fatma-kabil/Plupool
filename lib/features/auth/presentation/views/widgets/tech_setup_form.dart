@@ -5,7 +5,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/core/utils/widgets/custom_text_form_field.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart'; // ✅ استيراد الفاليديتور
+// ✅ استيراد الفاليديتور
 
 class TechSetupForm extends StatefulWidget {
   const TechSetupForm({super.key, required this.formKey});

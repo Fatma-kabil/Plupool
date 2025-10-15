@@ -9,9 +9,9 @@ sealed class BottomNavState extends Equatable {
 }
 
 final class NavBarInitial extends BottomNavState {
-  const NavBarInitial(int index) : super(index);
+  const NavBarInitial(super.index);
 }
 
 final class IndexChanged extends BottomNavState {
-  const IndexChanged(int index) : super(index);
+  const IndexChanged(super.index);
 }
