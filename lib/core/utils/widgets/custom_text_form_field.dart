@@ -55,7 +55,7 @@ class CustomTextFormField extends StatelessWidget {
           ),
 
           prefixIcon: Padding(
-            padding: EdgeInsets.only(right: SizeConfig.w(7),left: SizeConfig.h(4) ),
+            padding: EdgeInsets.only(right: SizeConfig.w(7),left: SizeConfig.w(2) ),
             child:
                 prefixIcon ??
                 Icon(

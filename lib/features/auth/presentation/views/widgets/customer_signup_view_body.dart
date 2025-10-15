@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/company_responsitive_form.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/signup_header.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
@@ -35,7 +36,7 @@ class _CustomerSignupViewBodyState extends State<CustomerSignupViewBody> {
     super.dispose();
   }
 
-  final String selectedrole = 'tech';
+  final String selectedrole = 'company';
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +66,13 @@ class _CustomerSignupViewBodyState extends State<CustomerSignupViewBody> {
                 locationController: _locationController,
                 buildController: _buildController,
                 workController: _workController,
+              ),
+            ]
+            else...[
+              CompanyRespositiveForm(
+                formKey: _formKey,
+                phoneController: _phoneController,
+                nameController: _nameController,
               ),
             ],
 
