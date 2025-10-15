@@ -55,13 +55,13 @@ class CustomTextFormField extends StatelessWidget {
           ),
 
           prefixIcon: Padding(
-            padding: EdgeInsets.only(right: SizeConfig.h(14)),
+            padding: EdgeInsets.only(right: SizeConfig.w(7),left: SizeConfig.h(4) ),
             child:
                 prefixIcon ??
                 Icon(
                   icon,
                   size: SizeConfig.isWideScreen
-                      ? SizeConfig.h(13)
+                      ? SizeConfig.h(15)
                       : SizeConfig.w(13),
                   color: const Color(0xffBBBBBB),
                 ),

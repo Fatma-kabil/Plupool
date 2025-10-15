@@ -49,13 +49,10 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
         decoration: InputDecoration(
           hint: Row(
             children: [
-              Padding(
-                padding:  EdgeInsets.only(right: SizeConfig.w(2) ),
-                child: Icon(
-                  Icons.phone,
-                  size:SizeConfig.isWideScreen? SizeConfig.h(13):SizeConfig.w(13),
-                  color: const Color(0xffBBBBBB),
-                ),
+              Icon(
+                Icons.phone,
+                size:SizeConfig.isWideScreen? SizeConfig.h(15):SizeConfig.w(13),
+                color: const Color(0xffBBBBBB),
               ),
                SizedBox(width:  SizeConfig.w(4)),
               Text(

@@ -6,6 +6,7 @@ import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/customer_signup_form.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/tech_setup_form.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/verification_body.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/whatsapp_verification_note.dart';
 
@@ -23,6 +24,8 @@ class _CustomerSignupViewBodyState extends State<CustomerSignupViewBody> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
+  final TextEditingController _buildController = TextEditingController();
+  final TextEditingController _workController = TextEditingController();
   bool showVerificationBody = false;
   @override
   void dispose() {
@@ -31,6 +34,8 @@ class _CustomerSignupViewBodyState extends State<CustomerSignupViewBody> {
     _locationController.dispose();
     super.dispose();
   }
+
+  final String selectedrole = 'tech';
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +50,24 @@ class _CustomerSignupViewBodyState extends State<CustomerSignupViewBody> {
           children: [
             const SignupHeader(),
             SizedBox(height: SizeConfig.h(15)),
+            if (selectedrole == "customer") ...[
+              CustomerSignupForm(
+                formKey: _formKey,
+                phoneController: _phoneController,
+                nameController: _nameController,
+                locationController: _locationController,
+              ),
+            ] else if (selectedrole == "tech") ...[
+              TechSetupForm(
+                formKey: _formKey,
+                phoneController: _phoneController,
+                nameController: _nameController,
+                locationController: _locationController,
+                buildController: _buildController,
+                workController: _workController,
+              ),
+            ],
 
-            // 🧾 نموذج التسجيل
-            CustomerSignupForm(
-              formKey: _formKey,
-              phoneController: _phoneController,
-              nameController: _nameController,
-              locationController: _locationController,
-            ),
             SizedBox(height: SizeConfig.h(20)),
 
             const WhatsappVerificationNote(),

@@ -1,46 +1,29 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/core/utils/widgets/custom_text_form_field.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/profile_image_picker.dart';
 // ✅ استيراد الفاليديتور
 
 class TechSetupForm extends StatefulWidget {
-  const TechSetupForm({super.key, required this.formKey});
+  const TechSetupForm({super.key, required this.formKey, required this.nameController, required this.locationController, required this.phoneController, required this.buildController, required this.workController});
   final GlobalKey<FormState> formKey; // ✅ استقبلنا المفتاح من البرنت
+   final TextEditingController nameController;
+  final TextEditingController locationController;
+  final TextEditingController phoneController;
+
+  final TextEditingController buildController;
+  final TextEditingController workController;
+
 
   @override
   State<TechSetupForm> createState() => _TechSetupFormState();
 }
 
 class _TechSetupFormState extends State<TechSetupForm> {
-  File? _profileImage;
-
-  final _nameController = TextEditingController();
-  final _locationController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-  final _buildController = TextEditingController();
-  final _workController = TextEditingController();
-
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: 600,
-      imageQuality: 80,
-    );
-
-    if (pickedFile != null) {
-      setState(() {
-        _profileImage = File(pickedFile.path);
-      });
-    }
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -48,42 +31,9 @@ class _TechSetupFormState extends State<TechSetupForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          GestureDetector(
-            onTap: _pickImage,
-            child: Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              decoration: BoxDecoration(
-                color: const Color(0xffE0E0E0),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Center(
-                child: _profileImage == null
-                    ? Column(
-                        children: [
-                          Icon(
-                            Icons.camera_alt_outlined,
-                            size: SizeConfig.h(35),
-                            color: const Color(0xff777777),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            "أضف صورة (اختياري)",
-                            style: AppTextStyles.styleRegular13(
-                              context,
-                            ).copyWith(color: const Color(0xff777777)),
-                          ),
-                        ],
-                      )
-                    : CircleAvatar(
-                        radius: SizeConfig.h(45),
-                        backgroundImage: FileImage(_profileImage!),
-                      ),
-              ),
-            ),
-          ),
+          ProfileImagePicker(),
 
-          const SizedBox(height: 16),
+          SizedBox(height: SizeConfig.h(15)),
 
           // ✅ الاسم
           Text(
@@ -92,14 +42,14 @@ class _TechSetupFormState extends State<TechSetupForm> {
               context,
             ).copyWith(color: const Color(0xff333333)),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: SizeConfig.h(4)),
           CustomTextFormField(
-            controller: _nameController,
+            controller: widget.nameController,
             hintText: 'ادخل اسمك',
             icon: Icons.person_2_outlined,
             validator: (v) => Validators.name(v),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: SizeConfig.h(15)),
 
           // ✅ مكان الإقامة
           Text(
@@ -108,62 +58,14 @@ class _TechSetupFormState extends State<TechSetupForm> {
               context,
             ).copyWith(color: const Color(0xff333333)),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: SizeConfig.h(4)),
           CustomTextFormField(
-            controller: _locationController,
+            controller: widget.locationController,
             hintText: 'ادخل مكان الاقامه',
             icon: Icons.location_on_outlined,
             validator: (v) => Validators.required(v, fieldName: 'مكان الإقامة'),
           ),
-          const SizedBox(height: 14),
-
-          // ✅ البريد الإلكتروني
-          Text(
-            'البريد الالكتروني',
-            style: AppTextStyles.styleSemiBold16(
-              context,
-            ).copyWith(color: const Color(0xff333333)),
-          ),
-          const SizedBox(height: 4),
-          CustomTextFormField(
-            controller: _emailController,
-            hintText: 'أدخل بريدك الالكتروني(اختياري)',
-            icon: Icons.email_outlined,
-            keyboardType: TextInputType.emailAddress,
-           // validator: (v) => Validators.email(v),
-          ),
-          const SizedBox(height: 14),
-
-          // ✅ كلمة المرور
-          Text(
-            'كلمة المرور',
-            style: AppTextStyles.styleSemiBold16(
-              context,
-            ).copyWith(color: const Color(0xff333333)),
-          ),
-          const SizedBox(height: 4),
-          CustomTextFormField(
-            controller: _passwordController,
-            hintText: 'أدخل كلمة المرور',
-            icon: Icons.lock_clock_outlined,
-            //   sufficon: Icons.visibility,
-            obscureText: true,
-            keyboardType: TextInputType.visiblePassword,
-            validator: (v) => Validators.password(v),
-          ),
-          const SizedBox(height: 14),
-
-          // ✅ رقم الهاتف
-          Text(
-            'رقم الهاتف',
-            style: AppTextStyles.styleSemiBold16(
-              context,
-            ).copyWith(color: const Color(0xff333333)),
-          ),
-          const SizedBox(height: 4),
-     //     PhoneInputField(validator: (v) => Validators.phone(v)),
-
-          const SizedBox(height: 14),
+          SizedBox(height: SizeConfig.h(15)),
 
           Text(
             ' المهارات',
@@ -171,29 +73,41 @@ class _TechSetupFormState extends State<TechSetupForm> {
               context,
             ).copyWith(color: const Color(0xff333333)),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: SizeConfig.h(4)),
           CustomTextFormField(
-            controller: _buildController,
+            controller: widget.buildController,
             hintText: 'أدخل  مهاراتك هنا...',
             icon: Icons.build_outlined,
             validator: (v) => Validators.required(v),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: SizeConfig.h(15)),
           Text(
-            ' عدد سنية الخبرة',
+            ' عدد سنين الخبرة',
             style: AppTextStyles.styleSemiBold16(
               context,
             ).copyWith(color: const Color(0xff333333)),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: SizeConfig.h(4)),
           CustomTextFormField(
-            controller: _workController,
+            controller: widget.workController,
             hintText: 'أدخل  عدد سنين خبرتك هنا...',
             icon: Icons.work_history_outlined,
             keyboardType: TextInputType.number,
             validator: (v) => Validators.required(v),
           ),
-          SizedBox(height: 12),
+          SizedBox(height: SizeConfig.h(15)),
+             Text(
+            ' رقم الهاتف',
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: const Color(0xff333333)),
+          ),
+          SizedBox(height: SizeConfig.h(4)),
+
+          PhoneInputField(
+            controller: widget.phoneController, // ✅ نمرره هنا
+            validator: (v) => Validators.phone(v),
+          ),
         ],
       ),
     );
