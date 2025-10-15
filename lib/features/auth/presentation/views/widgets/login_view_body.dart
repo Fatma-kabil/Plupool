@@ -70,7 +70,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               SizedBox(height: SizeConfig.h(180)),
             ] else ...[
               SizedBox(height: SizeConfig.h(40)),
-              VerificationBody(phoneNumber: phoneController.text.trim()),
+              VerificationBody(phoneNumber: phoneController.text.trim(),btntext: 'تسجيل الدخول'),
               SizedBox(height: SizeConfig.h(70)),
             ],
 

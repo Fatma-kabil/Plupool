@@ -35,8 +35,9 @@ class CustomCheckbox extends StatelessWidget {
           // الـ checkbox على اليمين
           AnimatedContainer(
             duration: const Duration(milliseconds: 150),
-            width:SizeConfig.isWideScreen?SizeConfig.h(10): SizeConfig.w(15),
-            height:SizeConfig.isWideScreen?SizeConfig.h(10): SizeConfig.w(15),
+            width:SizeConfig.isWideScreen?SizeConfig.h(13): SizeConfig.w(15),
+            height:SizeConfig.isWideScreen?SizeConfig.h(13): SizeConfig.w(15),
+              alignment: Alignment.center, // ✅ تثبيت الأيقونة في النص
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(3),
               border: Border.all(
@@ -47,7 +48,7 @@ class CustomCheckbox extends StatelessWidget {
             child: value
                 ? Icon(
                     Icons.check,
-                    size: SizeConfig.w(12),
+                    size:SizeConfig.isWideScreen?SizeConfig.h(12): SizeConfig.w(12),
                     color: AppColors.kprimarycolor,
                   )
                 : null,

@@ -12,7 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.controller,
-    this.prefixIcon, 
+    this.prefixIcon,
   });
 
   final String hintText;
@@ -22,23 +22,24 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final Widget? prefixIcon;
-  
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      
       textDirection: TextDirection.rtl,
       child: TextFormField(
-         style: AppTextStyles.styleMedium20(context),
-         cursorHeight:SizeConfig.isWideScreen?SizeConfig.w(12): SizeConfig.h(20),
+        style: AppTextStyles.styleMedium16(
+          context,
+        ).copyWith(color: AppColors.ktextcolor),
+        cursorHeight: SizeConfig.isWideScreen
+            ? SizeConfig.w(12)
+            : SizeConfig.h(20),
         cursorColor: AppColors.kprimarycolor,
         controller: controller,
         validator: validator,
         keyboardType: keyboardType,
-        
+
         decoration: InputDecoration(
-          
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: AppColors.textFieldBorderColor,
@@ -48,26 +49,26 @@ class CustomTextFormField extends StatelessWidget {
           ),
           hintText: hintText,
           hintStyle: AppTextStyles.styleRegular13(context),
-          contentPadding:  EdgeInsets.symmetric(
-            vertical:SizeConfig.h(10) ,
-            horizontal:SizeConfig.w(14) ,
+          contentPadding: EdgeInsets.symmetric(
+            vertical: SizeConfig.h(10),
+            horizontal: SizeConfig.w(14),
           ),
 
           prefixIcon: Padding(
-            padding:  EdgeInsets.only(right: SizeConfig.h(14)),
+            padding: EdgeInsets.only(right: SizeConfig.h(14)),
             child:
                 prefixIcon ??
                 Icon(
                   icon,
-                  size:SizeConfig.isWideScreen? SizeConfig.h(13):SizeConfig.w(13),
+                  size: SizeConfig.isWideScreen
+                      ? SizeConfig.h(13)
+                      : SizeConfig.w(13),
                   color: const Color(0xffBBBBBB),
                 ),
           ),
           prefixIconConstraints: const BoxConstraints(minWidth: 0),
 
           // 👇 زرار إظهار/إخفاء الباسورد
-         
-
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(

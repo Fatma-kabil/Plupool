@@ -9,8 +9,9 @@ import 'package:plupool/core/utils/size_config.dart';
 
 class VerificationBody extends StatefulWidget {
   final String phoneNumber;
+  final String btntext;
 
-  const VerificationBody({super.key, required this.phoneNumber});
+  const VerificationBody({super.key, required this.phoneNumber, required this.btntext});
 
   @override
   State<VerificationBody> createState() => _VerificationBodyState();
@@ -66,28 +67,30 @@ class _VerificationBodyState extends State<VerificationBody> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-     textDirection: TextDirection.rtl,
+      textDirection: TextDirection.rtl,
       children: [
         // 🧭 العنوان
         Text(
           'تحقق من رقمك',
-          style: AppTextStyles.styleSemiBold16(context)
-              .copyWith(color: AppColors.ktextcolor),
+          style: AppTextStyles.styleSemiBold16(
+            context,
+          ).copyWith(color: AppColors.ktextcolor),
         ),
         const SizedBox(height: 8),
         Text(
           'بعتنالك رمز مكون من 5 أرقام على رقمك المنتهي بـ $maskedNumber',
-          style: AppTextStyles.styleRegular14(context)
-              .copyWith(color: const Color(0xff808080)),
+          style: AppTextStyles.styleRegular14(
+            context,
+          ).copyWith(color: const Color(0xff808080)),
         ),
-    
+
         SizedBox(height: SizeConfig.h(37)),
-    
+
         // 🔢 إدخال الكود
         const Otp(),
-    
+
         SizedBox(height: SizeConfig.h(39)),
-    
+
         // 🔁 إعادة الإرسال (تتغير حسب الحالة)
         AuthSwitchRow(
           leadingText: 'ما استلمتش الرمز؟ ',
@@ -101,15 +104,15 @@ class _VerificationBodyState extends State<VerificationBody> {
                 }
               : null,
         ),
-    
+
         SizedBox(height: SizeConfig.h(36)),
-    
+
         // 🔘 زر تسجيل الدخول
         CustomTextBtn(
           width: double.infinity,
-          text: 'تسجيل الدخول',
+          text:widget. btntext,
           onPressed: () {
-       //     context.push('/success'); // أو أي Route خاص بالتحقق
+            //     context.push('/success'); // أو أي Route خاص بالتحقق
           },
         ),
       ],

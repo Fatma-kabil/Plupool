@@ -37,7 +37,10 @@ class _PhoneInputFieldState extends State<PhoneInputField> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
-         style: AppTextStyles.styleMedium20(context),
+        style: 
+             AppTextStyles.styleMedium16(
+                context,
+              ).copyWith(color: AppColors.ktextcolor),
          cursorHeight:SizeConfig.isWideScreen?SizeConfig.w(12): SizeConfig.h(20),
         cursorColor: AppColors.kprimarycolor,
         controller: widget.controller,
