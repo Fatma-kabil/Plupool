@@ -14,7 +14,7 @@ class DetailsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding:  EdgeInsets.all(SizeConfig.w(10)),
       child: Column(
    
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,7 +35,7 @@ class DetailsSection extends StatelessWidget {
               context,
             ).copyWith(color: const Color(0xff777777)),
           ),
-          const SizedBox(height: 4),
+           SizedBox(height:SizeConfig.h(4)),
 
           Text(
             "المميزات:",
@@ -43,7 +43,7 @@ class DetailsSection extends StatelessWidget {
               context,
             ).copyWith(color: Colors.black),
           ),
-          const SizedBox(height: 6),
+           SizedBox(height: SizeConfig.h(4)),
 
           Column(
             children: pool.features.map((feature) {
@@ -54,7 +54,7 @@ class DetailsSection extends StatelessWidget {
                     height: SizeConfig.h(16),
                     width: SizeConfig.w(16),
                   ),
-                  const SizedBox(width: 6),
+                   SizedBox(width:SizeConfig.w(6) ),
                   Expanded(
                     child: Text.rich(
                       TextSpan(

@@ -23,8 +23,8 @@ class GuaranteeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: SizeConfig.h(122),
-      padding: const EdgeInsets.only(left: 5, right: 5, bottom: 10, top: 15),
+      height: SizeConfig.isWideScreen? SizeConfig.w(100) :SizeConfig.h(130),
+      padding:  EdgeInsets.only(left: SizeConfig.w(5), right: SizeConfig.w(5), bottom: SizeConfig.h(10), top: SizeConfig.h(10)),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(15),
@@ -41,16 +41,16 @@ class GuaranteeCard extends StatelessWidget {
             // radius: 17,
             //   backgroundColor: backgroundColor,),
             child: Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(6),vertical: SizeConfig.w(6)),
               child: SvgPicture.asset(
                 image,
                 color: imagecolor,
-                height: SizeConfig.h(24),
-                width: SizeConfig.w(25),
+                height:SizeConfig.isWideScreen?SizeConfig.h(22): SizeConfig.w(22),
+                width: SizeConfig.w(22),
               ),
             ),
           ),
-          const SizedBox(height: 10),
+           SizedBox(height: SizeConfig.h(10)),
           Text(
             title,
             //  textAlign: TextAlign.center,
@@ -58,7 +58,7 @@ class GuaranteeCard extends StatelessWidget {
               context,
             ).copyWith(color: Colors.black),
           ),
-          const SizedBox(height: 4),
+           SizedBox(height: SizeConfig.h(4)),
           Text(
             description,
             textAlign: TextAlign.center,

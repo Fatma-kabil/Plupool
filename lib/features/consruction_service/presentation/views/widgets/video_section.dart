@@ -74,7 +74,7 @@ _controller.addListener(() {
             borderRadius: BorderRadius.circular(20),
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: SizeConfig.h(191),
+              height:SizeConfig.isWideScreen?SizeConfig.w(191): SizeConfig.h(191),
               child: _controller.value.isInitialized
                   ? FittedBox(
                       fit: BoxFit.cover,
@@ -91,12 +91,12 @@ _controller.addListener(() {
           // زرار Play يظهر فقط لما الفيديو مش شغال
           if (!_isPlaying)
             CircleAvatar(
-              radius: 23,
+              radius:SizeConfig.isWideScreen?SizeConfig.h(23):  SizeConfig.w(23) ,
               backgroundColor: const Color(0xff00B4D8),
-              child: const Icon(
+              child:  Icon(
                 Icons.play_arrow_rounded,
                 color: Colors.white,
-                size: 30,
+                size:SizeConfig.isWideScreen?SizeConfig.h(30):  SizeConfig.w(30) ,
               ),
             ),
         ],

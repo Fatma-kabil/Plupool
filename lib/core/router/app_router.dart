@@ -42,7 +42,7 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/',
+      path: '/customersignup',
       name: 'customersignup',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CustomerSignupView()),
@@ -74,7 +74,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const ServicesView()),
     ),
     GoRoute(
-      path: '/constructionservicesview',
+      path: '/',
       name: 'constructionservicesview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const ConstructionServicesView()),

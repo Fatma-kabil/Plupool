@@ -9,7 +9,7 @@ class CustomerConstructCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: SizeConfig.h(150),
+      height:SizeConfig.isWideScreen?SizeConfig.w(100): SizeConfig.h(150),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
 
@@ -19,20 +19,20 @@ class CustomerConstructCard extends StatelessWidget {
         children: [
           // 🖼️ الصورة كخلفية جزئية
           Positioned(
-            left: 15,
-            top: 15,
+            left:SizeConfig.w(15) ,
+            top: SizeConfig.h(15),
             child: Image.asset(
               'assets/images/promocard2.png',
-              height: SizeConfig.h(125),
-              width: SizeConfig.w(125),
+              height: SizeConfig.h(115),
+              width: SizeConfig.w(110),
               fit: BoxFit.fill,
             ),
           ),
 
           // ✍️ النص فوق الصورة عادي
           Positioned(
-            right: 15,
-            top: 10,
+            right:SizeConfig.w(15) ,
+            top: SizeConfig.h(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -42,7 +42,7 @@ class CustomerConstructCard extends StatelessWidget {
                     context,
                   ).copyWith(color: Colors.black),
                 ),
-                const SizedBox(height: 8),
+                 SizedBox(height: SizeConfig.h(8)),
                 Text(
                   textDirection: TextDirection.rtl,
                   'شاهد حمامك قبل البناء مع تقنية التصميم\nثلاثي الأبعاد المتقدمة. اختر التصميم والألوان\nوالمواد بدقة عالية.',

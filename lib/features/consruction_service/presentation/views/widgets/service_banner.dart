@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class ServiceBanner extends StatelessWidget {
   const ServiceBanner({super.key});
@@ -9,7 +10,7 @@ class ServiceBanner extends StatelessWidget {
     return Container(
       width: double.infinity, // عرض كامل
       //  height: 112, // نفس التصميم
-      padding: const EdgeInsets.symmetric(vertical: 14),
+      padding:  EdgeInsets.symmetric(vertical:SizeConfig.h(14) ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         gradient: const LinearGradient(

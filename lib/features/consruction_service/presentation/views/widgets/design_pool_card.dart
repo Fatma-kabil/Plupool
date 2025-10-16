@@ -10,7 +10,7 @@ class DesignPoolCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding:  EdgeInsets.all(SizeConfig.w(15)),
       decoration: BoxDecoration(
         color: AppColors.kScaffoldColor,
         borderRadius: BorderRadius.circular(20),
@@ -36,22 +36,22 @@ class DesignPoolCard extends StatelessWidget {
             textAlign: TextAlign.center,
             textDirection: TextDirection.rtl,
           ),
-          const SizedBox(height: 16),
+           SizedBox(height: SizeConfig.h(16)),
 
           // المميزات
           const FeatureItem(text: "معاينة ثلاثية الأبعاد مباشرة"),
           const FeatureItem(text: "أبعاد وأشكال مخصصة"),
           const FeatureItem(text: "خيارات متنوعة من الخامات والألوان"),
-          const SizedBox(height: 10),
+           SizedBox(height: SizeConfig.h(10)),
 
           Align(
             alignment: Alignment.bottomRight,
             child: OutlinedButton(
               onPressed: () {},
               style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 11,
-                  horizontal: 10,
+                padding:  EdgeInsets.symmetric(
+                  vertical:SizeConfig.h(11) ,
+                  horizontal:SizeConfig.w(10) ,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -69,7 +69,7 @@ class DesignPoolCard extends StatelessWidget {
                     height: SizeConfig.h(21),
                     width: SizeConfig.w(21),
                   ),
-                  SizedBox(width: 8),
+                  SizedBox(width:SizeConfig.w(8) ),
                   Text(
                     "ابدأ تصميمك الآن",
                     style: AppTextStyles.styleRegular16(
@@ -96,7 +96,7 @@ class FeatureItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding:  EdgeInsets.symmetric(vertical:SizeConfig.h(6) ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -105,7 +105,7 @@ class FeatureItem extends StatelessWidget {
             style: AppTextStyles.styleRegular16(context),
             textAlign: TextAlign.right,
           ),
-          const SizedBox(width: 8),
+           SizedBox(width:SizeConfig.w(8) ),
           SvgPicture.asset(
             'assets/icons/done.svg',
             height: SizeConfig.h(16),

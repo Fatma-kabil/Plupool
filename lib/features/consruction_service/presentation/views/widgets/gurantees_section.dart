@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/guarantee_card.dart';
 
 class GuaranteesSection extends StatelessWidget {
@@ -8,6 +9,7 @@ class GuaranteesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+  
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
@@ -21,7 +23,7 @@ class GuaranteesSection extends StatelessWidget {
         // 👇 الكروت
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
+          children:  [
             Expanded(
               child: GuaranteeCard(
                 imagecolor: Color(0xff05B285),
@@ -33,7 +35,7 @@ class GuaranteesSection extends StatelessWidget {
                 backgroundColor: Color(0xffCDF7EC), // أزرق فاتح
               ),
             ),
-            SizedBox(width: 8),
+            SizedBox(width:SizeConfig.w(8)),
             Expanded(
               child: GuaranteeCard(
                 imagecolor: Color(0xffFF9F1C),
@@ -43,7 +45,7 @@ class GuaranteesSection extends StatelessWidget {
                 backgroundColor: Color(0xffFFECD2), // برتقالي فاتح
               ),
             ),
-            SizedBox(width: 8),
+            SizedBox(width: SizeConfig.w(8)),
             Expanded(
               child: GuaranteeCard(
                 imagecolor: Color(0xff00B4D8),

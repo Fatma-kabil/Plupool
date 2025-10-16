@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/utils/widgets/custom_back_button.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/customer_construct_card.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/design_pool_card.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/gurantees_section.dart';
@@ -7,32 +7,29 @@ import 'package:plupool/features/consruction_service/presentation/views/widgets/
 import 'package:plupool/features/consruction_service/presentation/views/widgets/service_banner.dart';
 
 class ConstructionServicesView extends StatelessWidget {
-
-  const ConstructionServicesView({super.key, });
+  const ConstructionServicesView({super.key});
 
   @override
   Widget build(BuildContext context) {
+     SizeConfig.init(context); // 👈 لازم يتنده هنا
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 12, left: 16, right: 16),
+          padding: EdgeInsets.symmetric(
+            vertical: SizeConfig.h(12),
+            horizontal:SizeConfig.isWideScreen?SizeConfig.w(10):SizeConfig.h(10) ,
+          ),
           child: ListView(
             children: [
-              Align(
-                alignment: Alignment.topLeft, // لو عايزة الباك باتون يطلع يمين
-                child: CustomBackButton(),
-              ),
-              SizedBox(height: 15),
               ServiceBanner(),
               SizedBox(height: 32),
               CustomerConstructCard(),
-                SizedBox(height: 16),
+              SizedBox(height:SizeConfig.h(20) ),
               GuaranteesSection(),
-                 SizedBox(height: 29),
-                 PoolsTypesSection(),
-                 DesignPoolCard(),
-                    const SizedBox(height: 15),
-
+              SizedBox(height: SizeConfig.h(29)),
+              PoolsTypesSection(),
+              DesignPoolCard(),
+              const SizedBox(height: 15),
             ],
           ),
         ),
