@@ -11,7 +11,7 @@ class ConstructionServicesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     SizeConfig.init(context); // 👈 لازم يتنده هنا
+  //   SizeConfig.init(context); // 👈 لازم يتنده هنا
     return Scaffold(
       body: SafeArea(
         child: Padding(

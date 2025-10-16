@@ -46,7 +46,7 @@ class CustomerAppbar extends StatelessWidget {
                     Icon(
                       Icons.phone,
                       color: AppColors.kprimarycolor,
-                      size: SizeConfig.w(16),
+                      size: SizeConfig.w(14),
                     ),
                     SizedBox(width: SizeConfig.w(2)),
                     Text(

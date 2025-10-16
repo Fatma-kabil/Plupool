@@ -9,14 +9,14 @@ class AttachFileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 2,
-      left: 2,
+      bottom:SizeConfig.h(2) ,
+      left:SizeConfig.w(2) ,
       child: IconButton(
         onPressed: onPickFile,
         icon: Icon(
           Icons.attach_file,
           color: const Color(0xffBBBBBB),
-          size: SizeConfig.w(24),
+          size: SizeConfig.w(20),
         ),
       ),
     );

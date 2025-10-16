@@ -3,7 +3,7 @@ import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيرا�
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_view.dart';
 import 'package:plupool/features/auth/presentation/views/customer_signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
-import 'package:plupool/features/auth/presentation/views/select_role_view.dart';
+import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/weekly_tasks_view.dart';
 import 'package:plupool/features/maintenance/presentation/views/maintenance_service_view.dart';
@@ -56,7 +56,7 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/MainHomeCustomerView',
+      path: '/',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCustomerView()),
@@ -74,7 +74,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const ServicesView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/constructionservicesview',
       name: 'constructionservicesview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const ConstructionServicesView()),

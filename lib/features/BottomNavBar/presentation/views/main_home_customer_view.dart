@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plupool/core/di/injection.dart' as SizeConfig;
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
@@ -28,7 +27,7 @@ class MainHomeCustomerView extends StatelessWidget {
     return BlocBuilder<BottomNavCubit, BottomNavState>(
       builder: (context, state) {
         final currentIndex = state.index;
- SizeConfig.init(context); // 👈 لازم يتنده هنا
+ 
         return Scaffold(
           extendBody: true,
           body: IndexedStack(index: currentIndex, children: pages),
