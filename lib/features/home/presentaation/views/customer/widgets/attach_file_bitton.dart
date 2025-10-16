@@ -16,7 +16,7 @@ class AttachFileButton extends StatelessWidget {
         icon: Icon(
           Icons.attach_file,
           color: const Color(0xffBBBBBB),
-          size: SizeConfig.w(20),
+          size: SizeConfig.w(17),
         ),
       ),
     );

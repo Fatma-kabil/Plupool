@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class AttachedFile extends StatelessWidget {
   final String fileName;
@@ -14,19 +15,19 @@ class AttachedFile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 4,
-      right: 8,
-      left: 40,
+      bottom:SizeConfig.h(4) ,
+      right:SizeConfig.w(8) ,
+      left:SizeConfig.w(40) ,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+        padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(6), vertical: SizeConfig.h(4)),
         decoration: BoxDecoration(
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(6),
         ),
         child: Row(
           children: [
-            const Icon(Icons.insert_drive_file, size: 18, color: Colors.grey),
-            const SizedBox(width: 6),
+             Icon(Icons.insert_drive_file, size: SizeConfig.w(16), color: Colors.grey),
+             SizedBox(width: SizeConfig.w(6)),
             Expanded(
               child: Text(
                 fileName,
@@ -37,7 +38,7 @@ class AttachedFile extends StatelessWidget {
             ),
             GestureDetector(
               onTap: onRemove,
-              child: const Icon(Icons.close, size: 18, color: Colors.red),
+              child:  Icon(Icons.close, size: SizeConfig.w(18), color: Colors.red),
             ),
           ],
         ),
