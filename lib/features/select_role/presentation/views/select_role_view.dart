@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/features/select_role/presentation/widgets/select_role_view_body.dart';
+import 'package:plupool/features/select_role/presentation/views/widgets/select_role_view_body.dart';
 
 class SelectRoleView extends StatelessWidget {
   const SelectRoleView({super.key});

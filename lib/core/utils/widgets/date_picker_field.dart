@@ -37,7 +37,7 @@ class DatePickerField extends StatelessWidget {
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+              padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(10) , vertical:SizeConfig.isWideScreen?SizeConfig.h(8): SizeConfig.h(12)),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: errorText != null
@@ -50,10 +50,10 @@ class DatePickerField extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.calendar_today,
-                    size: SizeConfig.w(15),
+                    size:SizeConfig.isWideScreen?SizeConfig.h(18): SizeConfig.w(17),
                     color: AppColors.hintTextColor,
                   ),
-                  const SizedBox(width: 6),
+                   SizedBox(width: SizeConfig.w(6)),
                   Text(
                     selectedDate != null
                         ? dateFormat?.call(selectedDate!) ??
@@ -69,7 +69,7 @@ class DatePickerField extends StatelessWidget {
                   Icon(
                     Icons.arrow_drop_down,
                     color: AppColors.hintTextColor,
-                    size: 18,
+                    size: SizeConfig.w(18),
                   ),
                 ],
               ),
@@ -79,7 +79,7 @@ class DatePickerField extends StatelessWidget {
         if (errorText != null) ...[
           const SizedBox(height: 6),
           Text(
-            errorText!,
+             errorText!,
             style: AppTextStyles.styleRegular14(
               context,
             ).copyWith(color: Colors.red[900]),

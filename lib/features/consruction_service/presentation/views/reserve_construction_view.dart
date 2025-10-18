@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/core/utils/widgets/custom_back_button.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_reservation_model.dart';
@@ -20,11 +19,10 @@ class ReserveConstructionView extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(20) ,vertical:SizeConfig.h(20) ),
           child: ListView(
             children: [
-              const Align(alignment: Alignment.topLeft, child: CustomBackButton()),
-              const SizedBox(height: 15),
+             
               PoolReserveHeaderCard(
                 title: pool.title,
                 description: pool.description,
@@ -41,10 +39,11 @@ class ReserveConstructionView extends StatelessWidget {
               const SizedBox(height: 28),
               CustomOutlinedBtn(
                 text: "إلغاء",
+                width: double.infinity,
                 trailing: Icon(
                   Icons.cancel_outlined,
                   color: AppColors.kprimarycolor,
-                  size: SizeConfig.w(24),
+                  size: SizeConfig.w(18),
                 ),
               ),
             ],

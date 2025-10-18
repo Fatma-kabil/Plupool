@@ -33,7 +33,7 @@ class TimePickerField extends StatelessWidget {
           child: Directionality(
              textDirection: TextDirection.rtl,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+              padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(10) , vertical:SizeConfig.isWideScreen?SizeConfig.h(9): SizeConfig.h(12)),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: errorText != null
@@ -46,11 +46,11 @@ class TimePickerField extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.access_time,
-                    size: SizeConfig.w(18),
+                    size:SizeConfig.isWideScreen?SizeConfig.h(20): SizeConfig.w(20),
                     color
                         : AppColors.hintTextColor,
                   ),
-                  const SizedBox(width: 6),
+                   SizedBox(width: SizeConfig.w(6)),
                   Text(
                     selectedTime != null
                         ? selectedTime!.format(context)
@@ -66,7 +66,7 @@ class TimePickerField extends StatelessWidget {
                   Icon(
                     Icons.arrow_drop_down,
                     color: AppColors.hintTextColor,
-                    size: 18,
+                    size: SizeConfig.w(18),
                   ),
                 ],
               ),
@@ -76,7 +76,7 @@ class TimePickerField extends StatelessWidget {
         if (errorText != null) ...[
           const SizedBox(height: 6),
           Text(
-            errorText!,
+           errorText!,
             style: AppTextStyles.styleRegular14(
               context,
             ).copyWith(color: Colors.red[900]),

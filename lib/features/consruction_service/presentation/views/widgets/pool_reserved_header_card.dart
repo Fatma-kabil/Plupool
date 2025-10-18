@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class PoolReserveHeaderCard extends StatelessWidget {
   final String title;
@@ -26,7 +27,7 @@ class PoolReserveHeaderCard extends StatelessWidget {
         ),
 
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 38, vertical: 6),
+          padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(38) , vertical:SizeConfig.h(12) ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
