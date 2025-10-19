@@ -10,7 +10,7 @@ class DoneCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final double cardWidth = SizeConfig.screenWidth * 0.65; // 👈 يخليها 85% من عرض الشاشة
+     final double cardWidth = SizeConfig.screenWidth * 0.75; // 👈 يخليها 85% من عرض الشاشة
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       insetPadding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(16) , vertical:SizeConfig.h(29) ),

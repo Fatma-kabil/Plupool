@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/functions/pick_date_fun.dart';
 import 'package:plupool/core/utils/functions/pick_time_fun.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
@@ -30,9 +31,9 @@ class _BookingCardState extends State<BookingCard> {
       textDirection: TextDirection.rtl,
       child: Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 29),
+        insetPadding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(16) , vertical: SizeConfig.h(29) ),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(20) , vertical: SizeConfig.h(30) ),
           decoration: BoxDecoration(
             color: AppColors.kScaffoldColor,
             borderRadius: BorderRadius.circular(20),

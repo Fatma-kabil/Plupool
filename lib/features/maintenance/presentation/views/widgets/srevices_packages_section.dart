@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/booking_card.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/confirm_package_booking_card.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/package_card.dart';
@@ -89,11 +90,11 @@ class _ServicesPackagesSectionState extends State<ServicesPackagesSection>
           style: AppTextStyles.styleRegular16(context)
               .copyWith(color: const Color(0xff777777)),
         ),
-        const SizedBox(height: 24),
+        SizedBox(height:SizeConfig.h(24) ),
 
         _buildTabBar(),
 
-        const SizedBox(height: 24),
+         SizedBox(height:SizeConfig.h(24) ),
 
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 400),
@@ -117,14 +118,14 @@ class _ServicesPackagesSectionState extends State<ServicesPackagesSection>
       indicatorWeight: 2.5,
       labelColor: AppColors.kprimarycolor,
       unselectedLabelColor: const Color(0xffAAAAAA),
-      labelStyle: const TextStyle(
+      labelStyle:  TextStyle(
         fontFamily: 'Cairo',
-        fontSize: 12,
+        fontSize:SizeConfig.isWideScreen?22: 12,
         fontWeight: FontWeight.w600,
       ),
-      unselectedLabelStyle: const TextStyle(
+      unselectedLabelStyle:  TextStyle(
         fontFamily: 'Cairo',
-        fontSize: 12,
+        fontSize: SizeConfig.isWideScreen?22: 12,
         fontWeight: FontWeight.w400,
       ),
       tabs: _tabs.map((t) => Tab(text: t)).toList(),

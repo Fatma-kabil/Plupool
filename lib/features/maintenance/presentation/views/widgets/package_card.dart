@@ -29,9 +29,9 @@ class PackageCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Container(
-            height: 202,
+            height: SizeConfig.isWideScreen? SizeConfig.w(160): SizeConfig.h(193) ,
             width: double.infinity,
-            padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+            padding:  EdgeInsets.only(left: SizeConfig.w(15), right: SizeConfig.w(15), top: SizeConfig.h(10)),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: const Color(0xffBBBBBB)),
@@ -42,7 +42,7 @@ class PackageCard extends StatelessWidget {
               children: services
                   .map(
                     (service) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      padding:  EdgeInsets.symmetric(vertical: SizeConfig.h(4)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -52,7 +52,7 @@ class PackageCard extends StatelessWidget {
                             style: AppTextStyles.styleRegular16(context)
                                 .copyWith(color: AppColors.ktextcolor),
                           ),
-                          const SizedBox(width: 8),
+                           SizedBox(width: SizeConfig.w(8)),
                           SvgPicture.asset(
                             "assets/icons/done.svg",
                             height: SizeConfig.h(16),
