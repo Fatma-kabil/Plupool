@@ -104,8 +104,8 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                           const SizedBox(width: 5),
                           SvgPicture.asset(
                             tabs[index]['icon'],
-                            width: 20,
-                            height: 20,
+                            width:SizeConfig.w(20) ,
+                            height: SizeConfig.h(20),
                             colorFilter: ColorFilter.mode(
                               isSelected
                                   ? AppColors.kprimarycolor
