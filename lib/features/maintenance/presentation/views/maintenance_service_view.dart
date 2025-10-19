@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/maintenance_section.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/srevices_packages_section.dart';
 
@@ -42,12 +44,14 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context); 
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SafeArea(
+        
         child: Padding(
-          padding: const EdgeInsets.only(top: 30, left: 16, right: 16),
+          padding:  EdgeInsets.only(top:SizeConfig.h(30) , left: SizeConfig.w(15), right: SizeConfig.w(15)),
           child: Column(
             //  textDirection: TextDirection.rtl,
             children: [
@@ -67,11 +71,11 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 150),
                       width:
-                          (screenWidth - 16 * 2 - 15) /
+                          (screenWidth -  SizeConfig.w(16) * 2 -  SizeConfig.w(15)) /
                           2, // نصف العرض تقريبًا مع مسافة
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 8,
+                      padding:  EdgeInsets.symmetric(
+                        horizontal:  SizeConfig.w(10),
+                        vertical:  SizeConfig.h(8),
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.kScaffoldColor,
