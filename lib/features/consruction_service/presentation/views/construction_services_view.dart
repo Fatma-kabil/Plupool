@@ -11,13 +11,13 @@ class ConstructionServicesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  //   SizeConfig.init(context); // 👈 لازم يتنده هنا
+    // SizeConfig.init(context); // 👈 لازم يتنده هنا
     return Scaffold(
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
             vertical: SizeConfig.h(12),
-            horizontal:SizeConfig.isWideScreen?SizeConfig.w(10):SizeConfig.h(10) ,
+            horizontal:SizeConfig.isWideScreen?SizeConfig.w(10):SizeConfig.h(14) ,
           ),
           child: ListView(
             children: [

@@ -23,7 +23,7 @@ class GuaranteeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: SizeConfig.isWideScreen? SizeConfig.w(100) :SizeConfig.h(130),
+      height: SizeConfig.isWideScreen? SizeConfig.w(105) :SizeConfig.h(130),
       padding:  EdgeInsets.only(left: SizeConfig.w(5), right: SizeConfig.w(5), bottom: SizeConfig.h(10), top: SizeConfig.h(10)),
       decoration: BoxDecoration(
         color: backgroundColor,

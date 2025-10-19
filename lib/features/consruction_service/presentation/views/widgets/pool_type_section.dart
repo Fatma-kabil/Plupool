@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class PoolTypeSection extends StatelessWidget {
   final String title;
@@ -27,10 +28,10 @@ class PoolTypeSection extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/icons/pool-ladder.svg',
-              height: 15,
-              width: 15,
+              height:SizeConfig.h(15) ,
+              width:SizeConfig.w(15) ,
             ),
-            const SizedBox(width: 5),
+             SizedBox(width: SizeConfig.w(5)),
             Flexible(
               fit: FlexFit.loose, // 👈 يمنع تمدد النص لمسافة فاضية
               child: Text(

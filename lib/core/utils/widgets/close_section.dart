@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/done_card.dart';
@@ -22,7 +23,7 @@ class CloseSection extends StatelessWidget {
             ).popUntil((route) => route.isFirst);
             showDialog(context: context, builder: (_) => const DoneCard());
           },
-          padding: 8,
+          padding: SizeConfig.w(8),
         ),
         Spacer(),
         CustomOutlinedBtn(
@@ -30,7 +31,7 @@ class CloseSection extends StatelessWidget {
           trailing: Icon(
             Icons.edit_note_sharp,
             color: AppColors.kprimarycolor,
-            size: 24,
+            size: SizeConfig.h(24),
           ),
         ),
       ],

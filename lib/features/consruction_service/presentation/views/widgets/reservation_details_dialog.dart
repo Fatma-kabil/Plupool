@@ -25,7 +25,7 @@ class ReservationDetailsDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const DetailsHeader(),
-            const SizedBox(height: 15),
+             SizedBox(height:  SizeConfig.h(15)),
             Container(
               width: double.infinity,
               padding:  EdgeInsets.symmetric(vertical:SizeConfig.h(10) , horizontal: SizeConfig.w(20)),
@@ -43,7 +43,7 @@ class ReservationDetailsDialog extends StatelessWidget {
                   DateTimeSection(date: reservation.date,time: reservation.time,),
                   const SizedBox(height: 20),
                   DimensionsSection(reservation: reservation),
-                  const SizedBox(height: 20),
+                   SizedBox(height:  SizeConfig.h(20)),
                   const CloseSection(),
                    const SizedBox(height: 10),
                 ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_reservation_model.dart';
 
 class DimensionsSection extends StatelessWidget {
@@ -55,17 +56,17 @@ class DimensionsSection extends StatelessWidget {
           children: [
             SvgPicture.asset(
               iconPath,
-              height: 15,
-              width: 15,
+              height: SizeConfig.h(15),
+              width: SizeConfig.w(15),
               color: AppColors.kprimarycolor,
             ),
-            const SizedBox(width: 5),
+             SizedBox(width: SizeConfig.h(5)),
             Text(
               "$value",
               style: AppTextStyles.styleRegular13(context)
                   .copyWith(color: const Color(0xff006398)),
             ),
-            const SizedBox(width: 3),
+             SizedBox(width: SizeConfig.h(3)),
             Text(
               "متر",
               style: AppTextStyles.styleRegular13(context)

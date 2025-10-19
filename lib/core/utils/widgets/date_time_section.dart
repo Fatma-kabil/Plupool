@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class DateTimeSection extends StatelessWidget {
   final DateTime? date;
@@ -21,7 +22,7 @@ class DateTimeSection extends StatelessWidget {
       textDirection: TextDirection.rtl,
       children: [
         _buildDateColumn(context),
-        SizedBox(width: width ?? 50),
+        SizedBox(width: width ??SizeConfig.w(50) ),
         _buildTimeColumn(context),
       ],
     );
@@ -46,10 +47,10 @@ class DateTimeSection extends StatelessWidget {
                 context,
               ).copyWith(color: const Color(0xff006398)),
             ),
-            const SizedBox(width: 5),
-            const Icon(
+             SizedBox(width: SizeConfig.w(5)),
+             Icon(
               Icons.calendar_today,
-              size: 15,
+              size: SizeConfig.w(15),
               color: AppColors.kprimarycolor,
             ),
           ],
@@ -77,10 +78,10 @@ class DateTimeSection extends StatelessWidget {
                 context,
               ).copyWith(color: const Color(0xff006398)),
             ),
-            const SizedBox(width: 5),
-            const Icon(
+             SizedBox(width: SizeConfig.w(5)),
+             Icon(
               Icons.access_time,
-              size: 15,
+              size: SizeConfig.w(15),
               color: AppColors.kprimarycolor,
             ),
           ],
