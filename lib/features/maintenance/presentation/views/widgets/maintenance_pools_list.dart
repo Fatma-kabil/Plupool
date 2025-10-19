@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/maintenance_pool_card.dart';
 
 class MaintenancePoolsList extends StatelessWidget {
@@ -11,7 +12,7 @@ class MaintenancePoolsList extends StatelessWidget {
       children: maintenancePools
           .map(
             (pool) => Padding(
-              padding: const EdgeInsets.only(bottom: 22),
+              padding:  EdgeInsets.only(bottom:SizeConfig.h(22) ),
               child: MaintenancePoolCard(
                 maintenancePool: pool,
                

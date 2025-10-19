@@ -25,7 +25,7 @@ class ConfirmMaintenanceBookingCard extends StatelessWidget {
           color: AppColors.kScaffoldColor,
           borderRadius: BorderRadius.circular(20),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 30),
+        padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(16),vertical: SizeConfig.h(30)),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -36,7 +36,7 @@ class ConfirmMaintenanceBookingCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: const Color(0xffD4D4D4), width: 2),
               ),
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 38),
+              padding:  EdgeInsets.symmetric(vertical: SizeConfig.h(15), horizontal: SizeConfig.w(38)),
               child: Column(
                 children: [
                   Text(
@@ -64,7 +64,7 @@ class ConfirmMaintenanceBookingCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: const Color(0xff003C48), ),
               ),
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              padding:  EdgeInsets.symmetric(vertical: SizeConfig.h(15), horizontal: SizeConfig.w(20)),
               child: DateTimeSection(date: date, time: time)),
             const SizedBox(height: 25),
 

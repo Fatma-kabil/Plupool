@@ -21,7 +21,7 @@ class MaintenancePoolCard extends StatelessWidget {
           side: const BorderSide(color: Color(0xff80BBDA), width: 1),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(10),vertical:SizeConfig.h(10) ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,12 +29,13 @@ class MaintenancePoolCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20), // نفس درجة كاردك
                 child: Image.asset(
                   maintenancePool.imageUrl,
-                  height: SizeConfig.h(184),
-                  width: SizeConfig.w(340),
+                  height:SizeConfig.isWideScreen? SizeConfig.w(170):SizeConfig.h(186),
+                  width:double.infinity,
+                //  width: SizeConfig.w(340),
                   fit: BoxFit.cover, // علشان الصورة تملأ المساحة بشكل جميل
                 ),
               ),
-              SizedBox(height: 8,),
+              SizedBox(height:SizeConfig.h(8) ,),
               Text(
               
                 maintenancePool.title,
