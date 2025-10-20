@@ -24,12 +24,12 @@ class _OnboardViewState extends State<OnboardView> {
         curve: Curves.easeInOut,
       );
     } else {
-      context.go('/openning');
+      context.go('/selectrole');
     }
   }
 
   void _skip() {
-    context.go('/openning');
+    context.go('/selectrole');
   }
 
   @override

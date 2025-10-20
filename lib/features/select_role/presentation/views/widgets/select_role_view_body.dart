@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/core/utils/widgets/custom_back_button.dart';
+import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 import 'role_card.dart';
 
 class SelectRoleViewBody extends StatelessWidget {
@@ -12,17 +13,14 @@ class SelectRoleViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(vertical : SizeConfig.h(20.0) ,horizontal: SizeConfig.w(10)),
+      padding: EdgeInsets.symmetric(
+        vertical: SizeConfig.h(20.0),
+        horizontal: SizeConfig.w(10),
+      ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          
-
-          // زر الرجوع باستخدام go_router
-          CustomBackButton(),
-
-          const SizedBox(height:17),
-
           // العنوان
           Center(
             child: Text(
@@ -32,7 +30,7 @@ class SelectRoleViewBody extends StatelessWidget {
             ),
           ),
 
-            const SizedBox(height: 8),
+          const SizedBox(height: 8),
           Center(
             child: Text(
               "حدد نوع حسابك للحصول على تجربة مخصصة",
@@ -44,37 +42,33 @@ class SelectRoleViewBody extends StatelessWidget {
           const SizedBox(height: 22),
 
           // الكروت
-         Expanded(
-  child: ListView.separated(
-    itemCount: roles.length,
-    separatorBuilder: (context, index) => const SizedBox(height: 16),
-    itemBuilder: (context, index) {
-      final role = roles[index];
-      return RoleCard(
-        role: role,
-        onTap: () {
-          if (index == 0) {
-            // صاحب حمام سباحة
-            print("اخترت صاحب حمام سباحة");
-            context.push("/signup");
-            // context.go("/owner");
-          } else if (index == 1) {
-            // فني صيانة
-            print("اخترت فني صيانة");
-            context.push("/signup");
-            // context.go("/technician");
-          } else if (index == 2) {
-            // شركة أو مطور عقاري
-            print("اخترت شركة أو مطور عقاري");
-            context.push("/signup");
-            // context.go("/company");
-          }
-        },
-      );
-    },
-  ),
-),
+          Expanded(
+            child: ListView.separated(
+              itemCount: roles.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 16),
+              itemBuilder: (context, index) {
+                final role = roles[index];
+                return RoleCard(
+                  role: role,
+                  onTap: () {
+                    final selectedRole = role.title;
 
+                    // نحفظ الدور في الكيوبت
+                    context.read<SelectRoleCubit>().saveSelectedRole(
+                      selectedRole,
+                    );
+
+                    // نوجّه حسب الدور
+                    if (selectedRole == "فني") {
+                      context.push("/MainHomeTechView");
+                    } else {
+                      context.push("/MainHomeCustomerView");
+                    }
+                  },
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

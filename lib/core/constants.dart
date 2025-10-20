@@ -18,7 +18,7 @@ final List<RoleCardItemModel> roles = [
     image: 'assets/icons/user.svg',
   ),
   RoleCardItemModel(
-    title: "فني صيانة",
+    title: "فني",
     subtitle: "احصل على فرص عمل، تقييمات، وزود دخلك \nبسهولة",
     image: 'assets/icons/services.svg',
   ),
