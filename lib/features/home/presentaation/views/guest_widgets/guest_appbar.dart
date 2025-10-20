@@ -6,7 +6,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 class GuestAppbar extends StatelessWidget {
   final String role;
-  const GuestAppbar({super.key, required this.role});
+  const GuestAppbar( {super.key, required this.role});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,7 +23,7 @@ class GuestAppbar extends StatelessWidget {
               border: Border.all(color: AppColors.kprimarycolor),
             ),
             child: Padding(
-              padding: EdgeInsets.all(5),
+              padding: EdgeInsets.symmetric(vertical: SizeConfig.h(6), horizontal: SizeConfig.w(8)),
               child: GestureDetector(
                 onTap: () {
                   context.push('/login');
