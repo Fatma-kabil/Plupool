@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_view.dart';
-import 'package:plupool/features/auth/presentation/views/customer_signup_view.dart';
+import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
@@ -42,10 +42,10 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/customersignup',
-      name: 'customersignup',
+      path: '/signup',
+      name: 'signup',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const CustomerSignupView()),
+          buildTransitionPage(const SignupView()),
     ),
     
     

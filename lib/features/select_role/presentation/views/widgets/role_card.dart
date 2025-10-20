@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/auth/data/models/role_card_item.dart';
+import 'package:plupool/features/select_role/data/models/role_card_item.dart';
 
 class RoleCard extends StatelessWidget {
   const RoleCard({super.key, required this.role, this.onTap});

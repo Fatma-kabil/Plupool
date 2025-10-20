@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:plupool/core/theme/app_colors.dart';
-import 'package:plupool/features/auth/data/models/role_card_item.dart';
+import 'package:plupool/features/select_role/data/models/role_card_item.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';

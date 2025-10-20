@@ -30,9 +30,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: SizeConfig.w(22),
-        vertical: SizeConfig.h(22),
+      padding: EdgeInsets.only(
+        left: SizeConfig.w(22),
+        right: SizeConfig.w(22),
+        top: SizeConfig.h(50),
+      bottom: SizeConfig.h(22)
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -67,7 +69,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   }
                 },
               ),
-              SizedBox(height: SizeConfig.h(180)),
+              SizedBox(height: SizeConfig.h(70)),
             ] else ...[
               SizedBox(height: SizeConfig.h(40)),
               VerificationBody(phoneNumber: phoneController.text.trim(),btntext: 'تسجيل الدخول'),
@@ -79,7 +81,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               leadingText: ' ليس لدي حساب ',
               actionText: ' انشاء حساب',
               onTap: () {
-                context.go('/signup');
+                context.push('/signup');
               },
             ),
           ],
