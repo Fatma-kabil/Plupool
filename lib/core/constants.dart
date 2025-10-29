@@ -371,17 +371,17 @@ final maintenancePools = [
    final requests = [
       ServiceRequest(
         title: 'عطل مفاجئ في المضخة',
-        date: '2025-10-13',
+        date: '2025-10-31',
         time: '1:00 م',
         userName: 'علي حسين',
         userImage: 'assets/images/ahmed.png',
         location: 'مدينة نصر، القاهرة',
-        status: RequestStatus.completed,
+        status: RequestStatus.urgent,
       ),
       
       ServiceRequest(
         title: 'صيانة شهرية - المقطم',
-        date: '2025-10-11',
+        date: '2025-11-1',
         time: '11:00 ص',
         userName: 'سارة حسن',
         userImage: 'assets/images/customer_user.png',
@@ -390,7 +390,7 @@ final maintenancePools = [
       ),
       ServiceRequest(
         title: 'إصلاح نظام الفاتورة - المهندسين',
-        date: '2025-10-13',
+        date: '2025-11-1',
         time: '9:00 ص',
         userName: 'خالد محمود',
         userImage: 'assets/images/ahmed.png',
@@ -399,7 +399,7 @@ final maintenancePools = [
       ),
        ServiceRequest(
         title: 'إصلاح نظام الفاتورة - المهندسين',
-        date: '2025-10-15',
+        date: '2025-11-3',
         time: '9:00 ص',
         userName: 'خالد محمود',
         userImage: 'assets/images/ahmed.png',
@@ -408,7 +408,7 @@ final maintenancePools = [
       ),
        ServiceRequest(
         title: 'إصلاح نظام الفاتورة - المهندسين',
-        date: '2025-10-15',
+        date: '2025-11-4',
         time: '9:00 ص',
         userName: 'خالد محمود',
         userImage: 'assets/images/ahmed.png',
@@ -417,7 +417,7 @@ final maintenancePools = [
       ),
        ServiceRequest(
         title: 'إصلاح نظام الفاتورة - المهندسين',
-        date: '2025-10-17',
+        date: '2025-11-4',
         time: '9:00 ص',
         userName: 'خالد محمود',
         userImage: 'assets/images/ahmed.png',
