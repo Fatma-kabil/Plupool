@@ -1,8 +1,13 @@
+// lib/core/network/endpoints.dart
+
 class Endpoints {
-//   ربط الباك إند الحقيقي
-static const String baseUrl = 'https://api.example.com';
-static const String selectRole = "$baseUrl/select-role";
-static const String loginPhone = '/auth/login-phone';
-static const String signUpPhone = '/auth/signup-phone';
-static const String profile = '/me';
+  /// 🧠 رابط الباك إند المحلي (FastAPI)
+  static const String baseUrl = 'http://127.0.0.1:8000/api/v1/auth';
+
+
+  // 🔹 إنشاء الحساب حسب الدور
+  static const String signupTechnician = '$baseUrl/signup/technician';
+  static const String signupPoolOwner = '$baseUrl/signup/pool-owner';
+  static const String signupCompany = '$baseUrl/signup/company';
+
 }
