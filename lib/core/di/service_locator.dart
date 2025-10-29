@@ -1,7 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:plupool/core/network/api_service.dart';
+import 'package:plupool/features/auth/data/datasources/otp_remote_data_source.dart';
+import 'package:plupool/features/auth/data/repos_impl/otp_repo_impl.dart';
 import 'package:plupool/features/auth/data/repos_impl/sign_up_repo_impl.dart';
+import 'package:plupool/features/auth/domain/repos/otp_repo.dart';
+import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 
 // Role Feature
@@ -69,4 +73,18 @@ Future<void> initServiceLocator() async {
         signupPoolOwnerUseCase: sl<SignupPoolOwnerUseCase>(),
         signupCompanyUseCase: sl<SignupCompanyUseCase>(),
       ));
+
+
+       // ----------------------------
+  // 🔐 OTP Feature
+  // ----------------------------
+  sl.registerLazySingleton<OtpRemoteDataSource>(
+    () => OtpRemoteDataSourceImpl(sl<ApiService>()),
+  );
+
+  sl.registerLazySingleton<OtpRepository>(
+    () => OtpRepoImpl(sl<OtpRemoteDataSource>()),
+  );
+
+  sl.registerFactory(() => OtpCubit(sl<OtpRepository>()));
 }
