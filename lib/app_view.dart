@@ -21,7 +21,7 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => BottomNavCubit()),
          BlocProvider(create: (_) => sl<SelectRoleCubit>()),
            BlocProvider(create: (_) => sl<OtpCubit>()),
-          BlocProvider(create:     (_) => sl<SignUpCubit>()),
+     //     BlocProvider(create:     (_) => sl<SignUpCubit>()),
       
       
       

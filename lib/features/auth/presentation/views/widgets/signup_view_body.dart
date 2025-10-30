@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/company_entity.dart';
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/pool_owner_entity.dart';
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/technician_entity.dart';
@@ -150,26 +151,24 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                   /// 🔹 BlocConsumer هنا عشان يعرض حالات OTP كلها
                   BlocConsumer<OtpCubit, OtpState>(
                     listener: (context, state) {
-                      if (state is OtpLoading) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content:
-                                  Text('جاري إرسال رمز التحقق...')),
-                        );
-                      }
+                      
 
                       if (state is OtpSentSuccess) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('✅ تم إرسال الكود بنجاح')),
-                        );
+                         showCustomSnackBar(
+                        context: context,
+                        message: '✅ تم إرسال الكود بنجاح',
+                        isSuccess: true,
+                      );
+                        
                         setState(() => showVerificationBody = true);
                       }
 
                       if (state is OtpError) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('❌ ${state.message}')),
-                        );
+                        showCustomSnackBar(
+                        context: context,
+                        message: state.message,
+                        isSuccess: false,
+                      );
                       }
                     },
                     builder: (context, state) {
@@ -259,17 +258,23 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     if (!_formKey.currentState!.validate()) return;
 
     if (!acceptedTerms) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('يجب الموافقة على الشروط والأحكام')),
-      );
+       showCustomSnackBar(
+                        context: context,
+                        message: 'يجب الموافقة على الشروط والأحكام',
+                        isSuccess: false,
+                      );
+    
       return;
     }
 
     final phoneState = _phoneInputFieldKey.currentState;
     if (phoneState == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('يرجى إدخال رقم الهاتف أولاً')),
-      );
+       showCustomSnackBar(
+                        context: context,
+                        message: 'يرجى إدخال رقم الهاتف أولاً',
+                        isSuccess: false,
+                      );
+     
       return;
     }
 

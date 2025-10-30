@@ -9,9 +9,12 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(
-        child: SignupViewBody(),
+    return BlocProvider(
+      create: (_) => sl<SignUpCubit>(),
+      child: const Scaffold(
+        body: SafeArea(
+          child: SignupViewBody(),
+        ),
       ),
     );
   }
