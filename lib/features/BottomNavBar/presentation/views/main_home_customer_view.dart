@@ -61,10 +61,10 @@ class MainHomeCustomerView extends StatelessWidget {
                 ),
                 buildNavItem(
                   icon: 'assets/icons/construct.svg',
-                  label: 'حمامي',
+                  label: 'مسبحي',
                 ),
                 buildNavItem(icon: 'assets/icons/store.svg', label: 'المتجر'),
-                buildNavItem(icon: 'assets/icons/profile.svg', label: 'حسابي'),
+                buildNavItem(icon: 'assets/icons/profile.svg', label: 'الحساب'),
               ],
             ),
           ),

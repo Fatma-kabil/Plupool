@@ -4,7 +4,9 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class Otp extends StatefulWidget {
-  const Otp({super.key});
+  final void Function(String) onCompleted;
+
+  const Otp({super.key, required this.onCompleted});
 
   @override
   State<Otp> createState() => _OtpState();
@@ -21,28 +23,23 @@ class _OtpState extends State<Otp> {
     controllers = List.generate(codeLength, (_) => TextEditingController());
     focusNodes = List.generate(codeLength, (_) => FocusNode());
 
-    // 👇 هنا السحر
-    // نضيف Listener لكل FocusNode عشان يعمل إعادة بناء عند أي تغيير
     for (var node in focusNodes) {
       node.addListener(() {
         setState(() {});
       });
     }
 
-    // نخلي أول خانة تاخد focus لما الصفحة تفتح
     WidgetsBinding.instance.addPostFrameCallback((_) {
       FocusScope.of(context).requestFocus(focusNodes.first);
     });
   }
 
+  String get otpCode => controllers.map((c) => c.text).join();
+
   @override
   void dispose() {
-    for (var c in controllers) {
-      c.dispose();
-    }
-    for (var f in focusNodes) {
-      f.dispose();
-    }
+    for (var c in controllers) c.dispose();
+    for (var f in focusNodes) f.dispose();
     super.dispose();
   }
 
@@ -57,8 +54,9 @@ class _OtpState extends State<Otp> {
           width: SizeConfig.w(49),
           height: SizeConfig.h(51),
           child: TextField(
-         //   cursorHeight:SizeConfig.isWideScreen?SizeConfig.w(7): SizeConfig.h(5),
+                     //   cursorHeight:SizeConfig.isWideScreen?SizeConfig.w(7): SizeConfig.h(5),
             cursorColor: AppColors.kprimarycolor,
+
             controller: controllers[index],
             focusNode: focusNodes[index],
             textAlign: TextAlign.center,
@@ -67,26 +65,15 @@ class _OtpState extends State<Otp> {
             style: AppTextStyles.styleMedium25(context),
             decoration: InputDecoration(
               counterText: "",
-              contentPadding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
-
               filled: true,
-              fillColor: isFocused
-                  ? Color(0xffE9F9FC)
-                  : AppColors.kScaffoldColor, //, الخلفية لو عليه الدور
-
+              fillColor: isFocused ? const Color(0xffE9F9FC) : AppColors.kScaffoldColor,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  color: AppColors.kprimarycolor,
-                  width: 1,
-                ),
+                borderSide: BorderSide(color: AppColors.kprimarycolor, width: 1),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(
-                  color: AppColors.kprimarycolor,
-                  width: 1.5,
-                ),
+                borderSide: BorderSide(color: AppColors.kprimarycolor, width: 1.5),
               ),
             ),
             onChanged: (value) {
@@ -95,6 +82,7 @@ class _OtpState extends State<Otp> {
               } else if (value.isEmpty && index > 0) {
                 FocusScope.of(context).requestFocus(focusNodes[index - 1]);
               }
+              widget.onCompleted(otpCode); // 🔹 نرسل الكود بعد كل تغيير
             },
           ),
         );

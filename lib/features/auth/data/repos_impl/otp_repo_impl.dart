@@ -9,14 +9,19 @@ class OtpRepoImpl implements OtpRepository {
   OtpRepoImpl(this.remoteDataSource);
 
   @override
+   @override
   Future<Either<Failure, void>> sendOtp(String phone) async {
     try {
+      print('📡 [Repo] Sending OTP to $phone');
       await remoteDataSource.sendOtp(phone);
+      print('✅ [Repo] OTP sent successfully');
       return const Right(null);
     } catch (e) {
+      print('❌ [Repo] Error while sending OTP: $e');
       return Left(mapDioError(e));
     }
   }
+
 
   @override
   Future<Either<Failure, String>> verifyOtp(String phone, String otpCode) async {

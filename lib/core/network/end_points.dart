@@ -2,7 +2,7 @@
 
 class Endpoints {
   /// 🧠 رابط الباك إند المحلي (FastAPI)
-  static const String baseUrl = 'http://127.0.0.1:8000/api/v1/auth';
+  static const String baseUrl = 'http://192.168.43.149:8000/api/v1/auth';
 
   // 🔹 إنشاء الحساب حسب الدور
   static const String signupTechnician = '$baseUrl/signup/technician';

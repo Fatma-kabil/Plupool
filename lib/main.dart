@@ -9,11 +9,11 @@ void main() async {
 
   await initServiceLocator(); // ✅ مهم جدًا قبل runApp
   runApp(
- //  DevicePreview(
- //     enabled: !kReleaseMode, // ✅ يشتغل فقط في debug
-  //    builder: (context) => 
+  // DevicePreview(
+    //  enabled: !kReleaseMode, // ✅ يشتغل فقط في debug
+    //  builder: (context) => 
      const PlupoolApp(),
- //   ),
+   // ),
   );
 
   // تشيل السبلاتش بعد ما الاب يفتح

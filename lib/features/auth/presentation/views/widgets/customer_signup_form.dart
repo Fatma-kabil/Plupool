@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -12,13 +14,16 @@ class CustomerSignupForm extends StatefulWidget {
     required this.formKey,
     required this.phoneController,
     required this.nameController,
-    required this.locationController,
+    required this.locationController, required this.onImagePicked, this.phoneFieldKey,
   });
 
   final GlobalKey<FormState> formKey;
   final TextEditingController phoneController;
   final TextEditingController nameController;
   final TextEditingController locationController;
+  final void Function(File? image) onImagePicked;
+    final GlobalKey<PhoneInputFieldState>? phoneFieldKey; // ✅ هنا
+
 
   @override
   State<CustomerSignupForm> createState() => _CustomerSignupFormState();
@@ -34,7 +39,7 @@ class _CustomerSignupFormState extends State<CustomerSignupForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-         ProfileImagePicker(),
+           ProfileImagePicker(onImagePicked: widget.onImagePicked),
 
           SizedBox(height: SizeConfig.h(16)),
 
@@ -82,6 +87,7 @@ class _CustomerSignupFormState extends State<CustomerSignupForm> {
           SizedBox(height: SizeConfig.h(4)),
 
           PhoneInputField(
+              key: widget.phoneFieldKey, // ✅ هنا
             controller: widget.phoneController, // ✅ نمرره هنا
             validator: (v) => Validators.phone(v),
           ),

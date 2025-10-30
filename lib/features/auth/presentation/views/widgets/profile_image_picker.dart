@@ -5,7 +5,9 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class ProfileImagePicker extends StatefulWidget {
-  const ProfileImagePicker({super.key});
+  final void Function(File? image) onImagePicked; // Callback للصورة
+
+  const ProfileImagePicker({super.key, required this.onImagePicked});
 
   @override
   State<ProfileImagePicker> createState() => _ProfileImagePickerState();
@@ -26,6 +28,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
       setState(() {
         _profileImage = File(pickedFile.path);
       });
+      widget.onImagePicked(_profileImage);
     }
   }
 
@@ -44,17 +47,13 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
           child: _profileImage == null
               ? Column(
                   children: [
-                    Icon(
-                      Icons.camera_alt_outlined,
-                      size: SizeConfig.h(35),
-                      color: const Color(0xff777777),
-                    ),
+                    Icon(Icons.camera_alt_outlined,
+                        size: SizeConfig.h(35), color: const Color(0xff777777)),
                     const SizedBox(height: 4),
                     Text(
                       "أضف صورة (اختياري)",
-                      style: AppTextStyles.styleRegular13(
-                        context,
-                      ).copyWith(color: const Color(0xff777777)),
+                      style: AppTextStyles.styleRegular13(context)
+                          .copyWith(color: const Color(0xff777777)),
                     ),
                   ],
                 )

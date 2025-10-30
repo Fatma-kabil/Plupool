@@ -10,8 +10,14 @@ import 'package:plupool/core/utils/size_config.dart';
 class VerificationBody extends StatefulWidget {
   final String phoneNumber;
   final String btntext;
+  final void Function(String otpCode) onVerify;
 
-  const VerificationBody({super.key, required this.phoneNumber, required this.btntext});
+  const VerificationBody({
+    super.key,
+    required this.phoneNumber,
+    required this.btntext,
+    required this.onVerify,
+  });
 
   @override
   State<VerificationBody> createState() => _VerificationBodyState();
@@ -21,11 +27,12 @@ class _VerificationBodyState extends State<VerificationBody> {
   int secondsRemaining = 30;
   bool canResend = false;
   Timer? timer;
+  String otpCode = '';
 
   @override
   void initState() {
     super.initState();
-    _startCountdown(); // ✅ يبدأ العد التنازلي فور فتح الشاشة
+    _startCountdown();
   }
 
   void _startCountdown() {
@@ -37,13 +44,9 @@ class _VerificationBodyState extends State<VerificationBody> {
     timer?.cancel();
     timer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (secondsRemaining > 0) {
-        setState(() {
-          secondsRemaining--;
-        });
+        setState(() => secondsRemaining--);
       } else {
-        setState(() {
-          canResend = true;
-        });
+        setState(() => canResend = true);
         t.cancel();
       }
     });
@@ -69,50 +72,48 @@ class _VerificationBodyState extends State<VerificationBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       textDirection: TextDirection.rtl,
       children: [
-        // 🧭 العنوان
         Text(
           'تحقق من رقمك',
-          style: AppTextStyles.styleSemiBold16(
-            context,
-          ).copyWith(color: AppColors.ktextcolor),
+          style: AppTextStyles.styleSemiBold16(context).copyWith(color: AppColors.ktextcolor),
         ),
         const SizedBox(height: 8),
         Text(
           'بعتنالك رمز مكون من 5 أرقام على رقمك المنتهي بـ $maskedNumber',
-          style: AppTextStyles.styleRegular14(
-            context,
-          ).copyWith(color: const Color(0xff808080)),
+          style: AppTextStyles.styleRegular14(context).copyWith(color: const Color(0xff808080)),
         ),
-
         SizedBox(height: SizeConfig.h(37)),
 
         // 🔢 إدخال الكود
-        const Otp(),
+        Otp(
+          onCompleted: (code) {
+            setState(() => otpCode = code);
+          },
+        ),
 
         SizedBox(height: SizeConfig.h(39)),
 
-        // 🔁 إعادة الإرسال (تتغير حسب الحالة)
+        // 🔁 إعادة الإرسال
         AuthSwitchRow(
           leadingText: 'ما استلمتش الرمز؟ ',
           actionText: canResend
               ? 'إعادة الإرسال'
               : 'خلال ${secondsRemaining.toString().padLeft(2, '0')} ثانية',
-          onTap: canResend
-              ? () {
-                  debugPrint('🔁 إعادة إرسال الكود إلى ${widget.phoneNumber}');
-                  _startCountdown(); // 🔄 يبدأ العدّ من جديد بعد الإرسال
-                }
-              : null,
+          onTap: canResend ? _startCountdown : null,
         ),
-
         SizedBox(height: SizeConfig.h(36)),
 
-        // 🔘 زر تسجيل الدخول
+        // 🔘 زر إنشاء الحساب بعد التحقق
         CustomTextBtn(
           width: double.infinity,
-          text:widget. btntext,
+          text: widget.btntext,
           onPressed: () {
-            //     context.push('/success'); // أو أي Route خاص بالتحقق
+            if (otpCode.length < 5) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('أدخل رمز التحقق بالكامل')),
+              );
+              return;
+            }
+            widget.onVerify(otpCode); // 🔹 نرسل الكود للتحقق
           },
         ),
       ],
