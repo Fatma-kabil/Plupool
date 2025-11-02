@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_view.dart';
+import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dart';
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
@@ -18,7 +19,7 @@ import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/splasherapper',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -46,6 +47,13 @@ final GoRouter appRouter = GoRouter(
       name: 'signup',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SignupView()),
+    ),
+
+     GoRoute(
+      path: '/',
+      name: 'privacypolicy',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const PrivacyPolicyView()),
     ),
     
     
