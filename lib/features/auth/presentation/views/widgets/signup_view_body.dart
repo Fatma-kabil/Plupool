@@ -78,6 +78,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
               if (phoneState == null) return;
               final fullPhone = phoneState.getFullPhoneNumber();
 
+              // ✅ تحديد العملية حسب الدور
               if (role.contains("حمام")) {
                 context.read<SignUpCubit>().signupPoolOwner(
                       PoolOwnerEntity(
@@ -88,6 +89,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         profileImage: _profileImage?.path,
                       ),
                     );
+                context.go('/MainHomeCustomerView');
               } else if (role.contains("فني")) {
                 final skillsList = _buildController.text
                     .split(',')
@@ -107,6 +109,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         otpCode: otpState.token,
                       ),
                     );
+                context.go('/MainHomeTechView');
               } else if (role.contains("شركة") || role.contains("مطور")) {
                 context.read<SignUpCubit>().signupCompany(
                       CompanyEntity(
@@ -116,13 +119,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         otpCode: otpState.token,
                       ),
                     );
+                context.go('/MainHomeTechView');
               }
-            }
-
-            if (otpState is OtpError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(otpState.message)),
-              );
             }
           },
           child: Padding(
@@ -143,32 +141,26 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                   CustomCheckbox(
                     value: acceptedTerms,
                     onChanged: (val) => setState(() => acceptedTerms = val),
-                    label:
-                        'الموافقة علي الشروط والأحكام وسياسة الخصوصية',
+                    label: 'الموافقة علي الشروط والأحكام وسياسة الخصوصية',
                   ),
                   SizedBox(height: SizeConfig.h(35)),
 
-                  /// 🔹 BlocConsumer هنا عشان يعرض حالات OTP كلها
+                  /// ✅ هنا BlocConsumer الوحيد اللي يعرض الرسائل
                   BlocConsumer<OtpCubit, OtpState>(
                     listener: (context, state) {
-                      
-
                       if (state is OtpSentSuccess) {
-                         showCustomSnackBar(
-                        context: context,
-                        message: '✅ تم إرسال الكود بنجاح',
-                        isSuccess: true,
-                      );
-                        
-                        setState(() => showVerificationBody = true);
-                      }
-
-                      if (state is OtpError) {
                         showCustomSnackBar(
-                        context: context,
-                        message: state.message,
-                        isSuccess: false,
-                      );
+                          context: context,
+                          message: '✅ تم إرسال الكود بنجاح',
+                          isSuccess: true,
+                        );
+                        setState(() => showVerificationBody = true);
+                      } else if (state is OtpError) {
+                        showCustomSnackBar(
+                          context: context,
+                          message: state.message,
+                          isSuccess: false,
+                        );
                       }
                     },
                     builder: (context, state) {
@@ -183,6 +175,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                             final phoneState =
                                 _phoneInputFieldKey.currentState;
                             if (phoneState == null) return;
+
                             context.read<OtpCubit>().verifyOtp(
                                   phoneState.getFullPhoneNumber(),
                                   otpCode,
@@ -258,23 +251,21 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     if (!_formKey.currentState!.validate()) return;
 
     if (!acceptedTerms) {
-       showCustomSnackBar(
-                        context: context,
-                        message: 'يجب الموافقة على الشروط والأحكام',
-                        isSuccess: false,
-                      );
-    
+      showCustomSnackBar(
+        context: context,
+        message: 'يجب الموافقة على الشروط والأحكام',
+        isSuccess: false,
+      );
       return;
     }
 
     final phoneState = _phoneInputFieldKey.currentState;
     if (phoneState == null) {
-       showCustomSnackBar(
-                        context: context,
-                        message: 'يرجى إدخال رقم الهاتف أولاً',
-                        isSuccess: false,
-                      );
-     
+      showCustomSnackBar(
+        context: context,
+        message: 'يرجى إدخال رقم الهاتف أولاً',
+        isSuccess: false,
+      );
       return;
     }
 

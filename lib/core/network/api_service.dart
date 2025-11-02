@@ -6,7 +6,10 @@ class ApiService {
 
   ApiService(this.dio);
 
-  Future<Response> get(String endpoint, {Map<String, dynamic>? queryParams}) async {
+  Future<Response> get(
+    String endpoint, {
+    Map<String, dynamic>? queryParams,
+  }) async {
     try {
       final response = await dio.get(endpoint, queryParameters: queryParams);
       return response;
@@ -15,16 +18,32 @@ class ApiService {
     }
   }
 
-  Future<Response> post(String endpoint, {Map<String, dynamic>? data}) async {
+  Future<Response> post(
+    String endpoint, {
+    Map<String, dynamic>? data,
+    Options? options, // ✅ خليها نوع Dio Options
+  }) async {
     try {
-      final response = await dio.post(endpoint, data: data);
+      final response = await dio.post(
+        endpoint,
+        data: data,
+        options: options ??
+            Options(
+              headers: {
+                'Content-Type': 'application/json', // ✅ مهم جدًا
+              },
+            ),
+      );
       return response;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<Response> put(String endpoint, {Map<String, dynamic>? data}) async {
+  Future<Response> put(
+    String endpoint, {
+    Map<String, dynamic>? data,
+  }) async {
     try {
       final response = await dio.put(endpoint, data: data);
       return response;
@@ -33,7 +52,10 @@ class ApiService {
     }
   }
 
-  Future<Response> delete(String endpoint, {Map<String, dynamic>? data}) async {
+  Future<Response> delete(
+    String endpoint, {
+    Map<String, dynamic>? data,
+  }) async {
     try {
       final response = await dio.delete(endpoint, data: data);
       return response;

@@ -2,10 +2,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/otp.dart';
-import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/size_config.dart'; // ✅ Cubit لإرسال OTP
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class VerificationBody extends StatefulWidget {
   final String phoneNumber;
@@ -52,6 +55,20 @@ class _VerificationBodyState extends State<VerificationBody> {
     });
   }
 
+  void _resendOtp() {
+    // 🟢 هنا بنبعت الكود الجديد فعلاً
+    context.read<OtpCubit>().sendOtp(widget.phoneNumber);
+
+    // 🟠 نعيد العداد من الأول
+    _startCountdown();
+
+    // 🔔 نعرض رسالة تأكيد
+    showCustomSnackBar(
+      context: context,
+      message: 'تم إرسال رمز تحقق جديد إلى واتساب',
+    );
+  }
+
   @override
   void dispose() {
     timer?.cancel();
@@ -74,12 +91,14 @@ class _VerificationBodyState extends State<VerificationBody> {
       children: [
         Text(
           'تحقق من رقمك',
-          style: AppTextStyles.styleSemiBold16(context).copyWith(color: AppColors.ktextcolor),
+          style: AppTextStyles.styleSemiBold16(context)
+              .copyWith(color: AppColors.ktextcolor),
         ),
         const SizedBox(height: 8),
         Text(
           'بعتنالك رمز مكون من 5 أرقام على رقمك المنتهي بـ $maskedNumber',
-          style: AppTextStyles.styleRegular14(context).copyWith(color: const Color(0xff808080)),
+          style: AppTextStyles.styleRegular14(context)
+              .copyWith(color: const Color(0xff808080)),
         ),
         SizedBox(height: SizeConfig.h(37)),
 
@@ -98,22 +117,23 @@ class _VerificationBodyState extends State<VerificationBody> {
           actionText: canResend
               ? 'إعادة الإرسال'
               : 'خلال ${secondsRemaining.toString().padLeft(2, '0')} ثانية',
-          onTap: canResend ? _startCountdown : null,
+          onTap: canResend ? _resendOtp : null, // ✅ هنا التعديل المهم
         ),
         SizedBox(height: SizeConfig.h(36)),
 
-        // 🔘 زر إنشاء الحساب بعد التحقق
+        // 🔘 زر التحقق
         CustomTextBtn(
           width: double.infinity,
           text: widget.btntext,
           onPressed: () {
             if (otpCode.length < 5) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('أدخل رمز التحقق بالكامل')),
+              showCustomSnackBar(
+                context: context,
+                message: 'أدخل رمز التحقق بالكامل',
               );
               return;
             }
-            widget.onVerify(otpCode); // 🔹 نرسل الكود للتحقق
+            widget.onVerify(otpCode);
           },
         ),
       ],
