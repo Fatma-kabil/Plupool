@@ -35,10 +35,10 @@ class UsageSectionCard extends StatelessWidget {
               context,
             ).copyWith(color: AppColors.kprimarycolor),
           ),
-          SizedBox(height: SizeConfig.h(8)),
+          SizedBox(height: 8),
           ...items.map(
             (e) => Padding(
-              padding: EdgeInsets.only(bottom: SizeConfig.h(6)),
+              padding: EdgeInsets.only(bottom: 6),
               child: Row(
                 textDirection: TextDirection.rtl,
                 crossAxisAlignment: CrossAxisAlignment.start,

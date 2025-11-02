@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/privacy_contact_section.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/privacy_header.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/privacy_section_card.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/usage_section_card.dart';
 
 class PrivacyPolicyViewBody extends StatelessWidget {
@@ -35,12 +36,13 @@ class PrivacyPolicyViewBody extends StatelessWidget {
               ],
             ),
              const SizedBox(height: 20),
-             UsageSectionCard(
+             PrivacySectionCard(
               title: "سياسة الخصوصية 🔒",
               items: [
-                "نحن نجمع معلوماتك الشخصية مثل الاسم والعنوان لتقديم الخدمات المطلوبة وتحسين تجربتك.",
-                "لن نبيع أو نؤجر معلوماتك الشخصية لأي طرف ثالث لأغراض التسويق.",
-                "تُستخدم بياناتك لتحديد الخدمات الأقرب لك وتقديم عروض مصممة خصيصًا لك.",
+              "نستخدم بيانات الموقع لتحديد أقرب فني لخدمتك وتقديم عروض مخصصة لمنطقتك.",
+              "نحتفظ بحقك في طلب حذف معلوماتك الشخصية، مع مراعاة أن ذلك قد يؤثر على قدرتنا على تقديم الخدمات لك.",
+              "نستخدم تقنيات التشفير لحماية بياناتك أثناء نقلها وتخزينها في أنظمتنا.",
+              "قد نستخدم معلومات الاتصال الخاصة بك لإرسال تحديثات حول خدماتنا وعروضنا الترويجية، ويمكنك إلغاء الاشتراك في أي وقت."
               ],
             ),
              const SizedBox(height: 20),
