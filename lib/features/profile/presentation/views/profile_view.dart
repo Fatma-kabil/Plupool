@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/profile/presentation/views/widgets/tech_profile_body.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -11,8 +12,8 @@ class ProfileView extends StatelessWidget {
      
       body:  SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(20),vertical: SizeConfig.h(20)),
-          child: Text('This is the Profile View'),
+          padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(12),vertical: SizeConfig.h(20)),
+          child: TechProfileBody(),
         ),
       ),
     );

@@ -19,26 +19,30 @@ class ProfileOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      leading: Icon(
-        icon,
-        color:islogout?Colors.red: AppColors.kprimarycolor,
-        size: SizeConfig.w(19),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: ListTile(
+        
+        contentPadding: EdgeInsets.zero,
+        leading: Icon(
+          icon,
+          color:islogout?Colors.red: AppColors.kprimarycolor,
+          size: SizeConfig.w(19),
+        ),
+        title: Text(
+          title,
+          textAlign: TextAlign.right,
+          style: AppTextStyles.styleMedium16(
+            context,
+          ).copyWith(color:islogout?Colors.red: Color(0xff777777)),
+        ),
+        trailing: Icon(
+          Icons.chevron_right,
+          color:islogout?Colors.red: Color(0xffA4A4A4),
+          size: SizeConfig.w(20),
+        ),
+        onTap: onTap,
       ),
-      title: Text(
-        title,
-        textAlign: TextAlign.right,
-        style: AppTextStyles.styleMedium16(
-          context,
-        ).copyWith(color:islogout?Colors.red: Color(0xff777777)),
-      ),
-      trailing: Icon(
-        Icons.chevron_left,
-        color:islogout?Colors.red: Color(0xffA4A4A4),
-        size: SizeConfig.w(20),
-      ),
-      onTap: onTap,
     );
   }
 }
