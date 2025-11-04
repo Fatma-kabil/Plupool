@@ -6,7 +6,7 @@ import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cu
 import 'package:plupool/features/BottomNavBar/presentation/views/widgets/build_nav_item.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/widgets/custom_floating_action_btn.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_home_view.dart';
-import 'package:plupool/features/profile/presentation/views/tech_profile_view.dart';
+import 'package:plupool/features/profile/presentation/views/profile_view.dart';
 import 'package:plupool/features/store/presentation/views/store_view.dart';
 import 'package:plupool/features/tasks/presentation/views/tech_task_view.dart';
 
@@ -24,7 +24,7 @@ class _MainHomeTechViewState extends State<MainHomeTechView> {
     const TechHomeView(),
     const TechTaskView(),
     const StoreView(),
-    const TechProfileView(),
+    const ProfileView(),
   ];
 
   @override

@@ -50,7 +50,7 @@ final GoRouter appRouter = GoRouter(
     ),
 
      GoRoute(
-      path: '/',
+      path: '/privacypolicy',
       name: 'privacypolicy',
       pageBuilder: (context, state) =>
           buildTransitionPage(const PrivacyPolicyView()),
@@ -64,7 +64,7 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/MainHomeCustomerView',
+      path: '/',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCustomerView()),
