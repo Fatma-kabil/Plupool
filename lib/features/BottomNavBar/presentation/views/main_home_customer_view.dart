@@ -11,9 +11,21 @@ import 'package:plupool/features/profile/presentation/views/profile_view.dart';
 import 'package:plupool/features/store/presentation/views/store_view.dart';
 import 'package:plupool/features/services/presentation/views/services_view.dart';
 
-class MainHomeCustomerView extends StatelessWidget {
+class MainHomeCustomerView extends StatefulWidget {
   const MainHomeCustomerView({super.key});
 
+  @override
+  State<MainHomeCustomerView> createState() => _MainHomeCustomerViewState();
+}
+
+class _MainHomeCustomerViewState extends State<MainHomeCustomerView> {
+
+@override
+  void initState() {
+    super.initState();
+    // ✅ ده هيتنادى أول ما الصفحة نفسها تتفتح من جديد (مش مجرد تبويب يتغير)
+    context.read<BottomNavCubit>().changeCurrentIndex(0);
+  }
   @override
   Widget build(BuildContext context) {
     final pages = const [

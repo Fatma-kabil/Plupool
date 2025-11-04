@@ -8,16 +8,29 @@ import 'package:plupool/features/home/presentaation/views/widgets/projects_secti
 import 'package:plupool/features/home/presentaation/views/customer/widgets/promo_carousel.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_section.dart';
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
-import 'package:plupool/core/di/service_locator.dart';
 
-class CustomerHomeView extends StatelessWidget {
+
+class CustomerHomeView extends StatefulWidget {
   const CustomerHomeView({super.key});
 
   @override
+  State<CustomerHomeView> createState() => _CustomerHomeViewState();
+}
+
+class _CustomerHomeViewState extends State<CustomerHomeView> {
+  @override
+    void initState() {
+    super.initState();
+    context.read<SelectRoleCubit>().getSavedRole(); // ✅ مرة واحدة فقط
+  }
+
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<SelectRoleCubit>()..getSavedRole(),
-      child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
+    //  context.read<SelectRoleCubit>().getSavedRole();
+
+    return// BlocProvider(
+    //  create: (_) => sl<SelectRoleCubit>()..getSavedRole(),
+   //   child:
+       BlocBuilder<SelectRoleCubit, SelectRoleState>(
         builder: (context, state) {
           if (state is GetRoleSuccess) {
             // ✅ الدور اتحفظ واتجاب بنجاح
@@ -46,7 +59,7 @@ class CustomerHomeView extends StatelessWidget {
           // ⏳ لو لسه بيجيب الدور
           return const Center(child: CircularProgressIndicator());
         },
-      ),
+   //   ),
     );
   }
 }

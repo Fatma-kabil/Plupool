@@ -14,7 +14,7 @@ import 'package:plupool/features/select_role/domain/repos/role_repo.dart';
 import 'package:plupool/features/select_role/domain/usecases/get_saved_role_usecase.dart';
 import 'package:plupool/features/select_role/domain/usecases/save_role_usecase.dart';
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
-import 'package:plupool/features/select_role/repos_impl/role_repo_impl.dart';
+import 'package:plupool/features/select_role/data/repos_impl/role_repo_impl.dart';
 
 // Auth Feature
 import 'package:plupool/features/auth/data/datasources/sign_up_remote_data_source.dart';

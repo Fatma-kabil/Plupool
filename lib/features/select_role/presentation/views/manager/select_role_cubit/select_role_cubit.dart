@@ -28,12 +28,16 @@ class SelectRoleCubit extends Cubit<SelectRoleState> {
     emit(GetRoleLoading());
     try {
       final role = await getSavedRoleUseCase();
+       print("🎯 role from usecase: $role");
+
       if (role != null) {
         emit(GetRoleSuccess(role.name));
+        
       } else {
         emit(GetRoleEmpty());
       }
     } catch (e) {
+       print('🔥 getSavedRole error: $e'); // 👈 اطبعي الخطأ
       emit(GetRoleError(e.toString()));
     }
   }

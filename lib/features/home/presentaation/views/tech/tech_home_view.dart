@@ -2,27 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
-import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/app_bar_model.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/offer_section.dart';
-import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info_card_row.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/weekly_request_test.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
-class TechHomeView extends StatelessWidget {
+class TechHomeView extends StatefulWidget {
   const TechHomeView({super.key});
 
   @override
+  State<TechHomeView> createState() => _TechHomeViewState();
+}
+
+class _TechHomeViewState extends State<TechHomeView> {
+    void initState() {
+    super.initState();
+    context.read<SelectRoleCubit>().getSavedRole(); // ✅ مرة واحدة فقط
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<SelectRoleCubit>()..getSavedRole(),
-      child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
+    return// BlocProvider(
+   //   create: (_) => sl<SelectRoleCubit>()..getSavedRole(),
+    //  child:
+     BlocBuilder<SelectRoleCubit, SelectRoleState>(
         builder: (context, state) {
           if (state is GetRoleSuccess) {
             // ✅ لازم نرجّع الويجت هنا
@@ -76,7 +84,7 @@ class TechHomeView extends StatelessWidget {
           // ⏳ لو لسه بيجيب الدور
           return const Center(child: CircularProgressIndicator());
         },
-      ),
+   //   ),
     );
   }
 }

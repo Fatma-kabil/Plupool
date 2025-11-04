@@ -45,10 +45,10 @@ class SelectRoleViewBody extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 16),
                     child: RoleCard(
                       role: role,
-                      onTap: () {
+                      onTap: () async{
                         final selectedRole = role.title;
 
-                        context.read<SelectRoleCubit>().saveSelectedRole(selectedRole);
+                      await  context.read<SelectRoleCubit>().saveSelectedRole(selectedRole);
 
                         if (selectedRole == "فني") {
                           context.push("/MainHomeTechView");

@@ -40,7 +40,10 @@ class WeeklyRequestsList extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 3,
+     itemCount: upcomingWeekRequests.length > 3
+    ? 3
+    : upcomingWeekRequests.length,
+
       itemBuilder: (context, index) =>
           ServiceRequestCard(request: upcomingWeekRequests[index]),
     );

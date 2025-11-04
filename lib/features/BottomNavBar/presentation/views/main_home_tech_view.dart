@@ -18,7 +18,12 @@ class MainHomeTechView extends StatefulWidget {
 }
 
 class _MainHomeTechViewState extends State<MainHomeTechView> {
-  int currentIndex = 0;
+ @override
+  void initState() {
+    super.initState();
+    // ✅ ده هيتنادى أول ما الصفحة نفسها تتفتح من جديد (مش مجرد تبويب يتغير)
+    context.read<BottomNavCubit>().changeCurrentIndex(0);
+  }
 
   final List<Widget> pages = [
     const TechHomeView(),
