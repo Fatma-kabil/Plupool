@@ -4,6 +4,7 @@ import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_
 import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dart';
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
+import 'package:plupool/features/profile/presentation/views/profile_details_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/weekly_tasks_view.dart';
@@ -106,6 +107,12 @@ final GoRouter appRouter = GoRouter(
       name: 'weeklytasksview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const WeeklyTasksView()),
+    ),
+     GoRoute(
+      path: '/profiledetailsview',
+      name: 'profiledetailsview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const ProfileDetailsView()),
     ),
   ],
 );

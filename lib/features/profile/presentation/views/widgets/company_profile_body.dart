@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/profile_option.dart';
 
@@ -14,7 +15,9 @@ class CompanyProfileBody extends StatelessWidget {
           ProfileOption(
             title: 'معلومات الحساب',
             icon: Icons.person_outline,
-            onTap: () {},
+            onTap: () {
+              context.push('/profiledetailsview');
+            },
           ),
            SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
             ProfileOption(

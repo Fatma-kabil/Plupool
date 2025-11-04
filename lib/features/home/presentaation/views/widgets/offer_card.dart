@@ -16,7 +16,7 @@ class OfferCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Color(0xffAAAAAA).withOpacity(.5)),
-        color: Colors.white,
+        color: Colors.white.withOpacity(0.5),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
