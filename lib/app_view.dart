@@ -7,7 +7,6 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
-import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
@@ -32,8 +31,8 @@ class PlupoolApp extends StatelessWidget {
           SizeConfig.init(context);
           return MaterialApp.router(
             useInheritedMediaQuery: true, // ✅ مهم جدًا
-         //   locale: DevicePreview.locale(context), // ✅
-         //   builder: DevicePreview.appBuilder, // ✅
+            locale: DevicePreview.locale(context), // ✅
+            builder: DevicePreview.appBuilder, // ✅
             debugShowCheckedModeBanner: false,
             routerConfig: appRouter,
             theme: ThemeData(

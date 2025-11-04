@@ -12,6 +12,7 @@ class PrivacySectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+       width: double.infinity,
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.w(6),
         vertical: SizeConfig.h(13),

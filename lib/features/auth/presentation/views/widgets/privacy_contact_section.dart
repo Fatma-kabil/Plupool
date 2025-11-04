@@ -9,11 +9,13 @@ class PrivacyContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+       width: double.infinity,
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.w(6),
         vertical: SizeConfig.h(13),
       ),
       decoration: BoxDecoration(
+       
         //  color: const Color(0xffFAFAFA),
         border: Border.all(color: Color(0xffD4D4D4)),
         borderRadius: BorderRadius.circular(10),

@@ -21,7 +21,7 @@ class PrivacyHeader extends StatelessWidget {
           const SizedBox(height: 10),
           Text(
             "نشكرك لاختيارك تطبيق PluPool لخدمات وصيانة حمامات السباحة.\n"
-            "نحن ملتزمون بحماية خصوصيتك وتقديم خدمة متميزة تلبي  \nتوقعاتك.\n"
+            "نحن ملتزمون بحماية خصوصيتك وتقديم خدمة متميزة تلبي توقعاتك.\n"
             "باستخدامك تطبيق PluPool ، فإنك توافق على الشروط والسياسات الموضحة في هذه الوثيقة. نرجو منك قراءتها بعناية.",
             style: AppTextStyles.styleRegular13(context)
                 .copyWith(color: Colors.grey[600]),

@@ -16,6 +16,7 @@ class UsageSectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+       width: double.infinity,
       //  margin: EdgeInsets.only(bottom: SizeConfig.h(20)),
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.w(6),

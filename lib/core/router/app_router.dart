@@ -43,14 +43,14 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/',
+      path: '/signup',
       name: 'signup',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SignupView()),
     ),
 
      GoRoute(
-      path: '/privacypolicy',
+      path: '/',
       name: 'privacypolicy',
       pageBuilder: (context, state) =>
           buildTransitionPage(const PrivacyPolicyView()),

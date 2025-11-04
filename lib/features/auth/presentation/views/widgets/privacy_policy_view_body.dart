@@ -14,12 +14,12 @@ class PrivacyPolicyViewBody extends StatelessWidget {
       padding: EdgeInsets.only(
         left: SizeConfig.w(22),
         right: SizeConfig.w(22),
-        top: SizeConfig.h(35),
+        top: SizeConfig.h(20),
         bottom: SizeConfig.h(22),
       ),
       child: SingleChildScrollView(
         child: Column(
-           crossAxisAlignment: CrossAxisAlignment.start,
+           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const PrivacyHeader(),
              const SizedBox(height: 20),
