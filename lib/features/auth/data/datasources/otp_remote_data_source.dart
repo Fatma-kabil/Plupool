@@ -20,12 +20,16 @@ class OtpRemoteDataSourceImpl implements OtpRemoteDataSource {
 
  @override
 Future<String> verifyOtp(String phone, String otpCode) async {
-  print('📤 Sending verify OTP request: phone=$phone, otp=$otpCode');
+  print('📤 Sending verify OTP request: data=${{'phone': phone, 'otp_code': otpCode}}');
+
   final response = await apiService.post(
     Endpoints.verifyOtp,
     data: {'phone': phone, 'otp_code': otpCode},
   );
   print('📥 Server response: ${response.data}');
+  print('📥 Server response status code: ${response.statusCode}');
+print('📥 Server response data: ${response.data}');
+
   return response.data['access_token'];
 }
 

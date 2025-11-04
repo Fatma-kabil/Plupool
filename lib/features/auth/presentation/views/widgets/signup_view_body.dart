@@ -1,5 +1,3 @@
-// signup_view_body.dart
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +31,8 @@ class SignupViewBody extends StatefulWidget {
 class _SignupViewBodyState extends State<SignupViewBody> {
   bool acceptedTerms = false;
   bool showVerificationBody = false;
+  
+  String _enteredOtpCode = ''; // هنا خزنا رمز OTP اللي دخل المستخدم
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
@@ -41,8 +41,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   final TextEditingController _workController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
-  final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey =
-      GlobalKey<PhoneInputFieldState>();
+  final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey = GlobalKey<PhoneInputFieldState>();
   File? _profileImage;
 
   @override
@@ -78,11 +77,20 @@ class _SignupViewBodyState extends State<SignupViewBody> {
               if (phoneState == null) return;
               final fullPhone = phoneState.getFullPhoneNumber();
 
-              // ✅ تحديد العملية حسب الدور
+              if (_enteredOtpCode.isEmpty) {
+                showCustomSnackBar(
+                  context: context,
+                  message: 'حدث خطأ: رمز التحقق غير موجود',
+                  isSuccess: false,
+                );
+                return;
+              }
+
+              // نستخدم _enteredOtpCode وليس otpState.token
               if (role.contains("حمام")) {
                 context.read<SignUpCubit>().signupPoolOwner(
                       PoolOwnerEntity(
-                        otpCode: otpState.token,
+                        otpCode: _enteredOtpCode,
                         fullName: _nameController.text.trim(),
                         phone: fullPhone,
                         address: _locationController.text.trim(),
@@ -106,7 +114,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         skills: skillsList,
                         yearsOfExperience: years,
                         profileImage: _profileImage?.path,
-                        otpCode: otpState.token,
+                        otpCode: _enteredOtpCode,
                       ),
                     );
                 context.go('/MainHomeTechView');
@@ -116,7 +124,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         fullName: _nameController.text.trim(),
                         phone: fullPhone,
                         profileImage: _profileImage?.path,
-                        otpCode: otpState.token,
+                        otpCode: _enteredOtpCode,
                       ),
                     );
                 context.go('/MainHomeTechView');
@@ -141,11 +149,10 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                   CustomCheckbox(
                     value: acceptedTerms,
                     onChanged: (val) => setState(() => acceptedTerms = val),
-                    label: 'الموافقة علي الشروط والأحكام وسياسة الخصوصية',
+                    label: 'الشروط وسياسة الاستخدام',
                   ),
                   SizedBox(height: SizeConfig.h(35)),
 
-                  /// ✅ هنا BlocConsumer الوحيد اللي يعرض الرسائل
                   BlocConsumer<OtpCubit, OtpState>(
                     listener: (context, state) {
                       if (state is OtpSentSuccess) {
@@ -166,32 +173,27 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                     builder: (context, state) {
                       if (showVerificationBody) {
                         return VerificationBody(
-                          phoneNumber:
-                              _phoneInputFieldKey.currentState
-                                      ?.getFullPhoneNumber() ??
-                                  '',
+                          phoneNumber: _phoneInputFieldKey.currentState?.getFullPhoneNumber() ?? '',
                           btntext: 'إنشاء الحساب',
                           onVerify: (otpCode) {
-                            final phoneState =
-                                _phoneInputFieldKey.currentState;
+                            setState(() {
+                              _enteredOtpCode = otpCode; // نخزن الكود اللي دخل المستخدم
+                            });
+                            final phoneState = _phoneInputFieldKey.currentState;
                             if (phoneState == null) return;
 
                             context.read<OtpCubit>().verifyOtp(
-                                  phoneState.getFullPhoneNumber(),
-                                  otpCode,
-                                );
+                              phoneState.getFullPhoneNumber(),
+                              otpCode,
+                            );
                           },
                         );
                       }
 
                       return CustomTextBtn(
                         width: double.infinity,
-                        text: state is OtpLoading
-                            ? 'جاري الإرسال...'
-                            : 'إرسال رمز التحقق',
-                        onPressed: state is OtpLoading
-                            ? null
-                            : _onSendVerificationPressed,
+                        text: state is OtpLoading ? 'جاري الإرسال...' : 'إرسال رمز التحقق',
+                        onPressed: state is OtpLoading ? null : _onSendVerificationPressed,
                       );
                     },
                   ),

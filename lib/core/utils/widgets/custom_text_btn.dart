@@ -29,7 +29,9 @@ class CustomTextBtn extends StatelessWidget {
         ),
         child: Padding(
           padding:  EdgeInsets.symmetric(vertical: padding ?? SizeConfig.h(12) ),
-          child: Text(text, style: AppTextStyles.styleSemiBold20(context)),
+          child: Text(
+            textDirection: TextDirection.rtl,
+            text, style: AppTextStyles.styleSemiBold20(context)),
         ),
       ),
     );

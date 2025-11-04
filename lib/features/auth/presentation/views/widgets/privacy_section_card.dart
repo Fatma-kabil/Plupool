@@ -34,6 +34,23 @@ class PrivacySectionCard extends StatelessWidget {
                     style: AppTextStyles.styleRegular13(context).copyWith(color: Colors.grey[700]),
                   ),
           SizedBox(height: 8),
+          Container(
+            
+            decoration: BoxDecoration(
+              color: Color(0xffCCE4F0),
+              borderRadius: BorderRadius.circular(10),
+              
+              border: Border(
+                
+                right: BorderSide(color:AppColors.kprimarycolor,width: 3),)
+
+            ),
+            padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(10),vertical:SizeConfig.h(8) ),
+            child: Text(
+              textDirection:TextDirection.rtl,
+              'نحن لا نبيع أو نؤجر معلوماتك الشخصية لأطراف ثالثة لأغراض التسويق.',style: AppTextStyles.styleRegular13(context).copyWith(color: Color(0xff555555)),),
+          ),
+            SizedBox(height: 8),
           ...items.map(
             (e) => 
                    Text(
