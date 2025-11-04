@@ -64,16 +64,21 @@ class _CustomPoolDetailsFormState extends State<CustomPoolDetailsForm> {
               prefixIcon: Padding(
                 padding: EdgeInsets.only(
                   right: SizeConfig.w(10),
-                  left: SizeConfig.w(4),
+                  left: SizeConfig.w(0),
                 ),
                 child: SvgPicture.asset(
                   widget.iconpath,
                   color: AppColors.hintTextColor,
-                  height:SizeConfig.isWideScreen?SizeConfig.w(17): SizeConfig.w(8),
-                  width: SizeConfig.isWideScreen?SizeConfig.w(17): SizeConfig.w(8),
+                  height:SizeConfig.isWideScreen?SizeConfig.w(20): SizeConfig.w(26),
+                  width: SizeConfig.isWideScreen?SizeConfig.w(20): SizeConfig.w(26),
+                //   fit: BoxFit.scaleDown,
                 ),
               ),
-             
+                // ✅ ده اللي هيقلل المسافة
+              prefixIconConstraints: BoxConstraints(
+                minWidth: SizeConfig.w(25),
+              //  minHeight: SizeConfig.h(28),
+              ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(

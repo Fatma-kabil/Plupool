@@ -57,11 +57,11 @@ class GuestAppbar extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(100),
                     border: Border.all(color: AppColors.kprimarycolor),
                   ),
                   child: Padding(
-                     padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(4) , vertical: SizeConfig.h(4)),
+                     padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(4) , vertical: SizeConfig.w(4)),
                     child: SvgPicture.asset(
                       "assets/icons/user.svg",
                       width: SizeConfig.w(18),

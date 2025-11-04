@@ -8,7 +8,7 @@ import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
-import 'package:plupool/features/maintenance/presentation/data/models/maintenance_pool_model.dart';
+import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 
 final List<RoleCardItemModel> roles = [

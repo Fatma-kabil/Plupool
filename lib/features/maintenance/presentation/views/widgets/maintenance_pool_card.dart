@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/maintenance/presentation/data/models/maintenance_pool_model.dart';
+import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
 
 class MaintenancePoolCard extends StatelessWidget {
   const MaintenancePoolCard({super.key, required this.maintenancePool});

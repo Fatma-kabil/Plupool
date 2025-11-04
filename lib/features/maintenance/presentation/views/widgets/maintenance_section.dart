@@ -34,18 +34,17 @@ class MaintenanceSection extends StatelessWidget {
 
         /// 👇 الزرار الثابت في الأسفل داخل خلفية بيضاء بحد علوي + حواف دائرية
         Positioned(
-          bottom: 0,
+         // bottom: 0,
+         bottom: SizeConfig.h(16),
           left: 0,
           right: 0,
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-            decoration: BoxDecoration(
-              color: Colors.white,
+          child:// Container(
+         //   padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+         //   decoration: BoxDecoration(
+          //    color: Colors.white,
               
              
-             
-            ),
-            child: Padding(
+            Padding(
               padding:  EdgeInsets.only(top:SizeConfig.h(8)),
               child: CustomTextBtn(
                 text: 'احجز الآن',
@@ -75,7 +74,7 @@ class MaintenanceSection extends StatelessWidget {
               ),
             ),
           ),
-        ),
+       // ),
       ],
     );
   }
