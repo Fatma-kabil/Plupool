@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/profile/presentation/views/widgets/owner_profile_body.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/tech_profile_body.dart';
 
 class ProfileView extends StatelessWidget {
@@ -12,8 +13,8 @@ class ProfileView extends StatelessWidget {
      
       body:  SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(12),vertical: SizeConfig.h(20)),
-          child: TechProfileBody(),
+          padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(17),vertical: SizeConfig.h(25)),
+          child: OwnerProfileBody(),
         ),
       ),
     );
