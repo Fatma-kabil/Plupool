@@ -27,7 +27,7 @@ class ProfileOption extends StatelessWidget {
         leading: Icon(
           icon,
           color:islogout?Colors.red: AppColors.kprimarycolor,
-          size: SizeConfig.w(19),
+          size:SizeConfig.isWideScreen? SizeConfig.h(23): SizeConfig.w(19),
         ),
         title: Text(
           title,
