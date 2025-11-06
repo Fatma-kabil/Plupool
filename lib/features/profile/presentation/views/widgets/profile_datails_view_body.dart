@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/profile_details_header_card.dart';
+import 'package:plupool/features/profile/presentation/views/widgets/tech_info_card.dart';
 
 class ProfileDatailsViewBody extends StatelessWidget {
   const ProfileDatailsViewBody({super.key});
@@ -17,6 +18,8 @@ class ProfileDatailsViewBody extends StatelessWidget {
             name: "أحمد محمد",
             role: "فني صيانه حمامات سباحه",
           ),
+          SizedBox(height: SizeConfig.h(20)),
+          TechInfoCard(),
           SizedBox(height: SizeConfig.h(20)),
         ],
       ),
