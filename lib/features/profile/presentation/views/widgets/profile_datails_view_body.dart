@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 
 class ProfileDatailsViewBody extends StatelessWidget {
   const ProfileDatailsViewBody({super.key});
@@ -10,9 +11,10 @@ class ProfileDatailsViewBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          Center(child: CustomLoadingIndecator()),
           // ✅ البطاقة العلوية (الصورة والاسم والمسمى)
-          ProfileHeaderCard(),
-          SizedBox(height: SizeConfig.h(20)),
+           //   ProfileHeaderCard(),
+               SizedBox(height: SizeConfig.h(20)),
         ],
       ),
     );
@@ -20,9 +22,10 @@ class ProfileDatailsViewBody extends StatelessWidget {
 }
 
 class ProfileHeaderCard extends StatelessWidget {
-  const ProfileHeaderCard({
-    super.key,
-  });
+  const ProfileHeaderCard({super.key, required this.name, required this.role, required this.image});
+  final String name;
+  final String role;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -32,24 +35,17 @@ class ProfileHeaderCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.15),
-            blurRadius: 8,
-            offset: const Offset(0, 3),
-          ),
-        ],
       ),
       child: Column(
         children: [
-          const CircleAvatar(
-            radius: 40,
-            backgroundImage: AssetImage('assets/images/profile.png'),
+          CircleAvatar(
+            radius: SizeConfig.w(40),
+            backgroundImage: AssetImage(image),
           ),
           SizedBox(height: SizeConfig.h(10)),
-          Text('أحمد محمد', style: AppTextStyles.styleBold16(context)),
+          Text(name, style: AppTextStyles.styleBold16(context)),
           Text(
-            'فني صيانة حمامات سباحة',
+            role,
             style: AppTextStyles.styleRegular14(
               context,
             ).copyWith(color: Colors.grey[600]),

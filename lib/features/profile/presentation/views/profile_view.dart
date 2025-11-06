@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/company_profile_body.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/owner_profile_body.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/tech_profile_body.dart';
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
-class ProfileView extends StatefulWidget {
+
+class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
-
-  @override
-  State<ProfileView> createState() => _ProfileViewState();
-}
-
-class _ProfileViewState extends State<ProfileView> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<SelectRoleCubit>().getSavedRole(); // ✅ مرة واحدة فقط
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +24,7 @@ class _ProfileViewState extends State<ProfileView> {
           child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
             builder: (context, state) {
               if (state is GetRoleLoading || state is SelectRoleInitial) {
-                return const Center(child: CircularProgressIndicator());
+                return CustomLoadingIndecator();
               } else if (state is GetRoleSuccess) {
                 final role = state.roleName;
 
@@ -45,13 +36,15 @@ class _ProfileViewState extends State<ProfileView> {
                   return const CompanyProfileBody();
                 } else {
                   return
-                //  showCustomSnackBar(context: context, message: message)
-                   const Center(child: Text("لم يتم تحديد الدور"));
+                  //  showCustomSnackBar(context: context, message: message)
+                  const Center(child: Text("لم يتم تحديد الدور"));
                 }
               } else if (state is GetRoleEmpty) {
                 return const Center(child: Text("لم يتم حفظ أي دور"));
               } else {
-                return const Center(child: Text("حدث خطأ أثناء تحميل البيانات"));
+                return const Center(
+                  child: Text("حدث خطأ أثناء تحميل البيانات"),
+                );
               }
             },
           ),

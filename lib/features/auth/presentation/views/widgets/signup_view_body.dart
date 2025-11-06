@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/company_entity.dart';
@@ -43,12 +44,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey =
       GlobalKey<PhoneInputFieldState>();
   File? _profileImage;
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<SelectRoleCubit>().getSavedRole();
-  }
+ 
 
   @override
   void dispose() {
@@ -91,7 +87,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
       child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
         builder: (context, state) {
           if (state is! GetRoleSuccess) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: CustomLoadingIndecator());
           }
 
           final role = state.roleName;
