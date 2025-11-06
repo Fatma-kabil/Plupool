@@ -20,7 +20,7 @@ import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/splasherapper',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -109,7 +109,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const WeeklyTasksView()),
     ),
      GoRoute(
-      path: '/profiledetailsview',
+      path: '/',
       name: 'profiledetailsview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const ProfileDetailsView()),
