@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/profile/presentation/views/widgets/edit_btn.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/profile_details_header_card.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/tech_info_card.dart';
 
@@ -20,7 +21,9 @@ class ProfileDatailsViewBody extends StatelessWidget {
           ),
           SizedBox(height: SizeConfig.h(20)),
           TechInfoCard(),
-          SizedBox(height: SizeConfig.h(20)),
+          SizedBox(height: SizeConfig.h(35)),
+         EditButton(),
+          SizedBox(height: SizeConfig.h(10)),
         ],
       ),
     );
