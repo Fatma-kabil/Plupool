@@ -26,16 +26,17 @@ class PoolOwnerModel extends PoolOwnerEntity {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'phone': phone,
-      'otp_code': otpCode,
-      'full_name': fullName,
-      'profile_image': profileImage,
-      'latitude': latitude,
-      'longitude': longitude,
-      'address': address,
-    };
-  }
+  return {
+    'phone': phone,
+    'otp_code': otpCode,
+    'full_name': fullName,
+    'profile_image': profileImage ?? '',
+    'latitude': latitude ?? 0.0,
+    'longitude': longitude ?? 0.0,
+    'address': address,
+  };
+}
+
 
   factory PoolOwnerModel.fromEntity(PoolOwnerEntity entity) {
     return PoolOwnerModel(

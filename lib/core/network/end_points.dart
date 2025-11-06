@@ -2,12 +2,14 @@
 
 class Endpoints {
   /// 🧠 رابط الباك إند المحلي (FastAPI)
-  static const String baseUrl = 'http://192.168.43.149:8000/api/v1/auth';
+  static const String baseUrl = 'http://192.168.43.149:8000/api/v1';
+
 
   // 🔹 إنشاء الحساب حسب الدور
-  static const String signupTechnician = '$baseUrl/signup/technician';
-  static const String signupPoolOwner = '$baseUrl/signup/pool-owner';
-  static const String signupCompany = '$baseUrl/signup/company';
-  static const String sendOtp = '$baseUrl/send-otp';
- static const String verifyOtp = '$baseUrl/verify-otp';
-}
+static const String sendOtp = '$baseUrl/auth/send-otp';
+static const String verifyOtp = '$baseUrl/auth/verify-otp';
+static const String signupTechnician = '$baseUrl/auth/signup/technician';
+static const String signupPoolOwner = '$baseUrl/auth/signup/pool-owner';
+static const String signupCompany = '$baseUrl/auth/signup/company';
+  // ... روابط نقاط نهاية أخرى
+} 

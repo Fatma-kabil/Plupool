@@ -42,14 +42,23 @@ class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
   }
 
   @override
-  Future<void> signupCompany(CompanyModel model) async {
-    try {
-      await api.post(
-        Endpoints.signupCompany,
-        data: model.toJson(),
-      );
-    } catch (error) {
-      throw mapDioError(error);
-    }
+Future<void> signupCompany(CompanyModel model) async {
+  try {
+    print('🔗 SIGNUP URL = ${Endpoints.signupCompany}');
+    print('📦 PAYLOAD = ${model.toJson()}');
+
+    final response = await api.post(
+      Endpoints.signupCompany,
+      data: model.toJson(),
+    );
+
+    print('✅ RESPONSE STATUS = ${response.statusCode}');
+    print('✅ RESPONSE DATA = ${response.data}');
+  } catch (error) {
+    print('❌ ERROR = $error');
+    rethrow;
   }
 }
+
+  }
+

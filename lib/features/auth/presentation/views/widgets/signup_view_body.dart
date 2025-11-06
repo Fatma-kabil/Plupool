@@ -10,6 +10,7 @@ import 'package:plupool/features/auth/domain/entities/Sign_up_entities/pool_owne
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/technician_entity.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
+import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_state.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/company_responsitive_form.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/customer_signup_form.dart';
@@ -31,8 +32,7 @@ class SignupViewBody extends StatefulWidget {
 class _SignupViewBodyState extends State<SignupViewBody> {
   bool acceptedTerms = false;
   bool showVerificationBody = false;
-  
-  String _enteredOtpCode = ''; // هنا خزنا رمز OTP اللي دخل المستخدم
+  String _enteredOtpCode = '';
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
@@ -40,8 +40,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   final TextEditingController _buildController = TextEditingController();
   final TextEditingController _workController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
-
-  final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey = GlobalKey<PhoneInputFieldState>();
+  final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey =
+      GlobalKey<PhoneInputFieldState>();
   File? _profileImage;
 
   @override
@@ -62,76 +62,41 @@ class _SignupViewBodyState extends State<SignupViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SelectRoleCubit, SelectRoleState>(
-      builder: (context, state) {
-        if (state is! GetRoleSuccess) {
-          return const Center(child: CircularProgressIndicator());
+    return BlocListener<SignUpCubit, SignUpState>(
+      listener: (context, state) async {
+        if (state is SignUpSuccess) {
+          showCustomSnackBar(
+            context: context,
+            message: 'تم إنشاء الحساب بنجاح 🎉',
+            isSuccess: true,
+          );
+          await Future.delayed(const Duration(seconds: 2));
+          // ignore: use_build_context_synchronously
+          final role = context.read<SelectRoleCubit>().state;
+          if (role is GetRoleSuccess && role.roleName.contains("فني")) {
+            // ignore: use_build_context_synchronously
+            context.go('/MainHomeTechView');
+          } else {
+            // ignore: use_build_context_synchronously
+            context.go('/MainHomeCustomerView');
+          }
+        } else if (state is SignUpFailure) {
+          showCustomSnackBar(
+            context: context,
+            message: state.error,
+            isSuccess: false,
+          );
         }
+      },
+      child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
+        builder: (context, state) {
+          if (state is! GetRoleSuccess) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-        final role = state.roleName;
+          final role = state.roleName;
 
-        return BlocListener<OtpCubit, OtpState>(
-          listener: (context, otpState) {
-            if (otpState is OtpVerifiedSuccess) {
-              final phoneState = _phoneInputFieldKey.currentState;
-              if (phoneState == null) return;
-              final fullPhone = phoneState.getFullPhoneNumber();
-
-              if (_enteredOtpCode.isEmpty) {
-                showCustomSnackBar(
-                  context: context,
-                  message: 'حدث خطأ: رمز التحقق غير موجود',
-                  isSuccess: false,
-                );
-                return;
-              }
-
-              // نستخدم _enteredOtpCode وليس otpState.token
-              if (role.contains("حمام")) {
-                context.read<SignUpCubit>().signupPoolOwner(
-                      PoolOwnerEntity(
-                        otpCode: _enteredOtpCode,
-                        fullName: _nameController.text.trim(),
-                        phone: fullPhone,
-                        address: _locationController.text.trim(),
-                        profileImage: _profileImage?.path,
-                      ),
-                    );
-                context.go('/MainHomeCustomerView');
-              } else if (role.contains("فني")) {
-                final skillsList = _buildController.text
-                    .split(',')
-                    .map((e) => e.trim())
-                    .where((e) => e.isNotEmpty)
-                    .toList();
-                final years = int.tryParse(_workController.text.trim()) ?? 0;
-
-                context.read<SignUpCubit>().signupTechnician(
-                      TechnicianEntity(
-                        fullName: _nameController.text.trim(),
-                        phone: fullPhone,
-                        address: _locationController.text.trim(),
-                        skills: skillsList,
-                        yearsOfExperience: years,
-                        profileImage: _profileImage?.path,
-                        otpCode: _enteredOtpCode,
-                      ),
-                    );
-                context.go('/MainHomeTechView');
-              } else if (role.contains("شركة") || role.contains("مطور")) {
-                context.read<SignUpCubit>().signupCompany(
-                      CompanyEntity(
-                        fullName: _nameController.text.trim(),
-                        phone: fullPhone,
-                        profileImage: _profileImage?.path,
-                        otpCode: _enteredOtpCode,
-                      ),
-                    );
-                context.go('/MainHomeTechView');
-              }
-            }
-          },
-          child: Padding(
+          return Padding(
             padding: EdgeInsets.symmetric(
               vertical: SizeConfig.h(22),
               horizontal: SizeConfig.w(18),
@@ -146,11 +111,13 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                   SizedBox(height: SizeConfig.h(20)),
                   const WhatsappVerificationNote(),
                   SizedBox(height: SizeConfig.h(40)),
+
                   CustomCheckbox(
                     value: acceptedTerms,
                     onChanged: (val) => setState(() => acceptedTerms = val),
                     label: 'الشروط وسياسة الاستخدام',
                   ),
+
                   SizedBox(height: SizeConfig.h(35)),
 
                   BlocConsumer<OtpCubit, OtpState>(
@@ -158,7 +125,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                       if (state is OtpSentSuccess) {
                         showCustomSnackBar(
                           context: context,
-                          message: '✅ تم إرسال الكود بنجاح',
+                          message: '✅ تم إرسال الكود بنجاح عبر واتساب',
                           isSuccess: true,
                         );
                         setState(() => showVerificationBody = true);
@@ -172,19 +139,19 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                     },
                     builder: (context, state) {
                       if (showVerificationBody) {
-                        return VerificationBody(
-                          phoneNumber: _phoneInputFieldKey.currentState?.getFullPhoneNumber() ?? '',
-                          btntext: 'إنشاء الحساب',
-                          onVerify: (otpCode) {
-                            setState(() {
-                              _enteredOtpCode = otpCode; // نخزن الكود اللي دخل المستخدم
-                            });
-                            final phoneState = _phoneInputFieldKey.currentState;
-                            if (phoneState == null) return;
-
-                            context.read<OtpCubit>().verifyOtp(
-                              phoneState.getFullPhoneNumber(),
-                              otpCode,
+                        return BlocBuilder<SignUpCubit, SignUpState>(
+                          builder: (context, signUpState) {
+                            return VerificationBody(
+                              phoneNumber:
+                                  _phoneInputFieldKey.currentState
+                                      ?.getFullPhoneNumber() ??
+                                  '',
+                              btntext: signUpState is SignUpLoading
+                                  ? 'جاري إنشاء الحساب...'
+                                  : 'إنشاء الحساب',
+                              onVerify: signUpState is SignUpLoading?
+                                  ? (String _) {}
+                                  : _onSignupPressed,
                             );
                           },
                         );
@@ -192,8 +159,12 @@ class _SignupViewBodyState extends State<SignupViewBody> {
 
                       return CustomTextBtn(
                         width: double.infinity,
-                        text: state is OtpLoading ? 'جاري الإرسال...' : 'إرسال رمز التحقق',
-                        onPressed: state is OtpLoading ? null : _onSendVerificationPressed,
+                        text: state is OtpLoading
+                            ? 'جاري الإرسال...'
+                            : 'إرسال رمز التحقق',
+                        onPressed: state is OtpLoading
+                            ? null
+                            : _onSendVerificationPressed,
                       );
                     },
                   ),
@@ -209,9 +180,9 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 ],
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -236,7 +207,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         workController: _workController,
         onImagePicked: (img) => _profileImage = img,
       );
-    } else if (role.contains("شركة") || role.contains("مطور")) {
+    } else {
       return CompanyRespositiveForm(
         formKey: _formKey,
         nameController: _nameController,
@@ -244,8 +215,6 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         phoneFieldKey: _phoneInputFieldKey,
         onImagePicked: (img) => _profileImage = img,
       );
-    } else {
-      return Center(child: Text('❌ لم يتم التعرف على نوع الحساب: $role'));
     }
   }
 
@@ -272,8 +241,61 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     }
 
     final fullPhone = phoneState.getFullPhoneNumber();
-
-    /// إرسال OTP
     context.read<OtpCubit>().sendOtp(fullPhone);
+  }
+
+  void _onSignupPressed(String otpCode) {
+    setState(() => _enteredOtpCode = otpCode);
+
+    final phoneState = _phoneInputFieldKey.currentState;
+    if (phoneState == null) return;
+
+    final fullPhone = phoneState.getFullPhoneNumber();
+    //   final cleanedPhone = fullPhone.replaceFirst('+2', '');
+
+    final role =
+        (context.read<SelectRoleCubit>().state as GetRoleSuccess).roleName;
+
+    if (role.contains("حمام")) {
+      context.read<SignUpCubit>().signupPoolOwner(
+        PoolOwnerEntity(
+          otpCode: otpCode,
+          fullName: _nameController.text.trim(),
+          phone: fullPhone,
+          address: _locationController.text.trim(),
+          profileImage: _profileImage?.path ?? "string",
+        ),
+      );
+    } else if (role.contains("فني")) {
+      final skillsList = _buildController.text
+          .split(',')
+          .map((e) => e.trim())
+          .where((e) => e.isNotEmpty)
+          .toList();
+      final years = int.tryParse(_workController.text.trim()) ?? 0;
+
+      context.read<SignUpCubit>().signupTechnician(
+        TechnicianEntity(
+          fullName: _nameController.text.trim(),
+          phone: fullPhone,
+          address: _locationController.text.trim(),
+          skills: skillsList,
+          yearsOfExperience: years,
+          profileImage: _profileImage?.path ?? "string",
+
+          otpCode: otpCode,
+        ),
+      );
+    } else if (role.contains("شركة") || role.contains("مطور")) {
+      context.read<SignUpCubit>().signupCompany(
+        CompanyEntity(
+          fullName: _nameController.text.trim(),
+          phone: fullPhone,
+          profileImage: _profileImage?.path ?? "",
+
+          otpCode: otpCode,
+        ),
+      );
+    }
   }
 }

@@ -1,6 +1,5 @@
 // lib/features/auth/data/models/technician_model.dart
 
-
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/technician_entity.dart';
 
 class TechnicianModel extends TechnicianEntity {
@@ -35,9 +34,9 @@ class TechnicianModel extends TechnicianEntity {
       'phone': phone,
       'otp_code': otpCode,
       'full_name': fullName,
-      'profile_image': profileImage,
-      'latitude': latitude,
-      'longitude': longitude,
+      'profile_image': profileImage ?? '',
+      'latitude': latitude ?? 0.0,
+      'longitude': longitude ?? 0.0,
       'address': address,
       'skills': skills,
       'years_of_experience': yearsOfExperience,

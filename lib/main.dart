@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -13,9 +14,12 @@ void main() async {
   //    enabled: !kReleaseMode, // ✅ يشتغل فقط في debug
     //  builder: (context) => 
      const PlupoolApp(),
+     
   // ),
   );
 
   // تشيل السبلاتش بعد ما الاب يفتح
   FlutterNativeSplash.remove();
 }
+
+
