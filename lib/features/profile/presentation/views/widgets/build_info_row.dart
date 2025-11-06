@@ -30,7 +30,7 @@ final IconData icon;
              
                 style:AppTextStyles.styleRegular13(context).copyWith(color:Color(0xff777777))
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 4),
               Icon(icon, size: SizeConfig.w(14), color: Color(0xff777777)),
             ],
           ),
