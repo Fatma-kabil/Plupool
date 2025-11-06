@@ -30,14 +30,14 @@ class OwnerInfoCard extends StatelessWidget {
             title: 'الاسم',
             value: 'أحمد محمد',
           ),
-          SizedBox(height: 15),
+          SizedBox(height:SizeConfig.h(15) ),
           BuildInfoRow(
             icon: Icons.location_on_outlined,
             title: 'مكان الإقامة',
             value: 'القاهرة',
           ),
          
-        
+         SizedBox(height:SizeConfig.h(15) ),
           BuildInfoRow(
             icon: Icons.phone_outlined,
             title: 'رقم الهاتف',

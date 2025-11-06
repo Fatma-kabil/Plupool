@@ -13,7 +13,7 @@ class EditButton extends StatelessWidget {
       height: SizeConfig.h(46),
       child: ElevatedButton.icon(
         onPressed: () {},
-        icon: const Icon(Icons.edit_document, color: Colors.white),
+        icon:  Icon(Icons.edit_document, color: Colors.white,size:SizeConfig.w(18),),
         label:  Text(
           'تعديل المعلومات',
           style: AppTextStyles.styleSemiBold16(context).copyWith(color: Colors.white),

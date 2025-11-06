@@ -18,9 +18,9 @@ final IconData icon;
       
           style:AppTextStyles.styleMedium16(context).copyWith(color: Color(0xff555555)),
         ),
-        const SizedBox(height: 8),
+         SizedBox(height: SizeConfig.h(8)),
         Padding(
-          padding:  EdgeInsets.only(right: SizeConfig.w(8)),
+          padding:  EdgeInsets.only(right: SizeConfig.w(5)),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
             children: [
