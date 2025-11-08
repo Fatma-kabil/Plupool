@@ -53,7 +53,7 @@ class CustomerHomeView extends StatelessWidget {
                         model: AppbarModel(
                           avatarUrl: 'assets/images/user1.png',
                           username: 'احمد محمد',
-                          subtitle: 'صاحب حماح سباكه',
+                          subtitle: 'صاحب حمام سباحه',
                         ),
                       ),
 
