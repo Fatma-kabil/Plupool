@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/login_form.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/verification_body.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/whatsapp_verification_note.dart';
+import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
+import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -15,11 +20,12 @@ class LoginViewBody extends StatefulWidget {
   @override
   State<LoginViewBody> createState() => _LoginViewBodyState();
 }
-
 class _LoginViewBodyState extends State<LoginViewBody> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController phoneController = TextEditingController();
+  final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey = GlobalKey<PhoneInputFieldState>();
   bool showVerificationBody = false;
+  String? phoneNumber;  // هنا خزني رقم الهاتف
 
   @override
   void dispose() {
@@ -34,7 +40,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
         left: SizeConfig.w(22),
         right: SizeConfig.w(22),
         top: SizeConfig.h(50),
-      bottom: SizeConfig.h(22)
+        bottom: SizeConfig.h(22),
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -47,39 +53,100 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             ),
             SizedBox(height: SizeConfig.h(40)),
 
-            // 🟩 نموذج تسجيل الدخول
             LoginForm(
               formKey: _formKey,
               phoneController: phoneController,
             ),
             SizedBox(height: SizeConfig.h(15)),
+
             const WhatsappVerificationNote(),
 
-            // 👇 هنا بنبدّل بين الزر وواجهة التحقق
-            if (!showVerificationBody) ...[
-              SizedBox(height: SizeConfig.h(100)),
-              CustomTextBtn(
-                width: double.infinity,
-                text: 'إرسال رمز التحقق',
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    final phoneNumber = phoneController.text.trim();
-                    debugPrint("📱 رقم الهاتف المدخل: $phoneNumber");
-                    setState(() => showVerificationBody = true);
-                  }
-                },
-              ),
-              SizedBox(height: SizeConfig.h(70)),
-            ] else ...[
-              SizedBox(height: SizeConfig.h(40)),
-         //     VerificationBody(phoneNumber: phoneController.text.trim(),btntext: 'تسجيل الدخول'),
-              SizedBox(height: SizeConfig.h(70)),
-            ],
+            BlocConsumer<OtpCubit, OtpState>(
+              listener: (context, state) async {
+                if (state is OtpSentSuccess) {
+                  showCustomSnackBar(
+                    context: context,
+                    message: '✅ تم إرسال الكود بنجاح عبر واتساب',
+                    isSuccess: true,
+                  );
+                  setState(() => showVerificationBody = true);
+                } else if (state is OtpVerifiedSuccess) {
+                  showCustomSnackBar(
+                    context: context,
+                    message: '🎉 تم تسجيل الدخول بنجاح',
+                    isSuccess: true,
+                  );
 
-            // 🔵 أسفل الشاشة — التحويل إلى التسجيل
+                  await Future.delayed(const Duration(seconds: 2));
+
+                  if (!mounted) return;
+
+                  await context.read<SelectRoleCubit>().getSavedRole();
+
+                  final roleState = context.read<SelectRoleCubit>().state;
+                  String roleName = '';
+
+                  if (roleState is GetRoleSuccess) {
+                    roleName = roleState.roleName;
+                  }
+
+                  if (roleName.contains("فني")) {
+                    context.go('/MainHomeTechView');
+                  } else {
+                    context.go('/MainHomeCustomerView');
+                  }
+                } else if (state is OtpError) {
+                  showCustomSnackBar(
+                    context: context,
+                    message: state.message,
+                    isSuccess: false,
+                  );
+                }
+              },
+              builder: (context, state) {
+                if (!showVerificationBody) {
+                  return Column(
+                    children: [
+                      SizedBox(height: SizeConfig.h(100)),
+                      CustomTextBtn(
+                        width: double.infinity,
+                        text: state is OtpLoading
+                            ? 'جاري الإرسال...'
+                            : 'إرسال رمز التحقق',
+                        onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                          final number = _phoneInputFieldKey.currentState?.getFullPhoneNumber();
+                        
+                          phoneNumber = number;  // خزني الرقم هنا
+                          context.read<OtpCubit>().sendOtp(phoneNumber!);
+                        }},
+                      ),
+                      SizedBox(height: SizeConfig.h(70)),
+                    ],
+                  );
+                } else {
+                  return Column(
+                    children: [
+                      SizedBox(height: SizeConfig.h(40)),
+                      VerificationBody(
+                        phoneNumber: phoneNumber ?? '',
+                        btntext: state is OtpLoading
+                            ? 'جارٍ التحقق...'
+                            : 'تسجيل الدخول',
+                        onVerify: (otpCode) {
+                          context.read<OtpCubit>().verifyOtp(phoneNumber ?? '', otpCode);
+                        },
+                      ),
+                      SizedBox(height: SizeConfig.h(70)),
+                    ],
+                  );
+                }
+              },
+            ),
+
             AuthSwitchRow(
-              leadingText: ' ليس لدي حساب ',
-              actionText: ' انشاء حساب',
+              leadingText: 'ليس لدي حساب',
+              actionText: 'إنشاء حساب',
               onTap: () {
                 context.push('/signup');
               },

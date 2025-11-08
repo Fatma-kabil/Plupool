@@ -33,7 +33,7 @@ class SignupViewBody extends StatefulWidget {
 class _SignupViewBodyState extends State<SignupViewBody> {
   bool acceptedTerms = false;
   bool showVerificationBody = false;
-  String _enteredOtpCode = '';
+  String enteredOtpCode = '';
 
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
@@ -241,7 +241,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   }
 
   void _onSignupPressed(String otpCode) {
-    setState(() => _enteredOtpCode = otpCode);
+    setState(() => enteredOtpCode = otpCode);
 
     final phoneState = _phoneInputFieldKey.currentState;
     if (phoneState == null) return;
