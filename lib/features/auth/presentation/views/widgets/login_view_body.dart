@@ -20,12 +20,14 @@ class LoginViewBody extends StatefulWidget {
   @override
   State<LoginViewBody> createState() => _LoginViewBodyState();
 }
+
 class _LoginViewBodyState extends State<LoginViewBody> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController phoneController = TextEditingController();
-  final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey = GlobalKey<PhoneInputFieldState>();
+  final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey =
+      GlobalKey<PhoneInputFieldState>();
   bool showVerificationBody = false;
-  String? phoneNumber;  // هنا خزني رقم الهاتف
+  String? phoneNumber; // هنا خزني رقم الهاتف
 
   @override
   void dispose() {
@@ -47,16 +49,14 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           children: [
             Text(
               'أدخل رقم الموبايل لتسجيل الدخول لحسابك',
-              style: AppTextStyles.styleSemiBold20(context)
-                  .copyWith(color: AppColors.ktextcolor),
+              style: AppTextStyles.styleSemiBold20(
+                context,
+              ).copyWith(color: AppColors.ktextcolor),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: SizeConfig.h(40)),
 
-            LoginForm(
-              formKey: _formKey,
-              phoneController: phoneController,
-            ),
+            LoginForm(formKey: _formKey, phoneController: phoneController, phoneFieldKey: _phoneInputFieldKey,),
             SizedBox(height: SizeConfig.h(15)),
 
             const WhatsappVerificationNote(),
@@ -114,12 +114,23 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             ? 'جاري الإرسال...'
                             : 'إرسال رمز التحقق',
                         onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                          final number = _phoneInputFieldKey.currentState?.getFullPhoneNumber();
-                        
-                          phoneNumber = number;  // خزني الرقم هنا
-                          context.read<OtpCubit>().sendOtp(phoneNumber!);
-                        }},
+                          if (_formKey.currentState!.validate()) {
+                            final number = _phoneInputFieldKey.currentState
+                                ?.getFullPhoneNumber();
+
+                            if (number == null || number.isEmpty) {
+                              showCustomSnackBar(
+                                context: context,
+                                message: 'الرجاء إدخال رقم هاتف صحيح',
+                                isSuccess: false,
+                              );
+                              return; // ما تكملش لو الرقم غير صالح
+                            }
+
+                            phoneNumber = number; // خزنه بس لما يكون صحيح
+                            context.read<OtpCubit>().sendOtp(phoneNumber!);
+                          }
+                        },
                       ),
                       SizedBox(height: SizeConfig.h(70)),
                     ],
@@ -134,7 +145,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             ? 'جارٍ التحقق...'
                             : 'تسجيل الدخول',
                         onVerify: (otpCode) {
-                          context.read<OtpCubit>().verifyOtp(phoneNumber ?? '', otpCode);
+                          context.read<OtpCubit>().verifyOtp(
+                            phoneNumber!,
+                            otpCode,
+                          );
                         },
                       ),
                       SizedBox(height: SizeConfig.h(70)),

@@ -59,8 +59,8 @@ Failure mapDioError(Object error) {
       case DioExceptionType.badResponse:
         final status = error.response?.statusCode;
         final data = error.response?.data;
-        final msg = (data is Map && data['message'] is String)
-            ? data['message'] as String
+        final msg = (data is Map && data['detail'] is String)
+            ? data['detail'] as String
             : FailureMessages.server;
         if (status == 401 || status == 403) return AuthFailure(msg, status);
         return ServerFailure(msg, status);

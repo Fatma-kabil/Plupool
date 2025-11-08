@@ -6,12 +6,14 @@ import 'package:plupool/features/auth/presentation/views/widgets/phone_input_fie
 class LoginForm extends StatelessWidget {
   const LoginForm({
     super.key,
+     this.phoneFieldKey,
     required this.formKey,
     required this.phoneController, // ✅ أضفنا الكنترولر هنا
   });
 
   final GlobalKey<FormState> formKey;
   final TextEditingController phoneController; // ✅ تعريفه
+    final GlobalKey<PhoneInputFieldState>? phoneFieldKey; // ✅ هنا
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           PhoneInputField(
+            key: phoneFieldKey, // ✅ نمرره هنا
             controller: phoneController, // ✅ نمرره هنا
             validator: (v) => Validators.phone(v),
           ),
