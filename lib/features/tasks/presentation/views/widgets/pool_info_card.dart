@@ -24,7 +24,7 @@ class PoolInfoCard extends StatelessWidget {
       children: [
         Container(
           width: MediaQuery.of(context).size.width * 0.28,
-          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.h(12)),
+          padding:  EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(12),
@@ -40,9 +40,9 @@ class PoolInfoCard extends StatelessWidget {
                 child: Padding(padding: EdgeInsets.all(SizeConfig.w(8)),
                 child: Icon(icon, color: iconcolor, size: SizeConfig.w(20)),
               ),),
-              SizedBox(height: SizeConfig.h(8)),
+              SizedBox(height: SizeConfig.h(5)),
               Text(title,style: AppTextStyles.styleRegular13(context).copyWith(color: Color(0xFF777777)),),
-              SizedBox(height: SizeConfig.h(4)),
+           //   SizedBox(height: SizeConfig.h(4)),
               Text(
                  textDirection: TextDirection.rtl,
                 value, textAlign: TextAlign.center,style: AppTextStyles.styleSemiBold13(context).copyWith(color: Color(0xff555555)),),
