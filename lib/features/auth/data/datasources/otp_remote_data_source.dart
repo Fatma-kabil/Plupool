@@ -1,6 +1,7 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 
 abstract class OtpRemoteDataSource {
   Future<void> sendOtp(String phone);
@@ -10,8 +11,9 @@ abstract class OtpRemoteDataSource {
 class OtpRemoteDataSourceImpl implements OtpRemoteDataSource {
   final ApiService apiService;
   final storage = const FlutterSecureStorage();
+    final AuthCubit authCubit; // 🔹 instance من AuthCubit
 
-  OtpRemoteDataSourceImpl(this.apiService);
+  OtpRemoteDataSourceImpl(this.apiService, this.authCubit);
 
   @override
   Future<void> sendOtp(String phone) async {
@@ -37,6 +39,9 @@ class OtpRemoteDataSourceImpl implements OtpRemoteDataSource {
 
     // ✅ خزّن التوكن هنا
     await storage.write(key: 'token', value: accessToken);
+    
+// 🔹 حدث AuthCubit لو موجود
+authCubit.login(accessToken); // authCubit يتم تمريره من مكانه أو Injected
 
     return accessToken;
   }

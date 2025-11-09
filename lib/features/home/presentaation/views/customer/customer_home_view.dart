@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/home/data/models/app_bar_model.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/customer_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_appbar.dart';
@@ -13,32 +14,21 @@ import 'package:plupool/features/home/presentaation/views/customer/widgets/promo
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_section.dart';
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
+
 class CustomerHomeView extends StatelessWidget {
   const CustomerHomeView({super.key});
 
-  // 🔹 إنشاء Storage
-  static final storage = const FlutterSecureStorage();
-
-  // 🔹 دالة قراءة التوكن
-  Future<String?> _getToken() async {
-    return await storage.read(key: 'token');
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String?>(
-      future: _getToken(),
-      builder: (context, snapshot) {
-        // ⏳ Loading أثناء قراءة التوكن
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CustomLoadingIndecator());
-        }
+    // 🔹 التحقق من التوكن عند الدخول على الصفحة
+    context.read<AuthCubit>().checkAuth();
+    context.read<SelectRoleCubit>().getSavedRole();
 
-        final token = snapshot.data; // null لو مش موجود
-
+    return BlocBuilder<AuthCubit, AuthState>(
+      builder: (context, authState) {
         return BlocBuilder<SelectRoleCubit, SelectRoleState>(
-          builder: (context, state) {
-            if (state is GetRoleSuccess) {
+          builder: (context, roleState) {
+            if (roleState is GetRoleSuccess) {
               return Padding(
                 padding: EdgeInsets.only(
                   top: SizeConfig.h(12),
@@ -47,8 +37,7 @@ class CustomerHomeView extends StatelessWidget {
                 ),
                 child: ListView(
                   children: [
-                    // ✅ CustomerAppbar لو فيه توكن
-                    if (token != null)
+                    if (authState.status == AuthStatus.loggedIn)
                       CustomerAppbar(
                         model: AppbarModel(
                           avatarUrl: 'assets/images/user1.png',
@@ -56,9 +45,8 @@ class CustomerHomeView extends StatelessWidget {
                           subtitle: 'صاحب حمام سباحه',
                         ),
                       ),
-
-                    // ✅ GuestAppbar لو التوكن مش موجود
-                    if (token == null) GuestAppbar(role: state.roleName),
+                    if (authState.status == AuthStatus.guest)
+                      GuestAppbar(role: roleState.roleName),
 
                     const SizedBox(height: 35),
                     const PromoCarousel(),
@@ -73,7 +61,6 @@ class CustomerHomeView extends StatelessWidget {
               );
             }
 
-            // ⏳ لو الدور لسه بيجلب
             return const Center(child: CustomLoadingIndecator());
           },
         );

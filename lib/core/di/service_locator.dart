@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/features/auth/data/datasources/otp_remote_data_source.dart';
 import 'package:plupool/features/auth/data/repos_impl/otp_repo_impl.dart';
 import 'package:plupool/features/auth/data/repos_impl/sign_up_repo_impl.dart';
 import 'package:plupool/features/auth/domain/repos/otp_repo.dart';
+import 'package:plupool/features/auth/domain/repos/sign_up_repo.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 
@@ -18,7 +21,6 @@ import 'package:plupool/features/select_role/data/repos_impl/role_repo_impl.dart
 
 // Auth Feature
 import 'package:plupool/features/auth/data/datasources/sign_up_remote_data_source.dart';
-import 'package:plupool/features/auth/domain/repos/sign_up_repo.dart';
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_company_usecase.dart';
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_pool_owner_usecase.dart';
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_technician_usecase.dart';
@@ -29,21 +31,26 @@ Future<void> initServiceLocator() async {
   // ----------------------------
   // 🌐 Core Network
   // ----------------------------
- sl.registerLazySingleton<Dio>(() {
-  return Dio(
-    BaseOptions(
-      baseUrl: 'http://192.168.43.149:8000/api/v1',
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    ),
-  );
-});
+  sl.registerLazySingleton<Dio>(() {
+    return Dio(
+      BaseOptions(
+        baseUrl: 'http://192.168.43.149:8000/api/v1',
+        connectTimeout: const Duration(seconds: 15),
+        receiveTimeout: const Duration(seconds: 15),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
+  });
 
   sl.registerLazySingleton<ApiService>(() => ApiService(sl<Dio>()));
+
+  // ----------------------------
+  // 🔐 FlutterSecureStorage
+  // ----------------------------
+  sl.registerLazySingleton<FlutterSecureStorage>(() => const FlutterSecureStorage());
 
   // ----------------------------
   // 🧱 Role Feature
@@ -65,14 +72,28 @@ Future<void> initServiceLocator() async {
   // ----------------------------
   // 🔐 Auth Feature
   // ----------------------------
+  // AuthCubit (يعتمد على FlutterSecureStorage)
+  sl.registerLazySingleton<AuthCubit>(() => AuthCubit(sl<FlutterSecureStorage>()));
+
   // Remote Data Source
   sl.registerLazySingleton<SignUpRemoteDataSource>(
     () => SignUpRemoteDataSourceImpl(sl<ApiService>()),
   );
 
-  // Repo
+  // Repositories
   sl.registerLazySingleton<SignUpRepo>(
     () => SignUpRepoImpl(sl<SignUpRemoteDataSource>()),
+  );
+
+  sl.registerLazySingleton<OtpRemoteDataSource>(
+    () => OtpRemoteDataSourceImpl(
+          sl<ApiService>(),
+          sl<AuthCubit>(), // ✅ تمرير الـ AuthCubit
+        ),
+  );
+
+  sl.registerLazySingleton<OtpRepository>(
+    () => OtpRepoImpl(sl<OtpRemoteDataSource>()),
   );
 
   // UseCases
@@ -80,24 +101,12 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(() => SignupPoolOwnerUseCase(sl<SignUpRepo>()));
   sl.registerLazySingleton(() => SignupCompanyUseCase(sl<SignUpRepo>()));
 
-  // Cubit
+  // Cubits
   sl.registerFactory(() => SignUpCubit(
         signupTechnicianUseCase: sl<SignupTechnicianUseCase>(),
         signupPoolOwnerUseCase: sl<SignupPoolOwnerUseCase>(),
         signupCompanyUseCase: sl<SignupCompanyUseCase>(),
       ));
-
-
-       // ----------------------------
-  // 🔐 OTP Feature
-  // ----------------------------
-  sl.registerLazySingleton<OtpRemoteDataSource>(
-    () => OtpRemoteDataSourceImpl(sl<ApiService>()),
-  );
-
-  sl.registerLazySingleton<OtpRepository>(
-    () => OtpRepoImpl(sl<OtpRemoteDataSource>()),
-  );
 
   sl.registerFactory(() => OtpCubit(sl<OtpRepository>()));
 }
