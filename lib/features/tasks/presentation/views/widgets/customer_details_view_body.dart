@@ -31,6 +31,7 @@ class CustomerDetailsViewBody extends StatelessWidget {
                   "لاحظت وجود تسريب بسيط في المواسير، يُفضل المتابعة خلال الزيارة القادمة.",
             ),
           ),
+            SizedBox(height: SizeConfig.h(24)),
           // ✅ استخدمنا الويدجت الجديدة هنا
         ],
       ),

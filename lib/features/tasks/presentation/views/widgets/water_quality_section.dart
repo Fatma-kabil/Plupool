@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/tasks/data/models/water_quality_model.dart';
+import 'package:plupool/features/tasks/presentation/views/widgets/note_section.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/water_quality_card.dart';
 
 class WaterQualitySection extends StatelessWidget {
@@ -106,48 +107,10 @@ class WaterQualitySection extends StatelessWidget {
               ),
             ],
           ),
-
+          SizedBox(height: SizeConfig.h(16)),
           // 📝 الملاحظات (اختيارية)
           if (data.note != null && data.note!.isNotEmpty) ...[
-            SizedBox(height: SizeConfig.h(16)),
-            Text(
-              textDirection: TextDirection.rtl,
-              "الملاحظات",
-              style: AppTextStyles.styleSemiBold16(
-                context,
-              ).copyWith(color: AppColors.ktextcolor),
-            ),
-            SizedBox(height: SizeConfig.h(6)),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(SizeConfig.w(12)),
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.ktextcolor),
-                borderRadius: BorderRadius.circular(SizeConfig.w(10)),
-              ),
-              child: Row(
-                textDirection: TextDirection.rtl,
-                children: [
-                  Icon(
-                    Icons.note_alt_outlined,
-                    color: Color(0xff999999),
-                    size: SizeConfig.w(24),
-                  ),
-                  SizedBox(width: SizeConfig.w(8)),
-                  Expanded(
-                    child: Text(
-                      data.note!,
-                      style: AppTextStyles.styleRegular13(
-                        context,
-                      ).copyWith(color: Color(0xff999999)),
-                      textDirection: TextDirection.rtl,
-                      softWrap: true, // ✅ يسمح للنص بالانتقال للسطر الجديد
-                      overflow: TextOverflow.visible, //
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            NoteSection(note: data.note!),
           ],
         ],
       ),
