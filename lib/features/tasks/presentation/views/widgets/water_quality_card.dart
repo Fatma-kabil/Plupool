@@ -17,7 +17,8 @@ class WaterQualityCard extends StatelessWidget {
     required this.value,
     this.idealRange,
     required this.icon,
-    required this.color, required this.backgroundcolor,
+    required this.color,
+    required this.backgroundcolor,
   });
 
   @override
@@ -34,58 +35,57 @@ class WaterQualityCard extends StatelessWidget {
       ),
       child: Row(
         textDirection: TextDirection.rtl,
-        
+
         children: [
-           Container(
-              decoration: BoxDecoration(
-                color: backgroundcolor,
-                borderRadius: BorderRadius.circular(SizeConfig.w(20)),
-
-              ),
-                child: Padding(
-                  padding:  EdgeInsets.all(SizeConfig.w(8)),
-                  child: Icon(
-                    icon,
-                    color: color,
-                    size: SizeConfig.w(20),
-                  ),
-                ),
-              ),
-          /// 🧾 النصوص (العنوان والمعدل المثالي)
-          Column(
-          //  crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    title,
-                    style: AppTextStyles.styleSemiBold16(context).copyWith(
-                      color: AppColors.ktextcolor,
-                    ),
-                  ),
-                  Spacer(),
-                  
-                            /// 💧 القيمة + الأيقونة
-                            Text(
-                              value,
-                              style: AppTextStyles.styleBold16(context).copyWith(
-                  color: AppColors.ktextcolor,
-                              ),
-                            ),
-                ],
-              ),
-              if (idealRange != null && idealRange!.isNotEmpty)
-                Text(
-                  "المعدل المثالي: $idealRange",
-                  style: AppTextStyles.styleRegular14(context).copyWith(
-                    color: Color(0xff777777),
-                  ),
-                ),
-            ],
+          Container(
+            decoration: BoxDecoration(
+              color: backgroundcolor,
+              borderRadius: BorderRadius.circular(SizeConfig.w(20)),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(SizeConfig.w(7)),
+              child: Icon(icon, color: color, size: SizeConfig.w(20)),
+            ),
           ),
+          SizedBox(width: SizeConfig.w(6)),
 
-         
-         
+          /// 🧾 النصوص (العنوان والمعدل المثالي)
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  textDirection: TextDirection.rtl,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: AppTextStyles.styleSemiBold16(
+                        context,
+                      ).copyWith(color: AppColors.ktextcolor),
+                    ),
+
+                    /// 💧 القيمة + الأيقونة
+                    Text(
+                      value,
+                      style: AppTextStyles.styleBold16(
+                        context,
+                      ).copyWith(color: AppColors.ktextcolor),
+                    ),
+                  ],
+                ),
+                SizedBox(height: SizeConfig.h(2)),
+                if (idealRange != null && idealRange!.isNotEmpty)
+                  Text(
+                    textDirection: TextDirection.rtl,
+                    "المعدل المثالي: $idealRange",
+                    style: AppTextStyles.styleRegular14(
+                      context,
+                    ).copyWith(color: Color(0xff777777)),
+                  ),
+              ],
+            ),
+          ),
         ],
       ),
     );
