@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/open_location.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/info_col.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/section_header.dart';
@@ -35,7 +36,7 @@ class CustomerInfoCard extends StatelessWidget {
           SizedBox(height: SizeConfig.h(10)),
           GestureDetector(
             onTap: () {
-              // TODO: Open map
+              openLocation(context, "٢٨٧ شارع النخيل، الإسكندرية، مصر");
             },
             child: Row(
               textDirection: TextDirection.rtl,
@@ -48,7 +49,7 @@ class CustomerInfoCard extends StatelessWidget {
                 SizedBox(width: SizeConfig.w(2)),
                 Text(
                   "عرض على الخريطة",
-                  style: AppTextStyles.styleSemiBold13(context).copyWith(
+                  style: AppTextStyles.styleBold13(context).copyWith(
                     color: AppColors.kprimarycolor,
                     decoration: TextDecoration.underline,
                   ),
