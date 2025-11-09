@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:plupool/features/tasks/presentation/views/widgets/customer_info_card.dart';
 
 class CustomerDetailsViewBody extends StatelessWidget {
   const CustomerDetailsViewBody({super.key});
@@ -6,7 +7,10 @@ class CustomerDetailsViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [],
+      
+      children: [
+        CustomerInfoCard()
+      ],
     );
   }
 }
