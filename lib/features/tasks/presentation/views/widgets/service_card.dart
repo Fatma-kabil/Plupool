@@ -4,6 +4,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/progress_section.dart';
+import 'package:plupool/features/tasks/presentation/views/widgets/reminder_section.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/service_request_header.dart';
 
 class ServiceCard extends StatelessWidget {
@@ -41,58 +42,13 @@ class ServiceCard extends StatelessWidget {
           ],
 
           if (request.nextVisitDay != null) ...[
-            const SizedBox(height: 12),
-            _buildReminderSection(),
+             SizedBox(height: SizeConfig.h(12)),
+          ReminderSection(request: request,),
           ],
         ],
       ),
     );
   }
 
-  Container _buildReminderSection() {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFFE3F2FD),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: const EdgeInsets.all(10),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration: BoxDecoration(
-              color: const Color(0xFF03A9F4),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Text(
-              "تذكير",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "الزيارة القادمة",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-                ),
-                Text(
-                  "",
-                  //    "$request  |  $nextVisitDate  |  $nextVisitTime",
-                  style: TextStyle(color: Colors.grey[700], fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-          const Icon(Icons.calendar_today, color: Colors.blueAccent, size: 20),
-        ],
-      ),
-    );
-  }
+  
 }
