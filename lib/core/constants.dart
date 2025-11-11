@@ -345,31 +345,26 @@ final maintenancePools = [
   ),
 ];
 
-  final List<List<String>> services = [
-    [
-      "3 شهور صيانة مجاناً",
-      "تنظيف شامل",
-      "معالجة المياه",
-      "صيانة المعدات",
-      "مراجعة التسريبات البسيطة",
-    ],
-    [
-      "شهر صيانة مجاناً",
-      "تنظيف شامل",
-      "معالجة المياه",
-      "صيانة المعدات",
-      "مراجعة التسريبات البسيطة",
-    ],
-    [
-      "تنظيف شامل",
-      "معالجة المياه",
-      "صيانة المعدات",
-      "مراجعة التسريبات البسيطة",
-    ],
-  ];
+final List<List<String>> services = [
+  [
+    "3 شهور صيانة مجاناً",
+    "تنظيف شامل",
+    "معالجة المياه",
+    "صيانة المعدات",
+    "مراجعة التسريبات البسيطة",
+  ],
+  [
+    "شهر صيانة مجاناً",
+    "تنظيف شامل",
+    "معالجة المياه",
+    "صيانة المعدات",
+    "مراجعة التسريبات البسيطة",
+  ],
+  ["تنظيف شامل", "معالجة المياه", "صيانة المعدات", "مراجعة التسريبات البسيطة"],
+];
 final List<ServiceRequest> requests = [
   ServiceRequest(
-    title: "صيانة شهرية - المقطم",
+    title: "صيانة شهرية ",
     date: "2025-10-22",
     time: "11:00 ص",
     status: RequestStatus.inProgress,
@@ -395,7 +390,7 @@ final List<ServiceRequest> requests = [
     status: RequestStatus.urgent,
   ),
   ServiceRequest(
-    title: 'صيانة شهرية - المقطم',
+    title: 'صيانة شهرية',
     date: '2025-11-1',
     time: '11:00 ص',
     userName: 'سارة حسن',
@@ -404,7 +399,7 @@ final List<ServiceRequest> requests = [
     status: RequestStatus.inProgress,
   ),
   ServiceRequest(
-    title: 'إصلاح نظام الفاتورة - المهندسين',
+    title: 'إصلاح نظام الفاتوره',
     date: '2025-11-1',
     time: '9:00 ص',
     userName: 'خالد محمود',
@@ -413,7 +408,7 @@ final List<ServiceRequest> requests = [
     status: RequestStatus.scheduled,
   ),
   ServiceRequest(
-    title: 'إصلاح نظام الفاتورة - المهندسين',
+    title: 'إصلاح نظام الفاتوره',
     date: '2025-11-3',
     time: '9:00 ص',
     userName: 'خالد محمود',
@@ -422,7 +417,7 @@ final List<ServiceRequest> requests = [
     status: RequestStatus.scheduled,
   ),
   ServiceRequest(
-    title: 'إصلاح نظام الفاتورة - المهندسين',
+    title: 'إصلاح نظام الفاتورة - ',
     date: '2025-11-4',
     time: '9:00 ص',
     userName: 'خالد محمود',
@@ -431,7 +426,7 @@ final List<ServiceRequest> requests = [
     status: RequestStatus.inProgress,
   ),
   ServiceRequest(
-    title: 'إصلاح نظام الفاتورة - المهندسين',
+    title: 'إصلاح نظام الفاتورة - ',
     date: '2025-11-4',
     time: '9:00 ص',
     userName: 'خالد محمود',
@@ -441,7 +436,6 @@ final List<ServiceRequest> requests = [
   ),
 ];
 
-    
 final List<OfferModel> equipmentOffers = [
   OfferModel(
     title: "معدات صيانة ",
@@ -459,7 +453,7 @@ final List<OfferModel> equipmentOffers = [
     image: "assets/images/tech_offer2.png",
     offerPercentage: '% خصم 15',
   ),
-  
+
   OfferModel(
     title: "مواد كيميائية آمنة",
     desc: "مواد كيميائية آمنة",

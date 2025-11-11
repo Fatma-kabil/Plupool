@@ -40,7 +40,7 @@ class ServiceTabBar extends StatelessWidget {
                     color: Colors.black.withOpacity(0.25), // ظل واضح
                     offset: const Offset(1, 2), // اتجاه الظل لتحت شوية
                     blurRadius: 1, // خفيف علشان يبان بارز مش ناعم
-                    spreadRadius: 1, // انتشار بسيط يزود الإحساس بالعمق
+                    spreadRadius: 0, // انتشار بسيط يزود الإحساس بالعمق
                   ),
                 ],
               ),

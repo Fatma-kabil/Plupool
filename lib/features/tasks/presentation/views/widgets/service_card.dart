@@ -5,16 +5,13 @@ import 'package:plupool/features/home/presentaation/views/tech/widgets/build_dat
 import 'package:plupool/features/tasks/presentation/views/widgets/service_request_header.dart';
 
 class ServiceCard extends StatelessWidget {
-    final ServiceRequest request;
+  final ServiceRequest request;
 
-  const ServiceCard({
-    super.key,
-    required this.request,
-  });
+  const ServiceCard({super.key, required this.request});
 
   @override
   Widget build(BuildContext context) {
-     final colors = RequestStatusColors.getColors(request.status);
+    final colors = RequestStatusColors.getColors(request.status);
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
@@ -32,9 +29,13 @@ class ServiceCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ServiceRequestHeader(stuts: request.status as String,stutscolor: colors['labelBg'],textcolor:colors['labeltext'] ,title: request.title,),
+          ServiceRequestHeader(
+            stutscolor: colors['labelBg'],
+            textcolor: colors['labelText'],
+            request: request,
+          ),
           const SizedBox(height: 4),
-        BuildDataTimeRow(request: request,),
+
           if (request.progress != null) ...[
             const SizedBox(height: 12),
             _buildProgressSection(),
@@ -48,9 +49,6 @@ class ServiceCard extends StatelessWidget {
     );
   }
 
- 
-
-
   Column _buildProgressSection() {
     return Column(
       children: [
@@ -59,9 +57,15 @@ class ServiceCard extends StatelessWidget {
           children: [
             Text(
               "${(request.progress! * 100).toInt()}%",
-              style: TextStyle(color: Colors.blue[700], fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.blue[700],
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            Text(request.visits ?? "", style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+            Text(
+              request.visits ?? "",
+              style: TextStyle(color: Colors.grey[600], fontSize: 12),
+            ),
           ],
         ),
         const SizedBox(height: 6),
@@ -95,7 +99,11 @@ class ServiceCard extends StatelessWidget {
             ),
             child: const Text(
               "تذكير",
-              style: TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(width: 10),
@@ -109,7 +117,7 @@ class ServiceCard extends StatelessWidget {
                 ),
                 Text(
                   "",
-              //    "$request  |  $nextVisitDate  |  $nextVisitTime",
+                  //    "$request  |  $nextVisitDate  |  $nextVisitTime",
                   style: TextStyle(color: Colors.grey[700], fontSize: 12),
                 ),
               ],

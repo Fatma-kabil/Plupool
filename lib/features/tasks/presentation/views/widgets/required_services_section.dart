@@ -3,9 +3,10 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
+import 'package:plupool/features/home/domain/entities/request_status.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/service_tab_bar.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/service_card.dart';
-import 'package:plupool/core/constants.dart'; // ✅ هنا هتجيب الليست من هنا مثلاً
+import 'package:plupool/core/constants.dart'; // ✅ جايه من هنا
 
 class RequiredServicesSection extends StatefulWidget {
   const RequiredServicesSection({super.key});
@@ -20,12 +21,17 @@ class _RequiredServicesSectionState extends State<RequiredServicesSection> {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ هنا بنستخدم الليست اللي جاية من constants
-    final List<ServiceRequest> allRequests = requests; // أو الاسم اللي عندك
+    final List<ServiceRequest> allRequests = requests;
 
-    // فلترة الخدمات حسب التبويب الحالي
+    // ✅ فلترة الريكوستات حسب التبويب المختار باستخدام enum
     final filteredRequests = allRequests
-        .where((r) => r.status == selectedTab)
+        .where(
+          (r) =>
+              r.status ==
+              (selectedTab == "قيد التنفيذ"
+                  ? RequestStatus.inProgress
+                  : RequestStatus.scheduled),
+        )
         .toList();
 
     return Container(
@@ -51,12 +57,19 @@ class _RequiredServicesSectionState extends State<RequiredServicesSection> {
           ServiceTabBar(
             selectedTab: selectedTab,
             onTabSelected: (tab) => setState(() => selectedTab = tab),
-            counts: const {"قيد التنفيذ": 2, "مجدولة": 1},
+            counts: {
+              "قيد التنفيذ": allRequests
+                  .where((r) => r.status == RequestStatus.inProgress)
+                  .length,
+              "مجدولة": allRequests
+                  .where((r) => r.status == RequestStatus.scheduled)
+                  .length,
+            },
           ),
 
           SizedBox(height: SizeConfig.h(16)),
 
-          // 🧱 القائمة (بدون Expanded لتفادي الخطأ)
+          // 🧱 عرض الريكوستات بناءً على التاب الحالي
           SizedBox(
             height: SizeConfig.h(200),
             child: ListView.builder(

@@ -1,44 +1,62 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/home/data/models/service_request_model.dart';
+import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/features/home/presentaation/views/tech/widgets/build_data_time_row.dart';
 
 class ServiceRequestHeader extends StatelessWidget {
-  const ServiceRequestHeader({super.key, required this.title, required this.stutscolor, required this.stuts, required this.textcolor, });
-final String title;
-final Color stutscolor;
-final String stuts;
-final Color textcolor;
+  const ServiceRequestHeader({
+    super.key,
+
+    required this.stutscolor,
+
+    required this.textcolor,
+    required this.request,
+  });
+
+  final Color stutscolor;
+  final ServiceRequest request;
+  final Color textcolor;
 
   @override
   Widget build(BuildContext context) {
-     
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      textDirection: TextDirection.rtl,
+      mainAxisAlignment: MainAxisAlignment.start,
+      //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Text(
-          title,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-              color: Colors.black87,
+        Column(
+          children: [
+            Text(
+              request.title,
+              style: AppTextStyles.styleSemiBold16(
+                context,
+              ).copyWith(color: AppColors.ktextcolor),
             ),
-          ),
+            SizedBox(height: SizeConfig.h(4)),
+            BuildDataTimeRow(request: request),
+          ],
         ),
+        Spacer(),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.w(10),
+            vertical: SizeConfig.h(4),
+          ),
           decoration: BoxDecoration(
             color: stutscolor,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(SizeConfig.w(5)),
           ),
           child: Text(
-            stuts,
-            style:  TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 12,
-              color: textcolor,
-            ),
+            getStatusText(request.status),
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: textcolor),
           ),
         ),
       ],
     );
   }
-  }
+}
