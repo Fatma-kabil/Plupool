@@ -24,8 +24,9 @@ class _RequiredServicesSectionState extends State<RequiredServicesSection> {
     final List<ServiceRequest> allRequests = requests; // أو الاسم اللي عندك
 
     // فلترة الخدمات حسب التبويب الحالي
-    final filteredRequests =
-        allRequests.where((r) => r.status == selectedTab).toList();
+    final filteredRequests = allRequests
+        .where((r) => r.status == selectedTab)
+        .toList();
 
     return Container(
       width: double.infinity,
@@ -40,10 +41,11 @@ class _RequiredServicesSectionState extends State<RequiredServicesSection> {
           // 🧾 العنوان
           Text(
             "الخدمات المطلوبة",
-            style: AppTextStyles.styleSemiBold16(context)
-                .copyWith(color: AppColors.ktextcolor),
+            style: AppTextStyles.styleSemiBold16(
+              context,
+            ).copyWith(color: AppColors.ktextcolor),
           ),
-          SizedBox(height: SizeConfig.h(4)),
+          SizedBox(height: SizeConfig.h(15)),
 
           // 🔖 التبويبات
           ServiceTabBar(

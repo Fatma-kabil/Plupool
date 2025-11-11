@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class ServiceTabBar extends StatelessWidget {
   final String selectedTab;
@@ -15,25 +18,41 @@ class ServiceTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      textDirection: TextDirection.rtl,
       children: counts.keys.map((tab) {
         final isSelected = selectedTab == tab;
         return Padding(
-          padding: const EdgeInsets.only(left: 8),
+          padding: EdgeInsets.only(left: SizeConfig.w(8)),
           child: GestureDetector(
             onTap: () => onTabSelected(tab),
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.w(10),
+                vertical: SizeConfig.h(8),
+              ),
               decoration: BoxDecoration(
-                color: isSelected ? const Color(0xFF2196F3) : Colors.grey[200],
-                borderRadius: BorderRadius.circular(20),
+                color: isSelected
+                    ? AppColors.kprimarycolor
+                    : AppColors.kScaffoldColor,
+                borderRadius: BorderRadius.circular(SizeConfig.w(10)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.25), // ظل واضح
+                    offset: const Offset(1, 2), // اتجاه الظل لتحت شوية
+                    blurRadius: 1, // خفيف علشان يبان بارز مش ناعم
+                    spreadRadius: 1, // انتشار بسيط يزود الإحساس بالعمق
+                  ),
+                ],
               ),
               child: Text(
                 "$tab (${counts[tab]})",
-                style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.grey[800],
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13,
-                ),
+                style: isSelected
+                    ? AppTextStyles.styleBold14(
+                        context,
+                      ).copyWith(color: Colors.white)
+                    : AppTextStyles.styleSemiBold14(
+                        context,
+                      ).copyWith(color: AppColors.kprimarycolor),
               ),
             ),
           ),
