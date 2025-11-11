@@ -71,8 +71,6 @@ class WaterQualitySection extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: SizeConfig.h(4)),
-
           // 🕒 التاريخ (محاط بـ Directionality لتفادي التعارض)
           SizedBox(height: SizeConfig.h(12)),
 

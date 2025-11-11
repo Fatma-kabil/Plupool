@@ -3,6 +3,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/tasks/data/models/water_quality_model.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/customer_info_card.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/pool_info_section.dart';
+import 'package:plupool/features/tasks/presentation/views/widgets/required_services_section.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/water_quality_section.dart';
 
 class CustomerDetailsViewBody extends StatelessWidget {
@@ -31,7 +32,8 @@ class CustomerDetailsViewBody extends StatelessWidget {
                   "لاحظت وجود تسريب بسيط في المواسير، يُفضل المتابعة خلال الزيارة القادمة.",
             ),
           ),
-            SizedBox(height: SizeConfig.h(24)),
+          SizedBox(height: SizeConfig.h(24)),
+          RequiredServicesSection(),
           // ✅ استخدمنا الويدجت الجديدة هنا
         ],
       ),

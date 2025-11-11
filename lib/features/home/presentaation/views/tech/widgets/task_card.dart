@@ -56,7 +56,7 @@ class TeskCard extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 16,
-                  backgroundImage: AssetImage(request.userImage),
+                  backgroundImage: AssetImage(request.userImage!),
                 ),
                 const SizedBox(width: 8),
 
@@ -64,7 +64,7 @@ class TeskCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      request.userName,
+                      request.userName!,
                       style: AppTextStyles.styleSemiBold16(
                         context,
                       ).copyWith(color: Color(0xff555555)),
@@ -76,7 +76,7 @@ class TeskCard extends StatelessWidget {
                       children: [
                         const SizedBox(width: 3),
                         Text(
-                          request.location,
+                          request.location!,
                           style: AppTextStyles.styleRegular13(
                             context,
                           ).copyWith(color: Color(0xff999999)),

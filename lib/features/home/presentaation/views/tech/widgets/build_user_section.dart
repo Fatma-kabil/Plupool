@@ -14,13 +14,13 @@ class BuildUserSection extends StatelessWidget {
  Row(
     textDirection: TextDirection.rtl,
     children: [
-      CircleAvatar(radius:SizeConfig.w(16) , backgroundImage: AssetImage(request.userImage)),
+      CircleAvatar(radius:SizeConfig.w(16) , backgroundImage: AssetImage(request.userImage!)),
        SizedBox(width: SizeConfig.w(8) ),
       Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            request.userName,
+            request.userName!,
             style: AppTextStyles.styleSemiBold16(
               context,
             ).copyWith(color: Color(0xff555555)),
@@ -36,7 +36,7 @@ class BuildUserSection extends StatelessWidget {
               ),
               //  const SizedBox(width: 3),
               Text(
-                request.location,
+                request.location!,
                 style: AppTextStyles.styleRegular13(
                   context,
                 ).copyWith(color: Color(0xff999999)),
