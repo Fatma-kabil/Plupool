@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class MaintenanceHistorySection extends StatefulWidget {
   const MaintenanceHistorySection({super.key});
 
   @override
-  State<MaintenanceHistorySection> createState() => _MaintenanceHistorySectionState();
+  State<MaintenanceHistorySection> createState() =>
+      _MaintenanceHistorySectionState();
 }
 
 class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
@@ -23,19 +26,23 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
             });
           },
           child: Row(
+            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
                   Text(
                     "تاريخ الصيانة",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+                    style: AppTextStyles.styleBold16(
+                      context,
+                    ).copyWith(color: AppColors.ktextcolor),
                   ),
-                  const SizedBox(width: 5),
-                  const Icon(Icons.access_time, color: Colors.blueAccent),
+                  SizedBox(width: SizeConfig.w(5)),
+                  Icon(
+                    Icons.access_time,
+                    color: AppColors.kprimarycolor,
+                    size: SizeConfig.w(17),
+                  ),
                 ],
               ),
               AnimatedRotation(
@@ -52,8 +59,9 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
         // المحتوى القابل للطي
         AnimatedCrossFade(
           duration: const Duration(milliseconds: 250),
-          crossFadeState:
-              isExpanded ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+          crossFadeState: isExpanded
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
           firstChild: Column(
             children: const [
               MaintenanceCard(
@@ -62,7 +70,8 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
                 chlorine: "2.5 ppm",
                 ph: "7.2",
                 temp: "25°C",
-                note: "جميع القراءات طبيعية. تم تنظيف سلال الكاشطة وغسل الفلتر.",
+                note:
+                    "جميع القراءات طبيعية. تم تنظيف سلال الكاشطة وغسل الفلتر.",
               ),
               MaintenanceCard(
                 time: "11:00 AM",
@@ -70,7 +79,8 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
                 chlorine: "1.8 ppm",
                 ph: "7.9",
                 temp: "26°C",
-                note: "تمت إضافة معالجة الكلور. فحص ضغط المضخة - تعمل بشكل طبيعي.",
+                note:
+                    "تمت إضافة معالجة الكلور. فحص ضغط المضخة - تعمل بشكل طبيعي.",
               ),
             ],
           ),
@@ -130,7 +140,9 @@ class MaintenanceCard extends StatelessWidget {
               Text(
                 date,
                 style: const TextStyle(
-                    color: Colors.black87, fontWeight: FontWeight.w500),
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),
@@ -162,17 +174,16 @@ class MaintenanceCard extends StatelessWidget {
   Widget _buildItem(String label, String value, IconData icon) {
     return Column(
       children: [
-        Text(
-          label,
-          style: const TextStyle(color: Colors.grey, fontSize: 12),
-        ),
+        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
         const SizedBox(height: 2),
         Row(
           children: [
             Text(
               value,
               style: const TextStyle(
-                  fontWeight: FontWeight.w500, color: Colors.black87),
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+              ),
             ),
             const SizedBox(width: 4),
             Icon(icon, size: 16, color: Colors.blueAccent),

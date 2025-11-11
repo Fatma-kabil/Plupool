@@ -43,6 +43,7 @@ class _RequiredServicesSectionState extends State<RequiredServicesSection> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
+         mainAxisSize: MainAxisSize.min, // مهم عشان Column ما يحاولش ياخد كل الارتفاع
         children: [
           // 🧾 العنوان
           Text(
@@ -70,18 +71,18 @@ class _RequiredServicesSectionState extends State<RequiredServicesSection> {
           SizedBox(height: SizeConfig.h(16)),
 
           // 🧱 عرض الريكوستات بناءً على التاب الحالي
-          SizedBox(
-            height: SizeConfig.h(200),
-            child: ListView.builder(
-              itemCount: filteredRequests.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
-                  child: ServiceCard(request: filteredRequests[index]),
-                );
-              },
-            ),
-          ),
+         ListView.builder(
+            shrinkWrap: true,
+         physics: NeverScrollableScrollPhysics(), 
+           itemCount: filteredRequests.length,
+           itemBuilder: (context, index) {
+             return Padding(
+               padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
+               child: ServiceCard(request: filteredRequests[index]),
+             );
+           },
+         ),
+
         ],
       ),
     );

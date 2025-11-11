@@ -28,6 +28,7 @@ class ServiceRequestHeader extends StatelessWidget {
       //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
               request.title,

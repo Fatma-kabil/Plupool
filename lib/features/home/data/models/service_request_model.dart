@@ -9,8 +9,8 @@ class ServiceRequest {
   final String? userImage;
   final String? location;
   final RequestStatus status;
-  final double? progress;
-  final String? visits;
+  final int? progress;
+  final int? visits;
   final String? nextVisitDate;
   final String? nextVisitDay;
   final String? nextVisitTime;
