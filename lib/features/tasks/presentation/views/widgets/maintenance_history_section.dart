@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/tasks/data/models/water_quality_model.dart';
+import 'package:plupool/features/tasks/presentation/views/widgets/maintenance_card.dart';
 
 class MaintenanceHistorySection extends StatefulWidget {
   const MaintenanceHistorySection({super.key});
@@ -14,6 +16,22 @@ class MaintenanceHistorySection extends StatefulWidget {
 class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
   bool isExpanded = true; // الحالة المفتوحة أو المغلقة
 
+  final List<WaterQualityModel> history = [
+    WaterQualityModel(
+      temperature: 25,
+      phLevel: 7.2,
+      chlorineLevel: 2.5 ,
+      note: "جميع القراءات طبيعية. تم تنظيف سلال الكاشطة وغسل الفلتر.",
+      lastUpdated: DateTime(2025, 10, 8, 18, 26),
+    ),
+    WaterQualityModel(
+      temperature: 26,
+      phLevel: 7.9,
+      chlorineLevel: 1.8 ,
+      note: "تمت إضافة معالجة الكلور. فحص ضغط المضخة - تعمل بشكل طبيعي.",
+      lastUpdated: DateTime(2025, 10, 20, 11, 0),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,27 +80,10 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
           crossFadeState: isExpanded
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
-          firstChild: Column(
-            children: const [
-              MaintenanceCard(
-                time: "6:26 PM",
-                date: "8 أكتوبر 2025",
-                chlorine: "2.5 ppm",
-                ph: "7.2",
-                temp: "25°C",
-                note:
-                    "جميع القراءات طبيعية. تم تنظيف سلال الكاشطة وغسل الفلتر.",
-              ),
-              MaintenanceCard(
-                time: "11:00 AM",
-                date: "20 أكتوبر 2025",
-                chlorine: "1.8 ppm",
-                ph: "7.9",
-                temp: "26°C",
-                note:
-                    "تمت إضافة معالجة الكلور. فحص ضغط المضخة - تعمل بشكل طبيعي.",
-              ),
-            ],
+         firstChild: Column(
+            children: history
+                .map((model) => MaintenanceCard(model: model))
+                .toList(),
           ),
           secondChild: const SizedBox.shrink(),
         ),
@@ -91,105 +92,3 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
   }
 }
 
-class MaintenanceCard extends StatelessWidget {
-  final String time;
-  final String date;
-  final String chlorine;
-  final String ph;
-  final String temp;
-  final String note;
-
-  const MaintenanceCard({
-    super.key,
-    required this.time,
-    required this.date,
-    required this.chlorine,
-    required this.ph,
-    required this.temp,
-    required this.note,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.15),
-            spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          // التاريخ والوقت
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                time,
-                style: const TextStyle(color: Colors.grey, fontSize: 13),
-              ),
-              Text(
-                date,
-                style: const TextStyle(
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-
-          // القيم
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _buildItem("درجة الحرارة", temp, Icons.thermostat),
-              _buildItem("مستوى الحموضة", ph, Icons.science),
-              _buildItem("مستوى الكلور", chlorine, Icons.water_drop),
-            ],
-          ),
-          const SizedBox(height: 10),
-
-          // الملاحظات
-          Text(
-            note,
-            style: const TextStyle(color: Color(0xff999999), fontSize: 13),
-            textAlign: TextAlign.right,
-            textDirection: TextDirection.rtl,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildItem(String label, String value, IconData icon) {
-    return Column(
-      children: [
-        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-        const SizedBox(height: 2),
-        Row(
-          children: [
-            Text(
-              value,
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                color: Colors.black87,
-              ),
-            ),
-            const SizedBox(width: 4),
-            Icon(icon, size: 16, color: Colors.blueAccent),
-          ],
-        ),
-      ],
-    );
-  }
-}

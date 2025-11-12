@@ -6,10 +6,13 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:plupool/app_view.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:plupool/core/di/service_locator.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await initServiceLocator(); // ✅ مهم جدًا قبل runApp
+  await initServiceLocator(); 
+   await initializeDateFormatting('ar'); // ✅ تهيئة اللغة العربية// ✅ مهم جدًا قبل runApp
  
    // ✅ لو عايز تمسح التوكن (للتجربة أو reset)
   const storage = FlutterSecureStorage();

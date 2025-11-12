@@ -368,7 +368,7 @@ final List<ServiceRequest> requests = [
     date: "2025-10-22",
     time: "11:00 ص",
     status: RequestStatus.inProgress,
-    progress: 2,
+    progress: 4,
     visits: 6,
     nextVisitDate: "2025-10-01",
     nextVisitDay: "الثلاثاء",
