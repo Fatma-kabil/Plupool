@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class MaintenanceItem extends StatelessWidget {
   const MaintenanceItem({
@@ -16,19 +18,18 @@ class MaintenanceItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(label, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-        const SizedBox(height: 2),
+        Text(label, style: AppTextStyles.styleRegular13(context).copyWith(
+          color: Color(0xff777777),
+        )),
+         SizedBox(height:SizeConfig.h(4) ),
         Row(
           children: [
             Text(
               value,
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                color: Colors.black87,
-              ),
+              style:AppTextStyles.styleBold13(context).copyWith(color: Color(0xff555555)),
             ),
-            const SizedBox(width: 4),
-            Icon(icon, size: 16, color: iconcolor),
+             SizedBox(width: SizeConfig.w(2)),
+            Icon(icon, size: SizeConfig.w(18), color: iconcolor),
           ],
         ),
       ],

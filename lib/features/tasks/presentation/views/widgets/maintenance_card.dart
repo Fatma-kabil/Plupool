@@ -57,37 +57,40 @@ class MaintenanceCard extends StatelessWidget {
           SizedBox(height: SizeConfig.h(10)),
 
           // القيم
-          Row(
-            textDirection: TextDirection.rtl,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-               MaintenanceItem(
-                label: "مستوى الكلور",
-                value: model.chlorineLevel.toString(),
-                  icon: Icons.science,
-                     iconcolor: Color(0xff00B4D8),
-               
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
+            child: Row(
+              textDirection: TextDirection.rtl,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                 MaintenanceItem(
+                  label: "مستوى الكلور",
+                  value: "${model.chlorineLevel.toString()} ppm",
+                    icon: Icons.science,
+                       iconcolor: Color(0xff00B4D8),
                  
-              ),
-              CustomDivider(),
-               MaintenanceItem(
-                label: "مستوى الحموضة",
-                value: model.phLevel.toString(),
-                 icon: Icons.water_drop,
-                  iconcolor: Color(0xff0077B6),
+                   
+                ),
+                CustomDivider(),
+                 MaintenanceItem(
+                  label: "مستوى الحموضة",
+                  value: model.phLevel.toString(),
+                   icon: Icons.water_drop,
+                    iconcolor: Color(0xff0077B6),
+                 
+                ),
+                CustomDivider(),
+                MaintenanceItem(
+                  label: "درجة الحرارة",
+                  value: "${model.temperature.toString()}°C",
+                  icon: Icons.thermostat,
+                  iconcolor: Color(0xffFF9F1C),
+                
+                ),
                
-              ),
-              CustomDivider(),
-              MaintenanceItem(
-                label: "درجة الحرارة",
-                value: model.temperature.toString(),
-                icon: Icons.thermostat,
-                iconcolor: Color(0xffFF9F1C),
-              
-              ),
-             
-             
-            ],
+               
+              ],
+            ),
           ),
            SizedBox(height:SizeConfig.h(20) ),
 

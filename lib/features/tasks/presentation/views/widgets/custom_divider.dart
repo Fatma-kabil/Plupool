@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class CustomDivider extends StatelessWidget {
   const CustomDivider({super.key});
@@ -7,9 +8,9 @@ class CustomDivider extends StatelessWidget {
   Widget build(BuildContext context) {
   
   return Container(
-    width: 1.2, // عرض الخط
-    height: 30, // الطول بالنسبة للعناصر
-    margin: const EdgeInsets.symmetric(horizontal: 8),
+    width:SizeConfig.w(1.2) , // عرض الخط
+    height:SizeConfig.h(35) , // الطول بالنسبة للعناصر
+  //  margin:  EdgeInsets.symmetric(horizontal: SizeConfig.w(5)),
     decoration: BoxDecoration(
       color: Colors.grey.shade300,
       boxShadow: [

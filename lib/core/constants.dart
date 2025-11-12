@@ -365,7 +365,7 @@ final List<List<String>> services = [
 final List<ServiceRequest> requests = [
   ServiceRequest(
     title: "صيانة شهرية ",
-    date: "2025-10-22",
+    date: "2025-11-22",
     time: "11:00 ص",
     status: RequestStatus.inProgress,
     progress: 4,
@@ -376,13 +376,13 @@ final List<ServiceRequest> requests = [
   ),
   ServiceRequest(
     title: "صيانة الفلاتر",
-    date: "2025-10-22",
+    date: "2025-11-22",
     time: "11:00 ص",
     status: RequestStatus.scheduled,
   ),
   ServiceRequest(
     title: 'عطل مفاجئ في المضخة',
-    date: '2025-10-31',
+    date: '2025-11-15',
     time: '1:00 م',
     userName: 'علي حسين',
     userImage: 'assets/images/ahmed.png',
@@ -391,16 +391,17 @@ final List<ServiceRequest> requests = [
   ),
   ServiceRequest(
     title: 'صيانة شهرية',
-    date: '2025-11-1',
+    date: '2025-11-18',
     time: '11:00 ص',
     userName: 'سارة حسن',
     userImage: 'assets/images/customer_user.png',
     location: 'المقطم، القاهرة',
-    status: RequestStatus.inProgress,
+    status: RequestStatus.urgent,
+    
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتوره',
-    date: '2025-11-1',
+    date: '2025-11-15',
     time: '9:00 ص',
     userName: 'خالد محمود',
     userImage: 'assets/images/ahmed.png',
@@ -409,7 +410,7 @@ final List<ServiceRequest> requests = [
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتوره',
-    date: '2025-11-3',
+    date: '2025-11-23',
     time: '9:00 ص',
     userName: 'خالد محمود',
     userImage: 'assets/images/ahmed.png',
@@ -418,16 +419,21 @@ final List<ServiceRequest> requests = [
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتورة - ',
-    date: '2025-11-4',
+    date: '2025-11-14',
     time: '9:00 ص',
     userName: 'خالد محمود',
     userImage: 'assets/images/ahmed.png',
     location: 'المهندسين، الجيزة',
     status: RequestStatus.inProgress,
+     progress: 0,
+    visits: 4,
+    nextVisitDate: "2025-12-01",
+    nextVisitDay: "السبت",
+    nextVisitTime: "9:00 ص",
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتورة - ',
-    date: '2025-11-4',
+    date: '2025-11-24',
     time: '9:00 ص',
     userName: 'خالد محمود',
     userImage: 'assets/images/ahmed.png',
