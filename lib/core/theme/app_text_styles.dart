@@ -70,7 +70,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 22 : 16,
+        fontSize: SizeConfig.isWideScreen ? 21 : 16,
       ),
       fontWeight: FontWeight.w600,
       color: Color(0xff525252),
@@ -80,7 +80,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 17 : 13,
+        fontSize: SizeConfig.isWideScreen ? 18 : 13,
       ),
       fontWeight: FontWeight.w600,
      
@@ -170,7 +170,7 @@ static TextStyle styleSemiBold10(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 20 : 16,
+        fontSize: SizeConfig.isWideScreen ? 25 : 16,
       ),
       fontWeight: FontWeight.w400,
       color: Color(0xff808080),
@@ -182,7 +182,7 @@ static TextStyle styleSemiBold10(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 17 : 13,
+        fontSize: SizeConfig.isWideScreen ? 18 : 13,
       ),
       fontWeight: FontWeight.w400,
       color: AppColors.hintTextColor,
@@ -205,7 +205,7 @@ static TextStyle styleSemiBold10(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 18 : 14,
+        fontSize: SizeConfig.isWideScreen ? 21 : 14,
       ),
       fontWeight: FontWeight.w400,
       color: Color(0xff555555),

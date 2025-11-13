@@ -51,7 +51,7 @@ maxLines: lines,
           hintText: hintText,
           hintStyle: AppTextStyles.styleRegular16(context).copyWith(color: Color(0xffBBBBBB)),
           contentPadding: EdgeInsets.symmetric(
-            vertical: SizeConfig.h(0),
+            vertical:SizeConfig.isWideScreen?SizeConfig.h(8): SizeConfig.h(0),
             horizontal: SizeConfig.w(14),
           ),
 
@@ -62,8 +62,8 @@ maxLines: lines,
                 Icon(
                   icon,
                   size: SizeConfig.isWideScreen
-                      ? SizeConfig.h(24)
-                      : SizeConfig.w(24),
+                      ? SizeConfig.h(20)
+                      : SizeConfig.w(20),
                   color: const Color(0xffBBBBBB),
                 ),
           ),
@@ -81,6 +81,7 @@ maxLines: lines,
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(color: AppColors.kprimarycolor, width: 1.0),
           ),
+           errorStyle: AppTextStyles.styleRegular13(context).copyWith(color: Colors.red)
         ),
       ),
     );

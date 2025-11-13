@@ -80,6 +80,7 @@ class CustomTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(color: AppColors.kprimarycolor, width: 1.0),
           ),
+           errorStyle: AppTextStyles.styleRegular13(context).copyWith(color: Colors.red)
         ),
       ),
     );

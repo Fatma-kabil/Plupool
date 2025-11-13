@@ -9,7 +9,7 @@ class PreviousValuesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(SizeConfig.w(14)),
+      padding: EdgeInsets.all(SizeConfig.w(10)),
       decoration: BoxDecoration(
         color: const Color(0xffCCE4F0),
         border: Border.all(color: AppColors.kprimarycolor),
@@ -21,7 +21,7 @@ class PreviousValuesSection extends StatelessWidget {
           Row(
             textDirection: TextDirection.rtl,
             children: [
-               Icon(Icons.refresh, color: AppColors.kprimarycolor,size: SizeConfig.w(22),),
+               Icon(Icons.refresh, color: AppColors.kprimarycolor,size: SizeConfig.w(18),),
                Text(
                 "القيم السابقة",
                 style: AppTextStyles.styleBold16(
@@ -66,8 +66,8 @@ class _ValueItem extends StatelessWidget {
     return Row(
       textDirection: TextDirection.rtl,
       children: [
-        Icon(icon, color: iconColor, size:SizeConfig.w(24) ),
-      //  SizedBox(height:SizeConfig.w(4) ),
+        Icon(icon, color: iconColor, size:SizeConfig.w(18) ),
+       SizedBox(height:SizeConfig.w(4) ),
         Text(label, style:AppTextStyles.styleRegular14(context).copyWith(color: Color(0xff777777))),
         Spacer(),
         Text(value, style: AppTextStyles.styleBold16(context).copyWith(color: Color(0xff555555))),
