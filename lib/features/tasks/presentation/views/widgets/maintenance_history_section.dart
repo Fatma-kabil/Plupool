@@ -14,29 +14,33 @@ class MaintenanceHistorySection extends StatefulWidget {
 }
 
 class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
-  bool isExpanded = true; // الحالة المفتوحة أو المغلقة
+  bool isExpanded = true;
 
   final List<WaterQualityModel> history = [
     WaterQualityModel(
       temperature: 25,
       phLevel: 7.2,
-      chlorineLevel: 2.5 ,
+      chlorineLevel: 2.5,
       note: "جميع القراءات طبيعية. تم تنظيف سلال الكاشطة وغسل الفلتر.",
       lastUpdated: DateTime(2025, 10, 8, 18, 26),
     ),
     WaterQualityModel(
       temperature: 26,
       phLevel: 7.9,
-      chlorineLevel: 1.8 ,
+      chlorineLevel: 1.8,
       note: "تمت إضافة معالجة الكلور. فحص ضغط المضخة - تعمل بشكل طبيعي.",
       lastUpdated: DateTime(2025, 10, 20, 11, 0),
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
+    // ✅ الترتيب من الأحدث إلى الأقدم
+    final sortedHistory = [...history]
+      ..sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
+
     return Column(
       children: [
-        // العنوان والسهم
         InkWell(
           onTap: () {
             setState(() {
@@ -51,9 +55,8 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
                 children: [
                   Text(
                     "تاريخ الصيانة",
-                    style: AppTextStyles.styleBold16(
-                      context,
-                    ).copyWith(color: AppColors.ktextcolor),
+                    style: AppTextStyles.styleBold16(context)
+                        .copyWith(color: AppColors.ktextcolor),
                   ),
                   SizedBox(width: SizeConfig.w(5)),
                   Icon(
@@ -64,7 +67,7 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
                 ],
               ),
               AnimatedRotation(
-                turns: isExpanded ? 0 : 0.5, // يقلب السهم لأعلى أو لأسفل
+                turns: isExpanded ? 0 : 0.5,
                 duration: const Duration(milliseconds: 200),
                 child: const Icon(Icons.keyboard_arrow_up),
               ),
@@ -72,17 +75,20 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
           ),
         ),
 
-        const SizedBox(height: 8),
+         SizedBox(height:SizeConfig.h(8) ),
 
-        // المحتوى القابل للطي
         AnimatedCrossFade(
           duration: const Duration(milliseconds: 250),
           crossFadeState: isExpanded
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
-         firstChild: Column(
-            children: history
-                .map((model) => MaintenanceCard(model: model))
+          firstChild: Column(
+            children: sortedHistory
+                .map((model) => 
+              
+                    MaintenanceCard(model: model),
+                  
+                )
                 .toList(),
           ),
           secondChild: const SizedBox.shrink(),
@@ -91,4 +97,3 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
     );
   }
 }
-

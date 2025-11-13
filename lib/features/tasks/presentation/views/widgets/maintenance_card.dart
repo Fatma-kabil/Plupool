@@ -55,7 +55,7 @@ class MaintenanceCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: SizeConfig.h(10)),
-
+      
           // القيم
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
@@ -93,7 +93,7 @@ class MaintenanceCard extends StatelessWidget {
             ),
           ),
            SizedBox(height:SizeConfig.h(20) ),
-
+      
           // الملاحظات
           if (model.note != null && model.note!.isNotEmpty)
             Text(

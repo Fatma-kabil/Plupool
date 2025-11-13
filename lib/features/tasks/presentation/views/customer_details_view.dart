@@ -13,8 +13,8 @@ class CustomerDetailsView extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(17),
-            vertical: SizeConfig.h(18),
+            horizontal: SizeConfig.w(12),
+            vertical: SizeConfig.h(12),
           
           ),
           child:CustomerDetailsViewBody() ,

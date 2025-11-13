@@ -23,7 +23,7 @@ class ProgressSection extends StatelessWidget {
       children: [
         Text(
           "$progressPercent%",
-          style: AppTextStyles.styleSemiBold13(
+          style: AppTextStyles.styleSemiBold10(
             context,
           ).copyWith(color: AppColors.kprimarycolor),
         ),
