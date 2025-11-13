@@ -13,35 +13,29 @@ class CustomerDetailsViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: SizeConfig.w(8),
-        vertical: SizeConfig.h(12),
-      ),
-      child: ListView(
-        children: [
-          const CustomerInfoCard(),
-          SizedBox(height: SizeConfig.h(24)),
-          const PoolInfoSection(),
-          SizedBox(height: SizeConfig.h(24)),
-          WaterQualitySection(
-            data: WaterQualityModel(
-              chlorineLevel: 2.5,
-              phLevel: 7.2,
-              temperature: 25,
-              lastUpdated: DateTime.now(),
-              note:
-                  "لاحظت وجود تسريب بسيط في المواسير، يُفضل المتابعة خلال الزيارة القادمة.",
-            ),
+    return ListView(
+      children: [
+        const CustomerInfoCard(),
+        SizedBox(height: SizeConfig.h(24)),
+        const PoolInfoSection(),
+        SizedBox(height: SizeConfig.h(24)),
+        WaterQualitySection(
+          data: WaterQualityModel(
+            chlorineLevel: 2.5,
+            phLevel: 7.2,
+            temperature: 25,
+            lastUpdated: DateTime.now(),
+            note:
+                "لاحظت وجود تسريب بسيط في المواسير، يُفضل المتابعة خلال الزيارة القادمة.",
           ),
-          SizedBox(height: SizeConfig.h(24)),
-          RequiredServicesSection(),
-          // ✅ استخدمنا الويدجت الجديدة هنا
-       
-         SizedBox(height: SizeConfig.h(24)),
-       MaintenanceHistorySection(),
-        ],
-      ),
+        ),
+        SizedBox(height: SizeConfig.h(24)),
+        RequiredServicesSection(),
+        // ✅ استخدمنا الويدجت الجديدة هنا
+     
+       SizedBox(height: SizeConfig.h(24)),
+     MaintenanceHistorySection(),
+      ],
     );
   }
 }

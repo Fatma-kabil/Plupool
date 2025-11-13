@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/tasks/presentation/views/widgets/customer_details_view_body.dart';
+import 'package:plupool/features/tasks/presentation/views/widgets/maintenance_update_view_body.dart';
 
-class CustomerDetailsView extends StatelessWidget {
-  const CustomerDetailsView({super.key});
+class MaintenanceUpdateView extends StatelessWidget {
+  const MaintenanceUpdateView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class CustomerDetailsView extends StatelessWidget {
             vertical: SizeConfig.h(18),
           
           ),
-          child:CustomerDetailsViewBody() ,
+          child:MaintenanceUpdateViewBody() ,
         ),
       ),
     );

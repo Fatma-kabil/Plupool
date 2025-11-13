@@ -17,6 +17,7 @@ import 'package:plupool/features/services/presentation/views/services_view.dart'
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 import 'package:plupool/features/tasks/presentation/views/customer_details_view.dart';
+import 'package:plupool/features/tasks/presentation/views/maintenance_update_view.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
@@ -120,6 +121,12 @@ final GoRouter appRouter = GoRouter(
       name: 'customerdetailsView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CustomerDetailsView()),
+    ),
+     GoRoute(
+      path: '/maintenanceupdateview',
+      name: 'maintenanceupdateview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const MaintenanceUpdateView()),
     ),
   ],
 );

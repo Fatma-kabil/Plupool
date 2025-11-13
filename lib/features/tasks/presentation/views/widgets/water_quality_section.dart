@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart' as intl; // ✅ حل التعارض باسم alias
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
@@ -57,6 +58,7 @@ class WaterQualitySection extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
+                  context.push('/maintenanceupdateview');
                   // هنا تحطي اللي عايزة يحصل لما المستخدم يضغط
                   print("تضغطت على تحديث");
                 },
