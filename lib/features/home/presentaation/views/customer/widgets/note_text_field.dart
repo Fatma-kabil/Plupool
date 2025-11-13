@@ -7,11 +7,12 @@ import 'package:plupool/core/utils/size_config.dart';
 class NoteTextField extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
+  final double? size;
 
   const NoteTextField({
     super.key,
     required this.controller,
-    this.onChanged,
+    this.onChanged, this.size,
   });
 
   @override
@@ -35,12 +36,13 @@ class NoteTextField extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
+              textDirection: TextDirection.rtl,
               'أكتب ملاحظاتك هنا.....',
               style: AppTextStyles.styleRegular13(context)
                   .copyWith(color: AppColors.hintTextColor),
             ),
              SizedBox(width:SizeConfig.w(4) ),
-            SvgPicture.asset('assets/icons/notes.svg',height: SizeConfig.h(16),width: SizeConfig.w(16),),
+            SvgPicture.asset('assets/icons/notes.svg',height: SizeConfig.h(size??16),width: SizeConfig.w(size??16),),
           ],
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/core/utils/widgets/custom_text_form_field.dart';
+import 'package:plupool/features/tasks/presentation/views/widgets/custom_text_field.dart';
 
 class InputFieldsSection extends StatelessWidget {
   const InputFieldsSection({super.key});
@@ -19,9 +19,9 @@ class InputFieldsSection extends StatelessWidget {
               context,
             ).copyWith(color: AppColors.ktextcolor),
           ),
-          SizedBox(height: SizeConfig.h(4)),
+          SizedBox(height: SizeConfig.h(8)),
 
-          CustomTextFormField(icon: Icons.science, hintText: "2.6 ppm"),
+          CustomTextField(icon: Icons.science, hintText: "2.6 "),
           Padding(
             padding: EdgeInsets.only(top: SizeConfig.h(4)),
             child: Text(
@@ -33,16 +33,16 @@ class InputFieldsSection extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: SizeConfig.h(12)),
+          SizedBox(height: SizeConfig.h(15)),
           Text(
             "مستوى الحموضة",
             style: AppTextStyles.styleSemiBold16(
               context,
             ).copyWith(color: AppColors.ktextcolor),
           ),
-          SizedBox(height: SizeConfig.h(4)),
+          SizedBox(height: SizeConfig.h(8)),
 
-          CustomTextFormField(icon: Icons.water_drop, hintText: "2.7"),
+          CustomTextField(icon: Icons.water_drop, hintText: "2.7"),
           Padding(
             padding: EdgeInsets.only(top: SizeConfig.h(4)),
             child: Text(
@@ -54,18 +54,18 @@ class InputFieldsSection extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: SizeConfig.h(12)),
+          SizedBox(height: SizeConfig.h(15)),
           Text(
             "درجة الحرارة",
             style: AppTextStyles.styleSemiBold16(
               context,
             ).copyWith(color: AppColors.ktextcolor),
           ),
-          SizedBox(height: SizeConfig.h(4)),
+          SizedBox(height: SizeConfig.h(8)),
 
-          CustomTextFormField(icon: Icons.thermostat, hintText: "25°"),
+          CustomTextField(icon: Icons.thermostat, hintText: "25°"),
 
-          SizedBox(height: SizeConfig.h(12)),
+          SizedBox(height: SizeConfig.h(15)),
         ],
       ),
     );

@@ -62,7 +62,7 @@ class ReminderSection extends StatelessWidget {
                     child: Icon(
                       Icons.calendar_today,
                       color: Colors.white,
-                      size: SizeConfig.w(20),
+                      size: SizeConfig.w(18),
                     ),
                   ),
                 ),
