@@ -4,6 +4,7 @@ import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_
 import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dart';
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
+import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
 import 'package:plupool/features/profile/presentation/views/profile_details_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
@@ -117,7 +118,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const ProfileDetailsView()),
     ),
      GoRoute(
-      path: '/',
+      path: '/customerdetailsView',
       name: 'customerdetailsView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CustomerDetailsView()),
@@ -127,6 +128,12 @@ final GoRouter appRouter = GoRouter(
       name: 'maintenanceupdateview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MaintenanceUpdateView()),
+    ),
+    GoRoute(
+      path: '/',
+      name: 'technotifications',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const TechNotifications()),
     ),
   ],
 );
