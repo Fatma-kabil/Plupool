@@ -67,6 +67,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
       crossAxisAlignment: CrossAxisAlignment.start,
       textDirection: TextDirection.rtl,
       children: [
+        SizedBox( height:  SizeConfig.h(12)),
         AnimatedBuilder(
           animation: _tabController.animation!,
           builder: (context, child) {
@@ -79,7 +80,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                    isScrollable: true,
                 indicator: BoxDecoration(),
                 dividerColor: Colors.transparent,
-                labelPadding: EdgeInsets.only(left: SizeConfig.w(20),right: SizeConfig.w(10) ), // أقل قيمة ممكنة
+                labelPadding: EdgeInsets.only(left: SizeConfig.w(15),right: SizeConfig.w(10) ), // أقل قيمة ممكنة
                 tabs: tabs.asMap().entries.map((entry) {
                   int idx = entry.key;
                   String t = entry.value;

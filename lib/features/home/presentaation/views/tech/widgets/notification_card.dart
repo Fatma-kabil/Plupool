@@ -1,5 +1,8 @@
 
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class NotificationCard extends StatelessWidget {
   final String title;
@@ -29,44 +32,41 @@ class NotificationCard extends StatelessWidget {
     }
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(14),
+      margin:  EdgeInsets.only(bottom:SizeConfig.h(12) ),
+      padding:  EdgeInsets.symmetric( vertical:  SizeConfig.h(14),horizontal: SizeConfig.w(14)),
       decoration: BoxDecoration(
-        color: Colors.white,
+       
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xffEAEAEA)),
+        border: Border.all(color: AppColors.textFieldBorderColor),
       ),
       child: Row(
+       
         children: [
           // النصوص
           Expanded(
             child: Column(
+              textDirection: TextDirection.rtl,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                    textDirection: TextDirection.rtl,
                   title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
+                  style:AppTextStyles.styleSemiBold16(context).copyWith(color: AppColors.ktextcolor)
                 ),
-                const SizedBox(height: 4),
+                 SizedBox(height: SizeConfig.h(4)),
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 13,
-                    height: 1.4,
-                  ),
+                  style: AppTextStyles.styleRegular14(context).copyWith(color: Color(0xff999999))
                 ),
-                const SizedBox(height: 4),
+                SizedBox(height: SizeConfig.h(4)),
                 Row(
+                  textDirection: TextDirection.rtl,
                   children: [
-                    const Icon(Icons.access_time, size: 14, color: Colors.grey),
-                    const SizedBox(width: 4),
+                     Icon(Icons.access_time, size:SizeConfig.w(17) , color: Color(0xff777777)),
+                     SizedBox(width:SizeConfig.w(4) ),
                     Text(
                       time,
-                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                      style:AppTextStyles.styleRegular13(context).copyWith(color: Color(0xff525252))
                     ),
                   ],
                 ),
@@ -74,13 +74,13 @@ class NotificationCard extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: 12),
+           SizedBox(width: SizeConfig.w(10)),
 
           // الايقونة
           CircleAvatar(
-            radius: 18,
+            radius: SizeConfig.w(18),
             backgroundColor: iconColor.withOpacity(0.15),
-            child: Icon(icon, color: iconColor, size: 20),
+            child: Icon(icon, color: iconColor, size: SizeConfig.w(22)),
           ),
         ],
       ),
