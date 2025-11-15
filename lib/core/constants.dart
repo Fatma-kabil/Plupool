@@ -445,7 +445,7 @@ final List<ServiceRequest> requests = [
 final List<OfferModel> equipmentOffers = [
   OfferModel(
     title: "معدات صيانة ",
-    desc: " طلمبة فلترة",
+    desc: "طلمبة فلترة",
     oldPrice: "2500 EGP",
     newPrice: "2000 EGP",
     image: "assets/images/mach_pro1.png",

@@ -154,11 +154,22 @@ static TextStyle styleSemiBold10(BuildContext context) {
       height: 1.65,
     );
   }
+   static TextStyle styleMedium13(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 18 : 13,
+      ),
+      fontWeight: FontWeight.w500,
+      color: Colors.white,
+      height: 1.65,
+    );
+  }
   static TextStyle stylelight14(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 18 : 14,
+        fontSize: SizeConfig.isWideScreen ? 19 : 14,
       ),
       fontWeight: FontWeight.w300,
       color: Color(0xff555555),
