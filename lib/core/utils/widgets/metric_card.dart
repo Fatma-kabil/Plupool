@@ -6,7 +6,7 @@ import 'package:plupool/core/utils/size_config.dart';
 
 class MetricCard extends StatelessWidget {
   final String icon;
-
+ final TextStyle? valueTextStyle; // اختياري
   final String value;
   final String label;
 
@@ -15,7 +15,7 @@ class MetricCard extends StatelessWidget {
     required this.icon,
 
     required this.value,
-    required this.label,
+    required this.label, this.valueTextStyle,
   });
 
   @override
@@ -46,7 +46,7 @@ class MetricCard extends StatelessWidget {
               Text(
                 value,
 
-                style: AppTextStyles.styleBold20(
+                style:valueTextStyle ??  AppTextStyles.styleBold20(
                   context,
                 ).copyWith(color: Colors.black),
               ),
