@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/profile_view_body.dart';
 import 'dart:ui'; // ضروري للـ ImageFilter
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,12 +28,21 @@ class ProfileView extends StatelessWidget {
                   if (authState.status == AuthStatus.guest)
                     Positioned.fill(
                       child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                         child: Container(
                           color: Colors.black.withOpacity(0), // مهم عشان البلور يشتغل
                         ),
                       ),
                     ),
+                      Center(
+                    child: ErrorCard(
+                      title: 'لم يتم تسجيل الدخول',
+                      subtitle:
+                          'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                    color: Colors.white
+
+                    ),
+                  ),
                 ],
               );
             },

@@ -7,17 +7,26 @@ import 'package:plupool/core/utils/widgets/header_text.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 
 class ErrorCard extends StatelessWidget {
-  const ErrorCard({super.key});
-
+  const ErrorCard({super.key, this.title, this.subtitle, this.color});
+  final String? title;
+  final String? subtitle;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 29),
+      insetPadding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(16) , vertical: SizeConfig.h(29)),
       child: Container(
-        padding: const EdgeInsets.only(left: 16,right: 16, bottom: 43,top: 20),
+        width: SizeConfig.isWideScreen?SizeConfig.screenWidth*065:double.infinity,
+        padding:  EdgeInsets.only(
+          left: SizeConfig.w(16),
+          right: SizeConfig.w(16),
+          bottom: SizeConfig.h(25),
+          top: SizeConfig.h(20),
+        ),
         decoration: BoxDecoration(
-          color: AppColors.kScaffoldColor,
+          color:color?? AppColors.kScaffoldColor,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
@@ -28,19 +37,19 @@ class ErrorCard extends StatelessWidget {
               width: SizeConfig.w(137),
               height: SizeConfig.h(137),
             ),
-            SizedBox(height: 7),
+            SizedBox(height: SizeConfig.h(7)),
             HeaderText(
-              title: 'تسجيل الدخول مطلوب',
-              subtitle:
+              title:title?? 'تسجيل الدخول مطلوب',
+              subtitle:subtitle??
                   'لإتمام عملية الحجز والاستفادة من خدمات PluPool، يرجى تسجيل الدخول أو إنشاء حساب جديد.',
             ),
 
-             SizedBox(height: 53),
+            SizedBox(height: SizeConfig.h(30)),
             CustomTextBtn(
+              width: double.infinity,
               text: 'تسجيل الدخول',
               onPressed: () {
                 context.go('/login');
-                
               },
             ),
           ],
