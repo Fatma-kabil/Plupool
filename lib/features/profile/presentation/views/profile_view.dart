@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
-import 'package:plupool/features/profile/presentation/views/widgets/company_profile_body.dart';
-import 'package:plupool/features/profile/presentation/views/widgets/owner_profile_body.dart';
-import 'package:plupool/features/profile/presentation/views/widgets/tech_profile_body.dart';
-import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
+import 'package:plupool/features/profile/presentation/views/widgets/profile_view_body.dart';
+import 'dart:ui'; // ضروري للـ ImageFilter
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // SizeConfig.init(context);
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -21,31 +18,23 @@ class ProfileView extends StatelessWidget {
             horizontal: SizeConfig.w(17),
             vertical: SizeConfig.h(25),
           ),
-          child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
-            builder: (context, state) {
-              if (state is GetRoleLoading || state is SelectRoleInitial) {
-                return CustomLoadingIndecator();
-              } else if (state is GetRoleSuccess) {
-                final role = state.roleName;
+          child: BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, authState) {
+              return Stack(
+                children: [
+                  const ProfileViewBody(),
 
-                if (role.contains("حمام")) {
-                  return const OwnerProfileBody();
-                } else if (role.contains("فني")) {
-                  return const TechProfileBody();
-                } else if (role.contains("شركة") || role.contains("مطور")) {
-                  return const CompanyProfileBody();
-                } else {
-                  return
-                  //  showCustomSnackBar(context: context, message: message)
-                  const Center(child: Text("لم يتم تحديد الدور"));
-                }
-              } else if (state is GetRoleEmpty) {
-                return const Center(child: Text("لم يتم حفظ أي دور"));
-              } else {
-                return const Center(
-                  child: Text("حدث خطأ أثناء تحميل البيانات"),
-                );
-              }
+                  if (authState.status == AuthStatus.guest)
+                    Positioned.fill(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+                        child: Container(
+                          color: Colors.black.withOpacity(0), // مهم عشان البلور يشتغل
+                        ),
+                      ),
+                    ),
+                ],
+              );
             },
           ),
         ),

@@ -373,12 +373,18 @@ final List<ServiceRequest> requests = [
     nextVisitDate: "2025-10-01",
     nextVisitDay: "الثلاثاء",
     nextVisitTime: "9:00 ص",
+     userName: 'سارة حسن',
+    userImage: 'assets/images/customer_user.png',
+    location: 'المقطم، القاهرة',
   ),
   ServiceRequest(
     title: "صيانة الفلاتر",
     date: "2025-11-22",
     time: "11:00 ص",
     status: RequestStatus.scheduled,
+     userName: 'سارة حسن',
+    userImage: 'assets/images/customer_user.png',
+    location: 'المقطم، القاهرة',
   ),
   ServiceRequest(
     title: 'عطل مفاجئ في المضخة',
