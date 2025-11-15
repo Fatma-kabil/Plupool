@@ -14,6 +14,7 @@ class NotificationsViewBody extends StatefulWidget {
 class _NotificationsViewBodyState extends State<NotificationsViewBody>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  int selectedIndex = 2;
 
   final List<Map<String, dynamic>> allItems = [
     {
@@ -45,7 +46,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this ,initialIndex: 2);
+    _tabController = TabController(length: 3, vsync: this, initialIndex: 2);
   }
 
   List<Map<String, dynamic>> _filterItems(String tab) {
@@ -67,48 +68,55 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
       crossAxisAlignment: CrossAxisAlignment.start,
       textDirection: TextDirection.rtl,
       children: [
-        SizedBox( height:  SizeConfig.h(12)),
+        SizedBox(height: SizeConfig.h(12)),
+
+        /// ---------------------- CUSTOM TAB BAR ----------------------
         AnimatedBuilder(
           animation: _tabController.animation!,
           builder: (context, child) {
-            final animationValue = _tabController.animation!.value;
+            double animationValue = _tabController.animation!.value;
 
-            return Align(
-              alignment: Alignment.centerRight,
-              child: TabBar(
-                controller: _tabController,
-                   isScrollable: true,
-                indicator: BoxDecoration(),
-                dividerColor: Colors.transparent,
-                labelPadding: EdgeInsets.only(left: SizeConfig.w(15),right: SizeConfig.w(10) ), // أقل قيمة ممكنة
-                tabs: tabs.asMap().entries.map((entry) {
+            return SingleChildScrollView(
+               scrollDirection: Axis.horizontal,
+  reverse: true,
+              child: Row(
+              //  mainAxisAlignment: MainAxisAlignment.end,
+                children: tabs.asMap().entries.map((entry) {
                   int idx = entry.key;
                   String t = entry.value;
-
-                  // حساب نسبة اختيار التاب بناءً على قيمة الأنيميشن
+              
                   double selectedness =
                       1.0 - (animationValue - idx).abs().clamp(0.0, 1.0);
-
-                  // لون الخلفية يتدرج بين اللون غير المحدد ولون التحديد
+              
                   Color backgroundColor = Color.lerp(
                     const Color(0xFFF7F7F7),
                     AppColors.kprimarycolor,
                     selectedness,
                   )!;
-
-                  // لون النص يتدرج بنفس الطريقة
+              
                   Color textColor = Color.lerp(
                     const Color(0xffBBBBBB),
                     Colors.white,
                     selectedness,
                   )!;
-
-                  return Tab(
+              
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = idx;
+                        _tabController.animateTo(idx);
+                      });
+                    },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
+                      margin: EdgeInsets.only(
+                        left: SizeConfig.w(15),
+                        right: SizeConfig.w(10),
+                      ),
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.w(14),
-                        vertical: SizeConfig.h(8),
+                        vertical: 
+                             SizeConfig.h(8),
                       ),
                       decoration: BoxDecoration(
                         color: backgroundColor,
@@ -118,15 +126,15 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                             color: Colors.black.withOpacity(0.25),
                             offset: const Offset(1, 2),
                             blurRadius: 1,
-                            spreadRadius: 0,
                           ),
                         ],
                       ),
                       child: Text(
                         t,
-                        style: AppTextStyles.styleRegular16(
-                          context,
-                        ).copyWith(fontFamily: 'cairo', color: textColor),
+                        style: AppTextStyles.styleRegular16(context).copyWith(
+                          fontFamily: 'cairo',
+                          color: textColor,
+                        ),
                       ),
                     ),
                   );
@@ -136,6 +144,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
           },
         ),
 
+        /// ---------------------- TAB CONTENT -------------------------
         Expanded(
           child: TabBarView(
             controller: _tabController,
