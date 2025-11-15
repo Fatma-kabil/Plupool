@@ -54,32 +54,43 @@ class TechHomeView extends StatelessWidget {
                     const SizedBox(height: 30),
                     const TechInfoCardRow(),
                     const SizedBox(height: 30),
-                    Row(
-                      textDirection: TextDirection.rtl,
-                      children: [
-                        Text(
-                          "مهام الأسبوع",
-                          style: AppTextStyles.styleBold20(context)
-                              .copyWith(color: Colors.black),
-                        ),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            context.push('/weeklytasksview');
-                          },
-                          child: Text(
-                            "عرض المزيد",
-                            style: AppTextStyles.styleSemiBold16(context)
-                                .copyWith(
-                                  color: AppColors.kprimarycolor,
-                                  decoration: TextDecoration.underline,
-                                ),
+                    authState.status == AuthStatus.guest
+                        ? const SizedBox()
+                        : Column(
+                            children: [
+                              Row(
+                                textDirection: TextDirection.rtl,
+                                children: [
+                                  Text(
+                                    "مهام الأسبوع",
+                                    style: AppTextStyles.styleBold20(
+                                      context,
+                                    ).copyWith(color: Colors.black),
+                                  ),
+                                  const Spacer(),
+                                  GestureDetector(
+                                    onTap: () {
+                                      context.push('/weeklytasksview');
+                                    },
+                                    child: Text(
+                                      "عرض المزيد",
+                                      style:
+                                          AppTextStyles.styleSemiBold16(
+                                            context,
+                                          ).copyWith(
+                                            color: AppColors.kprimarycolor,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              const WeeklyRequestsList(),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-                    const WeeklyRequestsList(),
+
                     const SizedBox(height: 30),
                     OfferSection(offers: equipmentOffers),
                     const SizedBox(height: 30),
