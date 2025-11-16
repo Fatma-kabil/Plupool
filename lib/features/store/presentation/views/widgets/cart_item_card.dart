@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/store/presentation/views/widgets/Qty_Btn.dart';
 
 class CartItemCard extends StatelessWidget {
   const CartItemCard({super.key});
@@ -12,18 +13,19 @@ class CartItemCard extends StatelessWidget {
       margin: EdgeInsets.only(
         bottom: SizeConfig.h(12),
       ),
-      padding: EdgeInsets.all(SizeConfig.h(12)),
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(8),vertical:   SizeConfig.h(6)),
       decoration: BoxDecoration(
         
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: AppColors.textFieldBorderColor),
       ),
       child: Row(
+        textDirection: TextDirection.rtl,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Image.asset(
-              "assets/images/product.png",
+              "assets/images/mach_pro2.png",
               width: SizeConfig.w(70),
               height: SizeConfig.h(88),
               fit: BoxFit.cover,
@@ -32,65 +34,61 @@ class CartItemCard extends StatelessWidget {
 
           SizedBox(width: SizeConfig.w(12)),
 
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "مضخة مياه عالية الكفاءة",
-                  style: AppTextStyles.styleSemiBold14(context).copyWith(color: Color(0xff7B7B7B)),
-                ),
-                SizedBox(height: SizeConfig.h(5)),
-                Text(
-                  "3000 EGP",
-                  style: AppTextStyles.styleBold14(context).copyWith(color: AppColors.ktextcolor),
-                ),
-                SizedBox(height: SizeConfig.h(5)),
-                Text(
-                  "الإجمالي: 6000 EGP",
-                  style: AppTextStyles.styleRegular14(context)
-                      .copyWith(color: Colors.grey),
-                ),
-              ],
-            ),
-          ),
-
           Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Row(
+              Text(
+                "مضخة مياه عالية الكفاءة",
+                style: AppTextStyles.styleSemiBold14(context).copyWith(color: Color(0xff7B7B7B)),
+              ),
+              SizedBox(height: SizeConfig.h(5)),
+              Text(
+                "3000 EGP",
+                style: AppTextStyles.styleBold14(context).copyWith(color: AppColors.ktextcolor),
+              ),
+             
+            ],
+          ),
+          Spacer(),
+           Row(
                 children: [
-                  _qtyBtn(Icons.remove),
+                  QtyBtn(icon:Icons.remove,backgroundcolor: Color(0xffCDCDCD),onTap: () {
+                    
+                  },),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(8)),
                     child: Text(
                       "2",
-                      style: AppTextStyles.styleSemiBold16(context),
+                      style: AppTextStyles.styleRegular16(context).copyWith(color: AppColors.ktextcolor),
                     ),
                   ),
-                  _qtyBtn(Icons.add),
+                  QtyBtn(icon:   Icons.add,backgroundcolor: AppColors.kprimarycolor,onTap: () {
+                    
+                  },),
                 ],
+
               ),
-              TextButton.icon(
-                onPressed: () {},
-                icon: const Icon(Icons.delete, color: Colors.red),
-                label: const Text("حذف",
-                    style: TextStyle(color: Colors.red)),
-              ),
+             
+
+        //  Column(
+          //  children: [
+            //   Text(
+              //  "الإجمالي: 6000 EGP",
+             //   style: AppTextStyles.styleRegular14(context)
+               //     .copyWith(color: Colors.grey),
+            //  ),
+             
+          //    TextButton.icon(
+            //    onPressed: () {},
+              //  icon: const Icon(Icons.delete, color: Colors.red),
+              //  label: const Text("حذف",
+                //    style: TextStyle(color: Colors.red)),
+            //  ),
             ],
           )
-        ],
-      ),
-    );
+        
+      );
+    
   }
 
-  Widget _qtyBtn(IconData icon) {
-    return Container(
-      padding: const EdgeInsets.all(4),
-      decoration: const BoxDecoration(
-        color: Color(0xffE6F0FF),
-        shape: BoxShape.circle,
-      ),
-      child: Icon(icon, size: 20, color: AppColors.kprimarycolor),
-    );
-  }
 }
