@@ -32,11 +32,12 @@ class ProductCard extends StatelessWidget {
         color: Colors.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+        padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(10) , vertical:SizeConfig.h(15) ),
         child: Column(
           mainAxisSize: MainAxisSize.max, // 👈 ياخد المساحة كاملة
           //   mainAxisSize: MainAxisSize.min, // 👈 حل المشكلة
-          //  crossAxisAlignment: CrossAxisAlignment.end,
+          textDirection: TextDirection.rtl,
+            crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -50,12 +51,12 @@ class ProductCard extends StatelessWidget {
                   ),
                   if (badgeText != null)
                     Positioned(
-                      top: 8,
-                      right: 8,
+                      top:SizeConfig.h(8) ,
+                      right:SizeConfig.w(8) ,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 9,
-                          vertical: 6,
+                        padding:  EdgeInsets.symmetric(
+                          horizontal:SizeConfig.w(9) ,
+                          vertical:SizeConfig.h(6) ,
                         ),
                         decoration: BoxDecoration(
                           color: getBadgeColor(product.badge),
@@ -72,14 +73,15 @@ class ProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 12),
+             SizedBox(height:SizeConfig.h(12) ),
             Text(
+              textDirection: TextDirection.rtl,
               product.name,
               style: AppTextStyles.styleSemiBold14(
                 context,
               ).copyWith(color: Color(0xff7B7B7B)),
             ),
-            const SizedBox(height: 5),
+             SizedBox(height: SizeConfig.h(5)),
 
             Row(
               children: [
@@ -90,7 +92,7 @@ class ProductCard extends StatelessWidget {
                   ).copyWith(color: AppColors.ktextcolor),
                 ),
 
-                const SizedBox(width: 10),
+                 SizedBox(width: SizeConfig.w(10)),
                 if (product.hasDiscount)
                   Text(
                     "${product.originalPrice.toStringAsFixed(0)}EGP",
@@ -99,7 +101,7 @@ class ProductCard extends StatelessWidget {
                       decoration: TextDecoration.lineThrough,
                     ),
                   ),
-                const SizedBox(width: 6),
+                 SizedBox(width: SizeConfig.w(6)),
               ],
             ),
             //     const SizedBox(height: 13),

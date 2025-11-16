@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class RoundedShadowContainer extends StatelessWidget {
   final Widget child;
@@ -13,7 +14,7 @@ class RoundedShadowContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(23),
+        borderRadius: BorderRadius.circular(1000),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.25),
@@ -23,7 +24,7 @@ class RoundedShadowContainer extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding:  EdgeInsets.all(SizeConfig.w(4) ),
         child: child,
       ),
     );

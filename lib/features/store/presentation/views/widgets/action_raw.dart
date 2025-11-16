@@ -28,14 +28,14 @@ class ActionsRow extends StatelessWidget {
                 color: AppColors.kprimarycolor,
               ),
               Positioned(
-                right: 9,
-                top: -7,
+                right:SizeConfig.w(14) ,
+                top:SizeConfig.h( -9),
                 child: CartBadge(count: cartCount), // البادج هنا
               ),
             ],
           ),
         ),
-        const SizedBox(width: 7),
+         SizedBox(width:SizeConfig.w(7) ),
 
         // 🔍 البحث
         RoundedShadowContainer(

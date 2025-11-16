@@ -91,7 +91,7 @@ class FilterOption extends StatelessWidget {
                       color: const Color(0xff999999),
                       size: SizeConfig.w(20),
                     ),
-                    const SizedBox(width: 3),
+                     SizedBox(width:  SizeConfig.w(3)),
                     Text(
                       value,
                       style: AppTextStyles.styleRegular16(

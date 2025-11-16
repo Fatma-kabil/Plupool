@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 
 class FilterDialog extends StatefulWidget {
@@ -16,14 +17,14 @@ class FilterDialogState extends State<FilterDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.white,
-      insetPadding: const EdgeInsets.all(16),
+      insetPadding:  EdgeInsets.all(SizeConfig.w(16)),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
-        padding: const EdgeInsets.only(
-          left: 17,
-          right: 17,
-          top: 34,
-          bottom: 66,
+        padding:  EdgeInsets.only(
+          left:SizeConfig.w (17),
+          right:SizeConfig.w( 17),
+          top:SizeConfig.h( 34),
+          bottom:SizeConfig.h( 55),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -41,6 +42,7 @@ class FilterDialogState extends State<FilterDialog> {
                   textDirection: TextDirection.rtl,
                   children: [
                     Checkbox(
+
                       value: options[key],
                       activeColor: AppColors.kprimarycolor,
                       shape: RoundedRectangleBorder(
@@ -51,7 +53,7 @@ class FilterDialogState extends State<FilterDialog> {
                       side: BorderSide(
                         // 👈 لون الـ border
                         color: Color(0xffAAAAAA),
-                        width: 2,
+                        width:2 ,
                       ),
                       onChanged: (val) {
                         setState(() {
@@ -91,11 +93,14 @@ class FilterDialogState extends State<FilterDialog> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  child: Text(
-                    "تصفية",
-                    style: AppTextStyles.styleBold16(
-                      context,
-                    ).copyWith(color: Colors.white),
+                  child: Padding(
+                    padding:  EdgeInsets.all(SizeConfig.isWideScreen?SizeConfig.h(7):0),
+                    child: Text(
+                      "تصفية",
+                      style: AppTextStyles.styleBold16(
+                        context,
+                      ).copyWith(color: Colors.white),
+                    ),
                   ),
                 ),
               ],

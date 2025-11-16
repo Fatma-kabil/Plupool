@@ -1,5 +1,6 @@
 // widgets/info_cards_row.dart
 import 'package:flutter/material.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import '../../../../../core/utils/widgets/metric_card.dart';
 
 class InfoCardsRow extends StatelessWidget {
@@ -19,7 +20,7 @@ class InfoCardsRow extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(width: 5),
+         SizedBox(width:SizeConfig.w(5) ),
 
         Expanded(
           flex: 1,
@@ -30,8 +31,7 @@ class InfoCardsRow extends StatelessWidget {
           ),
         ),
 
-      const SizedBox(width: 5),
-
+       SizedBox(width:SizeConfig.w(5) ),
         Expanded(
           flex: 1,
           child: MetricCard(

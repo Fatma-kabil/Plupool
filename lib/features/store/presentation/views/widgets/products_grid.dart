@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 import 'package:plupool/features/store/presentation/views/widgets/product_card.dart';
 
@@ -15,11 +16,11 @@ class ProductsGrid extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: products.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 0.60,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
+          childAspectRatio:SizeConfig.isWideScreen? 0.84:0.58,
+          crossAxisSpacing:SizeConfig.w(12) ,
+          mainAxisSpacing: SizeConfig.w(12) ,
         ),
         itemBuilder: (_, i) =>
             ProductCard(product: products[i], onPressed: () {}),
