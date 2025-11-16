@@ -10,6 +10,7 @@ class CartFilledSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: SizeConfig.ismidwidthScreen?SizeConfig.h(8):0,),
         Expanded(
           child: ListView.builder(
             //  padding: EdgeInsets.only(top: SizeConfig.h(10)),

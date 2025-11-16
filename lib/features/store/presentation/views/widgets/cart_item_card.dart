@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/store/presentation/views/widgets/Qty_Btn.dart';
+import 'package:plupool/features/store/presentation/views/widgets/cart_card_footer.dart';
+import 'package:plupool/features/store/presentation/views/widgets/qty_section.dart';
 
 class CartItemCard extends StatelessWidget {
   const CartItemCard({super.key});
@@ -55,67 +56,12 @@ class CartItemCard extends StatelessWidget {
                 ],
               ),
               Spacer(),
-              Row(
-                children: [
-                  QtyBtn(
-                    icon: Icons.remove,
-                    backgroundcolor: Color(0xffCDCDCD),
-                    onTap: () {},
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(8)),
-                    child: Text(
-                      "2",
-                      style: AppTextStyles.styleRegular16(
-                        context,
-                      ).copyWith(color: AppColors.ktextcolor),
-                    ),
-                  ),
-                  QtyBtn(
-                    icon: Icons.add,
-                    backgroundcolor: AppColors.kprimarycolor,
-                    onTap: () {},
-                  ),
-                ],
-              ),
+              QtySection(),
             ],
           ),
+          SizedBox(height: SizeConfig.ismidwidthScreen ? SizeConfig.h(8) : 0),
           Divider(color: AppColors.textFieldBorderColor),
-          Row(
-            children: [
-              Text(
-                "6000 EGP ",
-                style: AppTextStyles.styleBold16(
-                  context,
-                ).copyWith(color: AppColors.ktextcolor),
-              ),
-              Text(
-                "الإجمالي :",
-                textDirection: TextDirection.rtl,
-                style: AppTextStyles.styleMedium14(
-                  context,
-                ).copyWith(color: AppColors.ktextcolor),
-              ),
-              Spacer(),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: TextButton.icon(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.delete,
-                    size: SizeConfig.w(18),
-                    color: const Color(0xffEA5A65),
-                  ),
-                  label: Text(
-                    "حذف",
-                    style: AppTextStyles.styleBold14(
-                      context,
-                    ).copyWith(color: const Color(0xffEA5A65)),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          CartCardFooter(),
         ],
       ),
     );

@@ -127,12 +127,13 @@ class _CartViewState extends State<CartView>
                   controller: _tabController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: const [
-                  // السلة
-                    EmptyCartSection(
+                     EmptyCartSection(
                       icon: Icons.remove_shopping_cart_outlined,
                       tittle: "السله فارغه",
                     ),
-                       CartFilledSection(),
+                    CartFilledSection(),
+                    // السلة
+                   
                   ],
                 ),
               ),

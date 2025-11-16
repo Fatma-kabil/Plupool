@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/store/presentation/views/widgets/rounded_shadow_container.dart';
@@ -19,6 +20,7 @@ class ActionsRow extends StatelessWidget {
       children: [
         // 🛒 سلة المشتريات
         RoundedShadowContainer(
+          ontap: () => context.push('/cartview'),
           child: Stack(
             clipBehavior: Clip.none,
             children: [

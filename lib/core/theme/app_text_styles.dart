@@ -13,17 +13,19 @@ class AppTextStyles {
       color: Color(0xffF6F6F6),
     );
   }
+
   static TextStyle styleBold14(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 16 : 14,
+        fontSize: SizeConfig.isWideScreen ? 19 : 14,
       ),
       fontWeight: FontWeight.w700,
       color: AppColors.ktextcolor,
     );
   }
-   static TextStyle styleBold10(BuildContext context) {
+
+  static TextStyle styleBold10(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -33,6 +35,7 @@ class AppTextStyles {
       color: Colors.white,
     );
   }
+
   static TextStyle styleBold16(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -76,17 +79,18 @@ class AppTextStyles {
       color: Color(0xff525252),
     );
   }
-   static TextStyle styleSemiBold13(BuildContext context) {
+
+  static TextStyle styleSemiBold13(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
         fontSize: SizeConfig.isWideScreen ? 18 : 13,
       ),
       fontWeight: FontWeight.w600,
-     
     );
   }
-   static TextStyle styleSemiBold25(BuildContext context) {
+
+  static TextStyle styleSemiBold25(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -118,7 +122,8 @@ class AppTextStyles {
       color: AppColors.kprimarycolor,
     );
   }
-static TextStyle styleSemiBold10(BuildContext context) {
+
+  static TextStyle styleSemiBold10(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -128,8 +133,6 @@ static TextStyle styleSemiBold10(BuildContext context) {
       color: Color(0xff0077B6),
     );
   }
-
- 
 
   static TextStyle styleMedium20(BuildContext context) {
     return TextStyle(
@@ -154,7 +157,8 @@ static TextStyle styleSemiBold10(BuildContext context) {
       height: 1.65,
     );
   }
-   static TextStyle styleMedium13(BuildContext context) {
+
+  static TextStyle styleMedium13(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
@@ -165,6 +169,7 @@ static TextStyle styleSemiBold10(BuildContext context) {
       height: 1.65,
     );
   }
+
   static TextStyle stylelight14(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -185,7 +190,19 @@ static TextStyle styleSemiBold10(BuildContext context) {
       ),
       fontWeight: FontWeight.w400,
       color: Color(0xff808080),
-      height: 1.8
+      height: 1.8,
+    );
+  }
+
+  static TextStyle styleRegular18(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 23 : 18,
+      ),
+      fontWeight: FontWeight.w400,
+      color: Color(0xff808080),
+      height: 1.8,
     );
   }
 
@@ -197,7 +214,7 @@ static TextStyle styleSemiBold10(BuildContext context) {
       ),
       fontWeight: FontWeight.w400,
       color: AppColors.hintTextColor,
-      height: 1.8
+      height: 1.8,
     );
   }
 
@@ -222,7 +239,7 @@ static TextStyle styleSemiBold10(BuildContext context) {
       color: Color(0xff555555),
     );
   }
-  
+
   static TextStyle styleRegular6(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -233,6 +250,7 @@ static TextStyle styleSemiBold10(BuildContext context) {
       color: Colors.white,
     );
   }
+
   static TextStyle styleRegular25(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
