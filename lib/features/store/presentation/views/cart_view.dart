@@ -49,7 +49,7 @@ class _CartViewState extends State<CartView>
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(
-            top: SizeConfig.h(30),
+            top: SizeConfig.h(20),
             left: SizeConfig.w(15),
             right: SizeConfig.w(15),
           ),
@@ -127,11 +127,12 @@ class _CartViewState extends State<CartView>
                   controller: _tabController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: const [
-                    CartFilledSection(), // السلة
+                  // السلة
                     EmptyCartSection(
                       icon: Icons.remove_shopping_cart_outlined,
                       tittle: "السله فارغه",
                     ),
+                       CartFilledSection(),
                   ],
                 ),
               ),
