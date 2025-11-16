@@ -16,11 +16,11 @@ class ProductsGrid extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: products.length,
-        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio:SizeConfig.isWideScreen? 0.84:0.58,
-          crossAxisSpacing:SizeConfig.w(12) ,
-          mainAxisSpacing: SizeConfig.w(12) ,
+          childAspectRatio: SizeConfig.isWideScreen ? 0.83 : 0.62,
+          crossAxisSpacing: SizeConfig.w(12),
+          mainAxisSpacing: SizeConfig.w(12),
         ),
         itemBuilder: (_, i) =>
             ProductCard(product: products[i], onPressed: () {}),

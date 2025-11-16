@@ -24,7 +24,7 @@ import 'package:plupool/features/tasks/presentation/views/maintenance_update_vie
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/splasherapper',
+      path: '/',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -50,18 +50,16 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/signup',
       name: 'signup',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const SignupView()),
+      pageBuilder: (context, state) => buildTransitionPage(const SignupView()),
     ),
 
-     GoRoute(
+    GoRoute(
       path: '/privacypolicy',
       name: 'privacypolicy',
       pageBuilder: (context, state) =>
           buildTransitionPage(const PrivacyPolicyView()),
     ),
-    
-    
+
     GoRoute(
       path: '/login',
       name: 'login',
@@ -112,19 +110,19 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const WeeklyTasksView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/profiledetailsview',
       name: 'profiledetailsview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const ProfileDetailsView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/customerdetailsView',
       name: 'customerdetailsView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CustomerDetailsView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/maintenanceupdateview',
       name: 'maintenanceupdateview',
       pageBuilder: (context, state) =>
@@ -136,11 +134,10 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const TechNotifications()),
     ),
-     GoRoute(
-      path: '/',
+    GoRoute(
+      path: '/cartview',
       name: 'cartview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const CartView()),
+      pageBuilder: (context, state) => buildTransitionPage(const CartView()),
     ),
   ],
 );
