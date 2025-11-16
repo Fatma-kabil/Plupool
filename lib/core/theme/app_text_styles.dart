@@ -233,6 +233,16 @@ static TextStyle styleSemiBold10(BuildContext context) {
       color: Colors.white,
     );
   }
+  static TextStyle styleRegular25(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 30 : 25,
+      ),
+      fontWeight: FontWeight.w400,
+      color: Color(0xff999999),
+    );
+  }
 
   static TextStyle styleMedium16(BuildContext context) {
     return TextStyle(
