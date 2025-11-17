@@ -18,13 +18,14 @@ import 'package:plupool/features/services/presentation/views/services_view.dart'
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 import 'package:plupool/features/store/presentation/views/cart_view.dart';
+import 'package:plupool/features/store/presentation/views/order_summary_view.dart';
 import 'package:plupool/features/tasks/presentation/views/customer_details_view.dart';
 import 'package:plupool/features/tasks/presentation/views/maintenance_update_view.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/splasherapper',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -135,9 +136,14 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const TechNotifications()),
     ),
     GoRoute(
-      path: '/cartview',
+      path: '/',
       name: 'cartview',
       pageBuilder: (context, state) => buildTransitionPage(const CartView()),
+    ),
+    GoRoute(
+      path: '/ordersummaryview',
+      name: 'ordersummaryview',
+      pageBuilder: (context, state) => buildTransitionPage(const OrderSummaryView()),
     ),
   ],
 );

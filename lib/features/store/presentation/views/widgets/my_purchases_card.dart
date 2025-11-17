@@ -3,6 +3,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:plupool/features/store/presentation/views/widgets/time_date_row.dart';
 import 'package:plupool/features/store/presentation/views/widgets/total_and_status.dart';
 
 class MyPurchasesCard extends StatelessWidget {
@@ -37,20 +38,7 @@ class MyPurchasesCard extends StatelessWidget {
             ).copyWith(color: Color(0xff7B7B7B)),
           ),
           SizedBox(height: SizeConfig.h(4)),
-          Row(
-            textDirection: TextDirection.rtl,
-            children: [
-              Icon(Icons.calendar_today, color: Color(0xff999999), size:SizeConfig.w( 13)),
-              SizedBox(width: SizeConfig.w(2)),
-              Text(
-                textDirection: TextDirection.rtl,
-                formattedDate,
-                style: AppTextStyles.styleRegular14(
-                  context,
-                ).copyWith(color: Color(0xff999999)),
-              ),
-            ],
-          ),
+          TimeDateRow(formattedDate: formattedDate),
           SizedBox(height: SizeConfig.h(4)),
           Divider(color: AppColors.textFieldBorderColor),
           SizedBox(height: SizeConfig.h(4)),
