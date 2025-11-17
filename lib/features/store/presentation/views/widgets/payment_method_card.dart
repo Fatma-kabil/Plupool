@@ -42,25 +42,7 @@ class PaymentMethodCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: SizeConfig.h(8)),
-          Row(
-            textDirection: TextDirection.rtl,
-            children: [
-              Icon(
-                Icons.check_circle,
-                color: Color(0xff05B285),
-                size: SizeConfig.w(17),
-              ),
-              SizedBox(width: SizeConfig.w(4)),
-              Text(
-                "الدفع عند الاستلام",
-    
-                style: AppTextStyles.styleRegular13(
-                  context,
-                ).copyWith(color: Color(0xff777777)),
-              ),
-            ],
-          ),
-          SizedBox(height: SizeConfig.h(6)),
+        
           Row(
             textDirection: TextDirection.rtl,
             children: [
@@ -71,7 +53,8 @@ class PaymentMethodCard extends StatelessWidget {
               ),
               SizedBox(width: SizeConfig.w(4)),
               Text(
-                " سيتم الدفع نقدًا عند استلام الطلب من المندوب",
+                textDirection: TextDirection.rtl,
+                ". سيتم الدفع نقدًا عند استلام الطلب من المندوب",
     
                 style: AppTextStyles.styleRegular13(
                   context,

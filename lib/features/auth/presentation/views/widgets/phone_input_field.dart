@@ -41,6 +41,9 @@ class PhoneInputFieldState extends State<PhoneInputField> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+         textDirection: TextDirection.ltr,  // ← الأفضل لرقم الهاتف
+  textAlign: TextAlign.right,
+
         style: AppTextStyles.styleMedium16(context)
             .copyWith(color: AppColors.ktextcolor),
         cursorHeight: SizeConfig.isWideScreen ? SizeConfig.w(12) : SizeConfig.h(20),
@@ -49,20 +52,19 @@ class PhoneInputFieldState extends State<PhoneInputField> {
         validator: widget.validator,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
-          hint: Row(
-            children: [
-              Icon(
-                Icons.phone,
-                size: SizeConfig.isWideScreen ? SizeConfig.h(15) : SizeConfig.w(13),
-                color: const Color(0xffBBBBBB),
-              ),
-              SizedBox(width: SizeConfig.w(4)),
-              Text(
-                'أدخل رقم الهاتف',
-                style: AppTextStyles.styleRegular13(context)
-                    .copyWith(color: const Color(0xffBBBBBB)),
-              ),
-            ],
+          prefixIcon: Padding(
+            padding: EdgeInsets.only(right: SizeConfig.w(7),left: SizeConfig.w(2)  
+            ),
+            child: Icon(
+                  Icons.phone,
+                  size: SizeConfig.isWideScreen ? SizeConfig.h(15) : SizeConfig.w(13),
+                  color: const Color(0xffBBBBBB),
+                ),
+          ), 
+          hint: Text(
+            'أدخل رقم الهاتف',
+            style: AppTextStyles.styleRegular13(context)
+                .copyWith(color: const Color(0xffBBBBBB)),
           ),
           filled: true,
           fillColor: Colors.transparent,

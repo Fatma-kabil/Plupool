@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class TotalAndStatus extends StatelessWidget {
   const TotalAndStatus({
@@ -33,7 +34,8 @@ class TotalAndStatus extends StatelessWidget {
             context,
           ).copyWith(color: Color(0xff05B285)),
         ),
-        Icon(Icons.check_circle, color: Color(0xff05B285), size: 20),
+        SizedBox(width:SizeConfig.w(4)),
+        Icon(Icons.check_circle, color: Color(0xff05B285), size:SizeConfig.w(20) ),
       ],
     );
   }

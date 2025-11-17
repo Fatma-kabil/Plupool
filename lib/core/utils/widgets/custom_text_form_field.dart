@@ -12,9 +12,9 @@ class CustomTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.controller,
-    this.prefixIcon,
+    this.prefixIcon, this.iconColor,
   });
-
+  final Color? iconColor;
   final String hintText;
   final IconData? icon;
   final TextInputType keyboardType;
@@ -63,7 +63,7 @@ class CustomTextFormField extends StatelessWidget {
                   size: SizeConfig.isWideScreen
                       ? SizeConfig.h(15)
                       : SizeConfig.w(13),
-                  color: const Color(0xffBBBBBB),
+                  color:iconColor?? const Color(0xffBBBBBB),
                 ),
           ),
           prefixIconConstraints: const BoxConstraints(minWidth: 0),
