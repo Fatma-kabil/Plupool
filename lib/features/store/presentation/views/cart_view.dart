@@ -3,7 +3,6 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/store/presentation/views/widgets/cart_filled_section.dart';
-import 'package:plupool/features/store/presentation/views/widgets/empty_card_section.dart';
 import 'package:plupool/features/store/presentation/views/widgets/my_purchases_section.dart';
 
 class CartView extends StatefulWidget {
@@ -108,7 +107,7 @@ class _CartViewState extends State<CartView>
                           SizedBox(width: SizeConfig.w(5)),
                           Icon(
                             tabs[index]['icon'],
-                            size: SizeConfig.w(22),
+                            size: SizeConfig.w(20),
                             color: isSelected
                                 ? AppColors.kprimarycolor
                                 : const Color(0xffAAAAAA),
@@ -129,10 +128,7 @@ class _CartViewState extends State<CartView>
                   physics: const NeverScrollableScrollPhysics(),
                   children: const [
                     MyPurchasesSection(),
-                   //  EmptyCartSection(
-                     // icon: Icons.shopping_bag_outlined,
-                    //  tittle: "لا توجد مشتريات بعد",
-                  //  ),
+                    
                     CartFilledSection(),
                     // السلة
                    

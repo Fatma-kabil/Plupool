@@ -40,7 +40,7 @@ class MyPurchasesCard extends StatelessWidget {
           Row(
             textDirection: TextDirection.rtl,
             children: [
-              Icon(Icons.calendar_today, color: Color(0xff999999), size: 13),
+              Icon(Icons.calendar_today, color: Color(0xff999999), size:SizeConfig.w( 13)),
               SizedBox(width: SizeConfig.w(2)),
               Text(
                 textDirection: TextDirection.rtl,

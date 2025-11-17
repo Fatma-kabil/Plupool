@@ -22,3 +22,8 @@ class MyPurchasesSection extends StatelessWidget {
     );
   }
 }
+
+ //EmptyCartSection(
+                    //  icon: Icons.shopping_bag_outlined,
+                  //  tittle: "لا توجد مشتريات بعد",
+                   // ),
