@@ -6,10 +6,11 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class PhoneInputField extends StatefulWidget {
-  const PhoneInputField({super.key, this.validator, required this.controller});
+  const PhoneInputField({super.key, this.validator, required this.controller, this.iconcolor});
 
   final String? Function(String?)? validator;
   final TextEditingController controller;
+  final Color? iconcolor;
 
   // خلي الـ State class public
   @override
@@ -36,35 +37,44 @@ class PhoneInputFieldState extends State<PhoneInputField> {
   String getFullPhoneNumber() {
     return '$selectedCountryCode${widget.controller.text.trim()}';
   }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
-         textDirection: TextDirection.ltr,  // ← الأفضل لرقم الهاتف
-  textAlign: TextAlign.right,
+        textDirection: TextDirection.ltr, // ← الأفضل لرقم الهاتف
+        textAlign: TextAlign.right,
 
-        style: AppTextStyles.styleMedium16(context)
-            .copyWith(color: AppColors.ktextcolor),
-        cursorHeight: SizeConfig.isWideScreen ? SizeConfig.w(12) : SizeConfig.h(20),
+        style: AppTextStyles.styleMedium16(
+          context,
+        ).copyWith(color: AppColors.ktextcolor),
+        cursorHeight: SizeConfig.isWideScreen
+            ? SizeConfig.w(12)
+            : SizeConfig.h(20),
         cursorColor: AppColors.kprimarycolor,
         controller: widget.controller,
         validator: widget.validator,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
           prefixIcon: Padding(
-            padding: EdgeInsets.only(right: SizeConfig.w(7),left: SizeConfig.w(2)  
+            padding: EdgeInsets.only(
+              right: SizeConfig.w(7),
+              left: SizeConfig.w(2),
             ),
             child: Icon(
-                  Icons.phone,
-                  size: SizeConfig.isWideScreen ? SizeConfig.h(15) : SizeConfig.w(13),
-                  color: const Color(0xffBBBBBB),
-                ),
-          ), 
+              Icons.phone,
+              size: SizeConfig.isWideScreen
+                  ? SizeConfig.h(15)
+                  : SizeConfig.w(13),
+              color:widget.iconcolor??  Color(0xffBBBBBB),
+            ),
+          ),
           hint: Text(
             'أدخل رقم الهاتف',
-            style: AppTextStyles.styleRegular13(context)
-                .copyWith(color: const Color(0xffBBBBBB)),
+            style: AppTextStyles.styleRegular13(
+              context,
+            ).copyWith(color: const Color(0xffBBBBBB)),
           ),
           filled: true,
           fillColor: Colors.transparent,
@@ -98,8 +108,9 @@ class PhoneInputFieldState extends State<PhoneInputField> {
                       SizedBox(width: SizeConfig.w(4)),
                       Text(
                         '($selectedCountryCode)',
-                        style: AppTextStyles.styleRegular13(context)
-                            .copyWith(color: const Color(0xff000000)),
+                        style: AppTextStyles.styleRegular13(
+                          context,
+                        ).copyWith(color: const Color(0xff000000)),
                       ),
                     ],
                   ),

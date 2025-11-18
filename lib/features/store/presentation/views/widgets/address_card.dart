@@ -145,7 +145,7 @@ class _AddressCardState extends State<AddressCard> {
               ).copyWith(color: Color(0xff555555)),
             ),
             SizedBox(height: SizeConfig.h(6)),
-            PhoneInputField(controller: phoneController),
+            PhoneInputField(controller: phoneController,iconcolor: AppColors.kprimarycolor,),
 
             SizedBox(height: SizeConfig.h(12)),
 
