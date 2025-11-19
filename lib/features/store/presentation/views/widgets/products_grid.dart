@@ -29,7 +29,7 @@ class ProductsGrid extends StatelessWidget {
           mainAxisSpacing: SizeConfig.w(12),
         ),
         itemBuilder: (_, i) =>
-            ProductCard(product: products[i], onPressed: () {}),
+            ProductCard(product: products[i], ),
       ),
     );
   }
