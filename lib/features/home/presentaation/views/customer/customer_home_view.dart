@@ -51,7 +51,7 @@ class CustomerHomeView extends StatelessWidget {
                     const SizedBox(height: 35),
                     const PromoCarousel(),
                     const SizedBox(height: 29),
-                    OfferSection(offers: offers),
+                    OfferSection(offers: offers,role: roleState.roleName,),
                     const SizedBox(height: 27),
                     const ProjectsSection(),
                     const SizedBox(height: 42),

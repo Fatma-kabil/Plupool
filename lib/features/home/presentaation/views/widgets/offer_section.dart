@@ -9,7 +9,8 @@ import 'package:plupool/features/home/presentaation/views/widgets/offer_carousel
 
 class OfferSection extends StatelessWidget {
    final List <OfferModel> offers;
-  const OfferSection({super.key, required this.offers});
+    final String role;  // أضف هذا
+  const OfferSection({super.key, required this.offers, required this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +27,11 @@ class OfferSection extends StatelessWidget {
             ),
              Spacer(),
             GestureDetector(
-              onTap: () =>  context.read<BottomNavCubit>().changeCurrentIndex(
-                  2,
-                ),
+                 onTap: () {
+              if (role == "فني") {
+                  // لو فني ينفذ التغيير العادي
+                  context.read<BottomNavCubit>().changeCurrentIndex(2);
+                } else {}},
               child: Text(
                 ' عرض الكل',
                 style: AppTextStyles.styleSemiBold16(context).copyWith(

@@ -21,6 +21,7 @@ import 'package:go_router/go_router.dart';
 class TechHomeView extends StatelessWidget {
   const TechHomeView({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     // 🔹 التحقق من التوكن عند الدخول على الصفحة
@@ -92,7 +93,7 @@ class TechHomeView extends StatelessWidget {
                           ),
 
                     const SizedBox(height: 30),
-                    OfferSection(offers: equipmentOffers),
+                    OfferSection(offers: equipmentOffers,role: roleState.roleName,),
                     const SizedBox(height: 30),
                     const ProjectsSection(),
                     const SizedBox(height: 30),
