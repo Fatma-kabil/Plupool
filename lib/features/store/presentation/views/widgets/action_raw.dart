@@ -41,6 +41,7 @@ class ActionsRow extends StatelessWidget {
 
         // 🔍 البحث
         RoundedShadowContainer(
+          ontap: () => context.push('/searchview'),
           child: Icon(
             Icons.search,
             color: AppColors.kprimarycolor,
