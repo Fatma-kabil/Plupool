@@ -16,45 +16,40 @@ class MainHomeTechView extends StatefulWidget {
   @override
   State<MainHomeTechView> createState() => _MainHomeTechViewState();
 }
-
 class _MainHomeTechViewState extends State<MainHomeTechView> {
- @override
+  @override
   void initState() {
     super.initState();
-    // ✅ ده هيتنادى أول ما الصفحة نفسها تتفتح من جديد (مش مجرد تبويب يتغير)
     context.read<BottomNavCubit>().changeCurrentIndex(0);
   }
-
-  final List<Widget> pages = [
-    const TechHomeView(),
-    const TechTaskView(),
-    const StoreView(),
-    const ProfileView(),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BottomNavCubit, BottomNavState>(
       builder: (context, state) {
-        final currentIndex = state.index;
+        final currentIndex = state.currentIndex;
+        final filter = state.filter;
+
+        // ابني الصفحات هنا مش ثابتة
+        final pages = [
+          const TechHomeView(),
+          const TechTaskView(),
+          StoreView(initialFilter: filter), // هنا بتمرير الفلتر
+          const ProfileView(),
+        ];
 
         return Scaffold(
           extendBody: true,
           body: IndexedStack(index: currentIndex, children: pages),
-
-          // ✅ يظهر بس في الهوم
           floatingActionButton: currentIndex == 0
-              ? CustomFloatingActionButton()
+              ? const CustomFloatingActionButton()
               : null,
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.endFloat, // ✅ عاليمين تحت
-
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
           bottomNavigationBar: ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
             child: BottomNavigationBar(
               currentIndex: currentIndex,
-              onTap: (value) =>
-                  context.read<BottomNavCubit>().changeCurrentIndex(value),
+              onTap: (value) => context.read<BottomNavCubit>().changeCurrentIndex(value),
               backgroundColor: Colors.white,
               type: BottomNavigationBarType.fixed,
               showSelectedLabels: true,

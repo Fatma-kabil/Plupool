@@ -94,7 +94,8 @@ class ProductCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "${product.finalPrice.toStringAsFixed(0)} EGP",
+                      
+                      "${product.finalPrice.toStringAsFixed(0) }EGP",
                       style: AppTextStyles.styleBold16(
                         context,
                       ).copyWith(color: AppColors.ktextcolor),
@@ -102,7 +103,8 @@ class ProductCard extends StatelessWidget {
                     SizedBox(width: SizeConfig.w(10)),
                     if (product.hasDiscount)
                       Text(
-                        "${product.originalPrice.toStringAsFixed(0)} EGP",
+                        
+                        "${product.originalPrice.toStringAsFixed(0) }EGP",
                         style: AppTextStyles.styleRegular14(context).copyWith(
                           color: const Color(0xff808080),
                           decoration: TextDecoration.lineThrough,

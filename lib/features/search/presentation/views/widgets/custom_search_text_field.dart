@@ -25,6 +25,10 @@ class CustumSearchTextField extends StatelessWidget {
       child: TextField(
         textDirection: TextDirection.rtl, // عشان النص والايقونة تكون من اليمين
         textAlign: TextAlign.right,
+          cursorHeight: SizeConfig.isWideScreen
+            ? SizeConfig.w(12)
+            : SizeConfig.h(20),
+        cursorColor: AppColors.kprimarycolor,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: 'بحث',
@@ -45,11 +49,11 @@ class CustumSearchTextField extends StatelessWidget {
           // التحكم في أبعاد الأيقونة عشان تظهر صح
           suffixIconConstraints: BoxConstraints(
             minWidth: SizeConfig.w(35),
-            minHeight: SizeConfig.h(35),
+            minHeight: SizeConfig.h(25),
           ),
 
           contentPadding: EdgeInsets.symmetric(
-            vertical: SizeConfig.h(14),
+            vertical: SizeConfig.h(4),
             horizontal: SizeConfig.w(12),
           ),
         ),

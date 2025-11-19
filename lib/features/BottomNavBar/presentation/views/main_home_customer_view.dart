@@ -38,7 +38,7 @@ class _MainHomeCustomerViewState extends State<MainHomeCustomerView> {
 
     return BlocBuilder<BottomNavCubit, BottomNavState>(
       builder: (context, state) {
-        final currentIndex = state.index;
+        final currentIndex = state.currentIndex;
  
         return Scaffold(
           extendBody: true,

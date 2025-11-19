@@ -1,17 +1,19 @@
 part of 'bottom_nav_cubit.dart';
 
-sealed class BottomNavState extends Equatable {
-  final int index;
-  const BottomNavState(this.index);
+abstract class BottomNavState extends Equatable {
+  final int currentIndex;
+  final StoreFilter filter;
+
+  const BottomNavState(this.currentIndex, this.filter);
 
   @override
-  List<Object> get props => [index];
+  List<Object> get props => [currentIndex, filter];
 }
 
-final class NavBarInitial extends BottomNavState {
-  const NavBarInitial(super.index);
+class NavBarInitial extends BottomNavState {
+  NavBarInitial(int currentIndex) : super(currentIndex, StoreFilter.all);
 }
 
-final class IndexChanged extends BottomNavState {
-  const IndexChanged(super.index);
+class IndexChanged extends BottomNavState {
+  IndexChanged(int currentIndex, [StoreFilter filter = StoreFilter.all]) : super(currentIndex, filter);
 }

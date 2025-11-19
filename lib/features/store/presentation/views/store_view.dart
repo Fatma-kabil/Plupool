@@ -13,16 +13,35 @@ import 'package:plupool/features/store/presentation/views/widgets/info_card_row.
 import 'package:plupool/features/store/presentation/views/widgets/products_grid.dart';
 
 class StoreView extends StatefulWidget {
-  const StoreView({super.key});
+  final StoreFilter? initialFilter;
+
+  const StoreView({super.key, this.initialFilter});
 
   @override
   State<StoreView> createState() => _StoreViewState();
 }
 
 class _StoreViewState extends State<StoreView> {
-  StoreFilter selected = StoreFilter.all;
+  late StoreFilter selected;
   final int topCount = 3;
 
+  @override
+  void initState() {
+    super.initState();
+    selected = widget.initialFilter ?? StoreFilter.all;
+  }
+
+  // 👇👇 أهم إضافة — تحديث الفلتر عند تغيّر initialFilter
+  @override
+  void didUpdateWidget(covariant StoreView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.initialFilter != oldWidget.initialFilter) {
+      setState(() {
+        selected = widget.initialFilter ?? StoreFilter.all;
+      });
+    }
+  }
 
   List<ProductModel> get filteredProducts =>
       ProductFilterHelper.applyFilter(products, selected, topCount: topCount);
@@ -30,7 +49,11 @@ class _StoreViewState extends State<StoreView> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(top:SizeConfig.h(15) , left:SizeConfig.w(16) , right: SizeConfig.w(16) ),
+      padding: EdgeInsets.only(
+        top: SizeConfig.h(15),
+        left: SizeConfig.w(16),
+        right: SizeConfig.w(16),
+      ),
       child: ListView(
         children: [
           ActionsRow(cartCount: 0),
@@ -39,6 +62,7 @@ class _StoreViewState extends State<StoreView> {
           const SizedBox(height: 5),
           Text('الفئات', style: AppTextStyles.styleBold20(context)),
           const SizedBox(height: 16),
+
           Row(
             children: [
               FilterButton(
@@ -56,16 +80,17 @@ class _StoreViewState extends State<StoreView> {
                 items: StoreFilter.values.map((f) => f.label).toList(),
                 onChanged: (val) {
                   setState(() {
-                    selected = StoreFilter.values
-                        .firstWhere((f) => f.label == val);
+                    selected =
+                        StoreFilter.values.firstWhere((f) => f.label == val);
                   });
                 },
               ),
             ],
           ),
-          SizedBox(height: 28,),
-         ProductsGrid(products: filteredProducts),
 
+          const SizedBox(height: 28),
+
+          ProductsGrid(products: filteredProducts),
         ],
       ),
     );
