@@ -53,7 +53,7 @@ class _AddressCardState extends State<AddressCard> {
                   });
                   if (isEditing) {
                     phoneController.text = phoneController.text
-                        .replaceFirst("+2", "")
+                        .replaceFirst("+20", "")
                         .trim();
                   }
                 },
@@ -130,6 +130,7 @@ class _AddressCardState extends State<AddressCard> {
             ),
             SizedBox(height: SizeConfig.h(6)),
             CustomTextFormField(
+              bordercolor: Color(0xff555555).withOpacity(.6),
               iconColor: AppColors.kprimarycolor,
               controller: addressController,
               hintText: "العنوان",
@@ -145,7 +146,7 @@ class _AddressCardState extends State<AddressCard> {
               ).copyWith(color: Color(0xff555555)),
             ),
             SizedBox(height: SizeConfig.h(6)),
-            PhoneInputField(controller: phoneController,iconcolor: AppColors.kprimarycolor,),
+            PhoneInputField(controller: phoneController,iconcolor: AppColors.kprimarycolor,  bordercolor: Color(0xff555555).withOpacity(.6),),
 
             SizedBox(height: SizeConfig.h(12)),
 

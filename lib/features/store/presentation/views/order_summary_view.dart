@@ -9,6 +9,7 @@ class OrderSummaryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -28,7 +29,7 @@ class OrderSummaryView extends StatelessWidget {
         ),
         color: AppColors.kScaffoldColor,
         child: SizedBox(
-          height: SizeConfig.h(48),
+          height: SizeConfig.h(50),
           child:VerifiedBtn(
   onPressed: () {
     showDialog(

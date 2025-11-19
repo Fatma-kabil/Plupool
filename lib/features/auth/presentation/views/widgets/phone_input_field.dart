@@ -6,11 +6,17 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class PhoneInputField extends StatefulWidget {
-  const PhoneInputField({super.key, this.validator, required this.controller, this.iconcolor});
+  const PhoneInputField({
+    super.key,
+    this.validator,
+    required this.controller,
+    this.iconcolor, this.bordercolor,
+  });
 
   final String? Function(String?)? validator;
   final TextEditingController controller;
   final Color? iconcolor;
+  final Color? bordercolor;
 
   // خلي الـ State class public
   @override
@@ -67,7 +73,7 @@ class PhoneInputFieldState extends State<PhoneInputField> {
               size: SizeConfig.isWideScreen
                   ? SizeConfig.h(15)
                   : SizeConfig.w(13),
-              color:widget.iconcolor??  Color(0xffBBBBBB),
+              color: widget.iconcolor ?? Color(0xffBBBBBB),
             ),
           ),
           hint: Text(
@@ -120,11 +126,11 @@ class PhoneInputFieldState extends State<PhoneInputField> {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: Color(0xFFD6D6D6), width: 1),
+            borderSide:  BorderSide(color:widget. bordercolor?? Color(0xFFD6D6D6), width: 1),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(color: Color(0xFFD6D6D6), width: 1),
+            borderSide:  BorderSide(color:widget.bordercolor?? Color(0xFFD6D6D6), width: 1),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

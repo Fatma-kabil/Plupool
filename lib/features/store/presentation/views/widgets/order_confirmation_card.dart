@@ -17,7 +17,7 @@ class OrderConfirmationCard extends StatelessWidget {
       ),
       child: Container(
         width: SizeConfig.isWideScreen
-            ? SizeConfig.screenWidth * 065
+            ? SizeConfig.screenWidth * 0.68
             : double.infinity,
         padding: EdgeInsets.only(
           left: SizeConfig.w(16),

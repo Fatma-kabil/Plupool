@@ -12,7 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.validator,
     this.controller,
-    this.prefixIcon, this.iconColor,
+    this.prefixIcon, this.iconColor,this.bordercolor
   });
   final Color? iconColor;
   final String hintText;
@@ -22,6 +22,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final Widget? prefixIcon;
+  final Color? bordercolor;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class CustomTextFormField extends StatelessWidget {
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderSide: BorderSide(
-              color: AppColors.textFieldBorderColor,
+              color:bordercolor?? AppColors.textFieldBorderColor,
               width: 1.0,
             ),
             borderRadius: BorderRadius.circular(10.0),
@@ -72,7 +73,7 @@ class CustomTextFormField extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(
-              color: AppColors.textFieldBorderColor,
+              color:bordercolor?? AppColors.textFieldBorderColor,
               width: 1.0,
             ),
           ),

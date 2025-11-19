@@ -136,12 +136,12 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const TechNotifications()),
     ),
     GoRoute(
-      path: '/',
+      path: '/cartview',
       name: 'cartview',
       pageBuilder: (context, state) => buildTransitionPage(const CartView()),
     ),
     GoRoute(
-      path: '/ordersummaryview',
+      path: '/',
       name: 'ordersummaryview',
       pageBuilder: (context, state) => buildTransitionPage(const OrderSummaryView()),
     ),
