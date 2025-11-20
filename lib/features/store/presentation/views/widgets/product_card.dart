@@ -52,7 +52,7 @@ class ProductCard extends StatelessWidget {
                     children: [
                       Image.asset(
                         product.image,
-                        height: SizeConfig.h(101),
+                        height:SizeConfig.isWideScreen?SizeConfig.w(101): SizeConfig.h(101),
                         width: SizeConfig.w(151),
                         fit: BoxFit.cover,
                       ),
@@ -95,7 +95,7 @@ class ProductCard extends StatelessWidget {
                   children: [
                     Text(
                       
-                      "${product.finalPrice.toStringAsFixed(0) }EGP",
+                      "${product.finalPrice.toStringAsFixed(0) } ج.م",
                       style: AppTextStyles.styleBold16(
                         context,
                       ).copyWith(color: AppColors.ktextcolor),
@@ -104,7 +104,7 @@ class ProductCard extends StatelessWidget {
                     if (product.hasDiscount)
                       Text(
                         
-                        "${product.originalPrice.toStringAsFixed(0) }EGP",
+                        "${product.originalPrice.toStringAsFixed(0) } ج.م ",
                         style: AppTextStyles.styleRegular14(context).copyWith(
                           color: const Color(0xff808080),
                           decoration: TextDecoration.lineThrough,

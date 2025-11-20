@@ -22,9 +22,9 @@ class SearchResultListView extends StatelessWidget {
           childAspectRatio: SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
               ? 0.62
               : SizeConfig.screenWidth == 800
-              ? .82
+              ? .73: SizeConfig.screenWidth > 1000?0.80
               : SizeConfig.screenWidth > 800
-              ? 0.91 // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
+              ? 0.76 // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
               :  0.71,
           crossAxisSpacing: SizeConfig.w(12),
           mainAxisSpacing: SizeConfig.w(12),

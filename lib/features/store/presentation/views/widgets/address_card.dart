@@ -130,7 +130,7 @@ class _AddressCardState extends State<AddressCard> {
             ),
             SizedBox(height: SizeConfig.h(6)),
             CustomTextFormField(
-              bordercolor: Color(0xff555555).withOpacity(.6),
+             bordercolor: AppColors.hintTextColor,
               iconColor: AppColors.kprimarycolor,
               controller: addressController,
               hintText: "العنوان",
@@ -146,7 +146,7 @@ class _AddressCardState extends State<AddressCard> {
               ).copyWith(color: Color(0xff555555)),
             ),
             SizedBox(height: SizeConfig.h(6)),
-            PhoneInputField(controller: phoneController,iconcolor: AppColors.kprimarycolor,  bordercolor: Color(0xff555555).withOpacity(.6),),
+            PhoneInputField(controller: phoneController,iconcolor: AppColors.kprimarycolor, bordercolor: AppColors.hintTextColor),
 
             SizedBox(height: SizeConfig.h(12)),
 
