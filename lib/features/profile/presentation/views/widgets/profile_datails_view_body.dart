@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/company_info_card.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/edit_btn.dart';
@@ -26,7 +27,7 @@ class ProfileDatailsViewBody extends StatelessWidget {
       //    OwnerInfoCard(),
     //  CompanyInfoCard(),
           SizedBox(height: SizeConfig.h(35)),
-         EditButton(),
+         EditButton(onPressed:() => context.push('/profilreditview'),),
           SizedBox(height: SizeConfig.h(10)),
         ],
       ),
