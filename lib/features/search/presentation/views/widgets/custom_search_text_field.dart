@@ -4,58 +4,68 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class CustumSearchTextField extends StatelessWidget {
-  const CustumSearchTextField({super.key});
+  const CustumSearchTextField({super.key, this.validator, this.controller});
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(SizeConfig.w(4)), // مساحة حول البوكس للشادو
-      decoration: BoxDecoration(
-        color: AppColors.kScaffoldColor, // لون خلفية الحقل
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.15),
-            blurRadius: 0,
-            spreadRadius: 1,
-            offset: const Offset(1, 1),
-          ),
-        ],
-      ),
-      child: TextField(
-        textDirection: TextDirection.rtl, // عشان النص والايقونة تكون من اليمين
-        textAlign: TextAlign.right,
-          cursorHeight: SizeConfig.isWideScreen
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: TextFormField(
+        style: AppTextStyles.styleMedium16(
+          context,
+        ).copyWith(color: AppColors.ktextcolor),
+        cursorHeight: SizeConfig.isWideScreen
             ? SizeConfig.w(12)
             : SizeConfig.h(20),
-        cursorColor: AppColors.kprimarycolor,
+        cursorColor: AppColors.hintTextColor,
+        controller: controller,
+        validator: validator,
+     //   keyboardType: keyboardType,
+
         decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: 'بحث',
-          hintStyle: AppTextStyles.styleSemiBold16(context).copyWith(
-            color: const Color(0xff777777),
-          ),
-
-          // الأيقونة على اليمين (prefixIcon في RTL تكون على اليمين)
-          suffixIcon: Padding(
-            padding: EdgeInsets.only(right: SizeConfig.w(8)),
-            child: Icon(
-              Icons.search,
-              color: const Color(0xffAAAAAA),
-              size: SizeConfig.w(20),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColors.textFieldBorderColor,
+              width: 1.0,
             ),
+            borderRadius: BorderRadius.circular(10.0),
           ),
-
-          // التحكم في أبعاد الأيقونة عشان تظهر صح
-          suffixIconConstraints: BoxConstraints(
-            minWidth: SizeConfig.w(35),
-            minHeight: SizeConfig.h(25),
-          ),
-
+          hintText: "بحث",
+          hintStyle: AppTextStyles.styleRegular13(context),
           contentPadding: EdgeInsets.symmetric(
             vertical: SizeConfig.h(4),
-            horizontal: SizeConfig.w(12),
+            horizontal: SizeConfig.w(14),
           ),
+
+          prefixIcon: Padding(
+            padding: EdgeInsets.only(right: SizeConfig.w(7),left: SizeConfig.w(2) ),
+            child:
+              
+                Icon(
+                  Icons.search,
+                  size: SizeConfig.isWideScreen
+                      ? SizeConfig.h(15)
+                      : SizeConfig.w(13),
+                  color: const Color(0xffBBBBBB),
+                ),
+          ),
+          prefixIconConstraints: const BoxConstraints(minWidth: 0),
+
+          // 👇 زرار إظهار/إخفاء الباسورد
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(
+              color: AppColors.textFieldBorderColor,
+              width: 1.0,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: AppColors.hintTextColor, width: 2.0),
+          ),
+           errorStyle: AppTextStyles.styleRegular13(context).copyWith(color: Colors.red)
         ),
       ),
     );

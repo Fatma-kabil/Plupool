@@ -9,43 +9,53 @@ class TechProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-  // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
           ProfileOption(
             title: 'معلومات الحساب',
             icon: Icons.person_outline,
             onTap: () {
-               context.push('/profiledetailsview');
+              context.push('/profiledetailsview');
             },
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
 
-          ProfileOption(
-            title: 'الإعدادات',
-            icon: Icons.settings_outlined,
-            onTap: () {},
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
           ProfileOption(
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
             onTap: () {},
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
           ProfileOption(
             title: 'الخصوصية والأمان',
             icon: Icons.lock_outline,
             onTap: () {},
           ),
-          SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
 
           ProfileOption(
             title: 'لماذا نحن؟',
             icon: Icons.info_outline,
             onTap: () {},
           ),
-         SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
 
           ProfileOption(
             title: 'تسجيل الخروج',
@@ -53,7 +63,6 @@ class TechProfileBody extends StatelessWidget {
             islogout: true,
             onTap: () {},
           ),
-        
         ],
       ),
     );

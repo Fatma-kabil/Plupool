@@ -28,12 +28,6 @@ class OwnerProfileBody extends StatelessWidget {
            SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
 
           ProfileOption(
-            title: 'الإعدادات',
-            icon: Icons.settings_outlined,
-            onTap: () {},
-          ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
-          ProfileOption(
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
             onTap: () {},

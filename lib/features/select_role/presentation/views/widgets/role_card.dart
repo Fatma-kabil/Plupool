@@ -61,7 +61,7 @@ class RoleCard extends StatelessWidget {
                       child: SvgPicture.asset(
                         role.image,
                         width: SizeConfig.w(28),
-                        height:SizeConfig.h(28),
+                        height:SizeConfig.w(28),
                         color: AppColors.kprimarycolor,
                       ),
                     ),
@@ -81,7 +81,7 @@ class RoleCard extends StatelessWidget {
                       style: AppTextStyles.styleMedium20(context)
                           .copyWith(color: Colors.black),
                     ),
-                    const SizedBox(height: 4),
+                     SizedBox(height:SizeConfig.h(4) ),
                     Text(
                       role.subtitle,
                       textAlign: TextAlign.right,

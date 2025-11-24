@@ -28,13 +28,13 @@ class SelectRoleViewBody extends StatelessWidget {
                 style: AppTextStyles.styleSemiBold32(context),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 8),
+               SizedBox(height:SizeConfig.h(8) ),
               Text(
                 "حدد نوع حسابك للحصول على تجربة مخصصة",
                 textAlign: TextAlign.center,
                 style: AppTextStyles.styleMedium16(context),
               ),
-              const SizedBox(height: 22),
+               SizedBox(height: SizeConfig.h(22)),
 
               // ✅ خلي الكروت كولوم في النص بدل ListView
               Column(
@@ -42,7 +42,7 @@ class SelectRoleViewBody extends StatelessWidget {
                 children: List.generate(roles.length, (index) {
                   final role = roles[index];
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
+                    padding:  EdgeInsets.only(bottom: SizeConfig.h(16)),
                     child: RoleCard(
                       role: role,
                       onTap: () async{
