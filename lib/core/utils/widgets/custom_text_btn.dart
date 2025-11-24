@@ -8,12 +8,14 @@ class CustomTextBtn extends StatelessWidget {
     super.key,
     required this.text,
     this.onPressed,
-    this.width, this.padding,
+    this.width,
+    this.padding,  this.color,
   });
   final String text;
   final double? width;
   final double? padding;
   final void Function()? onPressed;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,17 +23,19 @@ class CustomTextBtn extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.kprimarycolor,
+          backgroundColor:color?? AppColors.kprimarycolor,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10), // ✅ صححت هنا
           ),
         ),
         child: Padding(
-          padding:  EdgeInsets.symmetric(vertical: padding ?? SizeConfig.h(12) ),
+          padding: EdgeInsets.symmetric(vertical: padding ?? SizeConfig.h(12)),
           child: Text(
             textDirection: TextDirection.rtl,
-            text, style: AppTextStyles.styleSemiBold20(context)),
+            text,
+            style: AppTextStyles.styleSemiBold20(context),
+          ),
         ),
       ),
     );
