@@ -10,6 +10,10 @@ import 'package:plupool/features/auth/domain/repos/sign_up_repo.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
+import 'package:plupool/features/profile/data/remote_data_source.dart/get_user_remote_data_source.dart';
+import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
+import 'package:plupool/features/profile/domain/repos/user_repo.dart';
+import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 
 // Role Feature
 import 'package:plupool/features/select_role/data/local_data_source/role_local_data_source.dart';
@@ -109,4 +113,20 @@ Future<void> initServiceLocator() async {
       ));
 
   sl.registerFactory(() => OtpCubit(sl<OtpRepository>()));
+
+
+
+  // تسجيل DataSource
+sl.registerLazySingleton<UserRemoteDataSource>(
+  () => UserRemoteDataSourceImpl(sl<ApiService>()),
+);
+
+// تسجيل Repository
+sl.registerLazySingleton<UserRepository>(
+  () => UserRepositoryImpl(sl<UserRemoteDataSource>()),
+);
+
+// تسجيل Cubit
+sl.registerFactory(() => UserCubit(sl<UserRepository>()));
+
 }
