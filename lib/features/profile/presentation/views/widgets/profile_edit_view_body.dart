@@ -14,12 +14,13 @@ class ProfileEditViewBody extends StatelessWidget {
       child: Column(
         children: [
           // ✅ البطاقة العلوية (الصورة والاسم والمسمى)
-          SizedBox(height: SizeConfig.h(30)),
+          SizedBox(height: SizeConfig.h(15)),
           ProfileAvatarPicker(onImagePicked: (image) {}),
           SizedBox(height: SizeConfig.h(30)),
           UpdateTechInfo(),
           SizedBox(height: SizeConfig.h(30)),
           EditButton(
+            tittle: 'حفظ المعلومات ',
             onPressed: () {
               // تنفيذ الإجراء عند الضغط على الزر
             },
