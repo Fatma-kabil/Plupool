@@ -11,5 +11,6 @@ static const String verifyOtp = '$baseUrl/auth/verify-otp';
 static const String signupTechnician = '$baseUrl/auth/signup/technician';
 static const String signupPoolOwner = '$baseUrl/auth/signup/pool-owner';
 static const String signupCompany = '$baseUrl/auth/signup/company';
+static const String getCurrentUser = '$baseUrl/users/me';
   // ... روابط نقاط نهاية أخرى
 } 
