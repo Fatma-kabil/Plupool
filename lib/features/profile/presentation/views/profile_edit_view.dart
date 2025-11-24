@@ -11,7 +11,7 @@ class ProfileEditView extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(17),
+            horizontal: SizeConfig.w(15),
             vertical: SizeConfig.h(25),
             
           ),

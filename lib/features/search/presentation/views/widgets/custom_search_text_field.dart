@@ -36,7 +36,7 @@ class CustumSearchTextField extends StatelessWidget {
           hintStyle: AppTextStyles.styleRegular13(context),
           contentPadding: EdgeInsets.symmetric(
             vertical: SizeConfig.h(4),
-            horizontal: SizeConfig.w(14),
+            horizontal: SizeConfig.w(8),
           ),
 
           prefixIcon: Padding(
@@ -47,7 +47,7 @@ class CustumSearchTextField extends StatelessWidget {
                   Icons.search,
                   size: SizeConfig.isWideScreen
                       ? SizeConfig.h(15)
-                      : SizeConfig.w(13),
+                      : SizeConfig.w(15),
                   color: const Color(0xffBBBBBB),
                 ),
           ),
