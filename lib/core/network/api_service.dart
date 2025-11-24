@@ -9,9 +9,10 @@ class ApiService {
   Future<Response> get(
     String endpoint, {
     Map<String, dynamic>? queryParams,
+     Options? options,
   }) async {
     try {
-      final response = await dio.get(endpoint, queryParameters: queryParams);
+      final response = await dio.get(endpoint, queryParameters: queryParams,  options: options,);
       return response;
     } catch (e) {
       rethrow;
