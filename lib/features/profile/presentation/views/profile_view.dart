@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
@@ -26,10 +27,16 @@ class ProfileView extends StatelessWidget {
                 children: [
                   const ProfileViewBody(),
                   Positioned(
-                   left: 0,
-                right: 0,
-                bottom: SizeConfig.h(10),
-                child: CustomTextBtn(text: 'حذف الحساب', onPressed: () {},color: Color(0xffE63946),)
+                    left: 0,
+                    right: 0,
+                    bottom: SizeConfig.h(10),
+                    child: CustomTextBtn(
+                      text: 'حذف الحساب',
+                      onPressed: () {
+                        context.push('/deleteaccountview');
+                      },
+                      color: Color(0xffE63946),
+                    ),
                   ),
 
                   if (authState.status == AuthStatus.guest)
@@ -37,17 +44,18 @@ class ProfileView extends StatelessWidget {
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                         child: Container(
-                          color: Colors.black.withOpacity(0), // مهم عشان البلور يشتغل
+                          color: Colors.black.withOpacity(
+                            0,
+                          ), // مهم عشان البلور يشتغل
                         ),
                       ),
                     ),
-                      Center(
+                  Center(
                     child: ErrorCard(
                       title: 'لم يتم تسجيل الدخول',
                       subtitle:
                           'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                    color: Colors.white
-
+                      color: Colors.white,
                     ),
                   ),
                 ],

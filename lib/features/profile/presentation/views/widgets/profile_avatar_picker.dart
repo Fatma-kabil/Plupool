@@ -55,7 +55,7 @@ class _ProfileAvatarPickerState extends State<ProfileAvatarPicker> {
               ),
             ),
             child: CircleAvatar(
-              radius: SizeConfig.w(55),
+              radius:SizeConfig.isWideScreen?SizeConfig.w(40): SizeConfig.w(50),
               backgroundImage: image != null
                   ? FileImage(image)
                   : const AssetImage("assets/images/ahmed.png")
@@ -78,7 +78,7 @@ class _ProfileAvatarPickerState extends State<ProfileAvatarPicker> {
                 ),
               ],
             ),
-            padding: EdgeInsets.all(SizeConfig.w(6)),
+            padding: EdgeInsets.all(SizeConfig.w(4)),
             child: Icon(
               Icons.edit,
               color: AppColors.kprimarycolor,

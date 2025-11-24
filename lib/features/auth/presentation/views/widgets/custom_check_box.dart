@@ -10,11 +10,13 @@ class CustomCheckbox extends StatelessWidget {
     required this.value,
     required this.onChanged,
     required this.label,
+    
   });
-
+  
   final bool value;
   final ValueChanged<bool> onChanged;
   final String label;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -24,30 +26,30 @@ class CustomCheckbox extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         // النص على الشمال
-         GestureDetector(
+        GestureDetector(
           onTap: () {
             context.push('/privacypolicy');
           },
           child: Padding(
-            padding: const EdgeInsets.only(right: 4.0),
+            padding: EdgeInsets.only(right: SizeConfig.w(4)),
             child: Text(
               label,
-
-              style: AppTextStyles.styleSemiBold14(
-                context,
-
-              ).copyWith(color: AppColors.kprimarycolor,decoration: TextDecoration.underline),
+        
+              style: AppTextStyles.styleSemiBold14(context).copyWith(
+                color:  AppColors.kprimarycolor,
+                decoration: TextDecoration.underline,
+              ),
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 8.0),
+          padding:  EdgeInsets.only(right:SizeConfig.w(8) ),
           child: Text(
             "الموافقه علي",
             style: AppTextStyles.styleSemiBold14(context),
           ),
         ),
-       
+
         InkWell(
           onTap: () => onChanged(!value),
           child:
