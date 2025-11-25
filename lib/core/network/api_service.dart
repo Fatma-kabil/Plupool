@@ -44,9 +44,11 @@ class ApiService {
   Future<Response> put(
     String endpoint, {
     Map<String, dynamic>? data,
+      Options? options,
   }) async {
     try {
-      final response = await dio.put(endpoint, data: data);
+      final response = await dio.put(endpoint, data: data, options: options,
+);
       return response;
     } catch (e) {
       rethrow;
