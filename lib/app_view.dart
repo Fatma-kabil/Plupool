@@ -9,6 +9,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
+import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
@@ -26,7 +27,10 @@ class PlupoolApp extends StatelessWidget {
            BlocProvider(create: (_) => sl<OtpCubit>()),
             BlocProvider(
           create: (_) => AuthCubit(storage),
+          
         ),
+        BlocProvider(create: (_) => sl<UserCubit>()),
+
      //     BlocProvider(create:     (_) => sl<SignUpCubit>()),
       
       

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/app_bar_model.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/app_bar_details.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/notification_button.dart';
 
+import 'package:plupool/features/profile/domain/entities/user_entity.dart';
+
 class TechAppbar extends StatelessWidget {
   const TechAppbar({super.key, required this.model});
-  final AppbarModel model;
+  final UserEntity model;
   @override
   Widget build(BuildContext context) {
     return Row(

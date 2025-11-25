@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/profile/presentation/views/widgets/confirm_delete_card.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/delete_warning_card.dart';
 
 class DeleteAccountViewBody extends StatefulWidget {
@@ -60,8 +61,11 @@ class _DeleteAccountViewBodyState extends State<DeleteAccountViewBody> {
               return;
             }
 
-            // 👉 هنا هتحط كود الحذف الحقيقي
-            print("Account deleted!");
+            showDialog(
+              context: context,
+              barrierDismissible: false, // يمنع الإغلاق بالضغط خارج الكارد
+              builder: (context) => const ConfirmDeleteCard(),
+            );
           },
         ),
 
