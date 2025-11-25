@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/app_bar_model.dart';
+import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class AppBarDetails extends StatelessWidget {
   const AppBarDetails({
@@ -12,7 +12,7 @@ class AppBarDetails extends StatelessWidget {
     required this.model,
   });
 
-  final AppbarModel model;
+  final UserEntity model;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class AppBarDetails extends StatelessWidget {
         Row(
           children: [
             Text(
-              "أهلاً ${model.username}",
+              "أهلاً ${model.fullName.split(" ").first}",
               style: AppTextStyles.styleSemiBold16(
                 context,
               ).copyWith(color: AppColors.ktextcolor),
@@ -30,7 +30,7 @@ class AppBarDetails extends StatelessWidget {
             SizedBox(width:SizeConfig.w( 5)),
             CircleAvatar(
               radius: SizeConfig.w(17),
-              backgroundImage: AssetImage(model.avatarUrl),
+              backgroundImage: AssetImage(model.profileImage),
             ),
           ],
         ),
@@ -39,7 +39,7 @@ class AppBarDetails extends StatelessWidget {
         Row(
           children: [
             Text(
-              model.subtitle,
+              model.role,
               style: AppTextStyles.styleRegular13(
                 context,
               ).copyWith(color: AppColors.kprimarycolor),
