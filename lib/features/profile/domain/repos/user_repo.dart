@@ -10,4 +10,5 @@ abstract class UserRepository {
     String token,
     UpdateUserModel data,
   );
+   Future<Either<Failure, void>> deleteUser(int id, String token);
 }

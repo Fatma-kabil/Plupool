@@ -6,7 +6,8 @@ import '../models/user_model.dart';
 
 abstract class UserRemoteDataSource {
   Future<UserModel> getCurrentUser(String token);
-   Future<UserModel> updateUser(int id, String token, UpdateUserModel data);
+  Future<UserModel> updateUser(int id, String token, UpdateUserModel data);
+  Future<void> deleteUser(int id, String token);
 }
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
@@ -16,31 +17,48 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
   @override
   Future<UserModel> getCurrentUser(String token) async {
-    final userModel = await apiService.get(
-      Endpoints.getCurrentUser,
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-      ),
-    ).then((response) => UserModel.fromJson(response.data));
+    final userModel = await apiService
+        .get(
+          Endpoints.getCurrentUser,
+          options: Options(
+            headers: {
+              'Authorization': 'Bearer $token',
+              'Content-Type': 'application/json',
+            },
+          ),
+        )
+        .then((response) => UserModel.fromJson(response.data));
     return userModel;
   }
 
-   Future<UserModel> updateUser(int id, String token, UpdateUserModel data) async {
-
+  Future<UserModel> updateUser(
+    int id,
+    String token,
+    UpdateUserModel data,
+  ) async {
     final response = await apiService.put(
       '${Endpoints.updateUser}/$id',
       data: data.toJson(),
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
       ),
     );
 
     return UserModel.fromJson(response.data);
+  }
+
+  Future<void> deleteUser(int id, String token) async {
+    await apiService.delete(
+      '${Endpoints.updateUser}/$id',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
   }
 }

@@ -58,9 +58,10 @@ class ApiService {
   Future<Response> delete(
     String endpoint, {
     Map<String, dynamic>? data,
+     Options? options,
   }) async {
     try {
-      final response = await dio.delete(endpoint, data: data);
+      final response = await dio.delete(endpoint, data: data, options: options,);
       return response;
     } catch (e) {
       rethrow;
