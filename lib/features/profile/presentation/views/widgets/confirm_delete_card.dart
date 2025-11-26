@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/header_text.dart';
+import 'package:plupool/features/profile/presentation/views/widgets/delete_account_done_card.dart';
 
 class ConfirmDeleteCard extends StatelessWidget {
   const ConfirmDeleteCard({super.key});
@@ -68,7 +69,11 @@ class ConfirmDeleteCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      
+                       showDialog(
+              context: context,
+              barrierDismissible: false, // يمنع الإغلاق بالضغط خارج الكارد
+              builder: (context) => const DeleteAccountDoneCard(),
+            );
                     },
                     child: Text(
                       "نعم أحذف الحساب",
