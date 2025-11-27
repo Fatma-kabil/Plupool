@@ -10,6 +10,7 @@ import 'package:plupool/features/profile/presentation/views/help_view.dart';
 import 'package:plupool/features/profile/presentation/views/privacy_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_details_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_edit_view.dart';
+import 'package:plupool/features/profile/presentation/views/why_us_view.dart';
 import 'package:plupool/features/search/presentation/views/search_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
@@ -171,9 +172,14 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) => buildTransitionPage(const HelpView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/privacyview',
       name: 'privacyview',
       pageBuilder: (context, state) => buildTransitionPage(const PrivacyView()),
+    ),
+     GoRoute(
+      path: '/',
+      name: 'whyusview',
+      pageBuilder: (context, state) => buildTransitionPage(const WhyUsView()),
     ),
   ],
 );

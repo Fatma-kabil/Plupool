@@ -36,20 +36,22 @@ class MetricCard extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SvgPicture.asset(
-                icon,
-
-                height: SizeConfig.h(24),
-                width: SizeConfig.w(24),
-              ),
-               SizedBox(width: SizeConfig.w(4) ),
-              Text(
+               Text(
                 value,
 
                 style:valueTextStyle ??  AppTextStyles.styleBold20(
                   context,
                 ).copyWith(color: Colors.black),
               ),
+               SizedBox(width: SizeConfig.w(4) ),
+              SvgPicture.asset(
+                icon,
+
+                height: SizeConfig.h(24),
+                width: SizeConfig.w(24),
+              ),
+              
+             
             ],
           ),
 
