@@ -18,7 +18,7 @@ class ErrorCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       insetPadding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(16) , vertical: SizeConfig.h(29)),
       child: Container(
-        width: SizeConfig.isWideScreen?SizeConfig.screenWidth*065:double.infinity,
+        width: SizeConfig.isWideScreen?SizeConfig.screenWidth*0.65:double.infinity,
         padding:  EdgeInsets.only(
           left: SizeConfig.w(16),
           right: SizeConfig.w(16),

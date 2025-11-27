@@ -12,12 +12,16 @@ class ConfirmDeleteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      insetPadding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(16) , vertical: SizeConfig.h(29)),
+      insetPadding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.w(16),
+        vertical: SizeConfig.h(29),
+      ),
       child: Container(
-        width: SizeConfig.isWideScreen?SizeConfig.screenWidth*065:double.infinity,
-        padding:  EdgeInsets.only(
+        width: SizeConfig.isWideScreen
+            ? SizeConfig.screenWidth * 0.7
+            : double.infinity,
+        padding: EdgeInsets.only(
           left: SizeConfig.w(16),
           right: SizeConfig.w(16),
           bottom: SizeConfig.h(25),
@@ -30,11 +34,10 @@ class ConfirmDeleteCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-           
             HeaderText(
               title: 'هل أنت متأكد؟',
               subtitle:
-                "سيتم حذف حسابك بشكل نهائي ولن تتمكن من استعادته. هل تريد المتابعة؟"
+                  "سيتم حذف حسابك بشكل نهائي ولن تتمكن من استعادته. هل تريد المتابعة؟",
             ),
 
             SizedBox(height: SizeConfig.h(30)),
@@ -51,15 +54,18 @@ class ConfirmDeleteCard extends StatelessWidget {
                     onPressed: () {
                       context.pop();
                     },
-                    child: Text(
-                      "لا، العودة",
-                      style:AppTextStyles.styleMedium16(context).copyWith(
-                        color: Color(0xffE63946),
+                    child: Padding(
+                      padding:  EdgeInsets.symmetric(vertical:SizeConfig.isWideScreen? SizeConfig.h(6):SizeConfig.h(0) ),
+                      child: Text(
+                        "لا",
+                        style: AppTextStyles.styleMedium16(
+                          context,
+                        ).copyWith(color: Color(0xffE63946)),
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: SizeConfig.w(12)),
+                SizedBox(width: SizeConfig.w(18)),
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -69,22 +75,29 @@ class ConfirmDeleteCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                       showDialog(
-              context: context,
-              barrierDismissible: false, // يمنع الإغلاق بالضغط خارج الكارد
-              builder: (context) => const DeleteAccountDoneCard(),
-            );
+                      showDialog(
+                        context: context,
+                        barrierDismissible:
+                            false, // يمنع الإغلاق بالضغط خارج الكارد
+                        builder: (context) => const DeleteAccountDoneCard(),
+                      );
+                      context.pop(); // قفل كارد التأكيد الحالي
                     },
-                    child: Text(
-                      "نعم أحذف الحساب",
-                      style:AppTextStyles.styleMedium16(context).copyWith(
-                        color: Color(0xffE63946),
+                    child: Padding(
+                        padding:  EdgeInsets.symmetric(vertical:SizeConfig.isWideScreen? SizeConfig.h(6):SizeConfig.h(0) ),
+                      child: Text(
+                        "نعم",
+                        style: AppTextStyles.styleMedium16(
+                          context,
+                        ).copyWith(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      textDirection: TextDirection.rtl,
                       ),
                     ),
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

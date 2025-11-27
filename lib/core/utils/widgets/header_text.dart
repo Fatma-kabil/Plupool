@@ -1,6 +1,7 @@
 
 import 'package:flutter/widgets.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class HeaderText extends StatelessWidget {
   const HeaderText({super.key, required this.title, required this.subtitle});
@@ -19,7 +20,7 @@ class HeaderText extends StatelessWidget {
           ),
         ),
 
-        const SizedBox(height: 8),
+         SizedBox(height:SizeConfig.h(8) ),
 
         // ✅ النص الوصفي
         Center(

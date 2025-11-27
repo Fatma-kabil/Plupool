@@ -18,7 +18,7 @@ class DeleteAccountDoneCard extends StatelessWidget {
       ),
       child: Container(
         width: SizeConfig.isWideScreen
-            ? SizeConfig.screenWidth * 065
+            ? SizeConfig.screenWidth * 0.65
             : double.infinity,
         padding: EdgeInsets.only(
           left: SizeConfig.w(16),
@@ -46,20 +46,30 @@ class DeleteAccountDoneCard extends StatelessWidget {
                 context,
               ).copyWith(color: AppColors.ktextcolor),
               textAlign: TextAlign.center,
+              textDirection: TextDirection.rtl,
             ),
 
-            SizedBox(height: SizeConfig.h(15)),
-            Expanded(
-              child: OutlinedButton(
-                style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: AppColors.kprimarycolor),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+            SizedBox(height: SizeConfig.h(20)),
+
+            OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: AppColors.kprimarycolor),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                onPressed: () {
-                  context.go('/MainHomeTechView');
-                },
+              ),
+              onPressed: () {
+    // 1️⃣ قفل الـ dialog الحالي
+    Navigator.of(context).pop();
+
+    // 2️⃣ الانتقال للصفحة الرئيسية بعد قفل الـ dialog
+    Future.delayed(const Duration(milliseconds: 100), () {
+      context.go('/MainHomeTechView');
+    });
+  },
+
+              child: Padding(
+                padding:  EdgeInsets.symmetric(vertical:SizeConfig.isWideScreen? SizeConfig.h(8):SizeConfig.h(0) ),
                 child: Text(
                   " العودة للصفحة الرئيسية",
                   style: AppTextStyles.styleSemiBold16(

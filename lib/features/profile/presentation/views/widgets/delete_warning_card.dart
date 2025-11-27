@@ -39,6 +39,7 @@ class DeleteWarningCard extends StatelessWidget {
                Text(
                 "سيتم حذف حسابك وكل بياناتك بشكل نهائي، ولن يمكنك استعادتها لاحقًا.",
                 textAlign: TextAlign.right,
+                textDirection: TextDirection.rtl,
                 style:AppTextStyles.styleSemiBold16(context).copyWith(color: AppColors.ktextcolor)
               ),
               SizedBox(height: SizeConfig.h(8)),
