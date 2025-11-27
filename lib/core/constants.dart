@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/features/profile/data/models/faq_item.dart';
 import 'package:plupool/features/select_role/data/models/role_card_item.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
@@ -475,3 +476,30 @@ final List<OfferModel> equipmentOffers = [
     offerPercentage: '% خصم 20',
   ),
 ];
+
+ final List<FaqItem> techQes = [
+    FaqItem(
+      question: "إزاي أشوف المهام المطلوبة خلال الأسبوع؟",
+      answer:
+          "تقدر تشوف جدول مهامك الأسبوعية من صفحة الرئيسية عند الضغط على عرض المزيد، هتظهر صفحة المهام الأسبوعية اللي فيها ترتيب المهام حسب الأيام.",
+    ),
+    FaqItem(
+      question: "إزاي أتواصل مع الدعم؟",
+      answer: "تواصل مع الدعم من صفحة مركز المساعدة الموجودة في (حسابي).",
+    ),
+    FaqItem(
+      question: "إزاي أدخل على ملف كل عميل؟",
+      answer:
+          "عند الضغط على الكارد الموجود فيه تفاصيل المهمة الخاصة بكل عميل.",
+    ),
+    FaqItem(
+      question: "فين ألاقي تاريخ مشترياتي؟",
+      answer:
+          "من (المتجر) تقدر تلاقي علامة السلة ثم الضغط عليها.",
+    ),
+    FaqItem(
+      question: "كيف أغير رقم الهاتف؟",
+      answer:
+          "تقدر تغير رقم الهاتف من (حسابي) ثم الضغط على معلومات الحساب ثم تعديل البيانات.",
+    ),
+  ];

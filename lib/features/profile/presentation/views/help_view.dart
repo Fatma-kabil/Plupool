@@ -8,14 +8,17 @@ class HelpView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(17),
-            vertical: SizeConfig.h(25),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.w(17),
+              vertical: SizeConfig.h(25),
+            ),
+            child: HelpViewBody(),
           ),
-          child: HelpViewBody(),
         ),
       ),
     );
