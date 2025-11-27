@@ -40,7 +40,9 @@ class TechProfileBody extends StatelessWidget {
           ProfileOption(
             title: 'الخصوصية والأمان',
             icon: Icons.lock_outline,
-            onTap: () {},
+            onTap: () {
+               context.push('/privacyview');
+            },
           ),
           SizedBox(
             height: SizeConfig.isWideScreen

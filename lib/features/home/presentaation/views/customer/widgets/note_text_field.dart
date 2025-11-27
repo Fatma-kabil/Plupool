@@ -32,7 +32,7 @@ class NoteTextField extends StatelessWidget {
       onChanged: onChanged,
       decoration: InputDecoration(
         border: InputBorder.none,
-        contentPadding: const EdgeInsets.all(8),
+        contentPadding:  EdgeInsets.symmetric( horizontal:  SizeConfig.w(8),vertical:  SizeConfig.h(8)),
         hint: Row(
          textDirection: TextDirection.rtl,
           mainAxisAlignment: MainAxisAlignment.start,

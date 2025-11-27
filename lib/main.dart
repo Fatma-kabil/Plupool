@@ -20,10 +20,10 @@ void main() async {
  
  
   runApp(
-//  DevicePreview(
+ // DevicePreview(
   //   enabled: !kReleaseMode, // ✅ يشتغل فقط في debug
-    //  builder: (context) 
-   //  => 
+   //   builder: (context) 
+  //   => 
      const PlupoolApp(),
      
 //),

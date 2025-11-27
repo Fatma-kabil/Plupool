@@ -47,7 +47,9 @@ class _FaqSectionState extends State<FaqSection> {
           final item = techQes[index];
 
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               InkWell(
                 onTap: () {
                   setState(() {
@@ -55,7 +57,7 @@ class _FaqSectionState extends State<FaqSection> {
                   });
                 },
                 child: Padding(
-                  padding:  EdgeInsets.only(bottom: SizeConfig.h(6)),
+                  padding:  EdgeInsets.only(bottom: SizeConfig.h(8)),
                   child: Row(
                     children: [
                       Expanded(
@@ -83,6 +85,7 @@ class _FaqSectionState extends State<FaqSection> {
                 Padding(
                   padding: EdgeInsets.only(top: SizeConfig.h(4),bottom:SizeConfig.h(4) ),
                   child: Text(
+                    textDirection: TextDirection.rtl,
                     item.answer,
                     style: AppTextStyles.styleMedium16(
                       context,
