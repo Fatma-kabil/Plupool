@@ -11,15 +11,15 @@ class InfoCardsRow extends StatelessWidget {
     return Row(
    mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
+         Expanded(
           flex: 1,
           child: MetricCard(
-            icon: "assets/icons/track.svg", // شحن/توصيل
-            value: "24 H",
-            label: 'توصيل',
+            icon: "assets/icons/Rating.svg", // تقييم
+            value: "4.8",
+            label: 'التقييم',
           ),
         ),
-
+       
          SizedBox(width:SizeConfig.w(5) ),
 
         Expanded(
@@ -35,11 +35,13 @@ class InfoCardsRow extends StatelessWidget {
         Expanded(
           flex: 1,
           child: MetricCard(
-            icon: "assets/icons/Rating.svg", // تقييم
-            value: "4.8",
-            label: 'التقييم',
+            icon: "assets/icons/track.svg", // شحن/توصيل
+            value: "24 H",
+            label: 'توصيل',
           ),
         ),
+
+       
       ],
     );
   }

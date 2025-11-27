@@ -60,21 +60,12 @@ class _StoreViewState extends State<StoreView> {
           const SizedBox(height: 30),
           const InfoCardsRow(),
           const SizedBox(height: 5),
-          Text('الفئات', style: AppTextStyles.styleBold20(context)),
+          Text('الفئات', style: AppTextStyles.styleBold20(context).copyWith(color: Colors.black)),
           const SizedBox(height: 16),
 
           Row(
             children: [
-              FilterButton(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => const FilterDialog(),
-                  );
-                },
-              ),
-              const Spacer(),
-              FilterOption(
+               FilterOption(
                 icon: Icons.keyboard_arrow_down,
                 value: selected.label,
                 items: StoreFilter.values.map((f) => f.label).toList(),
@@ -85,6 +76,17 @@ class _StoreViewState extends State<StoreView> {
                   });
                 },
               ),
+                const Spacer(),
+              FilterButton(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => const FilterDialog(),
+                  );
+                },
+              ),
+            
+             
             ],
           ),
 

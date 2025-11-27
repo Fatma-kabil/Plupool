@@ -22,6 +22,15 @@ class FilterOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+          Text(
+          "الترتيب حسب: ",
+          textDirection: TextDirection.rtl,
+          style: AppTextStyles.styleRegular16(
+            context,
+          ).copyWith(color: const Color(0xff777777)),
+        ),
+          SizedBox(width: SizeConfig.w(5)),
+
         /// Dropdown جوه Container بحدود
         Container(
           decoration: BoxDecoration(
@@ -105,16 +114,9 @@ class FilterOption extends StatelessWidget {
           ),
         ),
 
-         SizedBox(width: SizeConfig.w(5)),
-
+       
         /// النص "الترتيب حسب"
-        Text(
-          "الترتيب حسب: ",
-          textDirection: TextDirection.rtl,
-          style: AppTextStyles.styleRegular16(
-            context,
-          ).copyWith(color: const Color(0xff777777)),
-        ),
+      
       ],
     );
   }

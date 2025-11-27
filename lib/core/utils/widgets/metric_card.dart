@@ -42,7 +42,7 @@ class MetricCard extends StatelessWidget {
                 height: SizeConfig.h(24),
                 width: SizeConfig.w(24),
               ),
-              const SizedBox(width: 4),
+               SizedBox(width: SizeConfig.w(4) ),
               Text(
                 value,
 
@@ -53,7 +53,7 @@ class MetricCard extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 4),
+           SizedBox(height:SizeConfig.h(4) ),
 
           // التسمية تحت (مركزة)
           Text(

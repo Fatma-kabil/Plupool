@@ -16,8 +16,17 @@ class ActionsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
+          RoundedShadowContainer(
+          ontap: () => context.push('/searchview'),
+          child: Icon(
+            Icons.search,
+            color: AppColors.kprimarycolor,
+            size: SizeConfig.w(20),
+          ),
+        ),
+          SizedBox(width:SizeConfig.w(7) ),
         // 🛒 سلة المشتريات
         RoundedShadowContainer(
           ontap: () => context.push('/cartview'),
@@ -37,17 +46,10 @@ class ActionsRow extends StatelessWidget {
             ],
           ),
         ),
-         SizedBox(width:SizeConfig.w(7) ),
+       
 
         // 🔍 البحث
-        RoundedShadowContainer(
-          ontap: () => context.push('/searchview'),
-          child: Icon(
-            Icons.search,
-            color: AppColors.kprimarycolor,
-            size: SizeConfig.w(20),
-          ),
-        ),
+      
       ],
     );
   }

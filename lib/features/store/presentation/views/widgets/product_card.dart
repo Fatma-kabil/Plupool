@@ -59,7 +59,7 @@ class ProductCard extends StatelessWidget {
                       if (badgeText != null)
                         Positioned(
                           top: SizeConfig.h(8),
-                          right: SizeConfig.w(8),
+                          left: SizeConfig.w(8),
                           child: Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: SizeConfig.w(9),
