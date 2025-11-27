@@ -20,9 +20,9 @@ class OnboardingIndicator extends StatelessWidget {
         length,
         (i) => AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          margin: const EdgeInsets.symmetric(horizontal: 2),
+          margin:  EdgeInsets.symmetric(horizontal: SizeConfig.w(2) ),
           width: SizeConfig.w(28),
-          height: SizeConfig.w(3),
+          height: SizeConfig.h(3),
           decoration: BoxDecoration(
             color: currentIndex == i
                 ? AppColors.kprimarycolor

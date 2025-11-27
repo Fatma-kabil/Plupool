@@ -11,6 +11,7 @@ class PrivcyViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -49,6 +50,7 @@ class PrivcyViewBody extends StatelessWidget {
                 vertical: SizeConfig.h(15),
               ),
               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SupportExpandableCard(
                     question: "البيانات التي نجمعها",
@@ -59,19 +61,21 @@ class PrivcyViewBody extends StatelessWidget {
                           "الاسم ، رقم الموبايل ، بيانات حمام السباحة (إن وُجدت) ، سجل الخدمات والمشتريات",
                           style: AppTextStyles.styleMedium16(
                             context,
-                          ).copyWith(color: Color(0xff999999)),
+                          ).copyWith(color: Color(0xff999999),height: 1.9),
                         ),
+                        SizedBox(height: SizeConfig.h(5)),
                         Text(
                           "ملاحظة:",
                           style: AppTextStyles.styleMedium16(
                             context,
                           ).copyWith(color: AppColors.ktextcolor),
                         ),
+                        SizedBox(height: SizeConfig.h(5)),
                         Text(
                           " تسجيل الدخول بيتم باستخدام رقم الموبايل وكود التحقق (OTP) فقط، بدون كلمة مرور علشان نضمن أسرع وأأمن طريقة دخول.",
                           style: AppTextStyles.styleMedium16(
                             context,
-                          ).copyWith(color: Color(0xff999999)),
+                          ).copyWith(color: Color(0xff999999),height: 1.9),
                         ),
                       ],
                     ),
@@ -79,44 +83,38 @@ class PrivcyViewBody extends StatelessWidget {
                   SizedBox(height: SizeConfig.h(15)),
                   SupportExpandableCard(
                     question: "  كيف نحمي معلوماتك؟",
-                    answer: Column(
-                      children: [
-                        Text(
-                          "• بنستخدم طرق تشفير حديثة لحماية بياناتك أثناء الإرسال والاستقبال.\n"
-                          "• بنمنع أي حد غير مخوّل من الوصول لبيانات حسابك.\n"
-                          "• بنراقب النظام باستمرار لضمان عدم حدوث أي نشاط مش طبيعي.",
-                          style: AppTextStyles.styleMedium16(
-                            context,
-                          ).copyWith(color: Color(0xff999999)),
-                        ),
-                      ],
+                    answer: Text(
+                      "• بنستخدم طرق تشفير حديثة لحماية بياناتك أثناء الإرسال والاستقبال.\n"
+                      "• بنمنع أي حد غير مخوّل من الوصول لبيانات حسابك.\n"
+                      "• بنراقب النظام باستمرار لضمان عدم حدوث أي نشاط مش طبيعي.",
+                      style: AppTextStyles.styleMedium16(
+                        context,
+                      ).copyWith(color: Color(0xff999999),height: 1.9),
                     ),
                   ),
                     SizedBox(height: SizeConfig.h(15)),
                   SupportExpandableCard(
                     question: "عدم مشاركة البيانات",
-                    answer: Column(
-                      children: [
-                        Text(
-                         "لا نقوم بمشاركة أو بيع أي بيانات شخصية إلى أي جهة خارجية.\n البيانات تُستخدم فقط داخل نظام Plupool بشكل آمن ومشفر.",
-                           style: AppTextStyles.styleMedium16(
-                            context,
-                          ).copyWith(color: Color(0xff999999)),
-                        ),
-                      ],
+                    answer: Text(
+                     "لا نقوم بمشاركة أو بيع أي بيانات شخصية إلى أي جهة خارجية.\n البيانات تُستخدم فقط داخل نظام Plupool بشكل آمن ومشفر.",
+                       style: AppTextStyles.styleMedium16(
+                        context,
+                      ).copyWith(color: Color(0xff999999),height: 1.9),
                     ),
                   ),
                    SizedBox(height: SizeConfig.h(15)),
                   SupportExpandableCard(
                     question: "استخدام البيانات",
                     answer: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                          Text(
                           "بياناتك بنستخدمها فقط عشان:",
-                          style: AppTextStyles.styleRegular16(
+                          style: AppTextStyles.styleMedium16(
                             context,
                           ).copyWith(color: Color(0xff555555)),
                         ),
+                        SizedBox(height: SizeConfig.h(5)),
                         Text(
                           "•  نأكد هويتك عند تسجيل الدخول.\n"
                           "•  نعرف نوصلك بالخدمة المناسبة.\n"
@@ -124,7 +122,7 @@ class PrivcyViewBody extends StatelessWidget {
                            "•  نقدر نطوّر التجربة وجودة الخدمات داخل التطبيق.\n",
                           style: AppTextStyles.styleMedium16(
                             context,
-                          ).copyWith(color: Color(0xff999999)),
+                          ).copyWith(color: Color(0xff999999),height: 1.9),
                         ),
                       ],
                     ),
@@ -133,20 +131,22 @@ class PrivcyViewBody extends StatelessWidget {
                   SupportExpandableCard(
                     question: " التحكم الكامل في حسابك",
                     answer: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                          Text(
                           "تقدر في أي وقت:",
-                          style: AppTextStyles.styleRegular16(
+                          style: AppTextStyles.styleMedium16(
                             context,
                           ).copyWith(color: Color(0xff555555)),
                         ),
+                        SizedBox(height: SizeConfig.h(5)),
                         Text(
                           "•  تعدّل بياناتك.\n"
                           "•  تطلب حذف حسابك بالكامل.\n",
                          
                           style: AppTextStyles.styleMedium16(
                             context,
-                          ).copyWith(color: Color(0xff999999)),
+                          ).copyWith(color: Color(0xff999999),height: 1.9),
                         ),
                       ],
                     ),
@@ -159,7 +159,7 @@ class PrivcyViewBody extends StatelessWidget {
                      
                       style: AppTextStyles.styleMedium16(
                         context,
-                      ).copyWith(color: Color(0xff999999)),
+                      ).copyWith(color: Color(0xff999999),height: 1.9),
                     ),
                   ),
                 ],

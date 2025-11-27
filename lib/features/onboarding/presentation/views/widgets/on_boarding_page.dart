@@ -16,7 +16,7 @@ class OnboardingPage extends StatelessWidget {
       children: [
         Image.asset(
           item.image,
-          fit: BoxFit.cover, // تملى الشاشة
+          fit: BoxFit.fill, // تملى الشاشة
         ),
         Positioned(
           top: SizeConfig.h(505),

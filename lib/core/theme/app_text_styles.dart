@@ -3,6 +3,18 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class AppTextStyles {
+  static TextStyle styleBold42(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 47 : 42,
+      ),
+      fontWeight: FontWeight.w700,
+      color: Color(0xff0077B6),
+      letterSpacing: 2,
+    );
+  }
+
   static TextStyle styleBold20(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
@@ -68,14 +80,15 @@ class AppTextStyles {
       color: Color(0xffFFFFFF),
     );
   }
-   static TextStyle styleSemiBold15(BuildContext context) {
+
+  static TextStyle styleSemiBold15(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
         fontSize: SizeConfig.isWideScreen ? 20 : 15,
       ),
       fontWeight: FontWeight.w600,
-      color:AppColors.kprimarycolor,
+      color: AppColors.kprimarycolor,
     );
   }
 
@@ -87,7 +100,7 @@ class AppTextStyles {
       ),
       fontWeight: FontWeight.w600,
       color: Color(0xff525252),
-      height: 1.6
+      height: 1.6,
     );
   }
 

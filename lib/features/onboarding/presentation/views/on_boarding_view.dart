@@ -34,6 +34,7 @@ class _OnboardViewState extends State<OnboardView> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -50,15 +51,16 @@ class _OnboardViewState extends State<OnboardView> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: SizeConfig.h(30)),
+              padding: EdgeInsets.only(bottom: SizeConfig.h(15),),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+              //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   OnboardingIndicator(
                     length: onboardingItems.length,
                     currentIndex: index,
                   ),
-                  const SizedBox(height: 16),
+                   SizedBox(height: SizeConfig.h(22) ),
                   OnboardingControls(onNext: _nextPage, onSkip: _skip),
                 ],
               ),

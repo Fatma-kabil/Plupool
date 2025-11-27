@@ -5,7 +5,10 @@ class DoubleWavePainter extends CustomPainter {
   final double horizontalPhase;
   final double fillPercent;
 
-  DoubleWavePainter({required this.horizontalPhase, required this.fillPercent});
+  DoubleWavePainter({
+    required this.horizontalPhase,
+    required this.fillPercent,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -14,6 +17,7 @@ class DoubleWavePainter extends CustomPainter {
 
     Path circlePath = Path()
       ..addOval(Rect.fromCircle(center: center, radius: radius));
+
     canvas.save();
     canvas.clipPath(circlePath);
 
@@ -24,7 +28,7 @@ class DoubleWavePainter extends CustomPainter {
       size: size,
       baseY: baseY,
       horizontalPhase: -horizontalPhase * 1.2,
-      amplitude: 6.0,
+      amplitude: size.height * 0.07,
       waveCount: 1,
       color1: const Color(0x8800B4D8),
       color2: const Color(0x8800B4D8),
@@ -35,7 +39,7 @@ class DoubleWavePainter extends CustomPainter {
       size: size,
       baseY: baseY,
       horizontalPhase: horizontalPhase,
-      amplitude: 10.0,
+      amplitude: size.height * 0.11,
       waveCount: 1,
       color1: const Color(0xff0077B6),
       color2: const Color(0xff0077B6),
@@ -43,17 +47,19 @@ class DoubleWavePainter extends CustomPainter {
 
     canvas.restore();
 
-    final Paint borderPaintWhite = Paint()
+    final Paint borderWhite = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 18;
-    canvas.drawCircle(center, radius, borderPaintWhite);
+      ..strokeWidth = size.width * 0.18;
 
-    final Paint borderPaintBlue = Paint()
+    canvas.drawCircle(center, radius, borderWhite);
+
+    final Paint borderBlue = Paint()
       ..color = const Color(0xff0077B6)
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 5;
-    canvas.drawCircle(center, radius, borderPaintBlue);
+      ..strokeWidth = size.width * 0.055;
+
+    canvas.drawCircle(center, radius, borderBlue);
   }
 
   void _drawWave({

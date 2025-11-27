@@ -47,7 +47,9 @@ class OwnerProfileBody extends StatelessWidget {
           ProfileOption(
             title: 'لماذا نحن؟',
             icon: Icons.info_outline,
-            onTap: () {},
+            onTap: () {
+                context.push('/whyusview');
+            },
           ),
          SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
 
