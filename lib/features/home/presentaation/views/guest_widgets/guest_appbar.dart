@@ -10,9 +10,63 @@ class GuestAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      
       children: [
         // 🔔 أيقونة الإشعارات
     
+
+      
+
+        // 👤 النصوص + الصورة
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                 Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(color: AppColors.kprimarycolor),
+                  ),
+                  child: Padding(
+                     padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(4) , vertical: SizeConfig.w(4)),
+                    child: SvgPicture.asset(
+                      "assets/icons/user.svg",
+                      width: SizeConfig.w(18),
+                      height: SizeConfig.w(18),
+                    ),
+                  ),
+                ),
+                  SizedBox(width: SizeConfig.w(5)),
+                Text(
+                  "مستخدم123",
+                  style: AppTextStyles.styleSemiBold16(
+                    context,
+                  ).copyWith(color: AppColors.ktextcolor),
+                ),
+              
+               
+              ],
+            ),
+            SizedBox(height:SizeConfig.h(2) ),
+            //    const SizedBox(height: 4),
+            Row(
+              
+              children: [
+                   SizedBox(width:SizeConfig.w(12) ),
+                Text(
+                  role,
+                  style: AppTextStyles.styleRegular13(
+                    context,
+                  ).copyWith(color: AppColors.kprimarycolor),
+                ),
+              
+              ],
+            ),
+          ],
+        ),
+          const Spacer(),
         
         GestureDetector(
           onTap: () {},
@@ -37,54 +91,6 @@ class GuestAppbar extends StatelessWidget {
               ),
             ),
           ),
-        ),
-
-        const Spacer(),
-
-        // 👤 النصوص + الصورة
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Row(
-              children: [
-                Text(
-                  "مستخدم123",
-                  style: AppTextStyles.styleSemiBold16(
-                    context,
-                  ).copyWith(color: AppColors.ktextcolor),
-                ),
-                SizedBox(width: SizeConfig.w(5)),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(color: AppColors.kprimarycolor),
-                  ),
-                  child: Padding(
-                     padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(4) , vertical: SizeConfig.w(4)),
-                    child: SvgPicture.asset(
-                      "assets/icons/user.svg",
-                      width: SizeConfig.w(18),
-                      height: SizeConfig.w(18),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 2),
-            //    const SizedBox(height: 4),
-            Row(
-              children: [
-                Text(
-                  role,
-                  style: AppTextStyles.styleRegular13(
-                    context,
-                  ).copyWith(color: AppColors.kprimarycolor),
-                ),
-                const SizedBox(width: 12),
-              ],
-            ),
-          ],
         ),
       ],
     );

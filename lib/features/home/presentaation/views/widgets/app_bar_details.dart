@@ -20,6 +20,7 @@ class AppBarDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Row(
+          
           children: [
             Text(
               "أهلاً ${model.fullName.split(" ").first}",

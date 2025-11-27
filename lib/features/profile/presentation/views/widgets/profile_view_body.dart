@@ -14,32 +14,13 @@ class ProfileViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SelectRoleCubit, SelectRoleState>(
-      builder: (context, state) {
-        if (state is GetRoleLoading || state is SelectRoleInitial) {
-          return CustomLoadingIndecator();
-        } else if (state is GetRoleSuccess) {
-          final role = state.roleName;
-    
-          if (role.contains("حمام")) {
-            return const OwnerProfileBody();
-          } else if (role.contains("فني")) {
-            return const TechProfileBody();
-          } else if (role.contains("شركة") || role.contains("مطور")) {
-            return const CompanyProfileBody();
-          } else {
-            return
-            //  showCustomSnackBar(context: context, message: message)
-            const Center(child: Text("لم يتم تحديد الدور"));
-          }
-        } else if (state is GetRoleEmpty) {
-          return const Center(child: Text("لم يتم حفظ أي دور"));
-        } else {
-          return const Center(
-            child: Text("حدث خطأ أثناء تحميل البيانات"),
-          );
-        }
-      },
-    );
+    return 
+               //    OwnerProfileBody();
+          
+           TechProfileBody();
+       //   CompanyProfileBody();
+
+           
+          
   }
 }

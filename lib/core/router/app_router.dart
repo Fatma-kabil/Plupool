@@ -6,6 +6,7 @@ import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
 import 'package:plupool/features/profile/presentation/views/delete_account_view.dart';
+import 'package:plupool/features/profile/presentation/views/help_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_details_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_edit_view.dart';
 import 'package:plupool/features/search/presentation/views/search_view.dart';
@@ -28,7 +29,7 @@ import 'package:plupool/features/tasks/presentation/views/maintenance_update_vie
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/splasherapper',
+      path: '/',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -159,9 +160,14 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) => buildTransitionPage(const ProfileEditView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/deleteaccountview',
       name: 'deleteaccountview',
       pageBuilder: (context, state) => buildTransitionPage(const DeleteAccountView()),
+    ),
+     GoRoute(
+      path: '/helpview',
+      name: 'helpview',
+      pageBuilder: (context, state) => buildTransitionPage(const HelpView()),
     ),
   ],
 );

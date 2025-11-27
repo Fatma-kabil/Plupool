@@ -28,7 +28,9 @@ class TechProfileBody extends StatelessWidget {
           ProfileOption(
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
-            onTap: () {},
+            onTap: () {
+              context.push('/helpview');
+            },
           ),
           SizedBox(
             height: SizeConfig.isWideScreen

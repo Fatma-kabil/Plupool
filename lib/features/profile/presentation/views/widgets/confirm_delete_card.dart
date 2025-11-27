@@ -55,7 +55,11 @@ class ConfirmDeleteCard extends StatelessWidget {
                       context.pop();
                     },
                     child: Padding(
-                      padding:  EdgeInsets.symmetric(vertical:SizeConfig.isWideScreen? SizeConfig.h(6):SizeConfig.h(0) ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: SizeConfig.isWideScreen
+                            ? SizeConfig.h(6)
+                            : SizeConfig.h(0),
+                      ),
                       child: Text(
                         "لا",
                         style: AppTextStyles.styleMedium16(
@@ -75,23 +79,29 @@ class ConfirmDeleteCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        barrierDismissible:
-                            false, // يمنع الإغلاق بالضغط خارج الكارد
-                        builder: (context) => const DeleteAccountDoneCard(),
-                      );
-                      context.pop(); // قفل كارد التأكيد الحالي
+                      context.pop(); // يقفل الكارد الحالي
+
+                      Future.delayed(Duration(milliseconds: 50), () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (_) => const DeleteAccountDoneCard(),
+                        );
+                      });
                     },
                     child: Padding(
-                        padding:  EdgeInsets.symmetric(vertical:SizeConfig.isWideScreen? SizeConfig.h(6):SizeConfig.h(0) ),
+                      padding: EdgeInsets.symmetric(
+                        vertical: SizeConfig.isWideScreen
+                            ? SizeConfig.h(6)
+                            : SizeConfig.h(0),
+                      ),
                       child: Text(
                         "نعم",
                         style: AppTextStyles.styleMedium16(
                           context,
                         ).copyWith(color: Colors.white),
                         textAlign: TextAlign.center,
-                      textDirection: TextDirection.rtl,
+                        textDirection: TextDirection.rtl,
                       ),
                     ),
                   ),

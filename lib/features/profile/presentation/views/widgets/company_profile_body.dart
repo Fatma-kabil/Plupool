@@ -36,7 +36,9 @@ class CompanyProfileBody extends StatelessWidget {
           ProfileOption(
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
-            onTap: () {},
+            onTap: () {
+               context.push('/helpview');
+            },
           ),
            SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
           ProfileOption(
