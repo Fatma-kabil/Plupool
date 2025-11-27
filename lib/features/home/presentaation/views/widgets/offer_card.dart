@@ -28,7 +28,7 @@ class OfferCard extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, authState) {
         return Container(
-          margin: EdgeInsets.only(right: SizeConfig.w(15)),
+          margin: EdgeInsets.only(left: SizeConfig.w(15)),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: const Color(0xffAAAAAA).withOpacity(.5)),
@@ -40,7 +40,7 @@ class OfferCard extends StatelessWidget {
               vertical: SizeConfig.h(13),
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
@@ -56,7 +56,7 @@ class OfferCard extends StatelessWidget {
                       ),
                       Positioned(
                         top: SizeConfig.h(12),
-                        right: SizeConfig.w(12),
+                        left: SizeConfig.w(12),
                         child: Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: SizeConfig.w(9),
@@ -92,7 +92,7 @@ class OfferCard extends StatelessWidget {
                   offer.desc,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  textDirection: TextDirection.rtl,
+                 // textDirection: TextDirection.rtl,
                   style: AppTextStyles.styleRegular16(context)
                       .copyWith(color: AppColors.ktextcolor),
                 ),
@@ -100,7 +100,7 @@ class OfferCard extends StatelessWidget {
                 SizedBox(height: SizeConfig.h(10)),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+              
                   children: [
                     Text(
                       offer.oldPrice,

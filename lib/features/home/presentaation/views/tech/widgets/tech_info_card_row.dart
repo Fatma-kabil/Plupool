@@ -18,21 +18,20 @@ class TechInfoCardRow extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
+              Expanded(
               flex: 1,
               child: MetricCard(
-                icon: "assets/icons/tasks.svg",
-                value: isGuest ? "لا يوجد" : "119",
-                valueTextStyle: isGuest
+                icon: "assets/icons/Rating.svg",
+                value: isGuest ? "0" : "4.8",
+                label: 'التقييم',
+                 valueTextStyle: isGuest
                     ? AppTextStyles.styleBold16(context).copyWith(
                         color: Color(0xff555555),
                       ) // استايل الجست
-                    : null, // استايل الافتراضي داخل MetricCard
-
-                label: 'مهام مكتملة',
+                    : null, 
               ),
             ),
-
+           
             SizedBox(width: SizeConfig.w(6)),
 
             Expanded(
@@ -51,19 +50,21 @@ class TechInfoCardRow extends StatelessWidget {
 
             SizedBox(width: SizeConfig.w(6)),
 
-            Expanded(
+           Expanded(
               flex: 1,
               child: MetricCard(
-                icon: "assets/icons/Rating.svg",
-                value: isGuest ? "0" : "4.8",
-                label: 'التقييم',
-                 valueTextStyle: isGuest
+                icon: "assets/icons/tasks.svg",
+                value: isGuest ? "لا يوجد" : "119",
+                valueTextStyle: isGuest
                     ? AppTextStyles.styleBold16(context).copyWith(
                         color: Color(0xff555555),
                       ) // استايل الجست
-                    : null, 
+                    : null, // استايل الافتراضي داخل MetricCard
+
+                label: 'مهام مكتملة',
               ),
             ),
+
           ],
         );
       },

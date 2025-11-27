@@ -13,7 +13,7 @@ class ProjectCard extends StatelessWidget {
       children: [
         /// الصورة الخلفية
         Container(
-      margin:  EdgeInsets.only(right: SizeConfig.w(10)),
+      margin:  EdgeInsets.only(left: SizeConfig.w(10)),
           width: double.infinity,
           height: SizeConfig.isWideScreen?SizeConfig.w(215): SizeConfig.h(230),
           
@@ -29,7 +29,7 @@ class ProjectCard extends StatelessWidget {
 
         /// طبقة سودة شفافة فوق الصورة
         Container(
-          margin:  EdgeInsets.only(right:SizeConfig.w(10) ),
+          margin:  EdgeInsets.only(left:SizeConfig.w(10) ),
           width: double.infinity,
           height: SizeConfig.isWideScreen?SizeConfig.w(215): SizeConfig.h(230),
           decoration: BoxDecoration(
@@ -41,10 +41,10 @@ class ProjectCard extends StatelessWidget {
         /// النصوص
         Positioned(
           bottom:SizeConfig.h(13) ,
-          right: SizeConfig.w(23),
-          left: SizeConfig.w(50),
+        //  left: SizeConfig.w(23),
+          right: SizeConfig.w(15),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 projects.title,

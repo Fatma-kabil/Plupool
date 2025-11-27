@@ -15,7 +15,7 @@ class OfferSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     print("🔥 ROLE INSIDE CARD = $role");
+    
     return Column(
       children: [
         Row(
