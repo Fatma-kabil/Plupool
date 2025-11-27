@@ -21,7 +21,8 @@ class NoteTextField extends StatelessWidget {
       cursorColor: AppColors.kprimarycolor,
       controller: controller,
       maxLines: 5,
-      textAlign: TextAlign.right,
+     // textDirection: TextDirection.rtl,
+     // textAlign: TextAlign.right,
       style: AppTextStyles.styleMedium16(
           context,
         ).copyWith(color: AppColors.ktextcolor),
@@ -33,16 +34,19 @@ class NoteTextField extends StatelessWidget {
         border: InputBorder.none,
         contentPadding: const EdgeInsets.all(8),
         hint: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+         textDirection: TextDirection.rtl,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+             SvgPicture.asset('assets/icons/notes.svg',height: SizeConfig.h(size??16),width: SizeConfig.w(size??16),),
+              SizedBox(width:SizeConfig.w(4) ),
             Text(
               textDirection: TextDirection.rtl,
               'أكتب ملاحظاتك هنا.....',
               style: AppTextStyles.styleRegular13(context)
                   .copyWith(color: AppColors.hintTextColor),
             ),
-             SizedBox(width:SizeConfig.w(4) ),
-            SvgPicture.asset('assets/icons/notes.svg',height: SizeConfig.h(size??16),width: SizeConfig.w(size??16),),
+            
+           
           ],
         ),
       ),

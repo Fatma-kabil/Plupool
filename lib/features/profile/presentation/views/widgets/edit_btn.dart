@@ -16,17 +16,18 @@ class EditButton extends StatelessWidget {
       height: SizeConfig.h(46),
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon ??
-          Icons.edit_document,
-          color: Colors.white,
-          size: SizeConfig.w(18),
-        ),
         label: Text(
          tittle?? 'تعديل المعلومات',
           style: AppTextStyles.styleSemiBold16(
             context,
           ).copyWith(color: Colors.white),
         ),
+        icon: Icon(icon ??
+          Icons.edit_document,
+          color: Colors.white,
+          size: SizeConfig.w(18),
+        ),
+        
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.kprimarycolor,
           shape: RoundedRectangleBorder(
