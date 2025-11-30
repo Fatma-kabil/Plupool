@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -24,7 +25,10 @@ class HelpViewBody extends StatelessWidget {
           ),
 
           SizedBox(height: SizeConfig.h(15)),
-          const FaqSection(),
+           FaqSection( 
+            items:ownerQes
+            // techQes
+           ),
           SizedBox(height: SizeConfig.h(35)),
 
           SupportContactCard(

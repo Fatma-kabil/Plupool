@@ -46,8 +46,8 @@ class PrivcyViewBody extends StatelessWidget {
             ),
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.w(10),
-                vertical: SizeConfig.h(15),
+                horizontal: SizeConfig.w(15),
+                vertical: SizeConfig.h(20),
               ),
               child: Column(
                  crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/profile/data/models/faq_item.dart';
 
 class FaqSection extends StatefulWidget {
-  const FaqSection({super.key});
+   FaqSection({super.key, required this.items});
+  final List  <FaqItem> items;
 
   @override
   State<FaqSection> createState() => _FaqSectionState();
@@ -15,7 +16,7 @@ class _FaqSectionState extends State<FaqSection> {
 
   @override
   void initState() {
-    expanded = List.generate(techQes.length, (_) => false);
+    expanded = List.generate(widget.items.length, (_) => false);
     super.initState();
   }
 
@@ -42,9 +43,9 @@ class _FaqSectionState extends State<FaqSection> {
         
         shrinkWrap: true, // مهم
         physics: NeverScrollableScrollPhysics(), // مهم
-        padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(12),vertical: SizeConfig.h(14)),
+        padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(15),vertical: SizeConfig.h(14)),
         itemBuilder: (context, index) {
-          final item = techQes[index];
+          final item =widget.items[index];
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,14 +90,14 @@ class _FaqSectionState extends State<FaqSection> {
                     item.answer,
                     style: AppTextStyles.styleMedium16(
                       context,
-                    ).copyWith(color: Color(0xff999999)),
+                    ).copyWith(color: Color(0xff999999),height: 1.9),
                   ),
                 ),
             ],
           );
         },
         separatorBuilder: (_, __) => SizedBox(height: SizeConfig.h(12)),
-        itemCount: techQes.length,
+        itemCount:widget.items.length,
       ),
     );
   }
