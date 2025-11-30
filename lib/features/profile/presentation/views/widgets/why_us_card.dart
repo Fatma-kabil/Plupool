@@ -68,7 +68,7 @@ class WhyUsCard extends StatelessWidget {
                   textDirection: TextDirection.rtl,
                   style: AppTextStyles.styleRegular14(
                     context,
-                  ).copyWith(color: Color(0xff999999)),
+                  ).copyWith(color: Color(0xff999999),height: 1.9),
                 ),
               ],
             ),
