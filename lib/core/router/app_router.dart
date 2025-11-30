@@ -177,7 +177,11 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) => buildTransitionPage(const PrivacyView()),
     ),
      GoRoute(
+<<<<<<< HEAD
       path: '/whyusview',
+=======
+      path: '/',
+>>>>>>> 98565dbd5015da4e40affac2d477d3c3ef2ca5ba
       name: 'whyusview',
       pageBuilder: (context, state) => buildTransitionPage(const WhyUsView()),
     ),
