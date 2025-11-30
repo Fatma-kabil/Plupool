@@ -66,7 +66,7 @@ class _FaqSectionState extends State<FaqSection> {
                           item.question,
                           style: AppTextStyles.styleMedium16(
                             context,
-                          ).copyWith(color: Color(0xff777777)),
+                          ).copyWith(color: Color(0xff333333)),
                         ),
                       ),
                   

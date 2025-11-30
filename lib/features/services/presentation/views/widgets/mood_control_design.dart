@@ -54,28 +54,30 @@ class _MoodControlsDesignState extends State<MoodControlsDesign> {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.auto_awesome,
-                      size: SizeConfig.w(20),
-                      color: Colors.orange.shade300,
-                    ),
-                     SizedBox(width: SizeConfig.w(6)),
-                    Text(
+                     Text(
                       "قادمة قريبًا",
                       style: AppTextStyles.styleRegular16(
                         context,
                       ).copyWith(color: const Color(0xff777777)),
                     ),
+                      SizedBox(width: SizeConfig.w(6)),
+                    Icon(
+                      Icons.auto_awesome,
+                      size: SizeConfig.w(20),
+                      color: Colors.orange.shade300,
+                    ),
+                   
+                   
                   ],
                 ),
-                const SizedBox(height: 17),
+                 SizedBox(height:SizeConfig.h(17) ),
 
                  // Mood Buttons
                 MoodButtonsRow(
                   selectedIndex: selectedIndex,
                   onSelected: (i) => setState(() => selectedIndex = i),
                 ),
-                const SizedBox(height: 27),
+                 SizedBox(height: SizeConfig.h(27)),
 
                 // Lighting
                 

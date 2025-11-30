@@ -44,24 +44,7 @@ class ServiceCard extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(title, style: AppTextStyles.styleMedium20(context)),
-                     SizedBox(height: SizeConfig.h(8)),
-                    Text(
-                      description,
-                      textDirection: TextDirection.rtl,
-                      style: AppTextStyles.styleRegular16(
-                        context,
-                      ).copyWith(color: const Color(0xff777777)),
-                    ),
-                  ],
-                ),
-              ),
-               SizedBox(width:SizeConfig.w(24) ),
-             CircleAvatar(
+                CircleAvatar(
   radius:SizeConfig.isWideScreen? SizeConfig.w(14): SizeConfig.h(18),// 👈 يكبّر الـ Avatar
   backgroundColor: const Color(0xffCCE4F0),
   child: Padding(
@@ -77,6 +60,25 @@ class ServiceCard extends StatelessWidget {
     ),
   ),
 ),
+  SizedBox(width:SizeConfig.w(24) ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title, style: AppTextStyles.styleMedium20(context)),
+                     SizedBox(height: SizeConfig.h(8)),
+                    Text(
+                      description,
+                     
+                      style: AppTextStyles.styleRegular16(
+                        context,
+                      ).copyWith(color: const Color(0xff777777)),
+                    ),
+                  ],
+                ),
+              ),
+             
+           
 
             ],
           ),

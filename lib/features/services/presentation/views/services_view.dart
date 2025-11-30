@@ -15,7 +15,7 @@ class ServicesView extends StatelessWidget {
       child: Padding(
         padding:  EdgeInsets.only(top:SizeConfig.h(60) , left:SizeConfig.w(16) , right: SizeConfig.h(16)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               'اختر الخدمة المناسبة لك',
@@ -23,7 +23,7 @@ class ServicesView extends StatelessWidget {
                 context,
               ).copyWith(color: AppColors.ktextcolor),
             ),
-            const SizedBox(height: 28),
+             SizedBox(height:SizeConfig.h(28) ),
 
             // ====== إنشاء حمامات سباحة ======
             ServiceCard(
@@ -36,7 +36,7 @@ class ServicesView extends StatelessWidget {
               },
             ),
 
-            const SizedBox(height: 55),
+             SizedBox(height: SizeConfig.h(55)),
 
             // ====== صيانة حمام سباحة ======
             ServiceCard(
@@ -50,9 +50,9 @@ class ServicesView extends StatelessWidget {
               },
             ),
 
-            const SizedBox(height: 63),
+             SizedBox(height: SizeConfig.h(63)),
             const MoodControlsDesign(),
-            const SizedBox(height: 70),
+             SizedBox(height: SizeConfig.h(70)),
           ],
         ),
       ),

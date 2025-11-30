@@ -167,7 +167,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) => buildTransitionPage(const DeleteAccountView()),
     ),
      GoRoute(
-      path: '/',
+      path: '/helpview',
       name: 'helpview',
       pageBuilder: (context, state) => buildTransitionPage(const HelpView()),
     ),
@@ -178,7 +178,7 @@ final GoRouter appRouter = GoRouter(
     ),
      GoRoute(
 
-      path: '/whyusview',
+      path: '/',
       name: 'whyusview',
       pageBuilder: (context, state) => buildTransitionPage(const WhyUsView()),
     ),
