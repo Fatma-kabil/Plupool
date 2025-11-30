@@ -11,39 +11,23 @@ class CommentInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        /// زر الإرسال (طائرة ورقية)
-        Container(
-          width: SizeConfig.w(35),
-          height: SizeConfig.w(35),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xff0077B6), // أزرق
-          ),
-          child: Center(
-            // 🔹 هنا بيخلي الأيقونة تتوسّط
-            child: SvgPicture.asset(
-              'assets/icons/Send.svg',
-              width: SizeConfig.w(18), // صغّري/كبّري على حسب اللي يظبط
-              height: SizeConfig.w(18),
-              colorFilter: const ColorFilter.mode(
-                Colors.white,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
+          /// صورة البروفايل
+         CircleAvatar(
+          radius:SizeConfig.w(18) ,
+          backgroundImage: AssetImage("assets/images/customer_user.png"),
         ),
-        SizedBox(width:SizeConfig.w(12) ),
-
-        /// TextField
+                SizedBox(width:SizeConfig.w(12) ),
+                        /// TextField
         Expanded(
           child: TextField(
+          
             cursorColor: AppColors.kprimarycolor,
             textAlign: TextAlign.right,
-    
+              
             decoration: InputDecoration(
               isDense: true,
               
-              hintText: "...اكتب تعليقك هنا",
+              hintText: "اكتب تعليقك هنا...",
               hintStyle: AppTextStyles.styleRegular13(
                 context,
               ).copyWith(color: const Color(0xffBBBBBB)),
@@ -75,14 +59,35 @@ class CommentInput extends StatelessWidget {
             ),
           ),
         ),
-
         SizedBox(width:SizeConfig.w(12) ),
-
-        /// صورة البروفايل
-         CircleAvatar(
-          radius:SizeConfig.w(18) ,
-          backgroundImage: AssetImage("assets/images/customer_user.png"),
+        /// زر الإرسال (طائرة ورقية)
+        Container(
+          width: SizeConfig.w(35),
+          height: SizeConfig.w(35),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xff0077B6), // أزرق
+          ),
+          child: Center(
+            // 🔹 هنا بيخلي الأيقونة تتوسّط
+            child: SvgPicture.asset(
+              'assets/icons/Send.svg',
+              width: SizeConfig.w(18), // صغّري/كبّري على حسب اللي يظبط
+              height: SizeConfig.w(18),
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
+            ),
+          ),
         ),
+        
+
+
+
+
+
+      
       ],
     );
   }

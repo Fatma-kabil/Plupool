@@ -126,14 +126,14 @@ final List<ReviewCardModel> reviews = [
     name: "Ahmed Hassan",
     avatarUrl: "assets/images/user1.png",
     rating: 5,
-    timeAgo: "2 days ago",
+    timeAgo: "يومين",
     comment: "خدمة ممتازة وفريق محترف جدًا",
   ),
   ReviewCardModel(
     name: "Ali Ahmed",
     avatarUrl: "assets/images/user2.png",
     rating: 4,
-    timeAgo: "3 days ago",
+    timeAgo: "3 ايام",
     comment: "جودة عالية في التنفيذ والمتابعة",
   ),
 ];

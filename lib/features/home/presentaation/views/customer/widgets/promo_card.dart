@@ -15,7 +15,7 @@ class PromoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:  EdgeInsets.only(right: SizeConfig.w(11) ),
+      margin:  EdgeInsets.only(left: SizeConfig.w(11) ),
       decoration: BoxDecoration(
         color: model.cardcolor,
         borderRadius: BorderRadius.circular(10),
@@ -32,8 +32,15 @@ class PromoCard extends StatelessWidget {
               children: [
                 // أيقونة + عنوان
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                     SvgPicture.asset(
+                      model.iconPath,
+                      width: SizeConfig.w(20),
+                      height: SizeConfig.w(20),
+                      color: model.textcolor,
+                    ),
+                      SizedBox(width: SizeConfig.w(4) ),
                     Text(
                       model.title,
                       textDirection: TextDirection.rtl,
@@ -41,13 +48,8 @@ class PromoCard extends StatelessWidget {
                         context,
                       ).copyWith(color: model.titlecolor),
                     ),
-                     SizedBox(width: SizeConfig.w(4) ),
-                    SvgPicture.asset(
-                      model.iconPath,
-                      width: SizeConfig.w(20),
-                      height: SizeConfig.w(20),
-                      color: model.textcolor,
-                    ),
+                   
+                   
                   ],
                 ),
                 const SizedBox(height: 12),

@@ -11,7 +11,7 @@ class ReviewSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "تقييم الخدمة من عملائنا  ",
@@ -22,25 +22,27 @@ class ReviewSection extends StatelessWidget {
         const SizedBox(height: 12),
 
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
-              children: List.generate(
+           children:[    Text(
+              "قيّم تجربتك معنا",
+              style: AppTextStyles.styleSemiBold16(
+                context,
+              ).copyWith(color: Color(0xff555555)),
+            ),
+             SizedBox(width:SizeConfig.w(34) ),
+              ... List.generate(
                 5,
                 (index) => Icon(
                   Icons.star_border,
                   color: Color(0xffFFD423), // لون النجمة دهبي
                   size: SizeConfig.w(18),
                 ),
-              ),
+              ),]
             ),
-            SizedBox(width:SizeConfig.w(34) ),
-            Text(
-              "قيّم تجربتك معنا",
-              style: AppTextStyles.styleSemiBold16(
-                context,
-              ).copyWith(color: Color(0xff555555)),
-            ),
+           
+           
           ],
         ),
         const SizedBox(height: 20),

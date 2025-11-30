@@ -26,7 +26,7 @@ class SupportContactCard extends StatelessWidget {
         horizontal: SizeConfig.w(12),
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.kScaffoldColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(

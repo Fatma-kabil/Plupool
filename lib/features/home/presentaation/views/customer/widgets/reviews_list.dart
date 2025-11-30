@@ -24,6 +24,14 @@ class _ReviewsListState extends State<ReviewsList> {
         Row(
          
           children: [
+             Text(
+              textDirection: TextDirection.rtl,
+              " 5تعليقات",
+              style: AppTextStyles.styleRegular16(
+                context,
+              ).copyWith(color: Color(0xff555555)),
+            ),
+            Spacer(),
             /// Dropdown للأجدد
             FilterOption(
               value: selected,
@@ -36,16 +44,10 @@ class _ReviewsListState extends State<ReviewsList> {
                 }
               },
             ),
-            Spacer(),
+
 
             /// عدد التعليقات
-            Text(
-              textDirection: TextDirection.rtl,
-              " 5تعليقات",
-              style: AppTextStyles.styleRegular16(
-                context,
-              ).copyWith(color: Color(0xff555555)),
-            ),
+           
           ],
         ),
 

@@ -50,6 +50,7 @@ class ReviewCard extends StatelessWidget {
                       ).copyWith(color: AppColors.ktextcolor),
                     ),
                     Text(
+                    
                       review.timeAgo,
                       style: AppTextStyles.styleRegular13(
                         context,
