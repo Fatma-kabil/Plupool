@@ -14,6 +14,8 @@ class ServiceRequest {
   final String? nextVisitDate;
   final String? nextVisitDay;
   final String? nextVisitTime;
+  final String? packageType;
+  final String? endTime;
 
   const ServiceRequest({
     required this.title,
@@ -28,5 +30,6 @@ class ServiceRequest {
     this.nextVisitDate,
     this.nextVisitDay,
     this.nextVisitTime,
+    this.packageType, this.endTime, 
   });
 }

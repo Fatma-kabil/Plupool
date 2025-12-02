@@ -8,22 +8,15 @@ import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
-import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
-class OfferCard extends StatelessWidget {
+class TechOfferCard extends StatelessWidget {
   final OfferModel offer;
 
-  const OfferCard({super.key, required this.offer});
+  const TechOfferCard({super.key, required this.offer});
 
   @override
   Widget build(BuildContext context) {
-    final roleState = context.watch<SelectRoleCubit>().state;
-
-    // استخراج الدور
-    String role = "";
-    if (roleState is GetRoleSuccess) {
-      role = roleState.roleName; // "فني" أو "ضيف"
-    }
+   
 
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, authState) {
@@ -103,14 +96,14 @@ class OfferCard extends StatelessWidget {
               
                   children: [
                     Text(
-                      offer.oldPrice,
+                      offer.oldPrice!,
                       style: AppTextStyles.styleRegular14(context).copyWith(
                             decoration: TextDecoration.lineThrough,
                             color: const Color(0xff808080),
                           ),
                     ),
                     SizedBox(width: SizeConfig.w(12)),
-                    Text(offer.newPrice,
+                    Text(offer.newPrice!,
                         style: AppTextStyles.styleBold16(context)),
                   ],
                 ),
@@ -118,8 +111,8 @@ class OfferCard extends StatelessWidget {
                 const Spacer(),
 
                 // زرار "Add to Cart" مع التحقق من حالة التسجيل
-                role == "فني"
-                    ? Padding(
+              
+                     Padding(
                         padding: EdgeInsets.only(bottom: SizeConfig.h(4)),
                         child: AddCartBtn(
                           onPressed: () {
@@ -143,26 +136,8 @@ class OfferCard extends StatelessWidget {
                           },
                         ),
                       )
-                    : Padding(
-                        padding: EdgeInsets.only(
-                          left: SizeConfig.w(12),
-                          bottom: SizeConfig.h(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.arrow_back,
-                              size: SizeConfig.w(18),
-                              color: AppColors.kprimarycolor,
-                            ),
-                            SizedBox(width: SizeConfig.w(10)),
-                            Text(
-                              "تفاصيل",
-                              style: AppTextStyles.styleBold16(context),
-                            ),
-                          ],
-                        ),
-                      ),
+                   
+                             
               ],
             ),
           ),

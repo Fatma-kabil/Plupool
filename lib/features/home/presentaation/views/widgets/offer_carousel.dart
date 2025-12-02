@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
-import 'package:plupool/features/home/presentaation/views/widgets/offer_card.dart';
+import 'package:plupool/features/home/presentaation/views/widgets/tech_offer_card.dart';
 
 
 
@@ -55,7 +55,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
                 animation: _pageController,
                 builder: (context, child) {
                  
-                  return OfferCard(offer: offer);
+                  return TechOfferCard(offer: offer);
                 },
               );
             },

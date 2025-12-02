@@ -9,13 +9,14 @@ class CustomTextBtn extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.width,
-    this.padding,  this.color,
+    this.padding,  this.color, this.textStyle,
   });
   final String text;
   final double? width;
   final double? padding;
   final void Function()? onPressed;
   final Color? color;
+  final TextStyle? textStyle;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -34,7 +35,7 @@ class CustomTextBtn extends StatelessWidget {
           child: Text(
             textDirection: TextDirection.rtl,
             text,
-            style: AppTextStyles.styleSemiBold20(context),
+            style:textStyle?? AppTextStyles.styleSemiBold20(context),
           ),
         ),
       ),

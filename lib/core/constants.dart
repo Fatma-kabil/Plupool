@@ -365,25 +365,34 @@ final List<List<String>> services = [
 ];
 final List<ServiceRequest> requests = [
   ServiceRequest(
+    endTime: "2025-12-22",
     title: "صيانة شهرية ",
     date: "2025-11-22",
+    packageType: "الباقة الشهرية",
     time: "11:00 ص",
     status: RequestStatus.inProgress,
-    progress: 4,
+    progress: 2,
     visits: 6,
     nextVisitDate: "2025-10-01",
     nextVisitDay: "الثلاثاء",
     nextVisitTime: "9:00 ص",
-     userName: 'سارة حسن',
+    userName: 'سارة حسن',
     userImage: 'assets/images/customer_user.png',
     location: 'المقطم، القاهرة',
   ),
   ServiceRequest(
+     endTime: "2025-4-01",
+       packageType: "باقة (6 شهور)",
     title: "صيانة الفلاتر",
     date: "2025-11-22",
     time: "11:00 ص",
     status: RequestStatus.scheduled,
-     userName: 'سارة حسن',
+     progress: 0,
+    visits: 6,
+    nextVisitDate: "2025-10-01",
+    nextVisitDay: "الثلاثاء",
+    nextVisitTime: "9:00 ص",
+    userName: 'سارة حسن',
     userImage: 'assets/images/customer_user.png',
     location: 'المقطم، القاهرة',
   ),
@@ -404,7 +413,6 @@ final List<ServiceRequest> requests = [
     userImage: 'assets/images/customer_user.png',
     location: 'المقطم، القاهرة',
     status: RequestStatus.urgent,
-    
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتوره',
@@ -432,20 +440,23 @@ final List<ServiceRequest> requests = [
     userImage: 'assets/images/ahmed.png',
     location: 'المهندسين، الجيزة',
     status: RequestStatus.inProgress,
-     progress: 0,
-    visits: 4,
+   
     nextVisitDate: "2025-12-01",
     nextVisitDay: "السبت",
     nextVisitTime: "9:00 ص",
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتورة - ',
-    date: '2025-11-24',
+    date: '2025-9-15',
+     endTime: '2025-11-15',
+     packageType: "باقة (4 شهور)",
+     progress: 6,
+     visits: 6,
     time: '9:00 ص',
     userName: 'خالد محمود',
     userImage: 'assets/images/ahmed.png',
     location: 'المهندسين، الجيزة',
-    status: RequestStatus.urgent,
+    status: RequestStatus.completed,
   ),
 ];
 
@@ -477,56 +488,52 @@ final List<OfferModel> equipmentOffers = [
   ),
 ];
 
- final List<FaqItem> techQes = [
-    FaqItem(
-      question: "إزاي أشوف المهام المطلوبة خلال الأسبوع؟",
-      answer:
-          "تقدر تشوف جدول مهامك الأسبوعية من صفحة الرئيسية عند الضغط على عرض المزيد، هتظهر صفحة المهام الأسبوعية اللي فيها ترتيب المهام حسب الأيام.",
-    ),
-    FaqItem(
-      question: "إزاي أتواصل مع الدعم؟",
-      answer: "تواصل مع الدعم من صفحة مركز المساعدة الموجودة في (حسابي).",
-    ),
-    FaqItem(
-      question: "إزاي أدخل على ملف كل عميل؟",
-      answer:
-          "عند الضغط على الكارد الموجود فيه تفاصيل المهمة الخاصة بكل عميل.",
-    ),
-    FaqItem(
-      question: "فين ألاقي تاريخ مشترياتي؟",
-      answer:
-          "من (المتجر) تقدر تلاقي علامة السلة ثم الضغط عليها.",
-    ),
-    FaqItem(
-      question: "كيف أغير رقم الهاتف؟",
-      answer:
-          "تقدر تغير رقم الهاتف من (حسابي) ثم الضغط على معلومات الحساب ثم تعديل البيانات.",
-    ),
-  ];
+final List<FaqItem> techQes = [
+  FaqItem(
+    question: "إزاي أشوف المهام المطلوبة خلال الأسبوع؟",
+    answer:
+        "تقدر تشوف جدول مهامك الأسبوعية من صفحة الرئيسية عند الضغط على عرض المزيد، هتظهر صفحة المهام الأسبوعية اللي فيها ترتيب المهام حسب الأيام.",
+  ),
+  FaqItem(
+    question: "إزاي أتواصل مع الدعم؟",
+    answer: "تواصل مع الدعم من صفحة مركز المساعدة الموجودة في (حسابي).",
+  ),
+  FaqItem(
+    question: "إزاي أدخل على ملف كل عميل؟",
+    answer: "عند الضغط على الكارد الموجود فيه تفاصيل المهمة الخاصة بكل عميل.",
+  ),
+  FaqItem(
+    question: "فين ألاقي تاريخ مشترياتي؟",
+    answer: "من (المتجر) تقدر تلاقي علامة السلة ثم الضغط عليها.",
+  ),
+  FaqItem(
+    question: "كيف أغير رقم الهاتف؟",
+    answer:
+        "تقدر تغير رقم الهاتف من (حسابي) ثم الضغط على معلومات الحساب ثم تعديل البيانات.",
+  ),
+];
 
- final List<FaqItem> ownerQes = [
-    FaqItem(
-      question: "كيف أطلب خدمة صيانة جديدة؟",
-      answer:
-          "تقدر تطلب خدمة صيانة من خلال الدخول على قسم الخدمات ، ثم أضغط علي “أطلب الصيانة” ، ثم الضغط على “أحجز الخدمة الان”، واختيار الوقت المناسب للتواصل ، وهيتم تسجيل الطلب.",
-    ),
-    FaqItem(
-      question: "لو المنتج طلع فيه مشكلة؟",
-      answer: "تواصل مع الدعم من صفحة “مركز المساعدة ” الموجودة في “حسابي”.",
-    ),
-    FaqItem(
-      question: "هل أقدر أتابع الشغل المستمر؟",
-      answer:
+final List<FaqItem> ownerQes = [
+  FaqItem(
+    question: "كيف أطلب خدمة صيانة جديدة؟",
+    answer:
+        "تقدر تطلب خدمة صيانة من خلال الدخول على قسم الخدمات ، ثم أضغط علي “أطلب الصيانة” ، ثم الضغط على “أحجز الخدمة الان”، واختيار الوقت المناسب للتواصل ، وهيتم تسجيل الطلب.",
+  ),
+  FaqItem(
+    question: "لو المنتج طلع فيه مشكلة؟",
+    answer: "تواصل مع الدعم من صفحة “مركز المساعدة ” الموجودة في “حسابي”.",
+  ),
+  FaqItem(
+    question: "هل أقدر أتابع الشغل المستمر؟",
+    answer:
         "أيوة، تقدر تتابع تقدم الباقة من خلال الـProgress Bar في البروفايل ثم الضغط علي خدماتي او باقاتي أو من صفحة “مسبحي”.",
-    ),
-    FaqItem(
-      question: "فين ألاقي تاريخ مشترياتي؟",
-      answer:
-          "من (المتجر) تقدر تلاقي علامة السلة ثم الضغط عليها.",
-    ),
-    FaqItem(
-      question: " هل أستطيع حذف حسابي؟",
-      answer:
-          "أيوه، تقدر تحذف حسابك من خلال حسابي ثم الضغط علي حذف الحساب.",
-    ),
-  ];
+  ),
+  FaqItem(
+    question: "فين ألاقي تاريخ مشترياتي؟",
+    answer: "من (المتجر) تقدر تلاقي علامة السلة ثم الضغط عليها.",
+  ),
+  FaqItem(
+    question: " هل أستطيع حذف حسابي؟",
+    answer: "أيوه، تقدر تحذف حسابك من خلال حسابي ثم الضغط علي حذف الحساب.",
+  ),
+];

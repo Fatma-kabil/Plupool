@@ -7,6 +7,7 @@ import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
 import 'package:plupool/features/profile/presentation/views/delete_account_view.dart';
 import 'package:plupool/features/profile/presentation/views/help_view.dart';
+import 'package:plupool/features/profile/presentation/views/my_packages_view.dart';
 import 'package:plupool/features/profile/presentation/views/privacy_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_details_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_edit_view.dart';
@@ -178,9 +179,15 @@ final GoRouter appRouter = GoRouter(
     ),
      GoRoute(
 
-      path: '/',
+      path: '/whyusview',
       name: 'whyusview',
       pageBuilder: (context, state) => buildTransitionPage(const WhyUsView()),
+    ),
+     GoRoute(
+
+      path: '/',
+      name: 'mypackageview',
+      pageBuilder: (context, state) => buildTransitionPage(const MyPackagesView()),
     ),
   ],
 );
