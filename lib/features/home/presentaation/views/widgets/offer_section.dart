@@ -6,7 +6,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/store_filter.dart';
 import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
-import 'package:plupool/features/home/presentaation/views/widgets/offer_carousel.dart';
+import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_offer_carousel.dart';
 
 class OfferSection extends StatelessWidget {
   final List<OfferModel> offers;
@@ -49,7 +49,7 @@ class OfferSection extends StatelessWidget {
           ],
         ),
         SizedBox(height: SizeConfig.h(16)),
-        OffersCarousel(offers: offers),
+        TechOffersCarousel(offers: offers),
       ],
     );
   }

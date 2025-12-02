@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
-import 'package:plupool/features/home/presentaation/views/widgets/tech_offer_card.dart';
+import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_offer_card.dart';
 
 
 
-class OffersCarousel extends StatefulWidget {
+class TechOffersCarousel extends StatefulWidget {
    final List <OfferModel> offers;
-  const OffersCarousel({super.key, required this.offers});
+  const TechOffersCarousel({super.key, required this.offers});
 
   @override
-  State<OffersCarousel> createState() => _OffersCarouselState();
+  State<TechOffersCarousel> createState() => _TechOffersCarouselState();
 }
 
-class _OffersCarouselState extends State<OffersCarousel> {
+class _TechOffersCarouselState extends State<TechOffersCarousel> {
   late PageController _pageController;
   int _currentPage = 0;
 
