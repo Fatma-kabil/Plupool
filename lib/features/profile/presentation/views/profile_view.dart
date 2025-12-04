@@ -50,14 +50,15 @@ class ProfileView extends StatelessWidget {
                         ),
                       ),
                     ),
-                  Center(
-                    child: ErrorCard(
-                      title: 'لم يتم تسجيل الدخول',
-                      subtitle:
-                          'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                      color: Colors.white,
+                  if (authState.status == AuthStatus.guest)
+                    Center(
+                      child: ErrorCard(
+                        title: 'لم يتم تسجيل الدخول',
+                        subtitle:
+                            'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
                 ],
               );
             },

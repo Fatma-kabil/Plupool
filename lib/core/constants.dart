@@ -70,29 +70,27 @@ final List<PromoCardModel> items = [
 ];
 
 final List<OfferModel> offers = [
+ 
   OfferModel(
-    title: "عرض تنظيف",
-    desc: "جلسة تنظيف مجانية عند حجز 3 جلسات",
-    oldPrice: "2500 EGP",
-    newPrice: "2000 EGP",
-    image: "assets/images/offercard1.png",
-    offerPercentage: '% خصم 10',
-  ),
-  OfferModel(
-    title: "عرض صيانة",
-    desc: " أول شهر صيانة مجاناً عند الاشتراك السنوي",
-    oldPrice: "2000 EGP",
-    newPrice: "1600 EGP",
-    image: "assets/images/offercard2.png",
+    title: "تركيب أنظمة الترشيح",
+    desc: " تركيب أحدث أنظمة الترشيح والتطهير مع صيانة مجانية لمدة 6 أشهر.",
+    endDate: DateTime( 2025, 12, 20),
+    image: "assets/images/safty.png",
     offerPercentage: '% خصم 15',
   ),
   OfferModel(
-    title: " عرض إنشاء",
-    desc: " خصم 15% على أول حمام سباحة تنشئه معنا",
-    oldPrice: "3000 EGP",
-    newPrice: "2000 EGP",
-    image: "assets/images/offercard3.png",
-    offerPercentage: '% خصم 20',
+    title: "تركيب أنظمة الإضاءة",
+    desc: "تركيب أنظمة إضاءة LED متطورة مع ألوان متعددة وتحكم عن بعد.",
+    endDate: DateTime( 2025, 12, 20),
+    image: "assets/images/tech_offer2.png",
+    offerPercentage: '% خصم 15',
+  ),
+   OfferModel(
+    title: "تنظيف فلاتر المسبح",
+    desc: "خدمة تنظيف فلاتر المسبح مع فحص شامل وضمان لمدة شهر.",
+   endDate: DateTime( 2025, 12, 20),
+    image: "assets/images/offercard1.png",
+    offerPercentage: '% خصم 10',
   ),
 ];
 

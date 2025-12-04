@@ -44,6 +44,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return BlocBuilder<SelectRoleCubit, SelectRoleState>(
       builder: (context, roleState) {
         if (roleState is! GetRoleSuccess) {

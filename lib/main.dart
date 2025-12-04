@@ -1,5 +1,4 @@
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -20,13 +19,13 @@ void main() async {
  
  
   runApp(
-//  DevicePreview(
+  DevicePreview(
   //   enabled: !kReleaseMode, // ✅ يشتغل فقط في debug
- //     builder: (context) 
-   //  => 
+      builder: (context) 
+     => 
      const PlupoolApp(),
      
-//),
+),
   );
 
   // تشيل السبلاتش بعد ما الاب يفتح

@@ -6,6 +6,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/store_filter.dart';
 import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/owner_offer_carusal.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_offer_carousel.dart';
 
 class OfferSection extends StatelessWidget {
@@ -15,7 +16,6 @@ class OfferSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Column(
       children: [
         Row(
@@ -49,7 +49,9 @@ class OfferSection extends StatelessWidget {
           ],
         ),
         SizedBox(height: SizeConfig.h(16)),
-        TechOffersCarousel(offers: offers),
+        role == "فني"
+            ? TechOffersCarousel(offers: offers)
+            : OwnerOfferCarusal(offers: offers),
       ],
     );
   }
