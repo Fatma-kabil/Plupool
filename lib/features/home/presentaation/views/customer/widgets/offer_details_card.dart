@@ -114,7 +114,7 @@ Expanded(
         // الزرار في الأسفل
         Align(
           alignment: Alignment.bottomRight,
-          child: ReserveOfferBtn(),
+          child: ReserveOfferBtn(service: offer.title,),
         ),
       ],
     ),

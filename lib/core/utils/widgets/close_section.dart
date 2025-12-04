@@ -33,6 +33,7 @@ class CloseSection extends StatelessWidget {
             color: AppColors.kprimarycolor,
             size: SizeConfig.h(24),
           ),
+          
         ),
       ],
     );

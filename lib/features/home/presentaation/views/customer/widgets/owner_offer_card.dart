@@ -112,7 +112,7 @@ class OwnerOfferCard extends StatelessWidget {
                 Spacer(),
 
                 // زرار "Add to Cart" مع التحقق من حالة التسجيل
-                ReserveOfferBtn(),
+                ReserveOfferBtn(service:offer.title,),
               ],
             ),
           ),

@@ -3,12 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/booking_card.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
+import 'package:plupool/features/maintenance/presentation/views/widgets/confirm_package_booking_card.dart';
 
 class ReserveOfferBtn extends StatelessWidget {
-  const ReserveOfferBtn({super.key});
+  const ReserveOfferBtn({super.key, required this.service});
+  final String service;
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +65,27 @@ class ReserveOfferBtn extends StatelessWidget {
                   },
                 );
               } else {
-                // مسجل دخول - اعمل العملية المطلوبة هنا
-                print('Added to cart');
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (context) => BookingCard(
+                    onConfirm: (date, time) {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) => Dialog(
+                          backgroundColor: Colors.transparent,
+                          insetPadding: const EdgeInsets.all(16),
+                          child: ConfirmPackageBookingCard(
+                            date: date,
+                            time: time,
+                            packageType: service,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
               }
             },
           ),

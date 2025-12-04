@@ -42,7 +42,7 @@ class ConfirmPackageBookingCard extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "تأكيد حجز الباقة الشهرية",
+                    "تأكيد الحجز  ",
                     style: AppTextStyles.styleBold20(
                       context,
                     ).copyWith(color: AppColors.ktextcolor),
@@ -69,7 +69,7 @@ class ConfirmPackageBookingCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'نوع الباقة',
+                        'نوع الخدمه',
                         style: AppTextStyles.styleBold16(
                           context,
                         ).copyWith(color: AppColors.ktextcolor),
