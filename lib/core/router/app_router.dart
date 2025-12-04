@@ -4,6 +4,8 @@ import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_
 import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dart';
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
+import 'package:plupool/features/home/data/models/offer_model.dart';
+import 'package:plupool/features/home/presentaation/views/customer/offer_details_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
 import 'package:plupool/features/profile/presentation/views/delete_account_view.dart';
 import 'package:plupool/features/profile/presentation/views/help_view.dart';
@@ -150,24 +152,27 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/ordersummaryview',
       name: 'ordersummaryview',
-      pageBuilder: (context, state) => buildTransitionPage(const OrderSummaryView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const OrderSummaryView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/searchview',
       name: 'searchview',
       pageBuilder: (context, state) => buildTransitionPage(const SearchView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/profileeditview',
       name: 'profileeditview',
-      pageBuilder: (context, state) => buildTransitionPage(const ProfileEditView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const ProfileEditView()),
     ),
     GoRoute(
       path: '/deleteaccountview',
       name: 'deleteaccountview',
-      pageBuilder: (context, state) => buildTransitionPage(const DeleteAccountView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const DeleteAccountView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/helpview',
       name: 'helpview',
       pageBuilder: (context, state) => buildTransitionPage(const HelpView()),
@@ -177,17 +182,27 @@ final GoRouter appRouter = GoRouter(
       name: 'privacyview',
       pageBuilder: (context, state) => buildTransitionPage(const PrivacyView()),
     ),
-     GoRoute(
-
+    GoRoute(
       path: '/whyusview',
       name: 'whyusview',
       pageBuilder: (context, state) => buildTransitionPage(const WhyUsView()),
     ),
-     GoRoute(
-
+    GoRoute(
       path: '/mypackageview',
       name: 'mypackageview',
-      pageBuilder: (context, state) => buildTransitionPage(const MyPackagesView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const MyPackagesView()),
+    ),
+    GoRoute(
+      path: '/offerdetailsview',
+      name: 'offerdetailsview',
+      pageBuilder: (context, state) {
+        final offers = state.extra as List<OfferModel>; // استقبال الليست
+
+        return buildTransitionPage(
+          OfferDetailsView(offers: offers), // تمرير الليست للصفحة
+        );
+      },
     ),
   ],
 );
