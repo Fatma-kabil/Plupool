@@ -8,23 +8,30 @@ class PoolInfoCard extends StatelessWidget {
   final Color color;
   final Color iconcolor;
   final IconData icon;
+  final TextStyle? titleTextStyle;
+  final TextStyle? valueTextStyle;
+  final double? h1;
+  final double? h2;
 
   const PoolInfoCard({
     super.key,
     required this.title,
     required this.value,
     required this.color,
-    required this.icon, required this.iconcolor,
+    required this.icon,
+    required this.iconcolor,
+    this.titleTextStyle,
+    this.valueTextStyle, this.h1, this.h2,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-   //   textDirection: TextDirection.rtl,
+      //   textDirection: TextDirection.rtl,
       children: [
         Container(
           width: MediaQuery.of(context).size.width * 0.28,
-          padding:  EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
+          padding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(12),
@@ -37,15 +44,31 @@ class PoolInfoCard extends StatelessWidget {
                   border: Border.all(color: iconcolor, width: 1.5),
                   borderRadius: BorderRadius.circular(150),
                 ),
-                child: Padding(padding: EdgeInsets.all(SizeConfig.w(8)),
-                child: Icon(icon, color: iconcolor, size: SizeConfig.w(20)),
-              ),),
-              SizedBox(height: SizeConfig.h(5)),
-              Text(title,style: AppTextStyles.styleRegular13(context).copyWith(color: Color(0xFF777777)),),
-           //   SizedBox(height: SizeConfig.h(4)),
+                child: Padding(
+                  padding: EdgeInsets.all(SizeConfig.w(8)),
+                  child: Icon(icon, color: iconcolor, size: SizeConfig.w(20)),
+                ),
+              ),
+              SizedBox(height: SizeConfig.h(h1??5)),
               Text(
-                 textDirection: TextDirection.rtl,
-                value, textAlign: TextAlign.center,style: AppTextStyles.styleSemiBold13(context).copyWith(color: Color(0xff555555)),),
+                title,
+                style:
+                    titleTextStyle ??
+                    AppTextStyles.styleRegular13(
+                      context,
+                    ).copyWith(color: Color(0xFF777777)),
+              ),
+                SizedBox(height: SizeConfig.h(h2??0)),
+              Text(
+                textDirection: TextDirection.rtl,
+                value,
+                textAlign: TextAlign.center,
+                style:
+                    valueTextStyle ??
+                    AppTextStyles.styleSemiBold13(
+                      context,
+                    ).copyWith(color: Color(0xff555555)),
+              ),
             ],
           ),
         ),
