@@ -23,15 +23,15 @@ class ProgressSection extends StatelessWidget {
       children: [
         Text(
           "$progressPercent%",
-          style: AppTextStyles.styleSemiBold10(
+          style: AppTextStyles.styleBold13(
             context,
-          ).copyWith(color: AppColors.kprimarycolor),
+          ).copyWith(color: Color(0xff006398)),
         ),
         SizedBox(width: SizeConfig.w(4)),
         Text(
           textDirection: TextDirection.rtl,
           "( $progress/$visits زيارات )",
-          style: AppTextStyles.styleSemiBold10(context),
+          style: AppTextStyles.styleSemiBold13(context).copyWith(color: AppColors.kprimarycolor),
         ),
         SizedBox(width: SizeConfig.w(8)),
         Expanded(
@@ -53,7 +53,7 @@ class ProgressSection extends StatelessWidget {
                         height: SizeConfig.h(8), // نفس ارتفاع الخلفية
                         width: barWidth, // طول الجزء الملون
                         decoration: BoxDecoration(
-                          color: AppColors.kprimarycolor,
+                          color: Color(0xff55A4CE),
                           borderRadius: BorderRadius.circular(SizeConfig.w(10)),
                         ),
                       ),
