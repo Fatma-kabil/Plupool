@@ -4,7 +4,6 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/service_section.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/visits_section.dart';
-
 class ContentCard extends StatefulWidget {
   const ContentCard({super.key});
 
@@ -12,8 +11,7 @@ class ContentCard extends StatefulWidget {
   State<ContentCard> createState() => _ContentCardState();
 }
 
-class _ContentCardState extends State<ContentCard>
-    with SingleTickerProviderStateMixin {
+class _ContentCardState extends State<ContentCard> {
   int currentIndex = 0;
 
   @override
@@ -41,12 +39,8 @@ class _ContentCardState extends State<ContentCard>
                   currentIndex = i;
                 });
               },
-              labelStyle: AppTextStyles.styleMedium16(
-                context,
-              ).copyWith(fontFamily: 'cairo'),
-              unselectedLabelStyle: AppTextStyles.styleMedium16(
-                context,
-              ).copyWith(fontFamily: 'cairo'),
+              labelStyle: AppTextStyles.styleMedium16(context).copyWith(fontFamily: 'cairo'),
+              unselectedLabelStyle: AppTextStyles.styleMedium16(context).copyWith(fontFamily: 'cairo'),
               labelPadding: EdgeInsets.symmetric(horizontal: SizeConfig.w(20)),
               indicatorPadding: EdgeInsets.symmetric(
                 vertical: SizeConfig.h(7),
@@ -69,12 +63,14 @@ class _ContentCardState extends State<ContentCard>
 
           SizedBox(height: SizeConfig.h(20)),
 
-          /// ---- هنا السحر ----
-          /// IndexedStack يسمح إن كل تاب يبقى ارتفاعه حسب محتواه
-          /// ومفيش أي مشاكل Layout
-          IndexedStack(
-            index: currentIndex,
-            children: const [ServiceSection(), VisitsSection()],
+          // هنا عرض المحتوى بدون IndexedStack عشان كل تاب ياخد ارتفاعه الخاص
+          Offstage(
+            offstage: currentIndex != 0,
+            child: const ServiceSection(),
+          ),
+          Offstage(
+            offstage: currentIndex != 1,
+            child: const VisitsSection(),
           ),
         ],
       ),

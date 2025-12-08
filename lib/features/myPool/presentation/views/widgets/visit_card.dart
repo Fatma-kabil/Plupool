@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/features/myPool/presentation/views/widgets/report_technician_absence.dart';
 
 class VisitCard extends StatelessWidget {
   const VisitCard({
@@ -117,32 +118,40 @@ class VisitCard extends StatelessWidget {
                 if(reportTechnicianAbsence) ...[
                 //  Spacer(),
                   SizedBox(width: SizeConfig.w(60)),
-                 Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.w(8),
-                      vertical: SizeConfig.h(6),
+                 GestureDetector(
+                  onTap: () {
+                     showDialog(
+                      context: context,
+                      builder: (_) => const ReportTechnicianAbsence(),
+                    );
+                  },
+                   child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.w(8),
+                        vertical: SizeConfig.h(6),
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color:AppColors.textFieldBorderColor),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.report_problem,
+                            size: SizeConfig.w(15),
+                            color: Color(0xffFF9F1C),
+                          ),
+                          SizedBox(width: SizeConfig.w(2)),
+                          Text(
+                            'الابلاغ عن غياب الفني',
+                            style: AppTextStyles.styleMedium13(
+                              context,
+                            ).copyWith(color: Color(0xff555555)),
+                          ),
+                        ],
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color:AppColors.textFieldBorderColor),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.report_problem,
-                          size: SizeConfig.w(15),
-                          color: Color(0xffFF9F1C),
-                        ),
-                        SizedBox(width: SizeConfig.w(2)),
-                        Text(
-                          'الابلاغ عن غياب الفني',
-                          style: AppTextStyles.styleMedium13(
-                            context,
-                          ).copyWith(color: Color(0xff555555)),
-                        ),
-                      ],
-                    ),
-                  ),
+                 ),
               ],]
             )
           ],

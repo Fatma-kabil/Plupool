@@ -24,7 +24,7 @@ class AddNote extends StatelessWidget {
           children: [
             Text("إضافة ملاحظة", style: AppTextStyles.styleMedium16(context)),
             SizedBox(width: 2),
-            Icon(Icons.add, color: AppColors.kprimarycolor,size: SizeConfig.w(18),),
+            Icon(Icons.edit_note_sharp, color: AppColors.kprimarycolor,size: SizeConfig.w(18),),
           ],
         ),
       ),
