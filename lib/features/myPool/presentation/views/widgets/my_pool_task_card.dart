@@ -5,16 +5,14 @@ import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
-import 'package:plupool/features/home/presentaation/views/tech/widgets/build_data_time_row.dart';
-import 'package:plupool/features/home/presentaation/views/tech/widgets/build_user_section.dart';
 
 class MyPoolTaskCard extends StatelessWidget {
   const MyPoolTaskCard({super.key, required this.request});
-   final ServiceRequest request;
+  final ServiceRequest request;
 
   @override
   Widget build(BuildContext context) {
-   final colors = RequestStatusColors.getColors(request.status);
+    final colors = RequestStatusColors.getColors(request.status);
 
     return Container(
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
@@ -33,21 +31,76 @@ class MyPoolTaskCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                buildStatusLabel(colors, context, request.status),
-                Spacer(),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildTitle(context),
                     const SizedBox(height: 4),
-                    BuildDataTimeRow(request: request),
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      children: [
+                        Icon(
+                          Icons.calendar_today,
+                          size: SizeConfig.w(12),
+                          color: Color(0xff999999),
+                        ),
+                        SizedBox(width: SizeConfig.w(6)),
+                        Text(
+                          textDirection: TextDirection.rtl,
+                          '${request.date} ',
+                          style: AppTextStyles.styleRegular13(
+                            context,
+                          ).copyWith(color: Color(0xff999999)),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
+                Spacer(),
+                buildStatusLabel(colors, context, request.status),
               ],
             ),
 
             const SizedBox(height: 10),
-            BuildUserSection(request: request),
+            Row(
+              textDirection: TextDirection.rtl,
+              children: [
+                CircleAvatar(
+                  radius: SizeConfig.w(16),
+                  backgroundImage: AssetImage(request.userImage!),
+                ),
+                SizedBox(width: SizeConfig.w(8)),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      request.userName!,
+                      style: AppTextStyles.styleSemiBold16(
+                        context,
+                      ).copyWith(color: Color(0xff555555)),
+                    ),
+                    const SizedBox(height: 2),
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      children: [
+                        Icon(
+                         Icons.handyman,
+                          size: SizeConfig.w(14),
+                          color: Color(0xff999999),
+                        ),
+                          const SizedBox(width: 3),
+                        Text(
+                          'فني ',
+                          style: AppTextStyles.styleRegular13(
+                            context,
+                          ).copyWith(color: Color(0xff999999)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -62,5 +115,3 @@ class MyPoolTaskCard extends StatelessWidget {
     ).copyWith(color: AppColors.ktextcolor),
   );
 }
-
-  

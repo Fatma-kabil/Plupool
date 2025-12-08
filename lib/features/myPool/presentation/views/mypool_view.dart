@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/my_pool_view_body.dart';
 
 class MyPoolView extends StatelessWidget {
