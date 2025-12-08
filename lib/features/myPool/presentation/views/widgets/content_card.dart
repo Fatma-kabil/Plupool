@@ -14,65 +14,50 @@ class ContentCard extends StatefulWidget {
 
 class _ContentCardState extends State<ContentCard>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  int bottomIndex = 2;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: SizeConfig.w(18),
-        right: SizeConfig.w(18),
-
-       
-      ),
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(18)),
       child: Column(
-      
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title + small subtitle
-         
-          // Tabs (الخدمات - الزيارات)
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Color(0xffF1F1F1),
+              color: const Color(0xffF1F1F1),
               boxShadow: [
                 BoxShadow(
                   blurRadius: 4,
-                  spreadRadius: 0,
                   offset: Offset(0, 1),
-                  color: Color(0xff000000).withOpacity(0.25),
+                  color: Colors.black26,
                 ),
               ],
             ),
             child: TabBar(
-              dividerHeight: 0,
-              indicatorSize: TabBarIndicatorSize.tab,
+              onTap: (i) {
+                setState(() {
+                  currentIndex = i;
+                });
+              },
               labelStyle: AppTextStyles.styleMedium16(
                 context,
               ).copyWith(fontFamily: 'cairo'),
               unselectedLabelStyle: AppTextStyles.styleMedium16(
                 context,
               ).copyWith(fontFamily: 'cairo'),
-              // labelPadding: EdgeInsets.symmetric(horizontal: SizeConfig.w(20)),
+              labelPadding: EdgeInsets.symmetric(horizontal: SizeConfig.w(20)),
               indicatorPadding: EdgeInsets.symmetric(
                 vertical: SizeConfig.h(7),
                 horizontal: SizeConfig.w(7),
               ),
-              controller: _tabController,
+              indicatorSize: TabBarIndicatorSize.tab,
+              dividerHeight: 0,
               labelColor: AppColors.kprimarycolor,
-              unselectedLabelColor: Color(0xff7B7B7B),
+              unselectedLabelColor: const Color(0xff7B7B7B),
               indicator: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: Color(0xffCCE4F0),
+                color: const Color(0xffCCE4F0),
                 borderRadius: BorderRadius.circular(10),
               ),
               tabs: const [
@@ -81,18 +66,16 @@ class _ContentCardState extends State<ContentCard>
               ],
             ),
           ),
-    
-          SizedBox(height: SizeConfig.h(20)),
-    
-          // Content under tabs
-         SizedBox(
-          height: SizeConfig.h(1000),
-           child: TabBarView(
-             controller: _tabController,
-             children: [ServiceSection(), VisitsSection()],
-           ),
-         ),
 
+          SizedBox(height: SizeConfig.h(20)),
+
+          /// ---- هنا السحر ----
+          /// IndexedStack يسمح إن كل تاب يبقى ارتفاعه حسب محتواه
+          /// ومفيش أي مشاكل Layout
+          IndexedStack(
+            index: currentIndex,
+            children: const [ServiceSection(), VisitsSection()],
+          ),
         ],
       ),
     );

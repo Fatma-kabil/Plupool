@@ -40,7 +40,7 @@ class MyPoolViewBody extends StatelessWidget {
                 child: Container(
                   //    height: SizeConfig.h(150),
                   decoration: BoxDecoration(
-              color: AppColors.kScaffoldColor,
+                    color: AppColors.kScaffoldColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(16),
                       topRight: Radius.circular(16),
@@ -84,7 +84,8 @@ class MyPoolViewBody extends StatelessWidget {
           ),
 
           // الكارد الحقيقي الكامل بعد الستاك
-          ContentCard(),
+          // الكارد الحقيقي الكامل بعد الستاك
+          DefaultTabController(length: 2, child: ContentCard()),
         ],
       ),
     );
