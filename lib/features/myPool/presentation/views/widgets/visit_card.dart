@@ -5,15 +5,23 @@ import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
 
-class SchedualedCard extends StatelessWidget {
-  const SchedualedCard({super.key, required this.progress, required this.visits});
+class VisitCard extends StatelessWidget {
+  const VisitCard({
+    super.key,
+    required this.progress,
+    required this.visits,
+    required this.status,
+    this.reportTechnicianAbsence = false,
+  });
 
   final int progress;
   final int visits;
+  final RequestStatus status;
+ final bool reportTechnicianAbsence;
 
   @override
   Widget build(BuildContext context) {
-    final colors = RequestStatusColors.getColors(RequestStatus.scheduled);
+    final colors = RequestStatusColors.getColors(status);
     return Container(
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
       decoration: BoxDecoration(
@@ -41,7 +49,7 @@ class SchedualedCard extends StatelessWidget {
                         context,
                       ).copyWith(color: AppColors.ktextcolor),
                     ),
-                    const SizedBox(height: 4),
+                    //    const SizedBox(height: 2),
                     Row(
                       textDirection: TextDirection.rtl,
                       children: [
@@ -63,7 +71,7 @@ class SchedualedCard extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
-                buildStatusLabel(colors, context, RequestStatus.scheduled),
+                buildStatusLabel(colors, context, status),
               ],
             ),
 
@@ -89,6 +97,7 @@ class SchedualedCard extends StatelessWidget {
                     Row(
                       textDirection: TextDirection.rtl,
                       children: [
+                        const SizedBox(width: 2),
                         Icon(
                           Icons.handyman,
                           size: SizeConfig.w(14),
@@ -105,8 +114,37 @@ class SchedualedCard extends StatelessWidget {
                     ),
                   ],
                 ),
-              ],
-            ),
+                if(reportTechnicianAbsence) ...[
+                //  Spacer(),
+                  SizedBox(width: SizeConfig.w(60)),
+                 Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.w(8),
+                      vertical: SizeConfig.h(6),
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color:AppColors.textFieldBorderColor),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.report_problem,
+                          size: SizeConfig.w(15),
+                          color: Color(0xffFF9F1C),
+                        ),
+                        SizedBox(width: SizeConfig.w(2)),
+                        Text(
+                          'الابلاغ عن غياب الفني',
+                          style: AppTextStyles.styleMedium13(
+                            context,
+                          ).copyWith(color: Color(0xff555555)),
+                        ),
+                      ],
+                    ),
+                  ),
+              ],]
+            )
           ],
         ),
       ),
