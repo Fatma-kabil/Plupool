@@ -52,8 +52,10 @@ class SelectRoleViewBody extends StatelessWidget {
 
                         if (selectedRole == "فني") {
                           context.push("/MainHomeTechView");
-                        } else {
+                        } else if (selectedRole == "صاحب حمام سباحة") {
                           context.push("/MainHomeCustomerView");
+                        }else{
+                           context.push("/MainHomecompanyview");
                         }
                       },
                     ),

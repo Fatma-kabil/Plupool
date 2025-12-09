@@ -8,16 +8,19 @@ class TechNotifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      SizeConfig.init(context);
-    return Scaffold(
-     
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(13),
-            vertical: SizeConfig.h(15),
-            
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Scaffold(
+       
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.w(13),
+              vertical: SizeConfig.h(15),
+              
+            ),
+            child:NotificationsViewBody(),
           ),
-          child:NotificationsViewBody(),
         ),
       ),
     );

@@ -4,14 +4,16 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/notification_card.dart';
 
-class NotificationsViewBody extends StatefulWidget {
-  const NotificationsViewBody({super.key});
+class CustomerNotificationViewBody extends StatefulWidget {
+  const CustomerNotificationViewBody({super.key});
 
   @override
-  State<NotificationsViewBody> createState() => _NotificationsViewBodyState();
+  State<CustomerNotificationViewBody> createState() =>
+      _CustomerNotificationViewBodyState();
 }
 
-class _NotificationsViewBodyState extends State<NotificationsViewBody>
+class _CustomerNotificationViewBodyState
+    extends State<CustomerNotificationViewBody>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   int selectedIndex = 0;
@@ -19,34 +21,34 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
   final List<Map<String, dynamic>> allItems = [
     {
       "type": "reminder",
-      "title": "موعد زيارة العميل غدًا الساعة 9:00 صباحًا",
-      "subtitle": "مدينة نصر، فيلا 5",
+      "title": "موعد زيارة الفني غدًا الساعة 9:00 صباحًا",
+      "subtitle": "لا تنسَ تجهيز موقع المسبح قبل الزيارة",
       "time": "منذ ساعتين",
     },
     {
+      "type": "reminder",
+      "title": "تم الانتهاء من تنظيف المسبح بنجاح ",
+      "subtitle": "تم تسجيل الخدمة من قِبل الفني علي حسين.",
+      "time": " منذ 3 ساعات",
+    },
+    {
       "type": "offer",
       "title": "عرض خاص",
-      "subtitle": "احصل على خصم 20% عند شراء قطع الغيار",
+      "subtitle": "احصل على خصم 20% عند تجديد الباقة الشهرية.",
       "time": "منذ يوم",
     },
     {
-      "type": "offer",
-      "title": "عرض خاص",
-      "subtitle": "احصل على خصم 20% عند شراء قطع الغيار",
-      "time": "منذ يومين",
-    },
-    {
-      "type": "reminder",
-      "title": "موعد الصيانة الأسبوعية",
-      "subtitle": "فرع الشيخ زايد",
-      "time": "منذ ٣ ساعات",
+      "type": "Reports",
+      "title": "تم الإبلاغ عن غياب الفني.",
+      "subtitle": "سيتم التواصل معك قريبًا من فريق الدعم.",
+      "time": "منذ يوم ",
     },
   ];
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    _tabController = TabController(length: 4, vsync: this, initialIndex: 0);
   }
 
   List<Map<String, dynamic>> _filterItems(String tab) {
@@ -57,12 +59,16 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
     if (tab == "التذكيرات") {
       return allItems.where((i) => i["type"] == "reminder").toList();
     }
+   if (tab == "البلاغات") {
+  return allItems.where((i) => i["type"] == "Reports").toList();
+}
+
     return [];
   }
 
   @override
   Widget build(BuildContext context) {
-     final tabs = ["الكل", "التذكيرات", "العروض"];
+    final tabs = ["الكل", "التذكيرات", "العروض", "البلاغات"];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,12 +116,13 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       margin: EdgeInsets.only(
-                        left: SizeConfig.w(15),
-                        right: SizeConfig.w(10),
+                        left: SizeConfig.w(8),
+                        right: SizeConfig.w(8),
+                        bottom: SizeConfig.h(4), // 👈 مهم جدًا
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.w(14),
-                        vertical: SizeConfig.h(8),
+                        vertical: SizeConfig.h(7),
                       ),
                       decoration: BoxDecoration(
                         color: backgroundColor,
@@ -125,6 +132,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                             color: Colors.black.withOpacity(0.25),
                             offset: const Offset(1, 2),
                             blurRadius: 1,
+                            spreadRadius: 0, // 👈 يخلي الظل يظهر أكتر
                           ),
                         ],
                       ),

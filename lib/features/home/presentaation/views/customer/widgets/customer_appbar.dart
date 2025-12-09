@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -17,9 +18,11 @@ class CustomerAppbar extends StatelessWidget {
     return Row(
       children: [
         // 🔔 أيقونة الإشعارات
-        NotificationButton(onTap: () {
-          
-        },),
+        NotificationButton(
+          onTap: () {
+            context.push('/customernotificationview');
+          },
+        ),
         SizedBox(width: SizeConfig.w(10)),
         GestureDetector(
           onTap: () {
@@ -41,7 +44,10 @@ class CustomerAppbar extends StatelessWidget {
               border: Border.all(color: AppColors.kprimarycolor),
             ),
             child: Padding(
-                padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(5) , vertical: SizeConfig.h(5)),
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.w(5),
+                vertical: SizeConfig.h(5),
+              ),
               child: GestureDetector(
                 child: Row(
                   children: [
