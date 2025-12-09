@@ -27,7 +27,9 @@ class CompanyProfileBody extends StatelessWidget {
           ProfileOption(
             title: 'مشاريعي',
             icon: Icons.work_outline,
-            onTap: () {},
+            onTap: () {
+              context.push('/myprojectsview');
+            },
           ),
           SizedBox(
             height: SizeConfig.isWideScreen

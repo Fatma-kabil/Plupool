@@ -10,6 +10,7 @@ import 'package:plupool/features/home/presentaation/views/tech/tech_notification
 import 'package:plupool/features/profile/presentation/views/delete_account_view.dart';
 import 'package:plupool/features/profile/presentation/views/help_view.dart';
 import 'package:plupool/features/profile/presentation/views/my_packages_view.dart';
+import 'package:plupool/features/profile/presentation/views/my_projects_view.dart';
 import 'package:plupool/features/profile/presentation/views/privacy_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_details_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_edit_view.dart';
@@ -34,7 +35,7 @@ import 'package:plupool/features/tasks/presentation/views/maintenance_update_vie
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/splasherapper',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -203,6 +204,12 @@ final GoRouter appRouter = GoRouter(
           OfferDetailsView(offers: offers), // تمرير الليست للصفحة
         );
       },
+    ),
+    GoRoute(
+      path: '/',
+      name: 'myprojectsview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const MyProjectsView()),
     ),
   ],
 );
