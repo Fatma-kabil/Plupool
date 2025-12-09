@@ -1,15 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/features/home/data/models/review_card_model.dart';
+import 'package:plupool/features/home/data/models/service_request_model.dart';
+import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
+import 'package:plupool/features/profile/data/models/project_model.dart';
 import 'package:plupool/features/select_role/data/models/role_card_item.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
-import 'package:plupool/features/home/data/models/review_card_model.dart';
-import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
-import 'package:plupool/features/home/data/models/service_request_model.dart';
+import  'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
-import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
+
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 
 final List<RoleCardItemModel> roles = [
@@ -534,4 +536,11 @@ final List<FaqItem> ownerQes = [
     question: " هل أستطيع حذف حسابي؟",
     answer: "أيوه، تقدر تحذف حسابك من خلال حسابي ثم الضغط علي حذف الحساب.",
   ),
+];
+
+final List<ProjectModel>projs=[
+  ProjectModel(title: "مشروع النخيل السكني",location: "القاهرة الجديدة",nofpools: 12,progress: 75,nextVisitDate: "1/10/2025",nextVisitDay: "الثلاثاء",nextVisitTime: "9:00 ص",status: RequestStatus.inProgress),
+  ProjectModel(title: "مشروع واحه الرياض",location: "الشيخ زايد",nofpools: 8,progress: 0,status: RequestStatus.scheduled),
+  ProjectModel(title: "مشروع ريفيرا الساحل",location: "الساحل الشمالي",nofpools: 6,progress: 100,status:RequestStatus.completed),
+  
 ];

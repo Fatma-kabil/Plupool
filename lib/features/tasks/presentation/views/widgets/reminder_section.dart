@@ -6,7 +6,7 @@ import 'package:plupool/features/home/data/models/service_request_model.dart';
 
 class ReminderSection extends StatelessWidget {
   const ReminderSection({super.key, required this.request});
-  final ServiceRequest request;
+  final dynamic request;
 
   @override
   Widget build(BuildContext context) {
