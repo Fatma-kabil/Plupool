@@ -9,7 +9,7 @@ class CompanyProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-  // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+      // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
           ProfileOption(
@@ -19,45 +19,71 @@ class CompanyProfileBody extends StatelessWidget {
               context.push('/profiledetailsview');
             },
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
-            ProfileOption(
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
+          ProfileOption(
             title: 'مشاريعي',
             icon: Icons.work_outline,
             onTap: () {},
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
-            ProfileOption(
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
+          ProfileOption(
             title: 'خدماتي أو باقاتي ',
             icon: Icons.list_alt_outlined,
-            onTap: () {},
+            onTap: () {
+              context.push('/mypackageview');
+            },
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
 
           ProfileOption(
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
             onTap: () {
-               context.push('/helpview');
+              context.push('/helpview');
             },
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
           ProfileOption(
             title: 'الخصوصية والأمان',
             icon: Icons.lock_outline,
             onTap: () {
-               context.push('/privacyview');
+              context.push('/privacyview');
             },
           ),
-          SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
 
           ProfileOption(
             title: 'لماذا نحن؟',
             icon: Icons.info_outline,
             onTap: () {
-                context.push('/whyusview');
+              context.push('/whyusview');
             },
           ),
-         SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
 
           ProfileOption(
             title: 'تسجيل الخروج',
@@ -65,7 +91,6 @@ class CompanyProfileBody extends StatelessWidget {
             islogout: true,
             onTap: () {},
           ),
-        
         ],
       ),
     );

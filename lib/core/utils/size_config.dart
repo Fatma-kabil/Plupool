@@ -19,7 +19,7 @@ class SizeConfig {
   }
 
   // نسبة من ارتفاع الشاشة
-  static double h(double inputHeight) {
+  static double h(double inputHeight, ) {
     return (inputHeight / 740.6666) * screenHeight;
   }
  static bool get isWideScreen => screenWidth >= 800;

@@ -4,7 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
-import 'package:plupool/features/consruction_service/presentation/views/widgets/done_card.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/done_contact_us_card.dart';
 
 class ReportTechnicianAbsence extends StatelessWidget {
   const ReportTechnicianAbsence({super.key});
@@ -70,20 +70,18 @@ class ReportTechnicianAbsence extends StatelessWidget {
                 CustomTextBtn(
                   text: "تأكيد الابلاغ",
                   onPressed: () {
-                    Navigator.of(
-                      context,
-                      rootNavigator: true,
-                    ).popUntil((route) => route.isFirst);
+                   
                     showDialog(
                       context: context,
-                      builder: (_) => const DoneCard(),
+                      builder: (_) => Dialog(child: const DoneContactUsCard()),
                     );
                   },
                   padding: SizeConfig.w(8),
                 ),
                 Spacer(),
                 CustomOutlinedBtn(
-                  width: SizeConfig.w(120),
+                  padding:SizeConfig.isWideScreen?20: 10,
+                  width: SizeConfig.isWideScreen?190: 120,
                   text: "إلغاء",
                  
                 ),

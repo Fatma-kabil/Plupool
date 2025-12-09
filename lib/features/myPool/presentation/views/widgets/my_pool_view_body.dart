@@ -16,7 +16,7 @@ class MyPoolViewBody extends StatelessWidget {
           Stack(
             children: [
               SizedBox(
-                height: SizeConfig.h(378),
+                height: SizeConfig.h( SizeConfig.screenHeight>=SizeConfig.screenWidth*2?375: 425),
                 child: Image.asset(
                   'assets/images/pool_background.png',
                   fit: BoxFit.cover,
@@ -33,7 +33,7 @@ class MyPoolViewBody extends StatelessWidget {
 
               // مجرد شكل كارد علشان يعمل الـ overlap لكن من غير محتوى
               Positioned(
-                top: SizeConfig.h(290),
+                top: SizeConfig.h(SizeConfig.screenHeight>=SizeConfig.screenWidth*2? 290:320),
                 left: 0,
                 right: 0,
                 bottom: 0,
@@ -74,7 +74,7 @@ class MyPoolViewBody extends StatelessWidget {
                             context,
                           ).copyWith(color: Color(0xff777777)),
                         ),
-                        SizedBox(height: SizeConfig.h(20)),
+                        SizedBox(height: SizeConfig.h(15)),
                       ],
                     ),
                   ),

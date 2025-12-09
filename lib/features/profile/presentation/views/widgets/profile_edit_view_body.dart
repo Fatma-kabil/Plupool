@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/edit_btn.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/profile_avatar_picker.dart';
+import 'package:plupool/features/profile/presentation/views/widgets/update_company_info.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/update_owner_info.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/update_tech_info.dart';
 
@@ -19,6 +20,7 @@ class ProfileEditViewBody extends StatelessWidget {
           SizedBox(height: SizeConfig.h(30)),
           UpdateTechInfo(),
        //   UpdateOwnerInfo(),
+       UpdateCompanyInfo(),
           SizedBox(height: SizeConfig.h(30)),
           EditButton(
             tittle: 'حفظ المعلومات ',

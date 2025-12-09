@@ -23,7 +23,9 @@ class OwnerProfileBody extends StatelessWidget {
             ProfileOption(
             title: 'خدماتي أو باقاتي ',
             icon: Icons.list_alt_outlined,
-            onTap: () {},
+            onTap: () {
+               context.push('/mypackageview');
+            },
           ),
            SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
 

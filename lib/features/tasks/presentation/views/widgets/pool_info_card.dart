@@ -27,6 +27,7 @@ class PoolInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       //   textDirection: TextDirection.rtl,
       children: [
         Container(
