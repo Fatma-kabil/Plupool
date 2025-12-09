@@ -35,7 +35,7 @@ import 'package:plupool/features/tasks/presentation/views/maintenance_update_vie
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/splasherapper',
+      path: '/',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -206,7 +206,7 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: '/',
+      path: '/myprojectsview',
       name: 'myprojectsview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MyProjectsView()),
