@@ -19,7 +19,7 @@ class TechAppbar extends StatelessWidget {
        
 
         // 👤 النصوص + الصورة
-        AppBarDetails(model: model),
+        AppBarDetails(model: model,role: '',),
       ],
     );
   }

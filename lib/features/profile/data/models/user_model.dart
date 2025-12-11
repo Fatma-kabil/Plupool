@@ -35,20 +35,20 @@ class UserModel extends UserEntity {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'],
-      phone: json['phone'],
-      fullName: json['full_name'],
-      profileImage: json['profile_image'],
-      role: json['role'],
-      latitude: (json['latitude'] as num).toDouble(),
-      longitude: (json['longitude'] as num).toDouble(),
-      address: json['address'],
-      skills: json['skills'],
-      yearsOfExperience: json['years_of_experience'],
-      isPhoneVerified: json['is_phone_verified'],
-      isActive: json['is_active'],
-      isApproved: json['is_approved'],
-      createdAt: DateTime.parse(json['created_at']),
+      id: json['id'] ?? 0,
+      phone: json['phone'] ?? '',
+      fullName: json['full_name'] ?? '',
+      profileImage: json['profile_image'] ?? '',
+      role: json['role'] ?? '',
+      latitude: (json['latitude'] ?? 0.0).toDouble(),
+      longitude: (json['longitude'] ?? 0.0).toDouble(),
+      address: json['address'] ?? '',
+      skills: json['skills'] ?? '',
+      yearsOfExperience: json['years_of_experience'] ?? 0,
+      isPhoneVerified: json['is_phone_verified'] ?? false,
+      isActive: json['is_active'] ?? false,
+      isApproved: json['is_approved'] ?? false,
+      createdAt: DateTime.tryParse(json['created_at'] ?? '') ?? DateTime.now(),
     );
   }
 
@@ -70,4 +70,22 @@ class UserModel extends UserEntity {
       'created_at': createdAt.toIso8601String(),
     };
   }
+
+  /// نموذج افتراضي لتجنب null في UI
+  factory UserModel.empty() => UserModel(
+        id: 0,
+        phone: '',
+        fullName: '',
+        profileImage: '',
+        role: '',
+        latitude: 0.0,
+        longitude: 0.0,
+        address: '',
+        skills: '',
+        yearsOfExperience: 0,
+        isPhoneVerified: false,
+        isActive: false,
+        isApproved: false,
+        createdAt: DateTime.now(),
+      );
 }

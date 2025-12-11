@@ -10,20 +10,18 @@ import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class CustomerAppbar extends StatelessWidget {
   final UserEntity model;
+  final String role;
 
-  const CustomerAppbar({super.key, required this.model});
+  const CustomerAppbar({super.key, required this.model, required this.role});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        AppBarDetails(model: model,role: role,),
+        const Spacer(),
+
         // 🔔 أيقونة الإشعارات
-        NotificationButton(
-          onTap: () {
-            context.push('/customernotificationview');
-          },
-        ),
-        SizedBox(width: SizeConfig.w(10)),
         GestureDetector(
           onTap: () {
             showDialog(
@@ -69,11 +67,12 @@ class CustomerAppbar extends StatelessWidget {
             ),
           ),
         ),
-
-        const Spacer(),
-
-        // 👤 النصوص + الصورة
-        AppBarDetails(model: model),
+        SizedBox(width: SizeConfig.w(10)),
+        NotificationButton(
+          onTap: () {
+            context.push('/customernotificationview');
+          },
+        ),
       ],
     );
   }
