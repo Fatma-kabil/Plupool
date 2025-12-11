@@ -23,6 +23,7 @@ class ProfileView extends StatelessWidget {
           ),
           child: BlocBuilder<AuthCubit, AuthState>(
             builder: (context, authState) {
+               print('ProfileView: AuthState status is ${authState.status}');
               return Stack(
                 children: [
                   const ProfileViewBody(),

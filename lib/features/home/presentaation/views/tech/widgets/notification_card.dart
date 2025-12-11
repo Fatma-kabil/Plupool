@@ -46,9 +46,9 @@ class NotificationCard extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            radius: SizeConfig.w(18),
+            radius:SizeConfig.isWideScreen?SizeConfig.h(22): SizeConfig.w(18),
             backgroundColor: iconColor.withOpacity(0.15),
-            child: Icon(icon, color: iconColor, size: SizeConfig.w(22)),
+            child: Icon(icon, color: iconColor, size:SizeConfig.isWideScreen?SizeConfig.h(26): SizeConfig.w(22)),
           ),
           SizedBox(width: SizeConfig.w(10)),
           // النصوص
@@ -77,7 +77,7 @@ class NotificationCard extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.access_time,
-                      size: SizeConfig.w(17),
+                      size:SizeConfig.isWideScreen?SizeConfig.h(17): SizeConfig.w(17),
                       color: Color(0xff777777),
                     ),
                     SizedBox(width: SizeConfig.w(4)),

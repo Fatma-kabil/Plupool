@@ -7,6 +7,7 @@ class MyProjectsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return  Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(

@@ -4,6 +4,7 @@ import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/customer_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/offer_section.dart';
@@ -13,6 +14,7 @@ import 'package:plupool/features/home/presentaation/views/customer/widgets/revie
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
+
 class CustomerHomeView extends StatefulWidget {
   const CustomerHomeView({super.key});
 
@@ -21,72 +23,72 @@ class CustomerHomeView extends StatefulWidget {
 }
 
 class _CustomerHomeViewState extends State<CustomerHomeView> {
-  bool _hasFetchedUser = false;
-
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
 
-    if (_hasFetchedUser) return;
-
-    final token = context.read<AuthCubit>().state.token;
-
-    // دايماً هاتي role
+    /// نجيّب الدور من المخزن
     context.read<SelectRoleCubit>().getSavedRole();
 
-    // لو مستخدم → هات بياناته
+    /// لو التوكن موجود بالفعل (مستخدم مسجل مسبقاً)
+    final token = context.read<AuthCubit>().state.token;
     if (token != null && token.isNotEmpty) {
       context.read<UserCubit>().fetchCurrentUser(token);
     }
-
-    _hasFetchedUser = true;
   }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return BlocBuilder<SelectRoleCubit, SelectRoleState>(
-      builder: (context, roleState) {
-        if (roleState is! GetRoleSuccess) {
-          return const Center(child: CustomLoadingIndecator());
+
+    return BlocListener<AuthCubit, AuthState>(
+      listenWhen: (prev, curr) => prev.token != curr.token,
+      listener: (context, state) {
+        final token = state.token;
+
+        /// كل ما يحصل تسجيل دخول → نجيب بيانات المستخدم
+        if (token != null && token.isNotEmpty) {
+          context.read<UserCubit>().fetchCurrentUser(token);
         }
-
-        final token = context.watch<AuthCubit>().state.token;
-        
-
-        // 🟡 Guest — بدون userCubit
-        if (token == null || token.isEmpty) {
-          return buildHomeLayout(
-        
-          
-            appbar: GuestAppbar(role: roleState.roleName),
-          );
-          
-        }
-
-        // 🟢 LoggedIn — استخدمي UserCubit
-        return BlocBuilder<UserCubit, UserState>(
-          builder: (context, userState) {
-            if (userState is UserLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (userState is UserError) {
-              return Center(child: Text("خطأ: ${userState.message}"));
-            }
-            if (userState is UserLoaded) {
-              return buildHomeLayout(
-              
-                appbar: CustomerAppbar(model: userState.user),
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        );
       },
+      child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
+        builder: (context, roleState) {
+          if (roleState is! GetRoleSuccess) {
+            return const Center(child: CustomLoadingIndecator());
+          }
+
+          final token = context.watch<AuthCubit>().state.token;
+
+          // 🟡 Guest: بدون UserCubit
+          if (token == null || token.isEmpty) {
+            return buildHomeLayout(
+              appbar: GuestAppbar(role: roleState.roleName),
+            );
+          }
+
+          // 🟢 Logged in: استخدمي UserCubit
+          return BlocBuilder<UserCubit, UserState>(
+            builder: (context, userState) {
+              if (userState is UserLoading) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (userState is UserError) {
+                return Center(child: Text("خطأ: ${userState.message}"));
+              }
+              if (userState is UserLoaded) {
+                return buildHomeLayout(
+                  appbar: CustomerAppbar(model: userState.user),
+                );
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
+          );
+        },
+      ),
     );
   }
 
-  /// 🔥 دالة UI مشتركة للـ guest / loggedIn
+  /// ------------------ UI مشتركة ------------------
   Widget buildHomeLayout({required Widget appbar}) {
     return Padding(
       padding: EdgeInsets.only(

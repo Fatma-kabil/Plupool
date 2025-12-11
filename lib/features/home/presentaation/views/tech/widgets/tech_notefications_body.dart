@@ -110,12 +110,13 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       margin: EdgeInsets.only(
-                        left: SizeConfig.w(15),
-                        right: SizeConfig.w(10),
+                        left: SizeConfig.w(8),
+                        right: SizeConfig.w(8),
+                        bottom: SizeConfig.h(4), // 👈 مهم جدًا
                       ),
                       padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.w(14),
-                        vertical: SizeConfig.h(8),
+                        horizontal: SizeConfig.w(10),
+                        vertical: SizeConfig.h(5),
                       ),
                       decoration: BoxDecoration(
                         color: backgroundColor,
@@ -132,7 +133,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                         t,
                         style: AppTextStyles.styleRegular16(
                           context,
-                        ).copyWith(fontFamily: 'cairo', color: textColor),
+                        ).copyWith(fontFamily: 'Cairo', color: textColor),
                       ),
                     ),
                   );
@@ -151,7 +152,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
 
               return ListView.builder(
                 padding: EdgeInsets.only(
-                  top: SizeConfig.h(16),
+                  top: SizeConfig.h(20),
                   left: SizeConfig.w(4),
                   right: SizeConfig.w(4),
                 ),

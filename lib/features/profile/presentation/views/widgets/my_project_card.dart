@@ -23,7 +23,8 @@ class MyProjectCard extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            children: [
+ 
+           children: [
               Text(
                 project.title,
                 style: AppTextStyles.styleSemiBold16(
@@ -54,7 +55,7 @@ class MyProjectCard extends StatelessWidget {
             children: [
               Icon(
                 Icons.location_on_outlined,
-                size: SizeConfig.w(17),
+                size: SizeConfig.w(15),
                 color: Color(0xff999999),
               ),
               SizedBox(height: SizeConfig.w(2)),
@@ -66,15 +67,15 @@ class MyProjectCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: SizeConfig.h(4)),
+          SizedBox(height: SizeConfig.h(6)),
           Row(
             children: [
               Icon(
                 Icons.pool,
-                size: SizeConfig.w(17),
+                size: SizeConfig.w(15),
                 color: Color(0xff999999),
               ),
-              SizedBox(height: SizeConfig.w(2)),
+              SizedBox(width: SizeConfig.w(2)),
               Text(
                 "عدد المسابح : ${project.nofpools}",
                 style: AppTextStyles.styleRegular13(
@@ -133,10 +134,11 @@ class MyProjectCard extends StatelessWidget {
                         if (progress == 0)
                           Positioned(
                             right: 0, // دايرة في بداية الخط
-                            top: -SizeConfig.h(2),
+                            top: 0,
+                            bottom:0,
                             child: Container(
-                              width: SizeConfig.w(8),
-                              height: SizeConfig.w(12),
+                              width:  SizeConfig.w(8),
+                              height: SizeConfig.h(12),
                               decoration: BoxDecoration(
                                 color: colors['labelText'],
                                 shape: BoxShape.circle,

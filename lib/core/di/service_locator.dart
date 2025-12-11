@@ -69,7 +69,7 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(() => SaveRoleUseCase(sl<RoleRepository>()));
   sl.registerLazySingleton(() => GetSavedRoleUseCase(sl<RoleRepository>()));
 
-  sl.registerFactory(() => SelectRoleCubit(
+  sl.registerLazySingleton(() => SelectRoleCubit(
         saveRoleUseCase: sl<SaveRoleUseCase>(),
         getSavedRoleUseCase: sl<GetSavedRoleUseCase>(),
       ));
@@ -78,7 +78,10 @@ Future<void> initServiceLocator() async {
   // 🔐 Auth Feature
   // ----------------------------
   // AuthCubit (يعتمد على FlutterSecureStorage)
-  sl.registerLazySingleton<AuthCubit>(() => AuthCubit(sl<FlutterSecureStorage>()));
+  sl.registerLazySingleton<AuthCubit>(
+  () => AuthCubit(sl<FlutterSecureStorage>(), sl<ApiService>()),
+);
+
 
   // Remote Data Source
   sl.registerLazySingleton<SignUpRemoteDataSource>(
@@ -107,13 +110,13 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(() => SignupCompanyUseCase(sl<SignUpRepo>()));
 
   // Cubits
-  sl.registerFactory(() => SignUpCubit(
+  sl.registerLazySingleton(() => SignUpCubit(
         signupTechnicianUseCase: sl<SignupTechnicianUseCase>(),
         signupPoolOwnerUseCase: sl<SignupPoolOwnerUseCase>(),
         signupCompanyUseCase: sl<SignupCompanyUseCase>(),
       ));
 
-  sl.registerFactory(() => OtpCubit(sl<OtpRepository>()));
+  sl.registerLazySingleton(() => OtpCubit(sl<OtpRepository>()));
 
 
 
@@ -128,7 +131,7 @@ sl.registerLazySingleton<UserRepository>(
 );
 
 // تسجيل Cubit
-sl.registerFactory(() => UserCubit(sl<UserRepository>()));
+sl.registerLazySingleton(() => UserCubit(sl<UserRepository>()));
 
 // تسجيل UpdateUserCubit
 sl.registerFactory(() => UpdateUserCubit(sl<UserRepository>()));

@@ -121,8 +121,8 @@ class _CustomerNotificationViewBodyState
                         bottom: SizeConfig.h(4), // 👈 مهم جدًا
                       ),
                       padding: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.w(14),
-                        vertical: SizeConfig.h(7),
+                        horizontal: SizeConfig.w(10),
+                        vertical: SizeConfig.h(5),
                       ),
                       decoration: BoxDecoration(
                         color: backgroundColor,
@@ -140,7 +140,7 @@ class _CustomerNotificationViewBodyState
                         t,
                         style: AppTextStyles.styleRegular16(
                           context,
-                        ).copyWith(fontFamily: 'cairo', color: textColor),
+                        ).copyWith(fontFamily: 'Cairo', color: textColor),
                       ),
                     ),
                   );

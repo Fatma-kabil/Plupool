@@ -26,7 +26,7 @@ class PlupoolApp extends StatelessWidget {
          BlocProvider(create: (_) => sl<SelectRoleCubit>()),
            BlocProvider(create: (_) => sl<OtpCubit>()),
             BlocProvider(
-          create: (_) => AuthCubit(storage),
+          create: (_) => sl<AuthCubit>(),
           
         ),
         BlocProvider(create: (_) => sl<UserCubit>()),
@@ -42,8 +42,8 @@ class PlupoolApp extends StatelessWidget {
           SizeConfig.init(context);
           return MaterialApp.router(
             useInheritedMediaQuery: true, // ✅ مهم جدًا
-     //    locale: DevicePreview.locale(context), // ✅
-       //     builder: DevicePreview.appBuilder, // ✅
+       //  locale: DevicePreview.locale(context), // ✅
+         //   builder: DevicePreview.appBuilder, // ✅
             debugShowCheckedModeBanner: false,
             routerConfig: appRouter,
             theme: ThemeData(
