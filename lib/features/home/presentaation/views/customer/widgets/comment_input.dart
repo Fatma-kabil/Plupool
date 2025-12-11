@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
@@ -5,35 +6,55 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class CommentInput extends StatelessWidget {
-  const CommentInput({super.key});
-
+  const CommentInput({super.key, required this.imageUrl});
+  final String imageUrl;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-          /// صورة البروفايل
-         CircleAvatar(
-          radius:SizeConfig.w(18) ,
-          backgroundImage: AssetImage("assets/images/customer_user.png"),
+        /// صورة البروفايل
+        CircleAvatar(
+          radius: SizeConfig.w(18),
+          backgroundColor: Colors.grey[200],
+          child: ClipOval(
+            child: CachedNetworkImage(
+              imageUrl: imageUrl.isNotEmpty
+                  ? imageUrl
+                  : '', // لو فاضية
+              fit: BoxFit.cover,
+              width: SizeConfig.w(34),
+              height: SizeConfig.w(34),
+              placeholder: (context, url) => Icon(
+                Icons.person,
+                size: SizeConfig.w(26),
+                color: Colors.grey,
+              ),
+              errorWidget: (context, url, error) => Icon(
+                Icons.person,
+                size: SizeConfig.w(17),
+                color: AppColors.kprimarycolor,
+              ),
+            ),
+          ),
         ),
-                SizedBox(width:SizeConfig.w(12) ),
-                        /// TextField
+        SizedBox(width: SizeConfig.w(12)),
+
+        /// TextField
         Expanded(
           child: TextField(
-          
             cursorColor: AppColors.kprimarycolor,
             textAlign: TextAlign.right,
-              
+
             decoration: InputDecoration(
               isDense: true,
-              
+
               hintText: "اكتب تعليقك هنا...",
               hintStyle: AppTextStyles.styleRegular13(
                 context,
               ).copyWith(color: const Color(0xffBBBBBB)),
-              contentPadding:  EdgeInsets.symmetric(
-                horizontal:SizeConfig.w(12) ,
-                vertical:SizeConfig.h(7) ,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.w(12),
+                vertical: SizeConfig.h(7),
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(30),
@@ -59,7 +80,8 @@ class CommentInput extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width:SizeConfig.w(12) ),
+        SizedBox(width: SizeConfig.w(12)),
+
         /// زر الإرسال (طائرة ورقية)
         Container(
           width: SizeConfig.w(35),
@@ -81,13 +103,6 @@ class CommentInput extends StatelessWidget {
             ),
           ),
         ),
-        
-
-
-
-
-
-      
       ],
     );
   }

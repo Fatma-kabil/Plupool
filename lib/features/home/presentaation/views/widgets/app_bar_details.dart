@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -57,10 +56,10 @@ class AppBarDetails extends StatelessWidget {
         //    const SizedBox(height: 4),
         Row(
           children: [
-            SvgPicture.asset(
-              "assets/icons/user.svg",
-              width: SizeConfig.w(15),
-              height: SizeConfig.w(15),
+            Icon(
+              Icons.person,
+              size: SizeConfig.w(15),
+
               color: AppColors.kprimarycolor,
             ),
             SizedBox(width: SizeConfig.w(2)),

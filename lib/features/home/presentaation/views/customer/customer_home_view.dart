@@ -60,7 +60,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
 
           // 🟡 Guest
           if (token.isEmpty) {
-            return buildHomeLayout(appbar: GuestAppbar(role: roleName));
+            return buildHomeLayout(appbar: GuestAppbar(role: roleName), image: "");
           }
 
           // 🟢 Logged in
@@ -79,6 +79,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
                 final userModel = userState.user; // حماية null
                 return buildHomeLayout(
                   appbar: CustomerAppbar(model: userModel,role: roleName,),
+                  image: userState.user.profileImage
                 );
               }
               return const Center(child: CustomLoadingIndecator());
@@ -89,7 +90,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
     );
   }
 
-  Widget buildHomeLayout({required Widget appbar}) {
+  Widget buildHomeLayout({required Widget appbar,required String image}) {
     return Padding(
       padding: EdgeInsets.only(
         top: SizeConfig.h(12),
@@ -104,12 +105,12 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
           const SizedBox(height: 29),
           OfferSection(
             offers: offers, // حماية null
-            role: "صاحب حمام سباحه",
+            role: "  ",
           ),
           const SizedBox(height: 27),
           const ProjectsSection(),
           const SizedBox(height: 42),
-          const ReviewSection(),
+           ReviewSection(imageUrl: image,),
         ],
       ),
     );
