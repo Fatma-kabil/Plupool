@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/functions/pick_date_fun.dart';
@@ -7,9 +8,12 @@ import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_reservation_model.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/custom_pool_details%20_form.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/reservation_details_dialog.dart';
+import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
 
 class PoolReservationForm extends StatefulWidget {
   final String poolTitle;
@@ -73,9 +77,7 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
     // اعرض تفاصيل الحجز في Dialog
     showDialog(
       context: context,
-      builder: (_) => ReservationDetailsDialog(
-        reservation: reservation,
-      ),
+      builder: (_) => ReservationDetailsDialog(reservation: reservation),
     );
   }
 
@@ -162,10 +164,31 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
             iconPath: 'assets/icons/depth.svg',
           ),
           const SizedBox(height: 30),
-          CustomTextBtn(
-            width: double.infinity,
-            onPressed: _onConfirmPressed,
-            text: 'تأكيد الحجز',
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              return CustomTextBtn(
+                text: "تأكيد الحجز",
+                width: double.infinity,
+                onPressed: () {
+                  if (state.status == AuthStatus.guest) {
+                    // لو ضيف — نعرض رسالة الخطأ
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ErrorCard(
+                          title: 'لم يتم تسجيل الدخول',
+                          subtitle:
+                              'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                          color: Colors.white,
+                        );
+                      },
+                    );
+                  } else {
+                    _onConfirmPressed;
+                  }
+                },
+              );
+            },
           ),
         ],
       ),

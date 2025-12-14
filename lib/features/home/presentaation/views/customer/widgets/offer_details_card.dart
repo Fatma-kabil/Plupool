@@ -62,65 +62,68 @@ class OfferDetailsCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: SizeConfig.w(12)),
-Expanded(
-  child: SizedBox(
-    height: SizeConfig.isWideScreen ? SizeConfig.w(125) : SizeConfig.h(150),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // الجزء العلوي
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              offer.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: AppTextStyles.styleSemiBold16(context)
-                  .copyWith(color: AppColors.ktextcolor),
-            ),
-            SizedBox(height: SizeConfig.h(5)),
-            Row(
-              children: [
-                Icon(
-                  Icons.calendar_month_outlined,
-                  size: SizeConfig.w(12),
-                  color: Color(0xff525252),
-                ),
-                SizedBox(width: SizeConfig.w(4)),
-                Text(
-                  'العرض ساري حتي ',
-                  style: AppTextStyles.styleRegular11(context),
-                ),
-                Text(
-                  DateFormat('dd/MM/yyyy').format(offer.endDate!),
-                  style: AppTextStyles.styleRegular11(context),
-                ),
-              ],
-            ),
-            SizedBox(height: SizeConfig.h(5)),
-            Text(
-              offer.desc,
-              softWrap: true,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-              style: AppTextStyles.styleRegular13(context)
-                  .copyWith(color: Color(0xff777777)),
-            ),
-          ],
-        ),
+          Expanded(
+            child: SizedBox(
+              height: SizeConfig.isWideScreen
+                  ? SizeConfig.w(125)
+                  : SizeConfig.h(150),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // الجزء العلوي
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        offer.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.styleSemiBold16(
+                          context,
+                        ).copyWith(color: AppColors.ktextcolor),
+                      ),
+                      SizedBox(height: SizeConfig.h(5)),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.calendar_month_outlined,
+                            size: SizeConfig.w(12),
+                            color: Color(0xff525252),
+                          ),
+                          SizedBox(width: SizeConfig.w(4)),
+                          Text(
+                            'العرض ساري حتي ',
+                            style: AppTextStyles.styleRegular11(context),
+                          ),
+                          Text(
+                            DateFormat('dd/MM/yyyy').format(offer.endDate!),
+                            style: AppTextStyles.styleRegular11(context),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: SizeConfig.h(5)),
+                      Text(
+                        offer.desc,
+                        softWrap: true,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.styleRegular13(
+                          context,
+                        ).copyWith(color: Color(0xff777777)),
+                      ),
+                    ],
+                  ),
 
-        // الزرار في الأسفل
-        Align(
-          alignment: Alignment.bottomRight,
-          child: ReserveOfferBtn(service: offer.title,),
-        ),
-      ],
-    ),
-  ),
-),
-
+                  // الزرار في الأسفل
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: ReserveOfferBtn(service: offer.title),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
