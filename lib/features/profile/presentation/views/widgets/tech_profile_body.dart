@@ -29,7 +29,7 @@ class TechProfileBody extends StatelessWidget {
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
             onTap: () {
-              context.push('/helpview');
+              context.push('/helpview',extra: 'فني');
             },
           ),
           SizedBox(

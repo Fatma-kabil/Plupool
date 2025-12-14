@@ -53,7 +53,7 @@ class CompanyProfileBody extends StatelessWidget {
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
             onTap: () {
-              context.push('/helpview');
+              context.push('/helpview',extra: 'مطور عقاري');
             },
           ),
           SizedBox(

@@ -6,11 +6,13 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/done_contact_us_card.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/faq_section.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/support_contact_card.dart';
+
 class HelpViewBody extends StatelessWidget {
-  HelpViewBody({super.key});
+  HelpViewBody({super.key, required this.role});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-   final notesController = TextEditingController();
+  final notesController = TextEditingController();
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +22,16 @@ class HelpViewBody extends StatelessWidget {
         children: [
           Text(
             "الأسئلة الشائعة",
-            style: AppTextStyles.styleBold16(context)
-                .copyWith(color: AppColors.ktextcolor),
+            style: AppTextStyles.styleBold16(
+              context,
+            ).copyWith(color: AppColors.ktextcolor),
           ),
 
           SizedBox(height: SizeConfig.h(15)),
-           FaqSection( 
-            items:ownerQes
-            // techQes
-           ),
+          FaqSection(
+           items: role == "فني" ? techQes : ownerQes,
+
+          ),
           SizedBox(height: SizeConfig.h(35)),
 
           SupportContactCard(
@@ -37,15 +40,15 @@ class HelpViewBody extends StatelessWidget {
             onSend: () {
               if (_formKey.currentState!.validate()) {
                 showDialog(
-              context: context,
-              builder: (context) => const Dialog(
-                backgroundColor: Colors.white,
-                insetPadding: EdgeInsets.all(
-                  20,
-                ), // يتحكم في المسافة حوالين الدايلوج
-                child: DoneContactUsCard(), // 👈 بيرجع الويدجت اللي فوق
-              ),
-            );
+                  context: context,
+                  builder: (context) => const Dialog(
+                    backgroundColor: Colors.white,
+                    insetPadding: EdgeInsets.all(
+                      20,
+                    ), // يتحكم في المسافة حوالين الدايلوج
+                    child: DoneContactUsCard(), // 👈 بيرجع الويدجت اللي فوق
+                  ),
+                );
               }
             },
           ),

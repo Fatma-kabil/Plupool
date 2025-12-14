@@ -3,8 +3,8 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/help_view_body.dart';
 
 class HelpView extends StatelessWidget {
-  const HelpView({super.key});
-
+  const HelpView({super.key, required this.role});
+  final String role;
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -17,7 +17,7 @@ class HelpView extends StatelessWidget {
               horizontal: SizeConfig.w(17),
               vertical: SizeConfig.h(25),
             ),
-            child: HelpViewBody(),
+            child: HelpViewBody(role: role,),
           ),
         ),
       ),

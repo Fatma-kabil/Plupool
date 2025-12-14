@@ -184,25 +184,27 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/helpview',
       name: 'helpview',
-      pageBuilder: (context, state) => buildTransitionPage(const HelpView()),
+      pageBuilder: (context, state) {
+        final role = state.extra as String;
+
+        return buildTransitionPage(HelpView(role: role));
+      },
     ),
     GoRoute(
       path: '/privacyview',
       name: 'privacyview',
       pageBuilder: (context, state) => buildTransitionPage(const PrivacyView()),
     ),
-GoRoute(
-  path: '/whyusview',
-  name: 'whyusview',
-  pageBuilder: (context, state) {
-    // استلام الـ role من extra وتأكد من النوع String
-    final role = state.extra as String;
+    GoRoute(
+      path: '/whyusview',
+      name: 'whyusview',
+      pageBuilder: (context, state) {
+        // استلام الـ role من extra وتأكد من النوع String
+        final role = state.extra as String;
 
-    return buildTransitionPage(
-      WhyUsView(role: role),
-    );
-  },
-),
+        return buildTransitionPage(WhyUsView(role: role));
+      },
+    ),
 
     GoRoute(
       path: '/mypackageview',
