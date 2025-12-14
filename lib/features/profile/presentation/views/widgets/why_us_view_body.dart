@@ -3,12 +3,12 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/metric_card.dart';
-import 'package:plupool/features/profile/presentation/views/widgets/why_us_card.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/why_us_owner_body.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/why_us_tech_body.dart';
 
 class WhyUsViewBody extends StatelessWidget {
-  const WhyUsViewBody({super.key});
+  const WhyUsViewBody({super.key, required this.role});
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,9 @@ class WhyUsViewBody extends StatelessWidget {
             ],
           ),
           SizedBox(height: SizeConfig.h(40)),
-       //   WhyUsTechBody(),
+          if(role =="فني")
+             WhyUsTechBody()
+         else
           WhyUsOwnerBody(),
         ],
       ),

@@ -50,7 +50,7 @@ class OwnerProfileBody extends StatelessWidget {
             title: 'لماذا نحن؟',
             icon: Icons.info_outline,
             onTap: () {
-                context.push('/whyusview');
+                context.push('/whyusview',extra: 'صاحب حمام سباحه');
             },
           ),
          SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),

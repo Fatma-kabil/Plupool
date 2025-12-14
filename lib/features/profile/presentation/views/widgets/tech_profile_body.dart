@@ -54,7 +54,7 @@ class TechProfileBody extends StatelessWidget {
             title: 'لماذا نحن؟',
             icon: Icons.info_outline,
             onTap: () {
-                context.push('/whyusview');
+                context.push('/whyusview',extra: 'فني');
             },
           ),
           SizedBox(

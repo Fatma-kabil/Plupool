@@ -91,7 +91,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCompanyView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/MainHomeTechView',
       name: 'MainHomeTechView',
       pageBuilder: (context, state) =>
@@ -191,11 +191,19 @@ final GoRouter appRouter = GoRouter(
       name: 'privacyview',
       pageBuilder: (context, state) => buildTransitionPage(const PrivacyView()),
     ),
-    GoRoute(
-      path: '/whyusview',
-      name: 'whyusview',
-      pageBuilder: (context, state) => buildTransitionPage(const WhyUsView()),
-    ),
+GoRoute(
+  path: '/whyusview',
+  name: 'whyusview',
+  pageBuilder: (context, state) {
+    // استلام الـ role من extra وتأكد من النوع String
+    final role = state.extra as String;
+
+    return buildTransitionPage(
+      WhyUsView(role: role),
+    );
+  },
+),
+
     GoRoute(
       path: '/mypackageview',
       name: 'mypackageview',
@@ -220,7 +228,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const MyProjectsView()),
     ),
 
-     GoRoute(
+    GoRoute(
       path: '/customernotificationview',
       name: 'customernotificationview',
       pageBuilder: (context, state) =>

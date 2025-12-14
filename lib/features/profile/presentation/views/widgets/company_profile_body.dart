@@ -78,7 +78,7 @@ class CompanyProfileBody extends StatelessWidget {
             title: 'لماذا نحن؟',
             icon: Icons.info_outline,
             onTap: () {
-              context.push('/whyusview');
+              context.push('/whyusview',extra: 'مطور عقاري');
             },
           ),
           SizedBox(
