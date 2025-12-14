@@ -14,58 +14,58 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(17),
-            vertical: SizeConfig.h(25),
-          ),
-          child: BlocBuilder<AuthCubit, AuthState>(
-            builder: (context, authState) {
-               print('ProfileView: AuthState status is ${authState.status}');
-              return Stack(
-                children: [
-                  const ProfileViewBody(),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    bottom: SizeConfig.h(10),
-                    child: CustomTextBtn(
-                      text: 'حذف الحساب',
-                      onPressed: () {
-                        context.push('/deleteaccountview');
-                      },
-                      color: Color(0xffE63946),
+  return Scaffold(
+  body: SafeArea(
+    child: Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.w(17),
+        vertical: SizeConfig.h(25),
+      ),
+      child: BlocBuilder<AuthCubit, AuthState>(
+        builder: (context, authState) {
+          print('ProfileView: AuthState status is ${authState.status}');
+          return SizedBox.expand(   // مهم جداً ليملأ كل المساحة
+            child: Stack(
+              children: [
+                const ProfileViewBody(),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: SizeConfig.h(10),
+                  child: CustomTextBtn(
+                    text: 'حذف الحساب',
+                    onPressed: () {
+                      context.push('/deleteaccountview');
+                    },
+                    color: Color(0xffE63946),
+                  ),
+                ),
+                if (authState.status == AuthStatus.guest)
+                  Positioned.fill(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                      child: Container(
+                        color: Colors.black.withOpacity(0),
+                      ),
                     ),
                   ),
-
-                  if (authState.status == AuthStatus.guest)
-                    Positioned.fill(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                        child: Container(
-                          color: Colors.black.withOpacity(
-                            0,
-                          ), // مهم عشان البلور يشتغل
-                        ),
-                      ),
+                if (authState.status == AuthStatus.guest)
+                  Center(
+                    child: ErrorCard(
+                      title: 'لم يتم تسجيل الدخول',
+                      subtitle:
+                          'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                      color: Colors.white,
                     ),
-                  if (authState.status == AuthStatus.guest)
-                    Center(
-                      child: ErrorCard(
-                        title: 'لم يتم تسجيل الدخول',
-                        subtitle:
-                            'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                        color: Colors.white,
-                      ),
-                    ),
-                ],
-              );
-            },
-          ),
-        ),
+                  ),
+              ],
+            ),
+          );
+        },
       ),
-    );
+    ),
+  ),
+);
+
   }
 }
