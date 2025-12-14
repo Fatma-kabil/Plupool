@@ -13,7 +13,6 @@ import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up
 import 'package:plupool/features/profile/data/remote_data_source.dart/user_remote_data_source.dart';
 import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
 import 'package:plupool/features/profile/domain/repos/user_repo.dart';
-import 'package:plupool/features/profile/presentation/manager/update_cubit/update_user_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 
 // Role Feature
@@ -134,6 +133,6 @@ sl.registerLazySingleton<UserRepository>(
 sl.registerLazySingleton(() => UserCubit(sl<UserRepository>()));
 
 // تسجيل UpdateUserCubit
-sl.registerFactory(() => UpdateUserCubit(sl<UserRepository>()));
+
 
 }

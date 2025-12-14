@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:plupool/core/theme/app_colors.dart';
@@ -6,11 +7,13 @@ import 'package:plupool/core/utils/size_config.dart';
 
 class ProfileAvatarPicker extends StatefulWidget {
   final File? initialImage;
+  final String? networkImageUrl;
   final void Function(File? image) onImagePicked;
 
   const ProfileAvatarPicker({
     super.key,
     this.initialImage,
+    this.networkImageUrl,
     required this.onImagePicked,
   });
 
@@ -23,7 +26,7 @@ class _ProfileAvatarPickerState extends State<ProfileAvatarPicker> {
 
   Future<void> _pickImage() async {
     final picker = ImagePicker();
-    XFile? file = await picker.pickImage(
+    final XFile? file = await picker.pickImage(
       source: ImageSource.gallery,
       imageQuality: 80,
     );
@@ -36,9 +39,27 @@ class _ProfileAvatarPickerState extends State<ProfileAvatarPicker> {
     }
   }
 
+  ImageProvider? _getImageProvider() {
+    if (_pickedImage != null) {
+      return FileImage(_pickedImage!);
+    }
+
+    if (widget.initialImage != null) {
+      return FileImage(widget.initialImage!);
+    }
+
+    if (widget.networkImageUrl != null &&
+        widget.networkImageUrl!.isNotEmpty &&
+        widget.networkImageUrl != 'string') {
+      return CachedNetworkImageProvider(widget.networkImageUrl!);
+    }
+
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final image = _pickedImage ?? widget.initialImage;
+    final imageProvider = _getImageProvider();
 
     return Stack(
       alignment: Alignment.bottomRight,
@@ -46,7 +67,7 @@ class _ProfileAvatarPickerState extends State<ProfileAvatarPicker> {
         GestureDetector(
           onTap: _pickImage,
           child: Container(
-            padding: EdgeInsets.all(SizeConfig.w(4)), // السمك الخارجي
+            padding: EdgeInsets.all(SizeConfig.w(4)),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
@@ -55,19 +76,27 @@ class _ProfileAvatarPickerState extends State<ProfileAvatarPicker> {
               ),
             ),
             child: CircleAvatar(
-              radius:SizeConfig.isWideScreen?SizeConfig.w(40): SizeConfig.w(50),
-              backgroundImage: image != null
-                  ? FileImage(image)
-                  : const AssetImage("assets/images/ahmed.png")
-                      as ImageProvider,
+              radius: SizeConfig.isWideScreen
+                  ? SizeConfig.w(40)
+                  : SizeConfig.w(50),
+              backgroundColor: Colors.grey[50],
+              backgroundImage: imageProvider,
+              child: imageProvider == null
+                  ? Icon(
+                      Icons.person,
+                      color: Colors.grey,
+                      size: SizeConfig.w(65),
+                    )
+                  : null,
             ),
           ),
         ),
 
-        // أيقونة التعديل
+        /// أيقونة التعديل
         GestureDetector(
           onTap: _pickImage,
           child: Container(
+            padding: EdgeInsets.all(SizeConfig.w(4)),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white,
@@ -78,7 +107,6 @@ class _ProfileAvatarPickerState extends State<ProfileAvatarPicker> {
                 ),
               ],
             ),
-            padding: EdgeInsets.all(SizeConfig.w(4)),
             child: Icon(
               Icons.edit,
               color: AppColors.kprimarycolor,
