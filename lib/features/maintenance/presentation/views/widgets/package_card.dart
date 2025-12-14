@@ -94,7 +94,7 @@ class PackageCard extends StatelessWidget {
                       },
                     );
                   } else {
-                    onSelect;
+                    onSelect();
                   }
                 },
               );

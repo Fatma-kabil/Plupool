@@ -2,16 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/build_info_row.dart';
 
-class TechInfoCard extends StatelessWidget {
-  const TechInfoCard({super.key});
+import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
+class TechInfoCard extends StatelessWidget {
+  const TechInfoCard({super.key, required this.model});
+  final UserEntity model;
   @override
+  
   Widget build(BuildContext context) {
+     final phone = model.phone
+        .replaceFirst("+20", "")
+        .trim();
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.only(top: SizeConfig.h(20),bottom:SizeConfig.h(20),right: SizeConfig.w(8) ),
+      padding: EdgeInsets.only(
+        top: SizeConfig.h(20),
+        bottom: SizeConfig.h(20),
+        right: SizeConfig.w(8),
+      ),
       decoration: BoxDecoration(
-       color:  Colors.white,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -28,31 +38,31 @@ class TechInfoCard extends StatelessWidget {
           BuildInfoRow(
             icon: Icons.person_outline,
             title: 'الاسم',
-            value: 'أحمد محمد',
+            value: model.fullName,
           ),
-          SizedBox(height:SizeConfig.h(15) ),
+          SizedBox(height: SizeConfig.h(15)),
           BuildInfoRow(
             icon: Icons.location_on_outlined,
             title: 'مكان الإقامة',
-            value: 'القاهرة',
+            value: model.address,
           ),
-          SizedBox(height:SizeConfig.h(15) ),
+          SizedBox(height: SizeConfig.h(15)),
           BuildInfoRow(
             icon: Icons.build_outlined,
             title: 'المهارات',
-            value: 'صيانة فلاتر وتنظيف حمامات السباحة',
+            value: model.skills,
           ),
-          SizedBox(height:SizeConfig.h(15) ),
+          SizedBox(height: SizeConfig.h(15)),
           BuildInfoRow(
             icon: Icons.calendar_month_outlined,
             title: 'عدد سنين الخبرة',
-            value: '10 سنوات',
+            value: model.yearsOfExperience.toString(),
           ),
-          SizedBox(height:SizeConfig.h(15) ),
+          SizedBox(height: SizeConfig.h(15)),
           BuildInfoRow(
             icon: Icons.phone_outlined,
             title: 'رقم الهاتف',
-            value: '01555222999',
+            value:phone,
           ),
         ],
       ),

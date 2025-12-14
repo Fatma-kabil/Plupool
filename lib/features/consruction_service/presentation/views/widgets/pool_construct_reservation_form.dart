@@ -184,7 +184,7 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
                       },
                     );
                   } else {
-                    _onConfirmPressed;
+                    _onConfirmPressed();
                   }
                 },
               );

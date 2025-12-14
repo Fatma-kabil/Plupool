@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/build_info_row.dart';
-
+import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 class CompanyInfoCard extends StatelessWidget {
-  const CompanyInfoCard({super.key});
-
+  const CompanyInfoCard({super.key, required this.model});
+ final UserEntity model;
   @override
   Widget build(BuildContext context) {
+     final phone = model.phone
+        .replaceFirst("+20", "")
+        .trim();
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(top: SizeConfig.h(20),bottom:SizeConfig.h(20),right: SizeConfig.w(8) ),
@@ -28,7 +31,7 @@ class CompanyInfoCard extends StatelessWidget {
           BuildInfoRow(
             icon: Icons.person_outline,
             title: 'الاسم',
-            value: 'أحمد محمد',
+            value: model.fullName,
           ),
           SizedBox(height:SizeConfig.h(15) ),
           
@@ -36,7 +39,7 @@ class CompanyInfoCard extends StatelessWidget {
           BuildInfoRow(
             icon: Icons.phone_outlined,
             title: 'رقم الهاتف',
-            value: '01555222999',
+            value: phone,
           ),
         ],
       ),
