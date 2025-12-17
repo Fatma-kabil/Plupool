@@ -108,7 +108,7 @@ class _TechHomeViewState extends State<TechHomeView> {
               children: [
                 Text(
                   "مهام الأسبوع",
-                  style: AppTextStyles.styleBold20(context),
+                  style: AppTextStyles.styleBold20(context).copyWith(color: AppColors.ktextcolor),
                 ),
                 const Spacer(),
                 GestureDetector(

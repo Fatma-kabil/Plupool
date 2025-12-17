@@ -17,7 +17,7 @@ class BuildUserSection extends StatelessWidget {
       CircleAvatar(radius:SizeConfig.w(16) , backgroundImage: AssetImage(request.userImage!)),
        SizedBox(width: SizeConfig.w(8) ),
       Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             request.userName!,

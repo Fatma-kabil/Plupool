@@ -28,7 +28,7 @@ class AppBarDetails extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: SizeConfig.w(17),
-              backgroundColor: Colors.grey[50],
+              backgroundColor: Colors.grey[300],
               child: ClipOval(
                 child: _isValidImage(model.profileImage)
                     ? CachedNetworkImage(

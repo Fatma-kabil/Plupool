@@ -12,14 +12,13 @@ class TechAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      
       children: [
-         NotificationButton(onTap: () => context.push('/technotifications'),),
+        AppBarDetails(model: model, role: 'فني'),
+        Spacer(),
+        NotificationButton(onTap: () => context.push('/technotifications')),
         SizedBox(width: SizeConfig.w(10)),
-       
 
         // 👤 النصوص + الصورة
-        AppBarDetails(model: model,role: '',),
       ],
     );
   }

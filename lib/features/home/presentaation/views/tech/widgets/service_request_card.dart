@@ -35,16 +35,18 @@ class ServiceRequestCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                buildStatusLabel(colors, context, request.status),
-                Spacer(),
+               
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildTitle(context),
                     const SizedBox(height: 4),
                     BuildDataTimeRow(request: request),
                   ],
                 ),
+                 Spacer(),
+                 buildStatusLabel(colors, context, request.status),
+               
               ],
             ),
 
