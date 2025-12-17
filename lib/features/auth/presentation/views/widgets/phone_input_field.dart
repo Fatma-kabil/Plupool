@@ -10,7 +10,11 @@ class PhoneInputField extends StatefulWidget {
     super.key,
     this.validator,
     required this.controller,
-    this.iconcolor, this.bordercolor,
+    this.iconcolor,
+    this.bordercolor,
+    this.initialCountryCode = '',
+    this.initialCountryFlag = '',
+    this.onCountryChanged,
   });
 
   final String? Function(String?)? validator;
@@ -18,14 +22,28 @@ class PhoneInputField extends StatefulWidget {
   final Color? iconcolor;
   final Color? bordercolor;
 
-  // خلي الـ State class public
+  final String initialCountryCode;
+  final String initialCountryFlag;
+  final void Function(String code, String flag)? onCountryChanged;
+
   @override
   PhoneInputFieldState createState() => PhoneInputFieldState();
 }
 
 class PhoneInputFieldState extends State<PhoneInputField> {
-  String selectedCountryCode = '+20';
-  String selectedCountryFlag = '🇪🇬';
+  late String selectedCountryCode;
+  late String selectedCountryFlag;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Default to Egypt (+20 🇪🇬) if initial values are empty
+    selectedCountryCode =
+        widget.initialCountryCode.isNotEmpty ? widget.initialCountryCode : '+20';
+    selectedCountryFlag =
+        widget.initialCountryFlag.isNotEmpty ? widget.initialCountryFlag : '🇪🇬';
+  }
 
   void _showCountryPicker() {
     showCountryPicker(
@@ -36,12 +54,16 @@ class PhoneInputFieldState extends State<PhoneInputField> {
           selectedCountryCode = '+${country.phoneCode}';
           selectedCountryFlag = country.flagEmoji;
         });
+
+        // Safe call in case parent didn't pass a listener
+        widget.onCountryChanged?.call(selectedCountryCode, selectedCountryFlag);
       },
     );
   }
 
+  /// Returns full phone number with country code
   String getFullPhoneNumber() {
-    return '$selectedCountryCode${widget.controller.text.trim()}';
+    return '$selectedCountryCode ${widget.controller.text.trim()}';
   }
 
   @override
@@ -49,45 +71,32 @@ class PhoneInputFieldState extends State<PhoneInputField> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
-        textDirection: TextDirection.ltr, // ← الأفضل لرقم الهاتف
+        textDirection: TextDirection.ltr,
         textAlign: TextAlign.right,
-
-        style: AppTextStyles.styleMedium16(
-          context,
-        ).copyWith(color: AppColors.ktextcolor),
-        cursorHeight: SizeConfig.isWideScreen
-            ? SizeConfig.w(12)
-            : SizeConfig.h(20),
+        style: AppTextStyles.styleMedium16(context)
+            .copyWith(color: AppColors.ktextcolor),
+        cursorHeight: SizeConfig.isWideScreen ? SizeConfig.w(12) : SizeConfig.h(20),
         cursorColor: AppColors.kprimarycolor,
         controller: widget.controller,
         validator: widget.validator,
         keyboardType: TextInputType.phone,
         decoration: InputDecoration(
           prefixIcon: Padding(
-            padding: EdgeInsets.only(
-              right: SizeConfig.w(7),
-              left: SizeConfig.w(2),
-            ),
+            padding: EdgeInsets.only(right: SizeConfig.w(7), left: SizeConfig.w(2)),
             child: Icon(
               Icons.phone,
-              size: SizeConfig.isWideScreen
-                  ? SizeConfig.h(15)
-                  : SizeConfig.w(13),
-              color: widget.iconcolor ?? Color(0xffBBBBBB),
+              size: SizeConfig.isWideScreen ? SizeConfig.h(15) : SizeConfig.w(13),
+              color: widget.iconcolor ?? const Color(0xffBBBBBB),
             ),
           ),
           hint: Text(
             'أدخل رقم الهاتف',
-            style: AppTextStyles.styleRegular13(
-              context,
-            ).copyWith(color: const Color(0xffBBBBBB)),
+            style: AppTextStyles.styleRegular13(context)
+                .copyWith(color: const Color(0xffBBBBBB)),
           ),
           filled: true,
           fillColor: Colors.transparent,
-          prefixIconConstraints: const BoxConstraints(
-            minWidth: 0,
-            minHeight: 0,
-          ),
+          prefixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
           suffixIcon: Padding(
             padding: EdgeInsets.only(
               left: SizeConfig.w(8),
@@ -114,9 +123,8 @@ class PhoneInputFieldState extends State<PhoneInputField> {
                       SizedBox(width: SizeConfig.w(4)),
                       Text(
                         '($selectedCountryCode)',
-                        style: AppTextStyles.styleRegular13(
-                          context,
-                        ).copyWith(color: const Color(0xff000000)),
+                        style: AppTextStyles.styleRegular13(context)
+                            .copyWith(color: const Color(0xff000000)),
                       ),
                     ],
                   ),
@@ -126,20 +134,19 @@ class PhoneInputFieldState extends State<PhoneInputField> {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide:  BorderSide(color:widget. bordercolor?? Color(0xFFD6D6D6), width: 1),
+            borderSide:
+                BorderSide(color: widget.bordercolor ?? const Color(0xFFD6D6D6), width: 1),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide:  BorderSide(color:widget.bordercolor?? Color(0xFFD6D6D6), width: 1),
+            borderSide:
+                BorderSide(color: widget.bordercolor ?? const Color(0xFFD6D6D6), width: 1),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Color(0xFF0077B6), width: 1.5),
           ),
-          contentPadding: EdgeInsets.symmetric(
-            vertical: 0,
-            horizontal: SizeConfig.w(10),
-          ),
+          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: SizeConfig.w(10)),
         ),
       ),
     );

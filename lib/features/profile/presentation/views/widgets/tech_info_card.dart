@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/utils/functions/split_phone.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/build_info_row.dart';
 
@@ -10,9 +11,7 @@ class TechInfoCard extends StatelessWidget {
   @override
   
   Widget build(BuildContext context) {
-     final phone = model.phone
-        .replaceFirst("+20", "")
-        .trim();
+ final phoneData = splitPhone(model.phone);
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
@@ -62,7 +61,8 @@ class TechInfoCard extends StatelessWidget {
           BuildInfoRow(
             icon: Icons.phone_outlined,
             title: 'رقم الهاتف',
-            value:phone,
+            value:phoneData.number
+            ,
           ),
         ],
       ),

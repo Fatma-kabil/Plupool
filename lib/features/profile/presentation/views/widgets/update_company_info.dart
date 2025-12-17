@@ -1,39 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/get_country_by_code.dart';
+import 'package:plupool/core/utils/functions/split_phone.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/core/utils/widgets/custom_text_form_field.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
+import 'package:plupool/features/profile/data/models/update_user_model.dart';
 import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class UpdateCompanyInfo extends StatefulWidget {
   const UpdateCompanyInfo({super.key, required this.user});
   final UserEntity user;
+
   @override
-  State<UpdateCompanyInfo> createState() => _UpdateCompanyInfoState();
+  State<UpdateCompanyInfo> createState() => UpdateCompanyInfoState();
 }
-class _UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
+
+class UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
+  final GlobalKey<PhoneInputFieldState> _phoneFieldKey =
+      GlobalKey<PhoneInputFieldState>();
+
   late TextEditingController nameController;
   late TextEditingController phoneController;
+
+  String selectedCountryCode = '+20'; // القيمة الافتراضية
 
   @override
   void initState() {
     super.initState();
 
-    nameController = TextEditingController(
-      text: widget.user.fullName,
-    );
+    nameController = TextEditingController(text: widget.user.fullName);
 
-    phoneController = TextEditingController(
-      text: _formatPhone(widget.user.phone),
-    );
-  }
-
-  String _formatPhone(String phone) {
-    if (phone.startsWith('+20')) {
-      return phone.replaceFirst('+20', '').trim();
-    }
-    return phone;
+    final phoneData = splitPhone(widget.user.phone);
+    selectedCountryCode = phoneData.countryCode.isNotEmpty
+        ? phoneData.countryCode
+        : '+20';
+    phoneController = TextEditingController(text: phoneData.number);
   }
 
   @override
@@ -43,8 +46,30 @@ class _UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
     super.dispose();
   }
 
+  UpdateUserModel getUpdateUserModel() {
+    return UpdateUserModel(
+      fullName: nameController.text,
+      phone: mergePhone(
+        countryCode: selectedCountryCode,
+        number: phoneController.text,
+      ),
+      role: 'company',
+      profileImage: null,
+      latitude: null,
+      longitude: null,
+      address: null,
+      skills: null,
+      yearsOfExperience: null,
+      email: null,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    // تحويل كود الدولة لـ ISO لعرض العلم
+    final iso = countryCodeFromDialCode(selectedCountryCode) ?? 'EG';
+    final flag = flagEmojiFromIso(iso);
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
@@ -68,7 +93,7 @@ class _UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          /// الاسم
+          // الاسم
           Text(
             'الاسم',
             style: AppTextStyles.styleMedium16(context)
@@ -83,7 +108,7 @@ class _UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
           ),
           SizedBox(height: SizeConfig.h(15)),
 
-          /// رقم الهاتف
+          // رقم الهاتف
           Text(
             'رقم الهاتف',
             style: AppTextStyles.styleMedium16(context)
@@ -91,12 +116,19 @@ class _UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
           ),
           SizedBox(height: SizeConfig.h(6)),
           PhoneInputField(
+            key: _phoneFieldKey,
             controller: phoneController,
             validator: (v) => Validators.phone(v),
+            initialCountryCode: selectedCountryCode,
+            initialCountryFlag: flag,
+            onCountryChanged: (code, selectedFlag) {
+              setState(() {
+                selectedCountryCode = code;
+              });
+            },
           ),
         ],
       ),
     );
   }
 }
-
