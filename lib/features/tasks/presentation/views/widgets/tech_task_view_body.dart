@@ -32,7 +32,7 @@ class TechTaskViewBody extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 40),
+        SizedBox(height: 25),
         //  MyTaskViewCard(request: requests[0])
         // ✅ ListView.builder داخل ListView — لازم shrinkWrap و no scroll physics
         ListView.builder(

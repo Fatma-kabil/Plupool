@@ -38,10 +38,10 @@ class MyTaskViewCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildStatusLabel(colors, context, request.status),
+               
                 Flexible(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildTitle(context),
                       const SizedBox(height: 4),
@@ -49,6 +49,7 @@ class MyTaskViewCard extends StatelessWidget {
                     ],
                   ),
                 ),
+                 buildStatusLabel(colors, context, request.status),
               ],
             ),
 
@@ -60,12 +61,10 @@ class MyTaskViewCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // ✅ لو الحالة inProgress يظهر الزرار الحقيقي
-                
-                  LocationBtn(request: request, colors: colors)
-              ,
 
                 // ✅ بيانات المستخدم
                 Flexible(child: BuildUserSection(request: request)),
+                LocationBtn(request: request, colors: colors),
               ],
             ),
           ],
@@ -75,10 +74,11 @@ class MyTaskViewCard extends StatelessWidget {
   }
 
   Widget _buildTitle(BuildContext context) => Text(
-        request.title,
-        textAlign: TextAlign.right,
-        overflow: TextOverflow.ellipsis,
-        style: AppTextStyles.styleSemiBold16(context)
-            .copyWith(color: AppColors.ktextcolor),
-      );
+    request.title,
+    textAlign: TextAlign.right,
+    overflow: TextOverflow.ellipsis,
+    style: AppTextStyles.styleSemiBold16(
+      context,
+    ).copyWith(color: AppColors.ktextcolor),
+  );
 }
