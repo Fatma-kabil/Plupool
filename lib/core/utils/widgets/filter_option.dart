@@ -95,18 +95,20 @@ class FilterOption extends StatelessWidget {
                 customButton: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      icon,
-                      color: const Color(0xff999999),
-                      size: SizeConfig.w(20),
-                    ),
-                     SizedBox(width:  SizeConfig.w(3)),
-                    Text(
+                     Text(
                       value,
                       style: AppTextStyles.styleRegular16(
                         context,
                       ).copyWith(color: const Color(0xff999999)),
                     ),
+                     SizedBox(width:  SizeConfig.w(3)),
+                    Icon(
+                      icon,
+                      color: const Color(0xff999999),
+                      size: SizeConfig.w(20),
+                    ),
+                    
+                   
                   ],
                 ),
               ),

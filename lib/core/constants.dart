@@ -454,6 +454,7 @@ final List<ServiceRequest> requests = [
     userImage: 'assets/images/ahmed.png',
     location: 'المهندسين، الجيزة',
     status: RequestStatus.scheduled,
+     visits: 4,
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتوره',
@@ -463,6 +464,7 @@ final List<ServiceRequest> requests = [
     userImage: 'assets/images/ahmed.png',
     location: 'المهندسين، الجيزة',
     status: RequestStatus.scheduled,
+     visits: 10,
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتورة - ',

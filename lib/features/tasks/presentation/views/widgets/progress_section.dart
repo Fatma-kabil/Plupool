@@ -42,25 +42,53 @@ class ProgressSection extends StatelessWidget {
                   progressRatio * constraints.maxWidth; // العرض النسبي
               return ClipRRect(
                 borderRadius: BorderRadius.circular(SizeConfig.w(10)),
-                child: Stack(
-                  children: [
-                    Container(
-                      height: SizeConfig.h(8), // نفس ارتفاع الخلفية
-                      color: Color(0xffD4D4D4), // الخلفية الرمادية
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight, // يبدأ من اليمين
-                      child: Container(
-                        height: SizeConfig.h(8), // نفس ارتفاع الخلفية
-                        width: barWidth, // طول الجزء الملون
-                        decoration: BoxDecoration(
-                          color: colors['progbar'],
-                          borderRadius: BorderRadius.circular(SizeConfig.w(10)),
+                child:
+                     Stack(
+                      children: [
+                        // الخلفية الرمادية
+                        Container(
+                          height: SizeConfig.h(8),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffD4D4D4),
+                            borderRadius: BorderRadius.circular(
+                              SizeConfig.w(10),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
+
+                        // الجزء الملوّن يظهر فقط لو progress > 0
+                        if (progress > 0)
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              height: SizeConfig.h(8),
+                              width: barWidth,
+                              decoration: BoxDecoration(
+                                color: colors['labelText'],
+                                borderRadius: BorderRadius.circular(
+                                  SizeConfig.w(10),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                        // الدايرة تظهر فقط لو progress == 0
+                        if (progress == 0)
+                          Positioned(
+                            right: 0, // دايرة في بداية الخط
+                            top: 0,
+                            bottom:0,
+                            child: Container(
+                              width:  SizeConfig.w(8),
+                              height: SizeConfig.h(12),
+                              decoration: BoxDecoration(
+                                color: colors['progbar'],
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ),
+                      ],
+                    )
               );
             },
           ),

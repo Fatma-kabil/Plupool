@@ -61,7 +61,7 @@ class AdminPackaesCard extends StatelessWidget {
 
             const SizedBox(height: 15),
             ProgressSection(
-              progress: request.progress!,
+              progress: request.progress??0,
               status: request.status,
               visits: request.visits!,
             ),
