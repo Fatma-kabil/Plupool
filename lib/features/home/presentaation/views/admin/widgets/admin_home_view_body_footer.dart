@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
@@ -21,12 +22,15 @@ class AdminHomeViewBodyFooter extends StatelessWidget {
               style: AppTextStyles.styleSemiBold18(context),
             ),
             Spacer(),
-            Text(
-              'عرض الكل',
-              style: AppTextStyles.styleSemiBold18(context).copyWith(
-                color: AppColors.kprimarycolor,
-                decoration: TextDecoration.underline,
-                 decorationColor: AppColors.kprimarycolor, // لون الخط زي النص
+            GestureDetector(
+              onTap: () => context.push('/seeallpackagesview'),
+              child: Text(
+                'عرض الكل',
+                style: AppTextStyles.styleSemiBold18(context).copyWith(
+                  color: AppColors.kprimarycolor,
+                  decoration: TextDecoration.underline,
+                   decorationColor: AppColors.kprimarycolor, // لون الخط زي النص
+                ),
               ),
             ),
           ],

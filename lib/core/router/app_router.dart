@@ -7,6 +7,7 @@ import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/presentaation/views/admin/admin_home_view.dart';
+import 'package:plupool/features/home/presentaation/views/admin/see_all_packages_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/cusmoter_notification_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/offer_details_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
@@ -242,6 +243,12 @@ final GoRouter appRouter = GoRouter(
       name: 'adminhomeview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminHomeView()),
+    ),
+    GoRoute(
+      path: '/seeallpackagesview',
+      name: 'seeallpackagesview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const SeeAllPackagesView()),
     ),
   ],
 );
