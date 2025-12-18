@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
@@ -9,7 +10,7 @@ import 'package:plupool/features/select_role/data/models/role_card_item.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
-import  'package:plupool/features/consruction_service/data/models/pool_model.dart';
+import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
 
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
@@ -72,25 +73,24 @@ final List<PromoCardModel> items = [
 ];
 
 final List<OfferModel> offers = [
- 
   OfferModel(
     title: "تركيب أنظمة الترشيح",
     desc: " تركيب أحدث أنظمة الترشيح والتطهير مع صيانة مجانية لمدة 6 أشهر.",
-    endDate: DateTime( 2025, 12, 20),
+    endDate: DateTime(2025, 12, 20),
     image: "assets/images/safty.png",
     offerPercentage: '% خصم 15',
   ),
   OfferModel(
     title: "تركيب أنظمة الإضاءة",
     desc: "تركيب أنظمة إضاءة LED متطورة مع ألوان متعددة وتحكم عن بعد.",
-    endDate: DateTime( 2025, 12, 20),
+    endDate: DateTime(2025, 12, 20),
     image: "assets/images/tech_offer2.png",
     offerPercentage: '% خصم 15',
   ),
-   OfferModel(
+  OfferModel(
     title: "تنظيف فلاتر المسبح",
     desc: "خدمة تنظيف فلاتر المسبح مع فحص شامل وضمان لمدة شهر.",
-   endDate: DateTime( 2025, 12, 20),
+    endDate: DateTime(2025, 12, 20),
     image: "assets/images/offercard1.png",
     offerPercentage: '% خصم 10',
   ),
@@ -381,13 +381,13 @@ final List<ServiceRequest> requests = [
     location: 'المقطم، القاهرة',
   ),
   ServiceRequest(
-     endTime: "2025-04-01",
-       packageType: "باقة (6 شهور)",
+    endTime: "2025-04-01",
+    packageType: "باقة (6 شهور)",
     title: "صيانة الفلاتر",
     date: "2025-12-18",
     time: "11:00 ص",
     status: RequestStatus.scheduled,
-     progress: 0,
+    progress: 0,
     visits: 6,
     nextVisitDate: "2025-12-19",
     nextVisitDay: "الثلاثاء",
@@ -440,7 +440,7 @@ final List<ServiceRequest> requests = [
     userImage: 'assets/images/ahmed.png',
     location: 'المهندسين، الجيزة',
     status: RequestStatus.urgent,
-   
+
     nextVisitDate: "2025-01-01",
     nextVisitDay: "السبت",
     nextVisitTime: "9:00 ص",
@@ -448,10 +448,10 @@ final List<ServiceRequest> requests = [
   ServiceRequest(
     title: 'إصلاح نظام الفاتورة - ',
     date: '2025-01-15',
-     endTime: '2025-02-15',
-     packageType: "باقة (4 شهور)",
-     progress: 6,
-     visits: 6,
+    endTime: '2025-02-15',
+    packageType: "باقة (4 شهور)",
+    progress: 6,
+    visits: 6,
     time: '9:00 ص',
     userName: 'خالد محمود',
     userImage: 'assets/images/ahmed.png',
@@ -538,9 +538,38 @@ final List<FaqItem> ownerQes = [
   ),
 ];
 
-final List<ProjectModel>projs=[
-  ProjectModel(title: "مشروع النخيل السكني",location: "القاهرة الجديدة",nofpools: 12,progress: 75,nextVisitDate: "1/10/2025",nextVisitDay: "الثلاثاء",nextVisitTime: "9:00 ص",status: RequestStatus.inProgress),
-  ProjectModel(title: "مشروع واحه الرياض",location: "الشيخ زايد",nofpools: 8,progress: 0,status: RequestStatus.scheduled),
-  ProjectModel(title: "مشروع ريفيرا الساحل",location: "الساحل الشمالي",nofpools: 6,progress: 100,status:RequestStatus.completed),
-  
+final List<ProjectModel> projs = [
+  ProjectModel(
+    title: "مشروع النخيل السكني",
+    location: "القاهرة الجديدة",
+    nofpools: 12,
+    progress: 75,
+    nextVisitDate: "1/10/2025",
+    nextVisitDay: "الثلاثاء",
+    nextVisitTime: "9:00 ص",
+    status: RequestStatus.inProgress,
+  ),
+  ProjectModel(
+    title: "مشروع واحه الرياض",
+    location: "الشيخ زايد",
+    nofpools: 8,
+    progress: 0,
+    status: RequestStatus.scheduled,
+  ),
+  ProjectModel(
+    title: "مشروع ريفيرا الساحل",
+    location: "الساحل الشمالي",
+    nofpools: 6,
+    progress: 100,
+    status: RequestStatus.completed,
+  ),
+];
+
+final List<Map> observations = [
+  {'icon': Icons.analytics, 'title': "الإحصائيات"},
+  {'icon': Icons.local_offer, 'title': "العروض"},
+  {'icon': Icons.support_agent, 'title': "الدعم"},
+  {'icon': Icons.store, 'title': "المتجر"},
+  {'icon': Icons.rate_review, 'title': "التقييمات"},
+  {'icon': Icons.badge, 'title': "ممثل الشركة"},
 ];

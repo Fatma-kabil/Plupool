@@ -103,6 +103,18 @@ class AppTextStyles {
       height: 1.6,
     );
   }
+  
+  static TextStyle styleSemiBold18(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 23 : 18,
+      ),
+      fontWeight: FontWeight.w600,
+      color: AppColors.ktextcolor,
+      height: 1.6,
+    );
+  }
 
   static TextStyle styleSemiBold13(BuildContext context) {
     return TextStyle(
