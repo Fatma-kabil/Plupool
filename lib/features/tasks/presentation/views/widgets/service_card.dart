@@ -38,6 +38,7 @@ class ServiceCard extends StatelessWidget {
             ProgressSection(
               progress: request.progress!, // ده آمن دلوقتي عشان اتحققنا فوق
               visits: request.visits!,
+              status: request.status,
             ),
           ],
 

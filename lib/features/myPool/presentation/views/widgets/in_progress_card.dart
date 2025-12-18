@@ -36,6 +36,7 @@ class InProgressCard extends StatelessWidget {
                 ProgressSection(
                   progress: request.progress!, // ده آمن دلوقتي عشان اتحققنا فوق
                   visits: request.visits!,
+                  status: request.status,
                 ),
                 SizedBox(height: SizeConfig.h(12)),
                 Padding(

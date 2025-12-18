@@ -33,6 +33,7 @@ class RequestStatusColors {
           'bg': AppColors.kScaffoldColor,
           'labelBg': const Color(0xFFFAD7DA),
           'labelText': const Color(0xFFC0303A),
+
         };
 
       case RequestStatus.inProgress:
@@ -41,6 +42,7 @@ class RequestStatusColors {
           'bg': AppColors.kScaffoldColor,
           'labelBg': const Color(0xFFCCE4F0),
           'labelText': AppColors.kprimarycolor,
+          'progbar': Color(0xff0077B6),
         };
 
       case RequestStatus.completed:
@@ -50,6 +52,7 @@ class RequestStatusColors {
 
           'labelBg': const Color(0xFFACF1DF),
           'labelText': const Color(0xFF30DDB0),
+           'progbar': Color(0xff05B285),
         };
 
       case RequestStatus.scheduled: // 🟠 مجدولة
@@ -58,6 +61,7 @@ class RequestStatusColors {
           'bg': AppColors.kScaffoldColor,
           'labelBg': const Color(0xFFFFECD2),
           'labelText': const Color(0xFFD48417), // برتقالي غامق
+           'progbar': Color.fromARGB(255, 233, 146, 25),
         };
     }
   }

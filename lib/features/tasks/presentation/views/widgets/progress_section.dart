@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/home/domain/entities/request_status.dart';
 
 class ProgressSection extends StatelessWidget {
   const ProgressSection({
     super.key,
     required this.progress,
-    required this.visits,
+    required this.visits, required this.status,
   });
 
   final int progress; // عدد الزيارات المنفذة
   final int visits; // إجمالي الزيارات المطلوبة
-
+ final RequestStatus status;
   @override
   Widget build(BuildContext context) {
     final progressRatio = visits > 0 ? progress / visits : 0.0;
     final progressPercent = (progressRatio * 100).round();
+     final colors = RequestStatusColors.getColors(status);
 
     return Row(
       textDirection: TextDirection.rtl,
@@ -25,13 +26,13 @@ class ProgressSection extends StatelessWidget {
           "$progressPercent%",
           style: AppTextStyles.styleBold13(
             context,
-          ).copyWith(color: Color(0xff006398)),
+          ).copyWith(color: colors['labelText']),
         ),
         SizedBox(width: SizeConfig.w(4)),
         Text(
           textDirection: TextDirection.rtl,
           "( $progress/$visits زيارات )",
-          style: AppTextStyles.styleSemiBold13(context).copyWith(color: AppColors.kprimarycolor),
+          style: AppTextStyles.styleSemiBold10(context).copyWith(color:  colors['progbar']),
         ),
         SizedBox(width: SizeConfig.w(8)),
         Expanded(
@@ -53,7 +54,7 @@ class ProgressSection extends StatelessWidget {
                         height: SizeConfig.h(8), // نفس ارتفاع الخلفية
                         width: barWidth, // طول الجزء الملون
                         decoration: BoxDecoration(
-                          color: Color(0xff55A4CE),
+                          color: colors['progbar'],
                           borderRadius: BorderRadius.circular(SizeConfig.w(10)),
                         ),
                       ),

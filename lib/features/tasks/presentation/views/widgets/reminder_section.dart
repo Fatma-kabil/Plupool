@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/service_request_model.dart';
 
 class ReminderSection extends StatelessWidget {
   const ReminderSection({super.key, required this.request});

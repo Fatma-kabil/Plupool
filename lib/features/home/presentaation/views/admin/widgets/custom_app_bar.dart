@@ -12,7 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       height: preferredSize.height,
       padding: EdgeInsets.only(
         left: SizeConfig.w(15),
-        right: SizeConfig.w(15),
+      //  right: SizeConfig.w(15),
         top: SizeConfig.h(20),
       ),
       // margin:EdgeInsets.symmetric(vertical: SizeConfig.h(10)) ,
@@ -28,7 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             onPressed: () {},
           ),
-          SizedBox(width: SizeConfig.w(5)),
+          SizedBox(width: SizeConfig.w(15)),
 
           /// 🔍 Search في النص
           Expanded(child: CustumSearchTextField()),

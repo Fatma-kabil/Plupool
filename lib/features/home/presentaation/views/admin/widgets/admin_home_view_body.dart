@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/home/presentaation/views/admin/widgets/admin_home_view_body_footer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/observations_grid_view.dart';
 
 class AdminHomeViewBody extends StatelessWidget {
@@ -7,12 +8,17 @@ class AdminHomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: SizeConfig.h(10)),
-      ObservationsGridView(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: SizeConfig.h(10)),
+        ObservationsGridView(),
+         SizedBox(height: SizeConfig.h(40)),
+         AdminHomeViewBodyFooter()
+      
+        ],
+      ),
     );
   }
 }
