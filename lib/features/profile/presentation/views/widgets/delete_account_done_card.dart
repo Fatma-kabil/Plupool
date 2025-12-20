@@ -59,17 +59,21 @@ class DeleteAccountDoneCard extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-    // 1️⃣ قفل الـ dialog الحالي
-    Navigator.of(context).pop();
+                // 1️⃣ قفل الـ dialog الحالي
+                Navigator.of(context).pop();
 
-    // 2️⃣ الانتقال للصفحة الرئيسية بعد قفل الـ dialog
-    Future.delayed(const Duration(milliseconds: 100), () {
-      context.go('/MainHomeTechView');
-    });
-  },
+                // 2️⃣ الانتقال للصفحة الرئيسية بعد قفل الـ dialog
+                Future.delayed(const Duration(milliseconds: 100), () {
+                  context.go('/MainHomeTechView');
+                });
+              },
 
               child: Padding(
-                padding:  EdgeInsets.symmetric(vertical:SizeConfig.isWideScreen? SizeConfig.h(8):SizeConfig.h(0) ),
+                padding: EdgeInsets.symmetric(
+                  vertical: SizeConfig.isWideScreen
+                      ? SizeConfig.h(8)
+                      : SizeConfig.h(0),
+                ),
                 child: Text(
                   " العودة للصفحة الرئيسية",
                   style: AppTextStyles.styleSemiBold16(

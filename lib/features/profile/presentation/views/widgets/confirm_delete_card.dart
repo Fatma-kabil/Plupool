@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/header_text.dart';
-import 'package:plupool/features/profile/presentation/views/widgets/delete_account_done_card.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
+import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
 
 class ConfirmDeleteCard extends StatelessWidget {
   const ConfirmDeleteCard({super.key});
@@ -18,14 +21,9 @@ class ConfirmDeleteCard extends StatelessWidget {
         vertical: SizeConfig.h(29),
       ),
       child: Container(
-        width: SizeConfig.isWideScreen
-            ? SizeConfig.screenWidth * 0.7
-            : double.infinity,
-        padding: EdgeInsets.only(
-          left: SizeConfig.w(16),
-          right: SizeConfig.w(16),
-          bottom: SizeConfig.h(25),
-          top: SizeConfig.h(20),
+        padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.w(16),
+          vertical: SizeConfig.h(20),
         ),
         decoration: BoxDecoration(
           color: AppColors.kScaffoldColor,
@@ -34,19 +32,18 @@ class ConfirmDeleteCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            HeaderText(
+            const HeaderText(
               title: 'هل أنت متأكد؟',
               subtitle:
-                  "سيتم حذف حسابك بشكل نهائي ولن تتمكن من استعادته. هل تريد المتابعة؟",
+                  'سيتم حذف حسابك بشكل نهائي ولن تتمكن من استعادته. هل تريد المتابعة؟',
             ),
-
             SizedBox(height: SizeConfig.h(30)),
             Row(
               children: [
                 Expanded(
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Color(0xffE63946)),
+                      side: const BorderSide(color: Color(0xffE63946)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -54,18 +51,11 @@ class ConfirmDeleteCard extends StatelessWidget {
                     onPressed: () {
                       context.pop();
                     },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: SizeConfig.isWideScreen
-                            ? SizeConfig.h(6)
-                            : SizeConfig.h(0),
-                      ),
-                      child: Text(
-                        "لا",
-                        style: AppTextStyles.styleMedium16(
-                          context,
-                        ).copyWith(color: Color(0xffE63946)),
-                      ),
+                    child: Text(
+                      "لا",
+                      style: AppTextStyles.styleMedium16(
+                        context,
+                      ).copyWith(color: const Color(0xffE63946)),
                     ),
                   ),
                 ),
@@ -79,30 +69,25 @@ class ConfirmDeleteCard extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      context.pop(); // يقفل الكارد الحالي
+                      final authCubit = context.read<AuthCubit>();
+                      final userCubit = context.read<UserCubit>();
 
-                      Future.delayed(Duration(milliseconds: 50), () {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (_) => const DeleteAccountDoneCard(),
+                      Navigator.pop(context); // يقفل confirm dialog
+
+                      final state = userCubit.state;
+                      if (state is UserLoaded) {
+                        userCubit.deleteUser(
+                          state.user.id,
+                          authCubit.state.token!,
                         );
-                      });
+                      }
                     },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: SizeConfig.isWideScreen
-                            ? SizeConfig.h(6)
-                            : SizeConfig.h(0),
-                      ),
-                      child: Text(
-                        "نعم",
-                        style: AppTextStyles.styleMedium16(
-                          context,
-                        ).copyWith(color: Colors.white),
-                        textAlign: TextAlign.center,
-                        textDirection: TextDirection.rtl,
-                      ),
+
+                    child: Text(
+                      "نعم",
+                      style: AppTextStyles.styleMedium16(
+                        context,
+                      ).copyWith(color: Colors.white),
                     ),
                   ),
                 ),
