@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/features/home/data/models/drawer_item_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
@@ -13,6 +13,7 @@ import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 
@@ -600,35 +601,76 @@ final List<ProjectModel> projs = [
   ),
 ];
 
-final List<Map> observations = [
-  {
-    'icon': Icons.analytics,
-    'title': "الإحصائيات",
-    'onTap': (BuildContext context) => context.push('/statisticsview'),
-  },
-  {
-    'icon': Icons.local_offer,
-    'title': "العروض",
-    'onTap': (BuildContext context) => context.push('/statisticsview'),
-  },
-  {
-    'icon': Icons.support_agent,
-    'title': "الدعم",
-    'onTap': (BuildContext context) => context.push('/statisticsview'),
-  },
-  {
-    'icon': Icons.store,
-    'title': "المتجر",
-    'onTap': (BuildContext context) => context.push('/statisticsview'),
-  },
-  {
-    'icon': Icons.rate_review,
-    'title': "التقييمات",
-    'onTap': (BuildContext context) => context.push('/statisticsview'),
-  },
-  {
-    'icon': Icons.badge,
-    'title': "ممثل الشركة",
-    'onTap': (BuildContext context) => context.push('/statisticsview'),
-  },
+final List<DrawerItemModel> observations = [
+  DrawerItemModel(
+    icon: Icons.analytics,
+    title: "الإحصائيات",
+    onTap: '/statisticsview',
+  ),
+  DrawerItemModel(
+    icon: Icons.local_offer,
+    title: "العروض",
+    onTap: '/statisticsview',
+  ),
+  DrawerItemModel(
+    icon: Icons.support_agent,
+    title: "الدعم",
+    onTap: '/statisticsview',
+  ),
+  DrawerItemModel(icon: Icons.store, title: "المتجر", onTap: '/statisticsview'),
+  DrawerItemModel(
+    icon: Icons.rate_review,
+    title: "التقييمات",
+    onTap: '/statisticsview',
+  ),
+  DrawerItemModel(
+    icon: Icons.badge,
+    title: "ممثل الشركة",
+    onTap: '/statisticsview',
+  ),
+];
+
+final List<StatisticsModel> Statistics = [
+  StatisticsModel(
+    backColor: Color(0xffCCF0F7),
+    iconColor: Color(0xff00B4D8),
+    count: 32,
+    icon: Icons.shopping_cart,
+    title: "طلبات المتجر",
+  ),
+  StatisticsModel(
+    backColor: Color(0xffFFECD2),
+    iconColor: Color(0xffFF9F1C),
+    count: 42,
+    icon: Icons.layers_outlined,
+    title: "الباقات النشطة",
+  ),
+  StatisticsModel(
+    backColor: Color(0xffCDF7EC),
+    iconColor: Color(0xff05B285),
+    count: 18,
+    icon: Icons.pending_actions,
+    title: "الطلبات الجارية",
+  ),
+  StatisticsModel(
+    backColor: Color(0xffFAD7DA),
+    iconColor: Color(0xffEA5A65),
+    count: 8,
+    icon: Icons.flag_outlined,
+    title: "البلاغات",
+  ),
+  StatisticsModel(
+    backColor: Color(0xffB7FFC9),
+    iconColor: Color(0xff75CD55),
+    count: 142,
+    icon: Icons.people_outline,
+    title: "العملاء",
+  ),
+  StatisticsModel(
+    backColor: Color(0xffDAF5FA),
+    iconColor: Color(0xff60959F),
+    count: 15,
+    icon: Icons.engineering_outlined,
+    title: "الفنيين",
+  ),
 ];

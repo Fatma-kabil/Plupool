@@ -3,29 +3,32 @@ import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/presentaation/views/admin/widgets/observations_card.dart';
+import 'package:plupool/features/statistics/presentation/views/widgets/statistics_grid_view_card.dart';
 
-class ObservationsGridView extends StatelessWidget {
-  const ObservationsGridView({super.key});
+class StatisticsGridView extends StatelessWidget {
+  const StatisticsGridView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('الاختصارات :',  style: AppTextStyles.styleSemiBold16(
+        Text(
+          'الإحصائيات',
+          style: AppTextStyles.styleSemiBold16(
             context,
-          ).copyWith(color: AppColors.ktextcolor),),
+          ).copyWith(color: AppColors.ktextcolor),
+        ),
         SizedBox(height: SizeConfig.h(15)),
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: observations.length,
+          itemCount: Statistics.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
             childAspectRatio:
                 SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
-                ? 0.85
+                ? 0.84
                 : SizeConfig.screenWidth == 800
                 ? .95
                 : SizeConfig.screenWidth > 1000
@@ -33,13 +36,11 @@ class ObservationsGridView extends StatelessWidget {
                 : SizeConfig.screenWidth > 800
                 ? 0.99 // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
                 : 0.94,
-            crossAxisSpacing: SizeConfig.w(12),
-            mainAxisSpacing: SizeConfig.h(15),
+            crossAxisSpacing: SizeConfig.w(8),
+            mainAxisSpacing: SizeConfig.h(8),
           ),
 
-          itemBuilder: (_, i) => ObservationsCard(
-           model:observations[i] ,
-          ),
+          itemBuilder: (_, i) => StatisticsGridViewCard(model: Statistics[i]),
         ),
       ],
     );

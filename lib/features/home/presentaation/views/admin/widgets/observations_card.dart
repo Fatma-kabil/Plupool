@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/home/data/models/drawer_item_model.dart';
 
 class ObservationsCard extends StatelessWidget {
-  const ObservationsCard({super.key, required this.icon, required this.title, this.onTap});
-  final IconData icon;
-  final String title;
-  final void Function()? onTap;
+  const ObservationsCard({
+    super.key, required this.model,
+   
+  });
+  final DrawerItemModel model;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:onTap ,
+      onTap:(){
+        context.push(model.onTap);
+      } ,
       child: Container(
         padding: EdgeInsets.symmetric(
-       //   horizontal: SizeConfig.w(32),
+          //   horizontal: SizeConfig.w(32),
           vertical: SizeConfig.h(18),
         ),
         decoration: BoxDecoration(
@@ -36,14 +41,14 @@ class ObservationsCard extends StatelessWidget {
               backgroundColor: Color(0xffCCE4F0),
               radius: SizeConfig.w(20),
               child: Icon(
-                icon,
+                model.icon,
                 size: SizeConfig.w(24),
                 color: AppColors.kprimarycolor,
               ),
             ),
             SizedBox(height: SizeConfig.h(20)),
             Text(
-              title,
+              model.title,
               style: AppTextStyles.styleRegular14(
                 context,
               ).copyWith(color: Color(0xff555555)),
