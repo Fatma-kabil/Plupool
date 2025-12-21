@@ -29,7 +29,7 @@ class PackagesTabBar extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.w(18),
-                vertical: SizeConfig.h(8),
+                vertical: SizeConfig.h(10),
               ),
               decoration: BoxDecoration(
                 color: isSelected

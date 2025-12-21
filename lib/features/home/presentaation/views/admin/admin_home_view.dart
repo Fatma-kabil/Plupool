@@ -16,10 +16,12 @@ class _AdminHomeViewState extends State<AdminHomeView> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(
         child: Scaffold(
+           key: scaffoldkey, 
           appBar: CustomAppBar(
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();

@@ -20,7 +20,7 @@ class QtyBtn extends StatelessWidget {
         onTap: onTap,
         child: Icon(
           icon,
-          size: SizeConfig.w(15),
+          size:SizeConfig.isWideScreen?SizeConfig.w(12): SizeConfig.w(15),
           color: Colors.white,
         ),
       ),

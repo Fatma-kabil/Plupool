@@ -17,15 +17,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       // margin:EdgeInsets.symmetric(vertical: SizeConfig.h(10)) ,
       //    color: Colors.black, // غيريه حسب الثيم
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           /// ☰ منيو (يمين – RTL)
-          IconButton(
-            icon: Icon(
-              Icons.menu_sharp,
-              color: Color(0xff777777),
-              size: SizeConfig.w(22),
+          Padding(
+            padding:  EdgeInsets.only(right: SizeConfig.w(8)),
+            child: IconButton(
+              icon: Icon(
+                Icons.menu_sharp,
+                color: Color(0xff777777),
+                size: SizeConfig.w(22),
+              ),
+              onPressed: onPressed,
             ),
-            onPressed: onPressed,
           ),
           Spacer(),
 
@@ -42,7 +46,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Icon(
                   Icons.settings,
                   color: AppColors.kprimarycolor,
-                  size: SizeConfig.w(18),
+                  size: SizeConfig.w(16),
                 ),
               ),
             ),
@@ -53,5 +57,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(SizeConfig.h(60));
+  Size get preferredSize => Size.fromHeight(SizeConfig.h(55));
 }

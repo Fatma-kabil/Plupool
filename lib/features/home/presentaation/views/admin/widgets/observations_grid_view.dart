@@ -20,13 +20,24 @@ class ObservationsGridView extends StatelessWidget {
           itemCount: observations.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            childAspectRatio: 0.9,
-             crossAxisSpacing: SizeConfig.w(12),
+            childAspectRatio:
+                SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
+                ? 0.85
+                : SizeConfig.screenWidth == 800
+                ? .95
+                : SizeConfig.screenWidth > 1000
+                ? 1.13
+                : SizeConfig.screenWidth > 800
+                ? 0.99 // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
+                : 0.94,
+            crossAxisSpacing: SizeConfig.w(12),
             mainAxisSpacing: SizeConfig.h(15),
-           
           ),
 
-          itemBuilder: (_, i) => ObservationsCard(icon:observations[i]['icon'], title: observations[i]['title'] ,),
+          itemBuilder: (_, i) => ObservationsCard(
+            icon: observations[i]['icon'],
+            title: observations[i]['title'],
+          ),
         ),
       ],
     );

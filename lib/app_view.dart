@@ -15,35 +15,27 @@ import 'package:plupool/features/select_role/presentation/views/manager/select_r
 
 class PlupoolApp extends StatelessWidget {
   const PlupoolApp({super.key});
-   final storage = const FlutterSecureStorage();
-
+  final storage = const FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => BottomNavCubit()),
-         BlocProvider(create: (_) => sl<SelectRoleCubit>()),
-           BlocProvider(create: (_) => sl<OtpCubit>()),
-            BlocProvider(
-          create: (_) => sl<AuthCubit>(),
-          
-        ),
+        BlocProvider(create: (_) => sl<SelectRoleCubit>()),
+        BlocProvider(create: (_) => sl<OtpCubit>()),
+        BlocProvider(create: (_) => sl<AuthCubit>()),
         BlocProvider(create: (_) => sl<UserCubit>()),
 
-     //     BlocProvider(create:     (_) => sl<SignUpCubit>()),
-      
-      
-      
-
+        //     BlocProvider(create:     (_) => sl<SignUpCubit>()),
       ],
       child: Builder(
         builder: (context) {
           SizeConfig.init(context);
           return MaterialApp.router(
             useInheritedMediaQuery: true, // ✅ مهم جدًا
-       //  locale: DevicePreview.locale(context), // ✅
-         //   builder: DevicePreview.appBuilder, // ✅
+            //    locale: DevicePreview.locale(context), // ✅
+            //     builder: DevicePreview.appBuilder, // ✅
             debugShowCheckedModeBanner: false,
             routerConfig: appRouter,
             theme: ThemeData(
