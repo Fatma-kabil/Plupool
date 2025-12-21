@@ -37,6 +37,7 @@ class ObservationsGridView extends StatelessWidget {
           itemBuilder: (_, i) => ObservationsCard(
             icon: observations[i]['icon'],
             title: observations[i]['title'],
+            onTap: observations[i]['onTap'],
           ),
         ),
       ],

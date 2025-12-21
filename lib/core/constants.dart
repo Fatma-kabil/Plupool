@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
@@ -454,7 +455,7 @@ final List<ServiceRequest> requests = [
     userImage: 'assets/images/ahmed.png',
     location: 'المهندسين، الجيزة',
     status: RequestStatus.scheduled,
-     visits: 4,
+    visits: 4,
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتوره',
@@ -464,7 +465,7 @@ final List<ServiceRequest> requests = [
     userImage: 'assets/images/ahmed.png',
     location: 'المهندسين، الجيزة',
     status: RequestStatus.scheduled,
-     visits: 10,
+    visits: 10,
   ),
   ServiceRequest(
     title: 'إصلاح نظام الفاتورة - ',
@@ -600,10 +601,34 @@ final List<ProjectModel> projs = [
 ];
 
 final List<Map> observations = [
-  {'icon': Icons.analytics, 'title': "الإحصائيات"},
-  {'icon': Icons.local_offer, 'title': "العروض"},
-  {'icon': Icons.support_agent, 'title': "الدعم"},
-  {'icon': Icons.store, 'title': "المتجر"},
-  {'icon': Icons.rate_review, 'title': "التقييمات"},
-  {'icon': Icons.badge, 'title': "ممثل الشركة"},
+  {
+    'icon': Icons.analytics,
+    'title': "الإحصائيات",
+    'onTap': (BuildContext context) => context.push('/statisticsview'),
+  },
+  {
+    'icon': Icons.local_offer,
+    'title': "العروض",
+    'onTap': (BuildContext context) => context.push('/statisticsview'),
+  },
+  {
+    'icon': Icons.support_agent,
+    'title': "الدعم",
+    'onTap': (BuildContext context) => context.push('/statisticsview'),
+  },
+  {
+    'icon': Icons.store,
+    'title': "المتجر",
+    'onTap': (BuildContext context) => context.push('/statisticsview'),
+  },
+  {
+    'icon': Icons.rate_review,
+    'title': "التقييمات",
+    'onTap': (BuildContext context) => context.push('/statisticsview'),
+  },
+  {
+    'icon': Icons.badge,
+    'title': "ممثل الشركة",
+    'onTap': (BuildContext context) => context.push('/statisticsview'),
+  },
 ];
