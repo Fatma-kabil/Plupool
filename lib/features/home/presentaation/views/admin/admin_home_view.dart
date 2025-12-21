@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/admin_home_view_body.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
-import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_drawer.dart';
+import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 
 class AdminHomeView extends StatefulWidget {
   const AdminHomeView({super.key});
@@ -21,16 +21,13 @@ class _AdminHomeViewState extends State<AdminHomeView> {
       textDirection: TextDirection.rtl,
       child: SafeArea(
         child: Scaffold(
-           key: scaffoldkey, 
+          key: scaffoldkey,
           appBar: CustomAppBar(
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();
             },
           ),
-          drawer: const Padding(
-            padding: EdgeInsets.only(top: 16),
-            child: CustomDrawer(),
-          ),
+          drawer: AppDrawer(),
           body: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.w(13),
