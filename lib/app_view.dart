@@ -8,14 +8,13 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
-
 class PlupoolApp extends StatelessWidget {
   const PlupoolApp({super.key});
-  final storage = const FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -26,26 +25,25 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<OtpCubit>()),
         BlocProvider(create: (_) => sl<AuthCubit>()),
         BlocProvider(create: (_) => sl<UserCubit>()),
-
-        //     BlocProvider(create:     (_) => sl<SignUpCubit>()),
       ],
-      child: Builder(
-        builder: (context) {
-          SizeConfig.init(context);
-          return MaterialApp.router(
-            useInheritedMediaQuery: true, // ✅ مهم جدًا
-            //    locale: DevicePreview.locale(context), // ✅
-            //     builder: DevicePreview.appBuilder, // ✅
-            debugShowCheckedModeBanner: false,
-            routerConfig: appRouter,
-            theme: ThemeData(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              fontFamily: 'Cairo',
-              scaffoldBackgroundColor: AppColors.kScaffoldColor,
-            ),
-          );
+      child: BlocListener<AuthCubit, AuthState>(
+        listenWhen: (prev, curr) => prev.token != curr.token,
+        listener: (context, state) {
+          final token = state.token;
+          if (token != null && token.isNotEmpty) {
+            context.read<UserCubit>().fetchCurrentUser(token);
+          }
         },
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          routerConfig: appRouter,
+          theme: ThemeData(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            fontFamily: 'Cairo',
+            scaffoldBackgroundColor: AppColors.kScaffoldColor,
+          ),
+        ),
       ),
     );
   }

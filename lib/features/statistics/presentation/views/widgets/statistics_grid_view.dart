@@ -36,8 +36,8 @@ class StatisticsGridView extends StatelessWidget {
                 : SizeConfig.screenWidth > 800
                 ? 0.99 // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
                 : 0.94,
-            crossAxisSpacing: SizeConfig.w(8),
-            mainAxisSpacing: SizeConfig.h(8),
+            crossAxisSpacing: SizeConfig.w(6),
+            mainAxisSpacing: SizeConfig.h(15),
           ),
 
           itemBuilder: (_, i) => StatisticsGridViewCard(model: Statistics[i]),

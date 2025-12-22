@@ -13,5 +13,6 @@ static const String signupPoolOwner = '$baseUrl/auth/signup/pool-owner';
 static const String signupCompany = '$baseUrl/auth/signup/company';
 static const String getCurrentUser = '$baseUrl/users/me';
 static const String updateUser = '$baseUrl/users';
+static const String contact = '$baseUrl/contact';
   // ... روابط نقاط نهاية أخرى
 } 
