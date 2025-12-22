@@ -10,6 +10,10 @@ import 'package:plupool/features/auth/domain/repos/sign_up_repo.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
+import 'package:plupool/features/home/data/remote_data_sources/contact_ramote_data_source.dart';
+import 'package:plupool/features/home/data/repos_impl/contact_repo_impl.dart';
+import 'package:plupool/features/home/domain/repos/contact_repo.dart';
+import 'package:plupool/features/home/presentaation/manager/contact_cubit/contat_cubit.dart';
 import 'package:plupool/features/profile/data/remote_data_source.dart/user_remote_data_source.dart';
 import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
 import 'package:plupool/features/profile/domain/repos/user_repo.dart';
@@ -133,6 +137,22 @@ sl.registerLazySingleton<UserRepository>(
 sl.registerLazySingleton(() => UserCubit(sl<UserRepository>()));
 
 // تسجيل UpdateUserCubit
+// تسجيل Contact Feature
+  // ----------------------------
 
+  // Remote Data Source
+  sl.registerLazySingleton<ContactRemoteDataSource>(
+    () => ContactRemoteDataSourceImpl(sl<ApiService>()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<ContactRepository>(
+    () => ContactRepositoryImpl(sl<ContactRemoteDataSource>()),
+  );
+
+  // Cubit
+  sl.registerLazySingleton(
+    () => ContactCubit(sl<ContactRepository>()),
+  );
 
 }
