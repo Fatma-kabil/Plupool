@@ -11,6 +11,7 @@ import 'package:plupool/features/home/presentaation/views/admin/see_all_packages
 import 'package:plupool/features/home/presentaation/views/customer/cusmoter_notification_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/offer_details_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
+import 'package:plupool/features/offers/presentation/views/offer_view.dart';
 import 'package:plupool/features/profile/presentation/views/delete_account_view.dart';
 import 'package:plupool/features/profile/presentation/views/help_view.dart';
 import 'package:plupool/features/profile/presentation/views/my_packages_view.dart';
@@ -256,6 +257,12 @@ final GoRouter appRouter = GoRouter(
       name: 'statisticsview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const StatisticsView()),
+    ),
+         GoRoute(
+      path: '/offerview',
+      name: 'offerview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const OfferView()),
     ),
   ],
 );

@@ -611,7 +611,7 @@ final List<DrawerItemModel> observations = [
   DrawerItemModel(
     icon: Icons.local_offer,
     title: "العروض",
-    onTap: '/statisticsview',
+    onTap: '/offerview',
   ),
   DrawerItemModel(
     icon: Icons.support_agent,
