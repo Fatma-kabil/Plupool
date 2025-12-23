@@ -13,6 +13,7 @@ import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/features/statistics/data/models/dashboard_item.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
@@ -672,5 +673,35 @@ final List<StatisticsModel> Statistics = [
     count: 15,
     icon: Icons.engineering_outlined,
     title: "الفنيين",
+  ),
+];
+final dashboarditems = [
+  DashboardItem(
+    count: 100,
+    title: 'العملاء النشطين',
+    icon: Icons.person,
+    iconBgColor: Color(0xffCDF7EC),
+    iconColor: Color(0xff05B285),
+  ),
+  DashboardItem(
+    count: 100,
+    title: 'الباقات المتجددة',
+    icon: Icons.sync_alt,
+    iconBgColor: Color(0xffCDF7EC),
+    iconColor: Color(0xff05B285),
+  ),
+  DashboardItem(
+    count: 80,
+    title: 'العملاء غير النشطين',
+    icon: Icons.person_off,
+    iconBgColor: Color(0xffFAD7DA),
+    iconColor: Color(0xffEA5A65),
+  ),
+  DashboardItem(
+    count: 80,
+    title: 'الباقات غير المتجددة',
+    icon: Icons.description,
+    iconBgColor: Color(0xffFAD7DA),
+    iconColor: Color(0xffEA5A65),
   ),
 ];

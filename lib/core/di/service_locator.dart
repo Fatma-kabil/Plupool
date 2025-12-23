@@ -11,9 +11,13 @@ import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:plupool/features/home/data/remote_data_sources/contact_ramote_data_source.dart';
+import 'package:plupool/features/home/data/remote_data_sources/notification_remote_data_source.dart';
 import 'package:plupool/features/home/data/repos_impl/contact_repo_impl.dart';
+import 'package:plupool/features/home/data/repos_impl/notification_repo_impl.dart';
 import 'package:plupool/features/home/domain/repos/contact_repo.dart';
+import 'package:plupool/features/home/domain/repos/notification_repo.dart';
 import 'package:plupool/features/home/presentaation/manager/contact_cubit/contat_cubit.dart';
+import 'package:plupool/features/home/presentaation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/profile/data/remote_data_source.dart/user_remote_data_source.dart';
 import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
 import 'package:plupool/features/profile/domain/repos/user_repo.dart';
@@ -153,6 +157,23 @@ sl.registerLazySingleton(() => UserCubit(sl<UserRepository>()));
   // Cubit
   sl.registerLazySingleton(
     () => ContactCubit(sl<ContactRepository>()),
+  );
+  // Notification Feature
+  // ----------------------------
+
+  // Remote Data Source
+  sl.registerLazySingleton<NotificationRemoteDataSource>(
+    () => NotificationRemoteDataSourceImpl(sl<ApiService>()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<NotificationRepository>(
+    () => NotificationRepositoryImpl(sl<NotificationRemoteDataSource>()),
+  );
+
+  // Cubit
+  sl.registerLazySingleton(
+    () => NotificationCubit(sl<NotificationRepository>()),
   );
 
 }
