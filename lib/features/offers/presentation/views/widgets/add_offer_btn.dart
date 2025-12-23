@@ -17,7 +17,7 @@ class AddOfferBtn extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(12),
-          vertical: SizeConfig.h(8),
+          vertical: SizeConfig.h(6),
         ),
         decoration: BoxDecoration(
           border: Border.all(
