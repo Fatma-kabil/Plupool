@@ -22,7 +22,7 @@ class _AppDrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: AppColors.kScaffoldColor,
-      width: MediaQuery.of(context).size.width * 0.75,
+      width: MediaQuery.of(context).size.width * 0.65,
       child: Padding(
         padding:  EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
         child: Column(

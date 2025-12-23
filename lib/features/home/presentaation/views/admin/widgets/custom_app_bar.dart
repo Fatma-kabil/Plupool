@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/search/presentation/views/widgets/custom_search_text_field.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key, this.onPressed});
+  const CustomAppBar({super.key, this.onPressed, this.isSearch = false});
   final void Function()? onPressed;
+  final bool isSearch;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,10 +20,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       //    color: Colors.black, // غيريه حسب الثيم
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           /// ☰ منيو (يمين – RTL)
           Padding(
-            padding:  EdgeInsets.only(right: SizeConfig.w(8)),
+            padding: EdgeInsets.only(right: SizeConfig.w(8)),
             child: IconButton(
               icon: Icon(
                 Icons.menu_sharp,
@@ -31,7 +34,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               onPressed: onPressed,
             ),
           ),
-          Spacer(),
+
+          /// 🔍 Search
+          if (isSearch) ...[
+          //  SizedBox(width: SizeConfig.w(10)),
+            Expanded(child: CustumSearchTextField()),
+            SizedBox(width: SizeConfig.w(20)),
+          ],
 
           /// 🔔 أيقونة شمال
           GestureDetector(

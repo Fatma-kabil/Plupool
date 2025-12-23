@@ -22,6 +22,7 @@ class _SeeAllPackagesViewState extends State<SeeAllPackagesView> {
         child: Scaffold(
           key: scaffoldkey,
           appBar: CustomAppBar(
+            isSearch: true,
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();
             },

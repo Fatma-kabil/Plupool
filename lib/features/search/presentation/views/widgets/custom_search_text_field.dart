@@ -33,21 +33,23 @@ class CustumSearchTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
           ),
           hintText: "بحث",
-          hintStyle: AppTextStyles.styleRegular13(context),
+          hintStyle: AppTextStyles.styleRegular16(context).copyWith(
+            color: AppColors.hintTextColor,
+          ),
           contentPadding: EdgeInsets.symmetric(
-            vertical: SizeConfig.h(4),
+            vertical: SizeConfig.h(8),
             horizontal: SizeConfig.w(8),
           ),
 
           prefixIcon: Padding(
-            padding: EdgeInsets.only(right: SizeConfig.w(7),left: SizeConfig.w(2) ),
+            padding: EdgeInsets.only(right: SizeConfig.w(7),left: SizeConfig.w(0) ),
             child:
               
                 Icon(
                   Icons.search,
                   size: SizeConfig.isWideScreen
                       ? SizeConfig.h(15)
-                      : SizeConfig.w(15),
+                      : SizeConfig.w(18),
                   color: const Color(0xffBBBBBB),
                 ),
           ),
