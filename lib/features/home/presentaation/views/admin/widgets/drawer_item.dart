@@ -32,7 +32,7 @@ class DrawerItem extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           margin: EdgeInsets.symmetric(
             horizontal: SizeConfig.w(8),
-            vertical: SizeConfig.h(2),
+            vertical:SizeConfig.isWideScreen ? SizeConfig.h(10) : SizeConfig.h(2),
           ),
           padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(12)),
 
@@ -41,7 +41,7 @@ class DrawerItem extends StatelessWidget {
             leading: Icon(
               icon,
               color: isSelected ? activeColor : inactiveColor,
-              size: SizeConfig.w(24),
+              size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(24),
             ),
             title: AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 200),

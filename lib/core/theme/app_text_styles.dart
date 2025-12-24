@@ -222,7 +222,7 @@ class AppTextStyles {
     return TextStyle(
       fontSize: getResponsiveFontSize(
         context,
-        fontSize: SizeConfig.isWideScreen ? 25 : 16,
+        fontSize: SizeConfig.isWideScreen ? 20 : 16,
       ),
       fontWeight: FontWeight.w400,
       color: Color(0xff808080),
