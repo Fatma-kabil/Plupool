@@ -12,7 +12,7 @@ class StatisticsGridViewCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         //   horizontal: SizeConfig.w(32),
-        vertical: SizeConfig.h(18),
+        vertical: SizeConfig.h(12),
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

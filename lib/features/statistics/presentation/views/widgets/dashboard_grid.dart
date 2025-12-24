@@ -21,15 +21,21 @@ class DashboardGrid extends StatelessWidget {
         ),
         SizedBox(height: SizeConfig.h(15)),
         GridView.builder(
-         
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: dashboarditems.length,
-          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: SizeConfig.w(4),
             mainAxisSpacing: SizeConfig.h(15),
-            childAspectRatio: 2.1, // مهم عشان نفس شكل التصميم
+            childAspectRatio:
+                SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
+                ? 2.3
+                : SizeConfig.screenWidth == 800
+                ? 2.5
+                : SizeConfig.screenWidth > 800
+                ? 3 // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
+                : 2.5, // مهم عشان نفس شكل التصميم
           ),
           itemBuilder: (context, index) {
             return DashboardCard(item: dashboarditems[index]);

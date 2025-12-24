@@ -28,13 +28,13 @@ class StatisticsGridView extends StatelessWidget {
             crossAxisCount: 3,
             childAspectRatio:
                 SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
-                ? 0.84
+                ? 0.90
                 : SizeConfig.screenWidth == 800
-                ? .95
+                ? 1.05
                 : SizeConfig.screenWidth > 1000
-                ? 1.13
+                ? 1.20
                 : SizeConfig.screenWidth > 800
-                ? 0.99 // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
+                ? 1.1 // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
                 : 0.94,
             crossAxisSpacing: SizeConfig.w(6),
             mainAxisSpacing: SizeConfig.h(15),
