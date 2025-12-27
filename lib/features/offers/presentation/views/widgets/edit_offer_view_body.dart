@@ -126,7 +126,7 @@ class _EditOfferViewBodyState extends State<EditOfferViewBody> {
             const SizedBox(height: 20),
             const FieldLabel('صور العرض'),
             ProfileImagePicker(
-              backgroundColor: const Color(0xffCDCDCD),
+              backgroundColor: const Color(0xffCDCDCD).withAlpha( 70),
               title: "أضف صورة للعرض",
               isCircle: false,
               icon: Icons.add_photo_alternate_outlined,

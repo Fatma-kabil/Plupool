@@ -1,32 +1,24 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class AddOfferBtn extends StatelessWidget {
-  const AddOfferBtn({
-    super.key,
-  });
+  const AddOfferBtn({super.key, required this.text, this.onTap});
+  final String text;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.push('/addofferview');
-      },
+     onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(12),
           vertical: SizeConfig.h(6),
         ),
         decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.kprimarycolor,
-            width: 1,
-          ),
+          border: Border.all(color: AppColors.kprimarycolor, width: 1),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -34,7 +26,7 @@ class AddOfferBtn extends StatelessWidget {
           textDirection: TextDirection.rtl,
           children: [
             Text(
-              "إضافة عرض",
+              text,
               style: AppTextStyles.styleMedium16(
                 context,
               ).copyWith(color: AppColors.kprimarycolor),

@@ -103,7 +103,7 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
               const SizedBox(height: 20),
               const FieldLabel('صور العرض'),
               ProfileImagePicker(
-                backgroundColor: Color(0xffCDCDCD),
+                backgroundColor: Color(0xffCDCDCD).withAlpha( 70),
                 title: "أضف صورة للعرض",
                 isCircle: false,
                 icon: Icons.add_photo_alternate_outlined,

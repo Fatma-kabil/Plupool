@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -20,7 +21,12 @@ class OfferViewBody extends StatelessWidget {
                 "إدارة العروض",
                 style: AppTextStyles.styleSemiBold16(context),
               ),
-              AddOfferBtn(),
+              AddOfferBtn(
+                text: "إضافة عرض",
+                onTap: () {
+                  context.push('/addofferview');
+                },
+              ),
             ],
           ),
           SizedBox(height: SizeConfig.h(20)),

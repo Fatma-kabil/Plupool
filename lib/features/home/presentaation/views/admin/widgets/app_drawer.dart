@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'drawer_item.dart';
@@ -24,10 +25,9 @@ class _AppDrawerState extends State<AppDrawer> {
       backgroundColor: AppColors.kScaffoldColor,
       width: MediaQuery.of(context).size.width * 0.65,
       child: Padding(
-        padding:  EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
+        padding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
         child: Column(
           children: [
-           
             Expanded(
               child: ListView(
                 padding: EdgeInsets.zero,
@@ -36,7 +36,9 @@ class _AppDrawerState extends State<AppDrawer> {
                     icon: Icons.home_outlined,
                     title: 'الرئيسية',
                     isSelected: selectedIndex == 0,
-                    onTap: () => _onItemTap(0, () {}),
+                    onTap: () => _onItemTap(0, () {
+                       context.push('/adminhomeview');
+                    }),
                   ),
                   DrawerItem(
                     icon: Icons.layers_outlined,
@@ -61,7 +63,9 @@ class _AppDrawerState extends State<AppDrawer> {
                     icon: Icons.people_outline,
                     title: 'العملاء',
                     isSelected: selectedIndex == 4,
-                    onTap: () => _onItemTap(4, () {}),
+                    onTap: () => _onItemTap(4, () {
+                      context.push('/customersview');
+                    }),
                   ),
                   DrawerItem(
                     icon: Icons.engineering_outlined,
@@ -97,5 +101,4 @@ class _AppDrawerState extends State<AppDrawer> {
       ),
     );
   }
-
-  }
+}
