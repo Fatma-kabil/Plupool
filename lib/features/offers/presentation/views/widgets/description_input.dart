@@ -27,6 +27,7 @@ class DescriptionInputContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: NoteTextField(
+        
         controller: controller,
         text: "أدخل وصفاً تفصيلياً للعرض.....",
         hiystyle: AppTextStyles.styleRegular14(context)

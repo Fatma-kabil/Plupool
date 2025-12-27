@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart' hide TextField;
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/functions/pick_date_fun.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/profile_image_picker.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
@@ -21,9 +22,10 @@ class EditOfferViewBody extends StatefulWidget {
 
 class _EditOfferViewBodyState extends State<EditOfferViewBody> {
   final _formKey = GlobalKey<FormState>();
- final titleController = TextEditingController();
-  final offerController = TextEditingController();
-  final desController = TextEditingController();
+  late final TextEditingController titleController;
+  late final TextEditingController offerController;
+  late final TextEditingController desController;
+  late final TextEditingController imageController;
   File? _profileImage;
   DateTime? startDate;
   DateTime? endDate;
@@ -31,10 +33,35 @@ class _EditOfferViewBodyState extends State<EditOfferViewBody> {
   String? endDateError;
   bool acceptedTerms = false;
 
+  @override
+  void initState() {
+    super.initState();
+
+    // تهيئة الكونترولرز بالقيم من الـ offer
+    titleController = TextEditingController(text: widget.offer.title);
+    offerController = TextEditingController(text: widget.offer.offerPercentage);
+    desController = TextEditingController(text: widget.offer.desc);
+    imageController = TextEditingController(text: widget.offer.image);
+    startDate = widget.offer.startDate;
+    endDate = widget.offer.endDate;
+
+    // لو عندك صورة، ممكن تحطها هنا _profileImage = ...
+    // لو عندك قيمة acceptedTerms من العرض، هتعيطها برضه هنا
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    offerController.dispose();
+    desController.dispose();
+    super.dispose();
+  }
+
   String formatDate(DateTime? date) {
     if (date == null) return '';
     return "${date.day}/${date.month}/${date.year}";
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -94,16 +121,26 @@ class _EditOfferViewBodyState extends State<EditOfferViewBody> {
             ),
             const SizedBox(height: 15),
             const FieldLabel('وصف العرض'),
-DescriptionInputContainer(controller: desController),
+            DescriptionInputContainer(controller: desController),
 
             const SizedBox(height: 20),
             const FieldLabel('صور العرض'),
             ProfileImagePicker(
-              backgroundColor: Color(0xffCDCDCD),
+              backgroundColor: const Color(0xffCDCDCD),
               title: "أضف صورة للعرض",
               isCircle: false,
-              icon:  Icons.add_photo_alternate_outlined,
-              onImagePicked: (img) => _profileImage = img,
+              icon: Icons.add_photo_alternate_outlined,
+              onImagePicked: (img) => setState(() => _profileImage = img),
+            ),
+            const SizedBox(height: 15),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12), // عدل الرقم ع حسب الحاجة
+              child: Image.asset(
+                imageController.text,
+                height: SizeConfig.h(90),
+                width: SizeConfig.w(80),
+                fit: BoxFit.cover, // عشان الصورة تملأ الشكل كويس
+              ),
             ),
             const SizedBox(height: 15),
             CustomCheckbtn(
@@ -112,9 +149,15 @@ DescriptionInputContainer(controller: desController),
               label: "عرض مميز (يظهر في الصفحة الرئيسية)",
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 40),
 
-            AddEditOfferViewFooter(onPressed: () {}, text: "تعديل"),
+            AddEditOfferViewFooter(
+              onPressed: () {
+                // هنا ممكن تضيف كود حفظ التعديل
+              },
+              text: "تعديل",
+            ),
+            const SizedBox(height: 40),
           ],
         ),
       ),

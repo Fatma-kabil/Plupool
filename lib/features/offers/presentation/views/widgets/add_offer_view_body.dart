@@ -116,9 +116,10 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
                 label: "عرض مميز (يظهر في الصفحة الرئيسية)",
               ),
         
-              const SizedBox(height: 30),
+              const SizedBox(height: 40),
         
               AddEditOfferViewFooter(onPressed: () {}, text: "إضافة"),
+               const SizedBox(height: 30),
             ],
           ),
         ),
