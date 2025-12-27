@@ -4,7 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/note_text_field.dart';
+import 'package:plupool/core/utils/widgets/note_text_field.dart';
 
 class NotesAndActionsSection extends StatelessWidget {
   final TextEditingController notesController;

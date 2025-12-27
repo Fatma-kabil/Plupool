@@ -10,23 +10,26 @@ class DatePickerField extends StatelessWidget {
   final VoidCallback onTap;
   final String? errorText; // << هنا
   final CrossAxisAlignment? dirc;
+  final String? text;
+
+  final Color? selectedDateColor;
   const DatePickerField({
     super.key,
     required this.selectedDate,
     required this.dateFormat,
     required this.onTap,
     this.errorText,
-    this.dirc = CrossAxisAlignment.end
+    this.dirc = CrossAxisAlignment.end, this.selectedDateColor, this.text,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment:dirc!,
+      crossAxisAlignment: dirc!,
 
       children: [
         Text(
-          "اختيار اليوم",
+        text??  "اختيار اليوم",
           style: AppTextStyles.styleSemiBold16(
             context,
           ).copyWith(color: AppColors.ktextcolor),
@@ -37,7 +40,12 @@ class DatePickerField extends StatelessWidget {
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: Container(
-              padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(10) , vertical:SizeConfig.isWideScreen?SizeConfig.h(8): SizeConfig.h(12)),
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.w(10),
+                vertical: SizeConfig.isWideScreen
+                    ? SizeConfig.h(8)
+                    : SizeConfig.h(12),
+              ),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: errorText != null
@@ -50,10 +58,12 @@ class DatePickerField extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.calendar_today,
-                    size:SizeConfig.isWideScreen?SizeConfig.h(18): SizeConfig.w(17),
+                    size: SizeConfig.isWideScreen
+                        ? SizeConfig.h(18)
+                        : SizeConfig.w(17),
                     color: AppColors.hintTextColor,
                   ),
-                   SizedBox(width: SizeConfig.w(6)),
+                  SizedBox(width: SizeConfig.w(6)),
                   Text(
                     selectedDate != null
                         ? dateFormat?.call(selectedDate!) ??
@@ -61,7 +71,7 @@ class DatePickerField extends StatelessWidget {
                         : "dd/mm/yy",
                     style: AppTextStyles.styleRegular14(context).copyWith(
                       color: selectedDate != null
-                          ? const Color(0xFF006398)
+                          ?selectedDateColor?? const Color(0xFF006398)
                           : AppColors.hintTextColor,
                     ),
                   ),
@@ -79,7 +89,7 @@ class DatePickerField extends StatelessWidget {
         if (errorText != null) ...[
           const SizedBox(height: 6),
           Text(
-             errorText!,
+            errorText!,
             style: AppTextStyles.styleRegular14(
               context,
             ).copyWith(color: Colors.red[900]),

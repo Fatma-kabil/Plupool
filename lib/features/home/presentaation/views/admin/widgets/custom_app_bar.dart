@@ -37,7 +37,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
           /// 🔍 Search
           if (isSearch) ...[
-          //  SizedBox(width: SizeConfig.w(10)),
+          SizeConfig.isWideScreen? SizedBox(width: SizeConfig.w(10)):SizedBox(width: SizeConfig.w(0)),
             Expanded(child: CustumSearchTextField()),
             SizedBox(width: SizeConfig.w(20)),
           ],
@@ -66,5 +66,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(SizeConfig.h(55));
+  Size get preferredSize => Size.fromHeight(  SizeConfig.isWideScreen ? SizeConfig.h(80) : SizeConfig.h(57));
 }

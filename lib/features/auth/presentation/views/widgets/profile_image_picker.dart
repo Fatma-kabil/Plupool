@@ -6,8 +6,19 @@ import 'package:plupool/core/utils/size_config.dart';
 
 class ProfileImagePicker extends StatefulWidget {
   final void Function(File? image) onImagePicked; // Callback للصورة
+  final Color? backgroundColor;
+  final String? title;
+  final IconData? icon;
+  final bool? isCircle;
 
-  const ProfileImagePicker({super.key, required this.onImagePicked});
+  const ProfileImagePicker({
+    super.key,
+    required this.onImagePicked,
+    this.backgroundColor,
+    this.title,
+    this.icon,
+    this.isCircle = true,
+  });
 
   @override
   State<ProfileImagePicker> createState() => _ProfileImagePickerState();
@@ -40,26 +51,42 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
         width: double.infinity,
         padding: EdgeInsets.symmetric(vertical: SizeConfig.h(20)),
         decoration: BoxDecoration(
-          color: const Color(0xffE0E0E0),
+          color: widget.backgroundColor ?? const Color(0xffE0E0E0),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Center(
           child: _profileImage == null
               ? Column(
                   children: [
-                    Icon(Icons.camera_alt_outlined,
-                        size: SizeConfig.h(35), color: const Color(0xff777777)),
+                    Icon(
+                      widget.icon ?? Icons.camera_alt_outlined,
+                      size: SizeConfig.h(35),
+                      color: const Color(0xff777777),
+                    ),
                     const SizedBox(height: 4),
                     Text(
-                      "أضف صورة (اختياري)",
-                      style: AppTextStyles.styleRegular13(context)
-                          .copyWith(color: const Color(0xff777777)),
+                      widget.title ?? "أضف صورة (اختياري)",
+                      style: AppTextStyles.styleRegular13(
+                        context,
+                      ).copyWith(color: const Color(0xff777777)),
                     ),
                   ],
                 )
-              : CircleAvatar(
+              : (widget.isCircle ?? true)
+              ? CircleAvatar(
                   radius: SizeConfig.h(45),
                   backgroundImage: FileImage(_profileImage!),
+                )
+              : Container(
+                  width: SizeConfig.h(90),
+                  height: SizeConfig.h(90),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      image: FileImage(_profileImage!),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
         ),
       ),

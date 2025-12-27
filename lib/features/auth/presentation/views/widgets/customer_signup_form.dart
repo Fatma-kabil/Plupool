@@ -14,7 +14,9 @@ class CustomerSignupForm extends StatefulWidget {
     required this.formKey,
     required this.phoneController,
     required this.nameController,
-    required this.locationController, required this.onImagePicked, this.phoneFieldKey,
+    required this.locationController,
+    required this.onImagePicked,
+    this.phoneFieldKey,
   });
 
   final GlobalKey<FormState> formKey;
@@ -22,16 +24,13 @@ class CustomerSignupForm extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController locationController;
   final void Function(File? image) onImagePicked;
-    final GlobalKey<PhoneInputFieldState>? phoneFieldKey; // ✅ هنا
-
+  final GlobalKey<PhoneInputFieldState>? phoneFieldKey; // ✅ هنا
 
   @override
   State<CustomerSignupForm> createState() => _CustomerSignupFormState();
 }
 
 class _CustomerSignupFormState extends State<CustomerSignupForm> {
- 
-
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -39,7 +38,7 @@ class _CustomerSignupFormState extends State<CustomerSignupForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-           ProfileImagePicker(onImagePicked: widget.onImagePicked),
+          ProfileImagePicker(onImagePicked: widget.onImagePicked),
 
           SizedBox(height: SizeConfig.h(16)),
 
@@ -87,7 +86,7 @@ class _CustomerSignupFormState extends State<CustomerSignupForm> {
           SizedBox(height: SizeConfig.h(4)),
 
           PhoneInputField(
-              key: widget.phoneFieldKey, // ✅ هنا
+            key: widget.phoneFieldKey, // ✅ هنا
             controller: widget.phoneController, // ✅ نمرره هنا
             validator: (v) => Validators.phone(v),
           ),

@@ -12,6 +12,7 @@ import 'package:plupool/features/home/presentaation/views/customer/cusmoter_noti
 import 'package:plupool/features/home/presentaation/views/customer/offer_details_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
 import 'package:plupool/features/offers/presentation/views/add_offer_view.dart';
+import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
 import 'package:plupool/features/profile/presentation/views/delete_account_view.dart';
 import 'package:plupool/features/profile/presentation/views/help_view.dart';
@@ -241,7 +242,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const CusmoterNotificationView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/',
       name: 'adminhomeview',
       pageBuilder: (context, state) =>
@@ -253,23 +254,31 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const SeeAllPackagesView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/statisticsview',
       name: 'statisticsview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const StatisticsView()),
     ),
-         GoRoute(
+    GoRoute(
       path: '/offerview',
       name: 'offerview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const OfferView()),
+      pageBuilder: (context, state) => buildTransitionPage(const OfferView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/addofferview',
       name: 'addofferview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddOfferView()),
+    ),
+    GoRoute(
+      path: '/editofferview',
+      name: 'editofferview',
+      pageBuilder: (context, state) {
+        final offer = state.extra as OfferModel; // استقبال الليست
+
+        return buildTransitionPage(EditOfferView(offer: offer));
+      },
     ),
   ],
 );
