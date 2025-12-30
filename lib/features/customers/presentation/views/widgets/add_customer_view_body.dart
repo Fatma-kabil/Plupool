@@ -1,10 +1,114 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/validators.dart';
+import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
+import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
+import 'package:plupool/core/utils/widgets/custom_text_form_field.dart';
+import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
 
 class AddCustomerViewBody extends StatelessWidget {
   const AddCustomerViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final nameController = TextEditingController();
+    final locationController = TextEditingController();
+    final phoneController = TextEditingController();
+    final phoneFieldKey = GlobalKey<FormFieldState>();
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Form(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // اسم العميل
+                    Text(
+                      'اسم العميل',
+                      style: AppTextStyles.styleSemiBold16(
+                        context,
+                      ).copyWith(color: const Color(0xff333333)),
+                    ),
+                    SizedBox(height: SizeConfig.h(4)),
+                    CustomTextFormField(
+                      controller: nameController,
+                      hintText: 'ادخل اسم العميل',
+                      icon: Icons.person_2_outlined,
+                      validator: (v) => Validators.name(v),
+                    ),
+            
+                    SizedBox(height: SizeConfig.h(15)),
+            
+                    // مكان الإقامة
+                    Text(
+                      'مكان الإقامة',
+                      style: AppTextStyles.styleSemiBold16(
+                        context,
+                      ).copyWith(color: const Color(0xff333333)),
+                    ),
+                    SizedBox(height: SizeConfig.h(4)),
+                    CustomTextFormField(
+                      controller: locationController,
+                      hintText: 'ادخل مكان الإقامة',
+                      icon: Icons.location_on_outlined,
+                      validator: (v) =>
+                          Validators.required(v, fieldName: 'مكان الإقامة'),
+                    ),
+            
+                    SizedBox(height: SizeConfig.h(15)),
+            
+                    // رقم الهاتف
+                    Text(
+                      'رقم الهاتف',
+                      style: AppTextStyles.styleSemiBold16(
+                        context,
+                      ).copyWith(color: const Color(0xff333333)),
+                    ),
+                    SizedBox(height: SizeConfig.h(4)),
+                    PhoneInputField(
+                      key: phoneFieldKey,
+                      controller: phoneController,
+                      validator: (v) => Validators.phone(v),
+                    ),
+                   
+                  ],
+                ),
+              ),
+            ),
+          ),
+           CustomTextBtn(
+                      text: " إضافة العميل",
+                      width: double.infinity,
+                      padding: SizeConfig.h(7),
+            
+                      textStyle: AppTextStyles.styleSemiBold16(
+                        context,
+                      ).copyWith(color: Colors.white),
+                      trailing: Icon(
+                        Icons.person_add_alt_1,
+                        color: Colors.white,
+                        size: SizeConfig.w(24),
+                      ),
+                      onPressed: () {},
+                    ),
+                    SizedBox(height: SizeConfig.h(15)),
+                    CustomOutlinedBtn(
+                      text: " إلغاء",
+                      width: double.infinity,
+                      trailing: Icon(
+                        Icons.cancel_outlined,
+                        color: AppColors.kprimarycolor,
+                        size: SizeConfig.w(24),
+                      ),
+                    ),
+        ],
+      ),
+    );
   }
 }

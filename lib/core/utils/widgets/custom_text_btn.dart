@@ -9,7 +9,7 @@ class CustomTextBtn extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.width,
-    this.padding,  this.color, this.textStyle,
+    this.padding,  this.color, this.textStyle, this.trailing,
   });
   final String text;
   final double? width;
@@ -17,6 +17,7 @@ class CustomTextBtn extends StatelessWidget {
   final void Function()? onPressed;
   final Color? color;
   final TextStyle? textStyle;
+   final Widget? trailing;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -32,10 +33,19 @@ class CustomTextBtn extends StatelessWidget {
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: padding ?? SizeConfig.h(12)),
-          child: Text(
-            textDirection: TextDirection.rtl,
-            text,
-            style:textStyle?? AppTextStyles.styleSemiBold20(context),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                textDirection: TextDirection.rtl,
+                text,
+                style:textStyle?? AppTextStyles.styleSemiBold20(context),
+              ),
+               if (trailing != null) ...[
+                 SizedBox(width: SizeConfig.w(6) ),
+                trailing!,
+              ],
+            ],
           ),
         ),
       ),
