@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
+import 'package:plupool/features/customers/presentation/views/widgets/customer_card.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 
 class CustomerViewBody extends StatefulWidget {
@@ -63,10 +64,10 @@ class _CustomerViewBodyState extends State<CustomerViewBody> {
         (context, index) {
           return Padding(
             padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
-            child: Text('Customer Item $index'),
+            child: CustomerCard(),
           );
         },
-        childCount: 3,
+        childCount: 4,
       ),
     ),
   ],
