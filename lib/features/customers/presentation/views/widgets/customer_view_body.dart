@@ -32,7 +32,9 @@ class _CustomerViewBodyState extends State<CustomerViewBody> {
               ),
               AddOfferBtn(
                 text: "إضافة عميل",
-                onTap: () {},
+                onTap: () {
+                  context.push('/addcustomerview');
+                },
               ),
             ],
           ),
