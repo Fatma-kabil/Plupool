@@ -53,12 +53,12 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
                 hint: 'أكتب عنوان العرض....',
               ),
         
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
         
               const FieldLabel('قيمة الخصم'),
               TextField(controller: offerController, hint: 'أكتب قيمة الخصم....'),
         
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
         
               DatePickerField(
                 dirc: CrossAxisAlignment.start,
@@ -77,7 +77,7 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
                   }
                 },
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
         
               DatePickerField(
                 dirc: CrossAxisAlignment.start,
@@ -96,11 +96,11 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
                   }
                 },
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
               const FieldLabel('وصف العرض'),
              DescriptionInputContainer(controller: desController),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 25),
               const FieldLabel('صور العرض'),
               ProfileImagePicker(
                 backgroundColor: Color(0xffCDCDCD).withAlpha( 70),

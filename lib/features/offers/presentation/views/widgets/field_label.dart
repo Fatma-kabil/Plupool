@@ -10,8 +10,10 @@ class FieldLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: SizeConfig.h(12), top: SizeConfig.h(6)),
-      child: Text(text, style: AppTextStyles.styleSemiBold16(context)),
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Text(text, style: AppTextStyles.styleSemiBold16(context).copyWith(
+        color: AppColors.ktextcolor,
+      )),
     );
   }
 }
@@ -54,7 +56,7 @@ class TextField extends StatelessWidget {
             context,
           ).copyWith(color: AppColors.hintTextColor),
            contentPadding: EdgeInsets.symmetric(
-              vertical: SizeConfig.h(14),
+              vertical: SizeConfig.h( SizeConfig.isWideScreen?11: 14),
               horizontal: SizeConfig.w(14),
             ),
           border: OutlineInputBorder(

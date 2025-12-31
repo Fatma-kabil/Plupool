@@ -64,7 +64,7 @@ class CustomSearchPerson extends StatelessWidget {
             child: Icon(
               Icons.person_2_outlined,
               size: SizeConfig.isWideScreen
-                  ? SizeConfig.h(10)
+                  ? SizeConfig.h(20)
                   : SizeConfig.w(14),
               color: const Color(0xff999999),
             ),
@@ -75,7 +75,7 @@ class CustomSearchPerson extends StatelessWidget {
             child: Icon(
               Icons.keyboard_arrow_down,
               size: SizeConfig.isWideScreen
-                  ? SizeConfig.h(10)
+                  ? SizeConfig.h(20)
                   : SizeConfig.w(14),
               color: const Color(0xff999999),
             ),

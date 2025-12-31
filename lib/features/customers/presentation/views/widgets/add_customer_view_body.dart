@@ -7,6 +7,7 @@ import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_form_field.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
+import 'package:plupool/features/customers/presentation/views/widgets/status_row.dart';
 
 class AddCustomerViewBody extends StatelessWidget {
   const AddCustomerViewBody({super.key});
@@ -76,7 +77,8 @@ class AddCustomerViewBody extends StatelessWidget {
                       controller: phoneController,
                       validator: (v) => Validators.phone(v),
                     ),
-                   
+                     SizedBox(height: SizeConfig.h(15)),
+                   StatusRow()
                   ],
                 ),
               ),

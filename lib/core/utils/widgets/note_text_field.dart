@@ -50,8 +50,8 @@ class NoteTextField extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/icons/notes.svg',
-              height: SizeConfig.h(size ?? 16),
-              width: SizeConfig.w(size ?? 16),
+              height: SizeConfig.h(size ?? SizeConfig.h(16)),
+              width: SizeConfig.w(size ?? SizeConfig.w(16)),
             ),
             SizedBox(width: SizeConfig.w(4)),
             Text(
