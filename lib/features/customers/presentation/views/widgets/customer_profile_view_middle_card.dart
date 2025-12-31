@@ -33,7 +33,7 @@ class CustomerProfileViewMiddleCard extends StatelessWidget {
               ),
           ],
         ),
-       SizedBox(height: SizeConfig.h(10),),
+       SizedBox(height: SizeConfig.h(18),),
         Row(
           textDirection: TextDirection.rtl,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

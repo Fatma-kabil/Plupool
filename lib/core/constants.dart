@@ -708,3 +708,31 @@ final dashboarditems = [
     iconColor: Color(0xffEA5A65),
   ),
 ];
+
+final List<Map> customerFooter = [
+  {
+    'icon': Icons.layers_outlined,
+    'title': "الباقات والخدمات",
+    'color': Color(0xff05B285),
+  },
+  {
+    'icon': Icons.star_outlined,
+    'title': "التقييمات",
+    'color': Color(0xffFF9F1C),
+  },
+   {
+    'icon': Icons.flag,
+    'title': "البلاغات ورسائل الدعم",
+    'color': Color(0xffEA5A65),
+  },
+   {
+    'icon': Icons.shopping_cart_outlined,
+    'title': "طلبات المتجر",
+    'color': AppColors.kprimarycolor,
+  },
+   {
+    'icon': Icons.note_alt_outlined,
+    'title': "الملاحظات",
+    'color': Color(0xff7B7B7B),
+  },
+];
