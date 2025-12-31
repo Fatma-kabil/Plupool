@@ -41,9 +41,9 @@ class CustomerProfileViewHeader extends StatelessWidget {
             label: "العنوان:",
             value: "٢٨٧ شارع النخيل، الإسكندرية، مصر",
           ),
-          SizedBox(height: SizeConfig.h(10)),
+          SizedBox(height: SizeConfig.h(8)),
           LocationRow(location: "٢٨٧ شارع النخيل، الإسكندرية، مصر"),
-          SizedBox(height: SizeConfig.h(10)),
+          SizedBox(height: SizeConfig.h(15)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
