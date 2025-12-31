@@ -4,18 +4,27 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class AddOfferBtn extends StatelessWidget {
-  const AddOfferBtn({super.key, required this.text, this.onTap});
+  const AddOfferBtn({
+    super.key,
+    required this.text,
+    this.onTap,
+    this.icon,
+    this.style,  this.padding,
+  });
   final String text;
   final void Function()? onTap;
+  final IconData? icon;
+  final TextStyle? style;
+  final double? padding;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-     onTap: onTap,
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(12),
-          vertical: SizeConfig.h(6),
+          vertical: SizeConfig.h(padding??6),
         ),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.kprimarycolor, width: 1),
@@ -27,13 +36,15 @@ class AddOfferBtn extends StatelessWidget {
           children: [
             Text(
               text,
-              style: AppTextStyles.styleMedium16(
-                context,
-              ).copyWith(color: AppColors.kprimarycolor),
+              style:
+                  style ??
+                  AppTextStyles.styleMedium16(
+                    context,
+                  ).copyWith(color: AppColors.kprimarycolor),
             ),
             SizedBox(width: SizeConfig.w(4)),
             Icon(
-              Icons.add_circle_outline,
+              icon ?? Icons.add_circle_outline,
               color: AppColors.kprimarycolor,
               size: SizeConfig.w(18),
             ),
