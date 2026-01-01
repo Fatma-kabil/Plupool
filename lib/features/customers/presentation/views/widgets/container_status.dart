@@ -13,6 +13,7 @@ class ContainerStatus extends StatelessWidget {
         vertical: SizeConfig.h(4),
       ),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
         color: isActive?Color(0xffCDF7EC):Color(0xffFAD7DA),
         
       ),

@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/services/presentation/views/widgets/mood_control_design.dart';
-import 'package:plupool/features/services/presentation/views/widgets/service_card.dart';
+import 'package:plupool/features/services/presentation/views/user/widgets/mood_control_design.dart';
+import 'package:plupool/features/services/presentation/views/user/widgets/service_card.dart';
 
 class ServicesView extends StatelessWidget {
   const ServicesView({super.key});

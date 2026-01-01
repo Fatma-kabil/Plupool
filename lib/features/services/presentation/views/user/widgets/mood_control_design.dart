@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/services/presentation/views/widgets/mood_button_row.dart';
-import 'package:plupool/features/services/presentation/views/widgets/mood_switches.dart';
+import 'package:plupool/features/services/presentation/views/user/widgets/mood_button_row.dart';
+import 'package:plupool/features/services/presentation/views/user/widgets/mood_switches.dart';
 
 class MoodControlsDesign extends StatefulWidget {
   const MoodControlsDesign({super.key});

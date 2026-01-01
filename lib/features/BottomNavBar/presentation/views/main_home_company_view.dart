@@ -8,7 +8,7 @@ import 'package:plupool/features/BottomNavBar/presentation/views/widgets/custom_
 import 'package:plupool/features/home/presentaation/views/customer/customer_home_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_view.dart';
 import 'package:plupool/features/store/presentation/views/store_view.dart';
-import 'package:plupool/features/services/presentation/views/services_view.dart';
+import 'package:plupool/features/services/presentation/views/user/services_view.dart';
 
 class MainHomeCompanyView extends StatefulWidget {
   const MainHomeCompanyView({super.key});
