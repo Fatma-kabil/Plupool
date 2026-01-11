@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/services/presentation/views/admin/widgets/customer_service_section.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/tab_with_count.dart';
 
 class CustomerServiceViewBody extends StatefulWidget {
@@ -74,21 +75,19 @@ class _CustomerServiceViewBodyState extends State<CustomerServiceViewBody> {
 
           /// TabBarView
           SliverFillRemaining(
-            child: TabBarView(
-              children: [
-                Center(
-                  child: Text(
-                    'محتوى الخدمات',
-                    style: AppTextStyles.styleMedium16(context),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6), vertical: SizeConfig.h(18)),
+              child: TabBarView(
+                children: [
+                 CustomerServiceSection(),
+                  Center(
+                    child: Text(
+                      'محتوى الباقات',
+                      style: AppTextStyles.styleMedium16(context),
+                    ),
                   ),
-                ),
-                Center(
-                  child: Text(
-                    'محتوى الباقات',
-                    style: AppTextStyles.styleMedium16(context),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

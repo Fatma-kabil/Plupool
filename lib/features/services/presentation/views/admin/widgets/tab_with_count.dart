@@ -7,7 +7,7 @@ class TabWithCount extends StatelessWidget {
   final String title;
   final int count;
 
-  const TabWithCount({
+  const TabWithCount({super.key, 
     required this.title,
     required this.count,
   });
