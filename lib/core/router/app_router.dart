@@ -41,6 +41,7 @@ import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 import 'package:plupool/features/statistics/presentation/views/statistics_view.dart';
 import 'package:plupool/features/store/presentation/views/cart_view.dart';
 import 'package:plupool/features/store/presentation/views/order_summary_view.dart';
+import 'package:plupool/features/support/presentation/views/admin_support_view.dart';
 import 'package:plupool/features/tasks/presentation/views/customer_details_view.dart';
 import 'package:plupool/features/tasks/presentation/views/maintenance_update_view.dart';
 
@@ -307,6 +308,12 @@ final GoRouter appRouter = GoRouter(
       name: 'customerservicesview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CustomerServicesView()),
+    ),
+     GoRoute(
+      path: '/adminsupportview',
+      name: 'adminsupportview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AdminSupportView()),
     ),
   ],
 );
