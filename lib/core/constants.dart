@@ -13,6 +13,7 @@ import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/features/services/data/models/customer_service_card_model.dart';
 import 'package:plupool/features/statistics/data/models/dashboard_item.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 
@@ -714,30 +715,54 @@ final List<Map> customerFooter = [
     'icon': Icons.layers_outlined,
     'title': "الباقات والخدمات",
     'color': Color(0xff05B285),
-    'view':'/customerservicesview'
+    'view': '/customerservicesview',
   },
   {
     'icon': Icons.star_outlined,
     'title': "التقييمات",
     'color': Color(0xffFF9F1C),
-    'view':'/customerservicesview'
+    'view': '/customerservicesview',
   },
-   {
+  {
     'icon': Icons.flag,
     'title': "البلاغات ورسائل الدعم",
     'color': Color(0xffEA5A65),
-    'view':'/customerservicesview'
+    'view': '/customerservicesview',
   },
-   {
+  {
     'icon': Icons.shopping_cart_outlined,
     'title': "طلبات المتجر",
     'color': AppColors.kprimarycolor,
-    'view':'/customerservicesview'
+    'view': '/customerservicesview',
   },
-   {
+  {
     'icon': Icons.note_alt_outlined,
     'title': "الملاحظات",
     'color': Color(0xff7B7B7B),
-    'view':'/customerservicesview'
+    'view': '/customerservicesview',
   },
+];
+
+final List<CustomerServiceCardModel> customerServices = [
+  CustomerServiceCardModel(
+    orderno: "56489",
+    date: DateTime(2025, 12, 14),
+    service: "صيانة الفلتر",
+    techs: "علي حسين، محمد أحمد",
+    statu: RequestStatus.urgent
+  ),
+   CustomerServiceCardModel(
+    orderno: "56489",
+    date: DateTime(2025, 12, 14),
+    service: "صيانة الفلتر",
+    techs: "علي حسين، محمد أحمد",
+    statu: RequestStatus.scheduled
+  ),
+   CustomerServiceCardModel(
+    orderno: "56489",
+    date: DateTime(2025, 12, 14),
+    service: "صيانة الفلتر",
+    techs: "علي حسين، محمد أحمد",
+    statu: RequestStatus.completed
+  ),
 ];

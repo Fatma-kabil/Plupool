@@ -9,7 +9,7 @@ class RearragnmentRow extends StatefulWidget {
   State<RearragnmentRow> createState() => _RearragnmentRowState();
 }
 
-String selected = "الكل";
+String selected = "عاجله";
 
 class _RearragnmentRowState extends State<RearragnmentRow> {
   @override
@@ -18,7 +18,7 @@ class _RearragnmentRowState extends State<RearragnmentRow> {
       children: [
         FilterOption(
           value: selected,
-          items: const ["مكتمله", "قيد التنفيذ", "مجدوله", "عاجله", "الكل"],
+          items: const ["مكتمله", "مجدوله", "عاجله"],
           onChanged: (val) {
             if (val != null) {
               setState(() {
