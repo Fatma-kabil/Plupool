@@ -22,7 +22,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
         child: Scaffold(
           key: scaffoldkey,
           appBar: CustomAppBar(
-            isSearch: true,
+            isSearch: false,
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();
             },
