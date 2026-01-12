@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
-import 'package:plupool/features/support/presentation/views/widgets/admin_support_view_body.dart';
+import 'package:plupool/features/support/data/models/message_model.dart';
+import 'package:plupool/features/support/presentation/views/widgets/message_details_body.dart';
 
-class AdminSupportView extends StatefulWidget {
-  const AdminSupportView({super.key});
+class MessageDetails extends StatefulWidget {
+  const MessageDetails({super.key, required this.message});
+  final MessageModel message;
 
   @override
-  State<AdminSupportView> createState() => _AdminSupportViewState();
+  State<MessageDetails> createState() => _MessageDetailsState();
 }
 
-class _AdminSupportViewState extends State<AdminSupportView> {
+class _MessageDetailsState extends State<MessageDetails> {
  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class _AdminSupportViewState extends State<AdminSupportView> {
         child: Scaffold(
           key: scaffoldkey,
           appBar: CustomAppBar(
-            isSearch: true,
+            isSearch: false,
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();
             },
@@ -33,7 +35,7 @@ class _AdminSupportViewState extends State<AdminSupportView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: AdminSupportViewBody(),
+            child: MessageDetailsBody(message:widget.message,),
           ),
         ),
       ),

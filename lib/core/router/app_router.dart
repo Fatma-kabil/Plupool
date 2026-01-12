@@ -41,7 +41,9 @@ import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 import 'package:plupool/features/statistics/presentation/views/statistics_view.dart';
 import 'package:plupool/features/store/presentation/views/cart_view.dart';
 import 'package:plupool/features/store/presentation/views/order_summary_view.dart';
+import 'package:plupool/features/support/data/models/message_model.dart';
 import 'package:plupool/features/support/presentation/views/admin_support_view.dart';
+import 'package:plupool/features/support/presentation/views/message_details.dart';
 import 'package:plupool/features/tasks/presentation/views/customer_details_view.dart';
 import 'package:plupool/features/tasks/presentation/views/maintenance_update_view.dart';
 
@@ -314,6 +316,15 @@ final GoRouter appRouter = GoRouter(
       name: 'adminsupportview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminSupportView()),
+    ),
+     GoRoute(
+      path: '/messagedetails',
+      name: 'messagedetails',
+      pageBuilder: (context, state) {
+        final message = state.extra as MessageModel; // استقبال الليست
+
+        return buildTransitionPage(MessageDetails(message: message));
+      },
     ),
   ],
 );

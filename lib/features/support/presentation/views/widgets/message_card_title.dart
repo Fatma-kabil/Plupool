@@ -21,7 +21,7 @@ class MessageCardTitle extends StatelessWidget {
         Spacer(),
         Text(
           'تفاصيل',
-          style: AppTextStyles.styleSemiBold16(context).copyWith(
+          style: AppTextStyles.styleBold16(context).copyWith(
             color: AppColors.kprimarycolor,
             decoration: TextDecoration.underline,
           ),

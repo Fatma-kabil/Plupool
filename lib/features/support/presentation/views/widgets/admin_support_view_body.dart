@@ -19,7 +19,7 @@ class _AdminSupportViewBodyState extends State<AdminSupportViewBody> {
         SliverToBoxAdapter(
           child: FilterOption(
             value: selected,
-            items: const ["قيد المراجعه", "تم الحل"],
+            items: const [ "تم الحل","قيد المراجعه"],
             onChanged: (val) {
               if (val != null) {
                 setState(() {
@@ -30,7 +30,7 @@ class _AdminSupportViewBodyState extends State<AdminSupportViewBody> {
           ),
         ),
         SliverToBoxAdapter(child: SizedBox(height: 18)),
-         MessagesList(),
+         MessagesList(selected:selected ,),
       ],
     );
   }
