@@ -18,6 +18,7 @@ import 'package:plupool/features/statistics/data/models/dashboard_item.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 
 import 'package:plupool/features/store/presentation/data/models/product_model.dart';
+import 'package:plupool/features/support/data/models/message_model.dart';
 
 final List<RoleCardItemModel> roles = [
   RoleCardItemModel(
@@ -749,20 +750,48 @@ final List<CustomerServiceCardModel> customerServices = [
     date: DateTime(2025, 12, 14),
     service: "صيانة الفلتر",
     techs: "علي حسين، محمد أحمد",
-    statu: RequestStatus.urgent
+    statu: RequestStatus.urgent,
   ),
-   CustomerServiceCardModel(
+  CustomerServiceCardModel(
     orderno: "56489",
     date: DateTime(2025, 12, 14),
     service: "صيانة الفلتر",
     techs: "علي حسين، محمد أحمد",
-    statu: RequestStatus.scheduled
+    statu: RequestStatus.scheduled,
   ),
-   CustomerServiceCardModel(
+  CustomerServiceCardModel(
     orderno: "56489",
     date: DateTime(2025, 12, 14),
     service: "صيانة الفلتر",
     techs: "علي حسين، محمد أحمد",
-    statu: RequestStatus.completed
+    statu: RequestStatus.completed,
+  ),
+];
+
+final List<MessageModel> messages = [
+  MessageModel(
+    role: "عميل",
+    name: "محمد رامي",
+    message:
+        "إزاي أجدّد الباقة؟"
+        "هل أقدر أغير موعد الزيارة؟",
+    status: RequestStatus.scheduled,
+    files: true
+  ),
+  MessageModel(
+    role: "فني",
+    name: "محمد عبده",
+    message:
+        "إزاي أجدّد الباقة؟"
+        "هل أقدر أغير موعد الزيارة؟",
+    status: RequestStatus.scheduled,
+  ),
+  MessageModel(
+    role: "عميل",
+    name: "محمد رامي",
+    message:
+        "إزاي أجدّد الباقة؟"
+        "هل أقدر أغير موعد الزيارة؟",
+    status: RequestStatus.completed,
   ),
 ];

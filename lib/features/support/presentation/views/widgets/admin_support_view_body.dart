@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
+import 'package:plupool/features/support/presentation/views/widgets/messages_list.dart';
 
 class AdminSupportViewBody extends StatefulWidget {
   const AdminSupportViewBody({super.key});
@@ -28,7 +29,8 @@ class _AdminSupportViewBodyState extends State<AdminSupportViewBody> {
             },
           ),
         ),
-        SliverFillRemaining()
+        SliverToBoxAdapter(child: SizedBox(height: 18)),
+         MessagesList(),
       ],
     );
   }
