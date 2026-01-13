@@ -4,9 +4,11 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class MessageCardTitle extends StatelessWidget {
-  const MessageCardTitle({super.key, required this.role, required this.name});
+  const MessageCardTitle({super.key, required this.role, required this.name, this.onTap});
   final String role;
   final String name;
+  
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -18,18 +20,25 @@ class MessageCardTitle extends StatelessWidget {
           ).copyWith(color: Color(0xff555555)),
         ),
         Spacer(),
-        Text(
-          'تفاصيل',
-          style: AppTextStyles.styleBold16(context).copyWith(
-            color: AppColors.kprimarycolor,
-            decoration: TextDecoration.underline,
+        GestureDetector(
+          onTap: onTap,
+          child: Row(
+            children: [
+              Text(
+                'تفاصيل',
+                style: AppTextStyles.styleBold16(context).copyWith(
+                  color: AppColors.kprimarycolor,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+              SizedBox(width: SizeConfig.w(4)),
+              Icon(
+                Icons.arrow_forward_ios,
+                color: AppColors.kprimarycolor,
+                size: SizeConfig.w(12),
+              ),
+            ],
           ),
-        ),
-        SizedBox(width: SizeConfig.w(4)),
-        Icon(
-          Icons.arrow_forward_ios,
-          color: AppColors.kprimarycolor,
-          size: SizeConfig.w(12),
         ),
       ],
     );

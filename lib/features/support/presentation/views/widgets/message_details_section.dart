@@ -62,7 +62,7 @@ class MessageDetailsSection extends StatelessWidget {
                 ),
               )
             : Text(
-                'لا توجد',
+                 'لا توجد',
                 style: AppTextStyles.styleRegular16(
                   context,
                 ).copyWith(color: Color(0xff777777)),

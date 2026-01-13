@@ -41,7 +41,7 @@ class MessageDatailsViewHeader extends StatelessWidget {
           ),
           SizedBox(height: SizeConfig.h(8)),
           LocationRow(location: "٢٨٧ شارع النخيل، الإسكندرية، مصر"),
-          SizedBox(height: SizeConfig.h(15)),
+
         
         ],
       ),
