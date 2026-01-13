@@ -624,7 +624,7 @@ final List<DrawerItemModel> observations = [
     title: "الدعم",
     onTap: '/adminsupportview',
   ),
-  DrawerItemModel(icon: Icons.store, title: "المتجر", onTap: '/statisticsview'),
+  DrawerItemModel(icon: Icons.store, title: "المتجر", onTap: '/adminstoreview'),
   DrawerItemModel(
     icon: Icons.rate_review,
     title: "التقييمات",

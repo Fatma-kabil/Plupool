@@ -21,7 +21,7 @@ class AttachmentChip extends StatelessWidget {
         margin: EdgeInsets.only(left:SizeConfig.w(12) ),
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(12),
-          vertical: SizeConfig.h(6),
+          vertical: SizeConfig.h(2),
         ),
         decoration: BoxDecoration(
           color: const Color(0xffD4D4D4),

@@ -29,7 +29,7 @@ class _AdminSupportViewBodyState extends State<AdminSupportViewBody> {
             },
           ),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: 18)),
+        SliverToBoxAdapter(child: SizedBox(height: 25)),
          MessagesList(selected:selected ,),
       ],
     );
