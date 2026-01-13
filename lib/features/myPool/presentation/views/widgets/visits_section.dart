@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/add_note.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/in_progress_card.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/note_and_time_section.dart';

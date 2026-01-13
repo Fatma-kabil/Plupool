@@ -3,7 +3,7 @@ import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/my_pool_task_card.dart';
 
 class ServiceSection extends StatelessWidget {

@@ -1,7 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_card.dart';
 
 class MessagesList extends StatelessWidget {
@@ -13,9 +14,9 @@ class MessagesList extends StatelessWidget {
   Widget build(BuildContext context) {
     final filteredMessages = messages.where((message) {
       if (selected == "قيد المراجعه") {
-        return message.status == RequestStatus.scheduled;
+        return message.status == MessageStatus.pending;
       } else {
-        return message.status == RequestStatus.completed;
+        return message.status == MessageStatus.solved;
       }
     }).toList();
 
@@ -31,6 +32,7 @@ class MessagesList extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           return MessageCard(
+            onTap: () => context.push('/messagedetails', extra: filteredMessages[index]),
             message: filteredMessages[index],
           );
         },

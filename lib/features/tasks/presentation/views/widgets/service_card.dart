@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
-import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/progress_section.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/reminder_section.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/service_request_header.dart';

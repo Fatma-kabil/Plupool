@@ -5,7 +5,7 @@ import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/location_btn.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
-import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/build_data_time_row.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/build_user_section.dart';
 

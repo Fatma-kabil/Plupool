@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/message_status_text.dart';
+import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
+
+class MessageStatusSection extends StatefulWidget {
+  const MessageStatusSection({super.key});
+
+  @override
+  State<MessageStatusSection> createState() => _MessageStatusSectionState();
+}
+
+class _MessageStatusSectionState extends State<MessageStatusSection> {
+  MessageStatus selected = MessageStatus.pending;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          " تعديل حالة الرسالة ",
+          style: AppTextStyles.styleSemiBold16(
+            context,
+          ).copyWith(color: AppColors.ktextcolor),
+        ),
+        SizedBox(height: 10),
+        Row(
+          children: [
+            StatusSelector(
+              selectedStatus: selected,
+              items: [MessageStatus.pending, MessageStatus.solved],
+              onChanged: (val) {
+                setState(() => selected = val);
+              },
+            ),
+
+            GestureDetector(
+              child: Container(
+                padding: EdgeInsets.all(SizeConfig.w(6)),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xffFAD7DA),
+                ),
+                child: Icon(
+                  Icons.delete_outline_rounded,
+                  color: Color(0xffE63946),
+                  size: SizeConfig.w(18),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}

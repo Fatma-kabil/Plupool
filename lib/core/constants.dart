@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/features/home/data/models/drawer_item_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
@@ -12,7 +13,7 @@ import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
-import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/services/data/models/customer_service_card_model.dart';
 import 'package:plupool/features/statistics/data/models/dashboard_item.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
@@ -775,7 +776,7 @@ final List<MessageModel> messages = [
     message:
         "إزاي أجدّد الباقة؟"
         "هل أقدر أغير موعد الزيارة؟",
-    status: RequestStatus.scheduled,
+    status: MessageStatus.pending,
     files: true
   ),
   MessageModel(
@@ -784,7 +785,7 @@ final List<MessageModel> messages = [
     message:
         "إزاي أجدّد الباقة؟"
         "هل أقدر أغير موعد الزيارة؟",
-    status: RequestStatus.scheduled,
+    status: MessageStatus.pending,
   ),
   MessageModel(
     role: "عميل",
@@ -792,6 +793,6 @@ final List<MessageModel> messages = [
     message:
         "إزاي أجدّد الباقة؟"
         "هل أقدر أغير موعد الزيارة؟",
-    status: RequestStatus.completed,
+    status: MessageStatus.solved,
   ),
 ];

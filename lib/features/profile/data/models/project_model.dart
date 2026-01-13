@@ -1,4 +1,4 @@
-import 'package:plupool/features/home/domain/entities/request_status.dart';
+import 'package:plupool/core/utils/functions/request_status.dart';
 
 class ProjectModel {
   final RequestStatus status;
