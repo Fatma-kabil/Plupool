@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/store/presentation/data/models/dashboard_statu_model.dart';
+import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
 
 class StatCard extends StatelessWidget {
   final DashboardStatModel model;

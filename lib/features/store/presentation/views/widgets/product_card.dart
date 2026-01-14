@@ -7,10 +7,10 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/get_badge_color.dart';
 import 'package:plupool/core/utils/functions/get_badge_text.dart';
 import 'package:plupool/core/utils/widgets/add_cart_btn.dart';
-import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
+import 'package:plupool/features/store/data/models/product_model.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;

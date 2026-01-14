@@ -15,7 +15,7 @@ class AdminStoreViewBody extends StatelessWidget {
         children: [
           /// ===== Stats Title =====
           Text(
-            'العملاء والباقات',
+            'الاحصائيات :',
             style: AppTextStyles.styleSemiBold16(context)
                 .copyWith(color: AppColors.ktextcolor),
           ),

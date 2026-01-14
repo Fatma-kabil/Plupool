@@ -17,10 +17,10 @@ import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/services/data/models/customer_service_card_model.dart';
 import 'package:plupool/features/statistics/data/models/dashboard_item.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
-import 'package:plupool/features/store/presentation/data/models/dashboard_shortcut_model.dart';
-import 'package:plupool/features/store/presentation/data/models/dashboard_statu_model.dart';
+import 'package:plupool/features/store/data/models/dashboard_shortcut_model.dart';
+import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
+import 'package:plupool/features/store/data/models/product_model.dart';
 
-import 'package:plupool/features/store/presentation/data/models/product_model.dart';
 import 'package:plupool/features/support/data/models/message_model.dart';
 
 final List<RoleCardItemModel> roles = [
@@ -836,21 +836,25 @@ final List<DashboardShortcutModel> dashboardShortcuts = [
     title: "الطلبات",
     icon: Icons.shopping_cart_outlined,
     color: Color(0xff0077B6),
+    onTap: '/storeorderview'
   ),
   DashboardShortcutModel(
     title: "المنتجات",
     icon: Icons.inventory_2_outlined,
     color: Color(0xffFF9F1C),
+     onTap: '/storeorderview'
   ),
   DashboardShortcutModel(
     title: "العروض",
     icon: Icons.local_offer_outlined,
     color: Color(0xffEA5A65),
+     onTap: '/storeorderview'
   ),
   DashboardShortcutModel(
     title: "المخزون",
     icon: Icons.warehouse_outlined,
     color: Color(0xff05B285),
+     onTap: '/storeorderview'
   ),
   
 ];

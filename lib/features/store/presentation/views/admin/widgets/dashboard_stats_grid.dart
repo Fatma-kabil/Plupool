@@ -14,11 +14,12 @@ class DashboardStatsGrid extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: dashboardStats.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 2,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 12,
+           childAspectRatio: SizeConfig.isWideScreen?2.5:2 ,
+            
+          crossAxisSpacing:SizeConfig.w(12) ,
+          mainAxisSpacing:SizeConfig.h(12) ,
         ),
         itemBuilder: (context, index) {
           return StatCard(model: dashboardStats[index]);

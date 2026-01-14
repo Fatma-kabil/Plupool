@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/store/presentation/data/models/dashboard_shortcut_model.dart';
+import 'package:plupool/features/store/data/models/dashboard_shortcut_model.dart';
 
 class ShortcutButton extends StatelessWidget {
   final DashboardShortcutModel model;
@@ -12,9 +13,10 @@ class ShortcutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: model.onTap,
+      onTap: () {
+        context.push(model.onTap);
+      },
       child: Container(
-      
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: AppColors.textFieldBorderColor),
@@ -24,17 +26,24 @@ class ShortcutButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-             Container(
-            padding: EdgeInsets.all(SizeConfig.w(6)),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: model.color),
+            Container(
+              padding: EdgeInsets.all(SizeConfig.w(6)),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: model.color),
+              ),
+              child: Icon(
+                model.icon,
+                color: model.color,
+                size: SizeConfig.w(SizeConfig.isWideScreen ? 20 : 24),
+              ),
             ),
-           child:  Icon(model.icon, color: model.color, size: SizeConfig.w(24))),
-             SizedBox(width: SizeConfig.w(12)),
+            SizedBox(width: SizeConfig.w(12)),
             Text(
               model.title,
-              style: AppTextStyles.styleSemiBold16(context).copyWith(color:Color(0xff555555)),
+              style: AppTextStyles.styleSemiBold16(
+                context,
+              ).copyWith(color: Color(0xff555555)),
             ),
           ],
         ),

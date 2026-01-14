@@ -14,11 +14,12 @@ class DashboardShortcutsGrid extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: dashboardShortcuts.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 2.4,
-          crossAxisSpacing: 12,
-          mainAxisSpacing: 16,
+          childAspectRatio: SizeConfig.isWideScreen ? 2.9 : 2.4,
+
+          crossAxisSpacing: SizeConfig.w(12),
+          mainAxisSpacing: SizeConfig.h(16),
         ),
         itemBuilder: (context, index) {
           return ShortcutButton(model: dashboardShortcuts[index]);

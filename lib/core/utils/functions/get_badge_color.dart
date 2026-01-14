@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/features/store/presentation/data/models/product_model.dart';
+import 'package:plupool/features/store/data/models/product_model.dart';
 
 Color getBadgeColor(ProductBadge badge) {
   switch (badge) {

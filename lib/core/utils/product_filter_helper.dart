@@ -1,5 +1,5 @@
 import 'package:plupool/core/utils/store_filter.dart';
-import 'package:plupool/features/store/presentation/data/models/product_model.dart';
+import 'package:plupool/features/store/data/models/product_model.dart';
 
 class ProductFilterHelper {
   static List<ProductModel> applyFilter(

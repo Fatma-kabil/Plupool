@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/store/presentation/data/models/product_model.dart';
+import 'package:plupool/features/store/data/models/product_model.dart';
 import 'package:plupool/features/store/presentation/views/widgets/product_card.dart';
 
 class ProductsGrid extends StatelessWidget {

@@ -17,6 +17,7 @@ import 'package:plupool/features/home/presentaation/views/tech/tech_notification
 import 'package:plupool/features/offers/presentation/views/add_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
+import 'package:plupool/features/orders/presentation/view/store_order_view.dart';
 import 'package:plupool/features/profile/presentation/views/delete_account_view.dart';
 import 'package:plupool/features/profile/presentation/views/help_view.dart';
 import 'package:plupool/features/profile/presentation/views/my_packages_view.dart';
@@ -332,6 +333,12 @@ final GoRouter appRouter = GoRouter(
       name: 'adminstoreview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminStoreView()),
+    ),
+     GoRoute(
+      path: '/storeorderview',
+      name: 'storeorderview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const StoreOrderView()),
     ),
   ],
 );
