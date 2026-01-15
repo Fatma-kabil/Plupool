@@ -6,6 +6,8 @@ import 'package:plupool/features/home/data/models/drawer_item_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
+import 'package:plupool/features/orders/data/models/order_card_model.dart';
+import 'package:plupool/features/orders/domain/entities/order_status.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
 import 'package:plupool/features/profile/data/models/project_model.dart';
 import 'package:plupool/features/select_role/data/models/role_card_item.dart';
@@ -779,7 +781,7 @@ final List<MessageModel> messages = [
         "إزاي أجدّد الباقة؟"
         "هل أقدر أغير موعد الزيارة؟",
     status: MessageStatus.pending,
-    files: true
+    files: true,
   ),
   MessageModel(
     role: "فني",
@@ -800,7 +802,7 @@ final List<MessageModel> messages = [
 ];
 
 final List<DashboardStatModel> dashboardStats = [
-   DashboardStatModel(
+  DashboardStatModel(
     title: "التقييم",
     value: "4.8",
     icon: Icons.star_outline,
@@ -828,7 +830,6 @@ final List<DashboardStatModel> dashboardStats = [
     backgroundColor: Color(0xffFAD7DA),
     iconColor: Color(0xffEA5A65),
   ),
- 
 ];
 
 final List<DashboardShortcutModel> dashboardShortcuts = [
@@ -836,25 +837,72 @@ final List<DashboardShortcutModel> dashboardShortcuts = [
     title: "الطلبات",
     icon: Icons.shopping_cart_outlined,
     color: Color(0xff0077B6),
-    onTap: '/storeorderview'
+    onTap: '/storeorderview',
   ),
   DashboardShortcutModel(
     title: "المنتجات",
     icon: Icons.inventory_2_outlined,
     color: Color(0xffFF9F1C),
-     onTap: '/storeorderview'
+    onTap: '/storeorderview',
   ),
   DashboardShortcutModel(
     title: "العروض",
     icon: Icons.local_offer_outlined,
     color: Color(0xffEA5A65),
-     onTap: '/storeorderview'
+    onTap: '/storeorderview',
   ),
   DashboardShortcutModel(
     title: "المخزون",
     icon: Icons.warehouse_outlined,
     color: Color(0xff05B285),
-     onTap: '/storeorderview'
+    onTap: '/storeorderview',
+  ),
+];
+
+final List<OrderCardModel> orderCards = [
+  OrderCardModel(
+    date: DateTime(2025, 5, 12, 11, 00),
+    orderNo: 12345,
+    satus: OrderStatus.delivered,
+    note: "تم تسليم الطلب",
+  ),
+  OrderCardModel(
+    date: DateTime(2025, 5, 12, 11, 00),
+    orderNo: 12345,
+    satus: OrderStatus.delivered,
+    note: "تم تسليم الطلب",
+  ),
+  OrderCardModel(
+    date: DateTime(2025, 5, 12, 11, 00),
+    orderNo: 12345,
+    satus: OrderStatus.delivered,
+    note: "تم تسليم الطلب",
+  ),
+  OrderCardModel(
+    date: DateTime(2025, 5, 12, 11, 00),
+    orderNo: 12345,
+    satus: OrderStatus.onTheWay,
+
+  ),
+   OrderCardModel(
+    date: DateTime(2025, 5, 12, 11, 00),
+    orderNo: 12345,
+    satus: OrderStatus.preparing,
+   
+  ),
+   OrderCardModel(
+    date: DateTime(2025, 5, 12, 11, 00),
+    orderNo: 12345,
+    satus: OrderStatus.cancelled,
+    note: "لم يستلم العميل الطلب من المندوب"
+   
+  ),
+   OrderCardModel(
+    date: DateTime(2025, 5, 12, 11, 00),
+    orderNo: 12345,
+    satus: OrderStatus.cancelled,
+    note: "لم يستلم العميل الطلب من المندوب"
+   
   ),
   
 ];
