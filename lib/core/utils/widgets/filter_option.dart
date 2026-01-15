@@ -65,8 +65,8 @@ class FilterOption extends StatelessWidget {
                     .toList(),
 
                 onChanged: onChanged,
-                menuItemStyleData: const MenuItemStyleData(
-                  height: 30, // 👈 المسافة بين كل عنصر والتاني
+                menuItemStyleData:  MenuItemStyleData(
+                  height: SizeConfig.h(30), // 👈 المسافة بين كل عنصر والتاني
                   // padding: EdgeInsets.symmetric(horizontal: 8),
                 ),
 
@@ -79,7 +79,8 @@ class FilterOption extends StatelessWidget {
                 /// شكل القائمة
                 dropdownStyleData: DropdownStyleData(
                   //  maxHeight: 200,
-                  width: 115,
+                  width: SizeConfig.w(115),
+                  
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.white,

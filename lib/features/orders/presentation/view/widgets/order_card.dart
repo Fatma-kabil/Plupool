@@ -7,8 +7,9 @@ import 'package:plupool/features/orders/presentation/view/widgets/order_card_hea
 import 'package:plupool/features/orders/presentation/view/widgets/order_datails.dart';
 
 class OrderCard extends StatelessWidget {
-  const OrderCard({super.key, required this.model});
+  const OrderCard({super.key, required this.model, this.onTap});
   final OrderCardModel model;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +32,7 @@ class OrderCard extends StatelessWidget {
             ),
             child: Divider(color: AppColors.textFieldBorderColor, thickness: 1),
           ),
-          OrderDatails(),
+          OrderDatails(onTap:onTap ,),
           SizedBox(height: SizeConfig.h(12)),
           if (model.note != null) NoteAndTimeSection(text: model.note!),
         ],

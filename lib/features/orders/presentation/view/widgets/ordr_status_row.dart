@@ -15,7 +15,7 @@ class OrdrStatusRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(status.icon, color: status.color, size: SizeConfig.w(20)),
+        Icon(status.icon, color: status.color, size:SizeConfig.isWideScreen?SizeConfig.h(22): SizeConfig.w(20)),
         SizedBox(width: SizeConfig.w(3)),
         Text(
           status.text,

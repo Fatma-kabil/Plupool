@@ -17,6 +17,8 @@ import 'package:plupool/features/home/presentaation/views/tech/tech_notification
 import 'package:plupool/features/offers/presentation/views/add_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
+import 'package:plupool/features/orders/data/models/order_card_model.dart';
+import 'package:plupool/features/orders/presentation/view/order_details_view.dart';
 import 'package:plupool/features/orders/presentation/view/store_order_view.dart';
 import 'package:plupool/features/profile/presentation/views/delete_account_view.dart';
 import 'package:plupool/features/profile/presentation/views/help_view.dart';
@@ -307,19 +309,19 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const CustomerProfileView()),
     ),
-        GoRoute(
+    GoRoute(
       path: '/customerservicesview',
       name: 'customerservicesview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CustomerServicesView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/adminsupportview',
       name: 'adminsupportview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminSupportView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/messagedetails',
       name: 'messagedetails',
       pageBuilder: (context, state) {
@@ -334,11 +336,20 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminStoreView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/storeorderview',
       name: 'storeorderview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const StoreOrderView()),
+    ),
+    GoRoute(
+      path: '/orderdetailsview',
+      name: 'orderdetailsview',
+      pageBuilder: (context, state) {
+        final order = state.extra as OrderCardModel; // استقبال الليست
+
+        return buildTransitionPage(OrderDetailsView(model: order));
+      },
     ),
   ],
 );

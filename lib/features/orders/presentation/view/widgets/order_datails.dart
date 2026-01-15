@@ -5,7 +5,8 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/support/presentation/views/widgets/details_btn.dart';
 
 class OrderDatails extends StatelessWidget {
-  const OrderDatails({super.key});
+  const OrderDatails({super.key, this.onTap});
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class OrderDatails extends StatelessWidget {
               ).copyWith(color: Color(0xff555555)),
             ),
             Spacer(),
-            DetailsBtn(onTap: () {}),
+            DetailsBtn(onTap: onTap),
           ],
         ),
         SizedBox(height: SizeConfig.h(8)),
