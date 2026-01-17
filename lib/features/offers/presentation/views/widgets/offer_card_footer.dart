@@ -4,8 +4,9 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class OfferCardFooter extends StatelessWidget {
-  const OfferCardFooter({super.key, this.onPressed});
+  const OfferCardFooter({super.key, this.onPressed, this.delonPressed});
   final void Function()? onPressed;
+   final void Function()? delonPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class OfferCardFooter extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed:delonPressed,
           icon: Icon(
             Icons.delete_outline_rounded,
             color: Color(0xffE63946),

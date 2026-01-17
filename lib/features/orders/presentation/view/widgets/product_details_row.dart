@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/offer_card_footer.dart';
+import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 
 class ProductDetailsRow extends StatelessWidget {
   const ProductDetailsRow({super.key});
@@ -55,7 +56,9 @@ class ProductDetailsRow extends StatelessWidget {
           SizedBox(width: SizeConfig.w(8)),
       
           /// Footer
-          OfferCardFooter(),
+          OfferCardFooter(
+            delonPressed: () => DeleteOrderCard(),
+          ),
         ],
       ),
     );
