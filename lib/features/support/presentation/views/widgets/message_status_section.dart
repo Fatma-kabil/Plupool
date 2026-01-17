@@ -30,15 +30,16 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: StatusSelector(
-                selectedStatus: selected,
-                items: [MessageStatus.pending, MessageStatus.solved],
+              child: StatusSelector<MessageStatus>(
+                selected: selected,
+                items: const [MessageStatus.pending, MessageStatus.solved],
+                displayText: (status) => statusText(status),
                 onChanged: (val) {
                   setState(() => selected = val);
                 },
               ),
             ),
-SizedBox(width: SizeConfig.w(35)),
+            SizedBox(width: SizeConfig.w(35)),
             GestureDetector(
               child: Container(
                 padding: EdgeInsets.all(SizeConfig.w(6)),

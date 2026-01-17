@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/core/utils/size_config.dart';
-
-class StatusSelector extends StatefulWidget {
+class StatusSelector<T> extends StatefulWidget {
   const StatusSelector({
     super.key,
-    required this.selectedStatus,
     required this.items,
+    required this.selected,
     required this.onChanged,
+    required this.displayText,
   });
 
-  final dynamic selectedStatus;
-  final List<dynamic> items;
-  final ValueChanged<dynamic> onChanged;
+  final List<T> items;
+  final T selected;
+  final ValueChanged<T> onChanged;
+  final String Function(T value) displayText;
 
   @override
-  State<StatusSelector> createState() => _StatusSelectorState();
+  State<StatusSelector<T>> createState() => _StatusSelectorState<T>();
 }
 
-class _StatusSelectorState extends State<StatusSelector> {
+class _StatusSelectorState<T> extends State<StatusSelector<T>> {
   bool isOpen = false;
 
   @override
@@ -43,7 +43,9 @@ class _StatusSelectorState extends State<StatusSelector> {
                   top: const Radius.circular(12),
                   bottom: Radius.circular(isOpen ? 0 : 12),
                 ),
-                border: Border.all(color:  AppColors.textFieldBorderColor),
+                border: Border.all(
+                  color: AppColors.textFieldBorderColor,
+                ),
               ),
               child: Row(
                 children: [
@@ -55,10 +57,9 @@ class _StatusSelectorState extends State<StatusSelector> {
                   SizedBox(width: SizeConfig.w(6)),
                   Expanded(
                     child: Text(
-                      statusText(widget.selectedStatus),
-                      style: AppTextStyles.styleRegular14(
-                        context,
-                      ).copyWith(color: const Color(0xff777777)),
+                      widget.displayText(widget.selected),
+                      style: AppTextStyles.styleRegular14(context)
+                          .copyWith(color: const Color(0xff777777)),
                     ),
                   ),
                   AnimatedRotation(
@@ -84,21 +85,15 @@ class _StatusSelectorState extends State<StatusSelector> {
                       borderRadius: const BorderRadius.vertical(
                         bottom: Radius.circular(12),
                       ),
-                      border: Border(
-                        bottom: BorderSide(
-                          color: AppColors.textFieldBorderColor,
-                        ),
-                        left: BorderSide(color: AppColors.textFieldBorderColor),
-                        right: BorderSide(
-                          color: AppColors.textFieldBorderColor,
-                        ),
+                      border: Border.all(
+                        color: AppColors.textFieldBorderColor,
                       ),
                     ),
                     child: Column(
-                      children: widget.items.map((status) {
+                      children: widget.items.map((item) {
                         return InkWell(
                           onTap: () {
-                            widget.onChanged(status);
+                            widget.onChanged(item);
                             setState(() => isOpen = false);
                           },
                           child: Container(
@@ -108,10 +103,9 @@ class _StatusSelectorState extends State<StatusSelector> {
                               vertical: SizeConfig.h(8),
                             ),
                             child: Text(
-                              statusText(status),
-                              style: AppTextStyles.styleRegular14(
-                                context,
-                              ).copyWith(color: const Color(0xff777777)),
+                              widget.displayText(item),
+                              style: AppTextStyles.styleRegular14(context)
+                                  .copyWith(color: const Color(0xff777777)),
                             ),
                           ),
                         );
