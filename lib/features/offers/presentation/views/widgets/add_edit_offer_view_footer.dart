@@ -17,7 +17,7 @@ class AddEditOfferViewFooter extends StatelessWidget {
           text: text,
           onPressed: onPressed,
           width: SizeConfig.w(140),
-          padding: SizeConfig.h(8),
+          padding: SizeConfig.h(6),
         ),
 
         CustomOutlinedBtn(

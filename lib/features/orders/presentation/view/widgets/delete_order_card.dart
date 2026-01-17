@@ -9,77 +9,83 @@ class DeleteOrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      insetPadding: EdgeInsets.symmetric(
-        horizontal: SizeConfig.w(16),
-        vertical: SizeConfig.h(29),
-      ),
-      child: Container(
-        width: SizeConfig.isWideScreen
-            ? SizeConfig.screenWidth * 0.65
-            : double.infinity,
-        padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.w(16),
-          vertical: SizeConfig.h(20),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        insetPadding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.w(20),
+          vertical: SizeConfig.h(29),
         ),
-        decoration: BoxDecoration(
-          color: AppColors.kScaffoldColor,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "هل أنت متأكد من حذف هذا المنتج ؟",
-              style: AppTextStyles.styleSemiBold25(
-                context,
-              ).copyWith(color: AppColors.ktextcolor),
-            ),
-            SizedBox(height: SizeConfig.h(30)),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Color(0xffE63946)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          width: SizeConfig.isWideScreen
+              ? SizeConfig.screenWidth * 0.65
+              : double.infinity,
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.w(16),
+            vertical: SizeConfig.h(20),
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.kScaffoldColor,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "هل أنت متأكد من حذف هذا المنتج ؟",
+                style: AppTextStyles.styleSemiBold25(
+                  context,
+                ).copyWith(color: AppColors.ktextcolor),
+              ),
+              SizedBox(height: SizeConfig.h(30)),
+              Row(
+                children: [
+                   Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffE63946),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {},
+      
+                      child: Text(
+                        "نعم",
+                        style: AppTextStyles.styleMedium16(
+                          context,
+                        ).copyWith(color: Colors.white),
                       ),
                     ),
-                    onPressed: () {
-                      context.pop();
-                    },
-                    child: Text(
-                      "لا",
-                      style: AppTextStyles.styleMedium16(
-                        context,
-                      ).copyWith(color: const Color(0xffE63946)),
-                    ),
                   ),
-                ),
-                SizedBox(width: SizeConfig.w(18)),
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xffE63946),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                     SizedBox(width: SizeConfig.w(22)),
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: Color(0xffE63946)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        context.pop();
+                      },
+                      child: Text(
+                        "لا",
+                        style: AppTextStyles.styleMedium16(
+                          context,
+                        ).copyWith(color: const Color(0xffE63946)),
                       ),
                     ),
-                    onPressed: () {},
-
-                    child: Text(
-                      "نعم",
-                      style: AppTextStyles.styleMedium16(
-                        context,
-                      ).copyWith(color: Colors.white),
-                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+               
+                 
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/offer_card_footer.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
+import 'package:plupool/features/orders/presentation/view/widgets/update_order_card.dart';
 
 class ProductDetailsRow extends StatelessWidget {
   const ProductDetailsRow({super.key});
@@ -10,7 +11,7 @@ class ProductDetailsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(bottom: SizeConfig.h(10)),
+      padding: EdgeInsets.only(bottom: SizeConfig.h(10)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -26,9 +27,9 @@ class ProductDetailsRow extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-      
+
           SizedBox(width: SizeConfig.w(10)),
-      
+
           /// Text section (IMPORTANT)
           Expanded(
             child: Column(
@@ -52,12 +53,22 @@ class ProductDetailsRow extends StatelessWidget {
               ],
             ),
           ),
-      
+
           SizedBox(width: SizeConfig.w(8)),
-      
+
           /// Footer
           OfferCardFooter(
-            delonPressed: () => DeleteOrderCard(),
+            delonPressed: () => showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (_) => const DeleteOrderCard(),
+            ),
+
+            onPressed: () => showDialog(
+              context: context,
+              barrierDismissible: true,
+              builder: (_) => UpdateOrderCard(),
+            ),
           ),
         ],
       ),
