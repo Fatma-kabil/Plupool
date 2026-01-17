@@ -13,7 +13,7 @@ class OrderDetailsViewFooter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         CustomTextBtn(
-          text: "jتعديل",
+          text: "تعديل",
           onPressed: () {},
           width: SizeConfig.w(140),
           padding: SizeConfig.h(8),

@@ -12,7 +12,7 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: SizeConfig.h(25)),
+     // margin: EdgeInsets.only(bottom: SizeConfig.h(25)),
       padding: EdgeInsets.symmetric(
         horizontal: SizeConfig.w(15),
         vertical: SizeConfig.h(12),

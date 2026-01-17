@@ -19,6 +19,7 @@ class _StatusAndNoteSectionState extends State<StatusAndNoteSection> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("تعديل حالة الطلب", style: AppTextStyles.styleSemiBold16(context).copyWith(color: Color(0xff333333))),
         SizedBox(height: SizeConfig.h(8)),
@@ -35,7 +36,7 @@ class _StatusAndNoteSectionState extends State<StatusAndNoteSection> {
            setState(() => widget.statu = val);
          },
        ),
-       SizedBox(height: SizeConfig.h(10)),
+       SizedBox(height: SizeConfig.h(20)),
          Text("ملاحظات داخلية", style: AppTextStyles.styleSemiBold16(context).copyWith(color: Color(0xff333333))),
         SizedBox(height: SizeConfig.h(8)),
          Container(
