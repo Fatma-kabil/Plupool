@@ -843,7 +843,7 @@ final List<DashboardShortcutModel> dashboardShortcuts = [
     title: "المنتجات",
     icon: Icons.inventory_2_outlined,
     color: Color(0xffFF9F1C),
-    onTap: '/storeorderview',
+    onTap: '/productview',
   ),
   DashboardShortcutModel(
     title: "العروض",

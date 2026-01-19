@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/profile_option.dart';
 
 class OwnerProfileBody extends StatelessWidget {
@@ -8,35 +11,47 @@ class OwnerProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SingleChildScrollView(
-  // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+    return SingleChildScrollView(
+      // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
           ProfileOption(
             title: 'معلومات الحساب',
             icon: Icons.person_outline,
             onTap: () {
-               context.push('/profiledetailsview');
+              context.push('/profiledetailsview');
             },
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
-            ProfileOption(
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
+          ProfileOption(
             title: 'خدماتي أو باقاتي ',
             icon: Icons.list_alt_outlined,
             onTap: () {
-               context.push('/mypackageview');
+              context.push('/mypackageview');
             },
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
 
           ProfileOption(
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
             onTap: () {
-               context.push('/helpview',extra: 'صاحب حمام سباحه');
+              context.push('/helpview', extra: 'صاحب حمام سباحه');
             },
           ),
-           SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
           ProfileOption(
             title: 'الخصوصية والأمان',
             icon: Icons.lock_outline,
@@ -44,24 +59,42 @@ class OwnerProfileBody extends StatelessWidget {
               context.push('/privacyview');
             },
           ),
-          SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
 
           ProfileOption(
             title: 'لماذا نحن؟',
             icon: Icons.info_outline,
             onTap: () {
-                context.push('/whyusview',extra: 'صاحب حمام سباحه');
+              context.push('/whyusview', extra: 'صاحب حمام سباحه');
             },
           ),
-         SizedBox(height:SizeConfig.isWideScreen? SizeConfig.h(35):SizeConfig.h(8)),
+          SizedBox(
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(35)
+                : SizeConfig.h(8),
+          ),
 
           ProfileOption(
             title: 'تسجيل الخروج',
             icon: Icons.logout,
             islogout: true,
-            onTap: () {},
+            onTap: () {
+              context.read<AuthCubit>().logout();
+              showCustomSnackBar(
+                context: context,
+                message: 'تم تسجيل الخروج',
+                isSuccess: false,
+              );
+
+              Future.delayed(Duration(milliseconds: 500), () {
+                context.go('/selectrole');
+              });
+            },
           ),
-        
         ],
       ),
     );

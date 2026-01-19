@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/confirm_delete_card.dart';
-import 'package:plupool/features/profile/presentation/views/widgets/delete_account_done_card.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/delete_warning_card.dart';
 
 class DeleteAccountViewBody extends StatefulWidget {
@@ -26,7 +27,7 @@ class _DeleteAccountViewBodyState extends State<DeleteAccountViewBody> {
   Widget build(BuildContext context) {
     return BlocListener<UserCubit, UserState>(
       listener: (context, state) {
-        /// Loading
+        /// 🔄 Loading
         if (state is DeleteUserLoading) {
           showDialog(
             context: context,
@@ -37,20 +38,17 @@ class _DeleteAccountViewBodyState extends State<DeleteAccountViewBody> {
           );
         }
 
-        /// Success → اظهر الدايلوج
+        /// ✅ Success → Logout + Navigate Login
         if (state is DeleteUserSuccess) {
           Navigator.of(context, rootNavigator: true).pop(); // يقفل loading
 
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => const DeleteAccountDoneCard(),
-          );
+          context.read<AuthCubit>().logout(); // Logout
+          context.go('/login');               // روح Login
         }
 
-        /// Error
+        /// ❌ Error
         if (state is DeleteUserError) {
-          Navigator.of(context, rootNavigator: true).pop();
+          Navigator.of(context, rootNavigator: true).pop(); // يقفل loading
 
           showCustomSnackBar(
             context: context,

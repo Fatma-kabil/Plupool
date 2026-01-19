@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/profile_option.dart';
 
 class CompanyProfileBody extends StatelessWidget {
@@ -87,11 +90,22 @@ class CompanyProfileBody extends StatelessWidget {
                 : SizeConfig.h(8),
           ),
 
-          ProfileOption(
+         ProfileOption(
             title: 'تسجيل الخروج',
             icon: Icons.logout,
             islogout: true,
-            onTap: () {},
+            onTap: () {
+              context.read<AuthCubit>().logout();
+              showCustomSnackBar(
+                context: context,
+                message: 'تم تسجيل الخروج',
+                isSuccess: false,
+              );
+
+              Future.delayed(Duration(milliseconds: 500), () {
+                context.go('/selectrole');
+              });
+            },
           ),
         ],
       ),
