@@ -4,7 +4,7 @@ String getStockText(int stock) {
   if (stock == 0) {
     return 'غير متوفر';
   } else if (stock <= 5) {
-    return 'متوفر قليل';
+    return ' قليل';
   } else {
     return 'متوفر';
   }

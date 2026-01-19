@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/get_badge_color.dart';
@@ -8,9 +9,9 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/store/data/models/product_model.dart';
 
 class ProCard extends StatelessWidget {
-  const ProCard({super.key, required this.product, this.onPressed});
+  const ProCard({super.key, required this.product,});
   final ProductModel product;
-  final void Function()? onPressed;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +66,10 @@ class ProCard extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: SizeConfig.h(12)),
+            SizedBox(width: SizeConfig.w(8)),
             Expanded(
               child: Column(
-                
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,17 +78,23 @@ class ProCard extends StatelessWidget {
                         child: Text(
                           product.name,
                           textDirection: TextDirection.rtl,
-                                    
+                          softWrap: true, // يسمح بالنزول لسطر جديد
+                          overflow: TextOverflow.visible,
                           style: AppTextStyles.styleSemiBold16(
                             context,
                           ).copyWith(color: AppColors.ktextcolor),
                         ),
                       ),
-                      IconButton(onPressed: onPressed, icon: Icon(
-                        Icons.edit_note_outlined,
-                        color: Colors.white,
-                        size: SizeConfig.w(14),
-                      ),)
+                      GestureDetector(
+                        onTap: (){
+                          context.push('/editproductview',extra: product);
+                        },
+                        child: Icon(
+                            Icons.edit_note_outlined,
+                            color: AppColors.kprimarycolor,
+                            size: SizeConfig.w(24),
+                          ),
+                      ),
                       
                     ],
                   ),
@@ -111,7 +118,8 @@ class ProCard extends StatelessWidget {
                         ),
                     ],
                   ),
-              //    Spacer(),
+                  SizedBox(height: SizeConfig.h(20)),
+                  //    Spacer(),
                   Row(
                     children: [
                       Icon(
@@ -126,9 +134,14 @@ class ProCard extends StatelessWidget {
                           context,
                         ).copyWith(color: getStockColor(product.stock)),
                       ),
-              
-                    SizedBox(width: SizeConfig.w(20)),
-                      Text("المخزون: ${product.stock}",style:AppTextStyles.styleMedium16(context).copyWith(color:AppColors.ktextcolor))
+
+                      SizedBox(width: SizeConfig.w(25)),
+                      Text(
+                        "المخزون: ${product.stock}",
+                        style: AppTextStyles.styleMedium16(
+                          context,
+                        ).copyWith(color: AppColors.ktextcolor),
+                      ),
                     ],
                   ),
                 ],

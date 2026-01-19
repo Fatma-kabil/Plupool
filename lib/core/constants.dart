@@ -163,12 +163,12 @@ final Map<String, bool> options = {
 
 final List<ProductModel> products = [
   ProductModel(
-    name: "frdrsdgxdadsfgkuytrewxcxvbnk,مضخة مياه عالية الكفاءة",
+    name: "مضخة مياه عالية الكفاءة",
     image: "assets/images/mach_pro1.png",
     originalPrice: 3000,
     salesCount: 75,
-    discountPercent: 20,
-    stock: 50
+   
+    stock: 50,
   ),
   ProductModel(
     name: "مضخة PluPool Pro 2000",
@@ -176,7 +176,7 @@ final List<ProductModel> products = [
     originalPrice: 2500,
     salesCount: 25,
     discountPercent: 5,
-    stock: 0
+    stock: 0,
   ),
   ProductModel(
     name: "مضخة مياه عالية الكفاءة",
@@ -192,7 +192,7 @@ final List<ProductModel> products = [
     image: "assets/images/mach_pro2.png",
     originalPrice: 200,
     salesCount: 35,
-stock: 5,
+    stock: 5,
     //   discountPercent: 5,
   ),
   ProductModel(
@@ -209,7 +209,7 @@ stock: 5,
     originalPrice: 4100,
     salesCount: 4,
     discountPercent: 5,
-    stock: 2
+    stock: 2,
   ),
 ];
 
@@ -888,27 +888,22 @@ final List<OrderCardModel> orderCards = [
     date: DateTime(2025, 5, 12, 11, 00),
     orderNo: 12345,
     satus: OrderStatus.onTheWay,
-
   ),
-   OrderCardModel(
+  OrderCardModel(
     date: DateTime(2025, 5, 12, 11, 00),
     orderNo: 12345,
     satus: OrderStatus.preparing,
-   
   ),
-   OrderCardModel(
+  OrderCardModel(
     date: DateTime(2025, 5, 12, 11, 00),
     orderNo: 12345,
     satus: OrderStatus.cancelled,
-    note: "لم يستلم العميل الطلب من المندوب"
-   
+    note: "لم يستلم العميل الطلب من المندوب",
   ),
-   OrderCardModel(
+  OrderCardModel(
     date: DateTime(2025, 5, 12, 11, 00),
     orderNo: 12345,
     satus: OrderStatus.cancelled,
-    note: "لم يستلم العميل الطلب من المندوب"
-   
+    note: "لم يستلم العميل الطلب من المندوب",
   ),
-  
 ];

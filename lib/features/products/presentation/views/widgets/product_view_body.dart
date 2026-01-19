@@ -20,7 +20,7 @@ class ProductViewBody extends StatefulWidget {
 
 class _ProductViewBodyState extends State<ProductViewBody> {
   late StoreFilter selected;
-  final int topCount = 3;
+  final int topCount = 1;
 
   @override
   void initState() {
