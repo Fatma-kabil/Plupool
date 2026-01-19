@@ -66,70 +66,73 @@ class ProCard extends StatelessWidget {
               ),
             ),
             SizedBox(height: SizeConfig.h(12)),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        product.name,
-                        textDirection: TextDirection.rtl,
-                                  
-                        style: AppTextStyles.styleSemiBold16(
+            Expanded(
+              child: Column(
+                
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          product.name,
+                          textDirection: TextDirection.rtl,
+                                    
+                          style: AppTextStyles.styleSemiBold16(
+                            context,
+                          ).copyWith(color: AppColors.ktextcolor),
+                        ),
+                      ),
+                      IconButton(onPressed: onPressed, icon: Icon(
+                        Icons.edit_note_outlined,
+                        color: Colors.white,
+                        size: SizeConfig.w(14),
+                      ),)
+                      
+                    ],
+                  ),
+                  SizedBox(height: SizeConfig.h(5)),
+                  Row(
+                    children: [
+                      Text(
+                        "${product.finalPrice.toStringAsFixed(0)} ج.م",
+                        style: AppTextStyles.styleBold16(
                           context,
                         ).copyWith(color: AppColors.ktextcolor),
                       ),
-                    ),
-                    IconButton(onPressed: onPressed, icon: Icon(
-                      Icons.edit_note_outlined,
-                      color: Colors.white,
-                      size: SizeConfig.w(14),
-                    ),)
-                    
-                  ],
-                ),
-                SizedBox(height: SizeConfig.h(5)),
-                Row(
-                  children: [
-                    Text(
-                      "${product.finalPrice.toStringAsFixed(0)} ج.م",
-                      style: AppTextStyles.styleBold16(
-                        context,
-                      ).copyWith(color: AppColors.ktextcolor),
-                    ),
-                    SizedBox(width: SizeConfig.w(10)),
-                    if (product.hasDiscount)
-                      Text(
-                        "${product.originalPrice.toStringAsFixed(0)} ج.م ",
-                        style: AppTextStyles.styleRegular14(context).copyWith(
-                          color: const Color(0xff808080),
-                          decoration: TextDecoration.lineThrough,
+                      SizedBox(width: SizeConfig.w(10)),
+                      if (product.hasDiscount)
+                        Text(
+                          "${product.originalPrice.toStringAsFixed(0)} ج.م ",
+                          style: AppTextStyles.styleRegular14(context).copyWith(
+                            color: const Color(0xff808080),
+                            decoration: TextDecoration.lineThrough,
+                          ),
                         ),
+                    ],
+                  ),
+              //    Spacer(),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.circle,
+                        size: SizeConfig.w(8),
+                        color: getStockColor(product.stock),
                       ),
-                  ],
-                ),
-            //    Spacer(),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.circle,
-                      size: SizeConfig.w(8),
-                      color: getStockColor(product.stock),
-                    ),
-                    SizedBox(width: SizeConfig.w(4)),
-                    Text(
-                      getStockText(product.stock),
-                      style: AppTextStyles.styleSemiBold16(
-                        context,
-                      ).copyWith(color: getStockColor(product.stock)),
-                    ),
-            
-                  SizedBox(width: SizeConfig.w(20)),
-                    Text("المخزون: ${product.stock}",style:AppTextStyles.styleMedium16(context).copyWith(color:AppColors.ktextcolor))
-                  ],
-                ),
-              ],
+                      SizedBox(width: SizeConfig.w(4)),
+                      Text(
+                        getStockText(product.stock),
+                        style: AppTextStyles.styleSemiBold16(
+                          context,
+                        ).copyWith(color: getStockColor(product.stock)),
+                      ),
+              
+                    SizedBox(width: SizeConfig.w(20)),
+                      Text("المخزون: ${product.stock}",style:AppTextStyles.styleMedium16(context).copyWith(color:AppColors.ktextcolor))
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

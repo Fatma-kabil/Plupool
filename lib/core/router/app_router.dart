@@ -20,6 +20,7 @@ import 'package:plupool/features/offers/presentation/views/offer_view.dart';
 import 'package:plupool/features/orders/data/models/order_card_model.dart';
 import 'package:plupool/features/orders/presentation/view/order_details_view.dart';
 import 'package:plupool/features/orders/presentation/view/store_order_view.dart';
+import 'package:plupool/features/products/presentation/views/edit_product_view.dart';
 import 'package:plupool/features/products/presentation/views/product_view.dart';
 import 'package:plupool/features/profile/presentation/views/delete_account_view.dart';
 import 'package:plupool/features/profile/presentation/views/help_view.dart';
@@ -43,6 +44,7 @@ import 'package:plupool/features/services/presentation/views/user/services_view.
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 import 'package:plupool/features/statistics/presentation/views/statistics_view.dart';
+import 'package:plupool/features/store/data/models/product_model.dart';
 import 'package:plupool/features/store/presentation/views/admin/admin_store_view.dart';
 import 'package:plupool/features/store/presentation/views/cart_view.dart';
 import 'package:plupool/features/store/presentation/views/order_summary_view.dart';
@@ -357,6 +359,15 @@ final GoRouter appRouter = GoRouter(
       name: 'productview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const ProductView()),
+    ),
+      GoRoute(
+      path: '/editproductview',
+      name: 'editproductview',
+      pageBuilder: (context, state) {
+        final product = state.extra as ProductModel; // استقبال الليست
+
+        return buildTransitionPage(EditProductView(product: product));
+      },
     ),
   ],
 );
