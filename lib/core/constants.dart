@@ -168,6 +168,7 @@ final List<ProductModel> products = [
     originalPrice: 3000,
     salesCount: 75,
     discountPercent: 20,
+    stock: 50
   ),
   ProductModel(
     name: "مضخة PluPool Pro 2000",
@@ -175,20 +176,23 @@ final List<ProductModel> products = [
     originalPrice: 2500,
     salesCount: 25,
     discountPercent: 5,
+    stock: 0
   ),
   ProductModel(
     name: "مضخة مياه عالية الكفاءة",
     image: "assets/images/mach_pro1.png",
     originalPrice: 40000,
     salesCount: 40,
-    //   discountPercent: 20,
+    stock: 12,
+    //   discountPerc
+    //  ent: 20,
   ),
   ProductModel(
     name: "مضخة PluPool Pro 2000",
     image: "assets/images/mach_pro2.png",
     originalPrice: 200,
     salesCount: 35,
-
+stock: 5,
     //   discountPercent: 5,
   ),
   ProductModel(
@@ -196,6 +200,7 @@ final List<ProductModel> products = [
     image: "assets/images/mach_pro1.png",
     originalPrice: 2800,
     salesCount: 85,
+    stock: 20,
     //  discountPercent: 20,
   ),
   ProductModel(
@@ -204,6 +209,7 @@ final List<ProductModel> products = [
     originalPrice: 4100,
     salesCount: 4,
     discountPercent: 5,
+    stock: 2
   ),
 ];
 

@@ -7,8 +7,10 @@ class ProductModel {
   final int salesCount;
   final double discountPercent; // 👈 نسبة الخصم (0 يعني مفيش خصم)
   final ProductBadge badge;
+  final int stock;
 
   const ProductModel({
+    required this.stock,
     required this.name,
     required this.image,
     required this.originalPrice,
@@ -34,8 +36,10 @@ class ProductModel {
     int? salesCount,
     double? discountPercent,
     ProductBadge? badge,
+    int? stock,
   }) {
     return ProductModel(
+      stock: stock ?? this.stock,
       name: name ?? this.name,
       image: image ?? this.image,
       originalPrice: originalPrice ?? this.originalPrice,
