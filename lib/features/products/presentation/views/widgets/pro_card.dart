@@ -37,7 +37,7 @@ class ProCard extends StatelessWidget {
                   Image.asset(
                     product.image,
                     height: SizeConfig.isWideScreen
-                        ? SizeConfig.w(114)
+                        ? SizeConfig.w(100)
                         : SizeConfig.h(114),
                     width: SizeConfig.w(95),
                     fit: BoxFit.cover,

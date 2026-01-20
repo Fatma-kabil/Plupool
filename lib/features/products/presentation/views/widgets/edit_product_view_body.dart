@@ -67,10 +67,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(
-        horizontal: SizeConfig.w(16),
-        vertical: SizeConfig.h(12),
-      ),
+     
       child: Form(
         key: _formKey,
         child: Column(
