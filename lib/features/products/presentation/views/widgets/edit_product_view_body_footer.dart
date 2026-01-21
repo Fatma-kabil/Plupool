@@ -14,32 +14,29 @@ class EditProductViewBodyFooter extends StatelessWidget {
         CustomOutlinedBtn(
           text: 'تعديل',
           width: SizeConfig.w(130),
-          onPressed: () {
-          
-          },
+          onPressed: () {},
           trailing: Icon(
             Icons.edit,
             color: AppColors.kprimarycolor,
             size: SizeConfig.w(20),
           ),
-          
-padding: 10,
+
+          padding: 10,
         ),
-         CustomOutlinedBtn(
-          text: 'الغاء',
+        CustomOutlinedBtn(
+          text: 'خذف المنتج',
           width: SizeConfig.w(130),
           onPressed: () {
-          
+            
           },
           trailing: Icon(
-            Icons.cancel,
+            Icons.delete_outline_outlined,
             color: Color(0xffE63946),
             size: SizeConfig.w(20),
           ),
           color: Color(0xffE63946),
           padding: 10,
         ),
-  
       ],
     );
   }

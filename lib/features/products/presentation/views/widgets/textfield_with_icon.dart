@@ -27,6 +27,10 @@ class TextFieldWithIcon extends StatelessWidget {
         controller: controller,
         maxLines: maxLines,
         keyboardType: keyboardType,
+        cursorColor: AppColors.kprimarycolor,
+        cursorHeight: SizeConfig.isWideScreen
+            ? SizeConfig.w(12)
+            : SizeConfig.h(20),
         textAlignVertical: TextAlignVertical.center,
         style: AppTextStyles.styleRegular14(context)
             .copyWith(color: AppColors.ktextcolor),

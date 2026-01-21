@@ -5,6 +5,8 @@ import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_
 import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dart';
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
+import 'package:plupool/features/company_res.dart/presentation/views/add_company_res_view.dart';
+import 'package:plupool/features/company_res.dart/presentation/views/company_res_view.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
 import 'package:plupool/features/customers/presentation/views/customer_profile_view.dart';
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
@@ -375,6 +377,18 @@ final GoRouter appRouter = GoRouter(
       name: 'addproductview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddProductView()),
+    ),
+     GoRoute(
+      path: '/companyresview',
+      name: 'companyresview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const CompanyResView()),
+    ),
+     GoRoute(
+      path: '/addcompanyres',
+      name: 'addcompanyres',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AddCompanyRes()),
     ),
   ],
 );

@@ -643,7 +643,7 @@ final List<DrawerItemModel> observations = [
   DrawerItemModel(
     icon: Icons.badge,
     title: "ممثل الشركة",
-    onTap: '/statisticsview',
+    onTap: '/companyresview',
   ),
 ];
 

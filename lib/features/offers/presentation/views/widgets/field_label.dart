@@ -44,7 +44,10 @@ class TextField extends StatelessWidget {
         maxLines: maxLines,
         keyboardType: keyboardType,
         textAlignVertical: TextAlignVertical.center,
-
+        cursorColor: AppColors.kprimarycolor,
+        cursorHeight: SizeConfig.isWideScreen
+            ? SizeConfig.w(12)
+            : SizeConfig.h(20),
         style: AppTextStyles.styleRegular14(
           context,
         ).copyWith(color: AppColors.ktextcolor),
@@ -62,7 +65,7 @@ class TextField extends StatelessWidget {
           ).copyWith(color: AppColors.hintTextColor),
 
           contentPadding: EdgeInsets.symmetric(
-            vertical: SizeConfig.h(SizeConfig.isWideScreen ? 11 : 14),
+            vertical: SizeConfig.h(SizeConfig.isWideScreen ? 9 : 11),
             horizontal: SizeConfig.w(12),
           ),
 
