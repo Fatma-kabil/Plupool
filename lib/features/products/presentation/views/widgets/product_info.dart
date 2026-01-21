@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/stock_status_helper.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/products/presentation/views/widgets/add_product_offer_card.dart';
 import 'package:plupool/features/store/data/models/product_model.dart';
 
 class ProductInfo extends StatelessWidget {
@@ -87,12 +88,31 @@ class ProductInfo extends StatelessWidget {
               ).copyWith(color: getStockColor(product.stock)),
             ),
 
-            SizedBox(width: SizeConfig.w(25)),
+          SizedBox(width: SizeConfig.w(25)),
             Text(
               "المخزون: ${product.stock}",
               style: AppTextStyles.styleMedium16(
                 context,
               ).copyWith(color: AppColors.ktextcolor),
+            ),
+       // Spacer(),
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false, // لو مش عايزة يتقفل بالضغط برا
+                  builder: (context) {
+                    return AddProductOfferCard(
+                      productName: product.name, // مرري اسم المنتج
+                    );
+                  },
+                );
+              },
+              child: Icon(
+                Icons.local_offer_rounded,
+                size: SizeConfig.w(24),
+                color: Color(0xffE63946),
+              ),
             ),
           ],
         ),

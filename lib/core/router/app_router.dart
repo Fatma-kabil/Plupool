@@ -19,6 +19,7 @@ import 'package:plupool/features/home/presentaation/views/tech/tech_notification
 import 'package:plupool/features/offers/presentation/views/add_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
+import 'package:plupool/features/offers/presentation/views/product_offer_view.dart';
 import 'package:plupool/features/orders/data/models/order_card_model.dart';
 import 'package:plupool/features/orders/presentation/view/order_details_view.dart';
 import 'package:plupool/features/orders/presentation/view/store_order_view.dart';
@@ -389,6 +390,12 @@ final GoRouter appRouter = GoRouter(
       name: 'addcompanyres',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddCompanyRes()),
+    ),
+     GoRoute(
+      path: '/productofferview',
+      name: 'productofferview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const ProductOfferView()  )
     ),
   ],
 );

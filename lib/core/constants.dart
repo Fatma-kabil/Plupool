@@ -855,14 +855,9 @@ final List<DashboardShortcutModel> dashboardShortcuts = [
     title: "العروض",
     icon: Icons.local_offer_outlined,
     color: Color(0xffEA5A65),
-    onTap: '/storeorderview',
+    onTap: '/productofferview',
   ),
-  DashboardShortcutModel(
-    title: "المخزون",
-    icon: Icons.warehouse_outlined,
-    color: Color(0xff05B285),
-    onTap: '/storeorderview',
-  ),
+ 
 ];
 
 final List<OrderCardModel> orderCards = [

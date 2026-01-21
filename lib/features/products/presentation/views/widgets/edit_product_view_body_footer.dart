@@ -13,7 +13,7 @@ class EditProductViewBodyFooter extends StatelessWidget {
       children: [
         CustomOutlinedBtn(
           text: 'تعديل',
-          width: SizeConfig.w(130),
+          width: SizeConfig.w(140),
           onPressed: () {},
           trailing: Icon(
             Icons.edit,
@@ -25,7 +25,7 @@ class EditProductViewBodyFooter extends StatelessWidget {
         ),
         CustomOutlinedBtn(
           text: 'خذف المنتج',
-          width: SizeConfig.w(130),
+          width: SizeConfig.w(140),
           onPressed: () {
             
           },
