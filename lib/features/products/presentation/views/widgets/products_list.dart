@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/features/products/presentation/views/widgets/pro_card.dart';
 import 'package:plupool/features/store/data/models/product_model.dart';
 
@@ -12,7 +13,9 @@ class ProductsList extends StatelessWidget {
 
       delegate: SliverChildBuilderDelegate((context, index) {
         return ProCard(product: products[index],
-        
+        onTap: () {
+                context.push('/editproductview', extra: products[index]);
+              },
         );
       
       },

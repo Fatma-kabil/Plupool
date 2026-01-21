@@ -6,8 +6,9 @@ import 'package:plupool/features/products/presentation/views/widgets/product_inf
 import 'package:plupool/features/store/data/models/product_model.dart';
 
 class ProCard extends StatelessWidget {
-  const ProCard({super.key, required this.product,});
+  const ProCard({super.key, required this.product, this.onTap,});
   final ProductModel product;
+  final void Function()? onTap;
   
 
   @override
@@ -28,7 +29,7 @@ class ProCard extends StatelessWidget {
           children: [
            ProductImageWithBadge(product: product),
             SizedBox(width: SizeConfig.w(8)),
-            Expanded(child: ProductInfo(product: product)),
+            Expanded(child: ProductInfo(product: product,onTap: onTap,)),
           ],
         ),
       ),

@@ -176,6 +176,8 @@ final List<ProductModel> products = [
     originalPrice: 2500,
     salesCount: 25,
     discountPercent: 5,
+    startDate: DateTime(2023, 12, 1),
+    endDate: DateTime(2024, 1, 1),
     stock: 0,
   ),
   ProductModel(
@@ -209,6 +211,8 @@ final List<ProductModel> products = [
     originalPrice: 4100,
     salesCount: 4,
     discountPercent: 5,
+    startDate: DateTime(2023, 12, 1),
+    endDate: DateTime(2024, 1, 1),
     stock: 2,
   ),
 ];

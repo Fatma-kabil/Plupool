@@ -46,8 +46,8 @@ class ProductModel {
     DateTime? endDate,
   }) {
     return ProductModel(
-      startDate: startDate,
-      endDate: endDate,
+      startDate: startDate?? this.startDate,
+      endDate: endDate?? this.endDate,
       category: category ?? this.category,
       stock: stock ?? this.stock,
       name: name ?? this.name,

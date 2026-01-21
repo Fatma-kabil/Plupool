@@ -42,7 +42,11 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
 
     startDate = widget.product.startDate;
     endDate = widget.product.endDate;
+    
+ debugPrint('START DATE: $startDate');
+  debugPrint('END DATE: $endDate');
   }
+
 
   @override
   void dispose() {
@@ -132,7 +136,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                           Icon(
                             Icons.inventory_2_outlined,
                             color: const Color(0xff2B8EC2),
-                            size: SizeConfig.w(20),
+                            size: SizeConfig.w(18),
                           ),
                           SizedBox(width: SizeConfig.w(6)),
                           Text(
@@ -160,6 +164,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                   selectedDate: startDate,
                   dateFormat: formatDate,
                   errorText: startDateError,
+                  selectedDateColor: AppColors.ktextcolor,
                   onTap: () async {
                     final picked = await pickDateFun(context);
                     if (picked != null) {
@@ -180,6 +185,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                   selectedDate: endDate,
                   dateFormat: formatDate,
                   errorText: endDateError,
+                  selectedDateColor: AppColors.ktextcolor,
                   onTap: () async {
                     final picked = await pickDateFun(context);
                     if (picked != null) {
@@ -206,25 +212,26 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                 SizedBox(height: SizeConfig.h(28)),
 
                 /// الأزرار
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Column(
                   children: [
                     CustomTextBtn(
                       text: "تعديل",
                       onPressed: onSubmit,
-                      width: SizeConfig.w(120),
+                      padding: SizeConfig.isWideScreen?15:9,
+                      width: SizeConfig.screenWidth,
                       textStyle: AppTextStyles.styleBold16(context)
                           .copyWith(color: Colors.white),
                       trailing: Icon(
                         Icons.edit,
                         color: Colors.white,
-                        size: SizeConfig.w(15),
+                        size: SizeConfig.w(13),
                       ),
                     ),
+                  SizedBox( height:   SizeConfig.h(15),),
                     CustomOutlinedBtn(
                       text: 'إلغاء',
-                      onPressed: () => Navigator.pop(context),
-                      width: SizeConfig.w(120),
+                     
+                      width: SizeConfig.screenWidth,
                       trailing: Icon(
                         Icons.cancel_outlined,
                         color: AppColors.kprimarycolor,
