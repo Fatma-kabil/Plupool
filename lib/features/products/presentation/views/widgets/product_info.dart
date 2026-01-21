@@ -4,7 +4,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/stock_status_helper.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/products/presentation/views/widgets/add_product_offer_card.dart';
+import 'package:plupool/features/offers/presentation/views/widgets/add_product_offer_card.dart';
 import 'package:plupool/features/store/data/models/product_model.dart';
 
 class ProductInfo extends StatelessWidget {

@@ -24,10 +24,11 @@ class TextFieldWithIcon extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+
         controller: controller,
         maxLines: maxLines,
         keyboardType: keyboardType,
-        cursorColor: AppColors.kprimarycolor,
+        cursorColor: AppColors.ktextcolor,
         cursorHeight: SizeConfig.isWideScreen
             ? SizeConfig.w(12)
             : SizeConfig.h(20),
@@ -57,7 +58,7 @@ class TextFieldWithIcon extends StatelessWidget {
             ),
             child: Icon(
               icon,   // لو مفيش أيقونة نخليها شفافة
-              size: SizeConfig.w(15),
+              size: SizeConfig.isWideScreen ? SizeConfig.w(12) : SizeConfig.w(15),
               color:   Color(0xff777777)
             ),
           ),

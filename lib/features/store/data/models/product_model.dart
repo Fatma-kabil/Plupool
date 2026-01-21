@@ -9,8 +9,10 @@ class ProductModel {
   final ProductBadge badge;
   final int stock;
   final String? category;
+  final DateTime? startDate;
+  final DateTime? endDate;
 
-  const ProductModel({
+  const ProductModel({this.startDate, this.endDate, 
     this.category,
     required this.stock,
     required this.name,
@@ -40,8 +42,12 @@ class ProductModel {
     ProductBadge? badge,
     int? stock,
     String? category,
+    DateTime? startDate,
+    DateTime? endDate,
   }) {
     return ProductModel(
+      startDate: startDate,
+      endDate: endDate,
       category: category ?? this.category,
       stock: stock ?? this.stock,
       name: name ?? this.name,

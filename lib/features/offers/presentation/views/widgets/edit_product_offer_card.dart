@@ -6,29 +6,42 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
-import 'package:plupool/features/offers/presentation/views/widgets/custom_check_btn.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
+import 'package:plupool/features/store/data/models/product_model.dart';
 
-class AddProductOfferCard extends StatefulWidget {
-  const AddProductOfferCard({super.key, required this.productName});
-  final String productName;
+class EditProductOfferCard extends StatefulWidget {
+  const EditProductOfferCard({
+    super.key,
+    required this.product,
+  });
+
+  final ProductModel product;
 
   @override
-  State<AddProductOfferCard> createState() => _AddProductOfferCardState();
+  State<EditProductOfferCard> createState() => _EditProductOfferCardState();
 }
 
-class _AddProductOfferCardState extends State<AddProductOfferCard> {
+class _EditProductOfferCardState extends State<EditProductOfferCard> {
+  late TextEditingController offerController;
+
   DateTime? startDate;
   DateTime? endDate;
+
   String? startDateError;
   String? endDateError;
-  bool acceptedTerms = false;
-  final offerController = TextEditingController();
+  String? discountError;
 
-  String formatDate(DateTime? date) {
-    if (date == null) return '';
-    return "${date.day}/${date.month}/${date.year}";
+  @override
+  void initState() {
+    super.initState();
+
+    offerController = TextEditingController(
+      text: widget.product.discountPercent.toString(),
+    );
+
+    startDate = widget.product.startDate;
+    endDate = widget.product.endDate;
   }
 
   @override
@@ -37,20 +50,58 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
     super.dispose();
   }
 
+  String formatDate(DateTime? date) {
+    if (date == null) return '';
+    return "${date.day}/${date.month}/${date.year}";
+  }
+
+  void onSubmit() {
+    setState(() {
+      startDateError = null;
+      endDateError = null;
+      discountError = null;
+    });
+
+    if (startDate == null) {
+      setState(() => startDateError = 'اختاري تاريخ البداية');
+      return;
+    }
+
+    if (endDate == null) {
+      setState(() => endDateError = 'اختاري تاريخ النهاية');
+      return;
+    }
+
+    if (offerController.text.isEmpty) {
+      setState(() => discountError = 'قيمة الخصم مطلوبة');
+      return;
+    }
+
+    final discount = int.tryParse(offerController.text);
+    if (discount == null || discount <= 0 || discount > 100) {
+      setState(() => discountError = 'أدخلي نسبة خصم صحيحة');
+      return;
+    }
+
+    /// هنا تبعتي البيانات للـ API أو Cubit
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Dialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
         insetPadding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(20),
           vertical: SizeConfig.h(29),
         ),
         child: Container(
-          width: SizeConfig.isWideScreen
-              ? SizeConfig.screenWidth * 0.65
-              : double.infinity,
           padding: EdgeInsets.symmetric(
             horizontal: SizeConfig.w(16),
             vertical: SizeConfig.h(20),
@@ -61,7 +112,9 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
           ),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                /// اسم المنتج
                 Container(
                   padding: EdgeInsets.symmetric(
                     horizontal: SizeConfig.w(12),
@@ -84,26 +137,26 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                           SizedBox(width: SizeConfig.w(6)),
                           Text(
                             "اسم المنتج",
-                            style: AppTextStyles.styleBold16(
-                              context,
-                            ).copyWith(color: AppColors.ktextcolor),
+                            style: AppTextStyles.styleBold16(context),
                           ),
                         ],
                       ),
                       SizedBox(height: SizeConfig.h(6)),
                       Text(
-                        widget.productName,
-                        style: AppTextStyles.styleSemiBold16(
-                          context,
-                        ).copyWith(color: const Color(0xff7B7B7B)),
+                        widget.product.name,
+                        style: AppTextStyles.styleSemiBold16(context)
+                            .copyWith(color: const Color(0xff7B7B7B)),
                       ),
                     ],
                   ),
                 ),
+
+                SizedBox(height: SizeConfig.h(28)),
+
+                /// تاريخ البداية
                 DatePickerField(
-                  dirc: CrossAxisAlignment.start,
                   text: "تاريخ بدء العرض",
-                  selectedDateColor: AppColors.ktextcolor,
+                  dirc: CrossAxisAlignment.start,
                   selectedDate: startDate,
                   dateFormat: formatDate,
                   errorText: startDateError,
@@ -117,12 +170,13 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                     }
                   },
                 ),
-                const SizedBox(height: 20),
 
+                SizedBox(height: SizeConfig.h(15)),
+
+                /// تاريخ النهاية
                 DatePickerField(
-                  dirc: CrossAxisAlignment.start,
                   text: "تاريخ نهاية العرض",
-                  selectedDateColor: AppColors.ktextcolor,
+                  dirc: CrossAxisAlignment.start,
                   selectedDate: endDate,
                   dateFormat: formatDate,
                   errorText: endDateError,
@@ -136,41 +190,46 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                     }
                   },
                 ),
-                const SizedBox(height: 20),
-                const FieldLabel(' قيمة الخصم'),
+
+                SizedBox(height: SizeConfig.h(12)),
+
+                /// الخصم
+                const FieldLabel('قيمة الخصم'),
                 TextFieldWithIcon(
                   controller: offerController,
-                  hint: 'أدخل قيمة الخصم',
+                  hint: 'أدخل نسبة الخصم',
                   icon: Icons.percent,
+        //   errorText: discountError,
+                  keyboardType: TextInputType.number,
                 ),
-                const SizedBox(height: 15),
-                CustomCheckbtn(
-                  value: acceptedTerms,
-                  onChanged: (val) => setState(() => acceptedTerms = val),
-                  label: "عرض مميز (يظهر في الصفحة الرئيسية)",
-                ),
+
+                SizedBox(height: SizeConfig.h(28)),
+
+                /// الأزرار
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomTextBtn(
-                      text: "إضافة العرض",
-                      onPressed: () {},
-                      width: SizeConfig.w(140),
+                      text: "تعديل",
+                      onPressed: onSubmit,
+                      width: SizeConfig.w(120),
+                      textStyle: AppTextStyles.styleBold16(context)
+                          .copyWith(color: Colors.white),
                       trailing: Icon(
-                        Icons.local_offer_rounded,
+                        Icons.edit,
                         color: Colors.white,
-                        size: SizeConfig.w(18),
+                        size: SizeConfig.w(15),
                       ),
                     ),
-
                     CustomOutlinedBtn(
                       text: 'إلغاء',
+                      onPressed: () => Navigator.pop(context),
+                      width: SizeConfig.w(120),
                       trailing: Icon(
                         Icons.cancel_outlined,
                         color: AppColors.kprimarycolor,
-                        size: SizeConfig.w(20),
+                        size: SizeConfig.w(15),
                       ),
-                      width: SizeConfig.w(140),
                     ),
                   ],
                 ),
