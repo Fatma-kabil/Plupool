@@ -159,7 +159,7 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                       trailing: Icon(
                         Icons.local_offer_rounded,
                         color: Colors.white,
-                        size: SizeConfig.w(20),
+                        size: SizeConfig.w(18),
                       ),
                     ),
 

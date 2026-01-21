@@ -24,7 +24,7 @@ class EditProductViewBodyFooter extends StatelessWidget {
           padding: 10,
         ),
         CustomOutlinedBtn(
-          text: 'خذف المنتج',
+          text: 'حذف المنتج',
           width: SizeConfig.w(140),
           onPressed: () {
             

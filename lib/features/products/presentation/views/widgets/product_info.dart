@@ -95,7 +95,7 @@ class ProductInfo extends StatelessWidget {
                 context,
               ).copyWith(color: AppColors.ktextcolor),
             ),
-       // Spacer(),
+        Spacer(),
             GestureDetector(
               onTap: () {
                 showDialog(
@@ -109,8 +109,8 @@ class ProductInfo extends StatelessWidget {
                 );
               },
               child: Icon(
-                Icons.local_offer_rounded,
-                size: SizeConfig.w(24),
+                Icons.local_offer_outlined,
+                size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(22),
                 color: Color(0xffE63946),
               ),
             ),
