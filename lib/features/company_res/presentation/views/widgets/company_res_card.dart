@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/company_res/presentation/views/widgets/company_res_details.dart';
@@ -11,7 +12,7 @@ class CompanyResCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-     //   context.push('/customerprofileview');
+        context.push('/companyresprofile');
       },
       child: Container(
         padding: EdgeInsets.symmetric(

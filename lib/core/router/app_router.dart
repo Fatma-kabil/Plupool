@@ -6,6 +6,7 @@ import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dar
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/company_res/presentation/views/add_company_res_view.dart';
+import 'package:plupool/features/company_res/presentation/views/company_res_profile.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_view.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
 import 'package:plupool/features/customers/presentation/views/customer_profile_view.dart';
@@ -403,6 +404,12 @@ final GoRouter appRouter = GoRouter(
       name: 'adminratingview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminRatingView()  )
+    ),
+     GoRoute(
+      path: '/companyresprofile',
+      name: 'companyresprofile',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const CompanyResProfile()  )
     ),
   ],
 );

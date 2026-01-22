@@ -31,7 +31,7 @@ class _CompantResViewBodyState extends State<CompantResViewBody> {
                     style: AppTextStyles.styleSemiBold16(context),
                   ),
                   AddOfferBtn(
-                    text: "إضافة عميل",
+                    text: "إضافة ممثل شركه",
                     onTap: () {
                       context.push('/addcompanyres');
                     },

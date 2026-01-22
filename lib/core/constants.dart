@@ -906,3 +906,44 @@ final List<OrderCardModel> orderCards = [
     note: "لم يستلم العميل الطلب من المندوب",
   ),
 ];
+
+
+final List<Map> companyresFooter = [
+  {
+    'icon': Icons.layers_outlined,
+    'title': "الباقات والخدمات",
+    'color': Color(0xff05B285),
+    'view': '/customerservicesview',
+  },
+   {
+    'icon': Icons.work_outline,
+    'title': "المشاريع",
+    'color': Color(0xff0096B4),
+    'view': '/customerservicesview',
+  },
+  {
+    'icon': Icons.star_outlined,
+    'title': "التقييمات",
+    'color': Color(0xffFF9F1C),
+    'view': '/customerservicesview',
+  },
+  {
+    'icon': Icons.flag,
+    'title': "تواصل معنا ورسائل الدعم",
+    'color': Color(0xffEA5A65),
+    'view': '/customerservicesview',
+  },
+  {
+    'icon': Icons.shopping_cart_outlined,
+    'title': "طلبات المتجر",
+    'color': AppColors.kprimarycolor,
+    'view': '/customerservicesview',
+  },
+  {
+    'icon': Icons.note_alt_outlined,
+    'title': "الملاحظات",
+    'color': Color(0xff7B7B7B),
+    'view': '/customerservicesview',
+  },
+];
+
