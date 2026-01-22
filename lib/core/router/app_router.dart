@@ -2,12 +2,14 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_company_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_view.dart';
+import 'package:plupool/features/auth/data/models/sign_up_company_model.dart';
 import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dart';
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/company_res/presentation/views/add_company_res_view.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_profile.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_view.dart';
+import 'package:plupool/features/company_res/presentation/views/edit_companny_res_view.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
 import 'package:plupool/features/customers/presentation/views/customer_profile_view.dart';
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
@@ -410,6 +412,15 @@ final GoRouter appRouter = GoRouter(
       name: 'companyresprofile',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CompanyResProfile()  )
+    ),
+      GoRoute(
+      path: '/editcompanyresview',
+      name: 'editcompanyresview',
+      pageBuilder: (context, state) {
+        final model = state.extra as CompanyModel; // استقبال الليست
+
+        return buildTransitionPage(EditCompannyResView(model: model));
+      },
     ),
   ],
 );
