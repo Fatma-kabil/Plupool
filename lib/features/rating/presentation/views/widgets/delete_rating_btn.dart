@@ -25,7 +25,7 @@ class DeleteRatingBtn extends StatelessWidget {
         child: Icon(
           Icons.delete_outline_rounded,
           color: Color(0xffE63946),
-          size: SizeConfig.w(22),
+          size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(22),
         ),
       ),
     );

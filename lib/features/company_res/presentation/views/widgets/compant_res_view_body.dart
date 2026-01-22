@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
-import 'package:plupool/features/company_res.dart/presentation/views/widgets/company_res_card.dart';
+import 'package:plupool/features/company_res/presentation/views/widgets/company_res_card.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 

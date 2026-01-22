@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/company_res.dart/presentation/views/widgets/company_res_details.dart';
+import 'package:plupool/features/company_res/presentation/views/widgets/company_res_details.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_header.dart';
 
 class CompanyResCard extends StatelessWidget {

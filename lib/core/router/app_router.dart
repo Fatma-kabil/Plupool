@@ -5,8 +5,8 @@ import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_
 import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dart';
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
-import 'package:plupool/features/company_res.dart/presentation/views/add_company_res_view.dart';
-import 'package:plupool/features/company_res.dart/presentation/views/company_res_view.dart';
+import 'package:plupool/features/company_res/presentation/views/add_company_res_view.dart';
+import 'package:plupool/features/company_res/presentation/views/company_res_view.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
 import 'package:plupool/features/customers/presentation/views/customer_profile_view.dart';
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';

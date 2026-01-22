@@ -20,7 +20,7 @@ class CustomerRatingStars extends StatelessWidget {
             (_) => Icon(
               Icons.star,
               color: Color(0xffFF9F1C),
-              size: SizeConfig.w(18),
+              size: SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(22),
             ),
           ),
         ),

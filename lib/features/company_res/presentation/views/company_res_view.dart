@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/company_res.dart/presentation/views/widgets/compant_res_view_body.dart';
+import 'package:plupool/features/company_res/presentation/views/widgets/compant_res_view_body.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 

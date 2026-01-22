@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/company_res.dart/presentation/views/widgets/add_company_res_view_body.dart';
+import 'package:plupool/features/company_res/presentation/views/widgets/company_res_profile_body.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 
-class AddCompanyRes extends StatefulWidget {
-  const AddCompanyRes({super.key});
+class CompanyResProfile extends StatefulWidget {
+  const CompanyResProfile({super.key});
 
   @override
-  State<AddCompanyRes> createState() => _AddCompanyResState();
+  State<CompanyResProfile> createState() => _CompanyResProfileState();
 }
 
-class _AddCompanyResState extends State<AddCompanyRes> {
-    final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+class _CompanyResProfileState extends State<CompanyResProfile> {
+   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -32,7 +32,7 @@ class _AddCompanyResState extends State<AddCompanyRes> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: AddCompanyResViewBody(),
+            child: CompanyResProfileBody(),
           ),
         ),
       ),

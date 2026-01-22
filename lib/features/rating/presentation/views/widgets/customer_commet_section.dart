@@ -25,11 +25,11 @@ class CustomerCommentSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.0),
             ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
                 Icons.comment_outlined,
-                size: SizeConfig.w(20),
+                size: SizeConfig.w(SizeConfig.isWideScreen ? 15 : 20),
                 color: Color(0xffBBBBBB),
               ),
               SizedBox(width: SizeConfig.w(8)),
