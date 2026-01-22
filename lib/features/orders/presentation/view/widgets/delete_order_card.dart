@@ -5,7 +5,8 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class DeleteOrderCard extends StatelessWidget {
-  const DeleteOrderCard({super.key});
+  const DeleteOrderCard({super.key,  this.text});
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,8 @@ class DeleteOrderCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "هل أنت متأكد من حذف هذا المنتج ؟",
+                textAlign: TextAlign.center,
+              text??  "هل أنت متأكد من حذف هذا المنتج ؟",
                 style: AppTextStyles.styleSemiBold25(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
@@ -42,7 +44,7 @@ class DeleteOrderCard extends StatelessWidget {
               SizedBox(height: SizeConfig.h(30)),
               Row(
                 children: [
-                   Expanded(
+                  Expanded(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffE63946),
@@ -51,7 +53,7 @@ class DeleteOrderCard extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {},
-      
+
                       child: Text(
                         "نعم",
                         style: AppTextStyles.styleMedium16(
@@ -60,7 +62,7 @@ class DeleteOrderCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                     SizedBox(width: SizeConfig.w(22)),
+                  SizedBox(width: SizeConfig.w(22)),
                   Expanded(
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
@@ -80,8 +82,6 @@ class DeleteOrderCard extends StatelessWidget {
                       ),
                     ),
                   ),
-               
-                 
                 ],
               ),
             ],

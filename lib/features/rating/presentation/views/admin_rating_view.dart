@@ -22,7 +22,7 @@ class _AdminRatingViewState extends State<AdminRatingView> {
         child: Scaffold(
           key: scaffoldkey,
           appBar: CustomAppBar(
-            isSearch: true,
+            isSearch: false,
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();
             },

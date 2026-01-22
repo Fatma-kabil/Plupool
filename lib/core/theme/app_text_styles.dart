@@ -294,6 +294,7 @@ class AppTextStyles {
       ),
       fontWeight: FontWeight.w400,
       color: Color(0xff555555),
+      height: 1.6,
     );
   }
 
