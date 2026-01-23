@@ -20,6 +20,7 @@ import 'package:plupool/features/home/presentaation/views/customer/cusmoter_noti
 import 'package:plupool/features/home/presentaation/views/customer/offer_details_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
 import 'package:plupool/features/notes/presentation/views/company_res_notes_view.dart';
+import 'package:plupool/features/notifications/presentation/views/add_notifications_view.dart';
 import 'package:plupool/features/offers/presentation/views/add_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
@@ -429,5 +430,12 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const CompanyResNotesView()  )
     ),
+     GoRoute(
+      path: '/addnotificationsview',
+      name: 'addnotificationsview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AddNotificationsView()  )
+    ),
   ],
+
 );

@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/company_res/presentation/views/widgets/edit_company_res_view_body.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
+import 'package:plupool/features/notifications/presentation/views/widgets/add_notification_view_body.dart';
 
-class EditCompannyResView extends StatefulWidget {
-  const EditCompannyResView({super.key, });
- // final CompanyModel model;
+class AddNotificationsView extends StatefulWidget {
+  const AddNotificationsView({super.key});
 
   @override
-  State<EditCompannyResView> createState() => _EditCompannyResViewState();
+  State<AddNotificationsView> createState() => _AddNotificationsViewState();
 }
 
-class _EditCompannyResViewState extends State<EditCompannyResView> {
-  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+class _AddNotificationsViewState extends State<AddNotificationsView> {
+ final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -23,6 +22,7 @@ class _EditCompannyResViewState extends State<EditCompannyResView> {
         child: Scaffold(
           key: scaffoldkey,
           appBar: CustomAppBar(
+            isSearch: false,
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();
             },
@@ -33,7 +33,7 @@ class _EditCompannyResViewState extends State<EditCompannyResView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: EditCompanyResViewBody(),
+            child: AddNotificationViewBody(),
           ),
         ),
       ),

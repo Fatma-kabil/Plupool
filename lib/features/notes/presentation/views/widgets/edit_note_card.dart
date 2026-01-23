@@ -16,48 +16,51 @@ class EditNoteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: Text(
-                  "الملاحظات",
-                  style: AppTextStyles.styleSemiBold16(context),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(20),vertical: SizeConfig.h(25)),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    "الملاحظات",
+                    style: AppTextStyles.styleSemiBold16(context),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              NoteField(controller: noteController),
-              SizedBox(height: 15),
-              notesfiles
-                  ? SizedBox(
-                      height: SizeConfig.h(30),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          return AttachmentChip(fileName: "file.txt");
-                        },
+                const SizedBox(height: 8),
+                NoteField(controller: noteController),
+                SizedBox(height: 15),
+                notesfiles
+                    ? SizedBox(
+                        height: SizeConfig.h(30),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 2,
+                          itemBuilder: (context, index) {
+                            return AttachmentChip(fileName: "file.txt");
+                          },
+                        ),
+                      )
+                    : Text(
+                        'لا توجد',
+                        style: AppTextStyles.styleRegular16(
+                          context,
+                        ).copyWith(color: Color(0xff777777)),
                       ),
-                    )
-                  : Text(
-                      'لا توجد',
-                      style: AppTextStyles.styleRegular16(
-                        context,
-                      ).copyWith(color: Color(0xff777777)),
-                    ),
-
-              // ✅ هيشتغل
-              const SizedBox(height: 40),
-              CustomTextBtn(
-                width: double.infinity,
-                text: 'حفظ',
-                onPressed: () {},
-              ),
-            ],
+        
+                // ✅ هيشتغل
+                const SizedBox(height: 40),
+                CustomTextBtn(
+                  width: double.infinity,
+                  text: 'حفظ',
+                  onPressed: () {},
+                ),
+              ],
+            ),
           ),
         ),
       ),

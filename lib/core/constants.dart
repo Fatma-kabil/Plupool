@@ -6,6 +6,7 @@ import 'package:plupool/features/home/data/models/drawer_item_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
+import 'package:plupool/features/notifications/data/models/notifiction_type_model.dart';
 import 'package:plupool/features/orders/data/models/order_card_model.dart';
 import 'package:plupool/features/orders/domain/entities/order_status.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
@@ -948,3 +949,12 @@ final List<Map> companyresFooter = [
   
 ];
 
+final List<NotificationType> notificationTypes = [
+  NotificationType(title: 'موعد صيانة', icon: Icons.calendar_month),
+  NotificationType(title: 'عرض جديد', icon: Icons.local_offer),
+  NotificationType(title: 'استلام طلب حجز', icon: Icons.check_circle),
+  NotificationType(title: 'غياب الفني', icon: Icons.warning_amber),
+  NotificationType(title: 'إنتهاء الباقة', icon: Icons.timer_off),
+  NotificationType(title: 'تغيير يوم الصيانة', icon: Icons.autorenew),
+  NotificationType(title: 'أخرى', icon: Icons.notifications),
+];

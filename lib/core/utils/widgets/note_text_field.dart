@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -48,11 +47,7 @@ class NoteTextField extends StatelessWidget {
           textDirection: TextDirection.rtl,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SvgPicture.asset(
-              'assets/icons/notes.svg',
-              height: SizeConfig.h(size ?? SizeConfig.h(16)),
-              width: SizeConfig.w(size ?? SizeConfig.w(16)),
-            ),
+            Icon(Icons.notes,size: SizeConfig.w(16),color:AppColors.hintTextColor ,),
             SizedBox(width: SizeConfig.w(4)),
             Text(
               textDirection: TextDirection.rtl,
