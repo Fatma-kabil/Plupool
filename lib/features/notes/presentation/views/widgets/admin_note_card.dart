@@ -25,29 +25,34 @@ class AdminNoteCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DateTimeNotes(),
-          SizedBox(height: SizeConfig.h(12)),
+          SizedBox(height: SizeConfig.h(15)),
           NotesRow(),
-          SizedBox(height: SizeConfig.h(12)),
+          SizedBox(height: SizeConfig.h(15)),
           Row(
             children: [
-              ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 2,
-                itemBuilder: (context, index) {
-                  return AttachmentChip(fileName: "file.txt");
-                },
+              Expanded(
+                child: SizedBox(
+                  height: SizeConfig.h(32),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 2,
+                    itemBuilder: (context, index) {
+                      return const AttachmentChip(fileName: "file.txt");
+                    },
+                  ),
+                ),
               ),
-              Spacer(),
+              SizedBox(width: SizeConfig.w(8)),
               Icon(
                 Icons.edit_document,
-                size: SizeConfig.w(17),
-                color: Color(0xff0077B6),
+                size: SizeConfig.w(20),
+                color: const Color(0xff0077B6),
               ),
-              SizedBox(width: SizeConfig.w(10),),
-               Icon(
+              SizedBox(width: SizeConfig.w(15)),
+              Icon(
                 Icons.delete_outline,
-                size: SizeConfig.w(17),
-                color: Color(0xffE63946),
+                size: SizeConfig.w(20),
+                color: const Color(0xffE63946),
               ),
             ],
           ),

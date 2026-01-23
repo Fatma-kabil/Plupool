@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
@@ -16,7 +17,7 @@ class CompanyResProfileViewFooter extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-        //    context.push(customerFooter[index]['view']);
+           context.push(companyresFooter[index]['view']);
           },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: SizeConfig.h(6)),
