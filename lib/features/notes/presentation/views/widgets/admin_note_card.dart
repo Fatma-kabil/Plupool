@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/notes/presentation/views/widgets/date_time_notes.dart';
+import 'package:plupool/features/notes/presentation/views/widgets/edit_note_card.dart';
 import 'package:plupool/features/notes/presentation/views/widgets/notes_row.dart';
 import 'package:plupool/features/support/presentation/views/widgets/attachment_chip.dart';
 
@@ -43,10 +44,30 @@ class AdminNoteCard extends StatelessWidget {
                 ),
               ),
               SizedBox(width: SizeConfig.w(8)),
-              Icon(
-                Icons.edit_document,
-                size: SizeConfig.w(20),
-                color: const Color(0xff0077B6),
+              GestureDetector(
+                onTap: () {
+                  Dialog(
+                    backgroundColor: AppColors.kScaffoldColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    insetPadding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.w(20),
+                      vertical: SizeConfig.h(29),
+                    ),
+                    child: EditNoteCard(
+                      noteController: TextEditingController(
+                        text:
+                            'العميل يفضل الخدمات في الصباح الباكر (قبل ٩ صباحاً). لديه مسبح كبير بحجم 10×5 متر.  وهو عميل متميز  للشركة منذ أكثر من سنتين.',
+                      ),
+                    ),
+                  );
+                },
+                child: Icon(
+                  Icons.edit_document,
+                  size: SizeConfig.w(20),
+                  color: const Color(0xff0077B6),
+                ),
               ),
               SizedBox(width: SizeConfig.w(15)),
               Icon(
