@@ -12,7 +12,7 @@ class CompanyResProfileViewFooter extends StatelessWidget {
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: customerFooter.length,
+      itemCount: companyresFooter.length,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {

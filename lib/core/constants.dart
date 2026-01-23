@@ -928,7 +928,7 @@ final List<Map> companyresFooter = [
     'view': '/customerservicesview',
   },
   {
-    'icon': Icons.flag,
+    'icon': Icons.headset_mic,
     'title': "تواصل معنا ورسائل الدعم",
     'color': Color(0xffEA5A65),
     'view': '/customerservicesview',
@@ -943,7 +943,8 @@ final List<Map> companyresFooter = [
     'icon': Icons.note_alt_outlined,
     'title': "الملاحظات",
     'color': Color(0xff7B7B7B),
-    'view': '/customerservicesview',
+    'view': '/companyresnotesview',
   },
+  
 ];
 

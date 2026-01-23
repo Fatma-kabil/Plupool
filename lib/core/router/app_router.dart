@@ -19,6 +19,7 @@ import 'package:plupool/features/home/presentaation/views/admin/see_all_packages
 import 'package:plupool/features/home/presentaation/views/customer/cusmoter_notification_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/offer_details_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
+import 'package:plupool/features/notes/presentation/views/company_res_notes_view.dart';
 import 'package:plupool/features/offers/presentation/views/add_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
@@ -417,10 +418,16 @@ final GoRouter appRouter = GoRouter(
       path: '/editcompanyresview',
       name: 'editcompanyresview',
       pageBuilder: (context, state) {
-        final model = state.extra as CompanyModel; // استقبال الليست
+      //  final model = state.extra as CompanyModel; // استقبال الليست
 
-        return buildTransitionPage(EditCompannyResView(model: model));
+        return buildTransitionPage(EditCompannyResView());
       },
+    ),
+     GoRoute(
+      path: '/companyresnotesview',
+      name: 'companyresnotesview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const CompanyResNotesView()  )
     ),
   ],
 );

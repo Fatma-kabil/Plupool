@@ -43,7 +43,7 @@ class AddCompanyForm extends StatelessWidget {
               ),
     
             
-              SizedBox(height: SizeConfig.h(15)),
+              SizedBox(height: SizeConfig.h(30)),
     
               // رقم الهاتف
               Text(
