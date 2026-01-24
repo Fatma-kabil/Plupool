@@ -43,7 +43,7 @@ class _CustomerViewBodyState extends State<CustomerViewBody> {
               horizontal: SizeConfig.w(4),
               vertical: SizeConfig.h(20),
             ),
-            child: const CustomSearchPerson(
+            child:  CustomSearchPerson(
               hintText: "ابحث بأسم العميل او رقم الهاتف",
             ),
           ),

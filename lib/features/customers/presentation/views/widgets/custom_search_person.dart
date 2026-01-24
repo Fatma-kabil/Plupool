@@ -4,16 +4,21 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class CustomSearchPerson extends StatelessWidget {
-  const CustomSearchPerson({
+   CustomSearchPerson({
     super.key,
     this.validator,
     this.controller,
-    required this.hintText,
+    required this.hintText,  this.padding, this.curserHeight,
   });
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final String hintText;
+  final EdgeInsetsGeometry? padding;
+final double? curserHeight;
 
+final defaultCursorHeight = SizeConfig.isWideScreen
+    ? SizeConfig.w(8)
+    : SizeConfig.h(15);
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -22,10 +27,9 @@ class CustomSearchPerson extends StatelessWidget {
         style: AppTextStyles.styleMedium16(
           context,
         ).copyWith(color: AppColors.ktextcolor),
-        cursorHeight: SizeConfig.isWideScreen
-            ? SizeConfig.w(8)
-            : SizeConfig.h(15),
-        cursorColor: AppColors.hintTextColor,
+        
+        cursorHeight:curserHeight ??defaultCursorHeight,
+        cursorColor: AppColors.ktextcolor,
         controller: controller,
         validator: validator,
 
@@ -40,7 +44,7 @@ class CustomSearchPerson extends StatelessWidget {
             minHeight: 0,
             minWidth: 0,
           ),
-          contentPadding: EdgeInsets.symmetric(
+          contentPadding:padding?? EdgeInsets.symmetric(
             vertical: SizeConfig.h(10), // 👈 قلّلي الرقم حسب ما تحبي
             horizontal: SizeConfig.w(12),
           ),
@@ -71,14 +75,14 @@ class CustomSearchPerson extends StatelessWidget {
           ),
 
           suffixIcon: Padding(
-            padding: EdgeInsets.only(left: SizeConfig.w(7)),
+            padding: EdgeInsets.only(left: SizeConfig.w(8)),
             child: Icon(
-              Icons.keyboard_arrow_down,
-              size: SizeConfig.isWideScreen
-                  ? SizeConfig.h(20)
-                  : SizeConfig.w(14),
-              color: const Color(0xff999999),
-            ),
+                      Icons.keyboard_arrow_down,
+                      size: SizeConfig.w(18),
+                      color: const Color(0xff777777),
+                    ),
+              
+            
           ),
           // 👇 زرار إظهار/إخفاء الباسورد
           enabledBorder: OutlineInputBorder(

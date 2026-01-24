@@ -13,7 +13,7 @@ enum RequestStatus {
 String getStatusText(RequestStatus status) {
   switch (status) {
     case RequestStatus.urgent:
-      return 'عاجل';
+      return 'عاجله';
     case RequestStatus.inProgress:
       return 'قيد التنفيذ';
     case RequestStatus.completed:

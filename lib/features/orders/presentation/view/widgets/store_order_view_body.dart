@@ -42,7 +42,7 @@ class _StoreOrderViewBodyState extends State<StoreOrderViewBody> {
         ),
         SliverToBoxAdapter(child: SizedBox(height: 10)),
         SliverToBoxAdapter(
-          child: const CustomSearchPerson(
+          child:  CustomSearchPerson(
             hintText: "ابحث بأسم العميل او رقم الهاتف",
           ),
         ),

@@ -63,11 +63,11 @@ class TimePickerField extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    color: AppColors.hintTextColor,
-                    size: SizeConfig.w(18),
-                  ),
+                 Icon(
+                      Icons.keyboard_arrow_down,
+                      size: SizeConfig.w(18),
+                      color: const Color(0xff777777),
+                    ),
                 ],
               ),
             ),

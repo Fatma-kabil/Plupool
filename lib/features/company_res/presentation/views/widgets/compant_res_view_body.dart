@@ -43,7 +43,7 @@ class _CompantResViewBodyState extends State<CompantResViewBody> {
                   horizontal: SizeConfig.w(4),
                   vertical: SizeConfig.h(20),
                 ),
-                child: const CustomSearchPerson(
+                child:  CustomSearchPerson(
                   hintText: "ابحث باسم ممثل الشركه او رقم الهاتف",
                 ),
               ),

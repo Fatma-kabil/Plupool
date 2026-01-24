@@ -27,7 +27,7 @@ class AdminRatingViewBody extends StatelessWidget {
               horizontal: SizeConfig.w(4),
               vertical: SizeConfig.h(15),
             ),
-            child: const CustomSearchPerson(
+            child:  CustomSearchPerson(
               hintText: "ابحث باسم ممثل الشركه او رقم الهاتف",
             ),
           ),

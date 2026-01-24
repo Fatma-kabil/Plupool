@@ -10,7 +10,8 @@ class StatusSelector<T> extends StatefulWidget {
     required this.selected,
     required this.onChanged,
     required this.displayText,
-    this.icon
+    this.icon,
+    this.padding,
   });
 
   final List<T> items;
@@ -18,6 +19,7 @@ class StatusSelector<T> extends StatefulWidget {
   final ValueChanged<T> onChanged;
   final String Function(T value) displayText;
   final IconData? icon;
+  final EdgeInsetsGeometry? padding;
 
   @override
   State<StatusSelector<T>> createState() => _StatusSelectorState<T>();
@@ -37,7 +39,7 @@ class _StatusSelectorState<T> extends State<StatusSelector<T>> {
           GestureDetector(
             onTap: () => setState(() => isOpen = !isOpen),
             child: Container(
-              padding: EdgeInsets.symmetric(
+              padding: widget.padding ?? EdgeInsets.symmetric(
                 horizontal: SizeConfig.w(12),
                 vertical: SizeConfig.h(10),
               ),
@@ -51,7 +53,7 @@ class _StatusSelectorState<T> extends State<StatusSelector<T>> {
               child: Row(
                 children: [
                   Icon(
-                  widget.icon ?? Icons.info_outline,
+                    widget.icon ?? Icons.info_outline,
                     size: SizeConfig.w(18),
                     color: const Color(0xff777777),
                   ),
