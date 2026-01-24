@@ -5,11 +5,12 @@ class RearragnmentRow extends StatelessWidget {
   const RearragnmentRow({
     super.key,
     required this.selected,
-    required this.onChanged,
+    required this.onChanged, this.onTap,
   });
 
   final String selected;
   final ValueChanged<String> onChanged;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class RearragnmentRow extends StatelessWidget {
         ),
         const Spacer(),
         GestureDetector(
+          onTap:onTap ,
           child: Container(
             padding: EdgeInsets.all(SizeConfig.w(6)),
             decoration: const BoxDecoration(

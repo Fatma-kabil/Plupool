@@ -1,15 +1,16 @@
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/customer_service_card.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/rearrangment_row.dart';
+
 class CustomerServiceSection extends StatefulWidget {
   const CustomerServiceSection({super.key});
 
   @override
-  State<CustomerServiceSection> createState() =>
-      _CustomerServiceSectionState();
+  State<CustomerServiceSection> createState() => _CustomerServiceSectionState();
 }
 
 class _CustomerServiceSectionState extends State<CustomerServiceSection> {
@@ -39,6 +40,9 @@ class _CustomerServiceSectionState extends State<CustomerServiceSection> {
               selected = val;
             });
           },
+          onTap: () {
+            context.push('/addcustomerserviceview');
+          },
         ),
         SizedBox(height: SizeConfig.h(15)),
 
@@ -48,9 +52,7 @@ class _CustomerServiceSectionState extends State<CustomerServiceSection> {
           physics: const NeverScrollableScrollPhysics(),
           itemCount: filteredServices.length,
           itemBuilder: (context, index) {
-            return CustomerServiceCard(
-              request: filteredServices[index],
-            );
+            return CustomerServiceCard(request: filteredServices[index]);
           },
         ),
       ],
