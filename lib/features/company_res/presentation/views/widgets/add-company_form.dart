@@ -13,9 +13,11 @@ class AddCompanyForm extends StatelessWidget {
     required this.nameController,
     required this.phoneFieldKey,
     required this.phoneController,
+    required this.companyController,
   });
 
   final TextEditingController nameController;
+  final TextEditingController companyController;
   final GlobalKey<FormFieldState> phoneFieldKey;
   final TextEditingController phoneController;
 
@@ -39,6 +41,22 @@ class AddCompanyForm extends StatelessWidget {
                 controller: nameController,
                 hintText: 'ادخل الاسم ',
                 icon: Icons.person_2_outlined,
+                validator: (v) => Validators.name(v),
+              ),
+    
+            
+              SizedBox(height: SizeConfig.h(30)),
+               Text(
+                'اسم الشركه',
+                style: AppTextStyles.styleSemiBold16(
+                  context,
+                ).copyWith(color: const Color(0xff333333)),
+              ),
+              SizedBox(height: SizeConfig.h(4)),
+              CustomTextFormField(
+                controller: companyController,
+                hintText: 'ادخل اسم الشركه ',
+                icon: Icons.business_outlined,
                 validator: (v) => Validators.name(v),
               ),
     

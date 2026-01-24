@@ -34,102 +34,115 @@ class _AddNotificationViewBodyState extends State<AddNotificationViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// نوع الإشعار
-            const FieldLabel('نوع الإشعار'),
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  isTypeExpanded = !isTypeExpanded;
-                });
-              },
-              child: NotificationSelectField(selected: selectedType),
-            ),
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          /// ---------- المحتوى القابل للسكرول ----------
+          Expanded(
+            child: SingleChildScrollView(
+            
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// نوع الإشعار
+                  const FieldLabel('نوع الإشعار'),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isTypeExpanded = !isTypeExpanded;
+                      });
+                    },
+                    child: NotificationSelectField(selected: selectedType),
+                  ),
 
-            AnimatedSize(
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-              child: isTypeExpanded
-                  ? Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.kScaffoldColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border(
-                          bottom: BorderSide(
-                            color: AppColors.textFieldBorderColor,
-                          ),
-                          left: BorderSide(
-                            color: AppColors.textFieldBorderColor,
-                          ),
-                          right: BorderSide(
-                            color: AppColors.textFieldBorderColor,
-                          ),
-                        ),
-                      ),
-                      child: Column(
-                        children: notificationTypes.map((type) {
-                          return ListTile(
-                            leading: Icon(type.icon, size: SizeConfig.w(15)),
-                            dense: false,
-
-                            title: Text(
-                              type.title,
-                              style: AppTextStyles.styleSemiBold16(context),
+                  AnimatedSize(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    child: isTypeExpanded
+                        ? Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.kScaffoldColor,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: AppColors.textFieldBorderColor,
+                              ),
                             ),
-                            onTap: () {
-                              setState(() {
-                                selectedType = type;
-                                isTypeExpanded = false;
-                              });
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    )
-                  : const SizedBox(),
-            ),
+                            child: Column(
+                              children: notificationTypes.map((type) {
+                                return ListTile(
+                                  leading: Icon(
+                                    type.icon,
+                                    size: SizeConfig.w(15),
+                                  ),
+                                  title: Text(
+                                    type.title,
+                                    style: AppTextStyles.styleSemiBold16(
+                                      context,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      selectedType = type;
+                                      isTypeExpanded = false;
+                                    });
+                                  },
+                                );
+                              }).toList(),
+                            ),
+                          )
+                        : const SizedBox(),
+                  ),
 
-            const SizedBox(height: 18),
+                  const SizedBox(height: 18),
 
-            /// عنوان الإشعار
-            const FieldLabel('عنوان الإشعار'),
-            TextField(
-              controller: nameController,
-              hint: 'اكتب عنوان الإشعار...',
-            ),
+                  /// عنوان الإشعار
+                  const FieldLabel('عنوان الإشعار'),
+                  TextField(
+                    controller: nameController,
+                    hint: 'اكتب عنوان الإشعار...',
+                  ),
 
-            const SizedBox(height: 18),
+                  const SizedBox(height: 18),
 
-            // نص الإشعار
-            const FieldLabel('عنوان الإشعار'),
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.w(4),
-                vertical: SizeConfig.h(6),
+                  /// نص الإشعار
+                  const FieldLabel('نص الإشعار'),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.w(4),
+                      vertical: SizeConfig.h(6),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColors.textFieldBorderColor),
+                    ),
+                    child: NoteTextField(
+                      controller: textController,
+                      text: 'اكتب نص الإشعار...',
+                    ),
+                  ),
+
+                  const SizedBox(height: 40),
+                ],
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: AppColors.textFieldBorderColor)
-               // color: AppColors.textFieldBorderColor,
-              ),
-              child: NoteTextField(
-                controller: textController,
-                text: 'اكتب عنوان الإشعار...',
-              ),
             ),
-            const SizedBox(height: 25),
-            CustomTextBtn(
-              text: "ارسال",
+          ),
+
+          /// ---------- الزرار ثابت تحت ----------
+          Padding(
+            padding: EdgeInsets.only(
+              left: SizeConfig.w(10),
+              right: SizeConfig.w(10),
+              bottom: SizeConfig.h(15),
+             // top: SizeConfig.h(10),
+            ),
+            child: CustomTextBtn(
+              text: "إرسال",
               onPressed: () {},
-              trailing: Icon(Icons.send, color: Colors.white),
+              trailing:  Icon(Icons.send, color: Colors.white,size:SizeConfig.w(17)),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

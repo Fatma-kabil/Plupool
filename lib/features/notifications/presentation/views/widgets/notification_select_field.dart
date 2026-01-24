@@ -26,7 +26,7 @@ class NotificationSelectField extends StatelessWidget {
       child: Row(
         children: [
           if (selected != null)
-            Icon(selected!.icon, color: AppColors.ktextcolor,size: SizeConfig.w(15),),
+            Icon(selected!.icon, color: AppColors.kprimarycolor,size: SizeConfig.w(15),),
           if (selected != null)  SizedBox(width: SizeConfig.w(6)
           ),
     

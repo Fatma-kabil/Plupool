@@ -11,6 +11,9 @@ class EditCompanyResViewBody extends StatelessWidget {
   final TextEditingController nameController = TextEditingController(
     text: "أحمد محمد",
   );
+  final TextEditingController companyController = TextEditingController(
+    text: "شركة أحمد",
+  );
   final TextEditingController phoneController = TextEditingController(
     text: "01154269877",
   );
@@ -24,6 +27,7 @@ class EditCompanyResViewBody extends StatelessWidget {
         children: [
           AddCompanyForm(
             nameController: nameController,
+            companyController: companyController,
             phoneFieldKey: phoneFieldKey,
             phoneController: phoneController,
           ),
