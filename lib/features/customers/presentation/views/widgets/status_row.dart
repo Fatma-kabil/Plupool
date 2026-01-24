@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/container_status.dart';
 
 class StatusRow extends StatefulWidget {
@@ -19,7 +20,7 @@ class _StatusRowState extends State<StatusRow> {
         ContainerStatus(isActive: isActive,),
         Spacer(),
          Transform.scale(
-          scale: 0.6, // جرب 0.7 أو 0.6 كمان لو عايز أصغر
+          scale:SizeConfig.w(SizeConfig.isWideScreen ? 0.4 : 0.6), // جرب 0.7 أو 0.6 كمان لو عايز أصغر
           child: Switch(
             value: isActive,
             onChanged: (value) {

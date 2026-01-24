@@ -24,7 +24,7 @@ class AddOfferBtn extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(12),
-          vertical: SizeConfig.h(padding??6),
+          vertical: SizeConfig.h(padding??10),
         ),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.kprimarycolor, width: 1),
@@ -46,7 +46,7 @@ class AddOfferBtn extends StatelessWidget {
             Icon(
               icon ?? Icons.add_circle_outline,
               color: AppColors.kprimarycolor,
-              size: SizeConfig.w(18),
+              size: SizeConfig.w(SizeConfig.isWideScreen ? 15 : 18),
             ),
           ],
         ),

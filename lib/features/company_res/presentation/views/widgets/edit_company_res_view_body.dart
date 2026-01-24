@@ -42,7 +42,7 @@ class EditCompanyResViewBody extends StatelessWidget {
             trailing: Icon(
               Icons.edit,
               color: Colors.white,
-              size: SizeConfig.w(20),
+              size: SizeConfig.w(SizeConfig.isWideScreen ? 17 : 20),
             ),
             onPressed: () {},
           ),
@@ -53,7 +53,7 @@ class EditCompanyResViewBody extends StatelessWidget {
             trailing: Icon(
               Icons.cancel_outlined,
               color: AppColors.kprimarycolor,
-              size: SizeConfig.w(24),
+              size: SizeConfig.w( SizeConfig.isWideScreen ? 20: 24),
             ),
           ),
         ],

@@ -40,7 +40,7 @@ class NotificationSelectField extends StatelessWidget {
 
             ),
           ),
-           Icon(Icons.keyboard_arrow_down,color: Color(0xffBBBBBB),size: SizeConfig.w(14),),
+           Icon(Icons.keyboard_arrow_down,color: Color(0xff777777),size: SizeConfig.w(16),),
         ],
       ),
     );

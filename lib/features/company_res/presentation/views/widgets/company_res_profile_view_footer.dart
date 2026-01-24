@@ -42,7 +42,7 @@ class CompanyResProfileViewFooter extends StatelessWidget {
                 Icon(
                   companyresFooter[index]['icon'],
                   color: companyresFooter[index]['color'],
-                  size: SizeConfig.w(24),
+                  size: SizeConfig.isWideScreen ? SizeConfig.h(26) : SizeConfig.w(24),
                 ),
                 SizedBox(width: SizeConfig.w(4)),
                 Text(
@@ -55,7 +55,7 @@ class CompanyResProfileViewFooter extends StatelessWidget {
                 Icon(
                   Icons.arrow_forward_ios,
                   color: Color(0xffA4A4A4),
-                  size: SizeConfig.w(15),
+                  size: SizeConfig.w(SizeConfig.isWideScreen ? 12 : 15),
                 ),
               ],
             ),

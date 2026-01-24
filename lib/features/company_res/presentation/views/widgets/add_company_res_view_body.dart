@@ -32,7 +32,7 @@ class AddCompanyResViewBody extends StatelessWidget {
             trailing: Icon(
               Icons.person_add_alt_1,
               color: Colors.white,
-              size: SizeConfig.w(24),
+              size:SizeConfig.w( SizeConfig.isWideScreen ? 20: 24),
             ),
             onPressed: () {},
           ),
@@ -43,7 +43,7 @@ class AddCompanyResViewBody extends StatelessWidget {
             trailing: Icon(
               Icons.cancel_outlined,
               color: AppColors.kprimarycolor,
-              size: SizeConfig.w(24),
+              size: SizeConfig.w( SizeConfig.isWideScreen ? 20: 24),
             ),
           ),
         ],

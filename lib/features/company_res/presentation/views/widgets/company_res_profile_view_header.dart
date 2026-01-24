@@ -53,7 +53,7 @@ class CompanyResProfileViewHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AddOfferBtn(
-                padding: 10,
+                padding: 8,
                 text: "تعديل البيانات",
                 icon: Icons.edit_document,
                 style: AppTextStyles.styleSemiBold14(
@@ -64,7 +64,7 @@ class CompanyResProfileViewHeader extends StatelessWidget {
                 },
               ),
               AddOfferBtn(
-                padding: 10,
+                padding: 8,
                 text: "إرسال إشعار",
                 icon: Icons.notification_add,
                 style: AppTextStyles.styleSemiBold14(
