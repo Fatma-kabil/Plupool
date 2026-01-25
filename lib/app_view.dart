@@ -36,8 +36,8 @@ class PlupoolApp extends StatelessWidget {
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           useInheritedMediaQuery: true, // ✅ مهم جدًا
-      //    locale: DevicePreview.locale(context), // ✅
-      //    builder: DevicePreview.appBuilder,
+          locale: DevicePreview.locale(context), // ✅
+          builder: DevicePreview.appBuilder,
           routerConfig: appRouter,
           theme: ThemeData(
             splashColor: Colors.transparent,

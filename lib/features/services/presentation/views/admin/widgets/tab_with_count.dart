@@ -25,18 +25,23 @@ class TabWithCount extends StatelessWidget {
               .copyWith(fontFamily: 'Cairo', color: color),
         ),
         SizedBox(width: SizeConfig.w(6)),
-        Container(
-          padding: EdgeInsets.all(SizeConfig.w(6)),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: color, // بيتغير مع selected/unselected
-          ),
-          child: Text(
-            count.toString(),
-            style: AppTextStyles.styleSemiBold14(context)
-                .copyWith(color: Colors.white),
-          ),
-        ),
+       Container(
+  constraints: BoxConstraints(
+    minWidth: SizeConfig.w(22),
+    minHeight: SizeConfig.w(22),
+  ),
+  alignment: Alignment.center,
+  decoration: BoxDecoration(
+    shape: BoxShape.circle,
+    color: color,
+  ),
+  child: Text(
+    count.toString(),
+    style: AppTextStyles.styleSemiBold14(context)
+        .copyWith(color: Colors.white),
+  ),
+),
+
       ],
     );
   }

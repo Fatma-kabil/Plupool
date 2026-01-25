@@ -77,6 +77,7 @@ class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
           TimePickerField(
             dirc: CrossAxisAlignment.start,
             selectedTime: widget.selectedTime,
+            selectedTimeColor:  AppColors.ktextcolor,
             onTap: widget.onPickTime,
           ),
 

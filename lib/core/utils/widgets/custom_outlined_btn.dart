@@ -9,7 +9,9 @@ class CustomOutlinedBtn extends StatelessWidget {
     required this.text,
     this.width,
     this.trailing,
-    this.padding, this.onPressed, this.color,
+    this.padding,
+    this.onPressed,
+    this.color, this.style,
   });
   final String text;
   final double? width;
@@ -17,13 +19,14 @@ class CustomOutlinedBtn extends StatelessWidget {
   final double? padding;
   final void Function()? onPressed;
   final Color? color;
+ final  TextStyle? style;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
       child: OutlinedButton(
-        onPressed: () =>onPressed?? Navigator.pop(context),
+        onPressed: () => onPressed ?? Navigator.pop(context),
         style: OutlinedButton.styleFrom(
           side: BorderSide(color: color ?? AppColors.kprimarycolor),
           shape: RoundedRectangleBorder(
@@ -38,9 +41,9 @@ class CustomOutlinedBtn extends StatelessWidget {
             children: [
               Text(
                 text,
-                style: AppTextStyles.styleBold16(
+                style:style?? AppTextStyles.styleBold16(
                   context,
-                ).copyWith(color:color?? AppColors.kprimarycolor),
+                ).copyWith(color: color ?? AppColors.kprimarycolor),
               ),
               if (trailing != null) ...[
                 SizedBox(width: SizeConfig.w(6)),

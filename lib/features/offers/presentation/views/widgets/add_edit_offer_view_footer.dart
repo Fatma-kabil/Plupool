@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
@@ -17,16 +17,15 @@ class AddEditOfferViewFooter extends StatelessWidget {
           text: text,
           onPressed: onPressed,
           width: SizeConfig.w(140),
-          padding: SizeConfig.h(6),
+          padding: SizeConfig.h(7),
+          textStyle: AppTextStyles.styleBold16(
+                  context,
+                ).copyWith(color: Colors.white),
         ),
 
         CustomOutlinedBtn(
           text: 'إلغاء',
-          trailing: Icon(
-            Icons.cancel_outlined,
-            color: AppColors.kprimarycolor,
-            size: SizeConfig.w(20),
-          ),
+
           width: SizeConfig.w(140),
         ),
       ],

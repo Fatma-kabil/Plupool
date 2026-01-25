@@ -8,12 +8,14 @@ class TimePickerField extends StatelessWidget {
   final VoidCallback onTap;
   final String? errorText; // جديد
  final CrossAxisAlignment? dirc;
+ final Color? selectedTimeColor;
   const TimePickerField({
     super.key,
     required this.selectedTime,
     required this.onTap,
     this.errorText,
-     this.dirc = CrossAxisAlignment.end
+     this.dirc = CrossAxisAlignment.end,
+     this.selectedTimeColor,
   });
 
   @override
@@ -58,7 +60,7 @@ class TimePickerField extends StatelessWidget {
                     textDirection: TextDirection.ltr,
                     style: AppTextStyles.styleRegular14(context).copyWith(
                       color: selectedTime != null
-                          ? const Color(0xFF006398)
+                          ? selectedTimeColor ?? const Color(0xFF006398)
                           : AppColors.hintTextColor,
                     ),
                   ),
