@@ -23,7 +23,15 @@ final OrderCardModel model;
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "طلب رقم #12345",
+              " طلب رقم #12345",
+              textDirection: TextDirection.rtl,
+              style: AppTextStyles.styleSemiBold16(
+                context,
+              ).copyWith(color: AppColors.ktextcolor),
+            ),
+            SizedBox(height: SizeConfig.h(6)),
+             Text(
+              "عميل : أحمد محمد",
               textDirection: TextDirection.rtl,
               style: AppTextStyles.styleSemiBold16(
                 context,

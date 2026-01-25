@@ -7,34 +7,38 @@ class CardFooterButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.color,
-    required this.textColor, required this.icon,
+    required this.textColor, required this.icon, this.onTap,
   });
   final String text;
   final Color color;
   final Color textColor;
   final IconData icon;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width:SizeConfig.w(120) ,
-     
-      decoration: BoxDecoration( color: color,
-      borderRadius: BorderRadius.circular(10)
-      ),
-      padding: EdgeInsets.symmetric(vertical: SizeConfig.h(8)),
-      child: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text,
-              style: AppTextStyles.styleMedium16(
-                context,
-              ).copyWith(color: textColor),
-            ),
-            SizedBox(width: SizeConfig.w(2),),
-            Icon(icon,color: textColor,size: SizeConfig.w(17),),
-          ],
+    return GestureDetector(
+      onTap:onTap,
+      child: Container(
+        width:SizeConfig.w(120) ,
+       
+        decoration: BoxDecoration( color: color,
+        borderRadius: BorderRadius.circular(10)
+        ),
+        padding: EdgeInsets.symmetric(vertical: SizeConfig.h(8)),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                style: AppTextStyles.styleMedium16(
+                  context,
+                ).copyWith(color: textColor),
+              ),
+              SizedBox(width: SizeConfig.w(2),),
+              Icon(icon,color: textColor,size: SizeConfig.w(17),),
+            ],
+          ),
         ),
       ),
     );

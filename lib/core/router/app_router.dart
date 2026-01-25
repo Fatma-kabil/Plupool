@@ -51,6 +51,7 @@ import 'package:plupool/features/consruction_service/presentation/views/construc
 import 'package:plupool/features/consruction_service/presentation/views/reserve_construction_view.dart';
 import 'package:plupool/features/services/presentation/views/admin/add_customer_service_view.dart';
 import 'package:plupool/features/services/presentation/views/admin/customer_services_view.dart';
+import 'package:plupool/features/services/presentation/views/admin/edit_customer_service_view.dart';
 import 'package:plupool/features/services/presentation/views/user/services_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
@@ -442,6 +443,12 @@ final GoRouter appRouter = GoRouter(
       name: 'addcustomerserviceview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddCustomerServiceView()  )
+    ),
+      GoRoute(
+      path: '/editcustomerserviceview',
+      name: 'editcustomerserviceview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const EditCustomerServiceView()  )
     ),
   ],
 
