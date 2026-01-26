@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/packages/presentation/views/widggets/admin_packages_section.dart';
+import 'package:plupool/features/packages/presentation/views/widgets/admin_packages_section.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/customer_service_section.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/tab_with_count.dart';
 

@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
-import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
-import 'package:plupool/features/services/data/models/customer_service_card_model.dart';
-import 'package:plupool/features/services/presentation/views/admin/widgets/date_row.dart';
-import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_footer.dart';
+import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/packages/data/models/package_model.dart';
+import 'package:plupool/features/packages/presentation/views/widgets/admin_package_card_footer.dart';
+import 'package:plupool/features/packages/presentation/views/widgets/date_row_package.dart';
+import 'package:plupool/features/packages/presentation/views/widgets/visits_section.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_row.dart';
 
-class CustomerServiceCard extends StatelessWidget {
-  const CustomerServiceCard({super.key, required this.request});
-  final CustomerServiceCardModel request;
+class AdminPackageCard extends StatelessWidget {
+  const AdminPackageCard({super.key, required this.model});
+  final PackageModel model;
 
   @override
   Widget build(BuildContext context) {
-    final colors = RequestStatusColors.getColors(request.statu);
+    final colors = RequestStatusColors.getColors(model.status);
 
     return Container(
       width: double.infinity,
@@ -43,27 +42,35 @@ class CustomerServiceCard extends StatelessWidget {
 
                   children: [
                     Text(
-                      "طلب رقم #${request.orderno}",
+                      model.packageType,
                       style: AppTextStyles.styleBold16(
                         context,
                       ).copyWith(color: Color(0xff333333)),
                     ),
 
-                    buildStatusLabel(colors, context, request.statu),
+                    buildStatusLabel(colors, context, model.status),
                   ],
                 ),
-             //   SizedBox(height: 8),
-                DateRow(date: request.date),
+                //   SizedBox(height: 8),
+                Row(children: [DateRowPackage(date: model.finishedDate)]),
               ],
             ),
 
             const SizedBox(height: 12),
 
-            ServiceCardRow(title: "نوع الخدمة:", value: request.service),
+            ServiceCardRow(title: " العميل:", value: "احمد حسن"),
             const SizedBox(height: 5),
-            ServiceCardRow(title: "الفنيين:", value: request.techs),
-            const SizedBox(height: 8),
-            ServiceCardFooter()
+            ServiceCardRow(title: "الفنيين:", value: "علي حسين - احمد كامل"),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.w(10),
+                vertical: SizeConfig.h(12),
+              ),
+              child: Divider(),
+            ),
+            VisitsSection(model: model),
+            SizedBox(height: SizeConfig.h(12)),
+            AdminPackageCardFooter(),
             // ---- بيانات المستخدم + زرار الموقع ----
           ],
         ),

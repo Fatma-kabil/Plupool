@@ -6,24 +6,25 @@ import 'package:plupool/core/utils/size_config.dart';
 class TimeDateRow extends StatelessWidget {
   const TimeDateRow({
     super.key,
-    required this.formattedDate,
+    required this.formattedDate, this.color,
   });
 
   final String formattedDate;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       textDirection: TextDirection.rtl,
       children: [
-        Icon(Icons.calendar_today, color: Color(0xff999999), size:SizeConfig.w( 13)),
+        Icon(Icons.calendar_today, color:color?? Color(0xff999999), size:SizeConfig.w( 13)),
         SizedBox(width: SizeConfig.w(2)),
         Text(
           textDirection: TextDirection.rtl,
           formattedDate,
           style: AppTextStyles.styleRegular14(
             context,
-          ).copyWith(color: Color(0xff999999)),
+          ).copyWith(color:color?? Color(0xff999999)),
         ),
       ],
     );

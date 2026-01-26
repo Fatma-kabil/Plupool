@@ -9,6 +9,7 @@ import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.
 import 'package:plupool/features/notifications/data/models/notifiction_type_model.dart';
 import 'package:plupool/features/orders/data/models/order_card_model.dart';
 import 'package:plupool/features/orders/domain/entities/order_status.dart';
+import 'package:plupool/features/packages/data/models/package_model.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
 import 'package:plupool/features/profile/data/models/project_model.dart';
 import 'package:plupool/features/select_role/data/models/role_card_item.dart';
@@ -168,7 +169,7 @@ final List<ProductModel> products = [
     image: "assets/images/mach_pro1.png",
     originalPrice: 3000,
     salesCount: 75,
-   
+
     stock: 50,
   ),
   ProductModel(
@@ -862,7 +863,6 @@ final List<DashboardShortcutModel> dashboardShortcuts = [
     color: Color(0xffEA5A65),
     onTap: '/productofferview',
   ),
- 
 ];
 
 final List<OrderCardModel> orderCards = [
@@ -908,7 +908,6 @@ final List<OrderCardModel> orderCards = [
   ),
 ];
 
-
 final List<Map> companyresFooter = [
   {
     'icon': Icons.layers_outlined,
@@ -916,7 +915,7 @@ final List<Map> companyresFooter = [
     'color': Color(0xff05B285),
     'view': '/customerservicesview',
   },
-   {
+  {
     'icon': Icons.work_outline,
     'title': "المشاريع",
     'color': Color(0xff0096B4),
@@ -946,7 +945,6 @@ final List<Map> companyresFooter = [
     'color': Color(0xff7B7B7B),
     'view': '/companyresnotesview',
   },
-  
 ];
 
 final List<NotificationType> notificationTypes = [
@@ -957,4 +955,28 @@ final List<NotificationType> notificationTypes = [
   NotificationType(title: 'إنتهاء الباقة', icon: Icons.timer_off),
   NotificationType(title: 'تغيير يوم الصيانة', icon: Icons.autorenew),
   NotificationType(title: 'أخرى', icon: Icons.notifications),
+];
+
+final List<PackageModel> packages = [
+  PackageModel(
+    packageType: "الباقة الشهريه",
+    totalVisits: 4,
+    finshiedVisites: 1,
+    status: RequestStatus.inProgress,
+    finishedDate: DateTime(2026, 3, 15),
+  ),
+   PackageModel(
+    packageType: "باقه 4 شهور",
+    totalVisits: 6,
+    finshiedVisites: 0,
+    status: RequestStatus.scheduled,
+    finishedDate: DateTime(2026, 3, 15),
+  ),
+   PackageModel(
+    packageType: "باقه 4 شهور",
+    totalVisits: 6,
+    finshiedVisites: 6,
+    status: RequestStatus.completed,
+    finishedDate: DateTime(2026, 3, 15),
+  ),
 ];
