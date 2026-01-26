@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -40,7 +41,7 @@ class _AdminPackagesSectionState extends State<AdminPackagesSection> {
             });
           },
           onTap: () {
-         //   context.push('/addcustomerserviceview');
+           context.push('/addpackageview');
           },
         ),
         SizedBox(height: SizeConfig.h(15)),
