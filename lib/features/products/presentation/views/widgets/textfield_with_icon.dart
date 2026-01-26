@@ -9,6 +9,7 @@ class TextFieldWithIcon extends StatelessWidget {
   final int maxLines;
   final TextInputType keyboardType;
   final IconData? icon;
+  final bool tailing;
 
   const TextFieldWithIcon({
     super.key,
@@ -17,6 +18,7 @@ class TextFieldWithIcon extends StatelessWidget {
     this.maxLines = 1,
     this.keyboardType = TextInputType.text,
     this.icon,
+    this.tailing = false,
   });
 
   @override
@@ -24,7 +26,6 @@ class TextFieldWithIcon extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
-
         controller: controller,
         maxLines: maxLines,
         keyboardType: keyboardType,
@@ -33,12 +34,13 @@ class TextFieldWithIcon extends StatelessWidget {
             ? SizeConfig.w(12)
             : SizeConfig.h(20),
         textAlignVertical: TextAlignVertical.center,
-        style: AppTextStyles.styleRegular14(context)
-            .copyWith(color: AppColors.ktextcolor),
+        style: AppTextStyles.styleRegular14(
+          context,
+        ).copyWith(color: AppColors.ktextcolor),
         validator: (value) =>
             value == null || value.isEmpty ? 'الحقل مطلوب' : null,
         decoration: InputDecoration(
-           prefixIconConstraints: const BoxConstraints(
+          prefixIconConstraints: const BoxConstraints(
             minHeight: 0,
             minWidth: 0,
           ),
@@ -57,28 +59,34 @@ class TextFieldWithIcon extends StatelessWidget {
               left: SizeConfig.isWideScreen ? SizeConfig.w(5) : SizeConfig.w(0),
             ),
             child: Icon(
-              icon,   // لو مفيش أيقونة نخليها شفافة
-              size: SizeConfig.isWideScreen ? SizeConfig.w(12) : SizeConfig.w(15),
-              color:   Color(0xff777777)
+              icon, // لو مفيش أيقونة نخليها شفافة
+              size: SizeConfig.isWideScreen
+                  ? SizeConfig.w(12)
+                  : SizeConfig.w(15),
+              color: Color(0xff777777),
             ),
           ),
-
+          suffixIcon: tailing
+              ? Padding(
+            padding: EdgeInsets.only(left: SizeConfig.w(8)),
+            child: Icon(
+                      Icons.keyboard_arrow_down,
+                      size: SizeConfig.w(18),
+                      color: const Color(0xff777777),
+                    ),)
+              : null,
           hintText: hint,
-          hintStyle: AppTextStyles.styleRegular14(context)
-              .copyWith(color: AppColors.hintTextColor),
-         
-          
+          hintStyle: AppTextStyles.styleRegular14(
+            context,
+          ).copyWith(color: AppColors.hintTextColor),
+
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: AppColors.textFieldBorderColor,
-            ),
+            borderSide: BorderSide(color: AppColors.textFieldBorderColor),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: AppColors.textFieldBorderColor,
-            ),
+            borderSide: BorderSide(color: AppColors.textFieldBorderColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

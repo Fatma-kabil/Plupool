@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
-import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
+import 'package:plupool/features/packages/presentation/views/widgets/weekdays_multi_select_field.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
@@ -17,9 +17,7 @@ class AddEditPackageForm extends StatefulWidget {
     required this.technicianController,
     required this.maintenanceDaysController,
     required this.selectedPackage,
-    required this.selectedStatus,
     required this.onPackageChanged,
-    required this.onStatusChanged,
     this.startDate,
     this.endDate,
     this.selectedTime,
@@ -35,10 +33,8 @@ class AddEditPackageForm extends StatefulWidget {
   final TextEditingController maintenanceDaysController;
 
   final String selectedPackage;
-  final RequestStatus selectedStatus;
 
   final ValueChanged<String?> onPackageChanged;
-  final ValueChanged<RequestStatus?> onStatusChanged;
 
   final DateTime? startDate;
   final DateTime? endDate;
@@ -81,7 +77,7 @@ class _AddEditPackageFormState extends State<AddEditPackageForm> {
                       selected: widget.selectedPackage,
                       items: const [
                         "الباقه السنويه",
-                        "باقه 6 شهور",
+
                         "باقه 3 شهور",
                         "الباقه الشهريه",
                       ],
@@ -137,9 +133,7 @@ class _AddEditPackageFormState extends State<AddEditPackageForm> {
 
           /// أيام الصيانة
           const FieldLabel("أيام الصيانه"),
-          TextFieldWithIcon(
-            hint: "ادخل ايام الصيانه",
-            icon: Icons.calendar_month,
+          WeekDaysMultiSelectField(
             controller: widget.maintenanceDaysController,
           ),
 
@@ -170,23 +164,6 @@ class _AddEditPackageFormState extends State<AddEditPackageForm> {
           ),
 
           const SizedBox(height: 15),
-
-          /// حالة الخدمة
-          const FieldLabel('حاله الخدمه'),
-          StatusSelector<RequestStatus>(
-            padding: EdgeInsets.symmetric(
-              vertical: SizeConfig.h(12),
-              horizontal: SizeConfig.w(12),
-            ),
-            selected: widget.selectedStatus,
-            items: const [
-              RequestStatus.scheduled,
-              RequestStatus.urgent,
-              RequestStatus.inProgress,
-            ],
-            displayText: (status) => getStatusText(status),
-            onChanged: widget.onStatusChanged,
-          ),
         ],
       ),
     );
