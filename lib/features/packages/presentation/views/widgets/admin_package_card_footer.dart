@@ -11,25 +11,47 @@ class AdminPackageCardFooter extends StatelessWidget {
       children: [
         Container(
           padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(4),
-            vertical: SizeConfig.h(2),
+            horizontal: SizeConfig.w(6),
+            vertical: SizeConfig.h(4),
           ),
-          color: AppColors.kprimarycolor,
-          child: Icon(Icons.add, color: Colors.white, size: SizeConfig.w(15)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: AppColors.kprimarycolor,
+          ),
+
+          child: Icon(Icons.add, color: Colors.white, size: SizeConfig.w(18)),
         ),
+        SizedBox(width: SizeConfig.w(8)),
         Container(
           padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(4),
-            vertical: SizeConfig.h(2),
+            horizontal: SizeConfig.w(6),
+            vertical: SizeConfig.h(4),
           ),
-          color: AppColors.kprimarycolor,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: AppColors.kprimarycolor,
+          ),
+
           child: Icon(
-            Icons.minimize_outlined,
+            Icons.remove,
             color: Color(0xffD4D4D4),
-            size: SizeConfig.w(15),
+            size: SizeConfig.w(18),
           ),
         ),
         Spacer(),
+        Container(
+          padding: EdgeInsets.all(SizeConfig.w(6)),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xffCCF0F7),
+          ),
+          child: Icon(
+            Icons.edit_note_outlined,
+            color: AppColors.kprimarycolor,
+            size: SizeConfig.w(20),
+          ),
+        ),
+        SizedBox(width: SizeConfig.w(12)),
         Container(
           padding: EdgeInsets.all(SizeConfig.w(6)),
           decoration: const BoxDecoration(
@@ -39,20 +61,7 @@ class AdminPackageCardFooter extends StatelessWidget {
           child: Icon(
             Icons.delete_outline_rounded,
             color: Color(0xffE63946),
-            size: SizeConfig.w(15),
-          ),
-        ),
-        SizedBox(width: SizeConfig.w(6)),
-        Container(
-          padding: EdgeInsets.all(SizeConfig.w(6)),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xffCCF0F7),
-          ),
-          child: Icon(
-            Icons.delete_outline_rounded,
-            color: AppColors.kprimarycolor,
-            size: SizeConfig.w(15),
+            size: SizeConfig.w(20),
           ),
         ),
       ],

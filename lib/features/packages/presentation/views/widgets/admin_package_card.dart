@@ -34,27 +34,23 @@ class AdminPackageCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ---- العنوان و الحالة ----
-            Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+            
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-
-                  children: [
-                    Text(
-                      model.packageType,
-                      style: AppTextStyles.styleBold16(
-                        context,
-                      ).copyWith(color: Color(0xff333333)),
-                    ),
-
-                    buildStatusLabel(colors, context, model.status),
-                  ],
+                Text(
+                  model.packageType,
+                  style: AppTextStyles.styleBold16(
+                    context,
+                  ).copyWith(color: Color(0xff333333)),
                 ),
-                //   SizedBox(height: 8),
-                Row(children: [DateRowPackage(date: model.finishedDate)]),
+            
+                buildStatusLabel(colors, context, model.status),
               ],
             ),
+            //   SizedBox(height: 8),
+            DateRowPackage(date: model.finishedDate),
 
             const SizedBox(height: 12),
 

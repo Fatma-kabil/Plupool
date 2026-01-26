@@ -21,7 +21,7 @@ class DateRowPackage extends StatelessWidget {
         ),
         SizedBox(width: SizeConfig.w(2)),
          Text(
-          "ينتهي في",
+          "ينتهي في  ",
           style: AppTextStyles.styleRegular13(
             context,
           ).copyWith(color: const Color(0xff777777)),

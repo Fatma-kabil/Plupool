@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
+
 class RearragnmentRow extends StatelessWidget {
   const RearragnmentRow({
     super.key,
     required this.selected,
-    required this.onChanged, this.onTap,
+    required this.onChanged,
+    this.onTap, this.items,
   });
 
   final String selected;
   final ValueChanged<String> onChanged;
   final void Function()? onTap;
+  final List<String> ? items;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class RearragnmentRow extends StatelessWidget {
       children: [
         FilterOption(
           value: selected,
-          items: const ["مكتمله", "مجدوله", "عاجله"],
+          items:items??  ["مكتمله", "مجدوله", "عاجله"],
           onChanged: (val) {
             if (val != null) {
               onChanged(val);
@@ -27,18 +30,14 @@ class RearragnmentRow extends StatelessWidget {
         ),
         const Spacer(),
         GestureDetector(
-          onTap:onTap ,
+          onTap: onTap,
           child: Container(
             padding: EdgeInsets.all(SizeConfig.w(6)),
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Color(0xff0077B6),
             ),
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-              size: SizeConfig.w(18),
-            ),
+            child: Icon(Icons.add, color: Colors.white, size: SizeConfig.w(18)),
           ),
         ),
       ],

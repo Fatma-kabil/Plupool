@@ -14,7 +14,7 @@ class AdminPackagesSection extends StatefulWidget {
 }
 
 class _AdminPackagesSectionState extends State<AdminPackagesSection> {
-  String selected = "عاجله";
+  String selected = 'قيد التنفيذ';
 
   @override
   Widget build(BuildContext context) {
@@ -24,38 +24,41 @@ class _AdminPackagesSectionState extends State<AdminPackagesSection> {
           return service.status == RequestStatus.completed;
         case "مجدوله":
           return service.status == RequestStatus.scheduled;
-        case "قيد النتفيذ":
+        case 'قيد التنفيذ':
           return service.status == RequestStatus.inProgress;
         default:
           return true;
       }
     }).toList();
 
-    return Column(
-      children: [
-        RearragnmentRow(
-          selected: selected,
-          onChanged: (val) {
-            setState(() {
-              selected = val;
-            });
-          },
-          onTap: () {
-           context.push('/addpackageview');
-          },
-        ),
-        SizedBox(height: SizeConfig.h(15)),
-
-        /// الكروت
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: filteredServices.length,
-          itemBuilder: (context, index) {
-            return AdminPackageCard(model: filteredServices[index],);
-          },
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          RearragnmentRow(
+            items:  ["مكتمله", "مجدوله", 'قيد التنفيذ'],
+            selected: selected,
+            onChanged: (val) {
+              setState(() {
+                selected = val;
+              });
+            },
+            onTap: () {
+             context.push('/addpackageview');
+            },
+          ),
+          SizedBox(height: SizeConfig.h(15)),
+      
+          /// الكروت
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: filteredServices.length,
+            itemBuilder: (context, index) {
+              return AdminPackageCard(model: filteredServices[index],);
+            },
+          ),
+        ],
+      ),
     );
   }
 }
