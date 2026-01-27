@@ -63,6 +63,7 @@ class _AddEditPackageFormState extends State<AddEditPackageForm> {
         children: [
           /// نوع الباقة + عدد الزيارات
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Column(

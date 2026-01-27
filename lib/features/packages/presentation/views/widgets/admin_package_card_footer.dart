@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
@@ -39,16 +40,21 @@ class AdminPackageCardFooter extends StatelessWidget {
           ),
         ),
         Spacer(),
-        Container(
-          padding: EdgeInsets.all(SizeConfig.w(6)),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xffCCF0F7),
-          ),
-          child: Icon(
-            Icons.edit_note_outlined,
-            color: AppColors.kprimarycolor,
-            size: SizeConfig.w(20),
+        GestureDetector(
+          onTap: () {
+            context.push('/editpackageview');
+          },
+          child: Container(
+            padding: EdgeInsets.all(SizeConfig.w(6)),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xffCCF0F7),
+            ),
+            child: Icon(
+              Icons.edit_note_outlined,
+              color: AppColors.kprimarycolor,
+              size: SizeConfig.w(20),
+            ),
           ),
         ),
         SizedBox(width: SizeConfig.w(12)),

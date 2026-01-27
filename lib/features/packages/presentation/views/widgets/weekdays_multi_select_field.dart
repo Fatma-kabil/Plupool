@@ -40,7 +40,7 @@ class _WeekDaysMultiSelectFieldState extends State<WeekDaysMultiSelectField> {
             
             
             TextFieldWithIcon(
-              hint: "اختاري أيام الصيانه",
+              hint: "اختار أيام الصيانه",
               icon: Icons.calendar_month,
               controller: widget.controller,
               tailing: true,
