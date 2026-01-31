@@ -53,9 +53,10 @@ class NextVisitAndPools extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.pool,
-                      size: SizeConfig.w(12),
+                      size: SizeConfig.w(15),
                       color: AppColors.ktextcolor,
                     ),
+                    SizedBox(width: SizeConfig.w(4)),
                     Text(
                       "${model.finshiedPools}/${model.totalPools}",
                       style: AppTextStyles.styleRegular13(

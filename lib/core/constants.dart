@@ -1009,6 +1009,16 @@ final List<AdminProjectModel> adminProjects = [
     location: "القاهرة الجديدة",
     startDate: DateTime(2025,9,15),
     finishedDate: DateTime(2026,5,20),
+    finshiedPools: 0,
+    totalPools: 10,
+    nextVisit: DateTime(2025,10,22,11,00),
+    status: RequestStatus.urgent
+  ),
+   AdminProjectModel(
+    projectTitle: "مشروع النخيل السكني",
+    location: "القاهرة الجديدة",
+    startDate: DateTime(2025,9,15),
+    finishedDate: DateTime(2026,5,20),
     finshiedPools: 4,
     totalPools: 4,
     nextVisit: DateTime(2025,10,22,11,00),

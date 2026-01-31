@@ -29,7 +29,7 @@ class ProjectCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(12),
-          vertical: SizeConfig.h(12),
+          vertical: SizeConfig.h(15),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +53,7 @@ class ProjectCard extends StatelessWidget {
             //   SizedBox(height: 8),
             ProjectLocationRow(location: "القاهرة الجديدة",),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 18),
             StartEndProject(
               startDate: model.startDate,
               endDate: model.finishedDate,
