@@ -12,6 +12,7 @@ import 'package:plupool/features/orders/domain/entities/order_status.dart';
 import 'package:plupool/features/packages/data/models/package_model.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
 import 'package:plupool/features/profile/data/models/project_model.dart';
+import 'package:plupool/features/projects/data/models/admin_project_model.dart';
 import 'package:plupool/features/select_role/data/models/role_card_item.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
@@ -919,7 +920,7 @@ final List<Map> companyresFooter = [
     'icon': Icons.work_outline,
     'title': "المشاريع",
     'color': Color(0xff0096B4),
-    'view': '/customerservicesview',
+    'view': '/adminprojectview',
   },
   {
     'icon': Icons.star_outlined,
@@ -965,18 +966,62 @@ final List<PackageModel> packages = [
     status: RequestStatus.inProgress,
     finishedDate: DateTime(2026, 3, 15),
   ),
-   PackageModel(
+  PackageModel(
     packageType: "باقه 4 شهور",
     totalVisits: 6,
     finshiedVisites: 0,
     status: RequestStatus.scheduled,
     finishedDate: DateTime(2026, 3, 15),
   ),
-   PackageModel(
+  PackageModel(
     packageType: "باقه 4 شهور",
     totalVisits: 6,
     finshiedVisites: 6,
     status: RequestStatus.completed,
     finishedDate: DateTime(2026, 3, 15),
+  ),
+];
+
+final List<AdminProjectModel> adminProjects = [
+  AdminProjectModel(
+    projectTitle: "مشروع النخيل السكني",
+    location: "القاهرة الجديدة",
+    startDate: DateTime(2025,9,15),
+    finishedDate: DateTime(2026,5,20),
+    finshiedPools: 1,
+    totalPools: 4,
+    nextVisit: DateTime(2025,10,22,11,00),
+    status: RequestStatus.inProgress
+  ),
+
+   AdminProjectModel(
+    projectTitle: "مشروع النخيل السكني",
+    location: "القاهرة الجديدة",
+    startDate: DateTime(2025,9,15),
+    finishedDate: DateTime(2026,5,20),
+    finshiedPools: 0,
+    totalPools: 10,
+    nextVisit: DateTime(2025,10,22,11,00),
+    status: RequestStatus.scheduled
+  ),
+   AdminProjectModel(
+    projectTitle: "مشروع النخيل السكني",
+    location: "القاهرة الجديدة",
+    startDate: DateTime(2025,9,15),
+    finishedDate: DateTime(2026,5,20),
+    finshiedPools: 4,
+    totalPools: 4,
+    nextVisit: DateTime(2025,10,22,11,00),
+    status: RequestStatus.completed
+  ),
+   AdminProjectModel(
+    projectTitle: "مشروع النخيل السكني",
+    location: "القاهرة الجديدة",
+    startDate: DateTime(2025,9,15),
+    finishedDate: DateTime(2026,5,20),
+    finshiedPools: 2,
+    totalPools: 9,
+    nextVisit: DateTime(2025,10,22,11,00),
+    status: RequestStatus.inProgress
   ),
 ];

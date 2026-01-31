@@ -14,7 +14,7 @@ class InfoCardsRow extends StatelessWidget {
          Expanded(
           flex: 1,
           child: MetricCard(
-            icon: "assets/icons/Rating.svg", // تقييم
+         //   icon: "assets/icons/Rating.svg", // تقييم
             value: "4.8",
             label: 'التقييم',
           ),
@@ -25,7 +25,7 @@ class InfoCardsRow extends StatelessWidget {
         Expanded(
           flex: 1,
           child: MetricCard(
-            icon: "assets/icons/product.svg", // منتج/صندوق
+          //  icon: "assets/icons/product.svg", // منتج/صندوق
             value: "+150",
             label: 'منتج',
           ),
@@ -35,7 +35,7 @@ class InfoCardsRow extends StatelessWidget {
         Expanded(
           flex: 1,
           child: MetricCard(
-            icon: "assets/icons/track.svg", // شحن/توصيل
+         //   icon: "assets/icons/track.svg", // شحن/توصيل
             value: "24 H",
             label: 'توصيل',
           ),

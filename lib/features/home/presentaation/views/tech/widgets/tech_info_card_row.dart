@@ -21,7 +21,7 @@ class TechInfoCardRow extends StatelessWidget {
               Expanded(
               flex: 1,
               child: MetricCard(
-                icon: "assets/icons/Rating.svg",
+            //    icon: "assets/icons/Rating.svg",
                 value: isGuest ? "0" : "4.8",
                 label: 'التقييم',
                  valueTextStyle: isGuest
@@ -37,7 +37,7 @@ class TechInfoCardRow extends StatelessWidget {
             Expanded(
               flex: 1,
               child: MetricCard(
-                icon: "assets/icons/week_tasks.svg",
+           //     icon: "assets/icons/week_tasks.svg",
                 value: isGuest ? "لا يوجد" : "10",
                 label: 'مهام الأسبوع',
                  valueTextStyle: isGuest
@@ -53,7 +53,7 @@ class TechInfoCardRow extends StatelessWidget {
            Expanded(
               flex: 1,
               child: MetricCard(
-                icon: "assets/icons/tasks.svg",
+           //     icon: "assets/icons/tasks.svg",
                 value: isGuest ? "لا يوجد" : "119",
                 valueTextStyle: isGuest
                     ? AppTextStyles.styleBold16(context).copyWith(

@@ -36,7 +36,7 @@ class WhyUsViewBody extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: MetricCard(
-                  icon: "assets/icons/Rating.svg", // تقييم
+               //   icon: "assets/icons/Rating.svg", // تقييم
                   value: "4.8",
                   label: 'التقييم',
                 ),
@@ -47,7 +47,7 @@ class WhyUsViewBody extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: MetricCard(
-                  icon: "assets/icons/shield.svg", // منتج/صندوق
+             //     icon: "assets/icons/shield.svg", // منتج/صندوق
                   value: "10+",
                   label: 'سنوات خبرة',
                 ),
@@ -57,7 +57,7 @@ class WhyUsViewBody extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: MetricCard(
-                  icon: "assets/icons/tasks.svg", // شحن/توصيل
+            //      icon: "assets/icons/tasks.svg", // شحن/توصيل
                   value: "500+",
                   label: 'مشروع منجز',
                 ),
