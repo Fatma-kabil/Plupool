@@ -38,7 +38,7 @@ class CustomerOrdersList extends StatelessWidget {
         return CustomerOrderCard(
           model: filteredMessages[index],
           onTap: () {
-            context.push('/orderdetailsview', extra: filteredMessages[index]);
+            context.push('/customerorderdetailsview', extra: filteredMessages[index]);
           },
         );
       }, childCount: filteredMessages.length),

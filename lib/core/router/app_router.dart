@@ -26,6 +26,7 @@ import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart'
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/product_offer_view.dart';
 import 'package:plupool/features/orders/data/models/order_card_model.dart';
+import 'package:plupool/features/orders/presentation/view/customer_order_details_view.dart';
 import 'package:plupool/features/orders/presentation/view/customer_store_order_view.dart';
 import 'package:plupool/features/orders/presentation/view/order_details_view.dart';
 import 'package:plupool/features/orders/presentation/view/store_order_view.dart';
@@ -371,13 +372,12 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(OrderDetailsView(model: order));
       },
     ),
-     GoRoute(
+    GoRoute(
       path: '/productview',
       name: 'productview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const ProductView()),
+      pageBuilder: (context, state) => buildTransitionPage(const ProductView()),
     ),
-      GoRoute(
+    GoRoute(
       path: '/editproductview',
       name: 'editproductview',
       pageBuilder: (context, state) {
@@ -386,106 +386,113 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(EditProductView(product: product));
       },
     ),
-     GoRoute(
+    GoRoute(
       path: '/addproductview',
       name: 'addproductview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddProductView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/companyresview',
       name: 'companyresview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CompanyResView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/addcompanyres',
       name: 'addcompanyres',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddCompanyRes()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/productofferview',
       name: 'productofferview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const ProductOfferView()  )
+          buildTransitionPage(const ProductOfferView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/adminratingview',
       name: 'adminratingview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const AdminRatingView()  )
+          buildTransitionPage(const AdminRatingView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/companyresprofile',
       name: 'companyresprofile',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const CompanyResProfile()  )
+          buildTransitionPage(const CompanyResProfile()),
     ),
-      GoRoute(
+    GoRoute(
       path: '/editcompanyresview',
       name: 'editcompanyresview',
       pageBuilder: (context, state) {
-      //  final model = state.extra as CompanyModel; // استقبال الليست
+        //  final model = state.extra as CompanyModel; // استقبال الليست
 
         return buildTransitionPage(EditCompannyResView());
       },
     ),
-     GoRoute(
+    GoRoute(
       path: '/companyresnotesview',
       name: 'companyresnotesview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const CompanyResNotesView()  )
+          buildTransitionPage(const CompanyResNotesView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/addnotificationsview',
       name: 'addnotificationsview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const AddNotificationsView()  )
+          buildTransitionPage(const AddNotificationsView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/addcustomerserviceview',
       name: 'addcustomerserviceview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const AddCustomerServiceView()  )
+          buildTransitionPage(const AddCustomerServiceView()),
     ),
-      GoRoute(
+    GoRoute(
       path: '/editcustomerserviceview',
       name: 'editcustomerserviceview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const EditCustomerServiceView()  )
+          buildTransitionPage(const EditCustomerServiceView()),
     ),
 
-      GoRoute(
+    GoRoute(
       path: '/addpackageview',
       name: 'addpackageview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const AddPackageView()  )
+          buildTransitionPage(const AddPackageView()),
     ),
-      GoRoute(
+    GoRoute(
       path: '/editpackageview',
       name: 'editpackageview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const EditPackageView()  )
+          buildTransitionPage(const EditPackageView()),
     ),
-      GoRoute(
+    GoRoute(
       path: '/adminprojectview',
       name: 'adminprojectview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const AdminProjectsView()  )
+          buildTransitionPage(const AdminProjectsView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/addprojectview',
       name: 'addprojectview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const AddProjectView()  )
+          buildTransitionPage(const AddProjectView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/customerstoreorderview',
       name: 'customerstoreorderview',
       pageBuilder: (context, state) =>
-          buildTransitionPage(const CustomerStoreOrderView()  )
+          buildTransitionPage(const CustomerStoreOrderView()),
+    ),
+    GoRoute(
+      path: '/customerorderdetailsview',
+      name: 'customerorderdetailsview',
+      pageBuilder: (context, state) {
+        final order = state.extra as OrderCardModel;
+        return buildTransitionPage(CustomerOrderDetailsView(model: order));
+      },
     ),
   ],
-
 );
