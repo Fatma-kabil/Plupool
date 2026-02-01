@@ -41,6 +41,7 @@ import 'package:plupool/features/profile/presentation/views/privacy_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_details_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_edit_view.dart';
 import 'package:plupool/features/profile/presentation/views/why_us_view.dart';
+import 'package:plupool/features/projects/presentation/views/add_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_projects_view.dart';
 import 'package:plupool/features/rating/presentation/views/admin_rating_view.dart';
 import 'package:plupool/features/search/presentation/views/search_view.dart';
@@ -471,6 +472,12 @@ final GoRouter appRouter = GoRouter(
       name: 'adminprojectview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminProjectsView()  )
+    ),
+     GoRoute(
+      path: '/addprojectview',
+      name: 'addprojectview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AddProjectView()  )
     ),
   ],
 
