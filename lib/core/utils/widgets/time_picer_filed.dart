@@ -9,13 +9,15 @@ class TimePickerField extends StatelessWidget {
   final String? errorText; // جديد
  final CrossAxisAlignment? dirc;
  final Color? selectedTimeColor;
+ final Color? iconColor;
+ final double? iconSize;
   const TimePickerField({
     super.key,
     required this.selectedTime,
     required this.onTap,
     this.errorText,
      this.dirc = CrossAxisAlignment.end,
-     this.selectedTimeColor,
+     this.selectedTimeColor, this.iconColor, this.iconSize,
   });
 
   @override
@@ -48,9 +50,8 @@ class TimePickerField extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.access_time,
-                    size:SizeConfig.isWideScreen?SizeConfig.h(20): SizeConfig.w(20),
-                    color
-                        : AppColors.hintTextColor,
+                    size: iconSize ?? (SizeConfig.isWideScreen?SizeConfig.h(20): SizeConfig.w(20)),
+                    color: iconColor ?? AppColors.hintTextColor,
                   ),
                    SizedBox(width: SizeConfig.w(6)),
                   Text(

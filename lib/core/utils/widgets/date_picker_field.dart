@@ -11,6 +11,8 @@ class DatePickerField extends StatelessWidget {
   final String? errorText; // << هنا
   final CrossAxisAlignment? dirc;
   final String? text;
+  final double? iconSize;
+  final Color? iconColor;
 
   final Color? selectedDateColor;
   const DatePickerField({
@@ -19,7 +21,7 @@ class DatePickerField extends StatelessWidget {
     required this.dateFormat,
     required this.onTap,
     this.errorText,
-    this.dirc = CrossAxisAlignment.end, this.selectedDateColor, this.text,
+    this.dirc = CrossAxisAlignment.end, this.selectedDateColor, this.text, this.iconSize, this.iconColor,
   });
 
   @override
@@ -58,10 +60,10 @@ class DatePickerField extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.calendar_today,
-                    size: SizeConfig.isWideScreen
+                    size: iconSize ?? (SizeConfig.isWideScreen
                         ? SizeConfig.h(18)
-                        : SizeConfig.w(17),
-                    color: AppColors.hintTextColor,
+                        : SizeConfig.w(17)),
+                    color: iconColor ?? AppColors.hintTextColor,
                   ),
                   SizedBox(width: SizeConfig.w(6)),
                   Text(
