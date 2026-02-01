@@ -26,6 +26,7 @@ import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart'
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/product_offer_view.dart';
 import 'package:plupool/features/orders/data/models/order_card_model.dart';
+import 'package:plupool/features/orders/presentation/view/customer_store_order_view.dart';
 import 'package:plupool/features/orders/presentation/view/order_details_view.dart';
 import 'package:plupool/features/orders/presentation/view/store_order_view.dart';
 import 'package:plupool/features/packages/presentation/views/add_package_view.dart';
@@ -478,6 +479,12 @@ final GoRouter appRouter = GoRouter(
       name: 'addprojectview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddProjectView()  )
+    ),
+     GoRoute(
+      path: '/customerstoreorderview',
+      name: 'customerstoreorderview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const CustomerStoreOrderView()  )
     ),
   ],
 

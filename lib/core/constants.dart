@@ -938,7 +938,7 @@ final List<Map> companyresFooter = [
     'icon': Icons.shopping_cart_outlined,
     'title': "طلبات المتجر",
     'color': AppColors.kprimarycolor,
-    'view': '/customerservicesview',
+    'view': '/customerstoreorderview',
   },
   {
     'icon': Icons.note_alt_outlined,
