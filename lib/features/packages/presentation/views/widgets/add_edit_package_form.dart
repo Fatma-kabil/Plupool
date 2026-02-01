@@ -62,54 +62,37 @@ class _AddEditPackageFormState extends State<AddEditPackageForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// نوع الباقة + عدد الزيارات
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const FieldLabel('نوع الباقه'),
-                    StatusSelector<String>(
-                      padding: EdgeInsets.symmetric(
-                        vertical: SizeConfig.h(12),
-                        horizontal: SizeConfig.w(12),
-                      ),
-                      selected: widget.selectedPackage,
-                      items: const [
-                        "الباقه السنويه",
-
-                        "باقه 3 شهور",
-                        "الباقه الشهريه",
-                      ],
-                      displayText: (value) => value,
-                      onChanged: widget.onPackageChanged,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const FieldLabel("عدد الزيارات"),
-                    TextFieldWithIcon(
-                      hint: "ادخل عدد الزيارات",
-                      icon: Icons.list_rounded,
-                      keyboardType: TextInputType.number,
-                      controller: widget.visitsNumberController,
-                    ),
-                  ],
-                ),
-              ),
+          const FieldLabel('نوع الباقه'),
+          StatusSelector<String>(
+            padding: EdgeInsets.symmetric(
+              vertical: SizeConfig.h(12),
+              horizontal: SizeConfig.w(12),
+            ),
+            selected: widget.selectedPackage,
+            items: const [
+              "الباقه السنويه",
+                
+              "باقه 3 شهور",
+              "الباقه الشهريه",
             ],
+            displayText: (value) => value,
+            onChanged: widget.onPackageChanged,
+          ),
+          const SizedBox(height: 15),
+          const FieldLabel("عدد الزيارات"),
+          TextFieldWithIcon(
+            hint: "ادخل عدد الزيارات",
+            icon: Icons.list_rounded,
+            keyboardType: TextInputType.number,
+            controller: widget.visitsNumberController,
           ),
 
           const SizedBox(height: 15),
 
           /// تاريخ بداية الباقة
           DatePickerField(
+             iconSize: SizeConfig.w(13),
+            iconColor: AppColors.ktextcolor,
             dirc: CrossAxisAlignment.start,
             text: "تاريخ بدايه الباقه",
             selectedDateColor: AppColors.ktextcolor,
@@ -122,6 +105,8 @@ class _AddEditPackageFormState extends State<AddEditPackageForm> {
 
           /// تاريخ نهاية الباقة
           DatePickerField(
+             iconSize: SizeConfig.w(13),
+            iconColor: AppColors.ktextcolor,
             dirc: CrossAxisAlignment.start,
             text: "تاريخ نهايه الباقه",
             selectedDateColor: AppColors.ktextcolor,
@@ -142,6 +127,8 @@ class _AddEditPackageFormState extends State<AddEditPackageForm> {
 
           /// وقت الزيارة
           TimePickerField(
+             iconSize: SizeConfig.w(13),
+            iconColor: AppColors.ktextcolor,
             dirc: CrossAxisAlignment.start,
             selectedTime: widget.selectedTime,
             selectedTimeColor: AppColors.ktextcolor,

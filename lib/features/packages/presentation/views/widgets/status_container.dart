@@ -22,7 +22,7 @@ class StatusContainer extends StatelessWidget {
         children: [
           Icon(
             Icons.info_outline,
-            size: SizeConfig.w(18),
+            size:SizeConfig.isWideScreen?SizeConfig.w(15): SizeConfig.w(18),
             color: const Color(0xff777777),
           ),
           SizedBox(width: SizeConfig.w(6)),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
@@ -41,7 +42,7 @@ class AdminProjectCardFooter extends StatelessWidget {
         Spacer(),
         GestureDetector(
           onTap: () {
-        //    context.push('/editpackageview');
+           context.push('/editprojectview');
           },
           child: Container(
             padding: EdgeInsets.all(SizeConfig.w(6)),
