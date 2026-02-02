@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/orders/data/models/order_card_model.dart';
-import 'package:plupool/features/orders/presentation/view/widgets/order_card_header.dart';
+import 'package:plupool/features/orders/presentation/view/widgets/customer_order_card_header.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/product_details_row.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/total_fees_sectin.dart';
 
@@ -23,7 +23,7 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
       ),
       child: Column(
         children: [
-          OrderCardHeader(model: model),
+          CustomerOrderCardHeader(model: model),
           Padding(
             padding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
             child: Divider(),

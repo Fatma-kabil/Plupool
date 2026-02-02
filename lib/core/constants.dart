@@ -926,7 +926,7 @@ final List<Map> companyresFooter = [
     'icon': Icons.star_outlined,
     'title': "التقييمات",
     'color': Color(0xffFF9F1C),
-    'view': '/customerservicesview',
+    'view': '/customerratingview',
   },
   {
     'icon': Icons.headset_mic,

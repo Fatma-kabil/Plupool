@@ -46,6 +46,7 @@ import 'package:plupool/features/profile/presentation/views/why_us_view.dart';
 import 'package:plupool/features/projects/presentation/views/add_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_projects_view.dart';
 import 'package:plupool/features/rating/presentation/views/admin_rating_view.dart';
+import 'package:plupool/features/rating/presentation/views/customer_rating.dart';
 import 'package:plupool/features/search/presentation/views/search_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
@@ -493,6 +494,12 @@ final GoRouter appRouter = GoRouter(
         final order = state.extra as OrderCardModel;
         return buildTransitionPage(CustomerOrderDetailsView(model: order));
       },
+    ),
+        GoRoute(
+      path: '/customerratingview',
+      name: 'customerratingview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const CustomerRating()),
     ),
   ],
 );
