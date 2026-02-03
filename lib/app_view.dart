@@ -9,6 +9,7 @@ import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
@@ -36,8 +37,16 @@ class PlupoolApp extends StatelessWidget {
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           useInheritedMediaQuery: true, // ✅ مهم جدًا
-        //  locale: DevicePreview.locale(context), // ✅
-        //  builder: DevicePreview.appBuilder,
+          //  locale: DevicePreview.locale(context), // ✅
+          //  builder: DevicePreview.appBuilder,
+          // ✅ فعلّي العربي
+          locale: const Locale('ar'),
+          supportedLocales: const [Locale('ar'), Locale('en')],
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           routerConfig: appRouter,
           theme: ThemeData(
             splashColor: Colors.transparent,

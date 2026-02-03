@@ -38,6 +38,7 @@ class CustomerRatingCard extends StatelessWidget {
                 ).copyWith(color: Colors.black),
               ),
               Text(
+             //   textDirection: TextDirection.rtl,
                 formatDate(date),
                 style: AppTextStyles.styleRegular16(
                   context,
@@ -45,7 +46,7 @@ class CustomerRatingCard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: SizeConfig.h(12)),
+          SizedBox(height: SizeConfig.h(8)),
           Row(
             children: List.generate(
               5,
@@ -58,7 +59,7 @@ class CustomerRatingCard extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: SizeConfig.h(12)),
+          SizedBox(height: SizeConfig.h(8)),
           Row(
             children: [
               Icon(
@@ -77,8 +78,9 @@ class CustomerRatingCard extends StatelessWidget {
               ),
             ],
           ),
+            SizedBox(height: SizeConfig.h(5)),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [DeleteRatingBtn()],
           ),
         ],

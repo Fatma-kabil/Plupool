@@ -72,6 +72,9 @@ import 'package:plupool/features/support/presentation/views/admin_support_view.d
 import 'package:plupool/features/support/presentation/views/message_details.dart';
 import 'package:plupool/features/tasks/presentation/views/customer_details_view.dart';
 import 'package:plupool/features/tasks/presentation/views/maintenance_update_view.dart';
+import 'package:plupool/features/visits/presentation/views/add_completed_visit_view.dart';
+import 'package:plupool/features/visits/presentation/views/edit_completed_visit_view.dart';
+import 'package:plupool/features/visits/presentation/views/visit_view.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
@@ -500,6 +503,25 @@ final GoRouter appRouter = GoRouter(
       name: 'customerratingview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CustomerRating()),
+    ),
+     GoRoute(
+      path: '/visitview',
+      name: 'visitview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const VisitView()),
+    ),
+
+     GoRoute(
+      path: '/addcompletedvisitview',
+      name: 'addcompletedvisitview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AddCompletedVisitView()),
+    ),
+     GoRoute(
+      path: '/editcompletedvisitview',
+      name: 'editcompletedvisitview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const EditCompletedVisitView()),
     ),
   ],
 );

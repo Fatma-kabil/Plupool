@@ -1,0 +1,98 @@
+import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/tasks/data/models/water_quality_model.dart';
+import 'package:plupool/features/visits/presentation/views/widgets/admin_maintenance_card.dart';
+
+class MaintenanceSection extends StatefulWidget {
+  const MaintenanceSection({super.key});
+
+  @override
+  State<MaintenanceSection> createState() => _MaintenanceSectionState();
+}
+
+class _MaintenanceSectionState extends State<MaintenanceSection> {
+  bool isExpanded = true;
+
+  final List<WaterQualityModel> history = [
+    WaterQualityModel(
+      temperature: 25,
+      phLevel: 7.2,
+      chlorineLevel: 2.5,
+      note: "جميع القراءات طبيعية. تم تنظيف سلال الكاشطة وغسل الفلتر.",
+      lastUpdated: DateTime(2025, 10, 8, 18, 26),
+    ),
+    WaterQualityModel(
+      temperature: 26,
+      phLevel: 7.9,
+      chlorineLevel: 1.8,
+      note: "تمت إضافة معالجة الكلور. فحص ضغط المضخة - تعمل بشكل طبيعي.",
+      lastUpdated: DateTime(2025, 10, 20, 11, 0),
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    // ✅ الترتيب من الأحدث إلى الأقدم
+    final sortedHistory = [...history]
+      ..sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
+
+    return Column(
+      children: [
+        InkWell(
+          onTap: () {
+            setState(() {
+              isExpanded = !isExpanded;
+            });
+          },
+          child: Row(
+            textDirection: TextDirection.rtl,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    "تاريخ الصيانة",
+                    style: AppTextStyles.styleBold16(context)
+                        .copyWith(color: AppColors.ktextcolor),
+                  ),
+                  SizedBox(width: SizeConfig.w(5)),
+                  Icon(
+                    Icons.access_time,
+                    color: AppColors.kprimarycolor,
+                    size: SizeConfig.w(17),
+                  ),
+                ],
+              ),
+              AnimatedRotation(
+                turns: isExpanded ? 0 : 0.5,
+                duration: const Duration(milliseconds: 200),
+                child: const Icon(Icons.keyboard_arrow_up),
+              ),
+            ],
+          ),
+        ),
+
+         SizedBox(height:SizeConfig.h(8) ),
+
+        AnimatedCrossFade(
+          duration: const Duration(milliseconds: 250),
+          crossFadeState: isExpanded
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          firstChild: Column(
+            children: sortedHistory
+                .map((model) => 
+              
+                    AdminMaintenanceCard(model: model),
+                  
+                )
+                .toList(),
+          ),
+          secondChild: const SizedBox.shrink(),
+        ),
+      ],
+    );
+  }
+}

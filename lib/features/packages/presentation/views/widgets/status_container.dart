@@ -12,7 +12,7 @@ class StatusContainer extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: SizeConfig.h(12),
-        horizontal: SizeConfig.w(12),
+        horizontal: SizeConfig.w(7),
       ),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.textFieldBorderColor),
