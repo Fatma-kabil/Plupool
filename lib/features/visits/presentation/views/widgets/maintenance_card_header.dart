@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
-import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/tasks/data/models/water_quality_model.dart';
@@ -13,11 +11,12 @@ class MaintenanceCardHeader extends StatelessWidget {
   const MaintenanceCardHeader({
     super.key,
     required this.model,
-    required this.time,
+    required this.time, required this.date,
   });
 
   final WaterQualityModel model;
   final String time;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +29,13 @@ class MaintenanceCardHeader extends StatelessWidget {
           children: [
             Text(
               'الزيارة #1',
-    
+
               style: AppTextStyles.styleMedium16(
                 context,
               ).copyWith(color: AppColors.ktextcolor),
             ),
             SizedBox(height: SizeConfig.h(4)),
-            MaintenanceDateRow(
-              date: formatDate(model.lastUpdated),
-              time: time,
-            ),
+            MaintenanceDateRow(date: date, time: time),
           ],
         ),
         buildStatusLabel(

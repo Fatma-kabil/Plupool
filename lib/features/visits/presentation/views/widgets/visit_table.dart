@@ -37,7 +37,7 @@ class VisitsTable extends StatelessWidget {
                   ).copyWith(color: AppColors.ktextcolor),
                 ),
               ),
-              Container(width: 1, height: SizeConfig.h(25), color: Colors.grey),
+              Container(width: SizeConfig.w(1), height: SizeConfig.h(25), color: AppColors.textFieldBorderColor),
               Expanded(
                 child: Text(
                   'الحالة',
@@ -50,47 +50,43 @@ class VisitsTable extends StatelessWidget {
             ],
           ),
 
-          const Divider(),
+          const Divider(color: AppColors.textFieldBorderColor),
 
           /// 🔹 Rows (Scrollable)
           SizedBox(
             height: SizeConfig.h(200),
-            child: ListView.builder(
+            child: ListView.separated(
               itemCount: 10,
+              separatorBuilder: (_, __) => Divider(color: AppColors.textFieldBorderColor),
               itemBuilder: (context, index) {
-                /// 🧠 Fake status logic (بدّليه بالـ API بعدين)
                 final status = index.isEven
                     ? RequestStatus.completed
                     : RequestStatus.scheduled;
 
                 final colors = RequestStatusColors.getColors(status);
 
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: SizeConfig.h(6)),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'الزيارة #${index + 1}',
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.styleSemiBold16(
-                            context,
-                          ).copyWith(color: Color(0xff555555)),
-                        ),
+                return Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'الزيارة #${index + 1}',
+                        textAlign: TextAlign.center,
+                         style: AppTextStyles.styleSemiBold16(
+                    context,
+                  ).copyWith(color: AppColors.ktextcolor),
                       ),
-                      Container(
-                        width: 1,
-                        height: SizeConfig.h(30),
-                        color: Colors.grey,
+                    ),
+                    Container(
+                      width:SizeConfig.w(1) ,
+                      height: SizeConfig.h(35),
+                      color: AppColors.textFieldBorderColor,
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: buildStatusLabel(colors, context, status),
                       ),
-                      Expanded(
-                        child: Center(
-                          child: buildStatusLabel(colors, context, status),
-                        ),
-                      ),
-                      Divider(height: 16, color: Colors.grey),
-                    ],
-                  ),
+                    ),
+                  ],
                 );
               },
             ),

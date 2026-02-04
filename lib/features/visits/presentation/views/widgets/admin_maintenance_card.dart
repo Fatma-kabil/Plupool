@@ -16,14 +16,20 @@ class AdminMaintenanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate = intl.DateFormat('d MMMM yyyy – hh:mm a', 'ar')
-        .format(model.lastUpdated)
-        .replaceAll('ص', 'صباحاً')
-        .replaceAll('م', 'مساءً');
+    final formattedDate = intl.DateFormat(
+  'EEEE yyyy/MM/d – hh:mm a',
+  'ar',
+)
+    .format(model.lastUpdated)
+    .replaceAll('ص', 'صباحاً')
+    .replaceAll('م', 'مساءً');
 
-    final parts = formattedDate.split('–');
 
-    final time = parts.length > 1 ? parts[1].trim() : '';
+   final parts = formattedDate.split('–');
+
+final date = parts[0].trim(); // الخميس 16/01/2025
+final time = parts.length > 1 ? parts[1].trim() : '';
+
 
     return Container(
       margin: EdgeInsets.symmetric(
@@ -41,7 +47,7 @@ class AdminMaintenanceCard extends StatelessWidget {
       child: Column(
         children: [
           // التاريخ والوقت
-          MaintenanceCardHeader(model: model, time: time),
+          MaintenanceCardHeader(model: model, time: time,date: date,),
           SizedBox(height: SizeConfig.h(15)),
 
           // القيم
@@ -86,8 +92,8 @@ class AdminMaintenanceCard extends StatelessWidget {
               textAlign: TextAlign.right,
               textDirection: TextDirection.rtl,
             ),
-                      SizedBox(height: SizeConfig.h(6)),
-            MaintenanceCardFooter()
+          SizedBox(height: SizeConfig.h(6)),
+          MaintenanceCardFooter(),
         ],
       ),
     );
