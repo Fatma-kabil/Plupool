@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/functions/message_status_text.dart';
+import 'package:plupool/features/contact_us/data/models/contact_us_model.dart';
 import 'package:plupool/features/home/data/models/drawer_item_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
@@ -932,7 +933,7 @@ final List<Map> companyresFooter = [
     'icon': Icons.headset_mic,
     'title': "تواصل معنا ورسائل الدعم",
     'color': Color(0xffEA5A65),
-    'view': '/customerservicesview',
+    'view': '/companyrescontactusview',
   },
   {
     'icon': Icons.shopping_cart_outlined,
@@ -986,52 +987,73 @@ final List<AdminProjectModel> adminProjects = [
   AdminProjectModel(
     projectTitle: "مشروع النخيل السكني",
     location: "القاهرة الجديدة",
-    startDate: DateTime(2025,9,15),
-    finishedDate: DateTime(2026,5,20),
+    startDate: DateTime(2025, 9, 15),
+    finishedDate: DateTime(2026, 5, 20),
     finshiedPools: 1,
     totalPools: 4,
-    nextVisit: DateTime(2025,10,22,11,00),
-    status: RequestStatus.inProgress
+    nextVisit: DateTime(2025, 10, 22, 11, 00),
+    status: RequestStatus.inProgress,
   ),
 
-   AdminProjectModel(
+  AdminProjectModel(
     projectTitle: "مشروع النخيل السكني",
     location: "القاهرة الجديدة",
-    startDate: DateTime(2025,9,15),
-    finishedDate: DateTime(2026,5,20),
+    startDate: DateTime(2025, 9, 15),
+    finishedDate: DateTime(2026, 5, 20),
     finshiedPools: 0,
     totalPools: 10,
-    nextVisit: DateTime(2025,10,22,11,00),
-    status: RequestStatus.scheduled
+    nextVisit: DateTime(2025, 10, 22, 11, 00),
+    status: RequestStatus.scheduled,
   ),
-   AdminProjectModel(
+  AdminProjectModel(
     projectTitle: "مشروع النخيل السكني",
     location: "القاهرة الجديدة",
-    startDate: DateTime(2025,9,15),
-    finishedDate: DateTime(2026,5,20),
+    startDate: DateTime(2025, 9, 15),
+    finishedDate: DateTime(2026, 5, 20),
     finshiedPools: 0,
     totalPools: 10,
-    nextVisit: DateTime(2025,10,22,11,00),
-    status: RequestStatus.urgent
+    nextVisit: DateTime(2025, 10, 22, 11, 00),
+    status: RequestStatus.urgent,
   ),
-   AdminProjectModel(
+  AdminProjectModel(
     projectTitle: "مشروع النخيل السكني",
     location: "القاهرة الجديدة",
-    startDate: DateTime(2025,9,15),
-    finishedDate: DateTime(2026,5,20),
+    startDate: DateTime(2025, 9, 15),
+    finishedDate: DateTime(2026, 5, 20),
     finshiedPools: 4,
     totalPools: 4,
-    nextVisit: DateTime(2025,10,22,11,00),
-    status: RequestStatus.completed
+    nextVisit: DateTime(2025, 10, 22, 11, 00),
+    status: RequestStatus.completed,
   ),
-   AdminProjectModel(
+  AdminProjectModel(
     projectTitle: "مشروع النخيل السكني",
     location: "القاهرة الجديدة",
-    startDate: DateTime(2025,9,15),
-    finishedDate: DateTime(2026,5,20),
+    startDate: DateTime(2025, 9, 15),
+    finishedDate: DateTime(2026, 5, 20),
     finshiedPools: 2,
     totalPools: 9,
-    nextVisit: DateTime(2025,10,22,11,00),
-    status: RequestStatus.inProgress
+    nextVisit: DateTime(2025, 10, 22, 11, 00),
+    status: RequestStatus.inProgress,
+  ),
+];
+
+final List<ContactUsModel> companyContactUs = [
+  ContactUsModel(
+    companyName: "شركة التقنية المتطورة",
+    companyRes: "أحمد محمد",
+    message: "هل تقدمون خدمات بناء حمامات سباحة؟",
+    messageDate: DateTime(2025, 5, 4),
+    phone: "01558098364",
+    projectType: "بناء حمامات سباحة",
+    status: MessageStatus.pending,
+  ),
+   ContactUsModel(
+    companyName: "شركة التقنية المتطورة",
+    companyRes: "أحمد محمد",
+    message: "هل تقدمون خدمات بناء حمامات سباحة؟",
+    messageDate: DateTime(2025, 5, 4),
+    phone: "01558098364",
+    projectType: "بناء حمامات سباحة",
+    status: MessageStatus.solved,
   ),
 ];

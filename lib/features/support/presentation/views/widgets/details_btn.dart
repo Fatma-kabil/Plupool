@@ -23,6 +23,7 @@ class DetailsBtn extends StatelessWidget {
             style: AppTextStyles.styleBold16(context).copyWith(
               color: AppColors.kprimarycolor,
               decoration: TextDecoration.underline,
+              decorationColor: AppColors.kprimarycolor,
             ),
           ),
           SizedBox(width: SizeConfig.w(4)),

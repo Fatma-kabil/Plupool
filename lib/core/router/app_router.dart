@@ -10,6 +10,7 @@ import 'package:plupool/features/company_res/presentation/views/add_company_res_
 import 'package:plupool/features/company_res/presentation/views/company_res_profile.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_view.dart';
 import 'package:plupool/features/company_res/presentation/views/edit_companny_res_view.dart';
+import 'package:plupool/features/contact_us/presentation/views/company_res_contact_us_view.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
 import 'package:plupool/features/customers/presentation/views/customer_profile_view.dart';
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
@@ -522,6 +523,12 @@ final GoRouter appRouter = GoRouter(
       name: 'editcompletedvisitview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const EditCompletedVisitView()),
+    ),
+     GoRoute(
+      path: '/companyrescontactusview',
+      name: 'companyrescontactusview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const CompanyResContactUsView()),
     ),
   ],
 );
