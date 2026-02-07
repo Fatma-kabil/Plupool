@@ -33,11 +33,11 @@ class MessageDetailsSection extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                Icons.note_alt_outlined,
+                Icons.notes_sharp,
                 color: Color(0xffBBBBBB),
                 size: SizeConfig.w(20),
               ),
-              SizedBox(width: SizeConfig.w(4)),
+              SizedBox(width: SizeConfig.w(6)),
               Expanded(
                 child: Text(
                   message.message,

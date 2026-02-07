@@ -8,8 +8,9 @@ import 'package:plupool/features/contact_us/data/models/contact_us_model.dart';
 import 'package:plupool/features/support/presentation/views/widgets/details_btn.dart';
 
 class CompanyReContactUsCard extends StatelessWidget {
-  const CompanyReContactUsCard({super.key, required this.model});
+  const CompanyReContactUsCard({super.key, required this.model,this.onTap});
   final ContactUsModel model;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     final colors = MessageStatusColors.getColors(model.status);
@@ -82,9 +83,7 @@ class CompanyReContactUsCard extends StatelessWidget {
                 ).copyWith(color: AppColors.ktextcolor),
               ),
               SizedBox(height: SizeConfig.h(15)),
-               DetailsBtn(onTap: () {
-                 
-               },),
+               DetailsBtn(onTap:onTap),
             ],
           ),
         ],

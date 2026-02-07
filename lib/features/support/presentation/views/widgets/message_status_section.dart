@@ -6,7 +6,8 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class MessageStatusSection extends StatefulWidget {
-  const MessageStatusSection({super.key});
+  const MessageStatusSection({super.key, this.text});
+  final String? text;
 
   @override
   State<MessageStatusSection> createState() => _MessageStatusSectionState();
@@ -20,14 +21,14 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          " تعديل حالة الرسالة ",
+          widget.text ?? " تعديل حالة الرسالة ",
           style: AppTextStyles.styleSemiBold16(
             context,
           ).copyWith(color: AppColors.ktextcolor),
         ),
         SizedBox(height: 10),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: StatusSelector<MessageStatus>(

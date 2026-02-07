@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -58,10 +57,9 @@ class RoleCard extends StatelessWidget {
                   child: Padding(
                     padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(9), vertical: SizeConfig.w(9)),
                     child: Center(
-                      child: SvgPicture.asset(
+                      child: Icon(
                         role.image,
-                        width: SizeConfig.w(28),
-                        height:SizeConfig.w(28),
+                        size: SizeConfig.w(28),
                         color: AppColors.kprimarycolor,
                       ),
                     ),
@@ -73,7 +71,7 @@ class RoleCard extends StatelessWidget {
 
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       role.title,
@@ -90,7 +88,7 @@ class RoleCard extends StatelessWidget {
                   ],
                 ),
               ),
-            ].reversed.toList(), // <<< يخلي الأيقونة على اليمين
+            ] // <<< يخلي الأيقونة على اليمين
           ),
         ),
       ),

@@ -3,8 +3,8 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/contact_us/presentation/views/widgets/company_res_contact_us_section.dart';
-import 'package:plupool/features/packages/presentation/views/widgets/admin_packages_section.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/tab_with_count.dart';
+import 'package:plupool/features/support/presentation/views/widgets/company_res_support_section.dart';
 
 class CompanyResContactUsViewBody extends StatelessWidget {
   const CompanyResContactUsViewBody({super.key});
@@ -66,7 +66,7 @@ class CompanyResContactUsViewBody extends StatelessWidget {
                 vertical: SizeConfig.h(22),
               ),
               child: TabBarView(
-                children: [CompanyResContactUsSection(), AdminPackagesSection()],
+                children: [CompanyResContactUsSection(), CompanyResSupportSection()],
               ),
             ),
           ),

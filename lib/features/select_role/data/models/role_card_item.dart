@@ -1,8 +1,10 @@
 
+import 'package:flutter/material.dart';
+
 class RoleCardItemModel {
   final String title;
   final String subtitle;
-  final String image;
+  final IconData image;
   
   
 

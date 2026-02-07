@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/features/contact_us/presentation/views/widgets/company_re_contact_us_card.dart';
 
-class CompanyResContactUsSection extends StatelessWidget {
-  const CompanyResContactUsSection({super.key});
+class CompanyResSupportSection extends StatelessWidget {
+  const CompanyResSupportSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class CompanyResContactUsSection extends StatelessWidget {
         return CompanyReContactUsCard(
           model: companyContactUs[index],
           onTap: () {
-            context.push('/contactusdetailsview');
+            context.push('/compnyressupportview');
           },
         );
       },
