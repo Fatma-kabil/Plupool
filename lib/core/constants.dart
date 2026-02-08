@@ -7,6 +7,7 @@ import 'package:plupool/features/home/data/models/drawer_item_model.dart';
 import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
+import 'package:plupool/features/maintenance/data/models/requested_maintenance_card_model.dart';
 import 'package:plupool/features/notifications/data/models/notifiction_type_model.dart';
 import 'package:plupool/features/orders/data/models/order_card_model.dart';
 import 'package:plupool/features/orders/domain/entities/order_status.dart';
@@ -33,17 +34,17 @@ final List<RoleCardItemModel> roles = [
   RoleCardItemModel(
     title: "صاحب حمام سباحة",
     subtitle: "احجز خدمات الإنشاء أو الصيانة و تابع حمامك \nبخدمات ذكية",
-    image: 'assets/icons/user.svg',
+    image: Icons.pool,
   ),
   RoleCardItemModel(
     title: "فني",
     subtitle: "احصل على فرص عمل، تقييمات، وزود دخلك \nبسهولة",
-    image: 'assets/icons/services.svg',
+    image: Icons.handyman_outlined,
   ),
   RoleCardItemModel(
     title: "أمثل شركة أو مطور عقاري",
     subtitle: "تعاون معنا في تنفيذ حمامات سباحة ذكية \nوخدمات المشاريع الكبرى",
-    image: 'assets/icons/buliding.svg',
+    image: Icons.business,
   ),
 ];
 
@@ -1047,7 +1048,7 @@ final List<ContactUsModel> companyContactUs = [
     projectType: "بناء حمامات سباحة",
     status: MessageStatus.pending,
   ),
-   ContactUsModel(
+  ContactUsModel(
     companyName: "شركة التقنية المتطورة",
     companyRes: "أحمد محمد",
     message: "هل تقدمون خدمات بناء حمامات سباحة؟",
@@ -1055,5 +1056,32 @@ final List<ContactUsModel> companyContactUs = [
     phone: "01558098364",
     projectType: "بناء حمامات سباحة",
     status: MessageStatus.solved,
+  ),
+];
+
+final List<RequestedMaintenanceCardModel> requestedMaintenanceCards = [
+  RequestedMaintenanceCardModel(
+    name: "عاصم محمود",
+    role: "عميل",
+    statu: 'جديد',
+    service: 'صيانة الفلتر',
+  ),
+  RequestedMaintenanceCardModel(
+    name: "أحمد محمود",
+    role: "ممثل شركه",
+    statu: 'جديد',
+    service: 'باقه شهرية',
+  ),
+   RequestedMaintenanceCardModel(
+    name: "عاصم محمود",
+    role: "عميل",
+    statu: 'تم التواصل',
+    service: 'صيانة الفلتر',
+  ),
+  RequestedMaintenanceCardModel(
+    name: "أحمد محمود",
+    role: "ممثل شركه",
+    statu: 'تم التواصل',
+    service: 'باقه شهرية',
   ),
 ];

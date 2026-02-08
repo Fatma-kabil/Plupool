@@ -28,7 +28,7 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
         ),
         SizedBox(height: 10),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: StatusSelector<MessageStatus>(

@@ -8,6 +8,7 @@ import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cu
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
+import 'package:plupool/features/home/presentaation/manager/drawer_cubit/drawer_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -25,6 +26,7 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<OtpCubit>()),
         BlocProvider(create: (_) => sl<AuthCubit>()),
         BlocProvider(create: (_) => sl<UserCubit>()),
+        BlocProvider(create: (_) => DrawerCubit()),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,
