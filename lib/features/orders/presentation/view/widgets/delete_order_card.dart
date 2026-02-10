@@ -5,7 +5,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class DeleteOrderCard extends StatelessWidget {
-  const DeleteOrderCard({super.key,  this.text});
+  const DeleteOrderCard({super.key, this.text});
   final String? text;
 
   @override
@@ -36,7 +36,7 @@ class DeleteOrderCard extends StatelessWidget {
             children: [
               Text(
                 textAlign: TextAlign.center,
-              text??  "هل أنت متأكد من حذف هذا المنتج ؟",
+                text ?? "هل أنت متأكد من حذف هذا المنتج ؟",
                 style: AppTextStyles.styleSemiBold25(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
@@ -54,11 +54,18 @@ class DeleteOrderCard extends StatelessWidget {
                       ),
                       onPressed: () {},
 
-                      child: Text(
-                        "نعم",
-                        style: AppTextStyles.styleMedium16(
-                          context,
-                        ).copyWith(color: Colors.white),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: SizeConfig.isWideScreen
+                              ? SizeConfig.h(8)
+                              : 0,
+                        ),
+                        child: Text(
+                          "نعم",
+                          style: AppTextStyles.styleMedium16(
+                            context,
+                          ).copyWith(color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
@@ -74,11 +81,18 @@ class DeleteOrderCard extends StatelessWidget {
                       onPressed: () {
                         context.pop();
                       },
-                      child: Text(
-                        "لا",
-                        style: AppTextStyles.styleMedium16(
-                          context,
-                        ).copyWith(color: const Color(0xffE63946)),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: SizeConfig.isWideScreen
+                              ? SizeConfig.h(8)
+                              : 0,
+                        ),
+                        child: Text(
+                          "لا",
+                          style: AppTextStyles.styleMedium16(
+                            context,
+                          ).copyWith(color: const Color(0xffE63946)),
+                        ),
                       ),
                     ),
                   ),

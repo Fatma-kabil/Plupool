@@ -60,7 +60,9 @@ class AppDrawer extends StatelessWidget {
                         title: 'الإشعارات',
                         badgeCount: 8,
                         isSelected: selectedIndex == 3,
-                        onTap: () => onItemTap(3, () {}),
+                        onTap: () => onItemTap(3, () {
+                          context.go('/notificationinboxview');
+                        }),
                       ),
                       DrawerItem(
                         icon: Icons.people_outline,

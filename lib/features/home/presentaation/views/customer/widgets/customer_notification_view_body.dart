@@ -38,7 +38,7 @@ class _CustomerNotificationViewBodyState
       "time": "منذ يوم",
     },
     {
-      "type": "Reports",
+      "type": "reports",
       "title": "تم الإبلاغ عن غياب الفني.",
       "subtitle": "سيتم التواصل معك قريبًا من فريق الدعم.",
       "time": "منذ يوم ",
@@ -60,7 +60,7 @@ class _CustomerNotificationViewBodyState
       return allItems.where((i) => i["type"] == "reminder").toList();
     }
    if (tab == "البلاغات") {
-  return allItems.where((i) => i["type"] == "Reports").toList();
+  return allItems.where((i) => i["type"] == "reports").toList();
 }
 
     return [];

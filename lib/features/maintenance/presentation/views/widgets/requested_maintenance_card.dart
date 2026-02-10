@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:plupool/core/theme/app_colors.dart';
@@ -23,12 +21,20 @@ class RequestedMaintenanceCard extends StatefulWidget {
 
 class _RequestedMaintenanceCardState extends State<RequestedMaintenanceCard> {
   late String selected;
-
   @override
   void initState() {
     super.initState();
-    selected = widget.model.statu;
-    log('Initial selected status: $selected');
+    selected = widget.model.statu; // تهيئة القيمة هنا
+  }
+
+  @override
+  void didUpdateWidget(covariant RequestedMaintenanceCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.model.statu != widget.model.statu) {
+      setState(() {
+        selected = widget.model.statu;
+      });
+    }
   }
 
   @override
