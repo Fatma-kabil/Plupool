@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/consruction_service/presentation/views/widgets/requested_construction_section.dart';
+import 'package:plupool/features/notifications/presentation/views/widgets/add_notification_section.dart';
 import 'package:plupool/features/notifications/presentation/views/widgets/notification_inbox_section.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/tab_with_count.dart';
 
@@ -69,13 +69,13 @@ class _NotificationInboxViewBodyState extends State<NotificationInboxViewBody> {
           SliverFillRemaining(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.w(6),
+            //    horizontal: SizeConfig.w(6),
                 vertical: SizeConfig.h(18),
               ),
               child: TabBarView(
                 children: [
                   NotificationInboxSection(),
-                  RequestedConstructionSection(),
+                  AddNotificationSection(),
                 ],
               ),
             ),

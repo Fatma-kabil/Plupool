@@ -7,10 +7,7 @@ class TabWithCount extends StatelessWidget {
   final String title;
   final int count;
 
-  const TabWithCount({super.key, 
-    required this.title,
-    required this.count,
-  });
+  const TabWithCount({super.key, required this.title, required this.count});
 
   @override
   Widget build(BuildContext context) {
@@ -21,27 +18,25 @@ class TabWithCount extends StatelessWidget {
       children: [
         Text(
           title,
-          style: AppTextStyles.styleRegular16(context)
-              .copyWith(fontFamily: 'Cairo', color: color),
+          style: AppTextStyles.styleRegular16(
+            context,
+          ).copyWith(fontFamily: 'Cairo', color: color),
         ),
         SizedBox(width: SizeConfig.w(6)),
-       Container(
-  constraints: BoxConstraints(
-    minWidth: SizeConfig.w(22),
-    minHeight: SizeConfig.w(22),
-  ),
-  alignment: Alignment.center,
-  decoration: BoxDecoration(
-    shape: BoxShape.circle,
-    color: color,
-  ),
-  child: Text(
-    count.toString(),
-    style: AppTextStyles.styleSemiBold14(context)
-        .copyWith(color: Colors.white),
-  ),
-),
-
+        Container(
+          constraints: BoxConstraints(
+            minWidth: SizeConfig.w(22),
+            minHeight: SizeConfig.w(22),
+          ),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+          child: Text(
+            count.toString(),
+            style: AppTextStyles.styleSemiBold14(
+              context,
+            ).copyWith(color: Colors.white),
+          ),
+        ),
       ],
     );
   }
