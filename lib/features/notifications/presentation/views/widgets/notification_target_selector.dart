@@ -57,22 +57,27 @@ class _NotificationTargetSelectorState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Transform.scale(
-                    scale: 0.85,
-                    child: Checkbox(
-                      value: isSelected,
-                      onChanged: (_) => _toggle(t),
-
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      visualDensity: VisualDensity.compact,
-                      checkColor: AppColors.kprimarycolor,
-                      activeColor: AppColors.kScaffoldColor,
-
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        side: BorderSide(color: Color(0xff777777)),
+                    scale:SizeConfig.w(0.82),
+                    child: Padding(
+                      padding:  EdgeInsets.only(right:SizeConfig.isWideScreen? SizeConfig.w(4):0),
+                      child: Checkbox(
+                        value: isSelected,
+                        onChanged: (_) => _toggle(t),
+                      
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        visualDensity: VisualDensity.compact,
+                        checkColor: AppColors.kprimarycolor,
+                        activeColor: AppColors.kScaffoldColor,
+                      
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          side: BorderSide(color: Color(0xff777777)),
+                        ),
                       ),
                     ),
                   ),
+                      SizedBox(width:SizeConfig.isWideScreen? SizeConfig.w(10):0,), // 👈 المسافة هنا
+
                   Text(
                     t,
                     style: AppTextStyles.styleRegular16(

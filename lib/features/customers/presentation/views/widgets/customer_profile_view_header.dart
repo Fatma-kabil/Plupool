@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -48,7 +49,10 @@ class CustomerProfileViewHeader extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AddOfferBtn(
-                padding: 10,
+                onTap: () {
+                  context.push('/editcustomerview');
+                },
+                padding: 8,
                 text: "تعديل البيانات",
                 icon: Icons.edit_document,
                 style: AppTextStyles.styleSemiBold14(
@@ -56,7 +60,10 @@ class CustomerProfileViewHeader extends StatelessWidget {
                 ).copyWith(color: AppColors.kprimarycolor),
               ),
               AddOfferBtn(
-                padding: 10,
+                 onTap: () {
+                  context.push('/addnotificationsview');
+                },
+                padding: 8,
                 text: "إرسال إشعار",
                 icon: Icons.notification_add,
                 style: AppTextStyles.styleSemiBold14(

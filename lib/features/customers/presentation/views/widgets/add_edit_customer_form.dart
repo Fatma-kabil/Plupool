@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/validators.dart';
@@ -7,17 +6,16 @@ import 'package:plupool/features/auth/presentation/views/widgets/phone_input_fie
 import 'package:plupool/features/customers/presentation/views/widgets/status_row.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
 
-class AddCompanyForm extends StatelessWidget {
-  const AddCompanyForm({
+class AddEditCustomerForm extends StatelessWidget {
+  const AddEditCustomerForm({
     super.key,
     required this.nameController,
+    required this.locationController,
     required this.phoneFieldKey,
     required this.phoneController,
-    required this.companyController,
   });
-
   final TextEditingController nameController;
-  final TextEditingController companyController;
+  final TextEditingController locationController;
   final GlobalKey<FormFieldState> phoneFieldKey;
   final TextEditingController phoneController;
 
@@ -30,29 +28,31 @@ class AddCompanyForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // اسم العميل
-              FieldLabel('اسم ممثل الشركه'),
+              FieldLabel('اسم العميل'),
+
               CustomTextFormField(
                 controller: nameController,
                 hintText: 'ادخل الاسم ',
                 icon: Icons.person_2_outlined,
                 validator: (v) => Validators.name(v),
               ),
-    
-            
+
               SizedBox(height: SizeConfig.h(30)),
-              FieldLabel('اسم الشركه'),
+              FieldLabel('مكان الإقامة'),
+             
               CustomTextFormField(
-                controller: companyController,
-                hintText: 'ادخل اسم الشركه ',
-                icon: Icons.business_outlined,
-                validator: (v) => Validators.name(v),
+                controller: locationController,
+                hintText: 'ادخل مكان الإقامة',
+                icon: Icons.location_on_outlined,
+                validator: (v) =>
+                    Validators.required(v, fieldName: 'مكان الإقامة'),
               ),
-    
-            
+
               SizedBox(height: SizeConfig.h(30)),
-    
+
               // رقم الهاتف
-            FieldLabel('رقم الهاتف'),
+              FieldLabel('رقم الهاتف'),
+
               PhoneInputField(
                 key: phoneFieldKey,
                 controller: phoneController,

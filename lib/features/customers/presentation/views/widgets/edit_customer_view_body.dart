@@ -6,16 +6,21 @@ import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/add_edit_customer_form.dart';
 
-class AddCustomerViewBody extends StatelessWidget {
-  const AddCustomerViewBody({super.key});
+class EditCustomerViewBody extends StatelessWidget {
+  EditCustomerViewBody({super.key});
+  final TextEditingController nameController = TextEditingController(
+    text: "أحمد محمد",
+  );
+  final TextEditingController locationController = TextEditingController(
+    text: "زهراء المعادي",
+  );
+  final TextEditingController phoneController = TextEditingController(
+    text: "01154269877",
+  );
+  final phoneFieldKey = GlobalKey<FormFieldState>();
 
   @override
   Widget build(BuildContext context) {
-    final nameController = TextEditingController();
-    final locationController = TextEditingController();
-    final phoneController = TextEditingController();
-    final phoneFieldKey = GlobalKey<FormFieldState>();
-
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
       child: Column(
@@ -27,7 +32,7 @@ class AddCustomerViewBody extends StatelessWidget {
             phoneController: phoneController,
           ),
           CustomTextBtn(
-            text: " إضافة العميل",
+            text: "تعديل",
             width: double.infinity,
             padding: SizeConfig.h(7),
 
@@ -35,9 +40,9 @@ class AddCustomerViewBody extends StatelessWidget {
               context,
             ).copyWith(color: Colors.white),
             trailing: Icon(
-              Icons.person_add_alt_1,
+              Icons.edit,
               color: Colors.white,
-              size: SizeConfig.w(24),
+              size: SizeConfig.w(SizeConfig.isWideScreen ? 17 : 20),
             ),
             onPressed: () {},
           ),
@@ -48,7 +53,7 @@ class AddCustomerViewBody extends StatelessWidget {
             trailing: Icon(
               Icons.cancel_outlined,
               color: AppColors.kprimarycolor,
-              size: SizeConfig.w(24),
+              size: SizeConfig.w(SizeConfig.isWideScreen ? 20 : 24),
             ),
           ),
         ],

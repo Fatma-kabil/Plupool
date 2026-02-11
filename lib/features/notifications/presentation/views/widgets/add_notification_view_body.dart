@@ -64,7 +64,7 @@ class _AddNotificationViewBodyState
                     },
                   ),
 
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 22),
 
                   /// عنوان الإشعار
                   const FieldLabel('عنوان الإشعار'),
@@ -73,7 +73,7 @@ class _AddNotificationViewBodyState
                     hint: 'اكتب عنوان الإشعار...',
                   ),
 
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 22),
 
                   /// نص الإشعار
                   const FieldLabel('نص الإشعار'),

@@ -49,16 +49,16 @@ class _AddNotificationSectionState extends State<AddNotificationSection> {
                     key: _targetKey,
                     onChanged: (val) => selectedTargets = val,
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 32),
                    const FieldLabel('نوع الإشعار'),
                   NotificationTypeSelector(onChanged: (val) => selectedType = val),
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 22),
               
                   /// عنوان الإشعار
                   const FieldLabel('عنوان الإشعار'),
                   TextField(controller: nameController, hint: 'اكتب عنوان الإشعار...'),
               
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 22),
               
                   /// نص الإشعار
                   const FieldLabel('نص الإشعار'),
