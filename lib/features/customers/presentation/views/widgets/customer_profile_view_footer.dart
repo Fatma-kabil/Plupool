@@ -42,7 +42,7 @@ class CustomerProfileViewFooter extends StatelessWidget {
                 Icon(
                   customerFooter[index]['icon'],
                   color: customerFooter[index]['color'],
-                  size: SizeConfig.w(24),
+                  size:SizeConfig.isWideScreen?SizeConfig.w(20):SizeConfig.w(24),
                 ),
                 SizedBox(width: SizeConfig.w(4)),
                 Text(

@@ -24,6 +24,7 @@ class AddEditCustomerForm extends StatelessWidget {
     return Expanded(
       child: SingleChildScrollView(
         child: Form(
+          
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

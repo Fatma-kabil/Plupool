@@ -25,7 +25,7 @@ class MaintenanceCardFooter extends StatelessWidget {
             child: Icon(
               Icons.edit_note_outlined,
               color: AppColors.kprimarycolor,
-              size: SizeConfig.w(20),
+              size:SizeConfig.isWideScreen ? SizeConfig.w(17) : SizeConfig.w(20),
             ),
           ),
         ),
@@ -39,7 +39,7 @@ class MaintenanceCardFooter extends StatelessWidget {
           child: Icon(
             Icons.delete_outline_rounded,
             color: Color(0xffE63946),
-            size: SizeConfig.w(20),
+            size:SizeConfig.isWideScreen ? SizeConfig.w(17) : SizeConfig.w(20),
           ),
         ),
       ],

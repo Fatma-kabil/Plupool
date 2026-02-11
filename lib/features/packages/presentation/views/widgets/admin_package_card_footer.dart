@@ -20,7 +20,7 @@ class AdminPackageCardFooter extends StatelessWidget {
             color: AppColors.kprimarycolor,
           ),
 
-          child: Icon(Icons.add, color: Colors.white, size: SizeConfig.w(18)),
+          child: Icon(Icons.add, color: Colors.white, size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(18),),
         ),
         SizedBox(width: SizeConfig.w(8)),
         Container(
@@ -36,7 +36,7 @@ class AdminPackageCardFooter extends StatelessWidget {
           child: Icon(
             Icons.remove,
             color: Color(0xffD4D4D4),
-            size: SizeConfig.w(18),
+            size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(18),
           ),
         ),
         Spacer(),
@@ -53,7 +53,7 @@ class AdminPackageCardFooter extends StatelessWidget {
             child: Icon(
               Icons.edit_note_outlined,
               color: AppColors.kprimarycolor,
-              size: SizeConfig.w(20),
+              size:SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(20),
             ),
           ),
         ),
@@ -67,7 +67,7 @@ class AdminPackageCardFooter extends StatelessWidget {
           child: Icon(
             Icons.delete_outline_rounded,
             color: Color(0xffE63946),
-            size: SizeConfig.w(20),
+            size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(20),
           ),
         ),
       ],

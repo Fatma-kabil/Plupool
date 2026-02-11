@@ -123,7 +123,7 @@ class _UpdateOrderCardState extends State<UpdateOrderCard> {
                 TextFieldWithIcon(controller:quantityController ,hint: "ادخل الكميه الجديده",icon:Icons.format_list_numbered ,),
                
                 SizedBox(height: SizeConfig.h(25)),
-                  AddEditOfferViewFooter(onPressed: () {}, text: "حفظ"),
+                  AddEditOfferViewFooter(onPressed: () {}, text: "حفظ",buttonWidth: SizeConfig.isWideScreen ? SizeConfig.w(90) : SizeConfig.w(140),),
               ],
             ),
           ),

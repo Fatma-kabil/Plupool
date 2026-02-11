@@ -14,7 +14,7 @@ class AdminRatingViewBody extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: Text(
-            'ابحث عن العميل:',
+            'ابحث عن شخص:',
             style: AppTextStyles.styleSemiBold16(
               context,
             ).copyWith(color: AppColors.ktextcolor),
@@ -28,7 +28,7 @@ class AdminRatingViewBody extends StatelessWidget {
               vertical: SizeConfig.h(15),
             ),
             child:  CustomSearchPerson(
-              hintText: "ابحث باسم ممثل الشركه او رقم الهاتف",
+              hintText: "ابحث باسم الشخص او رقم الهاتف",
             ),
           ),
         ),
