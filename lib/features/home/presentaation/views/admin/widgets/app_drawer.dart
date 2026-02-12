@@ -76,7 +76,9 @@ class AppDrawer extends StatelessWidget {
                         icon: Icons.engineering_outlined,
                         title: 'الفنيين',
                         isSelected: selectedIndex == 5,
-                        onTap: () => onItemTap(5, () {}),
+                        onTap: () => onItemTap(5, () {
+                          context.push('/techsview');
+                        }),
                       ),
                       DrawerItem(
                         icon: Icons.flag_outlined,

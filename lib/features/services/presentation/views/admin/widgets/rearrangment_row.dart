@@ -37,7 +37,7 @@ class RearragnmentRow extends StatelessWidget {
               shape: BoxShape.circle,
               color: Color(0xff0077B6),
             ),
-            child: Icon(Icons.add, color: Colors.white, size: SizeConfig.w(18)),
+            child: Icon(Icons.add, color: Colors.white, size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(18),),
           ),
         ),
       ],
