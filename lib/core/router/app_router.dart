@@ -11,9 +11,12 @@ import 'package:plupool/features/company_res/presentation/views/company_res_prof
 import 'package:plupool/features/company_res/presentation/views/company_res_view.dart';
 import 'package:plupool/features/company_res/presentation/views/edit_companny_res_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/company_res_contact_us_view.dart';
+import 'package:plupool/features/contact_us/presentation/views/contact_us_details_view.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
 import 'package:plupool/features/customers/presentation/views/customer_profile_view.dart';
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
+import 'package:plupool/features/customers/presentation/views/edit_customer_pool_info.dart';
+import 'package:plupool/features/customers/presentation/views/edit_customer_view.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/presentaation/views/admin/admin_home_view.dart';
 import 'package:plupool/features/home/presentaation/views/admin/see_all_packages_view.dart';
@@ -22,6 +25,7 @@ import 'package:plupool/features/home/presentaation/views/customer/offer_details
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
 import 'package:plupool/features/notes/presentation/views/company_res_notes_view.dart';
 import 'package:plupool/features/notifications/presentation/views/add_notifications_view.dart';
+import 'package:plupool/features/notifications/presentation/views/notification_inbox_view.dart';
 import 'package:plupool/features/offers/presentation/views/add_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
@@ -60,6 +64,7 @@ import 'package:plupool/features/consruction_service/presentation/views/reserve_
 import 'package:plupool/features/services/presentation/views/admin/add_customer_service_view.dart';
 import 'package:plupool/features/services/presentation/views/admin/customer_services_view.dart';
 import 'package:plupool/features/services/presentation/views/admin/edit_customer_service_view.dart';
+import 'package:plupool/features/services/presentation/views/admin/requested_service_view.dart';
 import 'package:plupool/features/services/presentation/views/user/services_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
@@ -70,9 +75,13 @@ import 'package:plupool/features/store/presentation/views/cart_view.dart';
 import 'package:plupool/features/store/presentation/views/order_summary_view.dart';
 import 'package:plupool/features/support/data/models/message_model.dart';
 import 'package:plupool/features/support/presentation/views/admin_support_view.dart';
+import 'package:plupool/features/support/presentation/views/compny_res_support_view.dart';
 import 'package:plupool/features/support/presentation/views/message_details.dart';
 import 'package:plupool/features/tasks/presentation/views/customer_details_view.dart';
 import 'package:plupool/features/tasks/presentation/views/maintenance_update_view.dart';
+import 'package:plupool/features/tasks/presentation/views/tech_task_view.dart';
+import 'package:plupool/features/technicains/presentation/views/add_tech_view.dart';
+import 'package:plupool/features/technicains/presentation/views/techs_view.dart';
 import 'package:plupool/features/visits/presentation/views/add_completed_visit_view.dart';
 import 'package:plupool/features/visits/presentation/views/edit_completed_visit_view.dart';
 import 'package:plupool/features/visits/presentation/views/visit_view.dart';
@@ -529,6 +538,54 @@ final GoRouter appRouter = GoRouter(
       name: 'companyrescontactusview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CompanyResContactUsView()),
+    ),
+     GoRoute(
+      path: '/contactusdetailsview',
+      name: 'contactusdetailsview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const ContactUsDetailsView()),
+    ),
+     GoRoute(
+      path: '/compnyressupportview',
+      name: 'compnyressupportview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const CompnyResSupportView()),
+    ),
+      GoRoute(
+      path: '/requestedserviceview',
+      name: 'requestedserviceview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const RequestedServiceView()),
+    ),
+     GoRoute(
+      path: '/notificationinboxview',
+      name: 'notificationinboxview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const NotificationInboxView()),
+    ),
+    GoRoute(
+      path: '/editcustomerview',
+      name: 'editcustomerview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const EditCustomerView()),
+    ),
+     GoRoute(
+      path: '/editcustomerpoolinfo',
+      name: 'editcustomerpoolinfo',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const EditCustomerPoolInfo()),
+    ),
+     GoRoute(
+      path: '/techsview',
+      name: 'techsview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const TechsView()),
+    ),
+    GoRoute(
+      path: '/addtechview',
+      name: 'addtechview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AddTechView()),
     ),
   ],
 );

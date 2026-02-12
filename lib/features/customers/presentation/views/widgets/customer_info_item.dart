@@ -8,16 +8,18 @@ class CustomerInfoItem extends StatelessWidget {
     super.key,
     required this.icon,
     required this.title,
-    required this.value,
+    required this.value, this.crossAxisAlignment,
   });
 
   final IconData icon;
   final String title;
   final String value;
+  final CrossAxisAlignment? crossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: crossAxisAlignment??CrossAxisAlignment.center,
       children: [
         Row(
           children: [
