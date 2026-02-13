@@ -8,14 +8,15 @@ class MetricCard extends StatelessWidget {
   final TextStyle? valueTextStyle; // اختياري
   final String value;
   final String label;
+  final Color? iconColor;
 
   const MetricCard({
     super.key,
-     this.icon,
+    this.icon,
 
     required this.value,
     required this.label,
-    this.valueTextStyle,
+    this.valueTextStyle, this.iconColor,
   });
 
   @override
@@ -46,7 +47,7 @@ class MetricCard extends StatelessWidget {
                     ).copyWith(color: Colors.black),
               ),
               SizedBox(width: SizeConfig.w(4)),
-              Icon(icon??Icons.abc, size: SizeConfig.w(22)),
+              Icon(icon ?? Icons.abc, size: SizeConfig.w(22),color: iconColor,),
             ],
           ),
 

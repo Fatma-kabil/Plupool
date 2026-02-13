@@ -68,9 +68,7 @@ class MessageCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                  message.status == MessageStatus.pending
-                      ? "قيد المراجعه"
-                      : "تم الحل",
+                 statusText(message.status),
                   style: AppTextStyles.styleSemiBold14(
                     context,
                   ).copyWith(color: colors['labelText']),

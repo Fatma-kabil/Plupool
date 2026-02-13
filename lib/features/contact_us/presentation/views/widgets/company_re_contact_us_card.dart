@@ -64,9 +64,7 @@ class CompanyReContactUsCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                  model.status == MessageStatus.pending
-                      ? "قيد المراجعه"
-                      : "تم الحل",
+                statusText(model.status),
                   style: AppTextStyles.styleSemiBold14(
                     context,
                   ).copyWith(color: colors['labelText']),

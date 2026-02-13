@@ -3,6 +3,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class MessageStatusSection extends StatefulWidget {
@@ -33,7 +34,7 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
             Expanded(
               child: StatusSelector<MessageStatus>(
                 selected: selected,
-                items: const [MessageStatus.pending, MessageStatus.solved],
+                items: const [MessageStatus.pending, MessageStatus.solved,MessageStatus.newer],
                 displayText: (status) => statusText(status),
                 onChanged: (val) {
                   setState(() => selected = val);
@@ -42,6 +43,15 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
             ),
             SizedBox(width: SizeConfig.w(35)),
             GestureDetector(
+              onTap: () => {
+                showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (_) => const DeleteOrderCard(
+                    text: "هل أنت متأكد من حذف هذه الرسالة",
+                  ),
+                ),
+              },
               child: Container(
                 padding: EdgeInsets.all(SizeConfig.w(6)),
                 decoration: const BoxDecoration(

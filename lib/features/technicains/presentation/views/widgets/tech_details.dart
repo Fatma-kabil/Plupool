@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_info_item.dart';
 
 class TechDetails extends StatelessWidget {
@@ -7,6 +9,7 @@ class TechDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +29,10 @@ class TechDetails extends StatelessWidget {
             ),
           ],
         ),
-       Spacer(),
+       SizedBox(
+          height: SizeConfig.h(90),
+          child: const VerticalDivider(color: AppColors.textFieldBorderColor, thickness: 1),
+        ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [

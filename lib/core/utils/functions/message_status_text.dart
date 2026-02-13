@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:plupool/core/theme/app_colors.dart';
 
 enum MessageStatus {
+  newer,
   pending,
   solved,
   
@@ -10,6 +11,8 @@ enum MessageStatus {
 
 String statusText(MessageStatus status) {
   switch (status) {
+    case MessageStatus.newer:
+      return "جديد";
     case MessageStatus.pending:
       return "قيد المراجعة";
     case MessageStatus.solved:
@@ -21,8 +24,13 @@ String statusText(MessageStatus status) {
 class MessageStatusColors {
   static Map<String, dynamic> getColors(MessageStatus status) {
     switch (status) {
-     
-
+      case MessageStatus.newer:
+        return {
+'border': const Color(0xFFBBBBBB),
+          'bg': AppColors.kScaffoldColor,
+          'labelBg': const Color(0xFFCCE4F0),
+          'labelText': AppColors.kprimarycolor,
+          'progbar': Color(0xff0077B6),};
       case MessageStatus.solved:
         return {
           'border': const Color(0xFFCDF7EC), // mint green border

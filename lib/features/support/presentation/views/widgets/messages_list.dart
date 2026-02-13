@@ -15,8 +15,11 @@ class MessagesList extends StatelessWidget {
     final filteredMessages = messages.where((message) {
       if (selected == "قيد المراجعه") {
         return message.status == MessageStatus.pending;
-      } else {
+      } else if  (selected == "تم الحل") {
         return message.status == MessageStatus.solved;
+      }
+      else   {
+        return message.status == MessageStatus.newer;
       }
     }).toList();
 
