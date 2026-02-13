@@ -61,6 +61,8 @@ class CustomerServiceCard extends StatelessWidget {
 
             ServiceCardRow(title: "نوع الخدمة:", value: request.service),
             const SizedBox(height: 5),
+             ServiceCardRow(title: " العميل:", value: "احمد محمد"),
+            const SizedBox(height: 5),
             ServiceCardRow(title: "الفنيين:", value: request.techs),
             const SizedBox(height: 8),
             ServiceCardFooter()

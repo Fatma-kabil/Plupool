@@ -40,13 +40,13 @@ class TechProfileViewFooter extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  customerFooter[index]['icon'],
-                  color: customerFooter[index]['color'],
+                  techFooter[index]['icon'],
+                  color: techFooter[index]['color'],
                   size:SizeConfig.isWideScreen?SizeConfig.w(20):SizeConfig.w(24),
                 ),
                 SizedBox(width: SizeConfig.w(4)),
                 Text(
-                  customerFooter[index]['title'],
+                  techFooter[index]['title'],
                   style: AppTextStyles.styleMedium16(
                     context,
                   ).copyWith(color: Color(0xff777777)),
@@ -55,7 +55,7 @@ class TechProfileViewFooter extends StatelessWidget {
                 Icon(
                   Icons.arrow_forward_ios,
                   color: Color(0xffA4A4A4),
-                  size: SizeConfig.w(15),
+                  size:SizeConfig.isWideScreen?SizeConfig.w(12): SizeConfig.w(15),
                 ),
               ],
             ),

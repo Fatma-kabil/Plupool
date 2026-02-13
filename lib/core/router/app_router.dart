@@ -52,6 +52,7 @@ import 'package:plupool/features/projects/presentation/views/add_project_view.da
 import 'package:plupool/features/projects/presentation/views/admin_projects_view.dart';
 import 'package:plupool/features/rating/presentation/views/admin_rating_view.dart';
 import 'package:plupool/features/rating/presentation/views/customer_rating.dart';
+import 'package:plupool/features/reports/presentation/views/admin_reports_view.dart';
 import 'package:plupool/features/search/presentation/views/search_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
@@ -81,6 +82,8 @@ import 'package:plupool/features/tasks/presentation/views/customer_details_view.
 import 'package:plupool/features/tasks/presentation/views/maintenance_update_view.dart';
 import 'package:plupool/features/tasks/presentation/views/tech_task_view.dart';
 import 'package:plupool/features/technicains/presentation/views/add_tech_view.dart';
+import 'package:plupool/features/technicains/presentation/views/edit_tech_view.dart';
+import 'package:plupool/features/technicains/presentation/views/tech_profile_view.dart';
 import 'package:plupool/features/technicains/presentation/views/techs_view.dart';
 import 'package:plupool/features/visits/presentation/views/add_completed_visit_view.dart';
 import 'package:plupool/features/visits/presentation/views/edit_completed_visit_view.dart';
@@ -586,6 +589,24 @@ final GoRouter appRouter = GoRouter(
       name: 'addtechview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddTechView()),
+    ),
+     GoRoute(
+      path: '/techprofileview',
+      name: 'techprofileview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const TechProfileView()),
+    ),
+     GoRoute(
+      path: '/edittechview',
+      name: 'edittechview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const EditTechView()),
+    ),
+    GoRoute(
+      path: '/adminreportsview',
+      name: 'adminreportsview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AdminReportsView()),
     ),
   ],
 );

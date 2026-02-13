@@ -12,7 +12,7 @@ class AddTechViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nameController = TextEditingController();
-    final companyController = TextEditingController();
+    final locationController = TextEditingController();
     final phoneController = TextEditingController();
     final TextEditingController skillsController = TextEditingController();
     final TextEditingController noOfYearsController = TextEditingController();
@@ -29,7 +29,7 @@ class AddTechViewBody extends StatelessWidget {
               noOfYearsController: noOfYearsController,
               phoneFieldKey: phoneFieldKey,
               phoneController: phoneController,
-              locationController: companyController,
+              locationController: locationController,
             ),
               SizedBox(height: 40),
             CustomTextBtn(

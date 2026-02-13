@@ -1166,7 +1166,7 @@ final List<Map> techFooter = [
     'icon': Icons.flag,
     'title': "الشكاوي ورسائل الدعم",
     'color': Color(0xffEA5A65),
-    'view': '/companyrescontactusview',
+    'view': '/adminreportsview',
   },
   {
     'icon': Icons.shopping_cart_outlined,
