@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_header.dart';
@@ -11,7 +12,7 @@ class TechsViewBodyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-    //    context.push('/customerprofileview');
+        context.push('/techprofileview');
       },
       child: Container(
         padding: EdgeInsets.symmetric(

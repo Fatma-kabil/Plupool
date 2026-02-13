@@ -742,25 +742,25 @@ final List<Map> customerFooter = [
     'icon': Icons.star_outlined,
     'title': "التقييمات",
     'color': Color(0xffFF9F1C),
-    'view': '/customerservicesview',
+    'view':  '/customerratingview',
   },
   {
     'icon': Icons.flag,
     'title': "البلاغات ورسائل الدعم",
     'color': Color(0xffEA5A65),
-    'view': '/customerservicesview',
+    'view': '/companyrescontactusview',
   },
   {
     'icon': Icons.shopping_cart_outlined,
     'title': "طلبات المتجر",
     'color': AppColors.kprimarycolor,
-    'view': '/customerservicesview',
+    'view': '/customerstoreorderview',
   },
   {
     'icon': Icons.note_alt_outlined,
     'title': "الملاحظات",
     'color': Color(0xff7B7B7B),
-    'view': '/customerservicesview',
+    'view': '/companyresnotesview',
   },
 ];
 
@@ -1084,4 +1084,100 @@ final List<RequestedMaintenanceCardModel> requestedMaintenanceCards = [
     statu: 'تم التواصل',
     service: 'باقه شهرية',
   ),
+];
+
+
+  final List<Map<String, dynamic>> adminNotification = [
+  
+    {
+      "type": "report",
+      "title": "بلاغ عميل جديد",
+      "subtitle": "أبلغ العميل محمد كمال عن غياب الفني",
+      "time": "منذ يوم ",
+    },
+     {
+      "type": "support",
+      "title": "رسالة دعم جديدة",
+      "subtitle": "أرسل العميل خالد محمد رسالة جديدة",
+      "time": "منذ يوم ",
+    },
+     {
+      "type": "order",
+      "title": "طلب خدمة",
+      "subtitle": "أرسل العميل خالد محمد طلب خدمة جديدة",
+      "time": "منذ يوم ",
+      "ordertype":"serviceOrder"
+    },
+     {
+      "type": "message",
+      "title": "رسالة  جديدة",
+      "subtitle": "أرسل العميل خالد محمد رسالة  جديدة",
+      "time": "منذ يوم ",
+    },
+     {
+      "type": "reminder",
+      "title": "تنبيه مخزون منخفض",
+      "subtitle": "المنتج” فلتر ماء” وصل لحد التنبيه",
+      "time": "منذ يوم ",
+    },
+      {
+      "type": "order",
+      "title": "طلب متجر",
+      "subtitle": "هناك طلب جديد من المتجر",
+      "time": "منذ يوم ",
+       "ordertype":"storeOreder"
+    },
+    
+  ];
+ const notificationFilters = {
+  "all": {
+    "label": "الكل",
+    "type": null,
+  },
+  "order": {
+    "label": "طلبات",
+    "type": "order",
+  },
+  
+  "support": {
+    "label": "رسائل دعم",
+    "type": "support",
+  },
+  "reminder": {
+    "label": "تنبيهات",
+    "type": "reminder",
+  },
+  "report": {
+    "label": "بلاغات",
+    "type": "report",
+  },
+};
+
+
+final List<Map> techFooter = [
+  {
+    'icon': Icons.layers_outlined,
+    'title': "المهام",
+    'color': Color(0xff05B285),
+    'view': '/customerservicesview',
+  },
+ 
+  {
+    'icon': Icons.flag,
+    'title': "الشكاوي ورسائل الدعم",
+    'color': Color(0xffEA5A65),
+    'view': '/companyrescontactusview',
+  },
+  {
+    'icon': Icons.shopping_cart_outlined,
+    'title': "طلبات المتجر",
+    'color': AppColors.kprimarycolor,
+    'view': '/customerstoreorderview',
+  },
+  {
+    'icon': Icons.note_alt_outlined,
+    'title': "الملاحظات",
+    'color': Color(0xff7B7B7B),
+    'view': '/companyresnotesview',
+  },
 ];

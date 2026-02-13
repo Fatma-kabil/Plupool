@@ -42,6 +42,7 @@ class _EditCustomerPoolInfoFormState extends State<EditCustomerPoolInfoForm> {
               /// نوع الباقة + عدد الزيارات
               const FieldLabel('نوع حمام السباحه'),
               StatusSelector<String>(
+                
                 padding: EdgeInsets.symmetric(
                   vertical: SizeConfig.h(12),
                   horizontal: SizeConfig.w(12),

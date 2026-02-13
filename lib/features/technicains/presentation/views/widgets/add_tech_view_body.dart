@@ -20,42 +20,45 @@ class AddTechViewBody extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
-      child: Column(
-        children: [
-          EditAddTechForm(
-            nameController: nameController,
-            skillsController: skillsController,
-            noOfYearsController: noOfYearsController,
-            phoneFieldKey: phoneFieldKey,
-            phoneController: phoneController,
-            locationController: companyController,
-          ),
-          CustomTextBtn(
-            text: "إضافة",
-            width: double.infinity,
-            padding: SizeConfig.h(7),
-
-            textStyle: AppTextStyles.styleSemiBold16(
-              context,
-            ).copyWith(color: Colors.white),
-            trailing: Icon(
-              Icons.person_add_alt_1,
-              color: Colors.white,
-              size: SizeConfig.w(SizeConfig.isWideScreen ? 20 : 24),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            EditAddTechForm(
+              nameController: nameController,
+              skillsController: skillsController,
+              noOfYearsController: noOfYearsController,
+              phoneFieldKey: phoneFieldKey,
+              phoneController: phoneController,
+              locationController: companyController,
             ),
-            onPressed: () {},
-          ),
-          SizedBox(height: SizeConfig.h(15)),
-          CustomOutlinedBtn(
-            text: " إلغاء",
-            width: double.infinity,
-            trailing: Icon(
-              Icons.cancel_outlined,
-              color: AppColors.kprimarycolor,
-              size: SizeConfig.w(SizeConfig.isWideScreen ? 20 : 24),
+              SizedBox(height: 40),
+            CustomTextBtn(
+              text: "إضافة",
+              width: double.infinity,
+              padding: SizeConfig.h(7),
+        
+              textStyle: AppTextStyles.styleSemiBold16(
+                context,
+              ).copyWith(color: Colors.white),
+              trailing: Icon(
+                Icons.person_add_alt_1,
+                color: Colors.white,
+                size: SizeConfig.w(SizeConfig.isWideScreen ? 20 : 24),
+              ),
+              onPressed: () {},
             ),
-          ),
-        ],
+            SizedBox(height: SizeConfig.h(15)),
+            CustomOutlinedBtn(
+              text: " إلغاء",
+              width: double.infinity,
+              trailing: Icon(
+                Icons.cancel_outlined,
+                color: AppColors.kprimarycolor,
+                size: SizeConfig.w(SizeConfig.isWideScreen ? 20 : 24),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

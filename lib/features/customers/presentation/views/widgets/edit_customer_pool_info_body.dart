@@ -22,7 +22,7 @@ class _EditCustomerPoolInfoBodyState extends State<EditCustomerPoolInfoBody> {
   final poolLengthController = TextEditingController();
   final poolVolumeController = TextEditingController();
 
-  String selectedPoolTpe = "الباقه الشهريه";
+  String selectedPoolTpe = "اسكيمير";
 
   @override
   void dispose() {
