@@ -1156,7 +1156,7 @@ final List<RequestedMaintenanceCardModel> requestedMaintenanceCards = [
 
 final List<Map> techFooter = [
   {
-    'icon': Icons.layers_outlined,
+    'icon': Icons.task_outlined,
     'title': "المهام",
     'color': Color(0xff05B285),
     'view': '/customerservicesview',

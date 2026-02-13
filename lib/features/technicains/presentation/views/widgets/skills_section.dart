@@ -42,24 +42,28 @@ class SkillsSection extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: skills.length,
             itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: SizeConfig.w(6),
-                  vertical: SizeConfig.h(10),
-                ),
-                padding: EdgeInsets.symmetric(
-                  horizontal: SizeConfig.w(12),
-                  vertical: SizeConfig.h(4),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xffCCE4F0),
-                ),
-                child: Text(
-                  skills[index],
-                  style: AppTextStyles.styleSemiBold16(
-                    context,
-                  ).copyWith(color: AppColors.kprimarycolor),
+              return Center(
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.w(6),
+                    vertical: SizeConfig.h(10),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.w(12),
+                    vertical: SizeConfig.h(4),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color(0xffCCE4F0),
+                  ),
+                  child: Center(
+                    child: Text(
+                      skills[index],
+                      style: AppTextStyles.styleSemiBold16(
+                        context,
+                      ).copyWith(color: AppColors.kprimarycolor),
+                    ),
+                  ),
                 ),
               );
             },

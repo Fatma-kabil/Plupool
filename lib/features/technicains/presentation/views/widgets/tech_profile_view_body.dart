@@ -12,7 +12,9 @@ class TechProfileViewBody extends StatelessWidget {
       child: Column(
         children: [
           TechProfileViewHeader(),
+          SizedBox(height: 28,),
           TechProfileViewMiddle(),
+           SizedBox(height: 22,),
           TechProfileViewFooter(),
         ],
       ),

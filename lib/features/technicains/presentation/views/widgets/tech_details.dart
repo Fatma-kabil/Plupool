@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_info_item.dart';
 
 class TechDetails extends StatelessWidget {
@@ -27,10 +26,7 @@ class TechDetails extends StatelessWidget {
             ),
           ],
         ),
-        Padding(
-          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(35)),
-          child: Container(width: 1, color: Colors.grey,height: SizeConfig.h(80),),
-        ),
+       Spacer(),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
