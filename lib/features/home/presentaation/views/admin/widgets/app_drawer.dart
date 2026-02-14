@@ -85,7 +85,9 @@ class AppDrawer extends StatelessWidget {
                         title: 'البلاغات',
                         badgeCount: 5,
                         isSelected: selectedIndex == 6,
-                        onTap: () => onItemTap(6, () {}),
+                        onTap: () => onItemTap(6, () {
+                          context.push('/admindrawerreportview');
+                        }),
                       ),
                       DrawerItem(
                         icon: Icons.chat_outlined,

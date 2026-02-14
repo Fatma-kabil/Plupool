@@ -52,6 +52,7 @@ import 'package:plupool/features/projects/presentation/views/add_project_view.da
 import 'package:plupool/features/projects/presentation/views/admin_projects_view.dart';
 import 'package:plupool/features/rating/presentation/views/admin_rating_view.dart';
 import 'package:plupool/features/rating/presentation/views/customer_rating.dart';
+import 'package:plupool/features/reports/admin_drawer_report_view.dart';
 import 'package:plupool/features/reports/presentation/views/admin_reports_view.dart';
 import 'package:plupool/features/search/presentation/views/search_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
@@ -607,6 +608,12 @@ final GoRouter appRouter = GoRouter(
       name: 'adminreportsview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminReportsView()),
+    ),
+     GoRoute(
+      path: '/admindrawerreportview',
+      name: 'admindrawerreportview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AdminDrawerReportView()),
     ),
   ],
 );

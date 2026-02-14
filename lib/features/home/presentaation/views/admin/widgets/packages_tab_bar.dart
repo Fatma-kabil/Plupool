@@ -7,12 +7,13 @@ class PackagesTabBar extends StatelessWidget {
   final String selectedTab;
   final Function(String) onTabSelected;
   final Map<String, int> counts;
+  final double? borderRaduis;
 
   const PackagesTabBar({
     super.key,
     required this.selectedTab,
     required this.onTabSelected,
-    required this.counts,
+    required this.counts, this.borderRaduis,
   });
 
   @override
@@ -32,11 +33,8 @@ class PackagesTabBar extends StatelessWidget {
                 vertical: SizeConfig.h(10),
               ),
               decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.kprimarycolor
-                    : Color(0xffD9D9D9),
-                borderRadius: BorderRadius.circular(SizeConfig.w(20)),
-               
+                color: isSelected ? AppColors.kprimarycolor : Color(0xffD9D9D9),
+                borderRadius: BorderRadius.circular(borderRaduis?? SizeConfig.w(20)),
               ),
               child: Text(
                 "$tab (${counts[tab]})",

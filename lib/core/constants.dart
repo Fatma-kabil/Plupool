@@ -15,6 +15,7 @@ import 'package:plupool/features/packages/data/models/package_model.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
 import 'package:plupool/features/profile/data/models/project_model.dart';
 import 'package:plupool/features/projects/data/models/admin_project_model.dart';
+import 'package:plupool/features/reports/data/models/report_model.dart';
 import 'package:plupool/features/select_role/data/models/role_card_item.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
@@ -742,7 +743,7 @@ final List<Map> customerFooter = [
     'icon': Icons.star_outlined,
     'title': "التقييمات",
     'color': Color(0xffFF9F1C),
-    'view':  '/customerratingview',
+    'view': '/customerratingview',
   },
   {
     'icon': Icons.flag,
@@ -1072,7 +1073,7 @@ final List<RequestedMaintenanceCardModel> requestedMaintenanceCards = [
     statu: 'جديد',
     service: 'باقه شهرية',
   ),
-   RequestedMaintenanceCardModel(
+  RequestedMaintenanceCardModel(
     name: "عاصم محمود",
     role: "عميل",
     statu: 'تم التواصل',
@@ -1086,73 +1087,54 @@ final List<RequestedMaintenanceCardModel> requestedMaintenanceCards = [
   ),
 ];
 
-
-  final List<Map<String, dynamic>> adminNotification = [
-  
-    {
-      "type": "report",
-      "title": "بلاغ عميل جديد",
-      "subtitle": "أبلغ العميل محمد كمال عن غياب الفني",
-      "time": "منذ يوم ",
-    },
-     {
-      "type": "support",
-      "title": "رسالة دعم جديدة",
-      "subtitle": "أرسل العميل خالد محمد رسالة جديدة",
-      "time": "منذ يوم ",
-    },
-     {
-      "type": "order",
-      "title": "طلب خدمة",
-      "subtitle": "أرسل العميل خالد محمد طلب خدمة جديدة",
-      "time": "منذ يوم ",
-      "ordertype":"serviceOrder"
-    },
-     {
-      "type": "message",
-      "title": "رسالة  جديدة",
-      "subtitle": "أرسل العميل خالد محمد رسالة  جديدة",
-      "time": "منذ يوم ",
-    },
-     {
-      "type": "reminder",
-      "title": "تنبيه مخزون منخفض",
-      "subtitle": "المنتج” فلتر ماء” وصل لحد التنبيه",
-      "time": "منذ يوم ",
-    },
-      {
-      "type": "order",
-      "title": "طلب متجر",
-      "subtitle": "هناك طلب جديد من المتجر",
-      "time": "منذ يوم ",
-       "ordertype":"storeOreder"
-    },
-    
-  ];
- const notificationFilters = {
-  "all": {
-    "label": "الكل",
-    "type": null,
-  },
-  "order": {
-    "label": "طلبات",
-    "type": "order",
-  },
-  
-  "support": {
-    "label": "رسائل دعم",
-    "type": "support",
-  },
-  "reminder": {
-    "label": "تنبيهات",
-    "type": "reminder",
-  },
-  "report": {
-    "label": "بلاغات",
+final List<Map<String, dynamic>> adminNotification = [
+  {
     "type": "report",
+    "title": "بلاغ عميل جديد",
+    "subtitle": "أبلغ العميل محمد كمال عن غياب الفني",
+    "time": "منذ يوم ",
   },
-};
+  {
+    "type": "support",
+    "title": "رسالة دعم جديدة",
+    "subtitle": "أرسل العميل خالد محمد رسالة جديدة",
+    "time": "منذ يوم ",
+  },
+  {
+    "type": "order",
+    "title": "طلب خدمة",
+    "subtitle": "أرسل العميل خالد محمد طلب خدمة جديدة",
+    "time": "منذ يوم ",
+    "ordertype": "serviceOrder",
+  },
+  {
+    "type": "message",
+    "title": "رسالة  جديدة",
+    "subtitle": "أرسل العميل خالد محمد رسالة  جديدة",
+    "time": "منذ يوم ",
+  },
+  {
+    "type": "reminder",
+    "title": "تنبيه مخزون منخفض",
+    "subtitle": "المنتج” فلتر ماء” وصل لحد التنبيه",
+    "time": "منذ يوم ",
+  },
+  {
+    "type": "order",
+    "title": "طلب متجر",
+    "subtitle": "هناك طلب جديد من المتجر",
+    "time": "منذ يوم ",
+    "ordertype": "storeOreder",
+  },
+];
+const notificationFilters = {
+  "all": {"label": "الكل", "type": null},
+  "order": {"label": "طلبات", "type": "order"},
 
+  "support": {"label": "رسائل دعم", "type": "support"},
+  "reminder": {"label": "تنبيهات", "type": "reminder"},
+  "report": {"label": "بلاغات", "type": "report"},
+};
 
 final List<Map> techFooter = [
   {
@@ -1161,7 +1143,7 @@ final List<Map> techFooter = [
     'color': Color(0xff05B285),
     'view': '/customerservicesview',
   },
- 
+
   {
     'icon': Icons.flag,
     'title': "الشكاوي ورسائل الدعم",
@@ -1180,4 +1162,39 @@ final List<Map> techFooter = [
     'color': Color(0xff7B7B7B),
     'view': '/companyresnotesview',
   },
+];
+
+final List<ReportModel> reports = [
+  ReportModel(
+    customerName: "أحمد محمد",
+    techName: "عادل محمود",
+    status: MessageStatus.newer,
+    date: "2025-12-22",
+  
+    time: "11:00 ص",
+  ),
+   ReportModel(
+    customerName: "أحمد محمد",
+    techName: "عادل محمود",
+    status: MessageStatus.pending,
+    date: "2025-12-22",
+   
+    time: "11:00 ص",
+  ),
+   ReportModel(
+    customerName: "أحمد محمد",
+    techName: "عادل محمود",
+    status: MessageStatus.pending,
+    date: "2025-12-22",
+   
+    time: "11:00 ص",
+  ),
+   ReportModel(
+    customerName: "أحمد محمد",
+    techName: "عادل محمود",
+    status: MessageStatus.solved,
+    date: "2025-12-22",
+   
+    time: "11:00 ص",
+  ),
 ];
