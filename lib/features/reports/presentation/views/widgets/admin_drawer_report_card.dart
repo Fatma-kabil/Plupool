@@ -101,7 +101,7 @@ class _AdminDrawerReportCardState extends State<AdminDrawerReportCard> {
                           context: context,
                           barrierDismissible: true,
                           builder: (_) => const DeleteOrderCard(
-                            text: "هل أنت متأكد من حذف هذا البلاغ",
+                            text: "هل أنت متأكد من حذف هذا البلاغ ؟",
                           ),
                         ),
                       },

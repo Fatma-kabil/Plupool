@@ -41,7 +41,7 @@ class DeleteOrderCard extends StatelessWidget {
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
               ),
-              SizedBox(height: SizeConfig.h(30)),
+              SizedBox(height: SizeConfig.h(50)),
               Row(
                 children: [
                   Expanded(

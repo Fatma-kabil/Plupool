@@ -99,7 +99,7 @@ class _ReportCardState extends State<ReportCard> {
                           context: context,
                           barrierDismissible: true,
                           builder: (_) => const DeleteOrderCard(
-                            text: "هل أنت متأكد من حذف هذا الطلب؟",
+                            text: "هل أنت متأكد من حذف هذا البلاغ؟",
                           ),
                         ),
                       },

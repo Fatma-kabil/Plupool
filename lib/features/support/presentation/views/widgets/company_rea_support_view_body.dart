@@ -16,7 +16,7 @@ class CompanyReaSupportViewBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MessageDatailsViewHeader(),
-          //          CompanyResDetails(),
+           //         CompanyResDetails(),
           SizedBox(height: 25),
           MessageDetailsSection(
             message: MessageModel(

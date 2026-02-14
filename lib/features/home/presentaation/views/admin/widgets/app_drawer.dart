@@ -94,7 +94,9 @@ class AppDrawer extends StatelessWidget {
                         title: 'رسائل تواصل معنا',
                         badgeCount: 10,
                         isSelected: selectedIndex == 7,
-                        onTap: () => onItemTap(7, () {}),
+                        onTap: () => onItemTap(7, () {
+                          context.push('/admindrawercontactusview');
+                        }),
                       ),
                       DrawerItem(
                         icon: Icons.settings_outlined,

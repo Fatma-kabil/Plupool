@@ -10,6 +10,7 @@ import 'package:plupool/features/company_res/presentation/views/add_company_res_
 import 'package:plupool/features/company_res/presentation/views/company_res_profile.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_view.dart';
 import 'package:plupool/features/company_res/presentation/views/edit_companny_res_view.dart';
+import 'package:plupool/features/contact_us/presentation/views/admin_drawer_contact_us_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/company_res_contact_us_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/contact_us_details_view.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
@@ -614,6 +615,12 @@ final GoRouter appRouter = GoRouter(
       name: 'admindrawerreportview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminDrawerReportView()),
+    ),
+         GoRoute(
+      path: '/admindrawercontactusview',
+      name: 'admindrawercontactusview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AdminDrawerContactUsView()),
     ),
   ],
 );
