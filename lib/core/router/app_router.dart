@@ -65,10 +65,12 @@ import 'package:plupool/features/consruction_service/data/models/pool_model.dart
 import 'package:plupool/features/consruction_service/presentation/views/construction_services_view.dart';
 import 'package:plupool/features/consruction_service/presentation/views/reserve_construction_view.dart';
 import 'package:plupool/features/services/presentation/views/admin/add_customer_service_view.dart';
+import 'package:plupool/features/services/presentation/views/admin/admin_drawer_service.dart';
 import 'package:plupool/features/services/presentation/views/admin/customer_services_view.dart';
 import 'package:plupool/features/services/presentation/views/admin/edit_customer_service_view.dart';
 import 'package:plupool/features/services/presentation/views/admin/requested_service_view.dart';
 import 'package:plupool/features/services/presentation/views/user/services_view.dart';
+import 'package:plupool/features/settening/presentation/views/admin_setting_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 import 'package:plupool/features/statistics/presentation/views/statistics_view.dart';
@@ -513,56 +515,55 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(CustomerOrderDetailsView(model: order));
       },
     ),
-        GoRoute(
+    GoRoute(
       path: '/customerratingview',
       name: 'customerratingview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CustomerRating()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/visitview',
       name: 'visitview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const VisitView()),
+      pageBuilder: (context, state) => buildTransitionPage(const VisitView()),
     ),
 
-     GoRoute(
+    GoRoute(
       path: '/addcompletedvisitview',
       name: 'addcompletedvisitview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddCompletedVisitView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/editcompletedvisitview',
       name: 'editcompletedvisitview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const EditCompletedVisitView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/companyrescontactusview',
       name: 'companyrescontactusview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CompanyResContactUsView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/contactusdetailsview',
       name: 'contactusdetailsview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const ContactUsDetailsView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/compnyressupportview',
       name: 'compnyressupportview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const CompnyResSupportView()),
     ),
-      GoRoute(
+    GoRoute(
       path: '/requestedserviceview',
       name: 'requestedserviceview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const RequestedServiceView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/notificationinboxview',
       name: 'notificationinboxview',
       pageBuilder: (context, state) =>
@@ -574,31 +575,29 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const EditCustomerView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/editcustomerpoolinfo',
       name: 'editcustomerpoolinfo',
       pageBuilder: (context, state) =>
           buildTransitionPage(const EditCustomerPoolInfo()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/techsview',
       name: 'techsview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const TechsView()),
+      pageBuilder: (context, state) => buildTransitionPage(const TechsView()),
     ),
     GoRoute(
       path: '/addtechview',
       name: 'addtechview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const AddTechView()),
+      pageBuilder: (context, state) => buildTransitionPage(const AddTechView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/techprofileview',
       name: 'techprofileview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const TechProfileView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/edittechview',
       name: 'edittechview',
       pageBuilder: (context, state) =>
@@ -610,17 +609,29 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminReportsView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/admindrawerreportview',
       name: 'admindrawerreportview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminDrawerReportView()),
     ),
-         GoRoute(
+    GoRoute(
       path: '/admindrawercontactusview',
       name: 'admindrawercontactusview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminDrawerContactUsView()),
+    ),
+    GoRoute(
+      path: '/admindrawerservice',
+      name: 'admindrawerservice',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AdminDrawerService()),
+    ),
+     GoRoute(
+      path: '/adminsettingview',
+      name: 'adminsettingview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AdminSettingView()),
     ),
   ],
 );
