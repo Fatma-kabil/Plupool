@@ -17,6 +17,7 @@ class RequestedMaintenanceSection extends StatefulWidget {
 class _RequestedMaintenanceSectionState
     extends State<RequestedMaintenanceSection> {
   String selected = "جديد";
+
   List get filteredList {
     return requestedMaintenanceCards
         .where((item) => item.statu == selected)
@@ -25,70 +26,58 @@ class _RequestedMaintenanceSectionState
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        // عنوان البحث
-        SliverToBoxAdapter(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "ابحث عن شخص:",
-                style: AppTextStyles.styleSemiBold16(context),
-              ),
-            ],
-          ),
-        ),
-
-        // مساحة بين العنوان وباقي العناصر
-        //   SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(10))),
-
-        // حقل البحث
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.w(4),
-              vertical: SizeConfig.h(10),
+    return ListView(
+      children: [
+        /// عنوان
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "ابحث عن شخص:",
+              style: AppTextStyles.styleSemiBold16(context),
             ),
-            child: CustomSearchPerson(hintText: "ابحث باسم صاحب الخدمه"),
+          ],
+        ),
+
+        /// بحث
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.w(4),
+            vertical: SizeConfig.h(10),
+          ),
+          child: CustomSearchPerson(
+            hintText: "ابحث باسم صاحب الخدمه",
           ),
         ),
 
-        // الفلتر
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
-            child: FilterOption(
-              value: selected,
-              items: const ['تم التواصل', "جديد"],
-              onChanged: (val) {
-                if (val != null) {
-                  setState(() => selected = val);
-                }
-              },
-            ),
+        /// فلتر
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
+          child: FilterOption(
+            value: selected,
+            items: const ['تم التواصل', "جديد"],
+            onChanged: (val) {
+              if (val != null) {
+                setState(() => selected = val);
+              }
+            },
           ),
         ),
 
-        SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(20))),
+        SizedBox(height: SizeConfig.h(20)),
 
-        // لو القائمة فاضية
+        /// محتوى
         if (filteredList.isEmpty)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
-              child: Text(
-                "لا توجد طلبات",
-                style: AppTextStyles.styleRegular14(context),
-              ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
+            child: Text(
+              "لا توجد طلبات",
+              style: AppTextStyles.styleRegular14(context),
             ),
           )
         else
-          // قائمة العناصر
-          SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              return RequestedMaintenanceCard(model: filteredList[index]);
-            }, childCount: filteredList.length),
+          ...filteredList.map(
+            (item) => RequestedMaintenanceCard(model: item),
           ),
       ],
     );

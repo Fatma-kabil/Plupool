@@ -778,6 +778,27 @@ final List<CustomerServiceCardModel> customerServices = [
     date: DateTime(2025, 12, 14),
     service: "صيانة الفلتر",
     techs: "علي حسين، محمد أحمد",
+    statu: RequestStatus.urgent,
+  ),
+  CustomerServiceCardModel(
+    orderno: "56489",
+    date: DateTime(2025, 12, 14),
+    service: "صيانة الفلتر",
+    techs: "علي حسين، محمد أحمد",
+    statu: RequestStatus.urgent,
+  ),
+  CustomerServiceCardModel(
+    orderno: "56489",
+    date: DateTime(2025, 12, 14),
+    service: "صيانة الفلتر",
+    techs: "علي حسين، محمد أحمد",
+    statu: RequestStatus.urgent,
+  ),
+  CustomerServiceCardModel(
+    orderno: "56489",
+    date: DateTime(2025, 12, 14),
+    service: "صيانة الفلتر",
+    techs: "علي حسين، محمد أحمد",
     statu: RequestStatus.scheduled,
   ),
   CustomerServiceCardModel(
@@ -1040,6 +1061,42 @@ final List<AdminProjectModel> adminProjects = [
 ];
 
 final List<ContactUsModel> companyContactUs = [
+  ContactUsModel(
+    companyName: "شركة التقنية المتطورة",
+    companyRes: "أحمد محمد",
+    message: "هل تقدمون خدمات بناء حمامات سباحة؟",
+    messageDate: DateTime(2025, 5, 4),
+    phone: "01558098364",
+    projectType: "بناء حمامات سباحة",
+    status: MessageStatus.pending,
+  ),
+  ContactUsModel(
+    companyName: "شركة التقنية المتطورة",
+    companyRes: "أحمد محمد",
+    message: "هل تقدمون خدمات بناء حمامات سباحة؟",
+    messageDate: DateTime(2025, 5, 4),
+    phone: "01558098364",
+    projectType: "بناء حمامات سباحة",
+    status: MessageStatus.pending,
+  ),
+  ContactUsModel(
+    companyName: "شركة التقنية المتطورة",
+    companyRes: "أحمد محمد",
+    message: "هل تقدمون خدمات بناء حمامات سباحة؟",
+    messageDate: DateTime(2025, 5, 4),
+    phone: "01558098364",
+    projectType: "بناء حمامات سباحة",
+    status: MessageStatus.pending,
+  ),
+  ContactUsModel(
+    companyName: "شركة التقنية المتطورة",
+    companyRes: "أحمد محمد",
+    message: "هل تقدمون خدمات بناء حمامات سباحة؟",
+    messageDate: DateTime(2025, 5, 4),
+    phone: "01558098364",
+    projectType: "بناء حمامات سباحة",
+    status: MessageStatus.pending,
+  ),
   ContactUsModel(
     companyName: "شركة التقنية المتطورة",
     companyRes: "أحمد محمد",

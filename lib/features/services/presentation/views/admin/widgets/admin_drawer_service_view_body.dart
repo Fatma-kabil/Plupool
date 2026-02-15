@@ -71,7 +71,7 @@ class _AdminDrawerServiceViewBodyState extends State<AdminDrawerServiceViewBody>
             selectedTab: selectedTab,
             onTabSelected: (tab) => setState(() => selectedTab = tab),
             counts: {
-               "عاجله": allRequests
+               "عاجلة": allRequests
                   .where((r) => r.statu == RequestStatus.urgent)
                   .length,
                    "مجدولة": allRequests

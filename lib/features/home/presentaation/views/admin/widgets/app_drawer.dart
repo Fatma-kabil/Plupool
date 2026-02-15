@@ -54,12 +54,20 @@ class AppDrawer extends StatelessWidget {
                           context.go('/seeallpackagesview');
                         }),
                       ),
+                       DrawerItem(
+                        icon: Icons.work_outline,
+                        title: 'المشاريع',
+                        isSelected: selectedIndex == 3,
+                        onTap: () => onItemTap(3, () {
+                          context.go('/admindrawerprojectview');
+                        }),
+                      ),
                       DrawerItem(
                         icon: Icons.list_alt_outlined,
                         title: 'الخدمات المطلوبة',
                         badgeCount: 10,
-                        isSelected: selectedIndex == 3,
-                        onTap: () => onItemTap(3, () {
+                        isSelected: selectedIndex == 4,
+                        onTap: () => onItemTap(4, () {
                           context.go('/requestedserviceview');
                         }),
                       ),
@@ -67,24 +75,24 @@ class AppDrawer extends StatelessWidget {
                         icon: Icons.notifications_none,
                         title: 'الإشعارات',
                         badgeCount: 8,
-                        isSelected: selectedIndex == 4,
-                        onTap: () => onItemTap(4, () {
+                        isSelected: selectedIndex == 5,
+                        onTap: () => onItemTap(5, () {
                           context.go('/notificationinboxview');
                         }),
                       ),
                       DrawerItem(
                         icon: Icons.people_outline,
                         title: 'العملاء',
-                        isSelected: selectedIndex == 5,
-                        onTap: () => onItemTap(5, () {
+                        isSelected: selectedIndex == 6,
+                        onTap: () => onItemTap(6, () {
                           context.go('/customersview');
                         }),
                       ),
                       DrawerItem(
                         icon: Icons.engineering_outlined,
                         title: 'الفنيين',
-                        isSelected: selectedIndex == 6,
-                        onTap: () => onItemTap(6, () {
+                        isSelected: selectedIndex == 7,
+                        onTap: () => onItemTap(7, () {
                           context.go('/techsview');
                         }),
                       ),
@@ -92,8 +100,8 @@ class AppDrawer extends StatelessWidget {
                         icon: Icons.flag_outlined,
                         title: 'البلاغات',
                         badgeCount: 5,
-                        isSelected: selectedIndex == 7,
-                        onTap: () => onItemTap(7, () {
+                        isSelected: selectedIndex == 8,
+                        onTap: () => onItemTap(8, () {
                           context.go('/admindrawerreportview');
                         }),
                       ),
@@ -101,16 +109,16 @@ class AppDrawer extends StatelessWidget {
                         icon: Icons.chat_outlined,
                         title: 'رسائل تواصل معنا',
                         badgeCount: 10,
-                        isSelected: selectedIndex == 8,
-                        onTap: () => onItemTap(8, () {
+                        isSelected: selectedIndex == 9,
+                        onTap: () => onItemTap(9, () {
                           context.go('/admindrawercontactusview');
                         }),
                       ),
                       DrawerItem(
                         icon: Icons.settings_outlined,
                         title: 'الإعدادات',
-                        isSelected: selectedIndex == 9,
-                        onTap: () => onItemTap(9, () {
+                        isSelected: selectedIndex == 10,
+                        onTap: () => onItemTap(10, () {
                           context.go('/adminsettingview');
                         }),
                       ),

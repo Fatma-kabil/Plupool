@@ -31,30 +31,47 @@ class _CustomerServiceSectionState extends State<CustomerServiceSection> {
       }
     }).toList();
 
-    return Column(
-      children: [
-        RearragnmentRow(
-          selected: selected,
-          onChanged: (val) {
-            setState(() {
-              selected = val;
-            });
-          },
-          onTap: () {
-            context.push('/addcustomerserviceview');
-          },
+    return CustomScrollView(
+      slivers: [
+        /// فلتر RearrangementRow
+        SliverToBoxAdapter(
+          child: RearragnmentRow(
+            selected: selected,
+            onChanged: (val) {
+              setState(() {
+                selected = val;
+              });
+            },
+            onTap: () {
+              context.push('/addcustomerserviceview');
+            },
+          ),
         ),
-        SizedBox(height: SizeConfig.h(15)),
+
+        SliverToBoxAdapter(
+          child: SizedBox(height: SizeConfig.h(15)),
+        ),
 
         /// الكروت
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: filteredServices.length,
-          itemBuilder: (context, index) {
-            return CustomerServiceCard(request: filteredServices[index]);
-          },
-        ),
+        filteredServices.isEmpty
+            ? SliverToBoxAdapter(
+                child: Center(
+                  child: Text(
+                    "لا توجد خدمات",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ),
+              )
+            : SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return CustomerServiceCard(
+                      request: filteredServices[index],
+                    );
+                  },
+                  childCount: filteredServices.length,
+                ),
+              ),
       ],
     );
   }
