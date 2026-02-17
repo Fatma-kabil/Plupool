@@ -23,7 +23,7 @@ class AddEditPackageForm extends StatefulWidget {
     this.selectedTime,
     required this.onPickStartDate,
     required this.onPickEndDate,
-    required this.onPickTime,
+    required this.onPickTime, required this.customerNameController,
   });
 
   final GlobalKey<FormState> formKey;
@@ -31,6 +31,7 @@ class AddEditPackageForm extends StatefulWidget {
   final TextEditingController visitsNumberController;
   final TextEditingController technicianController;
   final TextEditingController maintenanceDaysController;
+   final TextEditingController customerNameController;
 
   final String selectedPackage;
 
@@ -61,6 +62,15 @@ class _AddEditPackageFormState extends State<AddEditPackageForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+           const FieldLabel("اسم العميل"),
+          TextFieldWithIcon(
+            hint: "ادخل اسم العميل",
+            icon: Icons.person_2,
+          
+            controller: widget.customerNameController,
+          ),
+
+          const SizedBox(height: 15),
           /// نوع الباقة + عدد الزيارات
           const FieldLabel('نوع الباقه'),
           StatusSelector<String>(

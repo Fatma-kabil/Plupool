@@ -19,6 +19,8 @@ class _AddCustomerServiceViewBodyState
 
   final serviceTitleController = TextEditingController();
   final technicianController = TextEditingController();
+  final customerNameController=TextEditingController();
+
 
   DateTime? startDate;
   TimeOfDay? selectedTime;
@@ -59,6 +61,7 @@ Widget build(BuildContext context) {
             formKey: _formKey,
             serviceTitleController: serviceTitleController,
             technicianController: technicianController,
+            customerNameController: customerNameController,
             startDate: startDate,
             onPickDate: onPickDate,
             selectedTime: selectedTime,

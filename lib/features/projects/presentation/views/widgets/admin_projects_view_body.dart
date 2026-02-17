@@ -31,7 +31,7 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(12))),
         SliverToBoxAdapter(child: ProjectsViewHeader()),
 
-        SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(15))),
+        SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(22))),
         SliverToBoxAdapter(
           child: RearragnmentRow(
             items: ["مكتمله", "مجدوله", 'قيد التنفيذ', "عاجله"],
@@ -46,7 +46,7 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
             },
           ),
         ),
-          SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(15))),
+          SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(18))),
         ProjectsList(selected: selected,)
       ],
     );

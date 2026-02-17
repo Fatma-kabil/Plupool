@@ -21,6 +21,7 @@ class _EditCustomerServiceViewBodyState
   final technicianController = TextEditingController(
     text: "علي حسين _ محمد أحمد",
   );
+  final customerNameController = TextEditingController(text: "احمد محمود");
 
   DateTime startDate = DateTime(2026, 5, 2);
   TimeOfDay? selectedTime = TimeOfDay(hour: 8, minute: 30);
@@ -62,6 +63,7 @@ class _EditCustomerServiceViewBodyState
               formKey: _formKey,
               serviceTitleController: serviceTitleController,
               technicianController: technicianController,
+              customerNameController: customerNameController,
               startDate: startDate,
               onPickDate: onPickDate,
               selectedTime: selectedTime,

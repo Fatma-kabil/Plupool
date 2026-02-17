@@ -26,7 +26,8 @@ class _EditPackageViewBodyState extends State<EditPackageViewBody> {
   final technicianController = TextEditingController(
     text: "احمد محمود - عمرو أسامه",
   );
-
+final customerNameController = TextEditingController(text: "احمد محمود");
+  
   DateTime startDate = DateTime(2026, 5, 1);
   DateTime endDate = DateTime(2026, 6, 1);
   TimeOfDay selectedTime = TimeOfDay(hour: 11, minute: 00);
@@ -81,7 +82,7 @@ class _EditPackageViewBodyState extends State<EditPackageViewBody> {
             visitsNumberController: visitsNumberController,
             maintenanceDaysController: maintenanceDaysController,
             technicianController: technicianController,
-
+            customerNameController: customerNameController,
             startDate: startDate,
             endDate: endDate,
             selectedTime: selectedTime,
@@ -105,7 +106,11 @@ class _EditPackageViewBodyState extends State<EditPackageViewBody> {
               horizontal: SizeConfig.w(12),
             ),
             selected: selectedStatus,
-            items: const [RequestStatus.scheduled, RequestStatus.inProgress,RequestStatus.completed],
+            items: const [
+              RequestStatus.scheduled,
+              RequestStatus.inProgress,
+              RequestStatus.completed,
+            ],
             displayText: (status) => getStatusText(status),
             onChanged: (newStatus) {
               setState(() {

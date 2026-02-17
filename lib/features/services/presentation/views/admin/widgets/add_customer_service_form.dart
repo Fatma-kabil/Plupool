@@ -20,12 +20,13 @@ class AddCustomerServiceForm extends StatefulWidget {
     required this.onPickDate,
     required this.onPickTime,
     required this.selectedStatus,
-    required this.onStatusChanged,
+    required this.onStatusChanged, required this.customerNameController,
   });
 
   final GlobalKey<FormState> formKey;
   final TextEditingController serviceTitleController;
   final TextEditingController technicianController;
+   final TextEditingController customerNameController;
 
   final DateTime? startDate;
   final TimeOfDay? selectedTime;
@@ -53,6 +54,14 @@ class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const FieldLabel("اسم العميل"),
+          TextFieldWithIcon(
+            hint: "ادخل اسم العميل",
+            icon: Icons.person_2,
+          
+            controller: widget.customerNameController,
+          ),
+
           /// عنوان الخدمة
           const FieldLabel('عنوان الخدمة'),
           TextFieldWithIcon(

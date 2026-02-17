@@ -20,6 +20,7 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
   final visitsNumberController = TextEditingController();
   final maintenanceDaysController = TextEditingController();
   final technicianController = TextEditingController();
+   final customerNameController=TextEditingController();
 
   DateTime? startDate;
   DateTime? endDate;
@@ -74,7 +75,7 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
             visitsNumberController: visitsNumberController,
             maintenanceDaysController: maintenanceDaysController,
             technicianController: technicianController,
-
+customerNameController:customerNameController ,
             startDate: startDate,
             endDate: endDate,
             selectedTime: selectedTime,

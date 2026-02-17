@@ -4,7 +4,8 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
-import 'package:plupool/features/offers/presentation/views/widgets/offer_card.dart';
+import 'package:plupool/features/projects/presentation/views/widgets/add_new_our_project_card.dart';
+import 'package:plupool/features/projects/presentation/views/widgets/our_project_card.dart';
 
 class OurProjectSection extends StatelessWidget {
   const OurProjectSection({super.key});
@@ -19,14 +20,20 @@ class OurProjectSection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "المشاريع",
-                style: AppTextStyles.styleBold16(context)
-                    .copyWith(color: AppColors.ktextcolor),
+                "المشاريع :",
+                style: AppTextStyles.styleBold16(
+                  context,
+                ).copyWith(color: AppColors.ktextcolor),
               ),
               AddOfferBtn(
                 text: "إضافة مشروع جديد",
                 onTap: () {
-                  // context.push('/addofferview');
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AddNewOurProjectCard();
+                    },
+                  );
                 },
               ),
             ],
@@ -49,15 +56,12 @@ class OurProjectSection extends StatelessWidget {
                 ),
               )
             : SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
-                      child: OfferCard(offer: offers[index]),
-                    );
-                  },
-                  childCount: offers.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
+                    child: OurProjectCard(model: projects[index]),
+                  );
+                }, childCount: projects.length),
               ),
       ],
     );
