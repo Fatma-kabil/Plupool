@@ -7,16 +7,37 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/profile_image_picker.dart';
+import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/description_input.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
 
-// ignore: must_be_immutable
-class AddNewOurProjectCard extends StatelessWidget {
-  AddNewOurProjectCard({super.key});
-  final projectTitleController = TextEditingController();
-  final desController = TextEditingController();
+class EditOurProjectCard extends StatefulWidget {
+  const EditOurProjectCard({super.key, required this.model});
+  final ProjectCardModel model;
+
+  @override
+  State<EditOurProjectCard> createState() => _EditOurProjectCardState();
+}
+
+class _EditOurProjectCardState extends State<EditOurProjectCard> {
+  late final TextEditingController titleController;
+  late final TextEditingController offerController;
+  late final TextEditingController desController;
+  late final TextEditingController imageController;
   // ignore: unused_field
   File? _profileImage;
+  @override
+  void initState() {
+    super.initState();
+
+    // تهيئة الكونترولرز بالقيم من الـ offer
+    titleController = TextEditingController(text: widget.model.title);
+    desController = TextEditingController(text: widget.model.description);
+    imageController = TextEditingController(text: widget.model.imageUrl);
+
+    // لو عندك صورة، ممكن تحطها هنا _profileImage = ...
+    // لو عندك قيمة acceptedTerms من العرض، هتعيطها برضه هنا
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +68,7 @@ class AddNewOurProjectCard extends StatelessWidget {
               children: [
                 const FieldLabel('عنوان المشروع'),
                 TextField(
-                  controller: projectTitleController,
+                  controller: titleController,
                   hint: 'أكتب عنوان المشروع....',
                 ),
 
@@ -63,6 +84,18 @@ class AddNewOurProjectCard extends StatelessWidget {
                   icon: Icons.add_photo_alternate_outlined,
                   onImagePicked: (img) => _profileImage = img,
                 ),
+                const SizedBox(height: 15),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(
+                    12,
+                  ), // عدل الرقم ع حسب الحاجة
+                  child: Image.asset(
+                    imageController.text,
+                    height: SizeConfig.h(90),
+                    width: SizeConfig.w(80),
+                    fit: BoxFit.cover, // عشان الصورة تملأ الشكل كويس
+                  ),
+                ),
                 const SizedBox(height: 55),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +109,7 @@ class AddNewOurProjectCard extends StatelessWidget {
                         context,
                       ).copyWith(color: Colors.white),
                       trailing: Icon(
-                        Icons.add_circle_outline,
+                        Icons.edit_note,
                         color: Colors.white,
                         size: SizeConfig.w(15),
                       ),

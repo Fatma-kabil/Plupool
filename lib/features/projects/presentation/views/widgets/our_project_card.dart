@@ -3,6 +3,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
+import 'package:plupool/features/projects/presentation/views/widgets/edit_our_project_card.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/our_project_card_footer.dart';
 
 class OurProjectCard extends StatelessWidget {
@@ -57,7 +58,7 @@ class OurProjectCard extends StatelessWidget {
                         ).copyWith(color: AppColors.ktextcolor),
                       ),
 
-                      SizedBox(height: SizeConfig.h(12)),
+                      Flexible(child: SizedBox(height: SizeConfig.h(12))),
                       Text(
                         model.description,
                         softWrap: true,
@@ -69,7 +70,16 @@ class OurProjectCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  OurProjectCardFooter(),
+                  OurProjectCardFooter(
+                    onEditPressed: () {
+                       showDialog(
+                        context: context,
+                        builder: (context) {
+                          return EditOurProjectCard(model: model,);
+                        },
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
