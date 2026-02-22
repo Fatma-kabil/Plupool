@@ -23,8 +23,8 @@ class AddOfferBtn extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.w(12),
-          vertical: SizeConfig.h(padding??10),
+          horizontal: SizeConfig.w(10),
+          vertical: SizeConfig.h(padding??8),
         ),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.kprimarycolor, width: 1),

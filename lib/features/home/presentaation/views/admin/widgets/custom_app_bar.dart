@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/search/presentation/views/widgets/custom_search_text_field.dart';
@@ -52,10 +53,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
-                child: Icon(
-                  Icons.settings,
-                  color: AppColors.kprimarycolor,
-                  size: SizeConfig.w(16),
+                child: GestureDetector(
+                  onTap: () =>  context.go('/adminsettingview'),
+                  child: Icon(
+                    Icons.settings,
+                    color: AppColors.kprimarycolor,
+                    size: SizeConfig.w(16),
+                  ),
                 ),
               ),
             ),

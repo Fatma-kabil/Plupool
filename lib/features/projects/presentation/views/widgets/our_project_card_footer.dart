@@ -24,7 +24,7 @@ class OurProjectCardFooter extends StatelessWidget {
           icon: Icon(
             Icons.edit_note,
             color: AppColors.kprimarycolor,
-            size: SizeConfig.isWideScreen ? SizeConfig.w(20) : SizeConfig.w(24),
+            size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(24),
           ),
         ),
                 IconButton(
@@ -32,7 +32,7 @@ class OurProjectCardFooter extends StatelessWidget {
           icon: Icon(
             Icons.visibility_outlined,
             color: Color(0xffFF9F1C),
-            size: SizeConfig.isWideScreen ? SizeConfig.w(20) : SizeConfig.w(24),
+            size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(24),
           ),
         ),
         IconButton(
@@ -40,7 +40,7 @@ class OurProjectCardFooter extends StatelessWidget {
           icon: Icon(
             Icons.delete_outline_rounded,
             color: Color(0xffE63946),
-            size: SizeConfig.isWideScreen ? SizeConfig.w(20) : SizeConfig.w(24),
+            size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(24),
           ),
         ),
       ],
