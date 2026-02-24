@@ -6,10 +6,12 @@ import 'package:plupool/core/utils/widgets/note_text_field.dart';
 
 class DescriptionInputContainer extends StatelessWidget {
   final TextEditingController controller;
+  final String? text;
 
   const DescriptionInputContainer({
     super.key,
     required this.controller,
+    this.text,
   });
 
   @override
@@ -29,7 +31,7 @@ class DescriptionInputContainer extends StatelessWidget {
       child: NoteTextField(
         
         controller: controller,
-        text: "أدخل وصفاً تفصيلياً للعرض.....",
+        text: text ?? "أدخل وصفاً تفصيلياً للعرض.....",
         hiystyle: AppTextStyles.styleRegular14(context)
             .copyWith(color: AppColors.hintTextColor),
         textStyle: AppTextStyles.styleRegular14(context)

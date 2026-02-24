@@ -58,7 +58,7 @@ class OurProjectCard extends StatelessWidget {
                         ).copyWith(color: AppColors.ktextcolor),
                       ),
 
-                      Flexible(child: SizedBox(height: SizeConfig.h(12))),
+                      SizedBox(height: SizeConfig.h(6)),
                       Text(
                         model.description,
                         softWrap: true,

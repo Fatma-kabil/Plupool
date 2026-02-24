@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
+import 'package:plupool/features/settening/presentation/views/widgets/add_ques_card.dart';
 import 'package:plupool/features/settening/presentation/views/widgets/faq_card.dart';
 
 class FaqPage extends StatefulWidget {
@@ -33,18 +34,19 @@ class _FaqPageState extends State<FaqPage> {
   void toggleHide(int index) {
     setState(() {
       hidden[index] = !hidden[index];
-       print('Faq ${index} hidden = ${hidden[index]}'); // 👈 للتأكد
+      print('Faq ${index} hidden = ${hidden[index]}'); // 👈 للتأكد
     });
   }
-  @override
-void didUpdateWidget(covariant FaqPage oldWidget) {
-  super.didUpdateWidget(oldWidget);
 
-  if (oldWidget.items.length != widget.items.length) {
-    hidden = List.generate(widget.items.length, (_) => false);
-    expanded = List.generate(widget.items.length, (_) => false);
+  @override
+  void didUpdateWidget(covariant FaqPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.items.length != widget.items.length) {
+      hidden = List.generate(widget.items.length, (_) => false);
+      expanded = List.generate(widget.items.length, (_) => false);
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,15 @@ void didUpdateWidget(covariant FaqPage oldWidget) {
             padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: AddOfferBtn(text: "إضافة سؤال", onTap: () {}),
+              child: AddOfferBtn(
+                text: "إضافة سؤال",
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AddQuesCard(),
+                  );
+                },
+              ),
             ),
           ),
         ),
