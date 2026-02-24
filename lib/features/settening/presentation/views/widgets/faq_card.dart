@@ -4,25 +4,31 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
+import 'package:plupool/features/settening/presentation/views/widgets/edit_ques_card.dart';
 
 class FaqCard extends StatelessWidget {
   final FaqItem item;
   final bool isExpanded;
   final VoidCallback onToggle;
   final bool isHidden;
-final VoidCallback onToggleHide;
+  final VoidCallback onToggleHide;
 
   const FaqCard({
     super.key,
     required this.item,
     required this.isExpanded,
-    required this.onToggle, required this.isHidden, required this.onToggleHide,
+    required this.onToggle,
+    required this.isHidden,
+    required this.onToggleHide,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(12), vertical: SizeConfig.h(8)),
+      padding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.w(12),
+        vertical: SizeConfig.h(8),
+      ),
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -77,7 +83,7 @@ final VoidCallback onToggleHide;
             padding: EdgeInsets.only(
               top: SizeConfig.h(8),
               bottom: SizeConfig.h(12),
-           //   vertical: SizeConfig.h(8),
+              //   vertical: SizeConfig.h(8),
             ),
             child: Divider(height: SizeConfig.h(1)),
           ),
@@ -87,24 +93,29 @@ final VoidCallback onToggleHide;
               CustomOutlinedBtn(
                 text: "تعديل",
                 width: SizeConfig.w(110),
-                onPressed: () {},
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => EditQuesCard(item: item,),
+                  );
+                },
                 trailing: Icon(
                   Icons.edit_note,
                   size: SizeConfig.w(20),
                   color: AppColors.kprimarycolor,
                 ),
               ),
-             CustomOutlinedBtn(
-  color: Color(0xffFF9F1C),
-  text: isHidden ? "إظهار" : "إخفاء",
-  width: SizeConfig.w(110),
-  onPressed: onToggleHide,
-  trailing: Icon(
-    isHidden ? Icons.visibility : Icons.visibility_off,
-    size: SizeConfig.w(20),
-    color: Color(0xffFF9F1C),
-  ),
-),
+              CustomOutlinedBtn(
+                color: Color(0xffFF9F1C),
+                text: isHidden ? "إظهار" : "إخفاء",
+                width: SizeConfig.w(110),
+                onPressed: onToggleHide,
+                trailing: Icon(
+                  isHidden ? Icons.visibility : Icons.visibility_off,
+                  size: SizeConfig.w(20),
+                  color: Color(0xffFF9F1C),
+                ),
+              ),
               Container(
                 padding: EdgeInsets.all(SizeConfig.w(6)),
                 decoration: const BoxDecoration(

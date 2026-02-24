@@ -51,12 +51,12 @@ class AdminSettingViewBody extends StatelessWidget {
               tabs: [
                 Tab(child: Text("العملاء")),
                 Tab(child: Text('الفنيين')),
-               Tab(
-  child: FittedBox(
-    fit: BoxFit.scaleDown,
-    child: Text('ممثلي الشركات'),
-  ),
-),
+                Tab(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text('ممثلي الشركات'),
+                  ),
+                ),
               ],
             ),
           ),
