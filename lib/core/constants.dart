@@ -27,7 +27,7 @@ import 'package:plupool/features/statistics/data/models/dashboard_item.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 import 'package:plupool/features/store/data/models/dashboard_shortcut_model.dart';
 import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
-import 'package:plupool/features/store/data/models/product_model.dart';
+import 'package:plupool/features/products/data/models/product_model.dart';
 
 import 'package:plupool/features/support/data/models/message_model.dart';
 
@@ -169,6 +169,7 @@ final Map<String, bool> options = {
 
 final List<ProductModel> products = [
   ProductModel(
+    id: 0,
     name: "مضخة مياه عالية الكفاءة",
     image: "assets/images/mach_pro1.png",
     originalPrice: 3000,
@@ -177,6 +178,7 @@ final List<ProductModel> products = [
     stock: 50,
   ),
   ProductModel(
+    id: 1,
     name: "مضخة PluPool Pro 2000",
     image: "assets/images/mach_pro2.png",
     originalPrice: 2500,
@@ -187,6 +189,7 @@ final List<ProductModel> products = [
     stock: 0,
   ),
   ProductModel(
+    id: 3,
     name: "مضخة مياه عالية الكفاءة",
     image: "assets/images/mach_pro1.png",
     originalPrice: 40000,
@@ -196,6 +199,7 @@ final List<ProductModel> products = [
     //  ent: 20,
   ),
   ProductModel(
+    id: 4,
     name: "مضخة PluPool Pro 2000",
     image: "assets/images/mach_pro2.png",
     originalPrice: 200,
@@ -204,6 +208,7 @@ final List<ProductModel> products = [
     //   discountPercent: 5,
   ),
   ProductModel(
+    id: 5,
     name: "مضخة مياه عالية الكفاءة",
     image: "assets/images/mach_pro1.png",
     originalPrice: 2800,
@@ -212,6 +217,7 @@ final List<ProductModel> products = [
     //  discountPercent: 20,
   ),
   ProductModel(
+    id: 6,
     name: "مضخة PluPool Pro 2000",
     image: "assets/images/mach_pro2.png",
     originalPrice: 4100,

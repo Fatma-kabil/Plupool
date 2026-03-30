@@ -3,7 +3,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/get_badge_color.dart';
 import 'package:plupool/core/utils/functions/get_badge_text.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/store/data/models/product_model.dart';
+import 'package:plupool/features/products/data/models/product_model.dart';
 
 class ProductImageWithBadge extends StatelessWidget {
   final ProductModel product;

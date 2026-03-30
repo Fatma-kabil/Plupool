@@ -6,7 +6,7 @@ import 'package:plupool/core/utils/widgets/filter_button.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/features/products/presentation/views/widgets/product_view_header.dart';
 import 'package:plupool/features/products/presentation/views/widgets/products_list.dart';
-import 'package:plupool/features/store/data/models/product_model.dart';
+import 'package:plupool/features/products/data/models/product_model.dart';
 import 'package:plupool/features/store/presentation/views/widgets/filter_dialog.dart';
 
 class ProductViewBody extends StatefulWidget {

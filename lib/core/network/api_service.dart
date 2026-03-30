@@ -33,27 +33,28 @@ class ApiService {
     }
   }
 
-  Future<Response> post(
-    String endpoint, {
-    Map<String, dynamic>? data,
-    Options? options,
-  }) async {
-    try {
-      final response = await dio.post(
-        endpoint,
-        data: data,
-        options: options ?? Options(
-          headers: {
-            if (token != null) 'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json',
-          },
-        ),
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
+ Future<Response> post(
+  String endpoint, {
+  dynamic data,
+  Options? options,
+}) async {
+  try {
+    final response = await dio.post(
+      endpoint,
+      data: data,
+      options: options ?? Options(
+        headers: {
+          if (token != null) 'Authorization': 'Bearer $token',
+          // خلي الـ Content-Type ديناميكي:
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
+    return response;
+  } catch (e) {
+    rethrow;
   }
+}
 
   Future<Response> put(
     String endpoint, {

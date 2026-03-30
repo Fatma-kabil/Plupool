@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/features/products/presentation/views/widgets/pro_card.dart';
-import 'package:plupool/features/store/data/models/product_model.dart';
+import 'package:plupool/features/products/data/models/product_model.dart';
 
 class ProductsList extends StatelessWidget {
   const ProductsList({super.key, required this.products});

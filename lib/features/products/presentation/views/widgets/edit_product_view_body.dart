@@ -6,7 +6,7 @@ import 'package:plupool/features/auth/presentation/views/widgets/profile_image_p
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
 import 'package:plupool/features/products/presentation/views/widgets/edit_product_view_body_footer.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
-import 'package:plupool/features/store/data/models/product_model.dart';
+import 'package:plupool/features/products/data/models/product_model.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class EditProductViewBody extends StatefulWidget {
