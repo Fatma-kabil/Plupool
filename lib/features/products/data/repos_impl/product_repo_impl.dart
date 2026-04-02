@@ -10,6 +10,7 @@ class ProductRepoImpl implements ProductRepository {
 
   ProductRepoImpl(this.remote);
 
+
   @override
   Future<List<Product>> getAllProducts() {
     return remote.getAllProducts();

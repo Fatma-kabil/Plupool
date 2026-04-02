@@ -8,7 +8,7 @@ import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
-import 'package:plupool/features/store/data/models/product_model.dart';
+import 'package:plupool/features/products/data/models/product_model.dart';
 
 class EditProductOfferCard extends StatefulWidget {
   const EditProductOfferCard({

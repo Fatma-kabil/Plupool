@@ -2,7 +2,7 @@
 
 class Endpoints {
   /// 🧠 رابط الباك إند المحلي (FastAPI)
-  static const String baseUrl = 'http://192.168.43.149:8000/api/v1';
+  static const String baseUrl = 'http://72.60.177.42/api/v1';
 
 
   // 🔹 إنشاء الحساب حسب الدور
@@ -15,5 +15,7 @@ static const String getCurrentUser = '$baseUrl/users/me';
 static const String updateUser = '$baseUrl/users';
 static const String contact = '$baseUrl/contact';
 static const String notifications = '$baseUrl/notifications';
+static const String products = '$baseUrl/admin/products';
+// static const String productsOffer = '$baseUrl/admin/products/{product_id}/offer';
   // ... روابط نقاط نهاية أخرى
 } 
