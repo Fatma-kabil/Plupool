@@ -36,7 +36,7 @@ class _CustomerSignupFormState extends State<CustomerSignupForm> {
     return Form(
       key: widget.formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ProfileImagePicker(onImagePicked: widget.onImagePicked),
 

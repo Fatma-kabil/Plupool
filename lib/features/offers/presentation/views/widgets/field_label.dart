@@ -25,6 +25,7 @@ class TextField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
   final int maxLines;
+  final String? Function(String?)? validator;
   final TextInputType keyboardType;
 
   const TextField({
@@ -32,7 +33,7 @@ class TextField extends StatelessWidget {
     required this.controller,
     required this.hint,
     this.maxLines = 1,
-    this.keyboardType = TextInputType.text,
+    this.keyboardType = TextInputType.text, this.validator,
   });
 
   @override
@@ -40,6 +41,7 @@ class TextField extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+        
         controller: controller,
         maxLines: maxLines,
         keyboardType: keyboardType,
@@ -52,8 +54,8 @@ class TextField extends StatelessWidget {
           context,
         ).copyWith(color: AppColors.ktextcolor),
 
-        validator: (value) =>
-            value == null || value.isEmpty ? 'الحقل مطلوب' : null,
+        validator: validator,
+         
 
         decoration: InputDecoration(
           isDense: true,

@@ -1,13 +1,27 @@
+import 'dart:io';
+
 class Product {
-  final int id;
+  final int? id;
+  final File? image;
   final String name;
-  final String image;
- 
+  final int categoryId;
+  final int price;
+  final int stock;
+  final String? imageUrl;
+  final String? stockStatus;
+  final double? discountValue;
+  final bool? hasOffer;
 
   Product({
-    required this.id,
-    required this.name,
+    this.discountValue,
+    this.imageUrl,
+    this.id,
+     this.hasOffer,
+    this.stockStatus,
     required this.image,
- 
+    required this.name,
+    required this.categoryId,
+    required this.price,
+    required this.stock,
   });
 }

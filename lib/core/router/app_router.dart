@@ -38,6 +38,7 @@ import 'package:plupool/features/orders/presentation/view/order_details_view.dar
 import 'package:plupool/features/orders/presentation/view/store_order_view.dart';
 import 'package:plupool/features/packages/presentation/views/add_package_view.dart';
 import 'package:plupool/features/packages/presentation/views/edit_package_view.dart';
+import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/products/presentation/views/add_product_view.dart';
 import 'package:plupool/features/products/presentation/views/edit_product_view.dart';
 import 'package:plupool/features/products/presentation/views/product_view.dart';
@@ -52,6 +53,7 @@ import 'package:plupool/features/profile/presentation/views/why_us_view.dart';
 import 'package:plupool/features/projects/presentation/views/add_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_drawer_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_projects_view.dart';
+import 'package:plupool/features/projects/presentation/views/edit_project_view.dart';
 import 'package:plupool/features/rating/presentation/views/admin_rating_view.dart';
 import 'package:plupool/features/rating/presentation/views/customer_rating.dart';
 import 'package:plupool/features/reports/admin_drawer_report_view.dart';
@@ -75,7 +77,6 @@ import 'package:plupool/features/settening/presentation/views/admin_setting_view
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 import 'package:plupool/features/statistics/presentation/views/statistics_view.dart';
-import 'package:plupool/features/store/data/models/product_model.dart';
 import 'package:plupool/features/store/presentation/views/admin/admin_store_view.dart';
 import 'package:plupool/features/store/presentation/views/cart_view.dart';
 import 'package:plupool/features/store/presentation/views/order_summary_view.dart';
@@ -85,7 +86,6 @@ import 'package:plupool/features/support/presentation/views/compny_res_support_v
 import 'package:plupool/features/support/presentation/views/message_details.dart';
 import 'package:plupool/features/tasks/presentation/views/customer_details_view.dart';
 import 'package:plupool/features/tasks/presentation/views/maintenance_update_view.dart';
-import 'package:plupool/features/tasks/presentation/views/tech_task_view.dart';
 import 'package:plupool/features/technicains/presentation/views/add_tech_view.dart';
 import 'package:plupool/features/technicains/presentation/views/edit_tech_view.dart';
 import 'package:plupool/features/technicains/presentation/views/tech_profile_view.dart';
@@ -403,7 +403,7 @@ final GoRouter appRouter = GoRouter(
       path: '/editproductview',
       name: 'editproductview',
       pageBuilder: (context, state) {
-        final product = state.extra as ProductModel; // استقبال الليست
+        final product = state.extra as Product; // استقبال الليست
 
         return buildTransitionPage(EditProductView(product: product));
       },
@@ -501,6 +501,12 @@ final GoRouter appRouter = GoRouter(
       name: 'addprojectview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddProjectView()),
+    ),
+     GoRoute(
+      path: '/editprojectview',
+      name: 'editprojectview',
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const EditProjectView()),
     ),
     GoRoute(
       path: '/customerstoreorderview',

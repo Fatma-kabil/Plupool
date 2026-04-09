@@ -10,7 +10,7 @@ class TextFieldWithIcon extends StatelessWidget {
   final TextInputType keyboardType;
   final IconData? icon;
   final bool tailing;
-
+final String? Function(String?)? validator; // اضيفي كده للـ constructor
   const TextFieldWithIcon({
     super.key,
     required this.controller,
@@ -18,7 +18,7 @@ class TextFieldWithIcon extends StatelessWidget {
     this.maxLines = 1,
     this.keyboardType = TextInputType.text,
     this.icon,
-    this.tailing = false,
+    this.tailing = false, this.validator,
   });
 
   @override
@@ -37,8 +37,7 @@ class TextFieldWithIcon extends StatelessWidget {
         style: AppTextStyles.styleRegular14(
           context,
         ).copyWith(color: AppColors.ktextcolor),
-        validator: (value) =>
-            value == null || value.isEmpty ? 'الحقل مطلوب' : null,
+        validator: validator, // ضيفي ال validator هنا
         decoration: InputDecoration(
           prefixIconConstraints: const BoxConstraints(
             minHeight: 0,

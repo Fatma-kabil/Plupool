@@ -58,7 +58,7 @@ class ApiService {
 
   Future<Response> put(
     String endpoint, {
-    Map<String, dynamic>? data,
+   dynamic? data,
     Options? options,
   }) async {
     try {

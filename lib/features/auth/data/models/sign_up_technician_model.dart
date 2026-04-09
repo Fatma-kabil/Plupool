@@ -15,40 +15,30 @@ class TechnicianModel extends TechnicianEntity {
     super.yearsOfExperience,
   });
 
+  /// ===== FROM API RESPONSE =====
   factory TechnicianModel.fromJson(Map<String, dynamic> json) {
     return TechnicianModel(
       phone: json['phone'] ?? '',
       otpCode: json['otp_code'] ?? '',
       fullName: json['full_name'] ?? '',
-      profileImage: json['profile_image'],
+      profileImage: json['profile_image'], // URL غالبًا
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
       address: json['address'],
-      skills: List<String>.from(json['skills'] ?? []),
+      skills: json['skills'] != null
+          ? List<String>.from(json['skills'])
+          : const [],
       yearsOfExperience: json['years_of_experience'] ?? 0,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'phone': phone,
-      'otp_code': otpCode,
-      'full_name': fullName,
-      'profile_image': profileImage ?? '',
-      'latitude': latitude ?? 0.0,
-      'longitude': longitude ?? 0.0,
-      'address': address,
-      'skills': skills,
-      'years_of_experience': yearsOfExperience,
-    };
-  }
-
+  /// ===== FROM ENTITY (NO JSON / NO MULTIPART HERE) =====
   factory TechnicianModel.fromEntity(TechnicianEntity entity) {
     return TechnicianModel(
       phone: entity.phone,
       otpCode: entity.otpCode,
       fullName: entity.fullName,
-      profileImage: entity.profileImage,
+      profileImage: entity.profileImage, // path
       latitude: entity.latitude,
       longitude: entity.longitude,
       address: entity.address,

@@ -66,15 +66,11 @@ class Validators {
     if (v != original) return 'كلمة المرور غير متطابقة';
     return null;
   }
-
-  // ✅ التحقق من أن القيمة رقم
- static String? number(String? v, {String fieldName = 'الرقم'}) {
+static String? number(String? v, {String fieldName = 'الرقم'}) {
   if (_isNullOrEmpty(v)) return '$fieldName مطلوب';
 
   final value = num.tryParse(v!.trim());
-  if (value == null) {
-    return 'يجب أن يكون رقمًا';
-  }
+  if (value == null) return '$fieldName يجب أن يكون رقمًا';
 
   return null;
 }

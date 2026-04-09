@@ -19,7 +19,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final badgeText = getBadgeText(product);
+  //  final badgeText = getBadgeText(product);
 
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, authState) {
@@ -51,12 +51,12 @@ class ProductCard extends StatelessWidget {
                   child: Stack(
                     children: [
                       Image.asset(
-                        product.image,
+                        product.imageUrl ?? "",
                         height:SizeConfig.isWideScreen?SizeConfig.w(101): SizeConfig.h(101),
                         width: SizeConfig.w(151),
                         fit: BoxFit.cover,
                       ),
-                      if (badgeText != null)
+                 //     if (badgeText != null)
                         Positioned(
                           top: SizeConfig.h(8),
                           left: SizeConfig.w(8),
@@ -66,11 +66,11 @@ class ProductCard extends StatelessWidget {
                               vertical: SizeConfig.h(6),
                             ),
                             decoration: BoxDecoration(
-                              color: getBadgeColor(product.badge),
+                        //      color: getBadgeColor(product.offerBadge),
                               borderRadius: BorderRadius.circular(5),
                             ),
-                            child: Text(
-                              badgeText,
+                            child: Text("الجديد",
+                           //   badgeText,
                               style: AppTextStyles.styleBold10(
                                 context,
                               ).copyWith(color: Colors.white),
@@ -82,7 +82,7 @@ class ProductCard extends StatelessWidget {
                 ),
                 SizedBox(height: SizeConfig.h(12)),
                 Text(
-                  product.name,
+                  product.nameAr,
                   textDirection: TextDirection.rtl,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -101,7 +101,7 @@ class ProductCard extends StatelessWidget {
                       ).copyWith(color: AppColors.ktextcolor),
                     ),
                     SizedBox(width: SizeConfig.w(10)),
-                    if (product.hasDiscount)
+                    if (product.hasOffer)
                       Text(
                         
                         "${product.originalPrice.toStringAsFixed(0) } ج.م ",

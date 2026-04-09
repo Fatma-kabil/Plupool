@@ -99,7 +99,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             ),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SignupHeader(),
                   SizedBox(height: SizeConfig.h(15)),
@@ -259,7 +259,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           fullName: _nameController.text.trim(),
           phone: fullPhone,
           address: _locationController.text.trim(),
-          profileImage: _profileImage?.path ?? "string",
+          profileImage: _profileImage?.path ,
         ),
       );
     } else if (role.contains("فني")) {
@@ -277,7 +277,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           address: _locationController.text.trim(),
           skills: skillsList,
           yearsOfExperience: years,
-          profileImage: _profileImage?.path ?? "string",
+          profileImage: _profileImage?.path ,
 
           otpCode: otpCode,
         ),
@@ -287,7 +287,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         CompanyEntity(
           fullName: _nameController.text.trim(),
           phone: fullPhone,
-          profileImage: _profileImage?.path ?? "",
+          profileImage: _profileImage?.path ,
 
           otpCode: otpCode,
         ),

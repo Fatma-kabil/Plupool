@@ -1,17 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
-import 'package:plupool/features/auth/data/models/sign_up_company_model.dart';
-import 'package:plupool/features/auth/data/models/sign_up_pool_owner_model.dart';
-import 'package:plupool/features/auth/data/models/sign_up_technician_model.dart';
+import 'package:plupool/features/auth/domain/entities/Sign_up_entities/company_entity.dart';
+import 'package:plupool/features/auth/domain/entities/Sign_up_entities/pool_owner_entity.dart';
+import 'package:plupool/features/auth/domain/entities/Sign_up_entities/technician_entity.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 
 abstract class SignUpRemoteDataSource {
-  Future<String> signupTechnician(TechnicianModel model);
-  Future<String> signupPoolOwner(PoolOwnerModel model);
-  Future<String> signupCompany(CompanyModel model);
+  Future<String> signupTechnician(TechnicianEntity entity);
+  Future<String> signupPoolOwner(PoolOwnerEntity entity);
+  Future<String> signupCompany(CompanyEntity entity);
 }
+
 
 class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
   final ApiService api;
@@ -21,68 +23,109 @@ class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
   SignUpRemoteDataSourceImpl(this.api, this.authCubit);
 
   @override
-  Future<String> signupTechnician(TechnicianModel model) async {
-    try {
-      final response = await api.post(
-        Endpoints.signupTechnician,
-        data: model.toJson(),
-      );
+ @override
+Future<String> signupTechnician(TechnicianEntity entity) async {
+  try {
+    final formData = FormData.fromMap({
+      'phone': entity.phone,
+      'otp_code': entity.otpCode,
+      'full_name': entity.fullName,
+      'address': entity.address,
+      'skills': entity.skills.join(','),
+      'years_of_experience': entity.yearsOfExperience,
+      'latitude': entity.latitude,
+      'longitude': entity.longitude,
 
-      final token = response.data['access_token'];
-      await storage.write(key: 'token', value: token);
-      authCubit.login(token);
+      if (entity.profileImage != null)
+        'profile_image': await MultipartFile.fromFile(
+          entity.profileImage!,
+          filename: entity.profileImage!.split('/').last,
+        ),
+    });
 
-      return token;
-    } catch (error) {
-      throw mapDioError(error);
-    }
+    final response = await api.post(
+      Endpoints.signupTechnician,
+      data: formData,
+      options: Options(contentType: 'multipart/form-data'),
+    );
+
+    final token = response.data['access_token'];
+    await storage.write(key: 'token', value: token);
+    authCubit.login(token);
+
+    return token;
+  } catch (error) {
+    throw mapDioError(error);
   }
+}
+
 
   @override
-  Future<String> signupPoolOwner(PoolOwnerModel model) async {
-    try {
-      final response = await api.post(
-        Endpoints.signupPoolOwner,
-        data: model.toJson(),
-      );
+  @override
+Future<String> signupPoolOwner(PoolOwnerEntity entity) async {
+  try {
+    final formData = FormData.fromMap({
+      'phone': entity.phone,
+      'otp_code': entity.otpCode,
+      'full_name': entity.fullName,
+      'address': entity.address,
+      'latitude': entity.latitude ?? 0.0,
+  'longitude': entity.longitude ?? 0.0,
 
-      final token = response.data['access_token'];
-      await storage.write(key: 'token', value: token);
-      authCubit.login(token);
 
-      return token;
-    } catch (error) {
-      throw mapDioError(error);
-    }
+      if (entity.profileImage != null)
+        'profile_image': await MultipartFile.fromFile(
+          entity.profileImage!,
+          filename: entity.profileImage!.split('/').last,
+        ),
+    });
+
+    final response = await api.post(
+      Endpoints.signupPoolOwner,
+      data: formData,
+      options: Options(contentType: 'multipart/form-data'),
+    );
+
+    final token = response.data['access_token'];
+    await storage.write(key: 'token', value: token);
+    authCubit.login(token);
+
+    return token;
+  } catch (error) {
+    throw mapDioError(error);
   }
+}
+
 
   @override
-  Future<String> signupCompany(CompanyModel model) async {
-    try {
-      print('🔗 SIGNUP URL = ${Endpoints.signupCompany}');
-      print('📦 PAYLOAD = ${model.toJson()}');
+  @override
+Future<String> signupCompany(CompanyEntity entity) async {
+  try {
+    final formData = FormData.fromMap({
+      'phone': entity.phone,
+      'otp_code': entity.otpCode,
+      'full_name': entity.fullName,
+      if (entity.profileImage != null)
+        'profile_image': await MultipartFile.fromFile(
+          entity.profileImage!,
+          filename: entity.profileImage!.split('/').last,
+        ),
+    });
 
-      final response = await api.post(
-        Endpoints.signupCompany,
-        data: model.toJson(),
-      );
+    final response = await api.post(
+      Endpoints.signupCompany,
+      data: formData,
+      options: Options(contentType: 'multipart/form-data'),
+    );
 
-      print('✅ RESPONSE STATUS = ${response.statusCode}');
-      print('✅ RESPONSE DATA = ${response.data}');
+    final token = response.data['access_token'];
+    await storage.write(key: 'token', value: token);
+    authCubit.login(token);
 
-      final token = response.data['access_token'];
-
-      // تخزين التوكن
-      await storage.write(key: 'token', value: token);
-
-      // تحديث الكيوبت
-      authCubit.login(token);
-
-      return token;
-
-    } catch (error) {
-      print('❌ ERROR = $error');
-      throw mapDioError(error);
-    }
+    return token;
+  } catch (error) {
+    throw mapDioError(error);
   }
+}
+
 }

@@ -1,19 +1,20 @@
-part of 'bottom_nav_cubit.dart';
+import 'package:equatable/equatable.dart';
+import 'package:plupool/core/utils/store_filter.dart';
 
 abstract class BottomNavState extends Equatable {
   final int currentIndex;
-  final StoreFilter filter;
+  final StoreFilter? filter; // nullable
 
   const BottomNavState(this.currentIndex, this.filter);
 
   @override
-  List<Object> get props => [currentIndex, filter];
+  List<Object?> get props => [currentIndex, filter];
 }
 
 class NavBarInitial extends BottomNavState {
-  NavBarInitial(int currentIndex) : super(currentIndex, StoreFilter.all);
+  NavBarInitial(int currentIndex) : super(currentIndex, null); // null = الكل
 }
 
 class IndexChanged extends BottomNavState {
-  IndexChanged(int currentIndex, [StoreFilter filter = StoreFilter.all]) : super(currentIndex, filter);
+  IndexChanged(int currentIndex, [StoreFilter? filter]) : super(currentIndex, filter);
 }

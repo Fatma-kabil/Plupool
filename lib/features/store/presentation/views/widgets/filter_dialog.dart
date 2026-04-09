@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -13,23 +12,30 @@ class FilterDialog extends StatefulWidget {
 }
 
 class FilterDialogState extends State<FilterDialog> {
+  final Map<String, bool> options = {
+    "الكترونيات": false,
+    "أثاث": false,
+    "ملابس": false,
+    "ألعاب": false,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
       backgroundColor: Colors.white,
-      insetPadding:  EdgeInsets.all(SizeConfig.w(16)),
+      insetPadding: EdgeInsets.all(SizeConfig.w(16)),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
-        padding:  EdgeInsets.only(
-          left:SizeConfig.w (17),
-          right:SizeConfig.w( 17),
-          top:SizeConfig.h( 34),
-          bottom:SizeConfig.h( 55),
+        padding: EdgeInsets.only(
+          left: SizeConfig.w(17),
+          right: SizeConfig.w(17),
+          top: SizeConfig.h(34),
+          bottom: SizeConfig.h(55),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            /// شبكة الاختيارات (2 أعمدة زي الصورة)
+            /// شبكة الاختيارات
             GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
@@ -42,18 +48,14 @@ class FilterDialogState extends State<FilterDialog> {
                   textDirection: TextDirection.rtl,
                   children: [
                     Checkbox(
-
                       value: options[key],
                       activeColor: AppColors.kprimarycolor,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          6,
-                        ), // 👈 border radius
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      side: BorderSide(
-                        // 👈 لون الـ border
+                      side: const BorderSide(
                         color: Color(0xffAAAAAA),
-                        width:2 ,
+                        width: 2,
                       ),
                       onChanged: (val) {
                         setState(() {
@@ -64,28 +66,42 @@ class FilterDialogState extends State<FilterDialog> {
                     Expanded(
                       child: Text(
                         key,
-                        textAlign: TextAlign.right, // ✅ النص يبدأ من اليمين
+                        textAlign: TextAlign.right,
                         textDirection: TextDirection.rtl,
-                        style: AppTextStyles.styleSemiBold16(
-                          context,
-                        ).copyWith(color: AppColors.ktextcolor),
+                        style: AppTextStyles.styleSemiBold16(context)
+                            .copyWith(color: AppColors.ktextcolor),
                       ),
                     ),
                   ],
                 );
               }).toList(),
             ),
+
             const SizedBox(height: 50),
 
-            /// الأزرار تحت (إلغاء + تصفية)
+            /// الأزرار تحت
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomOutlinedBtn(text: "إلغاء"),
+                CustomOutlinedBtn(
+                  text: "إلغاء",
+                 
+                ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                    // هنا تقدري تعملي فلترة حقيقية بالقيم المختارة
+                    final selectedCategory = options.entries
+                        .firstWhere(
+                          (e) => e.value,
+                          orElse: () => MapEntry("", false),
+                        )
+                        .key;
+
+                    Navigator.pop(
+                      context,
+                      selectedCategory.isNotEmpty
+                          ? options.keys.toList().indexOf(selectedCategory)
+                          : null, // null → الكل
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.kprimarycolor,
@@ -94,12 +110,11 @@ class FilterDialogState extends State<FilterDialog> {
                     ),
                   ),
                   child: Padding(
-                    padding:  EdgeInsets.all(SizeConfig.isWideScreen?SizeConfig.h(7):0),
+                    padding: EdgeInsets.all(SizeConfig.isWideScreen ? SizeConfig.h(7) : 0),
                     child: Text(
                       "تصفية",
-                      style: AppTextStyles.styleBold16(
-                        context,
-                      ).copyWith(color: Colors.white),
+                      style: AppTextStyles.styleBold16(context)
+                          .copyWith(color: Colors.white),
                     ),
                   ),
                 ),

@@ -30,7 +30,8 @@ class SearchResultListView extends StatelessWidget {
           mainAxisSpacing: SizeConfig.w(12),
         ),
         itemBuilder: (_, i) =>
-            ProductCard(product: products[i], ),
+        SizedBox()
+        //    ProductCard(product: products[i], ),
       ),
     );
   }

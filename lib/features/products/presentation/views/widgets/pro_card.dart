@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/products/presentation/views/widgets/product_image_with_bage.dart';
 import 'package:plupool/features/products/presentation/views/widgets/product_info.dart';
-import 'package:plupool/features/products/data/models/product_model.dart';
 
 class ProCard extends StatelessWidget {
   const ProCard({super.key, required this.product, this.onTap,});
-  final ProductModel product;
+  final Product product;
   final void Function()? onTap;
   
 

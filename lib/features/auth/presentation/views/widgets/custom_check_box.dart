@@ -10,46 +10,20 @@ class CustomCheckbox extends StatelessWidget {
     required this.value,
     required this.onChanged,
     required this.label,
-    
   });
-  
+
   final bool value;
   final ValueChanged<bool> onChanged;
   final String label;
-  
 
   @override
   Widget build(BuildContext context) {
     return Row(
       //   textDirection: TextDirection.rtl,
-      //   mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         // النص على الشمال
-        GestureDetector(
-          onTap: () {
-            context.push('/privacypolicy');
-          },
-          child: Padding(
-            padding: EdgeInsets.only(right: SizeConfig.w(4)),
-            child: Text(
-              label,
-        
-              style: AppTextStyles.styleSemiBold14(context).copyWith(
-                color:  AppColors.kprimarycolor,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding:  EdgeInsets.only(right:SizeConfig.w(8) ),
-          child: Text(
-            "الموافقه علي",
-            style: AppTextStyles.styleSemiBold14(context),
-          ),
-        ),
-
         InkWell(
           onTap: () => onChanged(!value),
           child:
@@ -77,6 +51,29 @@ class CustomCheckbox extends StatelessWidget {
                       )
                     : null,
               ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: SizeConfig.w(8)),
+          child: Text(
+            "الموافقه علي",
+            style: AppTextStyles.styleSemiBold14(context),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+            context.push('/privacypolicy');
+          },
+          child: Padding(
+            padding: EdgeInsets.only(right: SizeConfig.w(4)),
+            child: Text(
+              label,
+
+              style: AppTextStyles.styleSemiBold14(context).copyWith(
+                color: AppColors.kprimarycolor,
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
         ),
       ],
     );

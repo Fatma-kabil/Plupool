@@ -1,5 +1,3 @@
-// lib/features/auth/data/models/company_model.dart
-
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/company_entity.dart';
 
 class CompanyModel extends CompanyEntity {
@@ -20,12 +18,13 @@ class CompanyModel extends CompanyEntity {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'phone': phone,
-      'otp_code': otpCode,
-      'full_name': fullName,
-      'profile_image': profileImage,
-    };
+    final data = {'phone': phone, 'otp_code': otpCode, 'full_name': fullName};
+
+    if (profileImage != null && profileImage!.isNotEmpty) {
+      data['profile_image'] = profileImage!;
+    }
+
+    return data;
   }
 
   factory CompanyModel.fromEntity(CompanyEntity entity) {

@@ -3,30 +3,30 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/get_badge_color.dart';
 import 'package:plupool/core/utils/functions/get_badge_text.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/products/data/models/product_model.dart';
+import 'package:plupool/features/products/domain/entities/product_entity.dart';
 
 class ProductImageWithBadge extends StatelessWidget {
-  final ProductModel product;
+  final Product product;
 
   const ProductImageWithBadge({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
-    final badgeText = getBadgeText(product);
+  //  final badgeText = getBadgeText(product);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Stack(
         children: [
           Image.asset(
-            product.image,
+            product.imageUrl ?? "",
             height: SizeConfig.isWideScreen
                 ? SizeConfig.w(114)
                 : SizeConfig.h(114),
             width: SizeConfig.w(95),
             fit: BoxFit.cover,
           ),
-          if (badgeText != null)
+        //  if (badgeText != null)
             Positioned(
               top: SizeConfig.h(8),
               right: SizeConfig.w(8),
@@ -36,11 +36,11 @@ class ProductImageWithBadge extends StatelessWidget {
                   vertical: SizeConfig.h(6),
                 ),
                 decoration: BoxDecoration(
-                  color: getBadgeColor(product.badge),
+              //    color: getBadgeColor(product.offerBadge),
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: Text(
-                  badgeText,
+                child: Text("الجديد",
+              //    badgeText,
                   style: AppTextStyles.styleBold10(context).copyWith(color: Colors.white),
                 ),
               ),

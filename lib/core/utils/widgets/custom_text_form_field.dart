@@ -29,7 +29,7 @@ class CustomTextFormField extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
-        style: AppTextStyles.styleMedium16(
+        style: AppTextStyles.styleMedium14(
           context,
         ).copyWith(color: AppColors.ktextcolor),
         cursorHeight: SizeConfig.isWideScreen

@@ -26,7 +26,13 @@ class CustomOutlinedBtn extends StatelessWidget {
     return SizedBox(
       width: width,
       child: OutlinedButton(
-        onPressed: () => onPressed ?? Navigator.pop(context),
+       onPressed: () {
+  if (onPressed != null) {
+    onPressed!();
+  } else {
+    Navigator.pop(context);
+  }
+},
         style: OutlinedButton.styleFrom(
           side: BorderSide(color: color ?? AppColors.kprimarycolor),
           shape: RoundedRectangleBorder(

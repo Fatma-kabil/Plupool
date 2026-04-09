@@ -4,8 +4,9 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 
 class EditProductViewBodyFooter extends StatelessWidget {
-  const EditProductViewBodyFooter({super.key});
-
+  const EditProductViewBodyFooter({super.key, this.editfun, this.deleteFun});
+ final void Function()? editfun;
+ final void Function()? deleteFun;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -14,7 +15,7 @@ class EditProductViewBodyFooter extends StatelessWidget {
         CustomOutlinedBtn(
           text: 'تعديل',
           width: SizeConfig.w(145),
-          onPressed: () {},
+          onPressed: editfun,
           trailing: Icon(
             Icons.edit,
             color: AppColors.kprimarycolor,
@@ -26,9 +27,7 @@ class EditProductViewBodyFooter extends StatelessWidget {
         CustomOutlinedBtn(
           text: 'حذف المنتج',
           width: SizeConfig.w(145),
-          onPressed: () {
-            
-          },
+          onPressed:deleteFun,
           trailing: Icon(
             Icons.delete_outline_outlined,
             color: Color(0xffE63946),

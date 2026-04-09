@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/product_filter_helper.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/store_filter.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
@@ -28,7 +27,7 @@ class _StoreViewState extends State<StoreView> {
   @override
   void initState() {
     super.initState();
-    selected = widget.initialFilter ?? StoreFilter.all;
+    selected = widget.initialFilter ?? StoreFilter.best_selling;
   }
 
   // 👇👇 أهم إضافة — تحديث الفلتر عند تغيّر initialFilter
@@ -38,13 +37,12 @@ class _StoreViewState extends State<StoreView> {
 
     if (widget.initialFilter != oldWidget.initialFilter) {
       setState(() {
-        selected = widget.initialFilter ?? StoreFilter.all;
+        selected = widget.initialFilter ?? StoreFilter.best_selling;
       });
     }
   }
 
-  List<ProductModel> get filteredProducts =>
-      ProductFilterHelper.applyFilter(products, selected, topCount: topCount);
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +90,7 @@ class _StoreViewState extends State<StoreView> {
 
           const SizedBox(height: 28),
 
-          ProductsGrid(products: filteredProducts),
+     //     ProductsGrid(products: filteredProducts),
         ],
       ),
     );

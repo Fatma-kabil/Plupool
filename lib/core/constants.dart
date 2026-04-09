@@ -167,67 +167,7 @@ final Map<String, bool> options = {
   "قطع غيار (6)": false,
 };
 
-final List<ProductModel> products = [
-  ProductModel(
-    id: 0,
-    name: "مضخة مياه عالية الكفاءة",
-    image: "assets/images/mach_pro1.png",
-    originalPrice: 3000,
-    salesCount: 75,
 
-    stock: 50,
-  ),
-  ProductModel(
-    id: 1,
-    name: "مضخة PluPool Pro 2000",
-    image: "assets/images/mach_pro2.png",
-    originalPrice: 2500,
-    salesCount: 25,
-    discountPercent: 5,
-    startDate: DateTime(2023, 12, 1),
-    endDate: DateTime(2024, 1, 1),
-    stock: 0,
-  ),
-  ProductModel(
-    id: 3,
-    name: "مضخة مياه عالية الكفاءة",
-    image: "assets/images/mach_pro1.png",
-    originalPrice: 40000,
-    salesCount: 40,
-    stock: 12,
-    //   discountPerc
-    //  ent: 20,
-  ),
-  ProductModel(
-    id: 4,
-    name: "مضخة PluPool Pro 2000",
-    image: "assets/images/mach_pro2.png",
-    originalPrice: 200,
-    salesCount: 35,
-    stock: 5,
-    //   discountPercent: 5,
-  ),
-  ProductModel(
-    id: 5,
-    name: "مضخة مياه عالية الكفاءة",
-    image: "assets/images/mach_pro1.png",
-    originalPrice: 2800,
-    salesCount: 85,
-    stock: 20,
-    //  discountPercent: 20,
-  ),
-  ProductModel(
-    id: 6,
-    name: "مضخة PluPool Pro 2000",
-    image: "assets/images/mach_pro2.png",
-    originalPrice: 4100,
-    salesCount: 4,
-    discountPercent: 5,
-    startDate: DateTime(2023, 12, 1),
-    endDate: DateTime(2024, 1, 1),
-    stock: 2,
-  ),
-];
 
 final moods = [
   {"image": "assets/icons/relax.svg", "label": "Relax"},

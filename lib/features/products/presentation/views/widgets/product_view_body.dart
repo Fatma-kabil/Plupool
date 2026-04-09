@@ -1,81 +1,114 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/constants.dart';
-import 'package:plupool/core/utils/product_filter_helper.dart';
-import 'package:plupool/core/utils/store_filter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
+import 'package:plupool/features/products/presentation/cubits/product_cubit/product_state.dart';
+import 'package:plupool/features/products/presentation/views/widgets/products_list.dart';
+import 'package:plupool/features/products/presentation/views/widgets/product_view_header.dart';
 import 'package:plupool/core/utils/widgets/filter_button.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
-import 'package:plupool/features/products/presentation/views/widgets/product_view_header.dart';
-import 'package:plupool/features/products/presentation/views/widgets/products_list.dart';
-import 'package:plupool/features/products/data/models/product_model.dart';
+import 'package:plupool/core/utils/store_filter.dart';
 import 'package:plupool/features/store/presentation/views/widgets/filter_dialog.dart';
 
-class ProductViewBody extends StatefulWidget {
-  final StoreFilter? initialFilter;
+import 'package:plupool/features/products/data/models/product_params_model.dart';
 
-  ProductViewBody({super.key, this.initialFilter});
+class ProductViewBody extends StatefulWidget {
+  const ProductViewBody({super.key});
 
   @override
   State<ProductViewBody> createState() => _ProductViewBodyState();
 }
 
 class _ProductViewBodyState extends State<ProductViewBody> {
-  late StoreFilter selected;
-  final int topCount = 1;
+  StoreFilter? selected; // null → الكل
+  int? selectedCategoryId; // null → الكل
 
   @override
   void initState() {
     super.initState();
-    selected = widget.initialFilter ?? StoreFilter.all;
+    // أول ما الصفحة تفتح → كل المنتجات
+    context.read<ProductCubit>().fetchProducts();
   }
 
-  @override
-  void didUpdateWidget(covariant ProductViewBody oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.initialFilter != oldWidget.initialFilter) {
-      setState(() {
-        selected = widget.initialFilter ?? StoreFilter.all;
-      });
-    }
-  }
-
-  List<ProductModel> get filteredProducts =>
-      ProductFilterHelper.applyFilter(products, selected, topCount: topCount);
+  ProductParams get currentParams => ProductParams(
+        sortBy: selected?.apiValue,
+        categoryId: selectedCategoryId,
+      );
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
         const SliverToBoxAdapter(child: ProductViewHeader()),
-        SliverToBoxAdapter(child: SizedBox(height: 20)),
+        const SliverToBoxAdapter(child: SizedBox(height: 20)),
+
+        /// Row للـ sorting + filter button
         SliverToBoxAdapter(
           child: Row(
             children: [
+              /// Dropdown للـ sorting
               FilterOption(
                 icon: Icons.keyboard_arrow_down,
-                value: selected.label,
-                items: StoreFilter.values
-                    .where((f) => f != StoreFilter.discount) // استثناء "العروض"
-                    .map((f) => f.label)
-                    .toList(),
+                value: selected?.label ?? "الكل",
+                items: [
+                  "الكل",
+                  ...StoreFilter.values
+                      .where((f) => f != StoreFilter.discount)
+                      .map((f) => f.label)
+                      .toList(),
+                ],
                 onChanged: (val) {
-                  setState(() {
-                    selected = StoreFilter.values.firstWhere((f) => f.label == val);
-                  });
+                  if (val == "الكل") {
+                    setState(() => selected = null);
+                  } else {
+                    final newFilter = StoreFilter.values
+                        .firstWhere((f) => f.label == val);
+                    setState(() => selected = newFilter);
+                  }
+                  // تحديث المنتجات
+                  context.read<ProductCubit>().fetchProducts(currentParams);
                 },
               ),
+
               const Spacer(),
+
+              /// Filter button (Dialog)
               FilterButton(
-                onTap: () {
-                  showDialog(
+                onTap: () async {
+                  final categoryId = await showDialog<int?>(
                     context: context,
                     builder: (_) => const FilterDialog(),
                   );
+
+                  setState(() => selectedCategoryId = categoryId);
+                  context.read<ProductCubit>().fetchProducts(currentParams);
                 },
               ),
             ],
           ),
         ),
-        ProductsList(products: filteredProducts),
+
+        /// BlocBuilder للمنتجات
+        BlocBuilder<ProductCubit, ProductState>(
+          builder: (context, state) {
+            if (state is ProductLoading) {
+              return const SliverToBoxAdapter(
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            if (state is ProductLoaded) {
+              return ProductsList(products: state.products);
+            }
+
+            if (state is ProductError) {
+              return SliverToBoxAdapter(
+                child: Center(child: Text(state.message)),
+              );
+            }
+
+            return const SliverToBoxAdapter(child: SizedBox());
+          },
+        ),
       ],
     );
   }

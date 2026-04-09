@@ -4,10 +4,11 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/stock_status_helper.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_product_offer_card.dart';
-import 'package:plupool/features/products/data/models/product_model.dart';
+
+import 'package:plupool/features/products/domain/entities/product_entity.dart';
 
 class ProductInfo extends StatelessWidget {
-  final ProductModel product;
+  final Product product;
   final void Function()? onTap;
 
   const ProductInfo({super.key, required this.product, this.onTap});
@@ -51,15 +52,15 @@ class ProductInfo extends StatelessWidget {
         Row(
           children: [
             Text(
-              "${product.finalPrice.toStringAsFixed(0)} ج.م",
+              "${product.price.toStringAsFixed(0)} ج.م",
               style: AppTextStyles.styleBold16(
                 context,
               ).copyWith(color: AppColors.ktextcolor),
             ),
             SizedBox(width: SizeConfig.w(10)),
-            if (product.hasDiscount)
+            if (product.hasOffer ?? false)
               Text(
-                "${product.originalPrice.toStringAsFixed(0)} ج.م ",
+                "${product.price.toStringAsFixed(0)} ج.م ",
                 style: AppTextStyles.styleRegular14(context).copyWith(
                   color: const Color(0xff808080),
                   decoration: TextDecoration.lineThrough,
@@ -80,7 +81,7 @@ class ProductInfo extends StatelessWidget {
             ),
             SizedBox(width: SizeConfig.w(4)),
             Text(
-              getStockText(product.stock),
+              getStockText(product.stock ),
               style: AppTextStyles.styleSemiBold16(
                 context,
               ).copyWith(color: getStockColor(product.stock)),

@@ -1,5 +1,3 @@
-// lib/features/auth/data/models/pool_owner_model.dart
-
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/pool_owner_entity.dart';
 
 class PoolOwnerModel extends PoolOwnerEntity {
@@ -26,17 +24,21 @@ class PoolOwnerModel extends PoolOwnerEntity {
   }
 
   Map<String, dynamic> toJson() {
-  return {
-    'phone': phone,
-    'otp_code': otpCode,
-    'full_name': fullName,
-    'profile_image': profileImage ?? '',
-    'latitude': latitude ?? 0.0,
-    'longitude': longitude ?? 0.0,
-    'address': address,
-  };
-}
+    final data = {
+      'phone': phone,
+      'otp_code': otpCode,
+      'full_name': fullName,
+      'latitude': latitude ?? 0.0,
+      'longitude': longitude ?? 0.0,
+      'address': address,
+    };
 
+    if (profileImage != null && profileImage!.isNotEmpty) {
+      data['profile_image'] = profileImage;
+    }
+
+    return data;
+  }
 
   factory PoolOwnerModel.fromEntity(PoolOwnerEntity entity) {
     return PoolOwnerModel(

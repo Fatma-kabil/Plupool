@@ -40,7 +40,7 @@ class _TechSetupFormState extends State<TechSetupForm> {
     return Form(
       key: widget.formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ProfileImagePicker(onImagePicked: widget.onImagePicked),
           SizedBox(height: SizeConfig.h(15)),

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
+import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/products/presentation/views/widgets/edit_product_view_body.dart';
-import 'package:plupool/features/products/data/models/product_model.dart';
+
 
 class EditProductView extends StatefulWidget {
   const EditProductView({super.key,required this.product});
-   final ProductModel product;
+   final Product product;
 
   @override
   State<EditProductView> createState() => _EditProductViewState();

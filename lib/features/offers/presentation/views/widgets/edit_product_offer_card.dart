@@ -37,11 +37,11 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
     super.initState();
 
     offerController = TextEditingController(
-      text: widget.product.discountPercent.toString(),
+      text: widget.product.discountPercentage.toString(),
     );
 
-    startDate = widget.product.startDate;
-    endDate = widget.product.endDate;
+    startDate = widget.product.offerStartDate;
+    endDate = widget.product.offerEndDate;
     
  debugPrint('START DATE: $startDate');
   debugPrint('END DATE: $endDate');
@@ -147,7 +147,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                       ),
                       SizedBox(height: SizeConfig.h(6)),
                       Text(
-                        widget.product.name,
+                        widget.product.nameAr,
                         style: AppTextStyles.styleSemiBold16(context)
                             .copyWith(color: const Color(0xff7B7B7B)),
                       ),

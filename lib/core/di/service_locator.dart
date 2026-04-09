@@ -18,6 +18,14 @@ import 'package:plupool/features/home/domain/repos/contact_repo.dart';
 import 'package:plupool/features/home/domain/repos/notification_repo.dart';
 import 'package:plupool/features/home/presentaation/manager/contact_cubit/contat_cubit.dart';
 import 'package:plupool/features/home/presentaation/manager/notification_cubit/notification_cubit.dart';
+import 'package:plupool/features/products/data/remote_data_sources/product_remote_data_source.dart';
+import 'package:plupool/features/products/data/repos_impl/product_repo_impl.dart';
+import 'package:plupool/features/products/domain/repos/product_repo.dart';
+import 'package:plupool/features/products/domain/usecases/add_product_usecase.dart';
+import 'package:plupool/features/products/domain/usecases/delete_product_usecase.dart';
+import 'package:plupool/features/products/domain/usecases/get_all_products_usecase.dart';
+import 'package:plupool/features/products/domain/usecases/update_product_usecase.dart';
+import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:plupool/features/profile/data/remote_data_source.dart/user_remote_data_source.dart';
 import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
 import 'package:plupool/features/profile/domain/repos/user_repo.dart';
@@ -175,5 +183,29 @@ sl.registerLazySingleton(() => UserCubit(sl<UserRepository>()));
   sl.registerLazySingleton(
     () => NotificationCubit(sl<NotificationRepository>()),
   );
+// ----------------------------
+// 🛒 Product Feature
+// ----------------------------
 
+sl.registerLazySingleton<ProductRemoteDataSource>(
+  () => ProductRemoteDataSource(sl<ApiService>()),
+);
+
+sl.registerLazySingleton<ProductRepository>(
+  () => ProductRepoImpl(sl<ProductRemoteDataSource>()),
+);
+
+sl.registerLazySingleton(() => GetAllProductsUsecase(sl<ProductRepository>()));
+sl.registerLazySingleton(() => AddProductUsecase(sl<ProductRepository>()));
+sl.registerLazySingleton(() => UpdateProductUsecase(sl<ProductRepository>()));
+sl.registerLazySingleton(() => DeleteProductUsecase(sl<ProductRepository>()));
+
+sl.registerLazySingleton(
+  () => ProductCubit(
+    sl<GetAllProductsUsecase>(),
+    sl<AddProductUsecase>(),
+    sl<UpdateProductUsecase>(),
+    sl<DeleteProductUsecase>(),
+  ),
+);
 }
