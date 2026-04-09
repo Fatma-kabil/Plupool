@@ -44,6 +44,11 @@ import 'package:plupool/features/auth/data/datasources/sign_up_remote_data_sourc
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_company_usecase.dart';
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_pool_owner_usecase.dart';
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_technician_usecase.dart';
+import 'package:plupool/features/statistics/data/data_sources/dashboard_remote_data_source.dart';
+import 'package:plupool/features/statistics/data/repos_impl/dashboard_repository_impl.dart';
+import 'package:plupool/features/statistics/domain/repos/dashboard_repo.dart';
+import 'package:plupool/features/statistics/domain/usecases/get_admin_statistics_usecase.dart';
+import 'package:plupool/features/statistics/presentation/manaager/cubits/dashboard_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -207,5 +212,28 @@ sl.registerLazySingleton(
     sl<UpdateProductUsecase>(),
     sl<DeleteProductUsecase>(),
   ),
+);
+// ----------------------------
+// 📊 Dashboard Feature
+// ----------------------------
+
+// Remote Data Source
+sl.registerLazySingleton<DashboardRemoteDataSource>(
+  () => DashboardRemoteDataSourceImpl(sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<DashboardRepository>(
+  () => DashboardRepositoryImpl(sl<DashboardRemoteDataSource>()),
+);
+
+// UseCase
+sl.registerLazySingleton(
+  () => GetAdminStatisticsUseCase(sl<DashboardRepository>()),
+);
+
+// Cubit
+sl.registerLazySingleton(
+  () => DashboardCubit(sl<GetAdminStatisticsUseCase>()),
 );
 }

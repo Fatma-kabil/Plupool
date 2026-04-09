@@ -607,70 +607,70 @@ final List<StatisticsModel> Statistics = [
   StatisticsModel(
     backColor: Color(0xffCCF0F7),
     iconColor: Color(0xff00B4D8),
-    count: 32,
+  
     icon: Icons.shopping_cart,
     title: "طلبات المتجر",
   ),
   StatisticsModel(
     backColor: Color(0xffFFECD2),
     iconColor: Color(0xffFF9F1C),
-    count: 42,
+  
     icon: Icons.layers_outlined,
     title: "الباقات النشطة",
   ),
   StatisticsModel(
     backColor: Color(0xffCDF7EC),
     iconColor: Color(0xff05B285),
-    count: 18,
+  
     icon: Icons.pending_actions,
     title: "الطلبات الجارية",
   ),
   StatisticsModel(
     backColor: Color(0xffFAD7DA),
     iconColor: Color(0xffEA5A65),
-    count: 8,
+  
     icon: Icons.flag_outlined,
     title: "البلاغات",
   ),
   StatisticsModel(
     backColor: Color(0xffB7FFC9),
     iconColor: Color(0xff75CD55),
-    count: 142,
+   
     icon: Icons.people_outline,
     title: "العملاء",
   ),
   StatisticsModel(
     backColor: Color(0xffDAF5FA),
     iconColor: Color(0xff60959F),
-    count: 15,
+   
     icon: Icons.engineering_outlined,
     title: "الفنيين",
   ),
 ];
 final dashboarditems = [
   DashboardItem(
-    count: 100,
+    
     title: 'العملاء النشطين',
     icon: Icons.person,
     iconBgColor: Color(0xffCDF7EC),
     iconColor: Color(0xff05B285),
   ),
   DashboardItem(
-    count: 100,
+   
     title: 'الباقات المتجددة',
     icon: Icons.sync_alt,
     iconBgColor: Color(0xffCDF7EC),
     iconColor: Color(0xff05B285),
   ),
   DashboardItem(
-    count: 80,
+    
     title: 'العملاء غير النشطين',
     icon: Icons.person_off,
     iconBgColor: Color(0xffFAD7DA),
     iconColor: Color(0xffEA5A65),
   ),
   DashboardItem(
-    count: 80,
+   
     title: 'الباقات غير المتجددة',
     icon: Icons.description,
     iconBgColor: Color(0xffFAD7DA),

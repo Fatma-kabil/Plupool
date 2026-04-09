@@ -24,45 +24,45 @@ class ProductCubit extends Cubit<ProductState> {
   ) : super(ProductInitial());
 
   /// ================= GET ALL =================
- Future<void> fetchProducts([ProductParams? params]) async {
-  emit(ProductLoading());
+  Future<void> fetchProducts([ProductParams? params]) async {
+    emit(ProductLoading());
 
-  try {
-    final products = await getAllProducts(params ?? const ProductParams());
+    try {
+      final products = await getAllProducts(params ?? const ProductParams());
 
       emit(ProductLoaded(products));
-    }catch (e) {
-  if (e is Failure) {
-    emit(ProductError(e.message));
-  } else {
-    emit(ProductError("حصل خطأ"));
-  }
-}
+    } catch (e) {
+      if (e is Failure) {
+        emit(ProductError(e.message));
+      } else {
+        emit(ProductError("حصل خطأ"));
+      }
+    }
   }
 
   /// ================= ADD =================
- Future<void> addProduct(Product product) async {
-  emit(ProductLoading()); // 👈 مهم
+  Future<void> addProduct(Product product) async {
+    emit(ProductLoading()); // 👈 مهم
 
-  try {
-    await addProductUseCase(product);
+    try {
+      await addProductUseCase(product);
 
-    emit(ProductSuccess("تم إضافة المنتج بنجاح"));
-    fetchProducts(ProductParams());
-  } catch (e) {
-    print("FULL ERROR: $e");
+      emit(ProductSuccess("تم إضافة المنتج بنجاح"));
+      fetchProducts(ProductParams());
+    } catch (e) {
+      print("FULL ERROR: $e");
 
-    if (e is DioException) {
-      print("RESPONSE DATA: ${e.response?.data}");
-    }
+      if (e is DioException) {
+        print("RESPONSE DATA: ${e.response?.data}");
+      }
 
-    if (e is Failure) {
-      emit(ProductError(e.message));
-    } else {
-      emit(ProductError(e.toString()));
+      if (e is Failure) {
+        emit(ProductError(e.message));
+      } else {
+        emit(ProductError(e.toString()));
+      }
     }
   }
-}
 
   /// ================= UPDATE =================
   Future<void> updateProduct(Product product) async {
@@ -72,13 +72,13 @@ class ProductCubit extends Cubit<ProductState> {
       emit(ProductSuccess("تم تعديل المنتج"));
 
       fetchProducts(ProductParams());
-    }catch (e) {
-  if (e is Failure) {
-    emit(ProductError(e.message));
-  } else {
-    emit(ProductError("حصل خطأ"));
-  }
-}
+    } catch (e) {
+      if (e is Failure) {
+        emit(ProductError(e.message));
+      } else {
+        emit(ProductError("حصل خطأ"));
+      }
+    }
   }
 
   /// ================= DELETE =================
@@ -90,11 +90,11 @@ class ProductCubit extends Cubit<ProductState> {
 
       fetchProducts(ProductParams());
     } catch (e) {
-  if (e is Failure) {
-    emit(ProductError(e.message));
-  } else {
-    emit(ProductError("حصل خطأ"));
-  }
-}
+      if (e is Failure) {
+        emit(ProductError(e.message));
+      } else {
+        emit(ProductError("حصل خطأ"));
+      }
+    }
   }
 }

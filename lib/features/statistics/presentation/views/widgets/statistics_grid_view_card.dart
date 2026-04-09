@@ -4,7 +4,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 
 class StatisticsGridViewCard extends StatelessWidget {
-  const StatisticsGridViewCard({super.key,required this.model});
+  const StatisticsGridViewCard({super.key, required this.model});
   final StatisticsModel model;
 
   @override
@@ -29,13 +29,14 @@ class StatisticsGridViewCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-           decoration: BoxDecoration(
-            border: Border.all(color: model.iconColor, ),shape: BoxShape.circle
-           ),
+            decoration: BoxDecoration(
+              border: Border.all(color: model.iconColor),
+              shape: BoxShape.circle,
+            ),
             child: Padding(
-              padding:  EdgeInsets.all(SizeConfig.w(6)),
+              padding: EdgeInsets.all(SizeConfig.w(6)),
               child: Icon(
-              model.icon,
+                model.icon,
                 size: SizeConfig.w(24),
                 color: model.iconColor,
               ),
@@ -43,14 +44,14 @@ class StatisticsGridViewCard extends StatelessWidget {
           ),
           SizedBox(height: SizeConfig.h(4)),
           Text(
-            model.count.toString(),
+            "20",
             style: AppTextStyles.styleMedium20(
               context,
             ).copyWith(color: Color(0xff333333)),
           ),
-            SizedBox(height: SizeConfig.h(6)),
+          SizedBox(height: SizeConfig.h(6)),
           Text(
-            model.title  ,
+            model.title,
             style: AppTextStyles.styleRegular14(
               context,
             ).copyWith(color: Color(0xff555555)),

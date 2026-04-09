@@ -46,7 +46,7 @@ class DashboardCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                item.count.toString(),
+               "20",
                 style: AppTextStyles.styleBold16(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
