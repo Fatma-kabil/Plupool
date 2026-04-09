@@ -4,8 +4,9 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 
 class StatisticsGridViewCard extends StatelessWidget {
-  const StatisticsGridViewCard({super.key, required this.model});
+  const StatisticsGridViewCard({super.key, required this.model, required this.data});
   final StatisticsModel model;
+  final int data;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class StatisticsGridViewCard extends StatelessWidget {
           ),
           SizedBox(height: SizeConfig.h(4)),
           Text(
-            "20",
+            data.toString(),
             style: AppTextStyles.styleMedium20(
               context,
             ).copyWith(color: Color(0xff333333)),
