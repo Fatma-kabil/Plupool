@@ -49,6 +49,11 @@ import 'package:plupool/features/statistics/data/repos_impl/dashboard_repository
 import 'package:plupool/features/statistics/domain/repos/dashboard_repo.dart';
 import 'package:plupool/features/statistics/domain/usecases/get_admin_statistics_usecase.dart';
 import 'package:plupool/features/statistics/presentation/manaager/cubits/dashboard_cubit.dart';
+import 'package:plupool/features/store/data/data_sources/store_statistics_remote_datasource.dart';
+import 'package:plupool/features/store/data/repos_impl/store_statistics_repo_impl.dart';
+import 'package:plupool/features/store/domain/repos/store_statistics_repo.dart';
+import 'package:plupool/features/store/domain/usecases/get_store_statistics_usecase.dart';
+import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -235,5 +240,28 @@ sl.registerLazySingleton(
 // Cubit
 sl.registerLazySingleton(
   () => DashboardCubit(sl<GetAdminStatisticsUseCase>()),
+);
+// ----------------------------
+// 🏬 Store Statistics Feature
+// ----------------------------
+
+// Remote Data Source
+sl.registerLazySingleton<StoreStatisticsRemoteDataSource>(
+  () => StoreStatisticsRemoteDataSourceImpl(sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<StoreStatisticsRepo>(
+  () => StoreStatisticsRepoImpl(sl<StoreStatisticsRemoteDataSource>()),
+);
+
+// UseCase
+sl.registerLazySingleton(
+  () => GetStoreStatisticsUseCase(sl<StoreStatisticsRepo>()),
+);
+
+// Cubit
+sl.registerLazySingleton(
+  () => StoreStatisticsCubit(sl<GetStoreStatisticsUseCase>()),
 );
 }

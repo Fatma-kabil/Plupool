@@ -17,6 +17,7 @@ static const String contact = '$baseUrl/contact';
 static const String notifications = '$baseUrl/notifications';
 static const String products = '$baseUrl/admin/products/';
 static const String adminStatistics = '$baseUrl/admin/dashboard/statistics';
+static const String adminStoreStatistics = '$baseUrl/admin/store/statistics';
 // static const String productsOffer = '$baseUrl/admin/products/{product_id}/offer';
   // ... روابط نقاط نهاية أخرى
 } 
