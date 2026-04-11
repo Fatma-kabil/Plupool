@@ -6,8 +6,9 @@ import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
 
 class StatCard extends StatelessWidget {
   final DashboardStatModel model;
+   final int data;
 
-  const StatCard({super.key, required this.model});
+  const StatCard({super.key, required this.model, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class StatCard extends StatelessWidget {
             children: [
               Text(
                 textDirection: TextDirection.ltr,
-                model.value,
+                data.toString(),
                 style: AppTextStyles.styleBold20(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
