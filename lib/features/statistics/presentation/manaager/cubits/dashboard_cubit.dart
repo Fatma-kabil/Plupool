@@ -10,11 +10,15 @@ class DashboardCubit extends Cubit<DashboardState> {
   DashboardCubit(this.getStatistics) : super(DashboardInitial());
 
   Future<void> fetchStatistics() async {
+      print("GET STATISTICS CALLED 🚀");
+
     emit(DashboardLoading());
 
     try {
       final data = await getStatistics();
       emit(DashboardSuccess(data));
+      print("DATA RECEIVED: $data");
+
     } catch (e) {
       if (e is Failure) {
         emit(DashboardError(e.message));

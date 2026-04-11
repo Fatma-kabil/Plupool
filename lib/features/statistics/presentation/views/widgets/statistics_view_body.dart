@@ -13,33 +13,41 @@ class StatisticsViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /// 👇 هنا بس الكيوبت
-          BlocBuilder<DashboardCubit, DashboardState>(
-            builder: (context, state) {
-              if (state is DashboardLoading) {
-              return StatisticsGridShimmer();
+    return BlocListener<DashboardCubit, DashboardState>(
+  listener: (context, state) {
+    if (state is DashboardError) {
+      showCustomSnackBar(
+        context: context,
+        message: state.message,
+      );
+    }
+  },
+  child: SingleChildScrollView(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BlocBuilder<DashboardCubit, DashboardState>(
+          builder: (context, state) {
+ print("STATE: $state");
 
-              } else if (state is DashboardError) {
-                showCustomSnackBar(context: context, message: state.message);
-             //   return const SizedBox();
-              } else if (state is DashboardSuccess) {
-                return StatisticsGridView(data: state.data);
-              }
+            if (state is DashboardLoading) {
+              return const StatisticsGridShimmer();
+            }
 
-              return const SizedBox();
-            },
-          ),
+            if (state is DashboardSuccess) {
+              return StatisticsGridView(data: state.data);
+            }
 
-          SizedBox(height: SizeConfig.h(40)),
+            return const SizedBox();
+          },
+        ),
 
-          /// 👇 ده بعيد عن الكيوبت خالص
-          DashboardGrid(),
-        ],
-      ),
-    );
+        SizedBox(height: SizeConfig.h(40)),
+
+        DashboardGrid(),
+      ],
+    ),
+  ),
+);
   }
 }

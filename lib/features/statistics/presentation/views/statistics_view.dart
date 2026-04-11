@@ -31,7 +31,7 @@ class _StatisticsViewState extends State<StatisticsView> {
           ),
           drawer: AppDrawer(),
           body: BlocProvider(
-            create: (context) => sl<DashboardCubit>()..getStatistics(),
+            create: (context) => sl<DashboardCubit>()..fetchStatistics(),
           
           
             child: Padding(
