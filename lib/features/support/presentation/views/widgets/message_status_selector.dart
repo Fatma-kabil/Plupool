@@ -7,7 +7,7 @@ class StatusSelector<T> extends StatefulWidget {
   const StatusSelector({
     super.key,
     required this.items,
-    required this.selected,
+     this.selected,
     required this.onChanged,
     required this.displayText,
     this.icon,
@@ -15,7 +15,7 @@ class StatusSelector<T> extends StatefulWidget {
   });
 
   final List<T> items;
-  final T selected;
+  final T ?selected;
   final ValueChanged<T> onChanged;
   final String Function(T value) displayText;
   final IconData? icon;
@@ -60,7 +60,9 @@ class _StatusSelectorState<T> extends State<StatusSelector<T>> {
                   SizedBox(width: SizeConfig.w(6)),
                   Expanded(
                     child: Text(
-                      widget.displayText(widget.selected),
+ widget.selected == null
+      ? "اختار تصنيف"
+      : widget.displayText(widget.selected as T),
                       style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: const Color(0xff777777)),

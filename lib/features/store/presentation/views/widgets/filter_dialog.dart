@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
+import 'package:plupool/features/store/domain/entities/category_entity.dart';
+import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
+import 'package:plupool/features/store/presentation/cubits/category_cubit/category_state.dart';
 
 class FilterDialog extends StatefulWidget {
   const FilterDialog({super.key});
@@ -12,12 +17,8 @@ class FilterDialog extends StatefulWidget {
 }
 
 class FilterDialogState extends State<FilterDialog> {
-  final Map<String, bool> options = {
-    "الكترونيات": false,
-    "أثاث": false,
-    "ملابس": false,
-    "ألعاب": false,
-  };
+  Map<int, bool> selectedCategories = {};
+  List<CategoryEntity> categories = [];
 
   @override
   Widget build(BuildContext context) {
@@ -35,72 +36,98 @@ class FilterDialogState extends State<FilterDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            /// شبكة الاختيارات
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              childAspectRatio: 4,
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              physics: const NeverScrollableScrollPhysics(),
-              children: options.keys.map((key) {
-                return Row(
-                  textDirection: TextDirection.rtl,
-                  children: [
-                    Checkbox(
-                      value: options[key],
-                      activeColor: AppColors.kprimarycolor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      side: const BorderSide(
-                        color: Color(0xffAAAAAA),
-                        width: 2,
-                      ),
-                      onChanged: (val) {
-                        setState(() {
-                          options[key] = val ?? false;
-                        });
-                      },
-                    ),
-                    Expanded(
+            /// 🟡 Categories from API
+            BlocBuilder<CategoryCubit, CategoryState>(
+              builder: (context, state) {
+                if (state is CategoryLoading) {
+                  return const Center(child: CustomLoadingIndecator());
+                }
+
+                if (state is CategoryError) {
+                  return Text(state.message);
+                }
+
+                if (state is CategorySuccess) {
+                  categories = state.categories;
+
+                  /// init map مرة واحدة
+                  for (var cat in categories) {
+                    selectedCategories.putIfAbsent(cat.id, () => false);
+                  }
+
+                  if (categories.isEmpty) {
+                    return const Padding(
+                      padding: EdgeInsets.all(20),
                       child: Text(
-                        key,
-                        textAlign: TextAlign.right,
-                        textDirection: TextDirection.rtl,
-                        style: AppTextStyles.styleSemiBold16(context)
-                            .copyWith(color: AppColors.ktextcolor),
+                        "مفيش تصنيفات متاحة 📭",
+                        style: TextStyle(color: Colors.grey),
                       ),
-                    ),
-                  ],
-                );
-              }).toList(),
+                    );
+                  }
+
+                  return GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    childAspectRatio: 4,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: categories.map((cat) {
+                      return Row(
+                        textDirection: TextDirection.rtl,
+                        children: [
+                          Checkbox(
+                            value: selectedCategories[cat.id],
+                            activeColor: AppColors.kprimarycolor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            side: const BorderSide(
+                              color: Color(0xffAAAAAA),
+                              width: 2,
+                            ),
+                            onChanged: (val) {
+                              setState(() {
+                                selectedCategories[cat.id] = val ?? false;
+                              });
+                            },
+                          ),
+                          Expanded(
+                            child: Text(
+                              cat.name,
+                              textAlign: TextAlign.right,
+                              textDirection: TextDirection.rtl,
+                              style: AppTextStyles.styleSemiBold16(context)
+                                  .copyWith(color: AppColors.ktextcolor),
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                  );
+                }
+
+                return const SizedBox();
+              },
             ),
 
             const SizedBox(height: 50),
 
-            /// الأزرار تحت
+            /// 🟡 Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomOutlinedBtn(
-                  text: "إلغاء",
-                 
-                ),
+                /// Apply Filter
                 ElevatedButton(
                   onPressed: () {
-                    final selectedCategory = options.entries
-                        .firstWhere(
-                          (e) => e.value,
-                          orElse: () => MapEntry("", false),
-                        )
-                        .key;
+                    final selected = selectedCategories.entries.firstWhere(
+                      (e) => e.value,
+                      orElse: () => const MapEntry(-1, false),
+                    );
 
                     Navigator.pop(
                       context,
-                      selectedCategory.isNotEmpty
-                          ? options.keys.toList().indexOf(selectedCategory)
-                          : null, // null → الكل
+                      selected.key == -1 ? null : selected.key,
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -110,13 +137,19 @@ class FilterDialogState extends State<FilterDialog> {
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(SizeConfig.isWideScreen ? SizeConfig.h(7) : 0),
+                    padding: EdgeInsets.all(
+                        SizeConfig.isWideScreen ? SizeConfig.h(7) : 0),
                     child: Text(
                       "تصفية",
                       style: AppTextStyles.styleBold16(context)
                           .copyWith(color: Colors.white),
                     ),
                   ),
+                ),
+
+                /// Cancel
+                CustomOutlinedBtn(
+                  text: "إلغاء",
                 ),
               ],
             ),

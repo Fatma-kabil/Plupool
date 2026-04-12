@@ -8,6 +8,7 @@ import 'package:plupool/features/products/presentation/views/widgets/product_vie
 import 'package:plupool/core/utils/widgets/filter_button.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/core/utils/store_filter.dart';
+import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
 import 'package:plupool/features/store/presentation/views/widgets/filter_dialog.dart';
 
 import 'package:plupool/features/products/data/models/product_params_model.dart';
@@ -76,7 +77,10 @@ class _ProductViewBodyState extends State<ProductViewBody> {
                 onTap: () async {
                   final categoryId = await showDialog<int?>(
                     context: context,
-                    builder: (_) => const FilterDialog(),
+                    builder: (_) => BlocProvider.value(
+                      value: context.read<CategoryCubit>(),
+                      child: const FilterDialog(),
+                    ),
                   );
 
                   setState(() => selectedCategoryId = categoryId);

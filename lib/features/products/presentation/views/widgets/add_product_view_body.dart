@@ -12,6 +12,9 @@ import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_state.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
+import 'package:plupool/features/store/domain/entities/category_entity.dart';
+import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
+import 'package:plupool/features/store/presentation/cubits/category_cubit/category_state.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class AddProductViewBody extends StatefulWidget {
@@ -27,40 +30,38 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
-  final TextEditingController imageController = TextEditingController();
-
-  String selectedCategory = "فلاتر";
 
   File? _productImage;
-
-  final List<String> categories = const [
-    "فلاتر",
-    "مضخات",
-    "مواد تنظيف",
-    "اكسسوارات",
-  ];
+  CategoryEntity? selectedCategory;
 
   @override
   void dispose() {
     nameController.dispose();
     priceController.dispose();
     quantityController.dispose();
-    imageController.dispose();
     super.dispose();
   }
 
-  /// 🧠 validation + submit
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
 
-   if (_productImage == null) {
-  showCustomSnackBar(
-    context: context,
-    message: "من فضلك اختار صورة للمنتج",
-    isSuccess: false,
-  );
-  return;
-}
+    if (_productImage == null) {
+      showCustomSnackBar(
+        context: context,
+        message: "من فضلك اختار صورة للمنتج",
+        isSuccess: false,
+      );
+      return;
+    }
+
+    if (selectedCategory == null) {
+      showCustomSnackBar(
+        context: context,
+        message: "من فضلك اختاري التصنيف",
+        isSuccess: false,
+      );
+      return;
+    }
 
     context.read<ProductCubit>().addProduct(
       Product(
@@ -68,7 +69,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
         name: nameController.text,
         price: int.tryParse(priceController.text)!,
         stock: int.tryParse(quantityController.text)!,
-        categoryId: 2,
+        categoryId: selectedCategory!.id,
       ),
     );
   }
@@ -106,7 +107,6 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                 keyboardType: TextInputType.text,
                 validator: (value) =>
                     value == null || value.isEmpty ? "مطلوب" : null,
-
                 hint: 'اكتب اسم المنتج...',
               ),
 
@@ -138,14 +138,50 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
               const SizedBox(height: 16),
 
-              /// 🟡 التصنيف
+              /// 🟡 التصنيف (Dynamic from API)
               const FieldLabel('التصنيف'),
-              StatusSelector<String>(
-                selected: selectedCategory,
-                items: categories,
-                displayText: (status) => status,
-                onChanged: (val) => setState(() => selectedCategory = val),
-                icon: Icons.category_outlined,
+
+              BlocBuilder<CategoryCubit, CategoryState>(
+                builder: (context, state) {
+                  if (state is CategoryLoading) {
+                    return Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: Text(
+                        "جاري تحميل التصنيفات...",
+                        style: AppTextStyles.styleRegular16(
+                          context,
+                        ).copyWith(color: Colors.grey),
+                      ),
+                    );
+                  }
+
+                  if (state is CategoryError) {
+                    return Text(state.message);
+                  }
+
+                  if (state is CategorySuccess) {
+                    if (state.categories.isEmpty) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        child: Text(
+                          "مفيش تصنيفات متاحة 📭",
+                          style: AppTextStyles.styleRegular16(
+                            context,
+                          ).copyWith(color: Colors.grey),
+                        ),
+                      );
+                    }
+                    return StatusSelector<CategoryEntity>(
+                      selected: selectedCategory,
+                      items: state.categories,
+                      displayText: (cat) => cat.name,
+                      onChanged: (val) =>
+                          setState(() => selectedCategory = val),
+                      icon: Icons.category_outlined,
+                    );
+                  }
+                  return const SizedBox();
+                },
               ),
 
               const SizedBox(height: 20),
@@ -164,7 +200,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
               const SizedBox(height: 40),
 
-              /// 🟡 زرار الإضافة + loading
+              /// 🟡 زرار الإضافة
               BlocBuilder<ProductCubit, ProductState>(
                 builder: (context, state) {
                   final isLoading = state is ProductLoading;

@@ -15,6 +15,7 @@ import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cu
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
+import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
 
 class PlupoolApp extends StatelessWidget {
   const PlupoolApp({super.key});
@@ -31,6 +32,7 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => DrawerCubit()),
          BlocProvider(create: (_) => sl<ProductCubit>()),
         BlocProvider(create: (_) => sl<ProductOfferCubit>()),
+        BlocProvider(create: (_) => sl<CategoryCubit>()..getCategories(),),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,
