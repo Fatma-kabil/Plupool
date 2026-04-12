@@ -44,6 +44,14 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
+     if (selectedCategory == null) {
+      showCustomSnackBar(
+        context: context,
+        message: "من فضلك اختار التصنيف",
+        isSuccess: false,
+      );
+      return;
+    }
 
     if (_productImage == null) {
       showCustomSnackBar(
@@ -54,14 +62,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
       return;
     }
 
-    if (selectedCategory == null) {
-      showCustomSnackBar(
-        context: context,
-        message: "من فضلك اختاري التصنيف",
-        isSuccess: false,
-      );
-      return;
-    }
+   
 
     context.read<ProductCubit>().addProduct(
       Product(
@@ -94,114 +95,123 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
           );
         }
       },
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// 🟡 اسم المنتج
-              const FieldLabel('اسم المنتج'),
-              TextField(
-                controller: nameController,
-                keyboardType: TextInputType.text,
-                validator: (value) =>
-                    value == null || value.isEmpty ? "مطلوب" : null,
-                hint: 'اكتب اسم المنتج...',
+      child: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// 🟡 اسم المنتج
+                    const FieldLabel('اسم المنتج'),
+                    TextField(
+                      controller: nameController,
+                      keyboardType: TextInputType.text,
+                      validator: (value) =>
+                          value == null || value.isEmpty ? "مطلوب" : null,
+                      hint: 'اكتب اسم المنتج...',
+                    ),
+            
+                    const SizedBox(height: 16),
+            
+                    /// 🟡 السعر
+                    const FieldLabel('السعر'),
+                    TextFieldWithIcon(
+                      validator: (value) =>
+                          Validators.number(value, fieldName: "السعر"),
+                      controller: priceController,
+                      hint: 'اكتب السعر...',
+                      keyboardType: TextInputType.number,
+                      icon: Icons.attach_money,
+                    ),
+            
+                    const SizedBox(height: 16),
+            
+                    /// 🟡 الكمية
+                    const FieldLabel('الكمية'),
+                    TextFieldWithIcon(
+                      validator: (value) =>
+                          Validators.number(value, fieldName: "الكمية"),
+                      controller: quantityController,
+                      hint: 'اكتب الكمية...',
+                      keyboardType: TextInputType.number,
+                      icon: Icons.inventory_2_outlined,
+                    ),
+            
+                    const SizedBox(height: 16),
+            
+                    /// 🟡 التصنيف (Dynamic from API)
+                    const FieldLabel('التصنيف'),
+            
+                    BlocBuilder<CategoryCubit, CategoryState>(
+                      builder: (context, state) {
+                        if (state is CategoryLoading) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12),
+                            child: Text(
+                              "جاري تحميل التصنيفات...",
+                              style: AppTextStyles.styleRegular16(
+                                context,
+                              ).copyWith(color: Colors.grey),
+                            ),
+                          );
+                        }
+            
+                        if (state is CategoryError) {
+                          return Text(state.message);
+                        }
+            
+                        if (state is CategorySuccess) {
+                          if (state.categories.isEmpty) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                              child: Text(
+                                "مفيش تصنيفات متاحة 📭",
+                                style: AppTextStyles.styleRegular16(
+                                  context,
+                                ).copyWith(color: Colors.grey),
+                              ),
+                            );
+                          }
+                          return StatusSelector<CategoryEntity>(
+                            selected: selectedCategory,
+                            items: state.categories,
+                            displayText: (cat) => cat.name,
+                            onChanged: (val) =>
+                                setState(() => selectedCategory = val),
+                            icon: Icons.category_outlined,
+                          );
+                        }
+                        return const SizedBox();
+                      },
+                    ),
+            
+                    const SizedBox(height: 20),
+            
+                    /// 🟡 صورة المنتج
+                    const FieldLabel('صورة المنتج'),
+                    ProfileImagePicker(
+                      backgroundColor: const Color(0xffCDCDCD).withAlpha(70),
+                      title: "أضف صورة للمنتج",
+                      isCircle: false,
+                      icon: Icons.add_photo_alternate_outlined,
+                      onImagePicked: (img) {
+                        setState(() => _productImage = img);
+                      },
+                    ),
+            
+                    const SizedBox(height: 40),
+            
+                    /// 🟡 زرار الإضافة
+                    
+                  ],
+                ),
               ),
-
-              const SizedBox(height: 16),
-
-              /// 🟡 السعر
-              const FieldLabel('السعر'),
-              TextFieldWithIcon(
-                validator: (value) =>
-                    Validators.number(value, fieldName: "السعر"),
-                controller: priceController,
-                hint: 'اكتب السعر...',
-                keyboardType: TextInputType.number,
-                icon: Icons.attach_money,
-              ),
-
-              const SizedBox(height: 16),
-
-              /// 🟡 الكمية
-              const FieldLabel('الكمية'),
-              TextFieldWithIcon(
-                validator: (value) =>
-                    Validators.number(value, fieldName: "الكمية"),
-                controller: quantityController,
-                hint: 'اكتب الكمية...',
-                keyboardType: TextInputType.number,
-                icon: Icons.inventory_2_outlined,
-              ),
-
-              const SizedBox(height: 16),
-
-              /// 🟡 التصنيف (Dynamic from API)
-              const FieldLabel('التصنيف'),
-
-              BlocBuilder<CategoryCubit, CategoryState>(
-                builder: (context, state) {
-                  if (state is CategoryLoading) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12),
-                      child: Text(
-                        "جاري تحميل التصنيفات...",
-                        style: AppTextStyles.styleRegular16(
-                          context,
-                        ).copyWith(color: Colors.grey),
-                      ),
-                    );
-                  }
-
-                  if (state is CategoryError) {
-                    return Text(state.message);
-                  }
-
-                  if (state is CategorySuccess) {
-                    if (state.categories.isEmpty) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        child: Text(
-                          "مفيش تصنيفات متاحة 📭",
-                          style: AppTextStyles.styleRegular16(
-                            context,
-                          ).copyWith(color: Colors.grey),
-                        ),
-                      );
-                    }
-                    return StatusSelector<CategoryEntity>(
-                      selected: selectedCategory,
-                      items: state.categories,
-                      displayText: (cat) => cat.name,
-                      onChanged: (val) =>
-                          setState(() => selectedCategory = val),
-                      icon: Icons.category_outlined,
-                    );
-                  }
-                  return const SizedBox();
-                },
-              ),
-
-              const SizedBox(height: 20),
-
-              /// 🟡 صورة المنتج
-              const FieldLabel('صورة المنتج'),
-              ProfileImagePicker(
-                backgroundColor: const Color(0xffCDCDCD).withAlpha(70),
-                title: "أضف صورة للمنتج",
-                isCircle: false,
-                icon: Icons.add_photo_alternate_outlined,
-                onImagePicked: (img) {
-                  setState(() => _productImage = img);
-                },
-              ),
-
-              const SizedBox(height: 40),
-
-              /// 🟡 زرار الإضافة
-              BlocBuilder<ProductCubit, ProductState>(
+            ),
+          ),
+          BlocBuilder<ProductCubit, ProductState>(
                 builder: (context, state) {
                   final isLoading = state is ProductLoading;
 
@@ -212,11 +222,10 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                 },
               ),
 
-              const SizedBox(height: 30),
-            ],
-          ),
-        ),
+            //  const SizedBox(height: 30),
+        ],
       ),
+      
     );
   }
 }
