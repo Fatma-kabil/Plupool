@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_state.dart';
 import 'package:plupool/features/products/presentation/views/widgets/products_list.dart';
@@ -29,10 +30,8 @@ class _ProductViewBodyState extends State<ProductViewBody> {
     context.read<ProductCubit>().fetchProducts();
   }
 
-  ProductParams get currentParams => ProductParams(
-        sortBy: selected?.apiValue,
-        categoryId: selectedCategoryId,
-      );
+  ProductParams get currentParams =>
+      ProductParams(sortBy: selected?.apiValue, categoryId: selectedCategoryId);
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +59,9 @@ class _ProductViewBodyState extends State<ProductViewBody> {
                   if (val == "الكل") {
                     setState(() => selected = null);
                   } else {
-                    final newFilter = StoreFilter.values
-                        .firstWhere((f) => f.label == val);
+                    final newFilter = StoreFilter.values.firstWhere(
+                      (f) => f.label == val,
+                    );
                     setState(() => selected = newFilter);
                   }
                   // تحديث المنتجات
@@ -97,6 +97,22 @@ class _ProductViewBodyState extends State<ProductViewBody> {
             }
 
             if (state is ProductLoaded) {
+              if (state.products.isEmpty) {
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Text(
+                        "لا توجد منتجات متاحة حالياً 🛒📭",
+                        style: AppTextStyles.styleMedium20(
+                          context,
+                        ).copyWith(color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                );
+              }
+
               return ProductsList(products: state.products);
             }
 

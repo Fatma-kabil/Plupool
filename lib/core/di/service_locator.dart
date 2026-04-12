@@ -18,6 +18,13 @@ import 'package:plupool/features/home/domain/repos/contact_repo.dart';
 import 'package:plupool/features/home/domain/repos/notification_repo.dart';
 import 'package:plupool/features/home/presentaation/manager/contact_cubit/contat_cubit.dart';
 import 'package:plupool/features/home/presentaation/manager/notification_cubit/notification_cubit.dart';
+import 'package:plupool/features/offers/data/remote_data_sources/product_offer_remote_data_source.dart';
+import 'package:plupool/features/offers/data/repos_impl/product_offer_repo_impl.dart';
+import 'package:plupool/features/offers/domain/repos/product_offer_repo.dart';
+import 'package:plupool/features/offers/domain/usecases/add_product_offer_usecase.dart';
+import 'package:plupool/features/offers/domain/usecases/delete_product_offer_usecase.dart';
+import 'package:plupool/features/offers/domain/usecases/update_product_offer_usecase.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/products/data/remote_data_sources/product_remote_data_source.dart';
 import 'package:plupool/features/products/data/repos_impl/product_repo_impl.dart';
 import 'package:plupool/features/products/domain/repos/product_repo.dart';
@@ -49,10 +56,15 @@ import 'package:plupool/features/statistics/data/repos_impl/dashboard_repository
 import 'package:plupool/features/statistics/domain/repos/dashboard_repo.dart';
 import 'package:plupool/features/statistics/domain/usecases/get_admin_statistics_usecase.dart';
 import 'package:plupool/features/statistics/presentation/manaager/cubits/dashboard_cubit.dart';
+import 'package:plupool/features/store/data/data_sources/category_remote_data_source.dart';
 import 'package:plupool/features/store/data/data_sources/store_statistics_remote_datasource.dart';
+import 'package:plupool/features/store/data/repos_impl/category_repository_impl.dart';
 import 'package:plupool/features/store/data/repos_impl/store_statistics_repo_impl.dart';
+import 'package:plupool/features/store/domain/repos/category_repository.dart';
 import 'package:plupool/features/store/domain/repos/store_statistics_repo.dart';
+import 'package:plupool/features/store/domain/usecases/get_categories_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_store_statistics_usecase.dart';
+import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
 
 final sl = GetIt.instance;
@@ -264,4 +276,48 @@ sl.registerLazySingleton(
 sl.registerLazySingleton(
   () => StoreStatisticsCubit(sl<GetStoreStatisticsUseCase>()),
 );
+/// ================= OFFERS =================
+
+// Remote Data Source
+sl.registerLazySingleton<ProductOfferRemoteDataSource>(
+  () => ProductOfferRemoteDataSource(api: sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<ProductOfferRepo>(
+  () => ProductOfferRepoImpl(remote: sl<ProductOfferRemoteDataSource>()),
+);
+
+// UseCases
+sl.registerLazySingleton(() => AddProductOfferUsecase(sl<ProductOfferRepo>()));
+sl.registerLazySingleton(() => UpdateProductOfferUsecase(sl<ProductOfferRepo>()));
+sl.registerLazySingleton(() => DeleteProductOfferUsecase(sl<ProductOfferRepo>()));
+
+// Cubit
+sl.registerFactory(
+  () => ProductOfferCubit(
+    addUseCase: sl<AddProductOfferUsecase>(),
+    updateUseCase: sl<UpdateProductOfferUsecase>(),
+    deleteUseCase: sl<DeleteProductOfferUsecase>(),
+  ),
+);
+  // 📦 Categories
+  // =====================
+
+  sl.registerLazySingleton<CategoryRemoteDataSource>(
+    () => CategoryRemoteDataSourceImpl(sl<ApiService>()),
+  );
+
+  sl.registerLazySingleton<CategoryRepository>(
+    () => CategoryRepositoryImpl(sl<CategoryRemoteDataSource>()),
+  );
+
+  sl.registerLazySingleton(
+    () => GetCategoriesUseCase(sl<CategoryRepository>()),
+  );
+
+  sl.registerFactory(
+    () => CategoryCubit(sl<GetCategoriesUseCase>()),
+  );
+
 }

@@ -12,39 +12,48 @@ class ProductImageWithBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  //  final badgeText = getBadgeText(product);
+    //  final badgeText = getBadgeText(product);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Stack(
         children: [
-          Image.asset(
-            product.imageUrl ?? "",
+          Image.network(
+            (product.imageUrl ?? "").replaceAll('localhost', '10.0.2.2'),
             height: SizeConfig.isWideScreen
                 ? SizeConfig.w(114)
                 : SizeConfig.h(114),
             width: SizeConfig.w(95),
             fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Colors.grey[300],
+                child: Icon(Icons.broken_image),
+              );
+            },
           ),
-        //  if (badgeText != null)
-            Positioned(
-              top: SizeConfig.h(8),
-              right: SizeConfig.w(8),
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: SizeConfig.w(9),
-                  vertical: SizeConfig.h(6),
-                ),
-                decoration: BoxDecoration(
-              //    color: getBadgeColor(product.offerBadge),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Text("الجديد",
-              //    badgeText,
-                  style: AppTextStyles.styleBold10(context).copyWith(color: Colors.white),
-                ),
+          //  if (badgeText != null)
+          Positioned(
+            top: SizeConfig.h(8),
+            right: SizeConfig.w(8),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.w(9),
+                vertical: SizeConfig.h(6),
+              ),
+              decoration: BoxDecoration(
+                //    color: getBadgeColor(product.offerBadge),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Text(
+                "الجديد",
+                //    badgeText,
+                style: AppTextStyles.styleBold10(
+                  context,
+                ).copyWith(color: Colors.white),
               ),
             ),
+          ),
         ],
       ),
     );
