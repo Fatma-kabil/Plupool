@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_state.dart';
 import 'package:plupool/features/store/presentation/views/admin/widgets/dashboard_stats_shimmer.dart';
@@ -16,10 +16,7 @@ class DashboardStatsGrid extends StatelessWidget {
     return BlocListener<StoreStatisticsCubit, StoreStatisticsState>(
       listener: (context, state) {
         if (state is StoreStatisticsError) {
-          showCustomSnackBar(
-            context: context,
-            message: state.message,
-          );
+         ErrorText(message: state.message);
         }
       },
       child: BlocBuilder<StoreStatisticsCubit, StoreStatisticsState>(

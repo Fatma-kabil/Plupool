@@ -116,7 +116,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
         if (state is ProductSuccess) {
           showCustomSnackBar(
             context: context,
-            message: "تم تعديل المنتج بنجاح",
+            message:state.message,
             isSuccess: true,
           );
         }
@@ -137,13 +137,12 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
             children: [
               /// اسم المنتج
               const FieldLabel('اسم المنتج'),
-              TextFieldWithIcon(
+              TextField(
                 controller: nameController,
+                keyboardType: TextInputType.text,
+                validator: (value) =>
+                    value == null || value.isEmpty ? "مطلوب" : null,
                 hint: 'اكتب اسم المنتج...',
-                validator: (value) {
-                  if (value == null || value.isEmpty) return 'الحقل مطلوب';
-                  return null;
-                },
               ),
               const SizedBox(height: 16),
 
@@ -196,7 +195,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
               const SizedBox(height: 12),
 
               /// صورة حالية
-              if (_productImage == null && imageController.text.isNotEmpty)
+              if (_productImage == null &&
+                  imageController.text.isNotEmpty &&
+                  imageController.text.startsWith("http"))
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: Image.network(
@@ -225,6 +226,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
               EditProductViewBodyFooter(
                 editfun: _submit,
                 deleteFun: () {
+                
                   context.read<ProductCubit>().deleteProduct(
                     widget.product.id!,
                   );

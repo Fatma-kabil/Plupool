@@ -10,28 +10,52 @@ class ProductImageWithBadge extends StatelessWidget {
 
   const ProductImageWithBadge({super.key, required this.product});
 
+  String normalizeUrl(String? url) {
+    if (url == null || url.isEmpty) return "";
+    return url.replaceAll("localhost", "10.0.2.2");
+  }
+
   @override
   Widget build(BuildContext context) {
-    //  final badgeText = getBadgeText(product);
+    final url = normalizeUrl(product.imageUrl);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Stack(
         children: [
-          Image.network(
-            (product.imageUrl ?? "").replaceAll('localhost', '10.0.2.2'),
-            height: SizeConfig.isWideScreen
-                ? SizeConfig.w(114)
-                : SizeConfig.h(114),
-            width: SizeConfig.w(95),
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                color: Colors.grey[300],
-                child: Icon(Icons.broken_image),
-              );
-            },
-          ),
+          /// 🟡 الحالة لو مفيش صورة
+          if (url.isEmpty)
+            Container(
+              height: SizeConfig.isWideScreen
+                  ? SizeConfig.w(114)
+                  : SizeConfig.h(114),
+              width: SizeConfig.w(95),
+              color: Colors.grey[200],
+              child: const Icon(
+                Icons.image_not_supported,
+                color: Colors.grey,
+              ),
+            )
+          else
+            Image.network(
+              url,
+              height: SizeConfig.isWideScreen
+                  ? SizeConfig.w(114)
+                  : SizeConfig.h(114),
+              width: SizeConfig.w(95),
+              fit: BoxFit.cover,
+
+              /// 🛡️ fallback لو التحميل فشل
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[200],
+                  child: const Icon(
+                    Icons.broken_image,
+                    color: Colors.grey,
+                  ),
+                );
+              },
+            ),
           //  if (badgeText != null)
           Positioned(
             top: SizeConfig.h(8),

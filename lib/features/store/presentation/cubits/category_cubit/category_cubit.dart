@@ -18,7 +18,8 @@ class CategoryCubit extends Cubit<CategoryState> {
       if (e is Failure) {
         emit(CategoryError(e.message));
       } else {
-        emit(CategoryError(e.toString()));
+        emit(CategoryError("حدث خطأ اثناء تحميل التصنيفات"));
+        print(e.toString());
       }
     }
   }

@@ -5,6 +5,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/store/domain/entities/category_entity.dart';
 import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/category_cubit/category_state.dart';
@@ -44,7 +45,7 @@ class FilterDialogState extends State<FilterDialog> {
                 }
 
                 if (state is CategoryError) {
-                  return Text(state.message);
+                 ErrorText(message: state.message);
                 }
 
                 if (state is CategorySuccess) {
@@ -82,9 +83,9 @@ class FilterDialogState extends State<FilterDialog> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            side: const BorderSide(
+                            side:  BorderSide(
                               color: Color(0xffAAAAAA),
-                              width: 2,
+                              width:SizeConfig.w(2) ,
                             ),
                             onChanged: (val) {
                               setState(() {

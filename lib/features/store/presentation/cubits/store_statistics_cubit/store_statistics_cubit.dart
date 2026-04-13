@@ -19,7 +19,8 @@ class StoreStatisticsCubit extends Cubit<StoreStatisticsState> {
       if (e is Failure) {
         emit(StoreStatisticsError(e.message));
       } else {
-        emit(StoreStatisticsError(e.toString()));
+        emit(StoreStatisticsError("حدث خطأ أثناء تحميل البيانات "));
+        print("Error fetching store statistics: $e");
       }
     }
   }

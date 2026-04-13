@@ -11,14 +11,14 @@ class ProductRemoteDataSource {
   ProductRemoteDataSource(this.api);
 
   /// ================= GET ALL =================
-  Future<List<ProductModel>> getAllProducts(
-  ProductParams params
-  ) async {
+  Future<List<ProductModel>> getAllProducts(ProductParams params) async {
     try {
       final response = await api.get(
         Endpoints.products,
-        queryParams:  params.toQuery(),
+        queryParams: params.toQuery(),
       );
+      print("GET PRODUCTS RESPONSE => ${response.data}");
+
 
       return (response.data as List)
           .map((e) => ProductModel.fromJson(e))
@@ -41,23 +41,24 @@ class ProductRemoteDataSource {
 
   Future<void> addProduct(ProductModel product) async {
     final formData = await product.toFormData(); // FormData + الصور
-     /// 🔥 حطي الـ debug هنا
-  print("FIELDS:");
-  for (var field in formData.fields) {
-    print(field);
-  }
+    /// 🔥 حطي الـ debug هنا
+    print("FIELDS:");
+    for (var field in formData.fields) {
+      print(field);
+    }
 
-  print("FILES:");
-  for (var file in formData.files) {
-    print(file.key);
-    print(file.value.filename);
-  }
+    print("FILES:");
+    for (var file in formData.files) {
+      print(file.key);
+      print(file.value.filename);
+    }
     await api.post(Endpoints.products, data: formData);
   }
 
   /// ================= UPDATE =================
   Future<void> updateProduct(ProductModel product) async {
     final formData = await product.toFormData(); // FormData + الصور
+   //  print("UPDATE RESPONSE: ${response.data}");
     await api.put('${Endpoints.products}${product.id}', data: formData);
   }
 
