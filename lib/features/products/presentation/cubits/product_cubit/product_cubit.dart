@@ -76,8 +76,9 @@ class ProductCubit extends Cubit<ProductState> {
       if (e is Failure) {
         emit(ProductError(e.message));
       } else {
-         emit(ProductError(e.toString()));
-     //   emit(ProductError("حدث خطأ أثناء تعديل المنتج"));
+       //  emit(ProductError(e.toString()));
+       print("FULL ERROR: $e");
+        emit(ProductError("حدث خطأ أثناء تعديل المنتج"));
       }
     }
   }

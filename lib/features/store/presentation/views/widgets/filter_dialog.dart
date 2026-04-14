@@ -32,7 +32,7 @@ class FilterDialogState extends State<FilterDialog> {
           left: SizeConfig.w(17),
           right: SizeConfig.w(17),
           top: SizeConfig.h(34),
-          bottom: SizeConfig.h(55),
+          bottom: SizeConfig.h(40),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -45,7 +45,7 @@ class FilterDialogState extends State<FilterDialog> {
                 }
 
                 if (state is CategoryError) {
-                 ErrorText(message: state.message);
+                return ErrorText(message: state.message);
                 }
 
                 if (state is CategorySuccess) {
@@ -69,9 +69,9 @@ class FilterDialogState extends State<FilterDialog> {
                   return GridView.count(
                     crossAxisCount: 2,
                     shrinkWrap: true,
-                    childAspectRatio: 4,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
+                    childAspectRatio: 3.6,
+                    mainAxisSpacing: 6,
+                    crossAxisSpacing:8,
                     physics: const NeverScrollableScrollPhysics(),
                     children: categories.map((cat) {
                       return Row(

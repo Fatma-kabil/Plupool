@@ -13,53 +13,47 @@ class DashboardStatsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<StoreStatisticsCubit, StoreStatisticsState>(
-      listener: (context, state) {
-        if (state is StoreStatisticsError) {
-         ErrorText(message: state.message);
+    return BlocBuilder<StoreStatisticsCubit, StoreStatisticsState>(
+      builder: (context, state) {
+        /// 🔄 Loading
+        if (state is StoreStatisticsLoading) {
+          return const DashboardStatsShimmer();
         }
-      },
-      child: BlocBuilder<StoreStatisticsCubit, StoreStatisticsState>(
-        builder: (context, state) {
+        if (state is StoreStatisticsError) {
+          return ErrorText(message: state.message);
+        }
 
-          /// 🔄 Loading
-          if (state is StoreStatisticsLoading) {
-            return const DashboardStatsShimmer();
-          }
+        /// ✅ Success
+        if (state is StoreStatisticsSuccess) {
+          final stats = [
+            {"value": state.data.totalOrders},
+            {"value": state.data.totalProducts},
+          ];
 
-          /// ✅ Success
-          if (state is StoreStatisticsSuccess) {
-            final stats = [
-              {"value": state.data.totalOrders},
-              {"value": state.data.totalProducts},
-            ];
-
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(8)),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: dashboardStats.length, // ✅ الصح
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio:
-                      SizeConfig.isWideScreen ? 2.5 : 2,
-                  crossAxisSpacing: SizeConfig.w(12),
-                  mainAxisSpacing: SizeConfig.h(12),
-                ),
-                itemBuilder: (context, index) {
-                  return StatCard(
-                    model: dashboardStats[index],
-                    data: stats[index]['value']!,
-                  );
-                },
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(8)),
+            child: GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: dashboardStats.length, // ✅ الصح
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: SizeConfig.isWideScreen ? 2.5 : 2,
+                crossAxisSpacing: SizeConfig.w(12),
+                mainAxisSpacing: SizeConfig.h(12),
               ),
-            );
-          }
+              itemBuilder: (context, index) {
+                return StatCard(
+                  model: dashboardStats[index],
+                  data: stats[index]['value']!,
+                );
+              },
+            ),
+          );
+        }
 
-          return const SizedBox();
-        },
-      ),
+        return const SizedBox();
+      },
     );
   }
 }

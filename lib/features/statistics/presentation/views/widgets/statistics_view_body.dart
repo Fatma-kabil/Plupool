@@ -13,37 +13,33 @@ class StatisticsViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DashboardCubit, DashboardState>(
-      listener: (context, state) {
-        if (state is DashboardError) {
-           ErrorText(message: state.message);
-        }
-      },
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BlocBuilder<DashboardCubit, DashboardState>(
-              builder: (context, state) {
-                print("STATE: $state");
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BlocBuilder<DashboardCubit, DashboardState>(
+            builder: (context, state) {
+              print("STATE: $state");
 
-                if (state is DashboardLoading) {
-                  return const StatisticsGridShimmer();
-                }
+              if (state is DashboardLoading) {
+                return const StatisticsGridShimmer();
+              }
+              if (state is DashboardError) {
+                return ErrorText(message: state.message);
+              }
 
-                if (state is DashboardSuccess) {
-                  return StatisticsGridView(data: state.data);
-                }
+              if (state is DashboardSuccess) {
+                return StatisticsGridView(data: state.data);
+              }
 
-                return const SizedBox();
-              },
-            ),
+              return const SizedBox();
+            },
+          ),
 
-            SizedBox(height: SizeConfig.h(40)),
+          SizedBox(height: SizeConfig.h(40)),
 
-            DashboardGrid(),
-          ],
-        ),
+          DashboardGrid(),
+        ],
       ),
     );
   }
