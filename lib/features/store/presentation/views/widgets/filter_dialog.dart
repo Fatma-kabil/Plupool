@@ -57,11 +57,13 @@ class FilterDialogState extends State<FilterDialog> {
                   }
 
                   if (categories.isEmpty) {
-                    return const Padding(
+                    return  Padding(
                       padding: EdgeInsets.all(20),
                       child: Text(
                         "مفيش تصنيفات متاحة 📭",
-                        style: TextStyle(color: Colors.grey),
+                        style: AppTextStyles.styleMedium16(
+                      context,
+                    ).copyWith(color: Colors.grey),
                       ),
                     );
                   }

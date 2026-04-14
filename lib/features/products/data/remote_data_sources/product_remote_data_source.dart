@@ -59,7 +59,7 @@ class ProductRemoteDataSource {
   Future<void> updateProduct(ProductModel product) async {
     final formData = await product.toFormData(); // FormData + الصور
    //  print("UPDATE RESPONSE: ${response.data}");
-    await api.put('${Endpoints.products}${product.id}', data: formData);
+    await api.put('${Endpoints.products}${product.id}/update-with-image', data: formData);
   }
 
   /// ================= DELETE =================

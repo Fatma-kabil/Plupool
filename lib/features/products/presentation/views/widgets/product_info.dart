@@ -102,7 +102,8 @@ class ProductInfo extends StatelessWidget {
                   barrierDismissible: false, // لو مش عايزة يتقفل بالضغط برا
                   builder: (context) {
                     return AddProductOfferCard(
-                      productName: product.name, // مرري اسم المنتج
+                      productName: product.name, 
+                      productId: product.id!,// مرري اسم المنتج
                     );
                   },
                 );

@@ -6,11 +6,13 @@ class ErrorText extends StatelessWidget {
   final String message;
   @override
   Widget build(BuildContext context) {
-    return Text(
-      message,
-      style: AppTextStyles.styleSemiBold14(
-        context,
-      ).copyWith(color: Colors.grey),
+    return Center(
+      child: Text(
+        message,
+        style: AppTextStyles.styleSemiBold14(
+          context,
+        ).copyWith(color: Colors.grey),
+      ),
     );
   }
 }

@@ -44,7 +44,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
   void _submit() {
     if (!_formKey.currentState!.validate()) return;
-     if (selectedCategory == null) {
+    if (selectedCategory == null) {
       showCustomSnackBar(
         context: context,
         message: "من فضلك اختار التصنيف",
@@ -61,8 +61,6 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
       );
       return;
     }
-
-   
 
     context.read<ProductCubit>().addProduct(
       Product(
@@ -85,6 +83,9 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
             message: "تم إضافة المنتج بنجاح",
             isSuccess: true,
           );
+          Future.delayed(const Duration(milliseconds: 300), () {
+            Navigator.pop(context);
+          });
         }
 
         if (state is ProductError) {
@@ -113,9 +114,9 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                           value == null || value.isEmpty ? "مطلوب" : null,
                       hint: 'اكتب اسم المنتج...',
                     ),
-            
+
                     const SizedBox(height: 16),
-            
+
                     /// 🟡 السعر
                     const FieldLabel('السعر'),
                     TextFieldWithIcon(
@@ -126,9 +127,9 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       keyboardType: TextInputType.number,
                       icon: Icons.attach_money,
                     ),
-            
+
                     const SizedBox(height: 16),
-            
+
                     /// 🟡 الكمية
                     const FieldLabel('الكمية'),
                     TextFieldWithIcon(
@@ -139,12 +140,12 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       keyboardType: TextInputType.number,
                       icon: Icons.inventory_2_outlined,
                     ),
-            
+
                     const SizedBox(height: 16),
-            
+
                     /// 🟡 التصنيف (Dynamic from API)
                     const FieldLabel('التصنيف'),
-            
+
                     BlocBuilder<CategoryCubit, CategoryState>(
                       builder: (context, state) {
                         if (state is CategoryLoading) {
@@ -158,11 +159,11 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                             ),
                           );
                         }
-            
+
                         if (state is CategoryError) {
                           return Text(state.message);
                         }
-            
+
                         if (state is CategorySuccess) {
                           if (state.categories.isEmpty) {
                             return Padding(
@@ -187,9 +188,9 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         return const SizedBox();
                       },
                     ),
-            
+
                     const SizedBox(height: 20),
-            
+
                     /// 🟡 صورة المنتج
                     const FieldLabel('صورة المنتج'),
                     ProfileImagePicker(
@@ -201,31 +202,29 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                         setState(() => _productImage = img);
                       },
                     ),
-            
+
                     const SizedBox(height: 40),
-            
+
                     /// 🟡 زرار الإضافة
-                    
                   ],
                 ),
               ),
             ),
           ),
           BlocBuilder<ProductCubit, ProductState>(
-                builder: (context, state) {
-                  final isLoading = state is ProductLoading;
+            builder: (context, state) {
+              final isLoading = state is ProductLoading;
 
-                  return AddEditOfferViewFooter(
-                    text: isLoading ? "جارٍ الإضافة..." : "إضافة",
-                    onPressed: isLoading ? null : _submit,
-                  );
-                },
-              ),
+              return AddEditOfferViewFooter(
+                text: isLoading ? "جارٍ الإضافة..." : "إضافة",
+                onPressed: isLoading ? null : _submit,
+              );
+            },
+          ),
 
-            //  const SizedBox(height: 30),
+          //  const SizedBox(height: 30),
         ],
       ),
-      
     );
   }
 }
