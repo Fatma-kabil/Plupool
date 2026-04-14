@@ -58,7 +58,6 @@ import 'package:plupool/features/rating/presentation/views/admin_rating_view.dar
 import 'package:plupool/features/rating/presentation/views/customer_rating.dart';
 import 'package:plupool/features/reports/admin_drawer_report_view.dart';
 import 'package:plupool/features/reports/presentation/views/admin_reports_view.dart';
-import 'package:plupool/features/search/presentation/views/search_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_customer_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/weekly_tasks_view.dart';
@@ -224,11 +223,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const OrderSummaryView()),
     ),
-    GoRoute(
-      path: '/searchview',
-      name: 'searchview',
-      pageBuilder: (context, state) => buildTransitionPage(const SearchView()),
-    ),
+
     GoRoute(
       path: '/profileeditview',
       name: 'profileeditview',

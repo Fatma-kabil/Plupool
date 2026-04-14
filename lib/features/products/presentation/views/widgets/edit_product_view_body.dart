@@ -116,10 +116,15 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
         if (state is ProductSuccess) {
           showCustomSnackBar(
             context: context,
-            message:state.message,
+            message: state.message,
             isSuccess: true,
           );
-        }
+         Future.delayed(const Duration(milliseconds: 300), () {
+        Navigator.pop(context);
+      });
+    }
+
+        
 
         if (state is ProductError) {
           showCustomSnackBar(
@@ -226,7 +231,6 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
               EditProductViewBodyFooter(
                 editfun: _submit,
                 deleteFun: () {
-                
                   context.read<ProductCubit>().deleteProduct(
                     widget.product.id!,
                   );

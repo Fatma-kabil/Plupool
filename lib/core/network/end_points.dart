@@ -20,6 +20,8 @@ static const String adminStatistics = '$baseUrl/admin/dashboard/statistics';
 static const String adminStoreStatistics = '$baseUrl/admin/store/statistics';
 static const String categoriesAll =
     '$baseUrl/products/categories/all';
+static const String productSearch =
+    '$baseUrl/products/search';
 // static const String productsOffer = '$baseUrl/admin/products/{product_id}/offer';
   // ... روابط نقاط نهاية أخرى
 } 

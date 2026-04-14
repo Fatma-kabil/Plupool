@@ -37,6 +37,11 @@ import 'package:plupool/features/profile/data/remote_data_source.dart/user_remot
 import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
 import 'package:plupool/features/profile/domain/repos/user_repo.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
+import 'package:plupool/features/search/data/data_sources/product_search_remote_data_source.dart';
+import 'package:plupool/features/search/data/repositories_impl/product_search_repository_impl.dart';
+import 'package:plupool/features/search/domain/repositories/product_search_repo.dart';
+import 'package:plupool/features/search/domain/usecases/search_products_usecase.dart';
+import 'package:plupool/features/search/presentation/manager/cubits/product_search_cubit/product_search_cubit.dart';
 
 // Role Feature
 import 'package:plupool/features/select_role/data/local_data_source/role_local_data_source.dart';
@@ -320,4 +325,16 @@ sl.registerFactory(
     () => CategoryCubit(sl<GetCategoriesUseCase>()),
   );
 
+sl.registerLazySingleton<ProductSearchRemoteDataSource>(
+  () => ProductSearchRemoteDataSource(sl<ApiService>()),
+);
+sl.registerLazySingleton<ProductSearchRepository>(
+  () => ProductSearchRepositoryImpl(sl<ProductSearchRemoteDataSource>()),
+);
+sl.registerLazySingleton(
+  () => SearchProductsUseCase(sl<ProductSearchRepository>()),
+);
+sl.registerFactory(
+  () => ProductSearchCubit(sl<SearchProductsUseCase>()),
+);
 }

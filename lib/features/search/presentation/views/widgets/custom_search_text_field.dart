@@ -4,15 +4,17 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class CustumSearchTextField extends StatelessWidget {
-  const CustumSearchTextField({super.key, this.validator, this.controller});
+  const CustumSearchTextField({super.key, this.validator, this.controller, this.onChanged});
   final String? Function(String?)? validator;
   final TextEditingController? controller;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+        onChanged: onChanged,
         style: AppTextStyles.styleMedium16(
           context,
         ).copyWith(color: AppColors.ktextcolor),
