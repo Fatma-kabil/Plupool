@@ -57,9 +57,11 @@ class ProductCubit extends Cubit<ProductState> {
       }
 
       if (e is Failure) {
-        emit(ProductError(e.message));
+        emit(AddProductError(e.message));
+         fetchProducts(ProductParams());
       } else {
-        emit(ProductError("حدث خطأ أثناء إضافة المنتج"));
+        emit(AddProductError("حدث خطأ أثناء إضافة المنتج"));
+         fetchProducts(ProductParams());
       }
     }
   }
@@ -74,11 +76,13 @@ class ProductCubit extends Cubit<ProductState> {
       fetchProducts(ProductParams());
     } catch (e) {
       if (e is Failure) {
-        emit(ProductError(e.message));
+        emit(UpdateProductError(e.message));
+         fetchProducts(ProductParams());
       } else {
        //  emit(ProductError(e.toString()));
        print("FULL ERROR: $e");
-        emit(ProductError("حدث خطأ أثناء تعديل المنتج"));
+        emit(UpdateProductError("حدث خطأ أثناء تعديل المنتج"));
+         fetchProducts(ProductParams());
       }
     }
   }
@@ -93,9 +97,11 @@ class ProductCubit extends Cubit<ProductState> {
       fetchProducts(ProductParams());
     } catch (e) {
       if (e is Failure) {
-        emit(ProductError(e.message));
+        emit(DeleteProductError(e.message));
+         fetchProducts(ProductParams());
       } else {
-        emit(ProductError("حدث خطأ أثناء حذف المنتج"));
+        emit(DeleteProductError("حدث خطأ أثناء حذف المنتج"));
+         fetchProducts(ProductParams());
       }
     }
   }

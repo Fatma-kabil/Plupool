@@ -7,11 +7,14 @@ class ErrorText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(
-        message,
-        style: AppTextStyles.styleSemiBold14(
-          context,
-        ).copyWith(color: Colors.grey),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        child: Text(
+          message,
+          style: AppTextStyles.styleSemiBold14(
+            context,
+          ).copyWith(color: Colors.grey),
+        ),
       ),
     );
   }

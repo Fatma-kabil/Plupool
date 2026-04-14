@@ -19,7 +19,6 @@ class ProductRemoteDataSource {
       );
       print("GET PRODUCTS RESPONSE => ${response.data}");
 
-
       return (response.data as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
@@ -58,8 +57,11 @@ class ProductRemoteDataSource {
   /// ================= UPDATE =================
   Future<void> updateProduct(ProductModel product) async {
     final formData = await product.toFormData(); // FormData + الصور
-   //  print("UPDATE RESPONSE: ${response.data}");
-    await api.put('${Endpoints.products}${product.id}/update-with-image', data: formData);
+    //  print("UPDATE RESPONSE: ${response.data}");
+    await api.patch(
+      '${Endpoints.products}${product.id}/update-with-image',
+      data: formData,
+    );
   }
 
   /// ================= DELETE =================

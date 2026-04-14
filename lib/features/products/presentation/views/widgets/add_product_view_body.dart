@@ -88,7 +88,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
           });
         }
 
-        if (state is ProductError) {
+        if (state is AddProductError) {
           showCustomSnackBar(
             context: context,
             message: state.message,

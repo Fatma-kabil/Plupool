@@ -13,6 +13,13 @@ class ProductInfo extends StatelessWidget {
 
   const ProductInfo({super.key, required this.product, this.onTap});
 
+  double finalPrice(Product product) {
+    if (product.discountValue == null || product.discountValue == 0) {
+      return product.price.toDouble();
+    }
+    return product.price - (product.price * (product.discountValue! / 100));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,7 +43,7 @@ class ProductInfo extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap:onTap,
+              onTap: onTap,
               child: Icon(
                 Icons.edit_note_outlined,
                 color: AppColors.kprimarycolor,
@@ -58,9 +65,9 @@ class ProductInfo extends StatelessWidget {
               ).copyWith(color: AppColors.ktextcolor),
             ),
             SizedBox(width: SizeConfig.w(10)),
-            if (product.hasOffer ?? false)
+            if (product.hasOffer == true)
               Text(
-                "${product.price.toStringAsFixed(0)} ج.م ",
+                "${finalPrice(product).toStringAsFixed(0)} ج.م",
                 style: AppTextStyles.styleRegular14(context).copyWith(
                   color: const Color(0xff808080),
                   decoration: TextDecoration.lineThrough,
@@ -81,7 +88,7 @@ class ProductInfo extends StatelessWidget {
             ),
             SizedBox(width: SizeConfig.w(4)),
             Text(
-              getStockText(product.stock ),
+              getStockText(product.stock),
               style: AppTextStyles.styleSemiBold16(
                 context,
               ).copyWith(color: getStockColor(product.stock)),
@@ -102,8 +109,8 @@ class ProductInfo extends StatelessWidget {
                   barrierDismissible: false, // لو مش عايزة يتقفل بالضغط برا
                   builder: (context) {
                     return AddProductOfferCard(
-                      productName: product.name, 
-                      productId: product.id!,// مرري اسم المنتج
+                      productName: product.name,
+                      productId: product.id!, // مرري اسم المنتج
                     );
                   },
                 );

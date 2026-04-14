@@ -33,3 +33,18 @@ class ProductError extends ProductState {
 
   ProductError(this.message);
 }
+class AddProductError extends ProductState {
+  final String message;
+
+  AddProductError(this.message);
+}
+ class UpdateProductError extends ProductState {
+  final String message;
+
+  UpdateProductError(this.message);
+}
+  class DeleteProductError extends ProductState {
+    final String message;
+  
+    DeleteProductError(this.message);
+  }

@@ -126,7 +126,14 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
 
         
 
-        if (state is ProductError) {
+        if (state is UpdateProductError) {
+          showCustomSnackBar(
+            context: context,
+            message: state.message,
+            isSuccess: false,
+          );
+        }
+         if (state is DeleteProductError) {
           showCustomSnackBar(
             context: context,
             message: state.message,

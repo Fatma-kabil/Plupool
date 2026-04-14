@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/functions/pick_date_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
@@ -61,6 +62,7 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
             showCustomSnackBar(
               context: context,
               message: "تم إضافة العرض بنجاح",
+              isSuccess: true,
             );
           }
 
@@ -205,7 +207,7 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CustomTextBtn(
-                              text: isLoading ? "جاري الإضافة..." : "إضافة",
+                              text: isLoading ? " ..." : "إضافة",
                               onPressed: isLoading
                                   ? null
                                   : () {
@@ -242,6 +244,18 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                                         );
                                         return;
                                       }
+                                      final text = normalizeArabicNumbers(
+                                        offerController.text.trim(),
+                                      );
+                                      final discount = double.tryParse(text);
+
+                                      if (discount == null || discount <= 0) {
+                                        showCustomSnackBar(
+                                          context: context,
+                                          message: "ادخل قيمة خصم صحيحة",
+                                        );
+                                        return;
+                                      }
 
                                       context
                                           .read<ProductOfferCubit>()
@@ -249,11 +263,9 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                                             ProductOfferEntity(
                                               id: widget.productId,
                                               discountType: "percentage",
-                                              discountValue:
-                                                  double.tryParse(
-                                                    offerController.text,
-                                                  ) ??
-                                                  0,
+                                              discountValue: double.tryParse(
+                                                offerController.text,
+                                              )!,
                                               offerBadge: "عرض خاص",
                                               offerStartDate: startDate!,
                                               offerEndDate: endDate!,
