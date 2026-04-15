@@ -5,7 +5,7 @@ class ProductOfferEntity {
   final String offerBadge;
   final DateTime offerStartDate;
   final DateTime offerEndDate;
-  final bool isFeatured;
+  final bool? isFeatured;
 
   ProductOfferEntity({
     required this.id,
@@ -14,6 +14,6 @@ class ProductOfferEntity {
     required this.offerBadge,
     required this.offerStartDate,
     required this.offerEndDate,
-    required this.isFeatured,
+     this.isFeatured,
   });
 }

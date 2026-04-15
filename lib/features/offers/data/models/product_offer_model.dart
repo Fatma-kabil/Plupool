@@ -10,7 +10,7 @@ class ProductOfferModel extends ProductOfferEntity {
     required super.offerBadge,
     required super.offerStartDate,
     required super.offerEndDate,
-    required super.isFeatured,
+     super.isFeatured,
   });
 
   factory ProductOfferModel.fromJson(Map<String, dynamic> json) {
