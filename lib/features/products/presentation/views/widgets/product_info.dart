@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/functions/stock_status_helper.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_product_offer_card.dart';
@@ -59,7 +60,7 @@ class ProductInfo extends StatelessWidget {
         Row(
           children: [
             Text(
-              "${product.price.toStringAsFixed(0)} ج.م",
+              "${toArabicNumbers(product.price.toString())} ج.م",
               style: AppTextStyles.styleBold16(
                 context,
               ).copyWith(color: AppColors.ktextcolor),
@@ -67,7 +68,7 @@ class ProductInfo extends StatelessWidget {
             SizedBox(width: SizeConfig.w(10)),
             if (product.hasOffer == true)
               Text(
-                "${finalPrice(product).toStringAsFixed(0)} ج.م",
+                "${toArabicNumbers(finalPrice(product).toString())} ج.م",
                 style: AppTextStyles.styleRegular14(context).copyWith(
                   color: const Color(0xff808080),
                   decoration: TextDecoration.lineThrough,
@@ -96,7 +97,7 @@ class ProductInfo extends StatelessWidget {
 
             SizedBox(width: SizeConfig.w(25)),
             Text(
-              "المخزون: ${product.stock}",
+              "المخزون: ${toArabicNumbers(product.stock.toString())}",
               style: AppTextStyles.styleMedium16(
                 context,
               ).copyWith(color: AppColors.ktextcolor),

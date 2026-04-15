@@ -19,18 +19,21 @@ class ProductViewBody extends StatefulWidget {
 }
 
 class _ProductViewBodyState extends State<ProductViewBody> {
-  StoreFilter? selected; // null → الكل
-  int? selectedCategoryId; // null → الكل
+  StoreFilter? selected;
+  Set<int> selectedCategoryIds = {}; // ✅ بدل int واحد
 
   @override
   void initState() {
     super.initState();
-    // أول ما الصفحة تفتح → كل المنتجات
     context.read<ProductCubit>().fetchProducts();
   }
 
-  ProductParams get currentParams =>
-      ProductParams(sortBy: selected?.apiValue, categoryId: selectedCategoryId);
+  ProductParams get currentParams => ProductParams(
+    sortBy: selected?.apiValue,
+    categoryId: selectedCategoryIds.isEmpty
+        ? null
+        : selectedCategoryIds.first, //: selectedCategoryIds.toList(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +42,10 @@ class _ProductViewBodyState extends State<ProductViewBody> {
         const SliverToBoxAdapter(child: ProductViewHeader()),
         const SliverToBoxAdapter(child: SizedBox(height: 20)),
 
-        /// Row للـ sorting + filter button
         SliverToBoxAdapter(
           child: Row(
             children: [
-              /// Dropdown للـ sorting
+              /// Sorting
               FilterOption(
                 icon: Icons.keyboard_arrow_down,
                 value: selected?.label ?? "الكل",
@@ -63,34 +65,36 @@ class _ProductViewBodyState extends State<ProductViewBody> {
                     );
                     setState(() => selected = newFilter);
                   }
-                  // تحديث المنتجات
+
                   context.read<ProductCubit>().fetchProducts(currentParams);
                 },
               ),
 
               const Spacer(),
 
-              /// Filter button (Dialog)
+              /// Filter Dialog
               FilterButton(
                 onTap: () async {
-                  final categoryId = await showDialog<int?>(
+                  final result = await showDialog<Set<int>>(
                     context: context,
                     builder: (_) => BlocProvider.value(
                       value: context.read<CategoryCubit>(),
-                      child: const FilterDialog(),
+                      child: FilterDialog(initialSelected: selectedCategoryIds),
                     ),
                   );
 
-                  setState(() => selectedCategoryId = categoryId);
-                  context.read<ProductCubit>().fetchProducts(currentParams);
+                  if (result != null) {
+                    setState(() => selectedCategoryIds = result);
+
+                    context.read<ProductCubit>().fetchProducts(currentParams);
+                  }
                 },
               ),
             ],
           ),
         ),
 
-        /// BlocBuilder للمنتجات
-        ProductBlocBuilder(),
+        const ProductBlocBuilder(),
       ],
     );
   }

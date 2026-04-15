@@ -6,6 +6,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/functions/pick_date_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
@@ -183,6 +184,7 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                     const FieldLabel(' قيمة الخصم'),
 
                     TextFieldWithIcon(
+                      validator: (v) => Validators.number(v),
                       controller: offerController,
                       hint: 'أدخل قيمة الخصم',
                       icon: Icons.percent,

@@ -1,5 +1,6 @@
 class ProductParams {
   final int? categoryId;
+  //List<int>? categoryIds;
   final String? sortBy;
 
   const ProductParams({this.categoryId, this.sortBy});

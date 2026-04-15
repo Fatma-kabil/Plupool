@@ -11,15 +11,24 @@ import 'package:plupool/features/store/presentation/cubits/category_cubit/catego
 import 'package:plupool/features/store/presentation/cubits/category_cubit/category_state.dart';
 
 class FilterDialog extends StatefulWidget {
-  const FilterDialog({super.key});
+  final Set<int> initialSelected;
+
+  const FilterDialog({super.key, required this.initialSelected});
 
   @override
   State<FilterDialog> createState() => FilterDialogState();
 }
 
 class FilterDialogState extends State<FilterDialog> {
-  Map<int, bool> selectedCategories = {};
+  late Map<int, bool> selectedCategories;
   List<CategoryEntity> categories = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedCategories = {for (var id in widget.initialSelected) id: true};
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,33 +46,35 @@ class FilterDialogState extends State<FilterDialog> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            /// 🟡 Categories from API
+            /// Categories
             BlocBuilder<CategoryCubit, CategoryState>(
               builder: (context, state) {
                 if (state is CategoryLoading) {
-                  return const Center(child: CustomLoadingIndecator());
+                  return const CustomLoadingIndecator();
                 }
 
                 if (state is CategoryError) {
-                return ErrorText(message: state.message);
+                  return ErrorText(message: state.message);
                 }
 
                 if (state is CategorySuccess) {
                   categories = state.categories;
 
-                  /// init map مرة واحدة
+                  /// مهم جدًا 👇
                   for (var cat in categories) {
-                    selectedCategories.putIfAbsent(cat.id, () => false);
+                    selectedCategories.putIfAbsent(
+                      cat.id,
+                      () => widget.initialSelected.contains(cat.id),
+                    );
                   }
-
                   if (categories.isEmpty) {
-                    return  Padding(
+                    return Padding(
                       padding: EdgeInsets.all(20),
                       child: Text(
                         "مفيش تصنيفات متاحة 📭",
                         style: AppTextStyles.styleMedium16(
-                      context,
-                    ).copyWith(color: Colors.grey),
+                          context,
+                        ).copyWith(color: Colors.grey),
                       ),
                     );
                   }
@@ -71,23 +82,19 @@ class FilterDialogState extends State<FilterDialog> {
                   return GridView.count(
                     crossAxisCount: 2,
                     shrinkWrap: true,
-                    childAspectRatio: 3.6,
-                    mainAxisSpacing: 6,
-                    crossAxisSpacing:8,
-                    physics: const NeverScrollableScrollPhysics(),
+                    childAspectRatio: 3.5,
                     children: categories.map((cat) {
                       return Row(
-                        textDirection: TextDirection.rtl,
                         children: [
                           Checkbox(
-                            value: selectedCategories[cat.id],
+                            value: selectedCategories[cat.id] ?? false,
                             activeColor: AppColors.kprimarycolor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            side:  BorderSide(
+                            side: BorderSide(
                               color: Color(0xffAAAAAA),
-                              width:SizeConfig.w(2) ,
+                              width: SizeConfig.w(2),
                             ),
                             onChanged: (val) {
                               setState(() {
@@ -100,8 +107,9 @@ class FilterDialogState extends State<FilterDialog> {
                               cat.name,
                               textAlign: TextAlign.right,
                               textDirection: TextDirection.rtl,
-                              style: AppTextStyles.styleSemiBold16(context)
-                                  .copyWith(color: AppColors.ktextcolor),
+                              style: AppTextStyles.styleSemiBold16(
+                                context,
+                              ).copyWith(color: AppColors.ktextcolor),
                             ),
                           ),
                         ],
@@ -114,24 +122,21 @@ class FilterDialogState extends State<FilterDialog> {
               },
             ),
 
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
 
-            /// 🟡 Buttons
+            /// Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                /// Apply Filter
+                /// Apply
                 ElevatedButton(
                   onPressed: () {
-                    final selected = selectedCategories.entries.firstWhere(
-                      (e) => e.value,
-                      orElse: () => const MapEntry(-1, false),
-                    );
+                    final selectedIds = selectedCategories.entries
+                        .where((e) => e.value)
+                        .map((e) => e.key)
+                        .toSet();
 
-                    Navigator.pop(
-                      context,
-                      selected.key == -1 ? null : selected.key,
-                    );
+                    Navigator.pop(context, selectedIds);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.kprimarycolor,
@@ -141,19 +146,19 @@ class FilterDialogState extends State<FilterDialog> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(
-                        SizeConfig.isWideScreen ? SizeConfig.h(7) : 0),
+                      SizeConfig.isWideScreen ? SizeConfig.h(7) : 0,
+                    ),
                     child: Text(
                       "تصفية",
-                      style: AppTextStyles.styleBold16(context)
-                          .copyWith(color: Colors.white),
+                      style: AppTextStyles.styleBold16(
+                        context,
+                      ).copyWith(color: Colors.white),
                     ),
                   ),
                 ),
 
                 /// Cancel
-                CustomOutlinedBtn(
-                  text: "إلغاء",
-                ),
+                CustomOutlinedBtn(text: "إلغاء"),
               ],
             ),
           ],

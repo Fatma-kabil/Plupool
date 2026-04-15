@@ -77,10 +77,10 @@ class _StoreViewState extends State<StoreView> {
                 const Spacer(),
               FilterButton(
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => const FilterDialog(),
-                  );
+              //    showDialog(
+               //     context: context,
+               //     builder: (_) => const FilterDialog(),
+               //   );
                 },
               ),
             
