@@ -11,8 +11,12 @@ class Product {
   final String? stockStatus;
   final double? discountValue;
   final bool? hasOffer;
+  final DateTime? offerStartDate;
+  final DateTime? offerEndDate;
 
   Product({
+    this.offerStartDate,
+    this.offerEndDate,
     this.discountValue,
     this.imageUrl,
     this.id,

@@ -7,16 +7,13 @@ import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
+import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
-import 'package:plupool/features/products/data/models/product_model.dart';
 
 class EditProductOfferCard extends StatefulWidget {
-  const EditProductOfferCard({
-    super.key,
-    required this.product,
-  });
+  const EditProductOfferCard({super.key, required this.product});
 
-  final ProductModel product;
+  final Product product;
 
   @override
   State<EditProductOfferCard> createState() => _EditProductOfferCardState();
@@ -37,16 +34,15 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
     super.initState();
 
     offerController = TextEditingController(
-      text: widget.product.discountPercentage.toString(),
+      text: widget.product.discountValue.toString(),
     );
 
     startDate = widget.product.offerStartDate;
     endDate = widget.product.offerEndDate;
-    
- debugPrint('START DATE: $startDate');
-  debugPrint('END DATE: $endDate');
-  }
 
+    debugPrint('START DATE: $startDate');
+    debugPrint('END DATE: $endDate');
+  }
 
   @override
   void dispose() {
@@ -98,9 +94,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         insetPadding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(20),
           vertical: SizeConfig.h(29),
@@ -147,9 +141,10 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                       ),
                       SizedBox(height: SizeConfig.h(6)),
                       Text(
-                        widget.product.nameAr,
-                        style: AppTextStyles.styleSemiBold16(context)
-                            .copyWith(color: const Color(0xff7B7B7B)),
+                        widget.product.name,
+                        style: AppTextStyles.styleSemiBold16(
+                          context,
+                        ).copyWith(color: const Color(0xff7B7B7B)),
                       ),
                     ],
                   ),
@@ -205,7 +200,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                   controller: offerController,
                   hint: 'أدخل نسبة الخصم',
                   icon: Icons.percent,
-        //   errorText: discountError,
+                  //   errorText: discountError,
                   keyboardType: TextInputType.number,
                 ),
 
@@ -217,20 +212,21 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                     CustomTextBtn(
                       text: "تعديل",
                       onPressed: onSubmit,
-                      padding: SizeConfig.isWideScreen?15:9,
+                      padding: SizeConfig.isWideScreen ? 15 : 9,
                       width: SizeConfig.screenWidth,
-                      textStyle: AppTextStyles.styleBold16(context)
-                          .copyWith(color: Colors.white),
+                      textStyle: AppTextStyles.styleBold16(
+                        context,
+                      ).copyWith(color: Colors.white),
                       trailing: Icon(
                         Icons.edit,
                         color: Colors.white,
                         size: SizeConfig.w(13),
                       ),
                     ),
-                  SizedBox( height:   SizeConfig.h(15),),
+                    SizedBox(height: SizeConfig.h(15)),
                     CustomOutlinedBtn(
                       text: 'إلغاء',
-                     
+
                       width: SizeConfig.screenWidth,
                       trailing: Icon(
                         Icons.cancel_outlined,

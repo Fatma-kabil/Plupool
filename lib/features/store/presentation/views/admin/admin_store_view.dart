@@ -4,6 +4,7 @@ import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
 import 'package:plupool/features/store/presentation/views/admin/widgets/admin_store_view_body.dart';
 
@@ -31,16 +32,21 @@ class _AdminStoreViewState extends State<AdminStoreView> {
             },
           ),
           drawer: AppDrawer(),
-         body: BlocProvider(
-  create: (_) => sl<StoreStatisticsCubit>()..getStoreStatistics(),
-  child: Padding(
-    padding: EdgeInsets.symmetric(
-      horizontal: SizeConfig.w(13),
-      vertical: SizeConfig.h(15),
-    ),
-    child: AdminStoreViewBody(),
-  ),
-),
+          body: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) => sl<StoreStatisticsCubit>()..getStoreStatistics(),
+              ),
+              BlocProvider(create: (_) => sl<ProductOfferCubit>()),
+            ],
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.w(13),
+                vertical: SizeConfig.h(15),
+              ),
+              child: AdminStoreViewBody(),
+            ),
+          ),
         ),
       ),
     );

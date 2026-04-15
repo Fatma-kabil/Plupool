@@ -59,16 +59,22 @@ class ProductInfo extends StatelessWidget {
         // السعر الحالي والسعر الأصلي في حالة الخصم
         Row(
           children: [
+            // السعر الأساسي (لو فيه عرض يبقى بعد الخصم)
             Text(
-              "${toArabicNumbers(product.price.toString())} ج.م",
+              product.hasOffer == true
+                  ? "${toArabicNumbers(finalPrice(product).toString())} ج.م"
+                  : "${toArabicNumbers(product.price.toString())} ج.م",
               style: AppTextStyles.styleBold16(
                 context,
               ).copyWith(color: AppColors.ktextcolor),
             ),
+
             SizedBox(width: SizeConfig.w(10)),
+
+            // السعر القديم يظهر بس لو فيه عرض
             if (product.hasOffer == true)
               Text(
-                "${toArabicNumbers(finalPrice(product).toString())} ج.م",
+                "${toArabicNumbers(product.price.toString())} ج.م",
                 style: AppTextStyles.styleRegular14(context).copyWith(
                   color: const Color(0xff808080),
                   decoration: TextDecoration.lineThrough,

@@ -23,6 +23,7 @@ import 'package:plupool/features/offers/data/repos_impl/product_offer_repo_impl.
 import 'package:plupool/features/offers/domain/repos/product_offer_repo.dart';
 import 'package:plupool/features/offers/domain/usecases/add_product_offer_usecase.dart';
 import 'package:plupool/features/offers/domain/usecases/delete_product_offer_usecase.dart';
+import 'package:plupool/features/offers/domain/usecases/get_products_offers.dart';
 import 'package:plupool/features/offers/domain/usecases/update_product_offer_usecase.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/products/data/remote_data_sources/product_remote_data_source.dart';
@@ -281,31 +282,7 @@ sl.registerLazySingleton(
 sl.registerLazySingleton(
   () => StoreStatisticsCubit(sl<GetStoreStatisticsUseCase>()),
 );
-/// ================= OFFERS =================
 
-// Remote Data Source
-sl.registerLazySingleton<ProductOfferRemoteDataSource>(
-  () => ProductOfferRemoteDataSource(api: sl<ApiService>()),
-);
-
-// Repository
-sl.registerLazySingleton<ProductOfferRepo>(
-  () => ProductOfferRepoImpl(remote: sl<ProductOfferRemoteDataSource>()),
-);
-
-// UseCases
-sl.registerLazySingleton(() => AddProductOfferUsecase(sl<ProductOfferRepo>()));
-sl.registerLazySingleton(() => UpdateProductOfferUsecase(sl<ProductOfferRepo>()));
-sl.registerLazySingleton(() => DeleteProductOfferUsecase(sl<ProductOfferRepo>()));
-
-// Cubit
-sl.registerFactory(
-  () => ProductOfferCubit(
-    addUseCase: sl<AddProductOfferUsecase>(),
-    updateUseCase: sl<UpdateProductOfferUsecase>(),
-    deleteUseCase: sl<DeleteProductOfferUsecase>(),
-  ),
-);
   // 📦 Categories
   // =====================
 
@@ -337,4 +314,27 @@ sl.registerLazySingleton(
 sl.registerFactory(
   () => ProductSearchCubit(sl<SearchProductsUseCase>()),
 );
+ // ================= OFFERS (FIXED 💥) =================
+  sl.registerLazySingleton<ProductOfferRemoteDataSource>(
+    () => ProductOfferRemoteDataSource(api: sl<ApiService>()),
+  );
+
+  sl.registerLazySingleton<ProductOfferRepo>(
+    () => ProductOfferRepoImpl(remote: sl()),
+  );
+
+  sl.registerLazySingleton(() => AddProductOfferUsecase(sl<ProductOfferRepo>()));
+  sl.registerLazySingleton(() => UpdateProductOfferUsecase(sl<ProductOfferRepo>()));
+  sl.registerLazySingleton(() => DeleteProductOfferUsecase(sl<ProductOfferRepo>()));
+  sl.registerLazySingleton(() => GetActiveOffersUseCase(sl<ProductOfferRepo>()));
+
+  sl.registerFactory(
+    () => ProductOfferCubit(
+      sl<GetActiveOffersUseCase>(),
+      addUseCase: sl(),
+      updateUseCase: sl(),
+      deleteUseCase: sl(),
+    ),
+  );
+
 }

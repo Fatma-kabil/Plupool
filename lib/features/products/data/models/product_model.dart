@@ -72,6 +72,9 @@ class ProductModel {
   });
   Product toEntity() {
     return Product(
+      offerStartDate: offerStartDate,
+      offerEndDate: offerEndDate,
+
       hasOffer: hasOffer,
       stockStatus: stockStatus ?? "",
       discountValue: discountValue,
@@ -90,6 +93,9 @@ class ProductModel {
   /// 🔁 From Entity
   factory ProductModel.fromEntity(Product entity) {
     return ProductModel(
+      offerStartDate: entity.offerStartDate,
+      offerEndDate: entity.offerEndDate,
+
       hasOffer: entity.hasOffer ?? false,
       discountValue: entity.discountValue,
       stockStatus: entity.stockStatus,
@@ -106,7 +112,8 @@ class ProductModel {
   /// From JSON
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      
+     
+
       nameAr: json["name_ar"] ?? "",
       nameEn: json["name_en"],
       descriptionAr: json["description_ar"],
@@ -157,6 +164,7 @@ class ProductModel {
   /// To JSON
   Map<String, dynamic> toJson() {
     return {
+
       "name_ar": nameAr,
       if (nameEn != null) "name_en": nameEn,
       if (descriptionAr != null) "description_ar": descriptionAr,
@@ -196,7 +204,7 @@ class ProductModel {
  
   Future<FormData> toFormData() async {
     final map = <String, dynamic>{};
-
+     
     map["name_ar"] = nameAr;
     if (categoryId != null) map["category_id"] = categoryId;
     map["original_price"] = originalPrice;
