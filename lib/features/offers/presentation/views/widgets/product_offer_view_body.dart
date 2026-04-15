@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
-import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/product_offer_cubit.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/edit_product_offer_card.dart';
 import 'package:plupool/features/products/presentation/views/widgets/pro_card.dart';
 import 'package:plupool/features/products/presentation/views/widgets/products_Shimmer_list.dart';

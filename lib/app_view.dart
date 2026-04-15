@@ -9,7 +9,7 @@ import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/home/presentaation/manager/drawer_cubit/drawer_cubit.dart';
-import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/product_offer_cubit.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

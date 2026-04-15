@@ -4,7 +4,7 @@ import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
-import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/product_offer_cubit.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
 import 'package:plupool/features/store/presentation/views/admin/widgets/admin_store_view_body.dart';
 

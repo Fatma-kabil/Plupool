@@ -9,7 +9,7 @@ import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
-import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/product_offer_cubit.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/offers/domain/enities/product_offer_entity.dart';
 import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';

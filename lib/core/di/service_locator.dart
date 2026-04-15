@@ -25,7 +25,7 @@ import 'package:plupool/features/offers/domain/usecases/add_product_offer_usecas
 import 'package:plupool/features/offers/domain/usecases/delete_product_offer_usecase.dart';
 import 'package:plupool/features/offers/domain/usecases/get_products_offers.dart';
 import 'package:plupool/features/offers/domain/usecases/update_product_offer_usecase.dart';
-import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/product_offer_cubit.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/products/data/remote_data_sources/product_remote_data_source.dart';
 import 'package:plupool/features/products/data/repos_impl/product_repo_impl.dart';
 import 'package:plupool/features/products/domain/repos/product_repo.dart';
