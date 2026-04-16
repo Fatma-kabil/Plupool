@@ -1,13 +1,12 @@
 class ProductParams {
-  final int? categoryId;
-  //List<int>? categoryIds;
+  final List<int>? categoryIds;
   final String? sortBy;
 
-  const ProductParams({this.categoryId, this.sortBy});
+  const ProductParams({this.categoryIds, this.sortBy});
 
   Map<String, dynamic> toQuery() {
     return {
-      if (categoryId != null) "category_id": categoryId,
+      if (categoryIds != null) "category_ids": categoryIds,
       if (sortBy != null) "sort_by": sortBy,
     };
   }

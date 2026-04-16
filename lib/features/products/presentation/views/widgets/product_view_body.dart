@@ -30,9 +30,10 @@ class _ProductViewBodyState extends State<ProductViewBody> {
 
   ProductParams get currentParams => ProductParams(
     sortBy: selected?.apiValue,
-    categoryId: selectedCategoryIds.isEmpty
+    categoryIds: selectedCategoryIds.isEmpty
         ? null
-        : selectedCategoryIds.first, //: selectedCategoryIds.toList(),
+    //    : selectedCategoryIds.first,
+        : selectedCategoryIds.toList(),
   );
 
   @override
