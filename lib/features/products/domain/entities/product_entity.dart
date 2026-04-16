@@ -13,14 +13,16 @@ class Product {
   final bool? hasOffer;
   final DateTime? offerStartDate;
   final DateTime? offerEndDate;
+  final bool? isFeatured;
 
   Product({
+    this.isFeatured, 
     this.offerStartDate,
     this.offerEndDate,
     this.discountValue,
     this.imageUrl,
     this.id,
-     this.hasOffer,
+    this.hasOffer,
     this.stockStatus,
     required this.image,
     required this.name,

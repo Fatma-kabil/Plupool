@@ -22,7 +22,7 @@ class ProductModel {
   final double rating;
   final int reviewsCount;
   final String status;
-  final bool isFeatured;
+  final bool ?isFeatured;
   final int sortOrder;
   final int? id;
   final double finalPrice;
@@ -74,7 +74,7 @@ class ProductModel {
     return Product(
       offerStartDate: offerStartDate,
       offerEndDate: offerEndDate,
-
+      isFeatured: isFeatured,
       hasOffer: hasOffer,
       stockStatus: stockStatus ?? "",
       discountValue: discountValue,
@@ -95,7 +95,7 @@ class ProductModel {
     return ProductModel(
       offerStartDate: entity.offerStartDate,
       offerEndDate: entity.offerEndDate,
-
+isFeatured: entity.isFeatured ?? false,
       hasOffer: entity.hasOffer ?? false,
       discountValue: entity.discountValue,
       stockStatus: entity.stockStatus,
