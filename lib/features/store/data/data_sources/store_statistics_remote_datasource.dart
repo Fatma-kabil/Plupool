@@ -6,7 +6,8 @@ abstract class StoreStatisticsRemoteDataSource {
   Future<StoreStatisticsModel> getStoreStatistics();
 }
 
-class StoreStatisticsRemoteDataSourceImpl implements StoreStatisticsRemoteDataSource {
+class StoreStatisticsRemoteDataSourceImpl
+    implements StoreStatisticsRemoteDataSource {
   final ApiService apiService;
 
   StoreStatisticsRemoteDataSourceImpl(this.apiService);
@@ -15,8 +16,8 @@ class StoreStatisticsRemoteDataSourceImpl implements StoreStatisticsRemoteDataSo
   Future<StoreStatisticsModel> getStoreStatistics() async {
     final response = await apiService.get(Endpoints.adminStoreStatistics);
 
-  
-      return StoreStatisticsModel.fromJson(response.data);
-    
+    print("STATUS => ${response.statusCode}");
+    print("DATA => ${response.data}");
+    return StoreStatisticsModel.fromJson(response.data);
   }
 }

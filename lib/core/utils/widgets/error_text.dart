@@ -11,9 +11,9 @@ class ErrorText extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Text(
           message,
-          style: AppTextStyles.styleSemiBold14(
+          style: AppTextStyles.styleSemiBold16(
             context,
-          ).copyWith(color: Colors.grey),
+          ).copyWith(color: Colors.black54),
         ),
       ),
     );

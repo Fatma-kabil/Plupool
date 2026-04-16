@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
 
 class StatCard extends StatelessWidget {
   final DashboardStatModel model;
-   final int data;
+   final num data;
 
   const StatCard({super.key, required this.model, required this.data});
 
@@ -41,7 +42,7 @@ class StatCard extends StatelessWidget {
             children: [
               Text(
                 textDirection: TextDirection.ltr,
-                data.toString(),
+                "${toArabicNumbers(data.toString())} ",
                 style: AppTextStyles.styleBold20(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),

@@ -18,8 +18,10 @@ class StoreStatisticsRepoImpl implements StoreStatisticsRepo {
 
       // 👈 نرجع الـ Entity بس للـ UI
       return StoreStatisticsEntity(
+        rating: model.rating,
         totalOrders: model.totalOrders,
         totalProducts: model.totalProducts,
+        activeOffers: model.activeOffers
       );
     } catch (e) {
       throw Exception('Failed to fetch store statistics: $e');

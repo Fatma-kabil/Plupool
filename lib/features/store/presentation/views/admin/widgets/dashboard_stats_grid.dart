@@ -26,8 +26,10 @@ class DashboardStatsGrid extends StatelessWidget {
         /// ✅ Success
         if (state is StoreStatisticsSuccess) {
           final stats = [
+             {"value": state.data.rating},
             {"value": state.data.totalOrders},
             {"value": state.data.totalProducts},
+             {"value": state.data.activeOffers},
           ];
 
           return Padding(

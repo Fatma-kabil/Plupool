@@ -104,7 +104,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
 
           showCustomSnackBar(
             context: context,
-            message: "تم إضافة العرض بنجاح",
+            message: "تم تعديل العرض بنجاح",
             isSuccess: true,
           );
         }
