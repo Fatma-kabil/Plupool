@@ -125,7 +125,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                       controller: priceController,
                       hint: 'اكتب السعر...',
                       keyboardType: TextInputType.number,
-                      icon: Icons.attach_money,
+                      icon: Icons.payments_outlined,
                     ),
 
                     const SizedBox(height: 16),

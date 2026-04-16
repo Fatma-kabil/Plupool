@@ -56,8 +56,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
       text: widget.product.imageUrl ?? "",
     );
 
+    // ignore: unnecessary_null_comparison
     selectedCategory = widget.product.categoryId != null
-        ? categories[widget.product.categoryId! % categories.length]
+        ? categories[widget.product.categoryId % categories.length]
         : categories.first;
   }
 
@@ -164,7 +165,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                 controller: priceController,
                 hint: 'اكتب السعر...',
                 keyboardType: TextInputType.number,
-                icon: Icons.attach_money,
+                icon: Icons.payments_outlined,
                 validator: (value) =>
                     Validators.number(value, fieldName: "السعر"),
               ),
