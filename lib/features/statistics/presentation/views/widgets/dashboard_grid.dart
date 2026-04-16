@@ -6,8 +6,8 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/statistics/presentation/views/widgets/dashboard_card.dart';
 
 class DashboardGrid extends StatelessWidget {
-  const DashboardGrid({super.key});
-
+  const DashboardGrid({super.key, required this.stats});
+final List<Map> stats;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,7 +38,7 @@ class DashboardGrid extends StatelessWidget {
                 : 2.5, // مهم عشان نفس شكل التصميم
           ),
           itemBuilder: (context, index) {
-            return DashboardCard(item: dashboarditems[index]);
+            return DashboardCard(item: dashboarditems[index], data: stats[index]['value']!);
           },
         ),
       ],

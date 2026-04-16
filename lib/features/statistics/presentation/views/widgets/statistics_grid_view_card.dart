@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 
 class StatisticsGridViewCard extends StatelessWidget {
-  const StatisticsGridViewCard({super.key, required this.model, required this.data});
+  const StatisticsGridViewCard({
+    super.key,
+    required this.model,
+    required this.data,
+  });
   final StatisticsModel model;
   final int data;
 
@@ -45,8 +50,10 @@ class StatisticsGridViewCard extends StatelessWidget {
           ),
           SizedBox(height: SizeConfig.h(4)),
           Text(
-            data.toString(),
-            style: AppTextStyles.styleMedium20(
+            data == 0 ? "لا يوجد" : toArabicNumbers(data.toString()),
+            
+                style: data == 0 ?
+                AppTextStyles.styleMedium14(context). copyWith(color: Color(0xff333333)) : AppTextStyles.styleMedium20(
               context,
             ).copyWith(color: Color(0xff333333)),
           ),

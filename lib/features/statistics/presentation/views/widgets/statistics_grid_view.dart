@@ -3,22 +3,14 @@ import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/statistics/domain/entities/admin_statistics_entity.dart';
 import 'package:plupool/features/statistics/presentation/views/widgets/statistics_grid_view_card.dart';
 
 class StatisticsGridView extends StatelessWidget {
-  const StatisticsGridView({super.key, required this.data});
- final AdminStatisticsEntity data;
+  const StatisticsGridView({super.key, required this.stats,});
+final List<Map> stats;
   @override
   Widget build(BuildContext context) {
-      final stats = [
-      {'value': data.totalOrders},
-      { 'value': data.activePackages},
-      { 'value': data.processBookings},
-      { 'value': data.totalReports},
-      { 'value': data.totalClients},
-      { 'value': data.totalTechnicians},
-    ];
+     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -5,6 +5,10 @@ class AdminStatisticsEntity {
   final int totalReports;
   final int totalClients;
   final int totalTechnicians;
+  final int activeClients;
+  final int inactiveClients;
+
+  final int inactivePackages;
 
   const AdminStatisticsEntity({
     required this.totalOrders,
@@ -13,5 +17,9 @@ class AdminStatisticsEntity {
     required this.totalReports,
     required this.totalClients,
     required this.totalTechnicians,
+    required this.activeClients,
+    required this.inactiveClients,
+   
+    required this.inactivePackages,
   });
 }

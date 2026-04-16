@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/statistics/data/models/dashboard_item.dart';
 
 class DashboardCard extends StatelessWidget {
   final DashboardItem item;
+    final int data;
 
-  const DashboardCard({required this.item});
+  const DashboardCard({super.key, required this.item, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +48,10 @@ class DashboardCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-               "20",
-                style: AppTextStyles.styleBold16(
+            data == 0 ? "لا يوجد" : toArabicNumbers(data.toString()),
+                style: data == 0 ?
+                AppTextStyles.styleBold14(context). copyWith(color: AppColors.ktextcolor) :
+                AppTextStyles.styleBold16(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
               ),
