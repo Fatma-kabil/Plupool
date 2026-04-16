@@ -27,7 +27,6 @@ import 'package:plupool/features/statistics/data/models/dashboard_item.dart';
 import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 import 'package:plupool/features/store/data/models/dashboard_shortcut_model.dart';
 import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
-import 'package:plupool/features/products/data/models/product_model.dart';
 
 import 'package:plupool/features/support/data/models/message_model.dart';
 
@@ -787,28 +786,28 @@ final List<MessageModel> messages = [
 final List<DashboardStatModel> dashboardStats = [
   DashboardStatModel(
     title: "التقييم",
-    value: "4.8",
+  
     icon: Icons.star_outline,
     backgroundColor: Color(0xffFFECD2),
     iconColor: Color(0xffFF9F1C),
   ),
   DashboardStatModel(
     title: "عدد الطلبات",
-    value: "+100",
+   
     icon: Icons.shopping_cart_outlined,
     backgroundColor: Color(0xffCCE4F0),
     iconColor: Color(0xff0077B6),
   ),
   DashboardStatModel(
     title: "عدد المنتجات",
-    value: "+150",
+  
     icon: Icons.inventory_2_outlined,
     backgroundColor: Color(0xffCDF7EC),
     iconColor: Color(0xff05B285),
   ),
   DashboardStatModel(
     title: "عروض نشطة",
-    value: "5",
+  
     icon: Icons.trending_up,
     backgroundColor: Color(0xffFAD7DA),
     iconColor: Color(0xffEA5A65),

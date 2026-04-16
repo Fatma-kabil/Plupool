@@ -7,7 +7,7 @@ import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
 
 class StatCard extends StatelessWidget {
   final DashboardStatModel model;
-   final num data;
+  final num data;
 
   const StatCard({super.key, required this.model, required this.data});
 
@@ -42,8 +42,12 @@ class StatCard extends StatelessWidget {
             children: [
               Text(
                 textDirection: TextDirection.ltr,
-                "${toArabicNumbers(data.toString())} ",
-                style: AppTextStyles.styleBold20(
+                data == 0 ? "لا يوجد" : "${toArabicNumbers(data.toString())} ",
+                style:data ==0?
+                AppTextStyles.styleBold14(
+                  context,
+                ).copyWith(color: AppColors.ktextcolor)
+                :AppTextStyles.styleBold20(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
               ),

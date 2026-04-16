@@ -1,5 +1,5 @@
 class StoreStatisticsEntity {
-  final double rating;
+  final num rating;
   final int totalOrders;
   final int totalProducts;
   final int activeOffers;
