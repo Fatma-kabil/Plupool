@@ -5,8 +5,15 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class DeleteOrderCard extends StatelessWidget {
-  const DeleteOrderCard({super.key, this.text});
+  const DeleteOrderCard({
+    super.key,
+    this.text,
+    this.onPressed,
+    this.isLoading = false,
+  });
   final String? text;
+  final void Function()? onPressed;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -46,28 +53,29 @@ class DeleteOrderCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xffE63946),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () {},
-
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: SizeConfig.isWideScreen
-                              ? SizeConfig.h(8)
-                              : 0,
-                        ),
-                        child: Text(
-                          "نعم",
-                          style: AppTextStyles.styleMedium16(
-                            context,
-                          ).copyWith(color: Colors.white),
-                        ),
-                      ),
-                    ),
+  style: ElevatedButton.styleFrom(
+    backgroundColor: const Color(0xffE63946),
+    disabledBackgroundColor:
+        const Color(0xffE63946).withOpacity(0.4),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ),
+  onPressed: isLoading ? null : onPressed,
+  child: Padding(
+    padding: EdgeInsets.symmetric(
+      vertical: SizeConfig.isWideScreen
+          ? SizeConfig.h(8)
+          : 0,
+    ),
+    child: Text(
+      "نعم",
+      style: AppTextStyles.styleMedium16(
+        context,
+      ).copyWith(color: Colors.white),
+    ),
+  ),
+),
                   ),
                   SizedBox(width: SizeConfig.w(22)),
                   Expanded(

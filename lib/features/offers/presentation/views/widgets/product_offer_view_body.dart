@@ -34,7 +34,7 @@ class _ProductOfferViewBodyState extends State<ProductOfferViewBody> {
 
             SliverToBoxAdapter(
               child: Text(
-                'إدارة العروض',
+                'إدارة العروض:',
                 style: AppTextStyles.styleSemiBold16(context)
                     .copyWith(color: AppColors.ktextcolor),
               ),
@@ -60,7 +60,7 @@ class _ProductOfferViewBodyState extends State<ProductOfferViewBody> {
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: Text(
-                        "لا توجد منتجات متاحة حالياً 🛒📭",
+                        "لا توجد عروض متاحة حالياً 🛒📭",
                         style: AppTextStyles.styleMedium16(context)
                             .copyWith(color: Colors.grey),
                       ),

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/functions/stock_status_helper.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/offer_state.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
+import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 
 import 'package:plupool/features/products/domain/entities/product_entity.dart';
 
@@ -11,7 +16,11 @@ class ProductOfferViewCardInfo extends StatelessWidget {
   final Product product;
   final void Function()? onTap;
 
-  const ProductOfferViewCardInfo({super.key, required this.product, this.onTap});
+  const ProductOfferViewCardInfo({
+    super.key,
+    required this.product,
+    this.onTap,
+  });
 
   double finalPrice(Product product) {
     if (product.discountValue == null || product.discountValue == 0) {
@@ -110,8 +119,50 @@ class ProductOfferViewCardInfo extends StatelessWidget {
             Spacer(),
             GestureDetector(
               onTap: () {
-               
+                showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    final cubit = context.read<ProductOfferCubit>();
+                    return BlocConsumer<ProductOfferCubit, ProductOfferState>(
+                      listener: (context, state) {
+                        if (state is ProductOfferSuccess) {
+                          context.read<ProductOfferCubit>().getOffers();
+                          Navigator.pop(context);
+                          showCustomSnackBar(
+                            context: context,
+                            message: "تم حذف العرض بنجاح 🗑️",
+                            isSuccess: true,
+                          );
+                        }
+
+                        if (state is DeleteProductOfferError) {
+                          context.read<ProductOfferCubit>().getOffers();
+                          Navigator.pop(context);
+
+                          showCustomSnackBar(
+                            context: context,
+                            message: state.message,
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        final isLoading = state is ProductOfferLoading;
+
+                        return DeleteOrderCard(
+                          text: "هل أنت متأكد من حذف هذا العرض؟",
+                          isLoading: isLoading,
+                          onPressed: isLoading
+                              ? null
+                              : () {
+                                  cubit.deleteOffer(product.id!);
+                                },
+                        );
+                      },
+                    );
+                  },
+                );
               },
+
               child: Icon(
                 Icons.delete_outline,
                 size: SizeConfig.isWideScreen

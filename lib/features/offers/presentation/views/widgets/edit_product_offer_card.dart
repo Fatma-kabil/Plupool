@@ -8,6 +8,7 @@ import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/offers/presentation/views/widgets/custom_check_btn.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/offers/domain/enities/product_offer_entity.dart';
@@ -28,7 +29,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
 
   DateTime? startDate;
   DateTime? endDate;
-
+  late bool acceptedTerms;
   String? startDateError;
   String? endDateError;
   String? discountError;
@@ -43,6 +44,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
 
     startDate = widget.product.offerStartDate;
     endDate = widget.product.offerEndDate;
+    acceptedTerms = widget.product.isFeatured!;
   }
 
   @override
@@ -87,6 +89,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
         offerBadge: "عرض خاص",
         offerStartDate: startDate!,
         offerEndDate: endDate!,
+        isFeatured: acceptedTerms 
       ),
     );
 
@@ -110,7 +113,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
         }
 
         if (state is EditProductOfferError) {
-        
+        context.read<ProductOfferCubit>().getOffers();
           showCustomSnackBar(context: context, message: state.message);
         }
       },
@@ -191,8 +194,15 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                         keyboardType: TextInputType.number,
                       ),
 
-                      SizedBox(height: SizeConfig.h(28)),
-
+                     SizedBox(height: SizeConfig.h(20)),
+    
+                  CustomCheckbtn(
+                    value: acceptedTerms,
+                    onChanged: (val) => setState(() => acceptedTerms = val),
+                    label: "عرض مميز (يظهر في الصفحة الرئيسية)",
+                  ),
+    
+                  SizedBox(height: SizeConfig.h(28)),
                       /// 👇 BUTTONS (المهم هنا)
                       Column(
                         children: [
