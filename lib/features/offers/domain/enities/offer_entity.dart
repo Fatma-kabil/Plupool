@@ -10,6 +10,7 @@ class OfferEntity {
   final File? image;
   final int? id;
   final bool isFeatured;
+  
 
   OfferEntity({
     required this.title,

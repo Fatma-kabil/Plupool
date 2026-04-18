@@ -17,7 +17,7 @@ class StoreStatisticsModel extends StoreStatisticsEntity {
     required this.offers,
     required this.ratings,
   }) : super(
-         rating: ratings['total'] ?? 0.0,
+         rating: ratings['avg'] ?? 0.0,
          totalOrders: orders['total'] ?? 0,
          totalProducts: products['total'] ?? 0,
          activeOffers: offers['active'] ?? 0,

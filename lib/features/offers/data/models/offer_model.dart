@@ -25,7 +25,7 @@ class OfferModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  final File? imageFile;
+  final File? images;
 
   OfferModel({
     this.titleAr,
@@ -49,7 +49,7 @@ class OfferModel {
     this.finalPrice,
     this.createdAt,
     this.updatedAt,
-    this.imageFile,
+    this.images,
   });
 
   // =========================
@@ -63,6 +63,7 @@ class OfferModel {
       endDate: entity.endDate,
       discountValue: entity.discountValue.toDouble(),
       imageUrl: entity.imageUrl,
+      images: entity.image,
       id: entity.id,
       isFeatured: entity.isFeatured,
     );
@@ -79,6 +80,7 @@ class OfferModel {
       endDate: endDate ?? DateTime.now(),
       discountValue: discountValue ?? 0,
       imageUrl: imageUrl ?? "",
+      image: images,
       id: id,
       isFeatured: isFeatured,
     );
@@ -100,6 +102,7 @@ class OfferModel {
       sessionsCount: json["sessions_count"],
       bonusSessions: json["bonus_sessions"],
       imageUrl: json["image_url"],
+      images: json["images"],
       badgeText: json["badge_text"],
       startDate: json["start_date"] != null
           ? DateTime.parse(json["start_date"])
@@ -137,6 +140,7 @@ class OfferModel {
       "sessions_count": sessionsCount,
       "bonus_sessions": bonusSessions,
       "image_url": imageUrl,
+      "images": images,
       "badge_text": badgeText,
       "start_date": startDate?.toIso8601String(),
       "end_date": endDate?.toIso8601String(),
@@ -179,10 +183,10 @@ class OfferModel {
   if (finalPrice != null) map["final_price"] = finalPrice;
 
   // Image upload
-  if (imageFile != null) {
+  if (images != null) {
     map["image"] = await MultipartFile.fromFile(
-      imageFile!.path,
-      filename: imageFile!.path.split('/').last,
+      images!.path,
+      filename: images!.path.split('/').last,
     );
   }
 

@@ -34,8 +34,11 @@ class OfferCubit extends Cubit<OfferState> {
     } catch (e) {
       if (e is Failure) {
         emit(OfferError(e.message));
+        print(  "ERROR FETCHING OFFERS: ${e.message}");
+        
       } else {
         emit(OfferError("حدث خطأ أثناء جلب العروض"));
+        print(  "ERROR FETCHING OFFERS: $e");
       }
     }
   }

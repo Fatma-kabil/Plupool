@@ -18,13 +18,21 @@ import 'package:plupool/features/home/domain/repos/contact_repo.dart';
 import 'package:plupool/features/home/domain/repos/notification_repo.dart';
 import 'package:plupool/features/home/presentaation/manager/contact_cubit/contat_cubit.dart';
 import 'package:plupool/features/home/presentaation/manager/notification_cubit/notification_cubit.dart';
+import 'package:plupool/features/offers/data/remote_data_sources/offer_remote_data_source.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/product_offer_remote_data_source.dart';
+import 'package:plupool/features/offers/data/repos_impl/offer_repo_impl.dart';
 import 'package:plupool/features/offers/data/repos_impl/product_offer_repo_impl.dart';
+import 'package:plupool/features/offers/domain/repos/offer_repo.dart';
 import 'package:plupool/features/offers/domain/repos/product_offer_repo.dart';
+import 'package:plupool/features/offers/domain/usecases/add_offer_usecase.dart';
 import 'package:plupool/features/offers/domain/usecases/add_product_offer_usecase.dart';
+import 'package:plupool/features/offers/domain/usecases/delete_offer_usecase.dart';
 import 'package:plupool/features/offers/domain/usecases/delete_product_offer_usecase.dart';
+import 'package:plupool/features/offers/domain/usecases/get_all_offers_usecase.dart';
 import 'package:plupool/features/offers/domain/usecases/get_products_offers.dart';
+import 'package:plupool/features/offers/domain/usecases/update_offer_usecase.dart';
 import 'package:plupool/features/offers/domain/usecases/update_product_offer_usecase.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/offer_cubit.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/products/data/remote_data_sources/product_remote_data_source.dart';
 import 'package:plupool/features/products/data/repos_impl/product_repo_impl.dart';
@@ -336,5 +344,31 @@ sl.registerFactory(
       deleteUseCase: sl(),
     ),
   );
+// ================= OFFERS FEATURE =================
 
+// Remote DataSource
+sl.registerLazySingleton<OfferRemoteDataSource>(
+  () => OfferRemoteDataSource(sl<ApiService>()),
+
+);
+
+// Repository
+sl.registerLazySingleton<OfferRepository>(
+  () => OfferRepoImpl(sl<OfferRemoteDataSource>()),
+);
+
+// UseCases
+sl.registerLazySingleton(() => GetAllOffersUsecase(sl<OfferRepository>()));
+sl.registerLazySingleton(() => AddOfferUsecase(sl<OfferRepository>()));
+sl.registerLazySingleton(() => UpdateOfferUsecase(sl<OfferRepository>()));
+sl.registerLazySingleton(() => DeleteOfferUsecase(sl<OfferRepository>()));
+
+sl.registerLazySingleton(
+  () => OfferCubit(
+    sl<GetAllOffersUsecase>(),
+    sl<AddOfferUsecase>(),
+    sl<UpdateOfferUsecase>(),
+    sl<DeleteOfferUsecase>(),
+  ),
+);
 }

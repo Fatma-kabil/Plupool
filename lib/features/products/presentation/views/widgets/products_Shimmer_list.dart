@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:plupool/core/utils/size_config.dart';
 
 class ProductsShimmerList extends StatelessWidget {
   const ProductsShimmerList({super.key});
@@ -21,41 +22,66 @@ class _ShimmerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(
+        vertical: SizeConfig.h(8),
+      ),
       child: Shimmer.fromColors(
-        baseColor: const Color(0xFFE0E0E0),   // أغمق شوية
-        highlightColor: const Color(0xFFFFFFFF), // لمعة قوية
-        period: const Duration(milliseconds: 900), // أسرع لمعة
+        baseColor: const Color(0xFFE0E0E0),
+        highlightColor: const Color(0xFFFFFFFF),
+        period: const Duration(milliseconds: 900),
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(SizeConfig.w(12)),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
           ),
           child: Row(
             children: [
-              /// IMAGE
+              /// 📦 IMAGE (responsive)
               Container(
-                width: 90,
-                height: 90,
+                width: SizeConfig.isWideScreen
+                    ? SizeConfig.w(110)
+                    : SizeConfig.w(90),
+                height: SizeConfig.isWideScreen
+                    ? SizeConfig.h(110)
+                    : SizeConfig.h(90),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
 
-              const SizedBox(width: 12),
+              SizedBox(width: SizeConfig.w(12)),
 
-              /// TEXT
+              /// 📝 TEXT AREA
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(height: 14, color: Colors.white),
-                    const SizedBox(height: 10),
-                    Container(height: 12, width: 180, color: Colors.white),
-                    const SizedBox(height: 10),
-                    Container(height: 12, width: 120, color: Colors.white),
+                    // title
+                    Container(
+                      height: SizeConfig.h(14),
+                      width: double.infinity,
+                      color: Colors.white,
+                    ),
+
+                    SizedBox(height: SizeConfig.h(10)),
+
+                    // subtitle
+                    Container(
+                      height: SizeConfig.h(12),
+                      width: SizeConfig.w(180),
+                      color: Colors.white,
+                    ),
+
+                    SizedBox(height: SizeConfig.h(10)),
+
+                    // price / info
+                    Container(
+                      height: SizeConfig.h(12),
+                      width: SizeConfig.w(120),
+                      color: Colors.white,
+                    ),
                   ],
                 ),
               ),

@@ -28,7 +28,7 @@ class OfferDetailsCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          OfferImageCard(offer: offer),
+      //    OfferImageCard(offer: offer),
           SizedBox(width: SizeConfig.w(12)),
           Expanded(
             child: SizedBox(
@@ -52,7 +52,7 @@ class OfferDetailsCard extends StatelessWidget {
                         ).copyWith(color: AppColors.ktextcolor),
                       ),
                       SizedBox(height: SizeConfig.h(5)),
-                      DateRow(offer: offer),
+                   //   DateRow(offer: offer),
                       SizedBox(height: SizeConfig.h(5)),
                       Text(
                         offer.desc,

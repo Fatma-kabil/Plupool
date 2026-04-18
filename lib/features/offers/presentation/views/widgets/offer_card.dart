@@ -4,14 +4,14 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/offer_model.dart';
+import 'package:plupool/features/offers/domain/enities/offer_entity.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/date_row.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/offer_card_footer.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/offer_image_card.dart';
 
 class OfferCard extends StatelessWidget {
   const OfferCard({super.key, required this.offer});
-  final OfferModel offer;
+  final OfferEntity offer;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class OfferCard extends StatelessWidget {
                       DateRow(offer: offer),
                       SizedBox(height: SizeConfig.h(5)),
                       Text(
-                        offer.desc,
+                        offer.description,
                         softWrap: true,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
