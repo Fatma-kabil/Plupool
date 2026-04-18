@@ -61,7 +61,7 @@ class ProductInfo extends StatelessWidget {
           children: [
             // السعر الأساسي (لو فيه عرض يبقى بعد الخصم)
             Text(
-              product.hasOffer == true
+              product.hasActiveOffer == true
                   ? "${toArabicNumbers(finalPrice(product).toString())} ج.م"
                   : "${toArabicNumbers(product.price.toString())} ج.م",
               style: AppTextStyles.styleBold16(
@@ -72,7 +72,7 @@ class ProductInfo extends StatelessWidget {
             SizedBox(width: SizeConfig.w(10)),
 
             // السعر القديم يظهر بس لو فيه عرض
-            if (product.hasOffer == true)
+            if (product.hasActiveOffer == true)
               Text(
                 "${toArabicNumbers(product.price.toString())} ج.م",
                 style: AppTextStyles.styleRegular14(context).copyWith(

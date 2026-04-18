@@ -7,7 +7,7 @@ class AdminStatisticsEntity {
   final int totalTechnicians;
   final int activeClients;
   final int inactiveClients;
-
+  final int renewedPackages;
   final int inactivePackages;
 
   const AdminStatisticsEntity({
@@ -19,7 +19,7 @@ class AdminStatisticsEntity {
     required this.totalTechnicians,
     required this.activeClients,
     required this.inactiveClients,
-   
+   required this.renewedPackages,
     required this.inactivePackages,
   });
 }

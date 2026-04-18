@@ -30,7 +30,7 @@ class StatisticsViewBody extends StatelessWidget {
           ];
           dashboardgridStats = [
             {'value': data.activeClients},
-            {'value': data.activePackages},
+            {'value': data.renewedPackages},
             {'value': data.inactiveClients},
             {'value': data.inactivePackages},
           ];

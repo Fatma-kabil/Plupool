@@ -13,6 +13,7 @@ class AdminStatisticsModel extends AdminStatisticsEntity {
   final int unavailableProducts;
   final int totalPackages;
 
+
   const AdminStatisticsModel({
     required super.totalOrders,
     required super.activePackages,
@@ -23,7 +24,7 @@ class AdminStatisticsModel extends AdminStatisticsEntity {
     required super.activeClients,
     required super.inactiveClients,
     required super.inactivePackages,
-
+    required super.renewedPackages,
     required this.newOrders,
     required this.completedOrders,
     required this.cancelledOrders,
@@ -48,7 +49,7 @@ class AdminStatisticsModel extends AdminStatisticsEntity {
       activeClients: json['active_clients'] ?? 0,
       inactiveClients: json['inactive_clients'] ?? 0,
       inactivePackages: json['inactive_packages'] ?? 0,
-
+      renewedPackages: json['renewed_packages'] ?? 0,
       newOrders: json['new_orders'] ?? 0,
       completedOrders: json['completed_orders'] ?? 0,
       cancelledOrders: json['cancelled_orders'] ?? 0,

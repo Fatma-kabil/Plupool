@@ -30,7 +30,7 @@ class ProductModel {
   final String? stockStatus;
   final bool hasOffer;
   final double discountPercentage;
-  final bool isOfferActive;
+  final bool? isOfferActive;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final File? imageFile;
@@ -64,7 +64,7 @@ class ProductModel {
     this.stockStatus,
     this.hasOffer = false,
     this.discountPercentage = 0,
-    this.isOfferActive = true,
+    this.isOfferActive ,
     this.createdAt,
     this.updatedAt,
     this.imageFile,
@@ -76,6 +76,7 @@ class ProductModel {
       offerEndDate: offerEndDate,
       isFeatured: isFeatured,
       hasOffer: hasOffer,
+      hasActiveOffer: isOfferActive,
       stockStatus: stockStatus ?? "",
       discountValue: discountValue,
       imageUrl: imageUrl,
@@ -106,6 +107,7 @@ isFeatured: entity.isFeatured ?? false,
       originalPrice: entity.price,
       stockQuantity: entity.stock,
       imageFile: entity.image,
+      isOfferActive: entity.hasActiveOffer,
     );
   }
 
@@ -151,13 +153,15 @@ isFeatured: entity.isFeatured ?? false,
       discountPercentage: (json["discount_percentage"] != null)
           ? (json["discount_percentage"] as num).toDouble()
           : 0,
-      isOfferActive: json["is_offer_active"] ?? true,
+      isOfferActive: json["is_offer_active"] ?? false,
       createdAt: json["created_at"] != null
           ? DateTime.parse(json["created_at"])
           : null,
       updatedAt: json["updated_at"] != null
           ? DateTime.parse(json["updated_at"])
           : null,
+
+        
     );
   }
 

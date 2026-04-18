@@ -14,8 +14,9 @@ class Product {
   final DateTime? offerStartDate;
   final DateTime? offerEndDate;
   final bool? isFeatured;
+  final bool? hasActiveOffer;
 
-  Product({
+  Product({this.hasActiveOffer, 
     this.isFeatured, 
     this.offerStartDate,
     this.offerEndDate,
