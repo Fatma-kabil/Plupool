@@ -12,7 +12,8 @@ import 'package:plupool/features/products/domain/entities/product_entity.dart';
   Future<List<Product>> getActiveOffers({
     int skip,
     int limit,
-    int? categoryId,
-    String? sortBy,
+    List<int>? categoryIds, // ✅
+  String? sortBy,
+  String? search, 
   });
 }

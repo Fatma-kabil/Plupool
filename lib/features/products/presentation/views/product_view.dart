@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 import 'package:plupool/features/products/presentation/views/widgets/product_view_body.dart';
@@ -72,13 +73,13 @@ class _ProductViewState extends State<ProductView> {
                           else if (state is ProductSearchSuccess)
                             state.products.isEmpty
                                 ? const SliverFillRemaining(
-                                    child: Center(child: Text("مفيش نتائج 😢")),
+                                    child: Center(child: ErrorText( message:  "مفيش نتائج 😢")),
                                   )
                                 : ProductsList(products: state.products)
                           /// 🔵 Error
                           else if (state is ProductSearchError)
                             SliverFillRemaining(
-                              child: Center(child: Text(state.message)),
+                              child: Center(child: ErrorText( message:  state.message)),
                             )
                           /// 🔵 Default
                           else

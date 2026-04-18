@@ -12,14 +12,12 @@ class ProductOfferRepoImpl implements ProductOfferRepo {
   Future<List<Product>> getActiveOffers({
     int skip = 0,
     int limit = 100,
-    int? categoryId,
-    String? sortBy,
+    List<int>? categoryIds, // ✅
+  String? sortBy,
+  String? search, 
   }) async {
     final models = await remote.getActiveOffers(
-      skip: skip,
-      limit: limit,
-      categoryId: categoryId,
-      sortBy: sortBy,
+      
     );
 
     return models.map((m) => m.toEntity()).toList();

@@ -8,10 +8,10 @@ class ErrorText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
+        padding: const EdgeInsets.symmetric(vertical: 25),
         child: Text(
           message,
-          style: AppTextStyles.styleSemiBold16(
+          style: AppTextStyles.styleSemiBold18(
             context,
           ).copyWith(color: Colors.black54),
         ),

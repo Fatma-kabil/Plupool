@@ -81,7 +81,7 @@ class OfferModel {
       discountValue: discountValue ?? 0,
       imageUrl: imageUrl ?? "",
       image: images,
-      id: id,
+      id: id??0,
       isFeatured: isFeatured,
     );
   }

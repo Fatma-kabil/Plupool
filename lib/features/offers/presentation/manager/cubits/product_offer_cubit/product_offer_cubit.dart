@@ -25,8 +25,9 @@ class ProductOfferCubit extends Cubit<ProductOfferState> {
   Future<void> getOffers({
     int skip = 0,
     int limit = 100,
-    int? categoryId,
+   List<int>? categoryIds,
     String? sortBy,
+    String? search,
   }) async {
     emit(ProductOfferLoading());
 
@@ -34,8 +35,10 @@ class ProductOfferCubit extends Cubit<ProductOfferState> {
       final offers = await useCase(
         skip: skip,
         limit: limit,
-        categoryId: categoryId,
+        categoryIds: categoryIds,
         sortBy: sortBy,
+        search: search,
+
       );
 
       emit(GetProductOfferSuccess(offers));

@@ -8,19 +8,25 @@ class ProductOfferRemoteDataSource {
   final ApiService api;
 
   ProductOfferRemoteDataSource({required this.api});
-  Future<List<ProductModel>> getActiveOffers({
+   Future<List<ProductModel>> getActiveOffers({
     int skip = 0,
     int limit = 100,
-    int? categoryId,
+    List<int>? categoryIds, // ✅ بدل int
     String? sortBy,
+    String? search,
   }) async {
     final response = await api.get(
       Endpoints.productOffers,
       queryParams: {
         'skip': skip,
         'limit': limit,
-        if (categoryId != null) 'category_id': categoryId,
+
+        // ✅ هنا المهم
+        if (categoryIds != null && categoryIds.isNotEmpty)
+          'category_ids': categoryIds,
+
         if (sortBy != null) 'sort_by': sortBy,
+        if (search != null && search.isNotEmpty) 'search': search,
       },
     );
 

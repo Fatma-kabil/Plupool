@@ -11,10 +11,12 @@ class NoteTextField extends StatelessWidget {
   final TextStyle? textStyle;
   final TextStyle? hiystyle;
   final Color? cursorColor;
+  final String? Function(String?)? validator;
 
   const NoteTextField({
     super.key,
     required this.controller,
+    this.validator,
     this.onChanged,
     this.size,
     this.text,
@@ -25,6 +27,7 @@ class NoteTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
       cursorColor:cursorColor?? AppColors.kprimarycolor,
       controller: controller,
       maxLines: 5,

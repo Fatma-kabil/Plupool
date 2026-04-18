@@ -10,14 +10,17 @@ class GetActiveOffersUseCase {
   Future<List<Product>> call({
     int skip = 0,
     int limit = 100,
-    int? categoryId,
-    String? sortBy,
+     List<int>? categoryIds, // ✅
+  String? sortBy,
+  String? search, 
   }) {
     return repo.getActiveOffers(
       skip: skip,
       limit: limit,
-      categoryId: categoryId,
+      categoryIds: categoryIds,
       sortBy: sortBy,
+      search: search
+
     );
   }
 }
