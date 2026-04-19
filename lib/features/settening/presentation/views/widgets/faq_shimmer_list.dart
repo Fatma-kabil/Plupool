@@ -7,7 +7,7 @@ class FaqShimmerList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 6,
+      itemCount: 3,
       itemBuilder: (_, __) => const FaqShimmerCard(),
     );
   }

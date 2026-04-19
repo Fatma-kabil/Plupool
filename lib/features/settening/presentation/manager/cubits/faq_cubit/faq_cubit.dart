@@ -22,22 +22,26 @@ class FaqCubit extends Cubit<FaqState> {
     required this.deleteFaqUseCase,
     required this.toggleUseCase,
   }) : super(FaqInitial());
+    String? _role;
+  String? _category;
+  bool? _isActive;
+
 
   /// 📋 GET ALL
-  Future<void> getFaqs({
-    String? role,
-    String? category,
-    bool? isActive,
-  }) async {
+  Future<void> getFaqs({String? role, String? category, bool? isActive}) async {
     try {
       emit(FaqLoading());
+
+       /// 🔥 نخزن الفلاتر
+      _role = role;
+      _category = category;
+      _isActive = isActive;
 
       final result = await getFaqsUseCase(
         role: role,
         category: category,
         isActive: isActive,
       );
-
       result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
 
       emit(FaqSuccess(result));
@@ -96,19 +100,30 @@ class FaqCubit extends Cubit<FaqState> {
 
   /// 👁 TOGGLE
   Future<void> toggleFaq(int id, bool isActive) async {
-    try {
-      emit(FaqLoading());
+  try {
+    emit(FaqLoading());
 
-      final faq = await toggleUseCase(
-        id: id,
-        isActive: isActive,
-      );
+    /// 👁 toggle API
+    await toggleUseCase(id: id, isActive: isActive);
 
-      emit(FaqToggled(faq));
+    /// 📋 refresh بنفس الفلاتر
+    final result = await getFaqsUseCase(
+      role: _role,
+      category: _category,
+      isActive: _isActive,
+    );
 
-      getFaqs();
-    } catch (e) {
-      emit(FaqError(e.toString()));
+    result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+
+    /// 🔥 أهم سطر
+    emit(FaqSuccess(result));
+
+  } catch (e) {
+    if (e is Failure) {
+      emit(FaqError(e.message));
+    } else {
+      emit(FaqError("حدث خطأ غير متوقع"));
     }
   }
+}
 }

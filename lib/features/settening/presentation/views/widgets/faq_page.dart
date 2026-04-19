@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 
 import 'package:plupool/features/settening/domain/entities/faq_entity.dart';
+import 'package:plupool/features/settening/presentation/manager/cubits/faq_cubit/faq_cubit.dart';
 import 'package:plupool/features/settening/presentation/views/widgets/add_ques_card.dart';
 import 'package:plupool/features/settening/presentation/views/widgets/faq_card.dart';
 
@@ -17,13 +19,11 @@ class FaqPage extends StatefulWidget {
 
 class _FaqPageState extends State<FaqPage> {
   late List<bool> expanded;
-  late List<bool> hidden;
 
   @override
   void initState() {
     super.initState();
     expanded = List.generate(widget.items.length, (_) => false);
-    hidden = List.generate(widget.items.length, (_) => false);
   }
 
   void toggle(int index) {
@@ -32,27 +32,27 @@ class _FaqPageState extends State<FaqPage> {
     });
   }
 
-  void toggleHide(int index) {
-    setState(() {
-      hidden[index] = !hidden[index];
-      print('Faq ${index} hidden = ${hidden[index]}'); // 👈 للتأكد
-    });
-  }
-
   @override
   void didUpdateWidget(covariant FaqPage oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.items.length != widget.items.length) {
-      hidden = List.generate(widget.items.length, (_) => false);
       expanded = List.generate(widget.items.length, (_) => false);
     }
+  }
+
+  void _toggleVisibility(FaqEntity item) {
+    context.read<FaqCubit>().toggleFaq(
+          item.id!,
+          !item.isActive,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
+        /// ➕ Add Button
         SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
@@ -70,17 +70,25 @@ class _FaqPageState extends State<FaqPage> {
             ),
           ),
         ),
+
+        /// 📋 List
         SliverList(
           delegate: SliverChildBuilderDelegate(
             childCount: widget.items.length,
             (context, index) {
+              final item = widget.items[index];
+
               return FaqCard(
-                item: widget.items[index],
+                item: item,
                 isExpanded: expanded[index],
-                isHidden: hidden[index],
+
+                /// 👇 isHidden جاي من API مباشرة
+                isHidden: !item.isActive,
+
                 onToggle: () => toggle(index),
 
-                onToggleHide: () => toggleHide(index),
+                /// 👇 هنا بنستخدم الكيوبت
+                onToggleHide: () => _toggleVisibility(item),
               );
             },
           ),
