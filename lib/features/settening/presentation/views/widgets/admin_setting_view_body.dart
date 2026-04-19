@@ -51,7 +51,7 @@ class _AdminSettingViewBodyState extends State<AdminSettingViewBody>
     }
   }
 
-  Widget _buildFaqContent() {
+  Widget _buildFaqContent({required String role}) {
     return BlocBuilder<FaqCubit, FaqState>(
       builder: (context, state) {
         if (state is FaqLoading) {
@@ -63,7 +63,7 @@ class _AdminSettingViewBodyState extends State<AdminSettingViewBody>
             return Center(child: ErrorText(message: "🤔 لا توجد أسئلة حالياً"));
           }
 
-          return FaqPage(items: state.faqs);
+          return FaqPage(items: state.faqs, role: role);
         }
 
         if (state is FaqError) {
@@ -145,9 +145,9 @@ class _AdminSettingViewBodyState extends State<AdminSettingViewBody>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  _buildFaqContent(),
-                  _buildFaqContent(),
-                  _buildFaqContent(),
+                  _buildFaqContent(role: "pool_owner"),
+                  _buildFaqContent(role: "technician"),
+                  _buildFaqContent(role: "company"),
                 ],
               ),
             ),

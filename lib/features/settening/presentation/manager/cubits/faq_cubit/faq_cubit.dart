@@ -80,11 +80,24 @@ class FaqCubit extends Cubit<FaqState> {
       emit(FaqCreated());
 
       /// refresh list بعد الإضافة
-      getFaqs();
-    } catch (e) {
-      emit(FaqError(e.toString()));
+     /// 📋 refresh بنفس الفلاتر المحفوظة
+    final result = await getFaqsUseCase(
+      role: _role,
+      category: _category,
+      isActive: _isActive,
+    );
+
+    result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+
+    emit(FaqSuccess(result));
+  } catch (e) {
+    if (e is Failure) {
+      emit(FaqError(e.message));
+    } else {
+      emit(FaqError("حدث خطأ غير متوقع"));
     }
   }
+}
 
    Future<void> updateFaq(FaqEntity faq) async {
   try {

@@ -10,8 +10,9 @@ import 'package:plupool/features/settening/presentation/views/widgets/faq_card.d
 
 class FaqPage extends StatefulWidget {
   final List<FaqEntity> items;
+  final String role;
 
-  const FaqPage({super.key, required this.items});
+  const FaqPage({super.key, required this.items, required this.role});
 
   @override
   State<FaqPage> createState() => _FaqPageState();
@@ -63,7 +64,7 @@ class _FaqPageState extends State<FaqPage> {
                 onTap: () {
                   showDialog(
                     context: context,
-                    builder: (context) => AddQuesCard(),
+                    builder: (context) => AddQuesCard(role: widget.role,),
                   );
                 },
               ),
