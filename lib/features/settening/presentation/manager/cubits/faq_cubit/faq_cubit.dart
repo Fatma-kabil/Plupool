@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/settening/domain/entities/faq_entity.dart';
 import 'package:plupool/features/settening/domain/usecases/create_faq_usecase.dart';
 import 'package:plupool/features/settening/domain/usecases/delete_faq_usecse.dart';
@@ -41,7 +42,11 @@ class FaqCubit extends Cubit<FaqState> {
 
       emit(FaqSuccess(result));
     } catch (e) {
-      emit(FaqError(e.toString()));
+      if (e is Failure) {
+        emit(FaqError(e.message));
+      } else {
+        emit(FaqError("حدث خطأ غير متوقع"));
+      }
     }
   }
 

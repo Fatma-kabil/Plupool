@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
-import 'package:plupool/features/profile/data/models/faq_item.dart';
+
+import 'package:plupool/features/settening/domain/entities/faq_entity.dart';
 import 'package:plupool/features/settening/presentation/views/widgets/add_ques_card.dart';
 import 'package:plupool/features/settening/presentation/views/widgets/faq_card.dart';
 
 class FaqPage extends StatefulWidget {
-  final List<FaqItem> items;
+  final List<FaqEntity> items;
 
   const FaqPage({super.key, required this.items});
 

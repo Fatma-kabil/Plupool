@@ -4,11 +4,11 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
-import 'package:plupool/features/profile/data/models/faq_item.dart';
+import 'package:plupool/features/settening/domain/entities/faq_entity.dart';
 import 'package:plupool/features/settening/presentation/views/widgets/add_edit_ques_form.dart';
 class EditQuesCard extends StatefulWidget {
   const EditQuesCard({super.key, required this.item});
-  final FaqItem item;
+  final FaqEntity item;
 
   @override
   State<EditQuesCard> createState() => _EditQuesCardState();

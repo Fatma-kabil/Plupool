@@ -3,11 +3,11 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_outlined_btn.dart';
-import 'package:plupool/features/profile/data/models/faq_item.dart';
+import 'package:plupool/features/settening/domain/entities/faq_entity.dart';
 import 'package:plupool/features/settening/presentation/views/widgets/edit_ques_card.dart';
 
 class FaqCard extends StatelessWidget {
-  final FaqItem item;
+  final FaqEntity item;
   final bool isExpanded;
   final VoidCallback onToggle;
   final bool isHidden;
