@@ -6,6 +6,7 @@ import 'package:plupool/features/settening/domain/usecases/delete_faq_usecse.dar
 import 'package:plupool/features/settening/domain/usecases/get_all_faqs_usecase.dart';
 import 'package:plupool/features/settening/domain/usecases/get_faq_usecase.dart';
 import 'package:plupool/features/settening/domain/usecases/toggel_faq_visability_usecase.dart';
+import 'package:plupool/features/settening/domain/usecases/update_faq_usecase.dart';
 import 'package:plupool/features/settening/presentation/manager/cubits/faq_cubit/faq_state.dart';
 
 class FaqCubit extends Cubit<FaqState> {
@@ -14,6 +15,7 @@ class FaqCubit extends Cubit<FaqState> {
   final GetFaqUseCase getFaqUseCase;
   final DeleteFaqUseCase deleteFaqUseCase;
   final ToggleFaqVisibilityUseCase toggleUseCase;
+  final UpdateFaqUseCase updateFaqUseCase;
 
   FaqCubit({
     required this.getFaqsUseCase,
@@ -21,6 +23,7 @@ class FaqCubit extends Cubit<FaqState> {
     required this.getFaqUseCase,
     required this.deleteFaqUseCase,
     required this.toggleUseCase,
+    required this.updateFaqUseCase,
   }) : super(FaqInitial());
     String? _role;
   String? _category;
@@ -83,6 +86,30 @@ class FaqCubit extends Cubit<FaqState> {
     }
   }
 
+   Future<void> updateFaq(FaqEntity faq) async {
+  try {
+    emit(FaqLoading());
+
+    await updateFaqUseCase(faq);
+
+    /// 📋 refresh بنفس الفلاتر المحفوظة
+    final result = await getFaqsUseCase(
+      role: _role,
+      category: _category,
+      isActive: _isActive,
+    );
+
+    result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+
+    emit(FaqSuccess(result));
+  } catch (e) {
+    if (e is Failure) {
+      emit(FaqError(e.message));
+    } else {
+      emit(FaqError("حدث خطأ غير متوقع"));
+    }
+  }
+}
   /// 🗑 DELETE
   Future<void> deleteFaq(int id) async {
     try {

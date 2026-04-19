@@ -10,6 +10,7 @@ abstract class FaqRepository {
   Future<void> createFaq(FaqEntity faq);
 
   Future<FaqEntity> getFaq(int id);
+  Future<void> updateFaq(FaqEntity faq);
 
   Future<void> deleteFaq(int id);
 

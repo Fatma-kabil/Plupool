@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide TextField;
+import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/description_input.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
@@ -27,6 +28,8 @@ class AddEditQuesForm extends StatelessWidget {
           /// السؤال
           const FieldLabel('السؤال'),
           TextField(
+            validator: (value) =>
+                Validators.required(value, fieldName: 'السؤال'),
             controller: questionController,
             hint: 'اكتب السؤال هنا...',
           ),
@@ -36,6 +39,8 @@ class AddEditQuesForm extends StatelessWidget {
           /// الإجابة
           const FieldLabel('الإجابة'),
           DescriptionInputContainer(
+            validator: (value) =>
+                Validators.required(value, fieldName: 'الإجابة'),
             controller: answerController,
             text: "اكتب الإجابة هنا...",
           ),
@@ -49,6 +54,9 @@ class AddEditQuesForm extends StatelessWidget {
             icon: Icons.numbers_sharp,
             keyboardType: TextInputType.number,
             controller: orderController,
+            validator: (value) =>
+                Validators.required(value, fieldName: 'ترتيب السؤال'),
+            
           ),
 
           const SizedBox(height: 15),

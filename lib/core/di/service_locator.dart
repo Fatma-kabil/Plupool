@@ -73,6 +73,7 @@ import 'package:plupool/features/settening/domain/usecases/delete_faq_usecse.dar
 import 'package:plupool/features/settening/domain/usecases/get_all_faqs_usecase.dart';
 import 'package:plupool/features/settening/domain/usecases/get_faq_usecase.dart';
 import 'package:plupool/features/settening/domain/usecases/toggel_faq_visability_usecase.dart';
+import 'package:plupool/features/settening/domain/usecases/update_faq_usecase.dart';
 import 'package:plupool/features/settening/presentation/manager/cubits/faq_cubit/faq_cubit.dart';
 import 'package:plupool/features/statistics/data/data_sources/dashboard_remote_data_source.dart';
 import 'package:plupool/features/statistics/data/repos_impl/dashboard_repository_impl.dart';
@@ -394,6 +395,8 @@ sl.registerLazySingleton<FaqRepository>(
 sl.registerLazySingleton(() => GetAllFaqsUseCase(sl<FaqRepository>()));
 sl.registerLazySingleton(() => CreateFaqUseCase(sl<FaqRepository>()));
 sl.registerLazySingleton(() => GetFaqUseCase(sl<FaqRepository>()));
+
+sl.registerLazySingleton(() => UpdateFaqUseCase(sl<FaqRepository>()));
 sl.registerLazySingleton(() => DeleteFaqUseCase(sl<FaqRepository>()));
 sl.registerLazySingleton(() => ToggleFaqVisibilityUseCase(sl<FaqRepository>()));
 
@@ -404,6 +407,7 @@ sl.registerFactory(
     getFaqUseCase: sl<GetFaqUseCase>(),
     deleteFaqUseCase: sl<DeleteFaqUseCase>(),
     toggleUseCase: sl<ToggleFaqVisibilityUseCase>(),
+    updateFaqUseCase: sl<UpdateFaqUseCase>(),
   ),
 );
 }

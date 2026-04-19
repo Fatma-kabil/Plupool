@@ -49,6 +49,21 @@ class FaqRepositoryImpl implements FaqRepository {
     );
   }
 
+ @override
+  Future<void> updateFaq(FaqEntity faq) async {
+    await remote.updateFaq(
+      FaqModel(
+        id: faq.id,
+        questionAr: faq.question,
+        answerAr: faq.answer,
+        category: "",
+        targetRole:faq.targetRole,
+        sortOrder: faq.sortOrder,
+        isActive: faq.isActive,
+      ),
+    );
+  }
+
   @override
   Future<FaqEntity> getFaq(int id) async {
     final e = await remote.getFaq(id);
