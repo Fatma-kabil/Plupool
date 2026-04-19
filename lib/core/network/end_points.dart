@@ -21,6 +21,7 @@ class Endpoints {
   static const String productSearch = '$baseUrl/products/search';
   static const String productOffers = '$baseUrl/admin/products/active-offers';
   static const String offers = '$baseUrl/admin/offers/';
+  static const String faq = '$baseUrl/admin/content/faqs';
   // static const String productsOffer = '$baseUrl/admin/products/{product_id}/offer';
   // ... روابط نقاط نهاية أخرى
 }

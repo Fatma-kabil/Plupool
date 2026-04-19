@@ -65,6 +65,15 @@ import 'package:plupool/features/auth/data/datasources/sign_up_remote_data_sourc
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_company_usecase.dart';
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_pool_owner_usecase.dart';
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_technician_usecase.dart';
+import 'package:plupool/features/settening/data/date_sources/faq_remote_data_source.dart';
+import 'package:plupool/features/settening/data/repos_impl/faq_repo_impl.dart';
+import 'package:plupool/features/settening/domain/repos/faq_repo.dart';
+import 'package:plupool/features/settening/domain/usecases/create_faq_usecase.dart';
+import 'package:plupool/features/settening/domain/usecases/delete_faq_usecse.dart';
+import 'package:plupool/features/settening/domain/usecases/get_all_faqs_usecase.dart';
+import 'package:plupool/features/settening/domain/usecases/get_faq_usecase.dart';
+import 'package:plupool/features/settening/domain/usecases/toggel_faq_visability_usecase.dart';
+import 'package:plupool/features/settening/presentation/manager/cubits/faq_cubit/faq_cubit.dart';
 import 'package:plupool/features/statistics/data/data_sources/dashboard_remote_data_source.dart';
 import 'package:plupool/features/statistics/data/repos_impl/dashboard_repository_impl.dart';
 import 'package:plupool/features/statistics/domain/repos/dashboard_repo.dart';
@@ -369,6 +378,32 @@ sl.registerLazySingleton(
     sl<AddOfferUsecase>(),
     sl<UpdateOfferUsecase>(),
     sl<DeleteOfferUsecase>(),
+  ),
+);
+
+// ----------------------------
+// ❓ FAQ Feature
+// ----------------------------
+
+sl.registerLazySingleton<FaqRemoteDataSource>(
+  () => FaqRemoteDataSource(sl<ApiService>()),
+);
+sl.registerLazySingleton<FaqRepository>(
+  () => FaqRepositoryImpl(sl<FaqRemoteDataSource>()),
+);
+sl.registerLazySingleton(() => GetAllFaqsUseCase(sl<FaqRepository>()));
+sl.registerLazySingleton(() => CreateFaqUseCase(sl<FaqRepository>()));
+sl.registerLazySingleton(() => GetFaqUseCase(sl<FaqRepository>()));
+sl.registerLazySingleton(() => DeleteFaqUseCase(sl<FaqRepository>()));
+sl.registerLazySingleton(() => ToggleFaqVisibilityUseCase(sl<FaqRepository>()));
+
+sl.registerFactory(
+  () => FaqCubit(
+    getFaqsUseCase: sl<GetAllFaqsUseCase>(),
+    createFaqUseCase: sl<CreateFaqUseCase>(),
+    getFaqUseCase: sl<GetFaqUseCase>(),
+    deleteFaqUseCase: sl<DeleteFaqUseCase>(),
+    toggleUseCase: sl<ToggleFaqVisibilityUseCase>(),
   ),
 );
 }
