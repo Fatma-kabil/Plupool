@@ -126,13 +126,16 @@ class FaqCard extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (dialogContext) {
+                       final cubit = context.read<FaqCubit>();
                       return BlocConsumer<FaqCubit, FaqState>(
+                           bloc: cubit, 
                         listener: (context, state) {
                           if (state is FaqDeleted) {
                             Navigator.pop(context);
+
                             showCustomSnackBar(
                               context: context,
-                              message: "تم حذف العرض بنجاح 🗑️",
+                              message: "تم حذف السؤال 🗑️",
                               isSuccess: true,
                             );
                           }
@@ -147,6 +150,7 @@ class FaqCard extends StatelessWidget {
                           }
                         },
                         builder: (context, state) {
+                        
                           final isLoading = state is FaqLoading;
 
                           return DeleteOrderCard(
@@ -155,9 +159,7 @@ class FaqCard extends StatelessWidget {
                             onPressed: isLoading
                                 ? null
                                 : () {
-                                    context.read<FaqCubit>().deleteFaq(
-                                      item.id!,
-                                    );
+                                    cubit.deleteFaq(item.id!);
                                   },
                           );
                         },
@@ -165,7 +167,6 @@ class FaqCard extends StatelessWidget {
                     },
                   );
                 },
-
                 child: Container(
                   padding: EdgeInsets.all(SizeConfig.w(6)),
                   decoration: const BoxDecoration(

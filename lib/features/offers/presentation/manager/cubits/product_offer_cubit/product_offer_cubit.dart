@@ -22,77 +22,131 @@ class ProductOfferCubit extends Cubit<ProductOfferState> {
     required this.deleteUseCase,
   }) : super(ProductOfferInitial());
 
+  /// 🔥 cache
+  List<Product> _cachedOffers = [];
+
+  /// 🔥 filters
+  int _skip = 0;
+  int _limit = 100;
+  List<int>? _categoryIds;
+  String? _sortBy;
+  String? _search;
+
+  /// 📋 GET OFFERS
   Future<void> getOffers({
     int skip = 0,
     int limit = 100,
-   List<int>? categoryIds,
+    List<int>? categoryIds,
     String? sortBy,
     String? search,
   }) async {
     emit(ProductOfferLoading());
 
     try {
+      /// حفظ الفلاتر
+      _skip = skip;
+      _limit = limit;
+      _categoryIds = categoryIds;
+      _sortBy = sortBy;
+      _search = search;
+
       final offers = await useCase(
         skip: skip,
         limit: limit,
         categoryIds: categoryIds,
         sortBy: sortBy,
         search: search,
-
       );
+
+      _cachedOffers = offers;
 
       emit(GetProductOfferSuccess(offers));
     } catch (e) {
-       if (e is Failure) {
-        emit(ProductOfferError(e.message));
-      } else {
-        emit(ProductOfferError("حدث خطأ أثناء جلب العروض"));
-      }
-     
+      emit(ProductOfferError(
+        e is Failure ? e.message : "حدث خطأ أثناء جلب العروض",
+      ));
     }
   }
 
+  /// ➕ ADD
   Future<void> addOffer(ProductOfferEntity offer) async {
-    emit(ProductOfferLoading());
     try {
+      emit(ProductOfferLoading());
       await addUseCase(offer);
+
+      final offers = await useCase(
+        skip: _skip,
+        limit: _limit,
+        categoryIds: _categoryIds,
+        sortBy: _sortBy,
+        search: _search,
+      );
+
+      _cachedOffers = offers;
+
+      emit(GetProductOfferSuccess(offers));
       emit(ProductOfferSuccess());
-    
     } catch (e) {
-      if (e is Failure) {
-        emit(AddProductOfferError(e.message));
-      } else {
-        emit(AddProductOfferError("حدث خطأ أثناء إضافة العرض"));
-      }
+      emit(AddProductOfferError(
+        e is Failure ? e.message : "حدث خطأ أثناء إضافة العرض",
+      ));
+
+      /// 🔥 رجع الداتا القديمة
+      emit(GetProductOfferSuccess(_cachedOffers));
     }
   }
 
+  /// ✏️ UPDATE
   Future<void> updateOffer(ProductOfferEntity offer) async {
-    emit(ProductOfferLoading());
     try {
+      emit(ProductOfferLoading());
       await updateUseCase(offer);
-      emit(ProductOfferSuccess());
 
+      final offers = await useCase(
+        skip: _skip,
+        limit: _limit,
+        categoryIds: _categoryIds,
+        sortBy: _sortBy,
+        search: _search,
+      );
+
+      _cachedOffers = offers;
+
+      emit(GetProductOfferSuccess(offers));
+      emit(ProductOfferSuccess());
     } catch (e) {
-      if (e is Failure) {
-        emit(EditProductOfferError(e.message));
-      } else {
-        emit(EditProductOfferError("حدث خطأ أثناء تحديث العرض"));
-      }
+      emit(EditProductOfferError(
+        e is Failure ? e.message : "حدث خطأ أثناء تحديث العرض",
+      ));
+
+      emit(GetProductOfferSuccess(_cachedOffers));
     }
   }
 
+  /// 🗑 DELETE
   Future<void> deleteOffer(int id) async {
-    emit(ProductOfferLoading());
     try {
+      emit(ProductOfferLoading());
       await deleteUseCase(id);
+
+      final offers = await useCase(
+        skip: _skip,
+        limit: _limit,
+        categoryIds: _categoryIds,
+        sortBy: _sortBy,
+        search: _search,
+      );
+
+      _cachedOffers = offers;
+
+      emit(GetProductOfferSuccess(offers));
       emit(ProductOfferSuccess());
     } catch (e) {
-      if (e is Failure) {
-        emit(DeleteProductOfferError(e.message));
-      } else {
-        emit(DeleteProductOfferError("حدث خطأ أثناء حذف العرض"));
-      }
+      emit(DeleteProductOfferError(
+        e is Failure ? e.message : "حدث خطأ أثناء حذف العرض",
+      ));
+
+      emit(GetProductOfferSuccess(_cachedOffers));
     }
   }
 }

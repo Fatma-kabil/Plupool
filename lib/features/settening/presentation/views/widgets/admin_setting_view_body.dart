@@ -59,10 +59,7 @@ class _AdminSettingViewBodyState extends State<AdminSettingViewBody>
         }
 
         if (state is FaqSuccess) {
-          if (state.faqs.isEmpty) {
-            return Center(child: ErrorText(message: "🤔 لا توجد أسئلة حالياً"));
-          }
-
+        
           return FaqPage(items: state.faqs, role: role);
         }
 

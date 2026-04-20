@@ -73,6 +73,7 @@ class FaqCubit extends Cubit<FaqState> {
   /// ➕ CREATE
   Future<void> createFaq(FaqEntity faq) async {
     try {
+      emit(FaqLoading());
       await createFaqUseCase(faq);
 
       final result = await getFaqsUseCase(
@@ -99,6 +100,7 @@ class FaqCubit extends Cubit<FaqState> {
   /// ✏️ UPDATE
   Future<void> updateFaq(FaqEntity faq) async {
     try {
+      emit(FaqLoading());
       await updateFaqUseCase(faq);
 
       final result = await getFaqsUseCase(
@@ -122,6 +124,7 @@ class FaqCubit extends Cubit<FaqState> {
   /// 🗑 DELETE
   Future<void> deleteFaq(int id) async {
     try {
+      emit(FaqLoading());
       await deleteFaqUseCase(id);
 
       final result = await getFaqsUseCase(

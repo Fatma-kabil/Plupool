@@ -69,6 +69,7 @@ class ProductCubit extends Cubit<ProductState> {
   /// ================= UPDATE =================
   Future<void> updateProduct(Product product) async {
     try {
+      emit(ProductLoading());
       await updateProductUseCase(product);
 
       emit(ProductSuccess("تم تعديل المنتج"));
@@ -90,6 +91,7 @@ class ProductCubit extends Cubit<ProductState> {
   /// ================= DELETE =================
   Future<void> deleteProduct(int id) async {
     try {
+      emit(ProductLoading());
       await deleteProductUseCase(id);
 
       emit(ProductSuccess("تم حذف المنتج بنجاح 🗑️"));

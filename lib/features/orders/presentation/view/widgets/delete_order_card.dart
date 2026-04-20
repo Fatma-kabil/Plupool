@@ -53,29 +53,30 @@ class DeleteOrderCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-  style: ElevatedButton.styleFrom(
-    backgroundColor: const Color(0xffE63946),
-    disabledBackgroundColor:
-        const Color(0xffE63946).withOpacity(0.4),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-  ),
-  onPressed: isLoading ? null : onPressed,
-  child: Padding(
-    padding: EdgeInsets.symmetric(
-      vertical: SizeConfig.isWideScreen
-          ? SizeConfig.h(8)
-          : 0,
-    ),
-    child: Text(
-      "نعم",
-      style: AppTextStyles.styleMedium16(
-        context,
-      ).copyWith(color: Colors.white),
-    ),
-  ),
-),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffE63946),
+                        disabledBackgroundColor: const Color(
+                          0xffE63946,
+                        ).withOpacity(0.4),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: isLoading ? null : onPressed,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: SizeConfig.isWideScreen
+                              ? SizeConfig.h(8)
+                              : 0,
+                        ),
+                        child: Text(
+                          "نعم",
+                          style: AppTextStyles.styleMedium16(
+                            context,
+                          ).copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ),
                   SizedBox(width: SizeConfig.w(22)),
                   Expanded(

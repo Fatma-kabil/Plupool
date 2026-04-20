@@ -102,8 +102,8 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
     return BlocListener<ProductOfferCubit, ProductOfferState>(
       listener: (context, state) {
         if (state is ProductOfferSuccess) {
-          context.read<ProductOfferCubit>().getOffers();
-          Navigator.pop(context);
+         
+        
 
           showCustomSnackBar(
             context: context,
@@ -113,7 +113,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
         }
 
         if (state is EditProductOfferError) {
-        context.read<ProductOfferCubit>().getOffers();
+         Navigator.pop(context);
           showCustomSnackBar(context: context, message: state.message);
         }
       },

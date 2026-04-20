@@ -125,7 +125,7 @@ class ProductOfferViewCardInfo extends StatelessWidget {
                     return BlocConsumer<ProductOfferCubit, ProductOfferState>(
                       listener: (context, state) {
                         if (state is ProductOfferSuccess) {
-                          context.read<ProductOfferCubit>().getOffers();
+                       
                           Navigator.pop(context);
                           showCustomSnackBar(
                             context: context,
@@ -135,7 +135,7 @@ class ProductOfferViewCardInfo extends StatelessWidget {
                         }
 
                         if (state is DeleteProductOfferError) {
-                          context.read<ProductOfferCubit>().getOffers();
+                         
                           Navigator.pop(context);
 
                           showCustomSnackBar(

@@ -57,8 +57,7 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
     return BlocListener<ProductOfferCubit, ProductOfferState>(
       listener: (context, state) {
         if (state is ProductOfferSuccess) {
-           context.read<ProductCubit>().fetchProducts();
-        //   context.read<ProductOfferCubit>().getOffers();
+          
           Navigator.pop(context);
           showCustomSnackBar(
             context: context,

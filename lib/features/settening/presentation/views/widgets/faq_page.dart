@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 
 import 'package:plupool/features/settening/domain/entities/faq_entity.dart';
@@ -51,9 +52,11 @@ class _FaqPageState extends State<FaqPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isEmpty = widget.items.isEmpty;
+
     return CustomScrollView(
       slivers: [
-        /// ➕ Add Button
+        /// ➕ زرار الإضافة (دايمًا ظاهر)
         SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
@@ -64,13 +67,26 @@ class _FaqPageState extends State<FaqPage> {
                 onTap: () {
                   showDialog(
                     context: context,
-                    builder: (context) => AddQuesCard(role: widget.role,),
+                    builder: (context) =>
+                        AddQuesCard(role: widget.role),
                   );
                 },
               ),
             ),
           ),
         ),
+
+        /// ❌ Empty state
+        if (isEmpty)
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Center(
+              child: ErrorText(
+                message: "🤔 لا توجد أسئلة حالياً",
+              ),
+            ),
+          )
+        else
 
         /// 📋 List
         SliverList(
