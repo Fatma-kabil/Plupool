@@ -24,6 +24,10 @@ class FaqSingleLoaded extends FaqState {
 /// ➕ Create success
 class FaqCreated extends FaqState {}
 
+class FaqUpdated extends FaqState {}
+
+
+
 /// 🗑 Delete success
 class FaqDeleted extends FaqState {}
 

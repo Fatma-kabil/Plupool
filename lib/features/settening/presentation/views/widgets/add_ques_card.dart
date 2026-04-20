@@ -40,7 +40,7 @@ class _AddQuesCardState extends State<AddQuesCard> {
       textDirection: TextDirection.rtl,
       child: BlocConsumer<FaqCubit, FaqState>(
         listener: (context, state) {
-          if (state is FaqSuccess || state is FaqCreated) {
+          if (state is FaqCreated) {
               showCustomSnackBar(context: context, message: "تم إضافة السؤال بنجاح 🎉",isSuccess: true);
             Navigator.pop(context);
 

@@ -6,7 +6,6 @@ import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/functions/stock_status_helper.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
-import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/offer_state.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 

@@ -52,12 +52,14 @@ class _EditQuesCardState extends State<EditQuesCard> {
       textDirection: TextDirection.rtl,
       child: BlocConsumer<FaqCubit, FaqState>(
         listener: (context, state) {
-          if (state is FaqSuccess) {
+          if (state is FaqUpdated) {
             showCustomSnackBar(context: context, message: "تم تعديل السؤال بنجاح 🎉",isSuccess: true);
             Navigator.pop(context); // يقفل بعد النجاح
           }
           if (state is FaqError) {
+             
              showCustomSnackBar(context: context, message: "حدث خطأ أثناء تعديل السؤال",isSuccess: false);
+              Navigator.pop(context);
           }
         },
         builder: (context, state) {

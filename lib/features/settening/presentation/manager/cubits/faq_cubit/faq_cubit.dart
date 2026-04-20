@@ -25,17 +25,18 @@ class FaqCubit extends Cubit<FaqState> {
     required this.toggleUseCase,
     required this.updateFaqUseCase,
   }) : super(FaqInitial());
-    String? _role;
+
+  String? _role;
   String? _category;
   bool? _isActive;
 
+  List<FaqEntity> _cachedFaqs = [];
 
   /// 📋 GET ALL
   Future<void> getFaqs({String? role, String? category, bool? isActive}) async {
     try {
       emit(FaqLoading());
 
-       /// 🔥 نخزن الفلاتر
       _role = role;
       _category = category;
       _isActive = isActive;
@@ -45,15 +46,14 @@ class FaqCubit extends Cubit<FaqState> {
         category: category,
         isActive: isActive,
       );
+
       result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+
+      _cachedFaqs = result;
 
       emit(FaqSuccess(result));
     } catch (e) {
-      if (e is Failure) {
-        emit(FaqError(e.message));
-      } else {
-        emit(FaqError("حدث خطأ غير متوقع"));
-      }
+      emit(FaqError(e is Failure ? e.message : "حدث خطأ غير متوقع"));
     }
   }
 
@@ -73,97 +73,97 @@ class FaqCubit extends Cubit<FaqState> {
   /// ➕ CREATE
   Future<void> createFaq(FaqEntity faq) async {
     try {
-      emit(FaqLoading());
-
       await createFaqUseCase(faq);
 
+      final result = await getFaqsUseCase(
+        role: _role,
+        category: _category,
+        isActive: _isActive,
+      );
+
+      result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+
+      _cachedFaqs = result;
+
+   
       emit(FaqCreated());
+         emit(FaqSuccess(result));
 
-      /// refresh list بعد الإضافة
-     /// 📋 refresh بنفس الفلاتر المحفوظة
-    final result = await getFaqsUseCase(
-      role: _role,
-      category: _category,
-      isActive: _isActive,
-    );
+    } catch (e) {
+      emit(FaqError(e is Failure ? e.message : "حدث خطأ غير متوقع"));
 
-    result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
-
-    emit(FaqSuccess(result));
-  } catch (e) {
-    if (e is Failure) {
-      emit(FaqError(e.message));
-    } else {
-      emit(FaqError("حدث خطأ غير متوقع"));
+      emit(FaqSuccess(_cachedFaqs));
     }
   }
-}
 
-   Future<void> updateFaq(FaqEntity faq) async {
-  try {
-    emit(FaqLoading());
+  /// ✏️ UPDATE
+  Future<void> updateFaq(FaqEntity faq) async {
+    try {
+      await updateFaqUseCase(faq);
 
-    await updateFaqUseCase(faq);
+      final result = await getFaqsUseCase(
+        role: _role,
+        category: _category,
+        isActive: _isActive,
+      );
 
-    /// 📋 refresh بنفس الفلاتر المحفوظة
-    final result = await getFaqsUseCase(
-      role: _role,
-      category: _category,
-      isActive: _isActive,
-    );
+      result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
 
-    result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+      _cachedFaqs = result;
+      emit(FaqUpdated()); // 👈 الأول
+      emit(FaqSuccess(result)); // 👈 آخر حاجة
+    } catch (e) {
+      emit(FaqError(e is Failure ? e.message : "حدث خطأ غير متوقع"));
 
-    emit(FaqSuccess(result));
-  } catch (e) {
-    if (e is Failure) {
-      emit(FaqError(e.message));
-    } else {
-      emit(FaqError("حدث خطأ غير متوقع"));
+      emit(FaqSuccess(_cachedFaqs));
     }
   }
-}
+
   /// 🗑 DELETE
   Future<void> deleteFaq(int id) async {
     try {
-      emit(FaqLoading());
-
       await deleteFaqUseCase(id);
 
-      emit(FaqDeleted());
+      final result = await getFaqsUseCase(
+        role: _role,
+        category: _category,
+        isActive: _isActive,
+      );
 
-      getFaqs();
+      result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+
+      _cachedFaqs = result;
+
+     
+      emit(FaqDeleted());
+       emit(FaqSuccess(result));
     } catch (e) {
-      emit(FaqError(e.toString()));
+      emit(FaqError(e is Failure ? e.message : "حدث خطأ غير متوقع"));
+
+      emit(FaqSuccess(_cachedFaqs));
     }
   }
 
   /// 👁 TOGGLE
   Future<void> toggleFaq(int id, bool isActive) async {
-  try {
-    emit(FaqLoading());
+    try {
+      await toggleUseCase(id: id, isActive: isActive);
 
-    /// 👁 toggle API
-    await toggleUseCase(id: id, isActive: isActive);
+      final result = await getFaqsUseCase(
+        role: _role,
+        category: _category,
+        isActive: _isActive,
+      );
 
-    /// 📋 refresh بنفس الفلاتر
-    final result = await getFaqsUseCase(
-      role: _role,
-      category: _category,
-      isActive: _isActive,
-    );
+      result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
 
-    result.sort((a, b) => a.sortOrder.compareTo(b.sortOrder));
+      _cachedFaqs = result;
 
-    /// 🔥 أهم سطر
-    emit(FaqSuccess(result));
+      emit(FaqSuccess(result));
+    } catch (e) {
+      emit(FaqError(e is Failure ? e.message : "حدث خطأ غير متوقع"));
 
-  } catch (e) {
-    if (e is Failure) {
-      emit(FaqError(e.message));
-    } else {
-      emit(FaqError("حدث خطأ غير متوقع"));
+      emit(FaqSuccess(_cachedFaqs));
     }
   }
-}
 }
