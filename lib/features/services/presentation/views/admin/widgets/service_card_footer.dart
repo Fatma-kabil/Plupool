@@ -4,7 +4,9 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/card_footer_button.dart';
 
 class ServiceCardFooter extends StatelessWidget {
-  const ServiceCardFooter({super.key});
+  const ServiceCardFooter({super.key, this.delFun, });
+ final void Function()? delFun;
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,7 @@ class ServiceCardFooter extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CardFooterButton(
+
             color: Color(0xffCCF0F7),
             icon: Icons.edit_note,
             text: "تعديل",
@@ -23,6 +26,7 @@ class ServiceCardFooter extends StatelessWidget {
             },
           ),
           CardFooterButton(
+            onTap: delFun,
             color: Color(0xffFAD7DA),
             icon: Icons.delete_outline_outlined,
             text: "حذف الطلب",

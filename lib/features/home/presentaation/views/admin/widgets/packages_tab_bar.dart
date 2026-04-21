@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class PackagesTabBar extends StatelessWidget {
@@ -37,7 +38,7 @@ class PackagesTabBar extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRaduis?? SizeConfig.w(20)),
               ),
               child: Text(
-                "$tab (${counts[tab]})",
+                "$tab (${toArabicNumbers(counts[tab].toString() )})",
                 style: isSelected
                     ? AppTextStyles.styleBold14(
                         context,

@@ -8,6 +8,22 @@ enum RequestStatus {
   completed,
   scheduled, // 🟠 الحالة الجديدة
 }
+RequestStatus mapApiStatus(String status) {
+  switch (status) {
+    case "completed":
+      return RequestStatus.completed;
+
+    case "in_progress":
+      return RequestStatus.inProgress;
+
+    case "confirmed":
+      return RequestStatus.scheduled;
+
+    case "pending":
+    default:
+      return RequestStatus.urgent;
+  }
+}
 
 /// نص الحالة باللغة العربية
 String getStatusText(RequestStatus status) {
