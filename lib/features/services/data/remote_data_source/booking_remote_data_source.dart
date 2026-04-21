@@ -9,25 +9,29 @@ class BookingRemoteDataSource   {
   BookingRemoteDataSource(this.api);
 
   
-  Future<BookingResponseModel> getBookings({
-    String? status,
-    String? type,
-    String? search,
-  }) async {
-    final res = await api.get(
-     Endpoints.servicesBookings,
-      queryParams: {
-        'status_filter': status,
-        'booking_type': type,
-        'search': search,
-        'skip': 0,
-        'limit': 100,
-      },
-    );
+ Future<BookingResponseModel> getBookings({
+  String? status,
+  String? type,
+  String? search,
+}) async {
+  final params = {
+    'status_filter': status,
+    'booking_type': type,
+    'search': search,
+    'skip': 0,
+    'limit': 50,
+  };
 
-    return BookingResponseModel.fromJson(res.data);
-  }
+  /// 🔥 أهم خطوة
+  params.removeWhere((key, value) => value == null);
 
+  final res = await api.get(
+    Endpoints.servicesBookings,
+    queryParams: params,
+  );
+
+  return BookingResponseModel.fromJson(res.data);
+}
  
   Future<BookingModel> getBookingDetails(int id) async {
     final res =

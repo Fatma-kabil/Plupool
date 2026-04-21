@@ -39,7 +39,7 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<CategoryCubit>()..getCategories()),
         BlocProvider(create: (_) => sl<OfferCubit>()..fetchOffers()),
         BlocProvider(create: (_) => sl<FaqCubit>()),
-        BlocProvider(create:  (_) => sl<BookingCubit>())
+        BlocProvider(create:  (_) => sl<BookingCubit>()..getBookings(),)
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,

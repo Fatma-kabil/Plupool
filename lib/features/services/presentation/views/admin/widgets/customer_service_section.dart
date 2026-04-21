@@ -65,9 +65,9 @@ class _CustomerServiceSectionState extends State<CustomerServiceSection> {
             : SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    return CustomerServiceCard(
-                      request: filteredServices[index],
-                    );
+                 //   return CustomerServiceCard(
+                 //     request: filteredServices[index],
+                //    );
                   },
                   childCount: filteredServices.length,
                 ),

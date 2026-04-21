@@ -26,6 +26,7 @@ class BookingModel {
   final String poolTypeName;
   final String? packageName;
   final String userName;
+  final String userRole;
 
   final List<int> technicianIds;
   final List<String> technicianNames;
@@ -38,6 +39,7 @@ class BookingModel {
     required this.bookingType,
     required this.bookingDate,
     required this.bookingTime,
+
     this.notes,
     required this.id,
     required this.userId,
@@ -57,6 +59,7 @@ class BookingModel {
     required this.poolTypeName,
     this.packageName,
     required this.userName,
+    required this.userRole,
     required this.technicianIds,
     required this.technicianNames,
     this.techniciansDisplay,
@@ -93,6 +96,7 @@ class BookingModel {
       poolTypeName: json['pool_type_name'],
       packageName: json['package_name'],
       userName: json['user_name'],
+      userRole: json['user_role'],
 
       technicianIds: List<int>.from(json['technician_ids'] ?? []),
       technicianNames: List<String>.from(json['technician_names'] ?? []),

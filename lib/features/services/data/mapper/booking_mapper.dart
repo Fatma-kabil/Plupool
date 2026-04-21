@@ -16,6 +16,7 @@ extension BookingMapper on BookingModel {
       bookingType: bookingType,
       serviceName: serviceName,
       technicians: technicianNames,
+      userRole: userRole,
     );
   }
 }
