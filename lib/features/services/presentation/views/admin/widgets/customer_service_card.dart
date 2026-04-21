@@ -6,18 +6,14 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
-import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
-import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
-import 'package:plupool/features/services/domain/entities/booking_entity.dart';
-import 'package:plupool/features/services/presentation/manager/cubits/booking_cubit.dart';
-import 'package:plupool/features/services/presentation/manager/cubits/booking_state.dart';
+import 'package:plupool/features/services/data/models/customer_service_card_model.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/date_row.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_footer.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_row.dart';
 
 class CustomerServiceCard extends StatelessWidget {
-  const CustomerServiceCard({super.key, required this.booking});
-  final BookingEntity booking;
+  const CustomerServiceCard({super.key, required this.request});
+  final CustomerServiceCardModel request;
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +54,8 @@ class CustomerServiceCard extends StatelessWidget {
                     buildStatusLabel(colors, context, status),
                   ],
                 ),
-                //   SizedBox(height: 8),
-                DateRow(date: booking.date),
+             //   SizedBox(height: 8),
+                DateRow(date: request.date),
               ],
             ),
 
@@ -67,12 +63,9 @@ class CustomerServiceCard extends StatelessWidget {
 
             ServiceCardRow(title: "نوع الخدمة:", value: booking.bookingType),
             const SizedBox(height: 5),
-            ServiceCardRow(title: " العميل:", value: booking.userName),
+             ServiceCardRow(title: " العميل:", value: "احمد محمد"),
             const SizedBox(height: 5),
-            ServiceCardRow(
-              title: "الفنيين:",
-              value: booking.technicians.join(" - "),
-            ),
+            ServiceCardRow(title: "الفنيين:", value: request.techs),
             const SizedBox(height: 8),
             ServiceCardFooter(delFun: () {
                showDialog(
