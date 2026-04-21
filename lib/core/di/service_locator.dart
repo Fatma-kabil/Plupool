@@ -65,6 +65,14 @@ import 'package:plupool/features/auth/data/datasources/sign_up_remote_data_sourc
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_company_usecase.dart';
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_pool_owner_usecase.dart';
 import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_technician_usecase.dart';
+import 'package:plupool/features/services/data/remote_data_source/booking_remote_data_source.dart';
+import 'package:plupool/features/services/data/repos_impl/booking_repo_impl.dart';
+import 'package:plupool/features/services/domain/repos/booking_repo.dart';
+import 'package:plupool/features/services/domain/usecases/delete_booking_usecase.dart';
+import 'package:plupool/features/services/domain/usecases/get_booking_details.dart';
+import 'package:plupool/features/services/domain/usecases/get_bookings_usecase.dart';
+import 'package:plupool/features/services/domain/usecases/update_booking_usecase.dart';
+import 'package:plupool/features/services/presentation/manager/cubits/booking_cubit.dart';
 import 'package:plupool/features/settening/data/date_sources/faq_remote_data_source.dart';
 import 'package:plupool/features/settening/data/repos_impl/faq_repo_impl.dart';
 import 'package:plupool/features/settening/domain/repos/faq_repo.dart';
@@ -408,6 +416,46 @@ sl.registerFactory(
     deleteFaqUseCase: sl<DeleteFaqUseCase>(),
     toggleUseCase: sl<ToggleFaqVisibilityUseCase>(),
     updateFaqUseCase: sl<UpdateFaqUseCase>(),
+  ),
+);
+// ----------------------------
+// 📅 BOOKINGS FEATURE
+// ----------------------------
+
+// Remote Data Source
+sl.registerLazySingleton<BookingRemoteDataSource>(
+  () => BookingRemoteDataSource(sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<BookingRepository>(
+  () => BookingRepositoryImpl(sl<BookingRemoteDataSource>()),
+);
+
+// UseCases
+sl.registerLazySingleton(
+  () => GetBookingsUseCase(sl<BookingRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => GetBookingDetailsUseCase(sl<BookingRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => UpdateBookingUseCase(sl<BookingRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => DeleteBookingUseCase(sl<BookingRepository>()),
+);
+
+// Cubit
+sl.registerFactory(
+  () => BookingCubit(
+    getBookingsUseCase: sl<GetBookingsUseCase>(),
+    getDetailsUseCase: sl<GetBookingDetailsUseCase>(),
+    updateUseCase: sl<UpdateBookingUseCase>(),
+    deleteUseCase: sl<DeleteBookingUseCase>(),
   ),
 );
 }
