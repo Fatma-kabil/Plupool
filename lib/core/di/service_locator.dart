@@ -10,13 +10,10 @@ import 'package:plupool/features/auth/domain/repos/sign_up_repo.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
-import 'package:plupool/features/home/data/remote_data_sources/contact_ramote_data_source.dart';
 import 'package:plupool/features/home/data/remote_data_sources/notification_remote_data_source.dart';
-import 'package:plupool/features/home/data/repos_impl/contact_repo_impl.dart';
 import 'package:plupool/features/home/data/repos_impl/notification_repo_impl.dart';
-import 'package:plupool/features/home/domain/repos/contact_repo.dart';
+
 import 'package:plupool/features/home/domain/repos/notification_repo.dart';
-import 'package:plupool/features/home/presentaation/manager/contact_cubit/contat_cubit.dart';
 import 'package:plupool/features/home/presentaation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/offer_remote_data_source.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/product_offer_remote_data_source.dart';
@@ -51,6 +48,10 @@ import 'package:plupool/features/search/data/repositories_impl/product_search_re
 import 'package:plupool/features/search/domain/repositories/product_search_repo.dart';
 import 'package:plupool/features/search/domain/usecases/search_products_usecase.dart';
 import 'package:plupool/features/search/presentation/manager/cubits/product_search_cubit/product_search_cubit.dart';
+import 'package:plupool/features/support/domain/usecases/delete_message_usecase.dart';
+import 'package:plupool/features/support/domain/usecases/get_message_details_usecase.dart';
+import 'package:plupool/features/support/domain/usecases/get_messages_usecase.dart';
+import 'package:plupool/features/support/domain/usecases/update_status_usecase.dart';
 
 // Role Feature
 import 'package:plupool/features/select_role/data/local_data_source/role_local_data_source.dart';
@@ -98,7 +99,10 @@ import 'package:plupool/features/store/domain/usecases/get_categories_usecase.da
 import 'package:plupool/features/store/domain/usecases/get_store_statistics_usecase.dart';
 import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
-
+import 'package:plupool/features/support/data/remote_data_sources/contact_remote_data_source.dart';
+import 'package:plupool/features/support/data/repos_impl.dart/contact_repo_impl.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
+import 'package:plupool/features/support/domain/repos/contact_repo.dart';
 final sl = GetIt.instance;
 
 Future<void> initServiceLocator() async {
@@ -203,23 +207,8 @@ sl.registerLazySingleton<UserRepository>(
 sl.registerLazySingleton(() => UserCubit(sl<UserRepository>()));
 
 // تسجيل UpdateUserCubit
-// تسجيل Contact Feature
-  // ----------------------------
 
-  // Remote Data Source
-  sl.registerLazySingleton<ContactRemoteDataSource>(
-    () => ContactRemoteDataSourceImpl(sl<ApiService>()),
-  );
-
-  // Repository
-  sl.registerLazySingleton<ContactRepository>(
-    () => ContactRepositoryImpl(sl<ContactRemoteDataSource>()),
-  );
-
-  // Cubit
-  sl.registerLazySingleton(
-    () => ContactCubit(sl<ContactRepository>()),
-  );
+ 
   // Notification Feature
   // ----------------------------
 
@@ -456,6 +445,37 @@ sl.registerFactory(
     getDetailsUseCase: sl<GetBookingDetailsUseCase>(),
     updateUseCase: sl<UpdateBookingUseCase>(),
     deleteUseCase: sl<DeleteBookingUseCase>(),
+  ),
+);
+
+sl.registerLazySingleton<ContactRemoteDataSource>(
+  () => ContactRemoteDataSource(sl<ApiService>()),
+);
+sl.registerLazySingleton<ContactRepository>(
+  () => ContactRepoImpl(sl<ContactRemoteDataSource>()),
+
+);
+sl.registerLazySingleton(
+  () => GetMessagesUseCase(sl<ContactRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => GetMessageDetailsUseCase(sl<ContactRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => DeleteMessageUseCase(sl<ContactRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => UpdateStatusUseCase(sl<ContactRepository>()),
+);
+sl.registerFactory(
+  () => ContactCubit(
+    sl<GetMessagesUseCase>(),
+    getDetailsUseCase: sl<GetMessageDetailsUseCase>(),
+    deleteUseCase: sl<DeleteMessageUseCase>(),
+    updateUseCase: sl<UpdateStatusUseCase>(),
   ),
 );
 }
