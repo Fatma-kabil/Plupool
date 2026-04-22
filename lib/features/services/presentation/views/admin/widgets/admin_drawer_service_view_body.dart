@@ -45,9 +45,9 @@ class _AdminDrawerServiceViewBodyState
             if (selectedTab == "مكتملة") {
               return b.status == "completed";
             } else if (selectedTab == "مجدولة") {
-              return b.status == "in_progress";
+              return b.status == "scheduled";
             } else {
-              return b.status == "confirmed";
+              return b.status == "urgent";
             }
           }).toList();
 
@@ -72,8 +72,8 @@ class _AdminDrawerServiceViewBodyState
                     setState(() => selectedTab = tab);
                   },
                   counts: {
-                    "عاجلة": state.data.statistics.pending,
-                    "مجدولة": state.data.statistics.inProgress,
+                    "عاجلة": state.data.statistics.urgent,
+                    "مجدولة": state.data.statistics.scheduled,
                     "مكتملة": state.data.statistics.completed,
                   },
                 ),

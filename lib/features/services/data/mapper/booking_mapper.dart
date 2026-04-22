@@ -17,6 +17,7 @@ extension BookingMapper on BookingModel {
       serviceName: serviceName,
       technicians: technicianNames,
       userRole: userRole,
+      serviceId: serviceId,
     );
   }
 }
@@ -24,12 +25,11 @@ extension BookingMapper on BookingModel {
 extension StatisticsMapper on BookingStatisticsModel {
   BookingStatisticsEntity toEntity() {
     return BookingStatisticsEntity(
-      pending: pending,
-      confirmed: confirmed,
+      urgent: urgent,
+      scheduled: scheduled,
       inProgress: inProgress,
       completed: completed,
-      cancelled: cancelled,
-      rejected: rejected,
+    
     );
   }
 }

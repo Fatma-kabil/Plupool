@@ -1,17 +1,13 @@
 class BookingStatisticsEntity {
-  final int pending;
-  final int confirmed;
+  final int urgent;
+  final int scheduled;
   final int inProgress;
   final int completed;
-  final int cancelled;
-  final int rejected;
 
   BookingStatisticsEntity({
-    required this.pending,
-    required this.confirmed,
+    required this.urgent,
+    required this.scheduled,
     required this.inProgress,
     required this.completed,
-    required this.cancelled,
-    required this.rejected,
   });
 }

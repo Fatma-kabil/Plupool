@@ -7,10 +7,11 @@ class BookingEntity {
   final String status;
   final String bookingType;
   final String? serviceName;
+  final int? serviceId;
   final List<String> technicians;
 
   BookingEntity({
-    
+    this.serviceId,
     required this.id,
     required this.userName,
     required this.userRole,

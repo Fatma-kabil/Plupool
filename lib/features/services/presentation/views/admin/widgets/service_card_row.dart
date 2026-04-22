@@ -13,8 +13,8 @@ class ServiceCardRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title, style: AppTextStyles.styleSemiBold15(context).copyWith(color:Color(0xff333333))),
-          Text(value, style: AppTextStyles.styleRegular16(context).copyWith(color:Color(0xff555555)),)
+          Text(title, style: AppTextStyles.styleSemiBold16(context).copyWith(color:Color(0xff333333))),
+          Text(value, style: AppTextStyles.styleRegular14(context).copyWith(color:Color(0xff555555)),)
         ],
       ),
     );

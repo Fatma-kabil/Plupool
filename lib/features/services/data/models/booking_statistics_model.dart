@@ -1,28 +1,22 @@
 class BookingStatisticsModel {
-  final int pending;
-  final int confirmed;
+  final int urgent;
+  final int scheduled;
   final int inProgress;
   final int completed;
-  final int cancelled;
-  final int rejected;
 
   BookingStatisticsModel({
-    required this.pending,
-    required this.confirmed,
     required this.inProgress,
     required this.completed,
-    required this.cancelled,
-    required this.rejected,
+    required this.urgent,
+    required this.scheduled,
   });
 
   factory BookingStatisticsModel.fromJson(Map<String, dynamic> json) {
     return BookingStatisticsModel(
-      pending: json['pending'] ?? 0,
-      confirmed: json['confirmed'] ?? 0,
+      urgent: json['urgent'] ?? 0,
+      scheduled: json['scheduled'] ?? 0,
       inProgress: json['in_progress'] ?? 0,
       completed: json['completed'] ?? 0,
-      cancelled: json['cancelled'] ?? 0,
-      rejected: json['rejected'] ?? 0,
     );
   }
 }
