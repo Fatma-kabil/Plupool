@@ -15,7 +15,7 @@ class MessageStatusSection extends StatefulWidget {
 }
 
 class _MessageStatusSectionState extends State<MessageStatusSection> {
-  MessageStatus selected = MessageStatus.pending;
+  MessageStatus selected = MessageStatus.in_progress;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,7 +34,7 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
             Expanded(
               child: StatusSelector<MessageStatus>(
                 selected: selected,
-                items: const [MessageStatus.pending, MessageStatus.solved,MessageStatus.newer],
+                items: const [MessageStatus.pending_review, MessageStatus.in_progress,MessageStatus.resolved],
                 displayText: (status) => statusText(status),
                 onChanged: (val) {
                   setState(() => selected = val);

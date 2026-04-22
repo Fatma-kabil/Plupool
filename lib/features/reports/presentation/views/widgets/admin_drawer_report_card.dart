@@ -82,9 +82,9 @@ class _AdminDrawerReportCardState extends State<AdminDrawerReportCard> {
                       child: StatusSelector<MessageStatus>(
                         selected: selected,
                         items: const [
-                          MessageStatus.pending,
-                          MessageStatus.solved,
-                          MessageStatus.newer,
+                        //  MessageStatus.pending,
+                       //   MessageStatus.solved,
+                       //   MessageStatus.newer,
                         ],
                         displayText: (status) => statusText(status),
                         onChanged: (val) {

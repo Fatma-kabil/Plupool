@@ -31,10 +31,10 @@ class _AdminDrawerReportViewBodyState extends State<AdminDrawerReportViewBody> {
           (r) =>
               r.status ==
               (selectedTab == "قيد المراجعة"
-                  ? MessageStatus.pending
-                  : selectedTab == "تم الحل"
-                  ? MessageStatus.solved
-                  : MessageStatus.newer),
+                 ? MessageStatus.in_progress
+                 : selectedTab == "تم الحل"
+                 ? MessageStatus.resolved
+             : MessageStatus.pending_review),
         )
         .toList();
 
@@ -66,13 +66,13 @@ class _AdminDrawerReportViewBodyState extends State<AdminDrawerReportViewBody> {
             onTabSelected: (tab) => setState(() => selectedTab = tab),
             counts: {
               "جديد": allRequests
-                  .where((r) => r.status == MessageStatus.newer)
+                  .where((r) => r.status == MessageStatus.pending_review)
                   .length,
               "قيد المراجعة": allRequests
-                  .where((r) => r.status == MessageStatus.pending)
+                  .where((r) => r.status == MessageStatus.in_progress)
                   .length,
               "تم الحل": allRequests
-                  .where((r) => r.status == MessageStatus.solved)
+                  .where((r) => r.status == MessageStatus.resolved)
                   .length,
             },
           ),

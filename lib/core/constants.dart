@@ -28,7 +28,6 @@ import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 import 'package:plupool/features/store/data/models/dashboard_shortcut_model.dart';
 import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
 
-import 'package:plupool/features/support/data/models/message_model.dart';
 
 final List<RoleCardItemModel> roles = [
   RoleCardItemModel(
@@ -755,34 +754,6 @@ final List<CustomerServiceCardModel> customerServices = [
   ),
 ];
 
-final List<MessageModel> messages = [
-  MessageModel(
-    role: "عميل",
-    name: "محمد رامي",
-    message:
-        "إزاي أجدّد الباقة؟"
-        "هل أقدر أغير موعد الزيارة؟",
-    status: MessageStatus.pending,
-    files: true,
-  ),
-  MessageModel(
-    role: "فني",
-    name: "محمد عبده",
-    message:
-        "إزاي أجدّد الباقة؟"
-        "هل أقدر أغير موعد الزيارة؟",
-    status: MessageStatus.pending,
-  ),
-  MessageModel(
-    role: "عميل",
-    name: "محمد رامي",
-    message:
-        "إزاي أجدّد الباقة؟"
-        "هل أقدر أغير موعد الزيارة؟",
-    status: MessageStatus.solved,
-  ),
-];
-
 final List<DashboardStatModel> dashboardStats = [
   DashboardStatModel(
     title: "التقييم",
@@ -1013,7 +984,7 @@ final List<ContactUsModel> companyContactUs = [
     messageDate: DateTime(2025, 5, 4),
     phone: "01558098364",
     projectType: "بناء حمامات سباحة",
-    status: MessageStatus.pending,
+    status: MessageStatus.pending_review,
   ),
   ContactUsModel(
     companyName: "شركة التقنية المتطورة",
@@ -1022,7 +993,7 @@ final List<ContactUsModel> companyContactUs = [
     messageDate: DateTime(2025, 5, 4),
     phone: "01558098364",
     projectType: "بناء حمامات سباحة",
-    status: MessageStatus.pending,
+    status: MessageStatus.pending_review,
   ),
   ContactUsModel(
     companyName: "شركة التقنية المتطورة",
@@ -1031,7 +1002,7 @@ final List<ContactUsModel> companyContactUs = [
     messageDate: DateTime(2025, 5, 4),
     phone: "01558098364",
     projectType: "بناء حمامات سباحة",
-    status: MessageStatus.pending,
+    status: MessageStatus.pending_review,
   ),
   ContactUsModel(
     companyName: "شركة التقنية المتطورة",
@@ -1040,7 +1011,7 @@ final List<ContactUsModel> companyContactUs = [
     messageDate: DateTime(2025, 5, 4),
     phone: "01558098364",
     projectType: "بناء حمامات سباحة",
-    status: MessageStatus.pending,
+    status: MessageStatus.pending_review,
   ),
   ContactUsModel(
     companyName: "شركة التقنية المتطورة",
@@ -1049,7 +1020,7 @@ final List<ContactUsModel> companyContactUs = [
     messageDate: DateTime(2025, 5, 4),
     phone: "01558098364",
     projectType: "بناء حمامات سباحة",
-    status: MessageStatus.pending,
+    status: MessageStatus.pending_review,
   ),
   ContactUsModel(
     companyName: "شركة التقنية المتطورة",
@@ -1058,7 +1029,7 @@ final List<ContactUsModel> companyContactUs = [
     messageDate: DateTime(2025, 5, 4),
     phone: "01558098364",
     projectType: "بناء حمامات سباحة",
-    status: MessageStatus.solved,
+    status: MessageStatus.resolved,
   ),
 ];
 
@@ -1170,7 +1141,7 @@ final List<ReportModel> reports = [
   ReportModel(
     customerName: "أحمد محمد",
     techName: "عادل محمود",
-    status: MessageStatus.newer,
+    status: MessageStatus.pending_review,
     date: "2025-12-22",
   
     time: "11:00 ص",
@@ -1178,7 +1149,7 @@ final List<ReportModel> reports = [
    ReportModel(
     customerName: "أحمد محمد",
     techName: "عادل محمود",
-    status: MessageStatus.pending,
+    status: MessageStatus.in_progress,
     date: "2025-12-22",
    
     time: "11:00 ص",
@@ -1186,7 +1157,7 @@ final List<ReportModel> reports = [
    ReportModel(
     customerName: "أحمد محمد",
     techName: "عادل محمود",
-    status: MessageStatus.pending,
+    status: MessageStatus.in_progress,
     date: "2025-12-22",
    
     time: "11:00 ص",
@@ -1194,7 +1165,7 @@ final List<ReportModel> reports = [
    ReportModel(
     customerName: "أحمد محمد",
     techName: "عادل محمود",
-    status: MessageStatus.solved,
+    status: MessageStatus.resolved,
     date: "2025-12-22",
    
     time: "11:00 ص",

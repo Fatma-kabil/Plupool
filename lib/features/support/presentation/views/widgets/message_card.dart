@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/support/data/models/message_model.dart';
+import 'package:plupool/features/support/domain/entities/contact_entity.dart';
 import 'package:plupool/features/support/presentation/views/widgets/attachment_chip.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_card_title.dart';
 
 class MessageCard extends StatelessWidget {
   const MessageCard({super.key, required this.message, this.onTap});
 
-  final MessageModel message;
+  final ContactEntity message;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    final colors = MessageStatusColors.getColors(message.status);
+    final status = mapMessageApiStatus(message.status);
+    final colors = MessageStatusColors.getColors(status);
     return Container(
       margin: EdgeInsets.only(bottom: SizeConfig.h(10)),
       padding: EdgeInsets.symmetric(
@@ -29,7 +31,11 @@ class MessageCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MessageCardTitle(role: message.role, name: message.name,onTap: onTap,),
+          MessageCardTitle(
+            role: message.senderRole,
+            name: message.name,
+            onTap: onTap,
+          ),
           SizedBox(height: 15),
           Row(
             children: [
@@ -41,7 +47,7 @@ class MessageCard extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                '20/12/2025',
+                formatArabicDate(message.createdAt.toString()),
                 style: AppTextStyles.styleSemiBold15(
                   context,
                 ).copyWith(color: Color(0xff555555)),
@@ -68,7 +74,7 @@ class MessageCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Text(
-                 statusText(message.status),
+                  statusText(status),
                   style: AppTextStyles.styleSemiBold14(
                     context,
                   ).copyWith(color: colors['labelText']),
@@ -90,17 +96,21 @@ class MessageCard extends StatelessWidget {
             ).copyWith(color: Color(0xff555555)),
           ),
           SizedBox(height: 10),
-          message.files
+          message.attachments.isNotEmpty
               ? SizedBox(
-                height: SizeConfig.h(30),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 2,
+                  height: SizeConfig.h(30),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: message.attachments.length,
                     itemBuilder: (context, index) {
-                      return AttachmentChip(fileName: "file.txt");
+                      final file = message.attachments[index];
+
+                      return AttachmentChip(
+                        fileName: file.toString().split('/').last,
+                      );
                     },
                   ),
-              )
+                )
               : Text(
                   'لا توجد',
                   style: AppTextStyles.styleRegular16(

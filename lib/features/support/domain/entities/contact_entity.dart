@@ -6,7 +6,8 @@ class ContactEntity {
   final DateTime createdAt;
   final String senderRole;
   final String status;
-  final List? attachments;
+  final List attachments;
+  final bool? isActive;
 
   const ContactEntity({
     required this.id,
@@ -16,6 +17,7 @@ class ContactEntity {
     required this.createdAt,
     required this.senderRole,
     required this.status,
-    this.attachments,
+    required this.attachments,
+    this.isActive
   });
 }

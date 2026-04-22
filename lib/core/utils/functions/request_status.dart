@@ -16,10 +16,10 @@ RequestStatus mapApiStatus(String status) {
     case "in_progress":
       return RequestStatus.inProgress;
 
-    case "confirmed":
+    case "scheduled":
       return RequestStatus.scheduled;
 
-    case "pending":
+   
     default:
       return RequestStatus.urgent;
   }

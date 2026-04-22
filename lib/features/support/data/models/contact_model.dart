@@ -8,7 +8,7 @@ class ContactModel extends ContactEntity {
   final String? userFullName;
   final String? userPhone;
   final String? userAddress;
-  final bool? userIsActive;
+ 
   final String? userProfileImage; 
 
   ContactModel({
@@ -19,15 +19,14 @@ class ContactModel extends ContactEntity {
     required super.createdAt,
     required super.senderRole,
     required super.status,
-      super.attachments,
-
+    required super.attachments,
+    super.isActive,
     required this.email,
     required this.userId,
    
     this.userFullName,
     this.userPhone,
     this.userAddress,
-    this.userIsActive,
     this.userProfileImage
   });
 
@@ -48,7 +47,7 @@ class ContactModel extends ContactEntity {
       userFullName: json['user_full_name'],
       userPhone: json['user_phone'],
       userAddress: json['user_address'],
-      userIsActive: json['user_is_active'],
+      isActive: json['user_is_active'],
       userProfileImage: json['user_profile_image'],
     );
   }

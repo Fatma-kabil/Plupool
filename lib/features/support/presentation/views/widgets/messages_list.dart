@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:plupool/core/constants.dart';
-import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/functions/message_status_text.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_state.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_card.dart';
+import 'package:plupool/features/support/presentation/views/widgets/message_list_shimmer.dart';
 
 class MessagesList extends StatelessWidget {
   const MessagesList({super.key, required this.selected});
@@ -12,35 +15,53 @@ class MessagesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filteredMessages = messages.where((message) {
-      if (selected == "قيد المراجعه") {
-        return message.status == MessageStatus.pending;
-      } else if  (selected == "تم الحل") {
-        return message.status == MessageStatus.solved;
-      }
-      else   {
-        return message.status == MessageStatus.newer;
-      }
-    }).toList();
+    return BlocBuilder<ContactCubit, ContactState>(
+      builder: (context, state) {
+        /// 🔄 loading
+        if (state is ContactLoading) {
+          return MessagesListShimmer();
+        }
 
-    if (filteredMessages.isEmpty) {
-      return  SliverToBoxAdapter(
-        child: Center(
-          child: Text('لا توجد رسائل',style: AppTextStyles.styleSemiBold25(context),),
-        ),
-      );
-    }
+        /// ❌ error
+        if (state is ContactError) {
+          return SliverToBoxAdapter(child: Center(child: ErrorText(message: state.message)));
+        }
 
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) {
-          return MessageCard(
-            onTap: () => context.push('/messagedetails', extra: filteredMessages[index]),
-            message: filteredMessages[index],
+        /// ✅ success
+        if (state is ContactSuccess) {
+          final messages = state.messages;
+
+          /// 🔥 فلترة UI (مش API)
+          final filteredMessages = messages.where((message) {
+            if (selected == "جديد") {
+              return message.status == "pending_review";
+            } else if (selected == "تم الحل") {
+              return message.status == "resolved";
+            } else {
+              return message.status == "in_progress";
+            }
+          }).toList();
+
+          if (filteredMessages.isEmpty) {
+            return SliverToBoxAdapter(
+              child: Center(child:ErrorText(message: '📭 لا توجد رسائل حالياً')),
+            );
+          }
+
+          return SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final message = filteredMessages[index];
+
+              return MessageCard(
+                onTap: () => context.push('/messagedetails', extra: message),
+                message: message,
+              );
+            }, childCount: filteredMessages.length),
           );
-        },
-        childCount: filteredMessages.length,
-      ),
+        }
+
+        return const SliverToBoxAdapter(child: SizedBox());
+      },
     );
   }
 }

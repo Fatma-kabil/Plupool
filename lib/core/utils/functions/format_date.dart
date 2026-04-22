@@ -5,3 +5,11 @@ String formatDate(DateTime date) {
 
  
 }
+String formatArabicDate(String date) {
+  final parsedDate = DateTime.parse(date);
+
+  return DateFormat(
+    'yyyy/M/d - h:mm a',
+    'ar',
+  ).format(parsedDate);
+}

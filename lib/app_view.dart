@@ -20,6 +20,7 @@ import 'package:plupool/features/select_role/presentation/views/manager/select_r
 import 'package:plupool/features/services/presentation/manager/cubits/booking_cubit.dart';
 import 'package:plupool/features/settening/presentation/manager/cubits/faq_cubit/faq_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
 
 class PlupoolApp extends StatelessWidget {
   const PlupoolApp({super.key});
@@ -39,7 +40,8 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<CategoryCubit>()..getCategories()),
         BlocProvider(create: (_) => sl<OfferCubit>()..fetchOffers()),
         BlocProvider(create: (_) => sl<FaqCubit>()),
-        BlocProvider(create:  (_) => sl<BookingCubit>()..getBookings(),)
+        BlocProvider(create:  (_) => sl<BookingCubit>()..getBookings(),),
+        BlocProvider(create:  (_) => sl<ContactCubit>()..getMessages(),)
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,

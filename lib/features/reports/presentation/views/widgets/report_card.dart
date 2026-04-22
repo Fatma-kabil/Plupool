@@ -18,8 +18,8 @@ class ReportCard extends StatefulWidget {
 }
 
 class _ReportCardState extends State<ReportCard> {
-  final MessageStatus status = MessageStatus.newer;
-  MessageStatus selected = MessageStatus.newer;
+  final MessageStatus status = MessageStatus.pending_review;
+  MessageStatus selected = MessageStatus.pending_review;
 
   @override
   Widget build(BuildContext context) {
@@ -80,9 +80,9 @@ class _ReportCardState extends State<ReportCard> {
                       child: StatusSelector<MessageStatus>(
                         selected: selected,
                         items: const [
-                          MessageStatus.pending,
-                          MessageStatus.solved,
-                          MessageStatus.newer,
+                          MessageStatus.pending_review,
+                          MessageStatus.in_progress,
+                          MessageStatus.resolved,
                         ],
                         displayText: (status) => statusText(status),
                         onChanged: (val) {

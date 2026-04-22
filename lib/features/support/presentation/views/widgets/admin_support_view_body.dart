@@ -10,7 +10,7 @@ class AdminSupportViewBody extends StatefulWidget {
 }
 
 class _AdminSupportViewBodyState extends State<AdminSupportViewBody> {
-  String selected = "قيد المراجعه";
+  String selected = "جديد";
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class _AdminSupportViewBodyState extends State<AdminSupportViewBody> {
         SliverToBoxAdapter(
           child: FilterOption(
             value: selected,
-            items: const [ "تم الحل","قيد المراجعه"],
+            items: const [ "جديد","قيد المراجعه","تم الحل",],
             onChanged: (val) {
               if (val != null) {
                 setState(() {
