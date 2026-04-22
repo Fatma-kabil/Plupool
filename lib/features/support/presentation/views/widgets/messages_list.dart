@@ -24,7 +24,9 @@ class MessagesList extends StatelessWidget {
 
         /// ❌ error
         if (state is ContactError) {
-          return SliverToBoxAdapter(child: Center(child: ErrorText(message: state.message)));
+          return SliverToBoxAdapter(
+            child: Center(child: ErrorText(message: state.message)),
+          );
         }
 
         /// ✅ success
@@ -44,7 +46,9 @@ class MessagesList extends StatelessWidget {
 
           if (filteredMessages.isEmpty) {
             return SliverToBoxAdapter(
-              child: Center(child:ErrorText(message: '📭 لا توجد رسائل حالياً')),
+              child: Center(
+                child: ErrorText(message: '📭 لا توجد رسائل حالياً'),
+              ),
             );
           }
 
@@ -53,7 +57,16 @@ class MessagesList extends StatelessWidget {
               final message = filteredMessages[index];
 
               return MessageCard(
-                onTap: () => context.push('/messagedetails', extra: message),
+                onTap: () async {
+                  final result = await context.push(
+                    '/messagedetails',
+                    extra: message,
+                  );
+
+                  if (result == "deleted" && context.mounted) {
+                    context.read<ContactCubit>().refresh();
+                  }
+                },
                 message: message,
               );
             }, childCount: filteredMessages.length),

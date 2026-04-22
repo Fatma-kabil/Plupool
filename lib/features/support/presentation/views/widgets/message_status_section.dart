@@ -3,13 +3,13 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class MessageStatusSection extends StatefulWidget {
-  const MessageStatusSection({super.key, this.text, required this.selected});
+  const MessageStatusSection({super.key, this.text, required this.selected, this.ondelete});
   final String? text;
   final MessageStatus selected;
+  final void Function()? ondelete;
 
   @override
   State<MessageStatusSection> createState() => _MessageStatusSectionState();
@@ -48,15 +48,7 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
             ),
             SizedBox(width: SizeConfig.w(35)),
             GestureDetector(
-              onTap: () => {
-                showDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (_) => const DeleteOrderCard(
-                    text: "هل أنت متأكد من حذف هذه الرسالة",
-                  ),
-                ),
-              },
+              onTap: widget.ondelete,
               child: Container(
                 padding: EdgeInsets.all(SizeConfig.w(6)),
                 decoration: const BoxDecoration(
@@ -66,7 +58,7 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
                 child: Icon(
                   Icons.delete_outline_rounded,
                   color: Color(0xffE63946),
-                  size: SizeConfig.w(18),
+                  size: SizeConfig.w(20),
                 ),
               ),
             ),

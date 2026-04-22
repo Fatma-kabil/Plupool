@@ -23,6 +23,8 @@ class ContactError extends ContactState {
 
   ContactError(this.message);
 }
+class ContactDeleting extends ContactState {}
+class ContactDeleteSuccess extends ContactState {}
 
 class ContactDeleteError extends ContactState {
   final String message;

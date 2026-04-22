@@ -67,7 +67,7 @@ class ContactCubit extends Cubit<ContactState> {
   /// 🗑 DELETE
   Future<void> deleteMessage(int id) async {
     try {
-      emit(ContactLoading());
+      emit(ContactDeleting());
 
       await deleteUseCase(id);
 
@@ -81,7 +81,9 @@ class ContactCubit extends Cubit<ContactState> {
       _cachedMessages = messages;
 
       emit(ContactSuccess(messages));
-      emit(ContactActionSuccess());
+      emit(ContactDeleteSuccess());
+      
+      emit(ContactSuccess(messages));
     } catch (e) {
       emit(ContactDeleteError(
         e is Failure ? e.message : "حدث خطأ أثناء حذف الرسالة",
