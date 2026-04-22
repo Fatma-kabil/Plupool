@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
-
+import 'package:plupool/features/support/domain/entities/contact_entity.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_details_body.dart';
 
+
 class MessageDetails extends StatefulWidget {
-  const MessageDetails({super.key,});
-//  final MessageModel message;
+  const MessageDetails({super.key, required this.message,});
+  final ContactEntity message;
 
   @override
   State<MessageDetails> createState() => _MessageDetailsState();
@@ -35,7 +36,7 @@ class _MessageDetailsState extends State<MessageDetails> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-         //   child: MessageDetailsBody(message:widget.message,),
+           child: MessageDetailsBody(message:widget.message,),
           ),
         ),
       ),

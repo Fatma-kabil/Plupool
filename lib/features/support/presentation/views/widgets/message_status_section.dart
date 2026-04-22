@@ -7,15 +7,16 @@ import 'package:plupool/features/orders/presentation/view/widgets/delete_order_c
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class MessageStatusSection extends StatefulWidget {
-  const MessageStatusSection({super.key, this.text});
+  const MessageStatusSection({super.key, this.text, required this.selected});
   final String? text;
+  final MessageStatus selected;
 
   @override
   State<MessageStatusSection> createState() => _MessageStatusSectionState();
 }
 
 class _MessageStatusSectionState extends State<MessageStatusSection> {
-  MessageStatus selected = MessageStatus.in_progress;
+  late MessageStatus selected = widget.selected;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -34,7 +35,11 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
             Expanded(
               child: StatusSelector<MessageStatus>(
                 selected: selected,
-                items: const [MessageStatus.pending_review, MessageStatus.in_progress,MessageStatus.resolved],
+                items: const [
+                  MessageStatus.pending_review,
+                  MessageStatus.in_progress,
+                  MessageStatus.resolved,
+                ],
                 displayText: (status) => statusText(status),
                 onChanged: (val) {
                   setState(() => selected = val);

@@ -28,7 +28,7 @@ class CompanyresContactusDetailsHeader extends StatelessWidget {
             children: [
               const CustomerAvatar(),
               SizedBox(width: SizeConfig.w(7)),
-              const CustomerInfo(),
+            //  const CustomerInfo(),
               const Spacer(),
               ContainerStatus(isActive: true),
             ],

@@ -5,8 +5,13 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/support/presentation/views/widgets/attachment_chip.dart';
 
 class MessageDetailsSection extends StatelessWidget {
-  const MessageDetailsSection({super.key, });
- // final MessageModel message;
+  const MessageDetailsSection({
+    super.key,
+    required this.message,
+    required this.attachments,
+  });
+  final String message;
+  final List attachments;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +44,7 @@ class MessageDetailsSection extends StatelessWidget {
               SizedBox(width: SizeConfig.w(6)),
               Expanded(
                 child: Text(
-        //      message.message,
-        "",
+                  message,
                   style: AppTextStyles.styleRegular16(
                     context,
                   ).copyWith(color: Color(0xff777777)),
@@ -50,25 +54,27 @@ class MessageDetailsSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: 15),
-     //   message.files
-         //   ?
-             SizedBox(
+        attachments.isNotEmpty
+            ? SizedBox(
                 height: SizeConfig.h(30),
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 2,
+                  itemCount: attachments.length,
                   itemBuilder: (context, index) {
-                    return AttachmentChip(fileName: "file.txt");
+                    final file = attachments[index];
+
+                    return AttachmentChip(
+                      fileName: file.toString().split('/').last,
+                    );
                   },
                 ),
               )
-          //  :
-           //  Text(
-             //    'لا توجد',
-              //  style: AppTextStyles.styleRegular16(
-                //  context,
-              //  ).copyWith(color: Color(0xff777777)),
-            //  ),
+            : Text(
+                'لا توجد',
+                style: AppTextStyles.styleRegular16(
+                  context,
+                ).copyWith(color: Color(0xff777777)),
+              ),
       ],
     );
   }

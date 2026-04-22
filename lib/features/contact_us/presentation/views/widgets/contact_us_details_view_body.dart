@@ -14,7 +14,7 @@ class ContactUsDetailsViewBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          MessageDatailsViewHeader(),
+       //   MessageDatailsViewHeader(),
          // CompanyresContactusDetailsHeader(),
           SizedBox(height: 25),
       //    MessageDetailsSection(
@@ -27,7 +27,7 @@ class ContactUsDetailsViewBody extends StatelessWidget {
           //  ),
          // ),
           SizedBox(height: 25),
-          MessageStatusSection(text: "تعديل حالة الطلب",),
+      //    MessageStatusSection(text: "تعديل حالة الطلب",),
         ],
       ),
     );

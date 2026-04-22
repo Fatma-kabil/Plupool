@@ -8,8 +8,12 @@ class ContactEntity {
   final String status;
   final List attachments;
   final bool? isActive;
+  final String? imageUrl;
+  final String? address;
 
   const ContactEntity({
+    this.address,
+    this.imageUrl,
     required this.id,
     required this.name,
     required this.phone,
@@ -18,6 +22,6 @@ class ContactEntity {
     required this.senderRole,
     required this.status,
     required this.attachments,
-    this.isActive
+    this.isActive,
   });
 }

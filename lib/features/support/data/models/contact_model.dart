@@ -3,13 +3,9 @@ import 'package:plupool/features/support/domain/entities/contact_entity.dart';
 class ContactModel extends ContactEntity {
   final String email;
   final int? userId;
- 
 
   final String? userFullName;
   final String? userPhone;
-  final String? userAddress;
- 
-  final String? userProfileImage; 
 
   ContactModel({
     required super.id,
@@ -23,11 +19,10 @@ class ContactModel extends ContactEntity {
     super.isActive,
     required this.email,
     required this.userId,
-   
+    super.imageUrl,
+    super.address,
     this.userFullName,
     this.userPhone,
-    this.userAddress,
-    this.userProfileImage
   });
 
   factory ContactModel.fromJson(Map<String, dynamic> json) {
@@ -46,9 +41,9 @@ class ContactModel extends ContactEntity {
 
       userFullName: json['user_full_name'],
       userPhone: json['user_phone'],
-      userAddress: json['user_address'],
-      isActive: json['user_is_active'],
-      userProfileImage: json['user_profile_image'],
+      address: json['user_address'],
+      isActive: json['user_is_active']?? false,
+      imageUrl: json['user_profile_image'],
     );
   }
 }

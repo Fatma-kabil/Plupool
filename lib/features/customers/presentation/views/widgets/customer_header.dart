@@ -15,7 +15,7 @@ class CustomerHeader extends StatelessWidget {
       children: [
         const CustomerAvatar(),
         SizedBox(width: SizeConfig.w(7)),
-        const CustomerInfo(),
+      //  const CustomerInfo(),
         const Spacer(),
         CustomerStatus(isActive: isActive),
       ],

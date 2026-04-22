@@ -79,6 +79,7 @@ import 'package:plupool/features/statistics/presentation/views/statistics_view.d
 import 'package:plupool/features/store/presentation/views/admin/admin_store_view.dart';
 import 'package:plupool/features/store/presentation/views/cart_view.dart';
 import 'package:plupool/features/store/presentation/views/order_summary_view.dart';
+import 'package:plupool/features/support/domain/entities/contact_entity.dart';
 import 'package:plupool/features/support/presentation/views/admin_support_view.dart';
 import 'package:plupool/features/support/presentation/views/compny_res_support_view.dart';
 import 'package:plupool/features/support/presentation/views/message_details.dart';
@@ -362,9 +363,9 @@ final GoRouter appRouter = GoRouter(
       path: '/messagedetails',
       name: 'messagedetails',
       pageBuilder: (context, state) {
-     //   final message = state.extra as MessageModel; // استقبال الليست
+        final message = state.extra as ContactEntity; // استقبال الليست
 
-        return buildTransitionPage(MessageDetails());
+        return buildTransitionPage(MessageDetails(message: message));
       },
     ),
     GoRoute(

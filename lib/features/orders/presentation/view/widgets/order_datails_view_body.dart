@@ -14,7 +14,7 @@ class OrderDatailsViewBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          MessageDatailsViewHeader(),
+       //   MessageDatailsViewHeader(),
           SizedBox(height: 25),
          OrderDetailsViewBodyMiddleSection(model:model),
           SizedBox(height: 25),
