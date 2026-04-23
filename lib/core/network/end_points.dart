@@ -24,6 +24,7 @@ class Endpoints {
   static const String faq = '$baseUrl/admin/content/faqs';
   static const String servicesBookings = '$baseUrl/admin/service-bookings';
   static const String contactMessages = '$baseUrl/admin/contact/messages';
+  static const String ratings = '$baseUrl/admin/ratings';
   // static const String productsOffer = '$baseUrl/admin/products/{product_id}/offer';
   // ... روابط نقاط نهاية أخرى
 }

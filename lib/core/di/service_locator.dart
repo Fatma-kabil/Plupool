@@ -43,6 +43,15 @@ import 'package:plupool/features/profile/data/remote_data_source.dart/user_remot
 import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
 import 'package:plupool/features/profile/domain/repos/user_repo.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
+import 'package:plupool/features/rating/data/data_sources/ratings_remote_data_source.dart';
+import 'package:plupool/features/rating/data/repos_impl/ratings_repo_impl.dart';
+import 'package:plupool/features/rating/domain/repos/ratings_repo.dart';
+import 'package:plupool/features/rating/domain/usecases/approve_rating.dart';
+import 'package:plupool/features/rating/domain/usecases/delete_rating_usecase.dart';
+import 'package:plupool/features/rating/domain/usecases/get_rating_by_id_usecase.dart';
+import 'package:plupool/features/rating/domain/usecases/get_ratings_usecase.dart';
+import 'package:plupool/features/rating/domain/usecases/reject_rating.dart';
+import 'package:plupool/features/rating/presentation/manager/cubits/rating_cubit/ratings_cubit.dart';
 import 'package:plupool/features/search/data/data_sources/product_search_remote_data_source.dart';
 import 'package:plupool/features/search/data/repositories_impl/product_search_repository_impl.dart';
 import 'package:plupool/features/search/domain/repositories/product_search_repo.dart';
@@ -476,6 +485,51 @@ sl.registerFactory(
     getDetailsUseCase: sl<GetMessageDetailsUseCase>(),
     deleteUseCase: sl<DeleteMessageUseCase>(),
     updateUseCase: sl<UpdateStatusUseCase>(),
+  ),
+);
+// ----------------------------
+// ⭐ RATINGS FEATURE
+// ----------------------------
+
+// Remote Data Source
+sl.registerLazySingleton<RatingsRemoteDataSource>(
+  () => RatingsRemoteDataSource(sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<RatingsRepository>(
+  () => RatingsRepositoryImpl(sl<RatingsRemoteDataSource>()),
+);
+
+// UseCases
+sl.registerLazySingleton(
+  () => GetRatingsUseCase(sl<RatingsRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => GetRatingByIdUseCase(sl<RatingsRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => DeleteRatingUseCase(sl<RatingsRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => ApproveRatingUseCase(sl<RatingsRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => RejectRatingUseCase(sl<RatingsRepository>()),
+);
+
+// Cubit
+sl.registerFactory(
+  () => RatingsCubit(
+    sl<GetRatingsUseCase>(),
+    getRatingByIdUseCase: sl<GetRatingByIdUseCase>(),
+    approveUseCase: sl<ApproveRatingUseCase>(),
+    rejectUseCase: sl<RejectRatingUseCase>(),
+    deleteUseCase: sl<DeleteRatingUseCase>(),
   ),
 );
 }
