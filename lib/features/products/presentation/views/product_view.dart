@@ -36,15 +36,17 @@ class _ProductViewState extends State<ProductView> {
 
                 appBar: CustomAppBar(
                   onChanged: (value) {
-                    print("typing: $value"); // مهم جدًا
-                    try {
-                      BlocProvider.of<ProductSearchCubit>(
-                        context,
-                      ).search(value);
-                      print("CUBIT FOUND ✅");
-                    } catch (e) {
-                      print("CUBIT NOT FOUND ❌");
+                    final cubit = context.read<ProductSearchCubit>();
+
+                    print("typing: $value");
+
+                    if (value.isEmpty) {
+                      cubit.clearSearch(); // 👈 ده الحل
+
+                      return;
                     }
+
+                    cubit.search(value);
                   },
                   isSearch: true,
                   onPressed: () {
@@ -73,13 +75,19 @@ class _ProductViewState extends State<ProductView> {
                           else if (state is ProductSearchSuccess)
                             state.products.isEmpty
                                 ? const SliverFillRemaining(
-                                    child: Center(child: ErrorText( message:  "مفيش نتائج 😢")),
+                                    child: Center(
+                                      child: ErrorText(
+                                        message: "مفيش نتائج 😢",
+                                      ),
+                                    ),
                                   )
                                 : ProductsList(products: state.products)
                           /// 🔵 Error
                           else if (state is ProductSearchError)
                             SliverFillRemaining(
-                              child: Center(child: ErrorText( message:  state.message)),
+                              child: Center(
+                                child: ErrorText(message: state.message),
+                              ),
                             )
                           /// 🔵 Default
                           else

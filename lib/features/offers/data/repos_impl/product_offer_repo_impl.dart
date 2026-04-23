@@ -13,11 +13,15 @@ class ProductOfferRepoImpl implements ProductOfferRepo {
     int skip = 0,
     int limit = 100,
     List<int>? categoryIds, // ✅
-  String? sortBy,
-  String? search, 
+    String? sortBy,
+    String? search,
   }) async {
     final models = await remote.getActiveOffers(
-      
+      skip: skip,
+      limit: limit,
+      categoryIds: categoryIds,
+      sortBy: sortBy,
+      search: search,
     );
 
     return models.map((m) => m.toEntity()).toList();

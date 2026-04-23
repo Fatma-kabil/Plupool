@@ -32,6 +32,10 @@ class _ProductOfferViewState extends State<ProductOfferView> {
           appBar: CustomAppBar(
             onChanged: (value) {
               print("typing: $value"); // مهم جدًا
+              if (value.isEmpty) {
+                context.read<ProductOfferCubit>().getOffers(search: null);
+                return;
+              }
               try {
                 BlocProvider.of<ProductOfferCubit>(
                   context,
@@ -61,45 +65,40 @@ class _ProductOfferViewState extends State<ProductOfferView> {
                     /// 🔵 Loading
                     if (state is ProductOfferLoading)
                       ProductsShimmerList()
-
                     /// 🔵 Success
                     else if (state is GetProductOfferSuccess)
                       state.offers.isEmpty
                           ? const SliverFillRemaining(
-                              child: ErrorText( message:  "مفيش نتائج 😢"),
+                              child: ErrorText(message: "مفيش نتائج 😢"),
                             )
                           : SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                (context, index) {
-                                  final offer = state.offers[index];
+                              delegate: SliverChildBuilderDelegate((
+                                context,
+                                index,
+                              ) {
+                                final offer = state.offers[index];
 
-                                  return ProductOfferViewCard(
-                                    product: offer,
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        barrierDismissible: false,
-                                        builder: (_) =>
-                                            EditProductOfferCard(product: offer),
-                                      );
-                                    },
-                                  );
-                                },
-                                childCount: state.offers.length,
-                              ),
+                                return ProductOfferViewCard(
+                                  product: offer,
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (_) =>
+                                          EditProductOfferCard(product: offer),
+                                    );
+                                  },
+                                );
+                              }, childCount: state.offers.length),
                             )
-
                     /// 🔴 Error
                     else if (state is ProductOfferError)
                       SliverFillRemaining(
-                        child: Center(child: ErrorText( message:  state.message)),
+                        child: Center(child: ErrorText(message: state.message)),
                       )
-
                     /// ⚪ Default
                     else
-                      const SliverFillRemaining(
-                        child: ProductOfferViewBody(),
-                      ),
+                      const SliverFillRemaining(child: ProductOfferViewBody()),
                   ],
                 );
               },

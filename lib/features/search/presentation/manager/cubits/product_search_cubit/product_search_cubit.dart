@@ -28,4 +28,7 @@ class ProductSearchCubit extends Cubit<ProductSearchState> {
       }
     }
   }
+  void clearSearch() {
+  emit(ProductSearchInitial());
+}
 }
