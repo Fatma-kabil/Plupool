@@ -52,45 +52,49 @@ class _AdminSupportViewState extends State<AdminSupportView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-
             child: isSearching
                 ? BlocBuilder<ContactCubit, ContactState>(
                     builder: (context, state) {
-                      if (state is ContactLoading) {
-                        return MessagesListShimmer();
-                      }
+                      return CustomScrollView(
+                        slivers: [
+                          /// 🔄 Loading
+                          if (state is ContactLoading) MessagesListShimmer(),
 
-                      if (state is ContactError) {
-                        return Center(child: ErrorText(message:  state.message));
-                      }
-
-                      if (state is ContactSuccess) {
-                        final messages = state.messages;
-
-                        if (messages.isEmpty) {
-                          return const Center(
-                            child: Text("📭 لا توجد رسائل"),
-                          );
-                        }
-
-                        return ListView.builder(
-                          itemCount: messages.length,
-                          itemBuilder: (context, index) {
-                            final message = messages[index];
-
-                            return MessageCard(
-                              message: message,
-                              onTap: () => Navigator.pushNamed(
-                                context,
-                                '/messagedetails',
-                                arguments: message,
+                          /// ❌ Error
+                          if (state is ContactError)
+                            SliverToBoxAdapter(
+                              child: Center(
+                                child: ErrorText(message: state.message),
                               ),
-                            );
-                          },
-                        );
-                      }
+                            ),
 
-                      return const SizedBox();
+                          /// ✅ Success
+                          if (state is ContactSuccess) ...[
+                            if (state.messages.isEmpty)
+                              const SliverToBoxAdapter(
+                                child: Center(child: Text("📭 لا توجد رسائل")),
+                              )
+                            else
+                              SliverList(
+                                delegate: SliverChildBuilderDelegate((
+                                  context,
+                                  index,
+                                ) {
+                                  final message = state.messages[index];
+
+                                  return MessageCard(
+                                    message: message,
+                                    onTap: () => Navigator.pushNamed(
+                                      context,
+                                      '/messagedetails',
+                                      arguments: message,
+                                    ),
+                                  );
+                                }, childCount: state.messages.length),
+                              ),
+                          ],
+                        ],
+                      );
                     },
                   )
                 : const AdminSupportViewBody(),

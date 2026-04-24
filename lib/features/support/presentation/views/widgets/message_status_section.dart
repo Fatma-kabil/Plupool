@@ -5,30 +5,34 @@ import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
-class MessageStatusSection extends StatefulWidget {
-  const MessageStatusSection({super.key, this.text, required this.selected, this.ondelete});
+class MessageStatusSection extends StatelessWidget {
+  const MessageStatusSection({
+    super.key,
+    this.text,
+    required this.selected,
+    required this.onChanged,
+    this.ondelete,
+  });
+
   final String? text;
   final MessageStatus selected;
+  final void Function(MessageStatus) onChanged;
   final void Function()? ondelete;
 
-  @override
-  State<MessageStatusSection> createState() => _MessageStatusSectionState();
-}
-
-class _MessageStatusSectionState extends State<MessageStatusSection> {
-  late MessageStatus selected = widget.selected;
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.text ?? " تعديل حالة الرسالة ",
+          text ?? " تعديل حالة الرسالة ",
           style: AppTextStyles.styleSemiBold16(
             context,
           ).copyWith(color: AppColors.ktextcolor),
         ),
-        SizedBox(height: 10),
+
+        const SizedBox(height: 10),
+
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -41,14 +45,15 @@ class _MessageStatusSectionState extends State<MessageStatusSection> {
                   MessageStatus.resolved,
                 ],
                 displayText: (status) => statusText(status),
-                onChanged: (val) {
-                  setState(() => selected = val);
-                },
+
+                onChanged: onChanged, // 👈 from parent
               ),
             ),
+
             SizedBox(width: SizeConfig.w(35)),
+
             GestureDetector(
-              onTap: widget.ondelete,
+              onTap: ondelete,
               child: Container(
                 padding: EdgeInsets.all(SizeConfig.w(6)),
                 decoration: const BoxDecoration(

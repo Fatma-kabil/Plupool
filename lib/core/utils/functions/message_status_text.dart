@@ -27,6 +27,18 @@ MessageStatus mapMessageApiStatus(String status) {
       return MessageStatus.pending_review;
   }
 }
+String mapMessageStatusToApi(MessageStatus status) {
+  switch (status) {
+    case MessageStatus.pending_review:
+      return "pending_review";
+
+    case MessageStatus.in_progress:
+      return "in_progress";
+
+    case MessageStatus.resolved:
+      return "resolved";
+  }
+}
 
 String statusText(MessageStatus status) {
   switch (status) {

@@ -80,7 +80,7 @@ class ContactCubit extends Cubit<ContactState> {
 
       _cachedMessages = messages;
 
-      emit(ContactSuccess(messages));
+    //  emit(ContactSuccess(messages));
       emit(ContactDeleteSuccess());
       
       emit(ContactSuccess(messages));
@@ -97,7 +97,7 @@ class ContactCubit extends Cubit<ContactState> {
   /// ✏️ UPDATE STATUS
   Future<void> updateMessageStatus(int id, String status) async {
     try {
-      emit(ContactLoading());
+      emit(ContactUpdateLoading());
 
       await updateUseCase(id, status);
 
@@ -110,8 +110,9 @@ class ContactCubit extends Cubit<ContactState> {
 
       _cachedMessages = messages;
 
-      emit(ContactSuccess(messages));
-      emit(ContactActionSuccess());
+     
+      emit(ContactUpdateSuccess());
+       emit(ContactSuccess(messages));
     } catch (e) {
       emit(ContactUpdateError(
         e is Failure ? e.message : "حدث خطأ أثناء تحديث الحالة",

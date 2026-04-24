@@ -11,9 +11,22 @@ import 'package:plupool/features/support/presentation/views/widgets/message_data
 import 'package:plupool/features/support/presentation/views/widgets/message_details_section.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_section.dart';
 
-class MessageDetailsBody extends StatelessWidget {
+class MessageDetailsBody extends StatefulWidget {
   const MessageDetailsBody({super.key, required this.message});
   final ContactEntity message;
+
+  @override
+  State<MessageDetailsBody> createState() => _MessageDetailsBodyState();
+}
+
+class _MessageDetailsBodyState extends State<MessageDetailsBody> {
+  late MessageStatus selected;
+
+  @override
+  void initState() {
+    super.initState();
+    selected = mapMessageApiStatus(widget.message.status);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,65 +34,92 @@ class MessageDetailsBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          /// HEADER
           MessageDatailsViewHeader(
-            name: message.name,
-            status: message.isActive!,
-            imageUrl: message.imageUrl,
-            location: message.address,
-            phone: message.phone,
+            name: widget.message.name,
+            status: widget.message.isActive!,
+            imageUrl: widget.message.imageUrl,
+            location: widget.message.address,
+            phone: widget.message.phone,
           ),
-          SizedBox(height: 25),
+
+          const SizedBox(height: 25),
+
+          /// MESSAGE CONTENT
           MessageDetailsSection(
-            message: message.message,
-            attachments: message.attachments,
+            message: widget.message.message,
+            attachments: widget.message.attachments,
           ),
-          SizedBox(height: 25),
-          MessageStatusSection(
-            selected: mapMessageApiStatus(message.status),
 
-            ondelete: () => {
-              showDialog(
-                context: context,
-                builder: (dialogContext) {
-                  final cubit = context.read<ContactCubit>();
-                  return BlocConsumer<ContactCubit, ContactState>(
-                    bloc: cubit,
-                    listener: (context, state) {
-                      if (state is ContactDeleteSuccess) {
-                        Navigator.pop(context);
-                        Navigator.pop(context, "deleted");
-                        showCustomSnackBar(
-                          context: context,
-                          message: "تم حذف الرسالة 🗑️",
-                          isSuccess: true,
-                        );
-                      }
+          const SizedBox(height: 25),
 
-                      if (state is ContactDeleteError) {
-                        Navigator.pop(context);
+          /// STATUS SECTION
+          BlocConsumer<ContactCubit, ContactState>(
+            listener: (context, state) {
+              if (state is ContactDeleteSuccess) {
+                showCustomSnackBar(
+                  context: context,
+                  message: "تم حذف الرسالة 🗑️",
+                  isSuccess: true,
+                );
 
-                        showCustomSnackBar(
-                          context: context,
-                          message: state.message,
-                        );
-                      }
-                    },
-                    builder: (context, state) {
-                      final isLoading = state is ContactDeleting;
+                Navigator.pop(context, "deleted");
+              }
 
-                      return DeleteOrderCard(
-                        text: "هل أنت متأكد من حذف هذه الرسالة؟",
-                        isLoading: isLoading,
-                        onPressed: isLoading
-                            ? null
-                            : () {
-                                cubit.deleteMessage(message.id);
-                              },
-                      );
-                    },
+              if (state is ContactUpdateSuccess) {
+                showCustomSnackBar(
+                  context: context,
+                  message: "تم تحديث الحالة ✔️",
+                  isSuccess: true,
+                );
+              }
+
+              if (state is ContactDeleteError) {
+                showCustomSnackBar(context: context, message: state.message);
+              }
+
+              if (state is ContactUpdateError) {
+                showCustomSnackBar(context: context, message: state.message);
+              }
+            },
+
+            builder: (context, state) {
+              final isDeleteLoading = state is ContactDeleting;
+           //   final isUpdateLoading = state is ContactUpdateLoading;
+
+              return MessageStatusSection(
+                selected: selected,
+
+                onChanged: (val) {
+                  setState(() => selected = val);
+
+                  context.read<ContactCubit>().updateMessageStatus(
+                    widget.message.id,
+                    mapMessageStatusToApi(val),
                   );
                 },
-              ),
+
+                ondelete: (isDeleteLoading)
+                    ? null
+                    : () {
+                        showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            final cubit = context.read<ContactCubit>();
+
+                            return DeleteOrderCard(
+                              text: "هل أنت متأكد من حذف هذه الرسالة؟",
+                              isLoading: state is ContactDeleting,
+                              onPressed: state is ContactDeleting
+                                  ? null
+                                  : () {
+                                      cubit.deleteMessage(widget.message.id);
+                                    },
+                            );
+                          },
+                        );
+                      },
+              );
             },
           ),
         ],

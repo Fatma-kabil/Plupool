@@ -37,3 +37,6 @@ class ContactUpdateError extends ContactState {
 
   ContactUpdateError(this.message);
 }
+class ContactUpdateLoading extends ContactState {}
+
+class ContactUpdateSuccess extends ContactState {}
