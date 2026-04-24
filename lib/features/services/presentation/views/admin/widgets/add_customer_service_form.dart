@@ -2,9 +2,9 @@ import 'package:flutter/material.dart' hide TextField;
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
-import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
@@ -20,13 +20,14 @@ class AddCustomerServiceForm extends StatefulWidget {
     required this.onPickDate,
     required this.onPickTime,
     required this.selectedStatus,
-    required this.onStatusChanged, required this.customerNameController,
+    required this.onStatusChanged,
+    required this.customerNameController,
   });
 
   final GlobalKey<FormState> formKey;
   final TextEditingController serviceTitleController;
   final TextEditingController technicianController;
-   final TextEditingController customerNameController;
+  final TextEditingController customerNameController;
 
   final DateTime? startDate;
   final TimeOfDay? selectedTime;
@@ -58,15 +59,19 @@ class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
           TextFieldWithIcon(
             hint: "ادخل اسم العميل",
             icon: Icons.person_2,
-          
+            validator: (value) =>
+                Validators.required(value, fieldName: "اسم العميل"),
             controller: widget.customerNameController,
           ),
+          const SizedBox(height: 15),
 
           /// عنوان الخدمة
           const FieldLabel('عنوان الخدمة'),
           TextFieldWithIcon(
             hint: "اكتب عنوان الخدمة",
             icon: Icons.design_services,
+            validator: (value) =>
+                Validators.required(value, fieldName: "اسم الخدمة"),
             controller: widget.serviceTitleController,
           ),
 
@@ -86,7 +91,7 @@ class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
           TimePickerField(
             dirc: CrossAxisAlignment.start,
             selectedTime: widget.selectedTime,
-            selectedTimeColor:  AppColors.ktextcolor,
+            selectedTimeColor: AppColors.ktextcolor,
             onTap: widget.onPickTime,
           ),
 
@@ -94,15 +99,11 @@ class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
 
           /// الفنيين المسؤولين
           const FieldLabel('الفنيين المسؤولين'),
-          CustomSearchPerson(
-            curserHeight: SizeConfig.isWideScreen
-                ? SizeConfig.w(12)
-                : SizeConfig.h(20),
-            padding: EdgeInsets.symmetric(
-              vertical: SizeConfig.h(12), // 👈 قلّلي الرقم حسب ما تحبي
-              horizontal: SizeConfig.w(12),
-            ),
-            hintText: "ابحث عن فني",
+          TextFieldWithIcon(
+            hint: "ادخل اسم الفنيين المسؤولين",
+            icon: Icons.person_2,
+            validator: (value) =>
+                Validators.required(value, fieldName: "اسم الفنيين المسؤولين"),
             controller: widget.technicianController,
           ),
           const SizedBox(height: 15),
@@ -110,9 +111,10 @@ class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
           /// الفنيين المسؤولين
           const FieldLabel(' حاله الخدمه'),
           StatusSelector<RequestStatus>(
-          padding: EdgeInsets.symmetric(
+            padding: EdgeInsets.symmetric(
               vertical: SizeConfig.h(12), // 👈 قلّلي الرقم حسب ما تحبي
-              horizontal: SizeConfig.w(12)),
+              horizontal: SizeConfig.w(12),
+            ),
             selected: widget.selectedStatus,
             items: const [RequestStatus.scheduled, RequestStatus.urgent],
             displayText: (status) => getStatusText(status),

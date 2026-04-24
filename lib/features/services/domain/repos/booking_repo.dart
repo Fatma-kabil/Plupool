@@ -12,10 +12,7 @@ abstract class BookingRepository {
 
   Future<BookingEntity> updateBooking({
     required int id,
-    String? status,
-    String? notes,
-    String? nextDate,
-    List<int>? technicianIds,
+    required BookingEntity booking,
   });
 
   Future<void> deleteBooking(int id);

@@ -22,30 +22,20 @@ class BookingRepositoryImpl implements BookingRepository {
     );
 
     return res.toEntity();
-    
   }
 
   @override
   Future<BookingEntity> getBookingDetails(int id) async {
     final res = await remote.getBookingDetails(id);
-    return  res.toEntity();
+    return res.toEntity();
   }
 
   @override
   Future<BookingEntity> updateBooking({
     required int id,
-    String? status,
-    String? notes,
-    String? nextDate,
-    List<int>? technicianIds,
+    required BookingEntity booking,
   }) async {
-    final res = await remote.updateBooking(
-      id: id,
-      status: status,
-      notes: notes,
-      nextDate: nextDate,
-      technicianIds: technicianIds,
-    );
+    final res = await remote.updateBooking(id: id, booking: booking.toModel());
 
     return res.toEntity();
   }

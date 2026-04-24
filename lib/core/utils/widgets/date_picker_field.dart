@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class DatePickerField extends StatelessWidget {
@@ -69,7 +70,7 @@ class DatePickerField extends StatelessWidget {
                   Text(
                     selectedDate != null
                         ? dateFormat?.call(selectedDate!) ??
-                              selectedDate.toString()
+                           formatDate(   selectedDate!)
                         : "dd/mm/yy",
                     style: AppTextStyles.styleRegular14(context).copyWith(
                       color: selectedDate != null

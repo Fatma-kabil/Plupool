@@ -12,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initServiceLocator(); 
-   await initializeDateFormatting('ar'); // ✅ تهيئة اللغة العربية// ✅ مهم جدًا قبل runApp
+   await initializeDateFormatting('ar', null); // ✅ مهم جدًا // ✅ تهيئة اللغة العربية// ✅ مهم جدًا قبل runApp
  
    // ✅ لو عايز تمسح التوكن (للتجربة أو reset)
   const storage = FlutterSecureStorage();

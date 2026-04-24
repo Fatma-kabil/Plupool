@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class TimePickerField extends StatelessWidget {
   final TimeOfDay? selectedTime;
   final VoidCallback onTap;
   final String? errorText; // جديد
- final CrossAxisAlignment? dirc;
- final Color? selectedTimeColor;
- final Color? iconColor;
- final double? iconSize;
+  final CrossAxisAlignment? dirc;
+  final Color? selectedTimeColor;
+  final Color? iconColor;
+  final double? iconSize;
   const TimePickerField({
     super.key,
     required this.selectedTime,
     required this.onTap,
     this.errorText,
-     this.dirc = CrossAxisAlignment.end,
-     this.selectedTimeColor, this.iconColor, this.iconSize,
+    this.dirc = CrossAxisAlignment.end,
+    this.selectedTimeColor,
+    this.iconColor,
+    this.iconSize,
   });
 
   @override
@@ -35,9 +38,14 @@ class TimePickerField extends StatelessWidget {
         GestureDetector(
           onTap: onTap,
           child: Directionality(
-             textDirection: TextDirection.rtl,
+            textDirection: TextDirection.rtl,
             child: Container(
-              padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(10) , vertical:SizeConfig.isWideScreen?SizeConfig.h(9): SizeConfig.h(12)),
+              padding: EdgeInsets.symmetric(
+                horizontal: SizeConfig.w(10),
+                vertical: SizeConfig.isWideScreen
+                    ? SizeConfig.h(9)
+                    : SizeConfig.h(12),
+              ),
               decoration: BoxDecoration(
                 border: Border.all(
                   color: errorText != null
@@ -50,14 +58,18 @@ class TimePickerField extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.access_time,
-                    size: iconSize ?? (SizeConfig.isWideScreen?SizeConfig.h(20): SizeConfig.w(20)),
+                    size:
+                        iconSize ??
+                        (SizeConfig.isWideScreen
+                            ? SizeConfig.h(20)
+                            : SizeConfig.w(20)),
                     color: iconColor ?? AppColors.hintTextColor,
                   ),
-                   SizedBox(width: SizeConfig.w(6)),
+                  SizedBox(width: SizeConfig.w(6)),
                   Text(
                     selectedTime != null
-                        ? selectedTime!.format(context)
-                        : "3.00 PM",
+                        ? formatTimeArabic(selectedTime!)
+                        : "٣:٠٠ م",
                     textDirection: TextDirection.ltr,
                     style: AppTextStyles.styleRegular14(context).copyWith(
                       color: selectedTime != null
@@ -66,11 +78,11 @@ class TimePickerField extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                 Icon(
-                      Icons.keyboard_arrow_down,
-                      size: SizeConfig.w(18),
-                      color: const Color(0xff777777),
-                    ),
+                  Icon(
+                    Icons.keyboard_arrow_down,
+                    size: SizeConfig.w(18),
+                    color: const Color(0xff777777),
+                  ),
                 ],
               ),
             ),
@@ -79,7 +91,7 @@ class TimePickerField extends StatelessWidget {
         if (errorText != null) ...[
           const SizedBox(height: 6),
           Text(
-           errorText!,
+            errorText!,
             style: AppTextStyles.styleRegular14(
               context,
             ).copyWith(color: Colors.red[900]),

@@ -24,6 +24,19 @@ RequestStatus mapApiStatus(String status) {
       return RequestStatus.urgent;
   }
 }
+ /// 🔁 Convert enum → API
+  String mapStatusToApi(RequestStatus status) {
+    switch (status) {
+      case RequestStatus.urgent:
+        return "pending";
+      case RequestStatus.inProgress:
+        return "in_progress";
+      case RequestStatus.completed:
+        return "completed";
+      case RequestStatus.scheduled:
+        return "confirmed";
+    }
+  }
 
 /// نص الحالة باللغة العربية
 String getStatusText(RequestStatus status) {

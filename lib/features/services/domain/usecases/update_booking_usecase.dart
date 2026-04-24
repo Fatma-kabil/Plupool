@@ -7,17 +7,11 @@ class UpdateBookingUseCase {
 
   Future<BookingEntity> call({
     required int id,
-    String? status,
-    String? notes,
-    String? nextDate,
-    List<int>? technicianIds,
+   required  BookingEntity booking,
   }) {
     return repo.updateBooking(
       id: id,
-      status: status,
-      notes: notes,
-      nextDate: nextDate,
-      technicianIds: technicianIds,
+      booking: booking,
     );
   }
 }

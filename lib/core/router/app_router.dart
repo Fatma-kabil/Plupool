@@ -66,6 +66,7 @@ import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/consruction_service/presentation/views/construction_services_view.dart';
 import 'package:plupool/features/consruction_service/presentation/views/reserve_construction_view.dart';
+import 'package:plupool/features/services/domain/entities/booking_entity.dart';
 import 'package:plupool/features/services/presentation/views/admin/add_customer_service_view.dart';
 import 'package:plupool/features/services/presentation/views/admin/admin_drawer_service.dart';
 import 'package:plupool/features/services/presentation/views/admin/customer_services_view.dart';
@@ -469,8 +470,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/editcustomerserviceview',
       name: 'editcustomerserviceview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const EditCustomerServiceView()),
+      pageBuilder: (context, state) {
+        final booking = state.extra as BookingEntity; // استقبال الليست
+        return buildTransitionPage(EditCustomerServiceView(booking: booking));
+      },
     ),
 
     GoRoute(

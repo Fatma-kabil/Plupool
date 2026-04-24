@@ -40,27 +40,17 @@ class BookingRemoteDataSource   {
     return BookingModel.fromJson(res.data);
   }
 
-  
   Future<BookingModel> updateBooking({
-    required int id,
-    String? status,
-    String? notes,
-    String? nextDate,
-    List<int>? technicianIds,
-  }) async {
-    final res = await api.put(
-      '${Endpoints.servicesBookings}/$id',
-      data: {
-        "status": status,
-        "admin_notes": notes,
-        "next_maintenance_date": nextDate,
-        "technician_ids": technicianIds,
-      },
-    );
+  required int id,
+  required BookingModel booking,
+}) async {
+  final res = await api.put(
+    '${Endpoints.servicesBookings}/$id',
+    data: booking.toJson(),
+  );
 
-    return BookingModel.fromJson(res.data);
-  }
-
+  return BookingModel.fromJson(res.data);
+}
 
   Future<void> deleteBooking(int id) async {
     await api.delete('${Endpoints.servicesBookings}/$id');

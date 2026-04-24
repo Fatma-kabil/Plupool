@@ -43,3 +43,44 @@ extension ResponseMapper on BookingResponseModel {
     );
   }
 }
+extension BookingEntityMapper on BookingEntity {
+  BookingModel toModel() {
+    return BookingModel(
+      bookingType: bookingType,
+      bookingDate: date,
+      bookingTime: time,
+      notes: null,
+
+      id: id,
+      userId: 0, // لو مش موجود في الـ entity خليه default أو خديه من مكان تاني
+      serviceId: serviceId,
+      poolTypeId: 0,
+      packageId: null,
+
+      customLength: null,
+      customWidth: null,
+      customDepth: null,
+
+      status: status,
+      adminNotes: null,
+      nextMaintenanceDate: null,
+      reminderSent: false,
+
+      createdAt: "",
+      updatedAt: null,
+
+      serviceName: serviceName,
+      poolTypeName: "",
+      packageName: null,
+      userName: userName,
+      userRole: userRole,
+
+      technicianIds: [],
+      technicianNames: technicians,
+      techniciansDisplay: technicians.join(" - "),
+
+      canBeRated: false,
+      isRated: false,
+    );
+  }
+}

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // 6/5/2020
 String formatDate(DateTime date) {
@@ -24,4 +25,8 @@ String formatPhoneNumber(String phone) {
   }
 
   return '+$cleaned';
+}
+String formatTimeArabic(TimeOfDay time) {
+  final dt = DateTime(0, 0, 0, time.hour, time.minute);
+  return DateFormat('h:mm a', 'ar').format(dt);
 }

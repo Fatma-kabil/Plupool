@@ -75,6 +75,7 @@ class CustomerServiceCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             ServiceCardFooter(
+              booking: booking,
               delFun: () {
                 showDialog(
                   context: context,

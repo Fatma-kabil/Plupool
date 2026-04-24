@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
+import 'package:plupool/features/services/domain/entities/booking_entity.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/edit_customer_service_view_body.dart';
 
 class EditCustomerServiceView extends StatefulWidget {
-  const EditCustomerServiceView({super.key});
+  const EditCustomerServiceView({super.key, required this.booking});
+
+  final BookingEntity booking;
 
   @override
   State<EditCustomerServiceView> createState() => _EditCustomerServiceViewState();
@@ -33,7 +36,7 @@ class _EditCustomerServiceViewState extends State<EditCustomerServiceView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: EditCustomerServiceViewBody(),
+            child: EditCustomerServiceViewBody(booking: widget.booking,),
           ),
         ),
       ),
