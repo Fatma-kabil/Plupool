@@ -31,6 +31,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     return userModel;
   }
 
+  @override
   Future<UserModel> updateUser(
     int id,
     String token,
@@ -50,6 +51,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     return UserModel.fromJson(response.data);
   }
 
+  @override
   Future<void> deleteUser(int id, String token) async {
     await apiService.delete(
       '${Endpoints.updateUser}/$id',

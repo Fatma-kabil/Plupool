@@ -4,7 +4,6 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/contact_us/presentation/views/widgets/header_row.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/container_status.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
-import 'package:plupool/features/customers/presentation/views/widgets/customer_info.dart';
 
 class CompanyresContactusDetailsHeader extends StatelessWidget {
   const CompanyresContactusDetailsHeader({super.key});

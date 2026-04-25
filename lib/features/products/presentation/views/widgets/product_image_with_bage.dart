@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/functions/get_badge_color.dart';
-import 'package:plupool/core/utils/functions/get_badge_text.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/products/domain/entities/product_entity.dart';
 

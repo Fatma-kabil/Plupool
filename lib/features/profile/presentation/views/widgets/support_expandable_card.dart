@@ -7,11 +7,11 @@ class SupportExpandableCard extends StatefulWidget {
   final String question;
   final Widget answer;
 
-  SupportExpandableCard({
-    Key? key,
+  const SupportExpandableCard({
+    super.key,
     required this.question,
     required this.answer,
-  }) : super(key: key);
+  });
 
   @override
   State<SupportExpandableCard> createState() => _SupportExpandableCardState();

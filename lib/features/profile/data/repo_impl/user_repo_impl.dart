@@ -16,20 +16,21 @@ class UserRepositoryImpl implements UserRepository {
     try {
       final userModel = await remoteDataSource.getCurrentUser(token);
       return Right(userModel);
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Left(mapDioError(e));
     } catch (e) {
       return Left(UnknownFailure( e.toString()));
     }
   }
 
-    Future<Either<Failure, UserEntity>> updateUser(
+    @override
+  Future<Either<Failure, UserEntity>> updateUser(
       int id, String token, UpdateUserModel data) async {
 
     try {
       final updatedUser = await remoteDataSource.updateUser(id, token, data);
       return Right(updatedUser); 
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Left(mapDioError(e));
     } catch (e) {
       return Left(UnknownFailure(e.toString()));
@@ -41,7 +42,7 @@ class UserRepositoryImpl implements UserRepository {
     try {
       await remoteDataSource.deleteUser(id, token);
       return const Right(null); // void means no data returned
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       return Left(mapDioError(e));
     } catch (e) {
       return Left(UnknownFailure(e.toString()));

@@ -94,7 +94,7 @@ class _WeekDaysMultiSelectFieldState extends State<WeekDaysMultiSelectField> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Checkbox(
-                        fillColor: MaterialStateProperty.all(Colors.white),
+                        fillColor: WidgetStateProperty.all(Colors.white),
                         checkColor: AppColors.kprimarycolor,
 
                         side: BorderSide(

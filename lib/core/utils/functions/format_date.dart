@@ -6,6 +6,13 @@ String formatDate(DateTime date) {
 
  
 }
+
+String formatMonthDate(DateTime date) {
+   return DateFormat('EEEE : yyyy/M/d', 'ar').format(date);
+
+
+ 
+}
 String formatArabicDate(String date) {
   final parsedDate = DateTime.parse(date);
 
@@ -29,4 +36,9 @@ String formatPhoneNumber(String phone) {
 String formatTimeArabic(TimeOfDay time) {
   final dt = DateTime(0, 0, 0, time.hour, time.minute);
   return DateFormat('h:mm a', 'ar').format(dt);
+}
+
+String formatTimeArabic2(DateTime time) {
+ 
+  return DateFormat('h:mm a', 'ar').format(time);
 }

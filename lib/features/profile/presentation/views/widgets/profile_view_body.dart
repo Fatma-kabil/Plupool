@@ -11,7 +11,8 @@ class ProfileViewBody extends StatelessWidget {
   const ProfileViewBody({
     super.key,
   });
- Widget build(BuildContext context) {
+ @override
+  Widget build(BuildContext context) {
     return BlocBuilder<SelectRoleCubit, SelectRoleState>(
       builder: (context, state) {
         if (state is GetRoleLoading || state is SelectRoleInitial) {

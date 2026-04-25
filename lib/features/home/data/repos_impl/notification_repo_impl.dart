@@ -16,7 +16,7 @@ Future<Either<Failure, List<NotificationEntity>>> getNotifications(int userId) a
   try {
     final models = await remoteDataSource.getNotifications(userId);
     return Right(models);  // لازم تغلفها هنا بـ Right
-  } on DioError catch (e) {
+  } on DioException catch (e) {
     return Left(mapDioError(e)); // غلاف Left مع الخطأ
   } catch (e) {
     return Left(UnknownFailure(e.toString())); // هنا بدل throw Exception ترجع Left

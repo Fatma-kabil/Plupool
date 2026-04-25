@@ -3,8 +3,8 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 
 class DeleteRatingBtn extends StatelessWidget {
-  const DeleteRatingBtn({super.key});
-
+  const DeleteRatingBtn({super.key, required this.id});
+final int id;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

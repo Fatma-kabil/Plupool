@@ -1,7 +1,5 @@
 
 
-import 'package:plupool/features/products/data/models/product_model.dart';
-import 'package:plupool/features/products/domain/entities/product_entity.dart';
 
 //String? getBadgeText(Product product) {
  // switch (product.badge) {

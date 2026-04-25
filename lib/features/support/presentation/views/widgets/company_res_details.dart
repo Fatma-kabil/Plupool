@@ -3,7 +3,6 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/container_status.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
-import 'package:plupool/features/customers/presentation/views/widgets/customer_info.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/info_col.dart';
 
 class CompanyResDetails extends StatelessWidget {

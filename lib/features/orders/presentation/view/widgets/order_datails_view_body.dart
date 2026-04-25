@@ -3,7 +3,6 @@ import 'package:plupool/features/orders/data/models/order_card_model.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_details_view_body_middle_section.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_details_view_footer.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/status_and_note_section.dart';
-import 'package:plupool/features/support/presentation/views/widgets/message_datails_view_header.dart';
 
 class OrderDatailsViewBody extends StatelessWidget {
   const OrderDatailsViewBody({super.key, required this.model});

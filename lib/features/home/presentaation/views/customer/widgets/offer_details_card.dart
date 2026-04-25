@@ -4,10 +4,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/offer_model.dart';
-import 'package:intl/intl.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reserve_offer_btn.dart';
-import 'package:plupool/features/offers/presentation/views/widgets/date_row.dart';
-import 'package:plupool/features/offers/presentation/views/widgets/offer_image_card.dart';
 
 class OfferDetailsCard extends StatelessWidget {
   const OfferDetailsCard({super.key, required this.offer});

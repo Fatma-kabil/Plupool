@@ -60,7 +60,7 @@ class ApiService {
 
   Future<Response> put(
     String endpoint, {
-    dynamic? data,
+    dynamic data,
     Options? options,
   }) async {
     try {

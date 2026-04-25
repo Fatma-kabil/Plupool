@@ -2,36 +2,21 @@ import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   UserModel({
-    required int id,
-    required String phone,
-    required String fullName,
-    required String profileImage,
-    required String role,
-    required double latitude,
-    required double longitude,
-    required String address,
-    required String skills,
-    required int yearsOfExperience,
-    required bool isPhoneVerified,
-    required bool isActive,
-    required bool isApproved,
-    required DateTime createdAt,
-  }) : super(
-          id: id,
-          phone: phone,
-          fullName: fullName,
-          profileImage: profileImage,
-          role: role,
-          latitude: latitude,
-          longitude: longitude,
-          address: address,
-          skills: skills,
-          yearsOfExperience: yearsOfExperience,
-          isPhoneVerified: isPhoneVerified,
-          isActive: isActive,
-          isApproved: isApproved,
-          createdAt: createdAt,
-        );
+    required super.id,
+    required super.phone,
+    required super.fullName,
+    required super.profileImage,
+    required super.role,
+    required super.latitude,
+    required super.longitude,
+    required super.address,
+    required super.skills,
+    required super.yearsOfExperience,
+    required super.isPhoneVerified,
+    required super.isActive,
+    required super.isApproved,
+    required super.createdAt,
+  });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(

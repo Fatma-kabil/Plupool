@@ -18,7 +18,7 @@ class RatingsCubit extends Cubit<RatingsState> {
 
   RatingsCubit(
     this.getUseCase, {
-      required this.getRatingByIdUseCase,
+    required this.getRatingByIdUseCase,
     required this.approveUseCase,
     required this.rejectUseCase,
     required this.deleteUseCase,
@@ -68,30 +68,34 @@ class RatingsCubit extends Cubit<RatingsState> {
 
       emit(RatingsSuccess(response.ratings));
     } catch (e) {
-      emit(RatingsError(
-        e is Failure ? e.message : "حدث خطأ أثناء جلب التقييمات",
-      ));
+      emit(
+        RatingsError(e is Failure ? e.message : "حدث خطأ أثناء جلب التقييمات"),
+      );
+      print(e);
     }
   }
+
   Future<void> getRatingDetails(int id) async {
-  try {
-    emit(RatingDetailsLoading());
+    try {
+      emit(RatingDetailsLoading());
 
-    final rating = await getRatingByIdUseCase(id);
+      final rating = await getRatingByIdUseCase(id);
 
-    emit(RatingDetailsSuccess(rating));
-  } catch (e) {
-    emit(RatingDetailsError(
-      e is Failure ? e.message : "حدث خطأ أثناء جلب تفاصيل التقييم",
-    ));
+      emit(RatingDetailsSuccess(rating));
+    } catch (e) {
+      emit(
+        RatingDetailsError(
+          e is Failure ? e.message : "حدث خطأ أثناء جلب تفاصيل التقييم",
+        ),
+      );
 
-    /// optional: رجّع الليست لو موجودة
-    if (_cachedRatings.isNotEmpty) {
-      emit(RatingsSuccess(_cachedRatings));
+      /// optional: رجّع الليست لو موجودة
+      if (_cachedRatings.isNotEmpty) {
+        emit(RatingsSuccess(_cachedRatings));
+      }
     }
   }
-}
- 
+
   /// 🗑 DELETE
   Future<void> deleteRating(int id) async {
     try {
@@ -109,13 +113,15 @@ class RatingsCubit extends Cubit<RatingsState> {
 
       _cachedRatings = response.ratings;
 
-      emit(RatingsSuccess(response.ratings));
+     
       emit(RatingsDeleteSuccess());
       emit(RatingsSuccess(response.ratings));
     } catch (e) {
-      emit(RatingsDeleteError(
-        e is Failure ? e.message : "حدث خطأ أثناء حذف التقييم",
-      ));
+      emit(
+        RatingsDeleteError(
+          e is Failure ? e.message : "حدث خطأ أثناء حذف التقييم",
+        ),
+      );
 
       /// 🔥 rollback
       emit(RatingsSuccess(_cachedRatings));
@@ -138,13 +144,14 @@ class RatingsCubit extends Cubit<RatingsState> {
       );
 
       _cachedRatings = response.ratings;
-
-      emit(RatingsSuccess(response.ratings));
       emit(RatingsActionSuccess());
+      emit(RatingsSuccess(response.ratings));
     } catch (e) {
-      emit(RatingsActionError(
-        e is Failure ? e.message : "حدث خطأ أثناء الموافقة على التقييم",
-      ));
+      emit(
+        RatingsActionError(
+          e is Failure ? e.message : "حدث خطأ أثناء الموافقة على التقييم",
+        ),
+      );
 
       /// 🔥 rollback
       emit(RatingsSuccess(_cachedRatings));
@@ -168,12 +175,15 @@ class RatingsCubit extends Cubit<RatingsState> {
 
       _cachedRatings = response.ratings;
 
-      emit(RatingsSuccess(response.ratings));
+      
       emit(RatingsActionSuccess());
+      emit(RatingsSuccess(response.ratings));
     } catch (e) {
-      emit(RatingsActionError(
-        e is Failure ? e.message : "حدث خطأ أثناء رفض التقييم",
-      ));
+      emit(
+        RatingsActionError(
+          e is Failure ? e.message : "حدث خطأ أثناء رفض التقييم",
+        ),
+      );
 
       /// 🔥 rollback
       emit(RatingsSuccess(_cachedRatings));

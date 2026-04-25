@@ -65,7 +65,7 @@ class MyPackagesViewBody extends StatelessWidget {
             }
 
             return const SizedBox();
-          }).toList(),
+          }),
         ],
       ),
     );

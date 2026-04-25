@@ -12,9 +12,9 @@ abstract class BottomNavState extends Equatable {
 }
 
 class NavBarInitial extends BottomNavState {
-  NavBarInitial(int currentIndex) : super(currentIndex, null); // null = الكل
+  const NavBarInitial(int currentIndex) : super(currentIndex, null); // null = الكل
 }
 
 class IndexChanged extends BottomNavState {
-  IndexChanged(int currentIndex, [StoreFilter? filter]) : super(currentIndex, filter);
+  const IndexChanged(super.currentIndex, [super.filter]);
 }

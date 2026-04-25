@@ -81,7 +81,10 @@ class CustomerRatingCard extends StatelessWidget {
             SizedBox(height: SizeConfig.h(5)),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [DeleteRatingBtn()],
+            children: [
+              
+             // DeleteRatingBtn()
+             ],
           ),
         ],
       ),

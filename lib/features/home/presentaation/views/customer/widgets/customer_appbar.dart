@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/contact_us_card.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/app_bar_details.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/app_bar_shimmer.dart';

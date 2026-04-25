@@ -55,7 +55,7 @@ class _ProductViewBodyState extends State<ProductViewBody> {
                   ...StoreFilter.values
                       .where((f) => f != StoreFilter.discount)
                       .map((f) => f.label)
-                      .toList(),
+                      ,
                 ],
                 onChanged: (val) {
                   if (val == "الكل") {

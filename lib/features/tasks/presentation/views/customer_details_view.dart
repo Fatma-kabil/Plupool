@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/customer_details_view_body.dart';
 

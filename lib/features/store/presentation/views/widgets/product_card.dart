@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:ui'; // لو مش محتاجة ممكن تشيليها
+// لو مش محتاجة ممكن تشيليها
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/core/utils/functions/get_badge_color.dart';
-import 'package:plupool/core/utils/functions/get_badge_text.dart';
 import 'package:plupool/core/utils/widgets/add_cart_btn.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';

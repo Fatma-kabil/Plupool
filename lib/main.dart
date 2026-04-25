@@ -1,10 +1,8 @@
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:plupool/app_view.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:plupool/core/di/service_locator.dart';
 import 'package:intl/date_symbol_data_local.dart';
 

@@ -11,7 +11,7 @@ import 'package:plupool/features/reports/presentation/views/widgets/report_card_
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class ReportCard extends StatefulWidget {
-  ReportCard({super.key});
+  const ReportCard({super.key});
 
   @override
   State<ReportCard> createState() => _ReportCardState();

@@ -4,7 +4,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
 
 class FaqSection extends StatefulWidget {
-   FaqSection({super.key, required this.items});
+   const FaqSection({super.key, required this.items});
   final List  <FaqItem> items;
 
   @override

@@ -3,11 +3,11 @@ class RatingEntity {
   final String userName;
   final String userAvatar;
   final String userPhone;
-  final int rating;
+  final double rating;
   final String content;
   final String status;
-  final int bookingId;
-  final int serviceId;
+  final int? bookingId;
+  final int ?serviceId;
   final DateTime createdAt;
 
   RatingEntity({
@@ -18,8 +18,8 @@ class RatingEntity {
     required this.rating,
     required this.content,
     required this.status,
-    required this.bookingId,
-    required this.serviceId,
+     this.bookingId,
+     this.serviceId,
     required this.createdAt,
   });
 }

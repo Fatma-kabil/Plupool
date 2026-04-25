@@ -38,8 +38,12 @@ class _OtpState extends State<Otp> {
 
   @override
   void dispose() {
-    for (var c in controllers) c.dispose();
-    for (var f in focusNodes) f.dispose();
+    for (var c in controllers) {
+      c.dispose();
+    }
+    for (var f in focusNodes) {
+      f.dispose();
+    }
     super.dispose();
   }
 

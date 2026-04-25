@@ -14,7 +14,6 @@ import 'package:plupool/features/offers/domain/enities/product_offer_entity.dart
 import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/custom_check_btn.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
-import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
 
 class AddProductOfferCard extends StatefulWidget {

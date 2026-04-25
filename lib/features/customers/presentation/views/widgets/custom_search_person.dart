@@ -8,13 +8,14 @@ class CustomSearchPerson extends StatelessWidget {
     super.key,
     this.validator,
     this.controller,
-    required this.hintText,  this.padding, this.curserHeight,
+    required this.hintText,  this.padding, this.curserHeight, this.onChanged,
   });
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final String hintText;
   final EdgeInsetsGeometry? padding;
 final double? curserHeight;
+final void Function(String)? onChanged;
 
 final defaultCursorHeight = SizeConfig.isWideScreen
     ? SizeConfig.w(8)
@@ -24,6 +25,7 @@ final defaultCursorHeight = SizeConfig.isWideScreen
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+        onChanged: onChanged,
         style: AppTextStyles.styleMedium16(
           context,
         ).copyWith(color: AppColors.ktextcolor),

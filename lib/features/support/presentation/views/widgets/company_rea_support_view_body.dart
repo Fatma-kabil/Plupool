@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/utils/functions/message_status_text.dart';
-import 'package:plupool/features/support/presentation/views/widgets/company_res_details.dart';
-import 'package:plupool/features/support/presentation/views/widgets/message_datails_view_header.dart';
-import 'package:plupool/features/support/presentation/views/widgets/message_details_section.dart';
-import 'package:plupool/features/support/presentation/views/widgets/message_status_section.dart';
 
 class CompanyReaSupportViewBody extends StatelessWidget {
   const CompanyReaSupportViewBody({super.key});

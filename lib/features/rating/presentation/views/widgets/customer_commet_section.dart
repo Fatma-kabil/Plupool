@@ -4,7 +4,8 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class CustomerCommentSection extends StatelessWidget {
-  const CustomerCommentSection({super.key});
+  const CustomerCommentSection({super.key, required this.comment});
+  final String comment;
 
   @override
   Widget build(BuildContext context) {
@@ -13,17 +14,18 @@ class CustomerCommentSection extends StatelessWidget {
       children: [
         Text(
           'تعليق العميل',
-          style: AppTextStyles.styleSemiBold16(context)
-              .copyWith(color: Color(0xff555555)),
+          style: AppTextStyles.styleSemiBold16(
+            context,
+          ).copyWith(color: Color(0xff555555)),
         ),
         SizedBox(height: SizeConfig.h(6)),
         Container(
           padding: EdgeInsets.all(SizeConfig.w(12)),
-          decoration:  BoxDecoration(
-              border: Border.all(color: AppColors.textFieldBorderColor),
-              color: AppColors.kScaffoldColor,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.textFieldBorderColor),
+            color: AppColors.kScaffoldColor,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -35,9 +37,10 @@ class CustomerCommentSection extends StatelessWidget {
               SizedBox(width: SizeConfig.w(8)),
               Expanded(
                 child: Text(
-                  'الفني فيصل عمل جيد بشكل عام لكنه تأخر حوالي 20 دقيقة عن الموعد دون إشعار مسبق. العمل نفسه كان نظيفاً واحترافياً.',
-                  style: AppTextStyles.styleRegular14(context)
-                      .copyWith(color: Color(0xff777777)),
+                  comment,
+                  style: AppTextStyles.styleRegular14(
+                    context,
+                  ).copyWith(color: Color(0xff777777)),
                 ),
               ),
             ],

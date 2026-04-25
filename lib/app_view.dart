@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/router/app_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
-import 'package:device_preview/device_preview.dart';
 import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
@@ -14,7 +13,6 @@ import 'package:plupool/features/offers/presentation/manager/cubits/product_offe
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:plupool/features/search/presentation/manager/cubits/product_search_cubit/product_search_cubit.dart';
 
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/cubits/booking_cubit.dart';

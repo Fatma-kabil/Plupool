@@ -5,7 +5,6 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/container_status.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
-import 'package:plupool/features/customers/presentation/views/widgets/customer_info.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 
 class CompanyResProfileViewHeader extends StatelessWidget {

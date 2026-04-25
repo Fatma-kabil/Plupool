@@ -9,8 +9,8 @@ class RatingModel extends RatingEntity {
     required super.rating,
     required super.content,
     required super.status,
-    required super.bookingId,
-    required super.serviceId,
+     super.bookingId,
+     super.serviceId,
     required super.createdAt,
   });
 
@@ -20,7 +20,7 @@ class RatingModel extends RatingEntity {
       userName: json['user_name'],
       userAvatar: json['user_avatar'],
       userPhone: json['user_phone'],
-      rating: json['rating'],
+      rating: json['rating'].toDouble(),
       content: json['content'],
       status: json['status'],
       bookingId: json['booking_id'],
