@@ -5,8 +5,8 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/packages_tab_bar.dart';
-import 'package:plupool/features/services/presentation/manager/cubits/booking_cubit.dart';
-import 'package:plupool/features/services/presentation/manager/cubits/booking_state.dart';
+import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_state.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/booking_shimmer.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/customer_service_card.dart';
 

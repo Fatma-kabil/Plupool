@@ -57,6 +57,14 @@ import 'package:plupool/features/search/data/repositories_impl/product_search_re
 import 'package:plupool/features/search/domain/repositories/product_search_repo.dart';
 import 'package:plupool/features/search/domain/usecases/search_products_usecase.dart';
 import 'package:plupool/features/search/presentation/manager/cubits/product_search_cubit/product_search_cubit.dart';
+import 'package:plupool/features/services/data/remote_data_source/requested_services_remote_ds.dart';
+import 'package:plupool/features/services/data/repos_impl/requested_services_repo_impl.dart';
+import 'package:plupool/features/services/domain/repos/requested_services_repository.dart';
+import 'package:plupool/features/services/domain/usecases/delete_request_usecase.dart';
+import 'package:plupool/features/services/domain/usecases/get_request_details.dart';
+import 'package:plupool/features/services/domain/usecases/get_requests_usecase.dart';
+import 'package:plupool/features/services/domain/usecases/update_request_statue.dart';
+import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/support/domain/usecases/delete_message_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/get_message_details_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/get_messages_usecase.dart';
@@ -82,7 +90,7 @@ import 'package:plupool/features/services/domain/usecases/delete_booking_usecase
 import 'package:plupool/features/services/domain/usecases/get_booking_details.dart';
 import 'package:plupool/features/services/domain/usecases/get_bookings_usecase.dart';
 import 'package:plupool/features/services/domain/usecases/update_booking_usecase.dart';
-import 'package:plupool/features/services/presentation/manager/cubits/booking_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
 import 'package:plupool/features/settening/data/date_sources/faq_remote_data_source.dart';
 import 'package:plupool/features/settening/data/repos_impl/faq_repo_impl.dart';
 import 'package:plupool/features/settening/domain/repos/faq_repo.dart';
@@ -532,4 +540,31 @@ sl.registerFactory(
     deleteUseCase: sl<DeleteRatingUseCase>(),
   ),
 );
+
+
+ // 📋 REQUESTS (NEW 💥)
+  // =========================
+  sl.registerLazySingleton<RequestedServicesRemoteDataSource>(
+    () => RequestedServicesRemoteDataSource(sl<ApiService>()),
+  );
+
+  sl.registerLazySingleton<RequestedServicesRepository>(
+    () => RequestedServicesRepositoryImpl(sl()),
+  );
+
+  sl.registerLazySingleton(() => GetRequestsUseCase(sl()));
+  sl.registerLazySingleton(() => GetRequestDetailsUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteRequestUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateRequestStatusUseCase(sl()));
+
+  sl.registerFactory(
+    () => RequestsCubit(
+      sl(),
+      getDetailsUseCase: sl(),
+      deleteUseCase: sl(),
+      updateStatusUseCase: sl(),
+    ),
+  );
+
 }
+

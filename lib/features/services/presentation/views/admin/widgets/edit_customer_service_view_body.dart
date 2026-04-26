@@ -5,8 +5,8 @@ import 'package:plupool/core/utils/functions/pick_time_fun.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_edit_offer_view_footer.dart';
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
-import 'package:plupool/features/services/presentation/manager/cubits/booking_cubit.dart';
-import 'package:plupool/features/services/presentation/manager/cubits/booking_state.dart';
+import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_state.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/add_customer_service_form.dart';
 
 class EditCustomerServiceViewBody extends StatefulWidget {

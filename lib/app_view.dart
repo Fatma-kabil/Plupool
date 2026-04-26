@@ -15,7 +15,8 @@ import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cu
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
-import 'package:plupool/features/services/presentation/manager/cubits/booking_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/settening/presentation/manager/cubits/faq_cubit/faq_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
@@ -39,7 +40,8 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<OfferCubit>()..fetchOffers()),
         BlocProvider(create: (_) => sl<FaqCubit>()),
         BlocProvider(create:  (_) => sl<BookingCubit>()..getBookings(),),
-        BlocProvider(create:  (_) => sl<ContactCubit>()..getMessages(),)
+        BlocProvider(create:  (_) => sl<ContactCubit>()..getMessages(),),
+        BlocProvider(create: (_) => sl<RequestsCubit>()..getRequests(),)
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,

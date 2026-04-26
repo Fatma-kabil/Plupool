@@ -45,7 +45,7 @@ class AcceptRejectCard extends StatelessWidget {
               Text(
                 textAlign: TextAlign.center,
                 text ,
-                style: AppTextStyles.styleBold16(
+                style: AppTextStyles.styleBold18(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
               ),
@@ -53,7 +53,7 @@ class AcceptRejectCard extends StatelessWidget {
                Text(
                 textAlign: TextAlign.center,
                 subTitle ,
-                style: AppTextStyles.styleRegular14(
+                style: AppTextStyles.styleRegular16(
                   context,
                 ).copyWith(color: Color(0xff777777)),
               ),
