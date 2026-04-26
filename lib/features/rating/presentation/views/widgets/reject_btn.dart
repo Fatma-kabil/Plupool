@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -6,9 +7,10 @@ import 'package:plupool/features/rating/presentation/manager/cubits/rating_cubit
 import 'package:plupool/features/rating/presentation/manager/cubits/rating_cubit/ratings_state.dart';
 import 'package:plupool/features/rating/presentation/views/widgets/accept_reject_card.dart';
 
-class AcceptBtn extends StatelessWidget {
-  const AcceptBtn({super.key, required this.id});
+class RejectBtn extends StatelessWidget {
+  const RejectBtn({super.key, required this.id});
   final int id;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,7 +29,7 @@ class AcceptBtn extends StatelessWidget {
                   Navigator.pop(dialogContext);
                   showCustomSnackBar(
                     context: context,
-                    message: "تم نشر التقييم بنجاح ✅",
+                    message: "تم رفض نشر هذا التقييم ❌",
                     isSuccess: true,
                   );
                 }
@@ -43,33 +45,34 @@ class AcceptBtn extends StatelessWidget {
                 final isLoading = state is RatingsActionLoading;
 
                 return AcceptRejectCard(
-                  text: "تأكيد النشر",
-                  subTitle:
-                      "هل أنت متأكد من الموافقة على هذا التقييم ونشره للعموم؟",
+                  text: "رفض التقييم",
+                  subTitle: "هل أنت متأكد من رفض هذا التقييم؟ لن يظهر للعملاء.",
                   isLoading: isLoading,
                   onPressed: isLoading
                       ? null
                       : () {
-                          cubit.approveRating(id);
+                          cubit.rejectRating(id);
                         },
                 );
               },
             );
           },
         );
-      },
-      child: Container(
-        padding: EdgeInsets.all(SizeConfig.w(6)),
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Color(0xffCCF0F7),
-        ),
-        child: Icon(
-          Icons.check,
-          color: Color(0xff0077B6),
-          size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(22),
-        ),
+      },child: 
+    
+    
+    
+    Container(
+      padding: EdgeInsets.all(SizeConfig.w(6)),
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Color(0xffFAD7DA),
       ),
-    );
+      child: Icon(
+        Icons.close,
+        color: Color(0xffE63946),
+        size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(22),
+      ),
+     ), );
   }
 }
