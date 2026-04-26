@@ -47,6 +47,7 @@ class RatingsDeleteError extends RatingsState {
 }
 
 /// 🔥 approve / reject
+ class RatingsActionLoading extends RatingsState {}
 class RatingsActionSuccess extends RatingsState {}
 
 class RatingsActionError extends RatingsState {

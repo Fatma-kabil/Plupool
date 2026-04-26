@@ -89,10 +89,9 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
         offerBadge: "عرض خاص",
         offerStartDate: startDate!,
         offerEndDate: endDate!,
-        isFeatured: acceptedTerms 
+        isFeatured: acceptedTerms,
       ),
     );
-
   }
 
   @override
@@ -102,9 +101,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
     return BlocListener<ProductOfferCubit, ProductOfferState>(
       listener: (context, state) {
         if (state is ProductOfferSuccess) {
-         
-        
-
+          Navigator.pop(context);
           showCustomSnackBar(
             context: context,
             message: "تم تعديل العرض بنجاح",
@@ -113,7 +110,7 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
         }
 
         if (state is EditProductOfferError) {
-         Navigator.pop(context);
+          Navigator.pop(context);
           showCustomSnackBar(context: context, message: state.message);
         }
       },
@@ -194,15 +191,16 @@ class _EditProductOfferCardState extends State<EditProductOfferCard> {
                         keyboardType: TextInputType.number,
                       ),
 
-                     SizedBox(height: SizeConfig.h(20)),
-    
-                  CustomCheckbtn(
-                    value: acceptedTerms,
-                    onChanged: (val) => setState(() => acceptedTerms = val),
-                    label: "عرض مميز (يظهر في الصفحة الرئيسية)",
-                  ),
-    
-                  SizedBox(height: SizeConfig.h(28)),
+                      SizedBox(height: SizeConfig.h(20)),
+
+                      CustomCheckbtn(
+                        value: acceptedTerms,
+                        onChanged: (val) => setState(() => acceptedTerms = val),
+                        label: "عرض مميز (يظهر في الصفحة الرئيسية)",
+                      ),
+
+                      SizedBox(height: SizeConfig.h(28)),
+
                       /// 👇 BUTTONS (المهم هنا)
                       Column(
                         children: [

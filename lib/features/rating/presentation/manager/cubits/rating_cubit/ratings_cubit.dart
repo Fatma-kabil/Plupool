@@ -131,7 +131,7 @@ class RatingsCubit extends Cubit<RatingsState> {
   /// ✅ APPROVE
   Future<void> approveRating(int id) async {
     try {
-      emit(RatingsLoading());
+      emit(RatingsActionLoading());
 
       await approveUseCase(id);
 
