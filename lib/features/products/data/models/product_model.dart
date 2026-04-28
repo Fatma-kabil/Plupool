@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:plupool/features/products/data/models/badge_model.dart';
 import 'package:plupool/features/products/domain/entities/product_entity.dart';
 
 class ProductModel {
@@ -22,7 +23,7 @@ class ProductModel {
   final double rating;
   final int reviewsCount;
   final String status;
-  final bool ?isFeatured;
+  final bool? isFeatured;
   final int sortOrder;
   final int? id;
   final double finalPrice;
@@ -35,6 +36,7 @@ class ProductModel {
   final DateTime? updatedAt;
   final File? imageFile;
   final List<File>? additionalFiles;
+  final List<BadgeModel>? badges;
 
   ProductModel({
     required this.nameAr,
@@ -64,11 +66,12 @@ class ProductModel {
     this.stockStatus,
     this.hasOffer = false,
     this.discountPercentage = 0,
-    this.isOfferActive ,
+    this.isOfferActive,
     this.createdAt,
     this.updatedAt,
     this.imageFile,
     this.additionalFiles,
+    this.badges,
   });
   Product toEntity() {
     return Product(
@@ -85,9 +88,13 @@ class ProductModel {
       categoryId: categoryId ?? 0,
       price: originalPrice,
       stock: stockQuantity,
-      image:
-          imageFile ??
-          File(""), // لو مفيش صورة جديدة خليها فارغة (أو handle حسب احتياجك)
+      image: imageFile ?? File(""),
+
+      badges: badges == null
+          ? []
+          : badges!
+                .map((e) => e.toEntity())
+                .toList(), // لو مفيش صورة جديدة خليها فارغة (أو handle حسب احتياجك)
     );
   }
 
@@ -96,7 +103,7 @@ class ProductModel {
     return ProductModel(
       offerStartDate: entity.offerStartDate,
       offerEndDate: entity.offerEndDate,
-isFeatured: entity.isFeatured ?? false,
+      isFeatured: entity.isFeatured ?? false,
       hasOffer: entity.hasOffer ?? false,
       discountValue: entity.discountValue,
       stockStatus: entity.stockStatus,
@@ -108,14 +115,15 @@ isFeatured: entity.isFeatured ?? false,
       stockQuantity: entity.stock,
       imageFile: entity.image,
       isOfferActive: entity.hasActiveOffer,
+      badges: entity.badges
+          ?.map((e) => BadgeModel(type: e.type, label: e.label, color: e.color))
+          .toList(),
     );
   }
 
   /// From JSON
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-     
-
       nameAr: json["name_ar"] ?? "",
       nameEn: json["name_en"],
       descriptionAr: json["description_ar"],
@@ -160,15 +168,17 @@ isFeatured: entity.isFeatured ?? false,
       updatedAt: json["updated_at"] != null
           ? DateTime.parse(json["updated_at"])
           : null,
-
-        
+      badges: json["badges"] != null
+          ? List<BadgeModel>.from(
+              json["badges"].map((x) => BadgeModel.fromJson(x)),
+            )
+          : null,
     );
   }
 
   /// To JSON
   Map<String, dynamic> toJson() {
     return {
-
       "name_ar": nameAr,
       if (nameEn != null) "name_en": nameEn,
       if (descriptionAr != null) "description_ar": descriptionAr,
@@ -205,21 +215,21 @@ isFeatured: entity.isFeatured ?? false,
   }
 
   /// FormData for uploading images
- 
+
   Future<FormData> toFormData() async {
     final map = <String, dynamic>{};
-     
+
     map["name_ar"] = nameAr;
     if (categoryId != null) map["category_id"] = categoryId;
     map["original_price"] = originalPrice;
     map["stock_quantity"] = stockQuantity;
 
     if (imageFile != null) {
-    map["image"] = await MultipartFile.fromFile(
-      imageFile!.path,
-      filename: imageFile!.path.split('/').last,
-    );
-  }
+      map["image"] = await MultipartFile.fromFile(
+        imageFile!.path,
+        filename: imageFile!.path.split('/').last,
+      );
+    }
 
     return FormData.fromMap(map);
   }

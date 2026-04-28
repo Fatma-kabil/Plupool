@@ -15,8 +15,9 @@ class Product {
   final DateTime? offerEndDate;
   final bool? isFeatured;
   final bool? hasActiveOffer;
+  final List<Badge>? badges;
 
-  Product({this.hasActiveOffer, 
+  Product({this.hasActiveOffer,this.badges, 
     this.isFeatured, 
     this.offerStartDate,
     this.offerEndDate,
@@ -30,5 +31,16 @@ class Product {
     required this.categoryId,
     required this.price,
     required this.stock,
+  });
+}
+class Badge {
+  final String type;
+  final String label;
+  final String color;
+
+  Badge({
+    required this.type,
+    required this.label,
+    required this.color,
   });
 }

@@ -12,6 +12,14 @@ class ProductImageWithBadge extends StatelessWidget {
     if (url == null || url.isEmpty) return "";
     return url.replaceAll("localhost", "10.0.2.2");
   }
+  Color parseHexColor(String? hex) {
+  try {
+    if (hex == null || hex.isEmpty) return Colors.grey;
+    return Color(int.parse('0xFF${hex.replaceAll('#', '')}'));
+  } catch (e) {
+    return Colors.grey;
+  }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +37,7 @@ class ProductImageWithBadge extends StatelessWidget {
                   : SizeConfig.h(114),
               width: SizeConfig.w(95),
               color: Colors.grey[200],
-              child: const Icon(
-                Icons.image_not_supported,
-                color: Colors.grey,
-              ),
+              child: const Icon(Icons.image_not_supported, color: Colors.grey),
             )
           else
             Image.network(
@@ -47,35 +52,31 @@ class ProductImageWithBadge extends StatelessWidget {
               errorBuilder: (context, error, stackTrace) {
                 return Container(
                   color: Colors.grey[200],
-                  child: const Icon(
-                    Icons.broken_image,
-                    color: Colors.grey,
-                  ),
+                  child: const Icon(Icons.broken_image, color: Colors.grey),
                 );
               },
             ),
-          //  if (badgeText != null)
-          Positioned(
-            top: SizeConfig.h(8),
-            right: SizeConfig.w(8),
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.w(9),
-                vertical: SizeConfig.h(6),
-              ),
-              decoration: BoxDecoration(
-                //    color: getBadgeColor(product.offerBadge),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Text(
-                "الجديد",
-                //    badgeText,
-                style: AppTextStyles.styleBold10(
-                  context,
-                ).copyWith(color: Colors.white),
+          if (product.badges != null && product.badges!.isNotEmpty)
+            Positioned(
+              top: SizeConfig.h(8),
+              right: SizeConfig.w(8),
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.w(9),
+                  vertical: SizeConfig.h(6),
+                ),
+                decoration: BoxDecoration(
+                 color: parseHexColor(product.badges!.first.color),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Text(
+                  product.badges!.first.label,
+                  style: AppTextStyles.styleBold10(
+                    context,
+                  ).copyWith(color: Colors.white),
+                ),
               ),
             ),
-          ),
         ],
       ),
     );
