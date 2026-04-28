@@ -105,25 +105,31 @@ class RequestsCubit extends Cubit<RequestsState> {
   /// 🗑 DELETE
   Future<void> deleteRequest(int id) async {
     try {
-      emit(RequestsDeleting());
+      emit(RequestsActionLoading());
 
       await deleteUseCase(id);
+
+      /// 🔥 reset filters بعد الحذف
+      _search = null;
+      _status = "new";
+      _page = 1;
 
       final response = await getUseCase(
         GetRequestsParams(
           tab: _tab,
-          search: _search,
+          search: null, // 👈 مهم
           sortBy: _sortBy,
-          status: _status,
-          page: _page,
+          status: "new", // 👈 يرجع للنيو
+          page: 1, // 👈 يرجع من أول الصفحات
         ),
       );
 
       _cachedRequests = response.requests;
+      _tabCounts = response.tabCounts;
 
       emit(RequestDeleteSuccess());
 
-      emit(RequestsSuccess(requests: response.requests, tabCounts: _tabCounts));
+      emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
     } catch (e) {
       emit(
         RequestDeleteError(
@@ -168,6 +174,7 @@ class RequestsCubit extends Cubit<RequestsState> {
     }
   }
 
+ 
   /// 🔄 REFRESH
   Future<void> refresh() async {
     await getRequests(
@@ -192,4 +199,5 @@ class RequestsCubit extends Cubit<RequestsState> {
       emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
     } catch (_) {}
   }
+
 }

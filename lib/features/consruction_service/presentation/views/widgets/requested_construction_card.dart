@@ -4,8 +4,8 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/pool_details_row.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/requested_crd_header.dart';
-import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 import 'package:plupool/features/services/domain/entities/service_request_entity.dart';
+import 'package:plupool/features/services/presentation/views/admin/widgets/delete_request_service_btn.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_row.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
@@ -95,29 +95,7 @@ class _RequestedConstructionCardState extends State<RequestedConstructionCard> {
 
                     SizedBox(width: SizeConfig.w(35)),
 
-                    GestureDetector(
-                      onTap: () => {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (_) => const DeleteOrderCard(
-                            text: "هل أنت متأكد من حذف هذا الطلب؟",
-                          ),
-                        ),
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(SizeConfig.w(6)),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xffFAD7DA),
-                        ),
-                        child: Icon(
-                          Icons.delete_outline_rounded,
-                          color: Color(0xffE63946),
-                          size: SizeConfig.w(20),
-                        ),
-                      ),
-                    ),
+                     DeleteRequestServiceBtn(id:  widget.model.id,),
                   ],
                 ),
               ],
