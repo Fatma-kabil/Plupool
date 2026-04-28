@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/manager/drawer_cubit/drawer_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/requested_cubit/requested_state.dart';
 import 'drawer_item.dart'; // استورد الـ Cubit
 
 class AppDrawer extends StatelessWidget {
@@ -54,7 +57,7 @@ class AppDrawer extends StatelessWidget {
                           context.go('/seeallpackagesview');
                         }),
                       ),
-                       DrawerItem(
+                      DrawerItem(
                         icon: Icons.work_outline,
                         title: 'المشاريع',
                         isSelected: selectedIndex == 3,
@@ -62,14 +65,25 @@ class AppDrawer extends StatelessWidget {
                           context.go('/admindrawerprojectview');
                         }),
                       ),
-                      DrawerItem(
-                        icon: Icons.list_alt_outlined,
-                        title: 'الخدمات المطلوبة',
-                        badgeCount: 10,
-                        isSelected: selectedIndex == 4,
-                        onTap: () => onItemTap(4, () {
-                          context.go('/requestedserviceview');
-                        }),
+                      BlocBuilder<RequestsCubit, RequestsState>(
+                        builder: (context, state) {
+                          final newCount =
+                              context
+                                  .read<RequestsCubit>()
+                                  .tabCounts
+                                  ?.newCounts ??
+                              0;
+
+                          return DrawerItem(
+                            icon: Icons.list_alt_outlined,
+                            title: 'الخدمات المطلوبة',
+                            badgeCount: newCount, // 👈 هنا
+                            isSelected: selectedIndex == 4,
+                            onTap: () => onItemTap(4, () {
+                              context.go('/requestedserviceview');
+                            }),
+                          );
+                        },
                       ),
                       DrawerItem(
                         icon: Icons.notifications_none,

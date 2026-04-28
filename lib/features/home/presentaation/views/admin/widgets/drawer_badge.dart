@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class DrawerBadge extends StatelessWidget {
@@ -16,7 +17,7 @@ class DrawerBadge extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
-        count.toString(),
+      toArabicNumbers(  count.toString()),
         style: AppTextStyles.styleSemiBold14(context).copyWith(color: Color(0xff0077B6))
       ),
     );

@@ -5,12 +5,14 @@ class TabCountsModel extends TabCounts {
   TabCountsModel({
     required super.maintenance,
     required super.construction,
+    required super.newCounts,
   });
 
   factory TabCountsModel.fromJson(Map<String, dynamic> json) {
     return TabCountsModel(
       maintenance: json['maintenance'] ?? 0,
       construction: json['construction'] ?? 0,
+      newCounts: json['new_count']??0
     );
   }
 }

@@ -31,7 +31,7 @@ class _RequestedServiceViewBodyState extends State<RequestedServiceViewBody>
 
     final cubit = context.read<RequestsCubit>();
 
-    cubit.getTabCounts();
+  //  cubit.getTabCounts();
 
     cubit.getRequests(tab: "maintenance", status: "new");
 

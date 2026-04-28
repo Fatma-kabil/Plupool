@@ -3,10 +3,9 @@ import 'package:plupool/features/services/domain/entities/service_request_entity
 class TabCounts {
   final int maintenance;
   final int construction;
+  final int newCounts;
 
-  TabCounts({
-    required this.maintenance,
-    required this.construction,
+  TabCounts({required this.maintenance, required this.construction ,required this.newCounts
   });
 }
 
@@ -25,5 +24,6 @@ class RequestsResponseEntity {
     required this.page,
     required this.limit,
     required this.totalPages,
-  });
+ 
+ });
 }
