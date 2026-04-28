@@ -13,7 +13,7 @@ class CustomerCommentSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'تعليق العميل',
+          'التعليق',
           style: AppTextStyles.styleSemiBold16(
             context,
           ).copyWith(color: Color(0xff555555)),

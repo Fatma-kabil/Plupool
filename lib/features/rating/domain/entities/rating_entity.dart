@@ -3,6 +3,7 @@ class RatingEntity {
   final String userName;
   final String userAvatar;
   final String userPhone;
+  final String userRole;
   final double rating;
   final String content;
   final String status;
@@ -11,6 +12,7 @@ class RatingEntity {
   final DateTime createdAt;
 
   RatingEntity({
+    required this.userRole,
     required this.id,
     required this.userName,
     required this.userAvatar,

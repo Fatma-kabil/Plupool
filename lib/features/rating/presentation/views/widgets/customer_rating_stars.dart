@@ -12,7 +12,7 @@ class CustomerRatingStars extends StatelessWidget {
     return Row(
       children: [
         Text(
-          'تقييم العميل',
+          'التقييم',
           style: AppTextStyles.styleRegular16(context),
         ),
 

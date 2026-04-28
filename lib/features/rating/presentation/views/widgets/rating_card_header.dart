@@ -20,7 +20,7 @@ class RatingCardHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'العميل: ${rating.userName}',
+                  '${rating.userRole}: ${rating.userName}',
                   style: AppTextStyles.styleMedium16(
                     context,
                   ).copyWith(color: AppColors.ktextcolor),
