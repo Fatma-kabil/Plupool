@@ -35,7 +35,7 @@ class MaintenanceCardHeader extends StatelessWidget {
               ).copyWith(color: AppColors.ktextcolor),
             ),
             SizedBox(height: SizeConfig.h(4)),
-            MaintenanceDateRow(date: date, time: time),
+            MaintenanceDateRow(date: date, ),
           ],
         ),
         buildStatusLabel(

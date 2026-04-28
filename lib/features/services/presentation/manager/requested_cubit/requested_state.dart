@@ -1,7 +1,6 @@
 import 'package:plupool/features/services/domain/entities/requests_response_entity.dart';
 import 'package:plupool/features/services/domain/entities/service_request_entity.dart';
 
-
 abstract class RequestsState {}
 
 /// 🚀 Initial
@@ -10,7 +9,7 @@ class RequestsInitial extends RequestsState {}
 /// ⏳ Loading list
 class RequestsLoading extends RequestsState {}
 
-/// ✅ Success list
+/// ✅ Success list (MAIN STATE)
 class RequestsSuccess extends RequestsState {
   final List<ServiceRequestEntity> requests;
   final TabCounts? tabCounts;
@@ -28,37 +27,39 @@ class RequestsError extends RequestsState {
   RequestsError(this.message);
 }
 
-/// 📄 Details loading
+/// ============================
+/// 📄 DETAILS STATES
+/// ============================
+
 class RequestDetailsLoading extends RequestsState {}
 
-/// 📄 Details success
 class RequestDetailsSuccess extends RequestsState {
   final ServiceRequestEntity request;
 
   RequestDetailsSuccess(this.request);
 }
 
-/// 📄 Details error
 class RequestDetailsError extends RequestsState {
   final String message;
 
   RequestDetailsError(this.message);
 }
 
-/// ⚙️ Action loading (delete / update status)
+/// ============================
+/// ⚙️ ACTION STATES (update/delete)
+/// ============================
+
 class RequestsActionLoading extends RequestsState {}
 
-/// ⚙️ Action success
 class RequestActionSuccess extends RequestsState {}
 
-/// ⚙️ Action error
 class RequestActionError extends RequestsState {
   final String message;
 
   RequestActionError(this.message);
 }
 
-/// 🗑 Delete states (optional but consistent with your style)
+/// 🗑 Delete specific (اختياري بس منظم)
 class RequestsDeleting extends RequestsState {}
 
 class RequestDeleteSuccess extends RequestsState {}
@@ -68,3 +69,9 @@ class RequestDeleteError extends RequestsState {
 
   RequestDeleteError(this.message);
 }
+class TabCountsLoaded extends RequestsState {
+  final TabCounts tabCounts;
+
+  TabCountsLoaded(this.tabCounts);
+}
+

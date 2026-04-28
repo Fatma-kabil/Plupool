@@ -10,8 +10,9 @@ class ErrorText extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 25),
         child: Text(
+          textDirection: TextDirection.rtl,
           message,
-          style: AppTextStyles.styleSemiBold18(
+          style: AppTextStyles.styleSemiBold16(
             context,
           ).copyWith(color: Colors.black54),
         ),

@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-
-import 'package:intl/intl.dart' as intl;
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/pool_details_row.dart';
-import 'package:plupool/features/maintenance/data/models/requested_maintenance_card_model.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/requested_crd_header.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
+import 'package:plupool/features/services/domain/entities/service_request_entity.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_row.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class RequestedConstructionCard extends StatefulWidget {
   const RequestedConstructionCard({super.key, required this.model});
-  final RequestedMaintenanceCardModel model;
+  final ServiceRequestEntity model;
 
   @override
   State<RequestedConstructionCard> createState() =>
@@ -26,20 +24,12 @@ class _RequestedConstructionCardState extends State<RequestedConstructionCard> {
   @override
   void initState() {
     super.initState();
-    selected = widget.model.statu;
+    selected = // تهيئة القيمة هنا
+        widget.model.status;
   }
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate = intl.DateFormat('EEEE : yyyy/MM/d – hh:mm a', 'ar')
-        .format(DateTime(2025, 12, 1, 12, 00))
-        .replaceAll('ص', 'صباحاً')
-        .replaceAll('م', 'مساءً');
-
-    final parts = formattedDate.split('–');
-    final date = parts[0].trim();
-    final time = parts.length > 1 ? parts[1].trim() : '';
-
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
@@ -56,18 +46,23 @@ class _RequestedConstructionCardState extends State<RequestedConstructionCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// ---- Header ----
-            RequestedCardHeader(model: widget.model, date: date, time: time),
-
+            RequestedCardHeader(model: widget.model),
             SizedBox(height: SizeConfig.h(8)),
             Divider(color: AppColors.textFieldBorderColor),
             SizedBox(height: SizeConfig.h(8)),
 
-            ServiceCardRow(title: "اليوم المقترح:", value: date),
+            ServiceCardRow(
+              title: "اليوم المقترح:",
+              value: widget.model.suggestedDate,
+            ),
             SizedBox(height: SizeConfig.h(5)),
 
-            ServiceCardRow(title: "الوقت المقترح:", value: time),
+            ServiceCardRow(
+              title: "الوقت المقترح:",
+              value: widget.model.suggestedTime,
+            ),
             SizedBox(height: SizeConfig.h(12)),
-            PoolDetailsRow(),
+            PoolDetailsRow(model: widget.model,),
 
             SizedBox(height: SizeConfig.h(12)),
             Divider(color: AppColors.textFieldBorderColor),

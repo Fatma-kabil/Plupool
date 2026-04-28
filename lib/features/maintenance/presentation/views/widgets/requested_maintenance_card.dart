@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/maintenance/data/models/requested_maintenance_card_model.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/requested_crd_header.dart';
-import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
+import 'package:plupool/features/services/domain/entities/service_request_entity.dart';
+import 'package:plupool/features/services/presentation/views/admin/widgets/delete_request_service_btn.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_row.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class RequestedMaintenanceCard extends StatefulWidget {
   const RequestedMaintenanceCard({super.key, required this.model});
 
-  final RequestedMaintenanceCardModel model;
+  final ServiceRequestEntity model;
 
   @override
   State<RequestedMaintenanceCard> createState() =>
@@ -24,30 +24,21 @@ class _RequestedMaintenanceCardState extends State<RequestedMaintenanceCard> {
   @override
   void initState() {
     super.initState();
-    selected = widget.model.statu; // تهيئة القيمة هنا
+    selected = widget.model.status; // تهيئة القيمة هنا
   }
 
   @override
   void didUpdateWidget(covariant RequestedMaintenanceCard oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.model.statu != widget.model.statu) {
+    if (oldWidget.model.status != widget.model.status) {
       setState(() {
-        selected = widget.model.statu;
+        selected = widget.model.status;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate = intl.DateFormat('EEEE : yyyy/MM/d – hh:mm a', 'ar')
-        .format(DateTime(2025, 12, 1, 12, 00))
-        .replaceAll('ص', 'صباحاً')
-        .replaceAll('م', 'مساءً');
-
-    final parts = formattedDate.split('–');
-    final date = parts[0].trim();
-    final time = parts.length > 1 ? parts[1].trim() : '';
-
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
@@ -64,19 +55,29 @@ class _RequestedMaintenanceCardState extends State<RequestedMaintenanceCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// ---- Header ----
-            RequestedCardHeader(model: widget.model, date: date, time: time),
+            RequestedCardHeader(model: widget.model),
 
             SizedBox(height: SizeConfig.h(8)),
             Divider(color: AppColors.textFieldBorderColor),
             SizedBox(height: SizeConfig.h(8)),
 
-            ServiceCardRow(title: "نوع الخدمة:", value: widget.model.service),
+            ServiceCardRow(
+              title: "نوع الخدمة:",
+              value: widget.model.serviceTypeName,
+            ),
             SizedBox(height: SizeConfig.h(5)),
 
-            ServiceCardRow(title: "اليوم المقترح:", value: date),
+            ServiceCardRow(
+              title: "اليوم المقترح:",
+              value:widget.model.suggestedDate,
+            ),
+
             SizedBox(height: SizeConfig.h(5)),
 
-            ServiceCardRow(title: "الوقت المقترح:", value: time),
+            ServiceCardRow(
+              title: "الوقت المقترح:",
+              value: widget.model.suggestedTime,
+            ),
 
             SizedBox(height: SizeConfig.h(8)),
             Divider(color: AppColors.textFieldBorderColor),
@@ -109,29 +110,7 @@ class _RequestedMaintenanceCardState extends State<RequestedMaintenanceCard> {
 
                     SizedBox(width: SizeConfig.w(35)),
 
-                    GestureDetector(
-                      onTap: () => {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (_) => const DeleteOrderCard(
-                            text: "هل أنت متأكد من حذف هذا الطلب؟",
-                          ),
-                        ),
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(SizeConfig.w(6)),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xffFAD7DA),
-                        ),
-                        child: Icon(
-                          Icons.delete_outline_rounded,
-                          color: Color(0xffE63946),
-                          size: SizeConfig.w(20),
-                        ),
-                      ),
-                    ),
+                    DeleteRequestServiceBtn(),
                   ],
                 ),
               ],

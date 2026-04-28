@@ -4,22 +4,25 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class CustomSearchPerson extends StatelessWidget {
-   CustomSearchPerson({
+  CustomSearchPerson({
     super.key,
     this.validator,
     this.controller,
-    required this.hintText,  this.padding, this.curserHeight, this.onChanged,
+    required this.hintText,
+    this.padding,
+    this.curserHeight,
+    this.onChanged,
   });
   final String? Function(String?)? validator;
   final TextEditingController? controller;
   final String hintText;
   final EdgeInsetsGeometry? padding;
-final double? curserHeight;
-final void Function(String)? onChanged;
+  final double? curserHeight;
+  final void Function(String)? onChanged;
 
-final defaultCursorHeight = SizeConfig.isWideScreen
-    ? SizeConfig.w(8)
-    : SizeConfig.h(15);
+  final defaultCursorHeight = SizeConfig.isWideScreen
+      ? SizeConfig.w(8)
+      : SizeConfig.h(15);
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -29,8 +32,8 @@ final defaultCursorHeight = SizeConfig.isWideScreen
         style: AppTextStyles.styleMedium16(
           context,
         ).copyWith(color: AppColors.ktextcolor),
-        
-        cursorHeight:curserHeight ??defaultCursorHeight,
+
+        cursorHeight: curserHeight ?? defaultCursorHeight,
         cursorColor: AppColors.ktextcolor,
         controller: controller,
         validator: validator,
@@ -46,10 +49,12 @@ final defaultCursorHeight = SizeConfig.isWideScreen
             minHeight: 0,
             minWidth: 0,
           ),
-          contentPadding:padding?? EdgeInsets.symmetric(
-            vertical: SizeConfig.h(10), // 👈 قلّلي الرقم حسب ما تحبي
-            horizontal: SizeConfig.w(12),
-          ),
+          contentPadding:
+              padding ??
+              EdgeInsets.symmetric(
+                vertical: SizeConfig.h(10), // 👈 قلّلي الرقم حسب ما تحبي
+                horizontal: SizeConfig.w(12),
+              ),
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: AppColors.textFieldBorderColor,
@@ -79,12 +84,10 @@ final defaultCursorHeight = SizeConfig.isWideScreen
           suffixIcon: Padding(
             padding: EdgeInsets.only(left: SizeConfig.w(8)),
             child: Icon(
-                      Icons.keyboard_arrow_down,
-                      size: SizeConfig.w(18),
-                      color: const Color(0xff777777),
-                    ),
-              
-            
+              Icons.keyboard_arrow_down,
+              size: SizeConfig.w(18),
+              color: const Color(0xff777777),
+            ),
           ),
           // 👇 زرار إظهار/إخفاء الباسورد
           enabledBorder: OutlineInputBorder(

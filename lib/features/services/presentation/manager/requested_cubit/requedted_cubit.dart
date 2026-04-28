@@ -1,12 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/services/domain/entities/requests_response_entity.dart';
 import 'package:plupool/features/services/domain/repos/requested_services_repository.dart';
 import 'package:plupool/features/services/domain/usecases/get_request_details.dart';
 import 'package:plupool/features/services/domain/usecases/get_requests_usecase.dart';
 import 'package:plupool/features/services/domain/usecases/update_request_statue.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requested_state.dart';
 import '../../../domain/entities/service_request_entity.dart';
-import '../../../domain/usecases/delete_request_usecase.dart';  
+import '../../../domain/usecases/delete_request_usecase.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/services/domain/entities/requests_response_entity.dart';
+import 'package:plupool/features/services/domain/usecases/get_request_details.dart';
+import 'package:plupool/features/services/domain/usecases/get_requests_usecase.dart';
+import 'package:plupool/features/services/domain/usecases/update_request_statue.dart';
+import '../../../domain/entities/service_request_entity.dart';
+import '../../../domain/usecases/delete_request_usecase.dart';
+import 'requested_state.dart';
 
 class RequestsCubit extends Cubit<RequestsState> {
   final GetRequestsUseCase getUseCase;
@@ -21,16 +31,18 @@ class RequestsCubit extends Cubit<RequestsState> {
     required this.updateStatusUseCase,
   }) : super(RequestsInitial());
 
-  /// 🔥 cache
   List<ServiceRequestEntity> _cachedRequests = [];
 
-  /// 🔥 filters (زي RatingsCubit بالظبط)
   String? _tab;
   String? _search;
   String? _sortBy;
   String? _status;
 
   int _page = 1;
+
+  TabCounts? _tabCounts;
+  bool _tabCountsLoaded = false;
+  TabCounts? get tabCounts => _tabCounts;
 
   /// 📋 GET REQUESTS
   Future<void> getRequests({
@@ -44,7 +56,6 @@ class RequestsCubit extends Cubit<RequestsState> {
     emit(RequestsLoading());
 
     try {
-      /// حفظ الفلاتر
       _tab = tab;
       _search = search;
       _sortBy = sortBy;
@@ -64,15 +75,15 @@ class RequestsCubit extends Cubit<RequestsState> {
 
       _cachedRequests = response.requests;
 
-      emit(RequestsSuccess(
-        requests: response.requests,
-        tabCounts: response.tabCounts,
-      ));
+      emit(
+        RequestsSuccess(
+          requests: response.requests,
+          tabCounts: _tabCounts, // 👈 ثابتة
+        ),
+      );
     } catch (e) {
       emit(
-        RequestsError(
-          e is Failure ? e.message : "حدث خطأ أثناء جلب الطلبات",
-        ),
+        RequestsError(e is Failure ? e.message : "حدث خطأ أثناء جلب الطلبات"),
       );
     }
   }
@@ -92,12 +103,8 @@ class RequestsCubit extends Cubit<RequestsState> {
         ),
       );
 
-      /// fallback
       if (_cachedRequests.isNotEmpty) {
-        emit(RequestsSuccess(
-          requests: _cachedRequests,
-          tabCounts: null,
-        ));
+        emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
       }
     }
   }
@@ -109,7 +116,6 @@ class RequestsCubit extends Cubit<RequestsState> {
 
       await deleteUseCase(id);
 
-      /// 🔄 refetch زي RatingsCubit
       final response = await getUseCase(
         GetRequestsParams(
           tab: _tab,
@@ -124,10 +130,7 @@ class RequestsCubit extends Cubit<RequestsState> {
 
       emit(RequestDeleteSuccess());
 
-      emit(RequestsSuccess(
-        requests: response.requests,
-        tabCounts: response.tabCounts,
-      ));
+      emit(RequestsSuccess(requests: response.requests, tabCounts: _tabCounts));
     } catch (e) {
       emit(
         RequestDeleteError(
@@ -135,10 +138,7 @@ class RequestsCubit extends Cubit<RequestsState> {
         ),
       );
 
-      emit(RequestsSuccess(
-        requests: _cachedRequests,
-        tabCounts: null,
-      ));
+      emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
     }
   }
 
@@ -149,7 +149,6 @@ class RequestsCubit extends Cubit<RequestsState> {
 
       await updateStatusUseCase(id, status);
 
-      /// 🔄 refetch زي ratings
       final response = await getUseCase(
         GetRequestsParams(
           tab: _tab,
@@ -164,10 +163,7 @@ class RequestsCubit extends Cubit<RequestsState> {
 
       emit(RequestActionSuccess());
 
-      emit(RequestsSuccess(
-        requests: response.requests,
-        tabCounts: response.tabCounts,
-      ));
+      emit(RequestsSuccess(requests: response.requests, tabCounts: _tabCounts));
     } catch (e) {
       emit(
         RequestActionError(
@@ -175,10 +171,7 @@ class RequestsCubit extends Cubit<RequestsState> {
         ),
       );
 
-      emit(RequestsSuccess(
-        requests: _cachedRequests,
-        tabCounts: null,
-      ));
+      emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
     }
   }
 
@@ -191,5 +184,19 @@ class RequestsCubit extends Cubit<RequestsState> {
       status: _status,
       page: _page,
     );
+  }
+
+  /// 📊 TAB COUNTS (مرة واحدة فقط)
+  Future<void> getTabCounts() async {
+    if (_tabCountsLoaded) return;
+
+    try {
+      final response = await getUseCase(GetRequestsParams(page: 1, limit: 100));
+
+      _tabCounts = response.tabCounts;
+      _tabCountsLoaded = true;
+
+      emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
+    } catch (_) {}
   }
 }

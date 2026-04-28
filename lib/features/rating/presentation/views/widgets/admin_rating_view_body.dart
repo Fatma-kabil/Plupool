@@ -40,7 +40,7 @@ class _AdminRatingViewBodyState extends State<AdminRatingViewBody> {
     });
 
     context.read<RatingsCubit>().getRatings(
-    //  status: mapStatus(selected),
+      //  status: mapStatus(selected),
       search: value.isEmpty ? null : value,
     );
   }
