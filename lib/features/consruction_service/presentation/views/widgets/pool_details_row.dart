@@ -23,7 +23,7 @@ class PoolDetailsRow extends StatelessWidget {
             ),
             SizedBox(height: SizeConfig.h(5)),
             Text(
-              toArabicNumbers(model.poolDimensions.width.toString()),
+             "${toArabicNumbers(model.poolDimensions.width.toString())} م",
               style: AppTextStyles.styleSemiBold16(
                 context,
               ).copyWith(color: const Color(0xff2B2B2B)),
@@ -44,7 +44,7 @@ class PoolDetailsRow extends StatelessWidget {
             ),
             SizedBox(height: SizeConfig.h(5)),
             Text(
-              toArabicNumbers(model.poolDimensions.depth.toString()),
+              "${toArabicNumbers(model.poolDimensions.depth.toString())} م",
               style: AppTextStyles.styleSemiBold16(
                 context,
               ).copyWith(color: const Color(0xff2B2B2B)),
@@ -65,7 +65,7 @@ class PoolDetailsRow extends StatelessWidget {
             ),
             SizedBox(height: SizeConfig.h(5)),
             Text(
-              toArabicNumbers(model.poolDimensions.length.toString()),
+              "${toArabicNumbers(model.poolDimensions.length.toString())} م",
               style: AppTextStyles.styleSemiBold16(
                 context,
               ).copyWith(color: const Color(0xff2B2B2B)),

@@ -8,15 +8,6 @@ import 'package:plupool/features/services/domain/usecases/update_request_statue.
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requested_state.dart';
 import '../../../domain/entities/service_request_entity.dart';
 import '../../../domain/usecases/delete_request_usecase.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plupool/core/error/failure.dart';
-import 'package:plupool/features/services/domain/entities/requests_response_entity.dart';
-import 'package:plupool/features/services/domain/usecases/get_request_details.dart';
-import 'package:plupool/features/services/domain/usecases/get_requests_usecase.dart';
-import 'package:plupool/features/services/domain/usecases/update_request_statue.dart';
-import '../../../domain/entities/service_request_entity.dart';
-import '../../../domain/usecases/delete_request_usecase.dart';
-import 'requested_state.dart';
 
 class RequestsCubit extends Cubit<RequestsState> {
   final GetRequestsUseCase getUseCase;
@@ -53,7 +44,9 @@ class RequestsCubit extends Cubit<RequestsState> {
     String? sortBy,
     String? status,
   }) async {
-    emit(RequestsLoading());
+    if (state is! RequestsSuccess) {
+      emit(RequestsLoading()); // أول مرة بس
+    }
 
     try {
       _tab = tab;
