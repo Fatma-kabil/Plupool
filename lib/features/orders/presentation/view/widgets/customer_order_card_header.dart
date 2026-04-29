@@ -32,7 +32,7 @@ class CustomerOrderCardHeader extends StatelessWidget {
               ),
             ),
             //    Spacer(),
-            OrdrStatusRow(status: model.satus),
+        //    OrdrStatusRow(status: model.satus),
           ],
         ),
        

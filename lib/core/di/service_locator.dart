@@ -31,6 +31,18 @@ import 'package:plupool/features/offers/domain/usecases/update_offer_usecase.dar
 import 'package:plupool/features/offers/domain/usecases/update_product_offer_usecase.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/offer_cubit.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
+import 'package:plupool/features/orders/data/data_sources/order_remote_data_source.dart';
+import 'package:plupool/features/orders/data/repo_impl/order_repo_impl.dart';
+import 'package:plupool/features/orders/domain/repos/order_repo.dart';
+import 'package:plupool/features/orders/domain/usecases/add_item_to_order_uecase.dart';
+import 'package:plupool/features/orders/domain/usecases/delete_item_from_order_usecase.dart';
+import 'package:plupool/features/orders/domain/usecases/delete_order_usecase.dart';
+import 'package:plupool/features/orders/domain/usecases/get_order_details_usecase.dart';
+import 'package:plupool/features/orders/domain/usecases/get_orders_usecase.dart';
+import 'package:plupool/features/orders/domain/usecases/replace_order_item_usecase.dart';
+import 'package:plupool/features/orders/domain/usecases/update_order_item_usecae.dart';
+import 'package:plupool/features/orders/domain/usecases/update_status_usecase.dart';
+import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
 import 'package:plupool/features/products/data/remote_data_sources/product_remote_data_source.dart';
 import 'package:plupool/features/products/data/repos_impl/product_repo_impl.dart';
 import 'package:plupool/features/products/domain/repos/product_repo.dart';
@@ -565,6 +577,72 @@ sl.registerFactory(
       updateStatusUseCase: sl(),
     ),
   );
+// ----------------------------
+// 📦 ORDERS FEATURE
+// ----------------------------
 
+// Remote Data Source
+sl.registerLazySingleton<OrdersRemoteDataSource>(
+  () => OrdersRemoteDataSource
+  (sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<OrdersRepository>(
+  () => OrdersRepositoryImpl(sl<OrdersRemoteDataSource>()),
+);
+
+// ==============================
+// USE CASES
+// ==============================
+
+sl.registerLazySingleton(
+  () => GetOrdersUseCase(sl<OrdersRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => GetOrderDetailsUseCase(sl<OrdersRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => UpdateOrderStatusUseCase(sl<OrdersRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => DeleteOrderUseCase(sl<OrdersRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => AddItemToOrderUseCase(sl<OrdersRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => UpdateOrderItemUseCase(sl<OrdersRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => DeleteOrderItemUseCase(sl<OrdersRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => ReplaceOrderItemUseCase(sl<OrdersRepository>()),
+);
+
+// ==============================
+// CUBIT
+// ==============================
+
+sl.registerFactory(
+  () => OrdersCubit(
+    sl<GetOrdersUseCase>(),
+    getDetailsUseCase: sl<GetOrderDetailsUseCase>(),
+    updateStatusUseCase: sl<UpdateOrderStatusUseCase>(),
+    deleteOrderUseCase: sl<DeleteOrderUseCase>(),
+    addItemUseCase: sl<AddItemToOrderUseCase>(),
+    updateItemUseCase: sl<UpdateOrderItemUseCase>(),
+    deleteItemUseCase: sl<DeleteOrderItemUseCase>(),
+    replaceItemUseCase: sl<ReplaceOrderItemUseCase>(),
+  ),
+);
 }
 

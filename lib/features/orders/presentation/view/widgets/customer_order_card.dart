@@ -32,7 +32,7 @@ final OrderCardModel model;
             ),
             child: Divider(color: AppColors.textFieldBorderColor, thickness: 1),
           ),
-          OrderDatails(onTap:onTap ,),
+    //      OrderDatails(onTap:onTap ,),
           SizedBox(height: SizeConfig.h(12)),
           if (model.note != null) NoteAndTimeSection(text: model.note!),
         ],

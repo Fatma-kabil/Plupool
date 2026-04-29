@@ -10,6 +10,7 @@ import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.d
 import 'package:plupool/features/home/presentaation/manager/drawer_cubit/drawer_cubit.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/offer_cubit.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
+import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -41,7 +42,8 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<FaqCubit>()),
         BlocProvider(create:  (_) => sl<BookingCubit>()..getBookings(),),
         BlocProvider(create:  (_) => sl<ContactCubit>()..getMessages(),),
-        BlocProvider(create: (_) => sl<RequestsCubit>()..getTabCounts(),)
+        BlocProvider(create: (_) => sl<RequestsCubit>()..getTabCounts(),),
+        BlocProvider(create: (_) => sl<OrdersCubit>()),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,

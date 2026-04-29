@@ -1,47 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:plupool/core/constants.dart';
-import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/features/orders/domain/entities/order_status.dart';
+import 'package:plupool/features/orders/domain/entities/order_entity.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_card.dart';
 
-class OrdersList extends StatelessWidget {
-  const OrdersList({super.key, required this.selected});
-  final String selected;
+class OrderList extends StatelessWidget {
+  const OrderList({
+    super.key,
+    required this.orders,
+  });
+
+  final List<OrderEntity> orders;
+
   @override
   Widget build(BuildContext context) {
-    final filteredMessages = orderCards.where((order) {
-      if (selected == "ملغي") {
-        return order.satus == OrderStatus.cancelled;
-      } else if (selected == "تم التسليم") {
-        return order.satus == OrderStatus.delivered;
-      } else if (selected == "جارِ التوصيل") {
-        return order.satus == OrderStatus.onTheWay;
-      } else {
-        return order.satus == OrderStatus.preparing;
-      }
-    }).toList();
-
-    if (filteredMessages.isEmpty) {
-      return SliverToBoxAdapter(
-        child: Center(
-          child: Text(
-            'لا توجد طلبات',
-            style: AppTextStyles.styleSemiBold25(context),
-          ),
-        ),
-      );
-    }
-
     return SliverList(
-      delegate: SliverChildBuilderDelegate((context, index) {
-        return OrderCard(
-          model: filteredMessages[index],
-          onTap: () {
-            context.push('/orderdetailsview', extra: filteredMessages[index]);
-          },
-        );
-      }, childCount: filteredMessages.length),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          final order = orders[index];
+
+          return OrderCard(
+            model: order,
+            onTap: () {
+              context.push(
+                '/orderdetailsview',
+                extra: order,
+              );
+            },
+          );
+        },
+        childCount: orders.length,
+      ),
     );
   }
 }

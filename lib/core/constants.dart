@@ -8,8 +8,7 @@ import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
 import 'package:plupool/features/maintenance/data/models/requested_maintenance_card_model.dart';
 import 'package:plupool/features/notifications/data/models/notifiction_type_model.dart';
-import 'package:plupool/features/orders/data/models/order_card_model.dart';
-import 'package:plupool/features/orders/domain/entities/order_status.dart';
+
 import 'package:plupool/features/packages/data/models/package_model.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
 import 'package:plupool/features/profile/data/models/project_model.dart';
@@ -805,48 +804,6 @@ final List<DashboardShortcutModel> dashboardShortcuts = [
   ),
 ];
 
-final List<OrderCardModel> orderCards = [
-  OrderCardModel(
-    date: DateTime(2025, 5, 12, 11, 00),
-    orderNo: 12345,
-    satus: OrderStatus.delivered,
-    note: "تم تسليم الطلب",
-  ),
-  OrderCardModel(
-    date: DateTime(2025, 5, 12, 11, 00),
-    orderNo: 12345,
-    satus: OrderStatus.delivered,
-    note: "تم تسليم الطلب",
-  ),
-  OrderCardModel(
-    date: DateTime(2025, 5, 12, 11, 00),
-    orderNo: 12345,
-    satus: OrderStatus.delivered,
-    note: "تم تسليم الطلب",
-  ),
-  OrderCardModel(
-    date: DateTime(2025, 5, 12, 11, 00),
-    orderNo: 12345,
-    satus: OrderStatus.onTheWay,
-  ),
-  OrderCardModel(
-    date: DateTime(2025, 5, 12, 11, 00),
-    orderNo: 12345,
-    satus: OrderStatus.preparing,
-  ),
-  OrderCardModel(
-    date: DateTime(2025, 5, 12, 11, 00),
-    orderNo: 12345,
-    satus: OrderStatus.cancelled,
-    note: "لم يستلم العميل الطلب من المندوب",
-  ),
-  OrderCardModel(
-    date: DateTime(2025, 5, 12, 11, 00),
-    orderNo: 12345,
-    satus: OrderStatus.cancelled,
-    note: "لم يستلم العميل الطلب من المندوب",
-  ),
-];
 
 final List<Map> companyresFooter = [
   {

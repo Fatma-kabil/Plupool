@@ -9,17 +9,19 @@ class OrdrStatusRow extends StatelessWidget {
     super.key, required this.status,
    
   });
-  final OrderStatus status;
+  final String status;
 
   @override
   Widget build(BuildContext context) {
+     final OrderStatus orderStatus = parseOrderStatus(status);
     return Row(
       children: [
-        Icon(status.icon, color: status.color, size:SizeConfig.isWideScreen?SizeConfig.h(22): SizeConfig.w(20)),
+        Icon(orderStatus.icon, color: orderStatus.color, size:SizeConfig.isWideScreen?SizeConfig.h(22): SizeConfig.w(20)),
         SizedBox(width: SizeConfig.w(3)),
         Text(
-          status.text,
-          style: AppTextStyles.styleBold14(context).copyWith(color: status.color),
+           orderStatus.arName,
+      //    status.text,
+          style: AppTextStyles.styleBold14(context).copyWith(color: orderStatus.color),
         ),
       ],
     );

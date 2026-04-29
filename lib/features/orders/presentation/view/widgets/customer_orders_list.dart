@@ -10,19 +10,19 @@ class CustomerOrdersList extends StatelessWidget {
  final String selected;
   @override
   Widget build(BuildContext context) {
-    final filteredMessages = orderCards.where((order) {
-      if (selected == "ملغي") {
-        return order.satus == OrderStatus.cancelled;
-      } else if (selected == "تم التسليم") {
-        return order.satus == OrderStatus.delivered;
-      } else if (selected == "جارِ التوصيل") {
-        return order.satus == OrderStatus.onTheWay;
-      } else {
-        return order.satus == OrderStatus.preparing;
-      }
-    }).toList();
+  //  final filteredMessages = orderCards.where((order) {
+    //  if (selected == "ملغي") {
+      //  return order.satus == OrderStatus.cancelled;
+//      } else if (selected == "تم التسليم") {
+  //      return order.satus == OrderStatus.delivered;
+    //  } else if (selected == "جارِ التوصيل") {
+      //  return order.satus == OrderStatus.onTheWay;
+   //   } else {
+     //   return order.satus == OrderStatus.preparing;
+   //   }
+   // }).toList();
 
-    if (filteredMessages.isEmpty) {
+   // if (filteredMessages.isEmpty) {
       return SliverToBoxAdapter(
         child: Center(
           child: Text(
@@ -33,15 +33,15 @@ class CustomerOrdersList extends StatelessWidget {
       );
     }
 
-    return SliverList(
-      delegate: SliverChildBuilderDelegate((context, index) {
-        return CustomerOrderCard(
-          model: filteredMessages[index],
-          onTap: () {
-            context.push('/customerorderdetailsview', extra: filteredMessages[index]);
-          },
-        );
-      }, childCount: filteredMessages.length),
-    );
-  }
+   // return SliverList(
+ //     delegate: SliverChildBuilderDelegate((context, index) {
+     //   return CustomerOrderCard(
+     //     model: filteredMessages[index],
+     //     onTap: () {
+     //       context.push('/customerorderdetailsview', extra: filteredMessages[index]);
+     //     },
+     //   );
+    //  }, childCount: filteredMessages.length),
+  //  );
+ // }
 }

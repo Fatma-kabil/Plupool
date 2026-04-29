@@ -37,7 +37,7 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
               return ProductDetailsRow();
             },
           ),
-          TotalFeesSection(),
+      //    TotalFeesSection(),
         ],
       ),
     );

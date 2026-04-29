@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/note_and_time_section.dart';
-import 'package:plupool/features/orders/data/models/order_card_model.dart';
+
+import 'package:plupool/features/orders/domain/entities/order_entity.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_card_header.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_datails.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard({super.key, required this.model, this.onTap});
-  final OrderCardModel model;
+  final OrderEntity model;
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -32,9 +33,9 @@ class OrderCard extends StatelessWidget {
             ),
             child: Divider(color: AppColors.textFieldBorderColor, thickness: 1),
           ),
-          OrderDatails(onTap:onTap ,),
+          OrderDatails(onTap:onTap ,order: model,),
           SizedBox(height: SizeConfig.h(12)),
-          if (model.note != null) NoteAndTimeSection(text: model.note!),
+          if (model.adminNotes != null) NoteAndTimeSection(text: model.adminNotes!),
         ],
       ),
     );

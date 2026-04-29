@@ -1,6 +1,10 @@
 enum OrderStatus {
-  delivered,      // تم التسليم
-  cancelled,      // ملغي
-  onTheWay,       // جار التوصيل
-  preparing,      // قيد التحضير
+  PENDING,
+  CONFIRMED,
+  PROCESSING,
+  SHIPPED,
+  DELIVERED,
+  CANCELLED;
+
+ 
 }

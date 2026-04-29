@@ -26,12 +26,12 @@ class _StatusAndNoteSectionState extends State<StatusAndNoteSection> {
        StatusSelector<OrderStatus>(
          selected: widget.statu,
          items: const [
-           OrderStatus.delivered,
-           OrderStatus.onTheWay,
-            OrderStatus.preparing,
-            OrderStatus.cancelled,
+           OrderStatus.PENDING,
+           OrderStatus.PROCESSING,
+            OrderStatus.SHIPPED,
+            OrderStatus.CANCELLED,
          ],
-         displayText: (status) => status.text,
+         displayText: (status) => "",
          onChanged: (val) {
            setState(() => widget.statu = val);
          },
