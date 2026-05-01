@@ -24,7 +24,7 @@ final OrderCardModel model;
       ),
       child: Column(
         children: [
-          CustomerOrderCardHeader(model: model),
+      //    CustomerOrderCardHeader(model: model),
           Padding(
             padding: EdgeInsets.symmetric(
               vertical: SizeConfig.h(7),
@@ -34,7 +34,7 @@ final OrderCardModel model;
           ),
     //      OrderDatails(onTap:onTap ,),
           SizedBox(height: SizeConfig.h(12)),
-          if (model.note != null) NoteAndTimeSection(text: model.note!),
+       //   if (model.note != null) NoteAndTimeSection(text: model.note!),
         ],
       ),
     );

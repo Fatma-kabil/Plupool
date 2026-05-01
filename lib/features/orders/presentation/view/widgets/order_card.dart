@@ -33,9 +33,13 @@ class OrderCard extends StatelessWidget {
             ),
             child: Divider(color: AppColors.textFieldBorderColor, thickness: 1),
           ),
-          OrderDatails(onTap:onTap ,order: model,),
+          OrderDatails(onTap: onTap, order: model),
           SizedBox(height: SizeConfig.h(12)),
-          if (model.adminNotes != null) NoteAndTimeSection(text: model.adminNotes!),
+          if (model.adminNotes != null)
+            NoteAndTimeSection(
+              text: model.adminNotes!,
+              date: model.adminNotesUpdated!,
+            ),
         ],
       ),
     );

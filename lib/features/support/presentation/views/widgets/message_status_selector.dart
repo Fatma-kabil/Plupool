@@ -7,7 +7,7 @@ class StatusSelector<T> extends StatefulWidget {
   const StatusSelector({
     super.key,
     required this.items,
-     this.selected,
+    this.selected,
     required this.onChanged,
     required this.displayText,
     this.icon,
@@ -15,7 +15,7 @@ class StatusSelector<T> extends StatefulWidget {
   });
 
   final List<T> items;
-  final T ?selected;
+  final T? selected;
   final ValueChanged<T> onChanged;
   final String Function(T value) displayText;
   final IconData? icon;
@@ -39,10 +39,12 @@ class _StatusSelectorState<T> extends State<StatusSelector<T>> {
           GestureDetector(
             onTap: () => setState(() => isOpen = !isOpen),
             child: Container(
-              padding: widget.padding ?? EdgeInsets.symmetric(
-                horizontal: SizeConfig.w(12),
-                vertical: SizeConfig.h(10),
-              ),
+              padding:
+                  widget.padding ??
+                  EdgeInsets.symmetric(
+                    horizontal: SizeConfig.w(12),
+                    vertical: SizeConfig.h(10),
+                  ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.vertical(
                   top: const Radius.circular(12),
@@ -54,15 +56,17 @@ class _StatusSelectorState<T> extends State<StatusSelector<T>> {
                 children: [
                   Icon(
                     widget.icon ?? Icons.info_outline,
-                   size:SizeConfig.isWideScreen?SizeConfig.w(15): SizeConfig.w(18),
+                    size: SizeConfig.isWideScreen
+                        ? SizeConfig.w(15)
+                        : SizeConfig.w(18),
                     color: const Color(0xff777777),
                   ),
                   SizedBox(width: SizeConfig.w(6)),
                   Expanded(
                     child: Text(
- widget.selected == null
-      ? "اختار تصنيف"
-      : widget.displayText(widget.selected as T),
+                      widget.selected == null
+                          ? "اختار تصنيف"
+                          : widget.displayText(widget.selected as T),
                       style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: const Color(0xff777777)),

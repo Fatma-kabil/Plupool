@@ -36,7 +36,7 @@ class OrderCardHeader extends StatelessWidget {
         ),
         SizedBox(height: SizeConfig.h(6)),
         Text(
-          "عميل : ${model.userName}",
+          "${model.userRole} : ${model.userName}",
           textDirection: TextDirection.rtl,
           style: AppTextStyles.styleSemiBold16(
             context,

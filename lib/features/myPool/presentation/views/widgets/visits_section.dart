@@ -79,7 +79,7 @@ class VisitsSection extends StatelessWidget {
         AddNote(),
         SizedBox(height: SizeConfig.h(20)),
 
-        NoteAndTimeSection(),
+    //    NoteAndTimeSection(),
         SizedBox(height: SizeConfig.h(20)),
       ],
     );

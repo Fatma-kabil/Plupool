@@ -14,10 +14,10 @@ class CustomerOrderDetailsViewBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
          
-         OrderDetailsViewBodyMiddleSection(model:model),
+      //   OrderDetailsViewBodyMiddleSection(model:model),
           SizedBox(height: 25),
          
-           StatusAndNoteSection(statu: model.satus),
+         //  StatusAndNoteSection(statu: model.satus),
             SizedBox(height: 25),
            OrderDetailsViewFooter(),
          

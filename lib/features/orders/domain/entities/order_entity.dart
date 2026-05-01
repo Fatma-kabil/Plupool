@@ -20,6 +20,9 @@ class OrderEntity {
   final String userPhone;
   final String? userImage;
   final int itemsCount;
+  final bool userIsActive;
+  final DateTime? adminNotesUpdated;
+  final String userRole;
 
   OrderEntity({
     required this.id,
@@ -41,5 +44,8 @@ class OrderEntity {
     required this.userPhone,
     this.userImage,
     required this.itemsCount,
+    required this.userIsActive,
+    this.adminNotesUpdated,
+    required this.userRole, 
   });
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class NoteAndTimeSection extends StatelessWidget {
-  const NoteAndTimeSection({super.key,  this.text});
+  const NoteAndTimeSection({super.key, this.text, required this.date});
   final String? text;
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,14 @@ class NoteAndTimeSection extends StatelessWidget {
             children: [
               Text(
                 textDirection: TextDirection.rtl,
-                "الخميس:  8 أكتوبر 2025 ",
+                formatMonthDate(date),
                 style: AppTextStyles.styleRegular14(
                   context,
                 ).copyWith(color: const Color(0xff777777)),
               ),
               Text(
                 textDirection: TextDirection.rtl,
-                "6:26 PM",
+                formatTimeArabic2(date),
                 style: AppTextStyles.styleRegular14(
                   context,
                 ).copyWith(color: const Color(0xff777777)),
@@ -50,7 +52,7 @@ class NoteAndTimeSection extends StatelessWidget {
               SizedBox(width: SizeConfig.w(6)),
               Expanded(
                 child: Text(
-                text??  "ضغط الفلتر ضعيف، في تسريب بسيط، محتاج تنظيف كامل",
+                  text ?? "ضغط الفلتر ضعيف، في تسريب بسيط، محتاج تنظيف كامل",
                   style: AppTextStyles.styleRegular14(
                     context,
                   ).copyWith(color: Color(0xff777777)),

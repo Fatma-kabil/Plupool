@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
-import 'package:plupool/features/orders/data/models/order_card_model.dart';
+import 'package:plupool/features/orders/domain/entities/order_entity.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_datails_view_body.dart';
 
 class OrderDetailsView extends StatefulWidget {
   const OrderDetailsView({super.key, required this.model});
-final OrderCardModel model;
+final OrderEntity model;
   @override
   State<OrderDetailsView> createState() => _OrderDetailsViewState();
 }

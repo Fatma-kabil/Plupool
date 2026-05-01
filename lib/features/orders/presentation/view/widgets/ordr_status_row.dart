@@ -5,7 +5,7 @@ import 'package:plupool/features/orders/domain/entities/order_status.dart';
 import 'package:plupool/features/orders/domain/entities/order_status_extension.dart';
 
 class OrdrStatusRow extends StatelessWidget {
-  const OrdrStatusRow({
+  const OrdrStatusRow( {
     super.key, required this.status,
    
   });

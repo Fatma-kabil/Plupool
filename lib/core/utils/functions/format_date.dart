@@ -38,5 +38,5 @@ String formatTimeArabic2(DateTime time) {
 }
 
 String formatArabicDate2(DateTime date) {
-  return DateFormat('yyyy/M/d    -    h:mm a', 'ar').format(date);
+  return DateFormat('yyyy/M/d - h:mm a', 'ar').format(date);
 }

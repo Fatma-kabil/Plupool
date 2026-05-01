@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'order_status.dart';
 
 extension OrderStatusExtension on OrderStatus {
- 
-
   /// =========================
   /// 🇪🇬 Arabic name
   /// =========================
@@ -108,25 +106,25 @@ extension OrderStatusExtension on OrderStatus {
     }
   }
 }
- OrderStatus parseOrderStatus(String value) {
-    switch (value.toUpperCase()) {
-      case "PENDING":
-        return OrderStatus.PENDING;
-      case "CONFIRMED":
-        return OrderStatus.CONFIRMED;
-      case "PROCESSING":
-        return OrderStatus.PROCESSING;
-      case "SHIPPED":
-        return OrderStatus.SHIPPED;
-      case "DELIVERED":
-        return OrderStatus.DELIVERED;
-      case "CANCELLED":
-        return OrderStatus.CANCELLED;
-      default:
-        return OrderStatus.PENDING;
-    }
-  }
 
+OrderStatus parseOrderStatus(String value) {
+  switch (value.toUpperCase()) {
+    case "PENDING":
+      return OrderStatus.PENDING;
+    case "CONFIRMED":
+      return OrderStatus.CONFIRMED;
+    case "PROCESSING":
+      return OrderStatus.PROCESSING;
+    case "SHIPPED":
+      return OrderStatus.SHIPPED;
+    case "DELIVERED":
+      return OrderStatus.DELIVERED;
+    case "CANCELLED":
+      return OrderStatus.CANCELLED;
+    default:
+      return OrderStatus.PENDING;
+  }
+}
 
 String orderStatusToApi(String arabicStatus) {
   switch (arabicStatus) {
@@ -150,5 +148,24 @@ String orderStatusToApi(String arabicStatus) {
 
     default:
       return OrderStatus.PENDING.apiValue;
+  }
+}
+
+String arabicName(String arabicStatus) {
+  switch (arabicStatus) {
+    case "PENDING":
+      return "قيد الانتظار";
+    case "CONFIRMED":
+      return "تم التأكيد";
+    case "PROCESSING":
+      return "جاري التجهيز";
+    case "SHIPPED":
+      return "تم الشحن";
+    case "DELIVERED":
+      return "تم التسليم";
+    case "CANCELLED":
+      return "ملغي";
+    default:
+      return "قيد الانتظار";
   }
 }

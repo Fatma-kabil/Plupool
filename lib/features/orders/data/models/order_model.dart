@@ -22,6 +22,9 @@ class OrderModel extends OrderEntity {
     required super.userPhone,
     super.userImage,
     required super.itemsCount,
+    required super.userIsActive,
+    super.adminNotesUpdated,
+    required super.userRole,
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
@@ -49,6 +52,11 @@ class OrderModel extends OrderEntity {
       userPhone: json['user_phone'],
       userImage: json['user_image'],
       itemsCount: json['items_count'],
+      userIsActive: json['user_is_active'] ,
+      adminNotesUpdated: json['admin_notes_updated'] != null
+          ? DateTime.parse(json['admin_notes_updated_at'])
+          : null,
+      userRole: json['user_role'],
     );
   }
 }

@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/offer_card_footer.dart';
+import 'package:plupool/features/orders/domain/entities/order_item_entity.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/update_order_card.dart';
 
 class ProductDetailsRow extends StatelessWidget {
-  const ProductDetailsRow({super.key});
+  const ProductDetailsRow({super.key, required this.orderr});
+  final OrderItemEntity orderr;
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +20,40 @@ class ProductDetailsRow extends StatelessWidget {
         children: [
           /// Image
           ClipRRect(
-            borderRadius: BorderRadius.circular(10), // غيري الرقم براحتك
-            child: Image.asset(
-              'assets/images/mach_pro2.png',
+            borderRadius: BorderRadius.circular(8), // 🔥 البوردر
+            child: CachedNetworkImage(
+              imageUrl: orderr.image ?? "",
               height: SizeConfig.isWideScreen
                   ? SizeConfig.w(88)
                   : SizeConfig.h(88),
               width: SizeConfig.w(69),
               fit: BoxFit.cover,
+
+              /// 🔄 Loading
+              placeholder: (context, url) => Container(
+                height: SizeConfig.isWideScreen
+                    ? SizeConfig.w(88)
+                    : SizeConfig.h(88),
+                width: SizeConfig.w(69),
+                color: Colors.grey.shade300,
+              ),
+
+              /// ❌ Error
+              errorWidget: (context, url, error) => Container(
+                height: SizeConfig.isWideScreen
+                    ? SizeConfig.w(88)
+                    : SizeConfig.h(88),
+                width: SizeConfig.w(69),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(8), // نفس البوردر
+                ),
+                child: Icon(
+                  Icons.inventory_2_outlined, // 🔥 أنسب للأوردر
+                  size: SizeConfig.w(18),
+                  color: Colors.grey.shade600,
+                ),
+              ),
             ),
           ),
 
@@ -36,7 +65,7 @@ class ProductDetailsRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'مضخه مياه عالية الكفاءة',
+                  orderr.productName,
                   softWrap: true,
                   style: AppTextStyles.styleSemiBold14(
                     context,
@@ -44,7 +73,7 @@ class ProductDetailsRow extends StatelessWidget {
                 ),
                 SizedBox(height: SizeConfig.h(8)),
                 Text(
-                  '3000 EGP',
+                  '${orderr.unitPrice} EGP',
                   textDirection: TextDirection.ltr,
                   style: AppTextStyles.styleBold14(
                     context,
