@@ -63,3 +63,8 @@ class OrdersActionError extends OrdersState {
 
   OrdersActionError(this.message);
 }
+
+
+class OrdersDeleteItemSuccess extends OrdersState {}
+
+

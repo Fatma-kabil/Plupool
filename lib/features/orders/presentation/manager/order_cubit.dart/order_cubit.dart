@@ -11,7 +11,6 @@ import 'package:plupool/features/orders/domain/usecases/update_order_item_usecae
 import 'package:plupool/features/orders/domain/usecases/update_status_usecase.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order%20state.dart';
 
-
 class OrdersCubit extends Cubit<OrdersState> {
   final GetOrdersUseCase getOrdersUseCase;
   final GetOrderDetailsUseCase getDetailsUseCase;
@@ -66,13 +65,8 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       emit(OrdersSuccess(orders));
     } catch (e) {
-      emit(
-        OrdersError(
-          e is Failure ? e.message : "حدث خطأ أثناء جلب الطلبات",
-        ),
-       
-      );
-       print(e);
+      emit(OrdersError(e is Failure ? e.message : "حدث خطأ أثناء جلب الطلبات"));
+      print(e);
     }
   }
 
@@ -88,9 +82,7 @@ class OrdersCubit extends Cubit<OrdersState> {
       emit(OrderDetailsSuccess(order));
     } catch (e) {
       emit(
-        OrderDetailsError(
-          e is Failure ? e.message : "خطأ في جلب تفاصيل الطلب",
-        ),
+        OrderDetailsError(e is Failure ? e.message : "خطأ في جلب تفاصيل الطلب"),
       );
 
       /// رجّع الليست
@@ -113,11 +105,7 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       emit(OrdersDeleteSuccess());
     } catch (e) {
-      emit(
-        OrdersDeleteError(
-          e is Failure ? e.message : "فشل حذف الطلب",
-        ),
-      );
+      emit(OrdersDeleteError(e is Failure ? e.message : "فشل حذف الطلب"));
 
       emit(OrdersSuccess(_cachedOrders));
     }
@@ -136,11 +124,7 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       emit(OrdersActionSuccess());
     } catch (e) {
-      emit(
-        OrdersActionError(
-          e is Failure ? e.message : "فشل تغيير الحالة",
-        ),
-      );
+      emit(OrdersActionError(e is Failure ? e.message : "فشل تغيير الحالة"));
 
       emit(OrdersSuccess(_cachedOrders));
     }
@@ -167,11 +151,7 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       emit(OrdersActionSuccess());
     } catch (e) {
-      emit(
-        OrdersActionError(
-          e is Failure ? e.message : "فشل إضافة المنتج",
-        ),
-      );
+      emit(OrdersActionError(e is Failure ? e.message : "فشل إضافة المنتج"));
 
       emit(OrdersSuccess(_cachedOrders));
     }
@@ -200,12 +180,8 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       emit(OrdersActionSuccess());
     } catch (e) {
-      emit(
-        OrdersActionError(
-          e is Failure ? e.message : "فشل تعديل المنتج",
-        ),
-      );
-
+      emit(OrdersActionError(e is Failure ? e.message : "فشل تعديل المنتج"));
+      print(e);
       emit(OrdersSuccess(_cachedOrders));
     }
   }
@@ -213,29 +189,20 @@ class OrdersCubit extends Cubit<OrdersState> {
   /// ==============================
   /// ❌ DELETE ITEM
   /// ==============================
-  Future<void> deleteItem({
-    required int orderId,
-    required int itemId,
-  }) async {
+  Future<void> deleteItem({required int orderId, required int itemId}) async {
     try {
       emit(OrdersActionLoading());
 
-      await deleteItemUseCase(
-        orderId: orderId,
-        itemId: itemId,
-      );
+      await deleteItemUseCase(orderId: orderId, itemId: itemId);
 
-      await refresh();
-
-      emit(OrdersActionSuccess());
+      emit(OrdersDeleteItemSuccess());
+     await getOrderDetails(orderId); // عشان يجيب التفاصيل الجديدة بعد الحذف
+     // await refresh();
     } catch (e) {
-      emit(
-        OrdersActionError(
-          e is Failure ? e.message : "فشل حذف المنتج",
-        ),
-      );
+      emit(OrdersActionError(e is Failure ? e.message : "فشل حذف المنتج"));
 
       emit(OrdersSuccess(_cachedOrders));
+      print(e);
     }
   }
 
@@ -262,11 +229,7 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       emit(OrdersActionSuccess());
     } catch (e) {
-      emit(
-        OrdersActionError(
-          e is Failure ? e.message : "فشل استبدال المنتج",
-        ),
-      );
+      emit(OrdersActionError(e is Failure ? e.message : "فشل استبدال المنتج"));
 
       emit(OrdersSuccess(_cachedOrders));
     }
@@ -276,9 +239,6 @@ class OrdersCubit extends Cubit<OrdersState> {
   /// 🔄 REFRESH
   /// ==============================
   Future<void> refresh() async {
-    await getOrders(
-      status: _status,
-      search: _search,
-    );
+    await getOrders(status: _status, search: _search);
   }
 }
