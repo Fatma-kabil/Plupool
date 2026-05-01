@@ -50,6 +50,15 @@ class OrdersDeleteError extends OrdersState {
 
   OrdersDeleteError(this.message);
 }
+class OrderUpdateing extends OrdersState {}
+
+class OrderUpdateSuccess extends OrdersState {}
+
+class OrderUpdateError extends OrdersState {
+  final String message;
+
+  OrderUpdateError(this.message);
+}
 
 /// ==============================
 /// ACTIONS (add / update / replace / status)

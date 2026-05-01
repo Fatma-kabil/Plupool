@@ -7,7 +7,6 @@ import 'package:plupool/features/orders/domain/entities/order_entity.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order%20state.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/customer_order_card_header.dart';
-import 'package:plupool/features/orders/presentation/view/widgets/order_details_shimmer.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/product_details_row.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/total_fees_sectin.dart';
 
@@ -29,7 +28,6 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
             isSuccess: true,
           );
         }
-       
 
         if (state is OrdersActionError) {
           Navigator.pop(context);

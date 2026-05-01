@@ -41,6 +41,7 @@ import 'package:plupool/features/orders/domain/usecases/get_order_details_usecas
 import 'package:plupool/features/orders/domain/usecases/get_orders_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/replace_order_item_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/update_order_item_usecae.dart';
+import 'package:plupool/features/orders/domain/usecases/update_order_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/update_status_usecase.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
 import 'package:plupool/features/products/data/remote_data_sources/product_remote_data_source.dart';
@@ -642,6 +643,7 @@ sl.registerFactory(
     updateItemUseCase: sl<UpdateOrderItemUseCase>(),
     deleteItemUseCase: sl<DeleteOrderItemUseCase>(),
     replaceItemUseCase: sl<ReplaceOrderItemUseCase>(),
+    updateOrderUseCase: sl<UpdateOrderUseCase>(),
   ),
 );
 }

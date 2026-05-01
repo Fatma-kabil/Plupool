@@ -8,6 +8,7 @@ import 'package:plupool/features/orders/domain/usecases/get_order_details_usecas
 import 'package:plupool/features/orders/domain/usecases/get_orders_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/replace_order_item_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/update_order_item_usecae.dart';
+import 'package:plupool/features/orders/domain/usecases/update_order_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/update_status_usecase.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order%20state.dart';
 
@@ -20,6 +21,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   final UpdateOrderItemUseCase updateItemUseCase;
   final DeleteOrderItemUseCase deleteItemUseCase;
   final ReplaceOrderItemUseCase replaceItemUseCase;
+  final UpdateOrderUseCase updateOrderUseCase;
 
   OrdersCubit(
     this.getOrdersUseCase, {
@@ -30,6 +32,7 @@ class OrdersCubit extends Cubit<OrdersState> {
     required this.updateItemUseCase,
     required this.deleteItemUseCase,
     required this.replaceItemUseCase,
+    required this.updateOrderUseCase,
   }) : super(OrdersInitial());
 
   /// 🔥 CACHE
@@ -89,6 +92,26 @@ class OrdersCubit extends Cubit<OrdersState> {
       if (_cachedOrders.isNotEmpty) {
         emit(OrdersSuccess(_cachedOrders));
       }
+    }
+  }
+
+  Future<void> updateOrder({
+    required int id,
+    String? status,
+    String? notes,
+  }) async {
+    try {
+      emit(OrderUpdateing());
+
+      await updateOrderUseCase(id: id, status: status, notes: notes);
+
+      // 👇 refresh علشان البيانات تتحدث
+      await getOrderDetails(id);
+
+      emit(OrderUpdateSuccess());
+    } catch (e) {
+      emit(OrderUpdateError(e is Failure ? e.message : "فشل تعديل الطلب"));
+        await getOrderDetails(id);
     }
   }
 
@@ -196,8 +219,8 @@ class OrdersCubit extends Cubit<OrdersState> {
       await deleteItemUseCase(orderId: orderId, itemId: itemId);
 
       emit(OrdersDeleteItemSuccess());
-     await getOrderDetails(orderId); // عشان يجيب التفاصيل الجديدة بعد الحذف
-     // await refresh();
+      await getOrderDetails(orderId); // عشان يجيب التفاصيل الجديدة بعد الحذف
+      // await refresh();
     } catch (e) {
       emit(OrdersActionError(e is Failure ? e.message : "فشل حذف المنتج"));
 

@@ -25,7 +25,7 @@ class OrderDetailsViewFooter extends StatelessWidget {
           padding: 10,
         ),
         CustomOutlinedBtn(
-          text: 'حذف المنتج',
+          text: 'حذف الطلب',
           width: SizeConfig.w(145),
           onPressed:deleteFun,
           trailing: Icon(
