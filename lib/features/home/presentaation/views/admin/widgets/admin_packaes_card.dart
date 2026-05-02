@@ -3,19 +3,19 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/progress_btn.dart';
-import 'package:plupool/features/home/presentaation/views/tech/widgets/build_data_time_row.dart';
+import 'package:plupool/features/packages/domain/entities/package_entity.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/progress_section.dart';
 
 class AdminPackaesCard extends StatelessWidget {
   const AdminPackaesCard({super.key, required this.request});
-  final ServiceRequest request;
+
+  final PackageEntity request;
 
   @override
   Widget build(BuildContext context) {
-    final colors = RequestStatusColors.getColors(request.status);
+    final colors = RequestStatusColors.getColors(mapApiStatus(request.status!));
 
     return Container(
       width: double.infinity,
@@ -43,7 +43,7 @@ class AdminPackaesCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        " ${request.title} - ${request.userName}",
+                        " ${request.nameAr} - ${request.clientName}",
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.styleSemiBold16(
@@ -51,22 +51,39 @@ class AdminPackaesCard extends StatelessWidget {
                         ).copyWith(color: AppColors.ktextcolor),
                       ),
                       const SizedBox(height: 4),
-                      BuildDataTimeRow(request: request),
+                      Row(
+                        textDirection: TextDirection.rtl,
+                        children: [
+                          Icon(
+                            Icons.calendar_today,
+                            size: SizeConfig.w(12),
+                            color: Color(0xff999999),
+                          ),
+                          SizedBox(width: SizeConfig.w(6)),
+                          Text(
+                            textDirection: TextDirection.rtl,
+                            request.displayDate!,
+                            style: AppTextStyles.styleRegular13(
+                              context,
+                            ).copyWith(color: Color(0xff999999)),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-                buildStatusLabel(colors, context, request.status),
+                buildStatusLabel(colors, context, mapApiStatus(request.status!)),
               ],
             ),
 
             const SizedBox(height: 15),
             ProgressSection(
-              progress: request.progress??0,
-              status: request.status,
-              visits: request.visits!,
+              progress: request.completedVisits ,
+              status:mapApiStatus(request.status!),
+              visits: request.visitsCount,
             ),
-             const SizedBox(height: 12),
-            ProgressBtn(status: request.status,),
+            const SizedBox(height: 12),
+            ProgressBtn(status: mapApiStatus(request.status!)),
             // ---- بيانات المستخدم + زرار الموقع ----
           ],
         ),

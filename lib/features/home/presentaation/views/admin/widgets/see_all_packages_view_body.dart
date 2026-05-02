@@ -99,7 +99,8 @@ class _SeeAllPackagesViewBodyState extends State<SeeAllPackagesViewBody> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(bottom: SizeConfig.h(15)),
-                    child: AdminPackaesCard(request: filteredRequests[index]),
+                    child:SizedBox()
+                    //AdminPackaesCard(request: filteredRequests[index]),
                   );
                 },
               ),
