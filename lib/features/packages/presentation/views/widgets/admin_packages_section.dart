@@ -18,18 +18,18 @@ class _AdminPackagesSectionState extends State<AdminPackagesSection> {
 
   @override
   Widget build(BuildContext context) {
-    final filteredServices = packages.where((service) {
-      switch (selected) {
-        case "مكتمله":
-          return service.status == RequestStatus.completed;
-        case "مجدوله":
-          return service.status == RequestStatus.scheduled;
-        case 'قيد التنفيذ':
-          return service.status == RequestStatus.inProgress;
-        default:
-          return true;
-      }
-    }).toList();
+  //  final filteredServices = packages.where((service) {
+   //   switch (selected) {
+      //  case "مكتمله":
+       //   return service.status == RequestStatus.completed;
+      //  case "مجدوله":
+       //   return service.status == RequestStatus.scheduled;
+     //   case 'قيد التنفيذ':
+      //    return service.status == RequestStatus.inProgress;
+     //   default:
+     //     return true;
+  //    }
+ //   }).toList();
 
     return SingleChildScrollView(
       child: Column(
@@ -52,9 +52,9 @@ class _AdminPackagesSectionState extends State<AdminPackagesSection> {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: filteredServices.length,
+          //  itemCount: filteredServices.length,
             itemBuilder: (context, index) {
-              return AdminPackageCard(model: filteredServices[index],);
+           //   return AdminPackageCard(model: filteredServices[index],);
             },
           ),
         ],

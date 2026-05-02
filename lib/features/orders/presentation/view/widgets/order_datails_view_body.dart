@@ -4,7 +4,6 @@ import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/orders/domain/entities/order_entity.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order state.dart';
-import 'package:plupool/features/orders/presentation/view/widgets/order_details_shimmer.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_details_view_body_middle_section.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_details_view_footer.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/status_and_note_section.dart';

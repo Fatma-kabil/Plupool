@@ -11,11 +11,11 @@ class VisitsSection extends StatelessWidget {
   final PackageModel model;
   @override
   Widget build(BuildContext context) {
-    final progressRatio = model.totalVisits > 0
-        ? model.finshiedVisites / model.totalVisits
-        : 0.0;
-    final progressPercent = (progressRatio * 100).round();
-    final colors = RequestStatusColors.getColors(model.status);
+   // final progressRatio = model.totalVisits > 0
+     //   ? model.finshiedVisites / model.totalVisits
+    //    : 0.0;
+  //  final progressPercent = (progressRatio * 100).round();
+  //  final colors = RequestStatusColors.getColors(model.status);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -55,7 +55,8 @@ class VisitsSection extends StatelessWidget {
                       color: AppColors.ktextcolor,
                     ),
                     Text(
-                      "${model.finshiedVisites}/${model.totalVisits}",
+                      "",
+                   //   "${model.finshiedVisites}/${model.totalVisits}",
                       style: AppTextStyles.styleRegular13(
                         context,
                       ).copyWith(color: AppColors.ktextcolor),
@@ -74,8 +75,8 @@ class VisitsSection extends StatelessWidget {
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final barWidth =
-                      progressRatio * constraints.maxWidth; // العرض النسبي
+                //  final barWidth =
+                   //   progressRatio * constraints.maxWidth; // العرض النسبي
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(SizeConfig.w(10)),
                     child: Stack(
@@ -92,14 +93,14 @@ class VisitsSection extends StatelessWidget {
                         ),
 
                         // الجزء الملوّن يظهر فقط لو progress > 0
-                        if (model.finshiedVisites > 0)
+                     //   if (model.finshiedVisites > 0)
                           Align(
                             alignment: Alignment.centerRight,
                             child: Container(
                               height: SizeConfig.h(8),
-                              width: barWidth,
+                          //    width: barWidth,
                               decoration: BoxDecoration(
-                                color: colors['labelText'],
+                             //   color: colors['labelText'],
                                 borderRadius: BorderRadius.circular(
                                   SizeConfig.w(10),
                                 ),
@@ -108,7 +109,7 @@ class VisitsSection extends StatelessWidget {
                           ),
 
                         // الدايرة تظهر فقط لو progress == 0
-                        if (model.finshiedVisites == 0)
+                     //   if (model.finshiedVisites == 0)
                           Positioned(
                             right: 0, // دايرة في بداية الخط
                             top: 0,
@@ -117,7 +118,7 @@ class VisitsSection extends StatelessWidget {
                               width: SizeConfig.w(8),
                               height: SizeConfig.h(12),
                               decoration: BoxDecoration(
-                                color: colors['progbar'],
+                             //   color: colors['progbar'],
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -130,12 +131,12 @@ class VisitsSection extends StatelessWidget {
             ),
 
             SizedBox(width: SizeConfig.w(30)),
-            Text(
-              "$progressPercent%",
-              style: AppTextStyles.styleBold14(
-                context,
-              ).copyWith(color: colors['labelText']),
-            ),
+         //   Text(
+          //    "$progressPercent%",
+            //  style: AppTextStyles.styleBold14(
+              //  context,
+             // ).copyWith(color: colors['labelText']),
+           // ),
           ],
         ),
       ],

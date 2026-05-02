@@ -44,6 +44,14 @@ import 'package:plupool/features/orders/domain/usecases/update_order_item_usecae
 import 'package:plupool/features/orders/domain/usecases/update_order_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/update_status_usecase.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
+import 'package:plupool/features/packages/data/remote%20datasource/packages_remote_ds.dart';
+import 'package:plupool/features/packages/data/repos_impl/packages_repository_impl.dart';
+import 'package:plupool/features/packages/domain/repos/package_reposetriy.dart';
+import 'package:plupool/features/packages/domain/usecases/add_package_visit_usecase.dart';
+import 'package:plupool/features/packages/domain/usecases/get_package_details_usecase.dart';
+import 'package:plupool/features/packages/domain/usecases/get_packages_usecase.dart';
+import 'package:plupool/features/packages/domain/usecases/update_package_progress_usecase.dart';
+import 'package:plupool/features/packages/presentation/manager/package_cubit/package_cubit.dart';
 import 'package:plupool/features/products/data/remote_data_sources/product_remote_data_source.dart';
 import 'package:plupool/features/products/data/repos_impl/product_repo_impl.dart';
 import 'package:plupool/features/products/domain/repos/product_repo.dart';
@@ -645,6 +653,46 @@ sl.registerFactory(
     deleteItemUseCase: sl<DeleteOrderItemUseCase>(),
     replaceItemUseCase: sl<ReplaceOrderItemUseCase>(),
     updateOrderUseCase: sl<UpdateOrderUseCase>(),
+  ),
+);
+// =============================
+// 📦 PACKAGES FEATURE
+// =============================
+
+// Remote Data Source
+sl.registerLazySingleton<PackagesRemoteDataSource>(
+  () => PackagesRemoteDataSource(sl<ApiService>().dio),
+);
+
+// Repository
+sl.registerLazySingleton<PackagesRepository>(
+  () => PackagesRepositoryImpl(sl<PackagesRemoteDataSource>()),
+);
+
+// UseCases
+sl.registerLazySingleton(
+  () => GetPackagesUseCase(sl<PackagesRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => GetPackageDetailsUseCase(sl<PackagesRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => UpdatePackageProgressUseCase(sl<PackagesRepository>()),
+);
+
+sl.registerLazySingleton(
+  () => AddPackageVisitUseCase(sl<PackagesRepository>()),
+);
+
+// Cubit
+sl.registerFactory(
+  () => PackagesCubit(
+    sl<GetPackagesUseCase>(),
+    getPackageDetailsUseCase: sl<GetPackageDetailsUseCase>(),
+    updateProgressUseCase: sl<UpdatePackageProgressUseCase>(),
+    addVisitUseCase: sl<AddPackageVisitUseCase>(),
   ),
 );
 }

@@ -16,7 +16,7 @@ class AdminPackageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = RequestStatusColors.getColors(model.status);
+ //   final colors = RequestStatusColors.getColors(model.status);
 
     return GestureDetector(
       onTap: () {
@@ -26,8 +26,8 @@ class AdminPackageCard extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
         decoration: BoxDecoration(
-          color: colors['bg'],
-          border: Border.all(color: colors['border']),
+       //   color: colors['bg'],
+       //   border: Border.all(color: colors['border']),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
@@ -45,17 +45,18 @@ class AdminPackageCard extends StatelessWidget {
 
                 children: [
                   Text(
-                    model.packageType,
+                    "",
+              //      model.packageType,
                     style: AppTextStyles.styleBold16(
                       context,
                     ).copyWith(color: Color(0xff333333)),
                   ),
 
-                  buildStatusLabel(colors, context, model.status),
+              //    buildStatusLabel(colors, context, model.status),
                 ],
               ),
               //   SizedBox(height: 8),
-              DateRowPackage(date: model.finishedDate),
+           //   DateRowPackage(date: model.finishedDate),
 
               const SizedBox(height: 12),
 

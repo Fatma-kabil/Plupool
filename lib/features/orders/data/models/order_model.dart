@@ -53,9 +53,9 @@ class OrderModel extends OrderEntity {
       userImage: json['user_image'],
       itemsCount: json['items_count'],
       userIsActive: json['user_is_active'] ,
-      adminNotesUpdated: json['admin_notes_updated'] != null
-          ? DateTime.parse(json['admin_notes_updated_at'])
-          : null,
+     adminNotesUpdated: json['admin_notes_updated_at'] != null
+    ? DateTime.parse(json['admin_notes_updated_at'])
+    : null,
       userRole: json['user_role'],
     );
   }

@@ -9,7 +9,6 @@ import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.
 import 'package:plupool/features/maintenance/data/models/requested_maintenance_card_model.dart';
 import 'package:plupool/features/notifications/data/models/notifiction_type_model.dart';
 
-import 'package:plupool/features/packages/data/models/package_model.dart';
 import 'package:plupool/features/profile/data/models/faq_item.dart';
 import 'package:plupool/features/profile/data/models/project_model.dart';
 import 'package:plupool/features/projects/data/models/admin_project_model.dart';
@@ -854,29 +853,6 @@ final List<NotificationType> notificationTypes = [
   NotificationType(title: 'أخرى', icon: Icons.notifications),
 ];
 
-final List<PackageModel> packages = [
-  PackageModel(
-    packageType: "الباقة الشهريه",
-    totalVisits: 4,
-    finshiedVisites: 1,
-    status: RequestStatus.inProgress,
-    finishedDate: DateTime(2026, 3, 15),
-  ),
-  PackageModel(
-    packageType: "باقه 4 شهور",
-    totalVisits: 6,
-    finshiedVisites: 0,
-    status: RequestStatus.scheduled,
-    finishedDate: DateTime(2026, 3, 15),
-  ),
-  PackageModel(
-    packageType: "باقه 4 شهور",
-    totalVisits: 6,
-    finshiedVisites: 6,
-    status: RequestStatus.completed,
-    finishedDate: DateTime(2026, 3, 15),
-  ),
-];
 
 final List<AdminProjectModel> adminProjects = [
   AdminProjectModel(

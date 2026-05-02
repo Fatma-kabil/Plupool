@@ -27,6 +27,7 @@ class Endpoints {
   static const String ratings = '$baseUrl/admin/ratings';
   static const String requestedServices = '$baseUrl/admin/requested-services';
   static const String orders = '$baseUrl/admin/store/orders';
+  static const String packages = '$baseUrl/admin/packages';
   // static const String productsOffer = '$baseUrl/admin/products/{product_id}/offer';
   // ... روابط نقاط نهاية أخرى
 }
