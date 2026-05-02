@@ -569,6 +569,7 @@ sl.registerFactory(
   sl.registerLazySingleton(() => GetRequestDetailsUseCase(sl()));
   sl.registerLazySingleton(() => DeleteRequestUseCase(sl()));
   sl.registerLazySingleton(() => UpdateRequestStatusUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateOrderUseCase(sl()));
 
   sl.registerFactory(
     () => RequestsCubit(

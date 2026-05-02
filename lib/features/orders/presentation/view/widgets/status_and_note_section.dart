@@ -7,33 +7,35 @@ import 'package:plupool/features/orders/domain/entities/order_status.dart';
 import 'package:plupool/features/orders/domain/entities/order_status_extension.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
-// ignore: must_be_immutable
-class StatusAndNoteSection extends StatefulWidget {
-  StatusAndNoteSection({super.key, required this.statu});
-  String statu;
+class StatusAndNoteSection extends StatelessWidget {
+  const StatusAndNoteSection({
+    super.key,
+    required this.status,
+    required this.onStatusChanged,
+    required this.notesController,
+  });
 
-  @override
-  State<StatusAndNoteSection> createState() => _StatusAndNoteSectionState();
-}
+  final String status;
+  final Function(String) onStatusChanged;
+  final TextEditingController notesController;
 
-class _StatusAndNoteSectionState extends State<StatusAndNoteSection> {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        /// STATUS
         Text(
           "تعديل حالة الطلب",
           style: AppTextStyles.styleSemiBold16(
             context,
-          ).copyWith(color: Color(0xff333333)),
+          ).copyWith(color: const Color(0xff333333)),
         ),
+
         SizedBox(height: SizeConfig.h(8)),
+
         StatusSelector<OrderStatus>(
-          selected: OrderStatus.values.firstWhere(
-            (e) => e.arName == widget.statu, // 🔥 تحويل من العربي
-            orElse: () => OrderStatus.PENDING,
-          ),
+          selected: OrderStatusExtension.fromString(status),
 
           items: const [
             OrderStatus.PENDING,
@@ -47,29 +49,31 @@ class _StatusAndNoteSectionState extends State<StatusAndNoteSection> {
           displayText: (status) => status.arName,
 
           onChanged: (val) {
-            setState(() {
-              widget.statu = val.arName; // ✅ نخزن عربي
-            });
+            onStatusChanged(val.apiValue); // 🔥 يرجع إنجليزي
           },
         ),
+
         SizedBox(height: SizeConfig.h(20)),
+
+        /// NOTES
         Text(
           "ملاحظات داخلية",
           style: AppTextStyles.styleSemiBold16(
             context,
-          ).copyWith(color: Color(0xff333333)),
+          ).copyWith(color: const Color(0xff333333)),
         ),
+
         SizedBox(height: SizeConfig.h(8)),
+
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SizeConfig.w(10)),
             border: Border.all(color: AppColors.textFieldBorderColor),
           ),
           child: NoteTextField(
+            controller: notesController,
             size: SizeConfig.isWideScreen ? SizeConfig.w(10) : SizeConfig.w(20),
-            controller: TextEditingController(),
             text: "أكتب ملاحظات الفريق هنا.....",
-            onChanged: (_) {},
           ),
         ),
       ],

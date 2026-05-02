@@ -10,10 +10,38 @@ import 'package:plupool/features/orders/presentation/view/widgets/order_details_
 import 'package:plupool/features/orders/presentation/view/widgets/status_and_note_section.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_datails_view_header.dart';
 
-class OrderDatailsViewBody extends StatelessWidget {
+class OrderDatailsViewBody extends StatefulWidget {
   const OrderDatailsViewBody({super.key, required this.model});
 
   final OrderEntity model;
+
+  @override
+  State<OrderDatailsViewBody> createState() => _OrderDatailsViewBodyState();
+}
+
+class _OrderDatailsViewBodyState extends State<OrderDatailsViewBody> {
+  late String _status;
+  final TextEditingController _notesController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _status = widget.model.status;
+  }
+
+  /// 🔥 الحل الأساسي للمشكلة
+  @override
+  void didUpdateWidget(covariant OrderDatailsViewBody oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    _status = widget.model.status;
+  }
+
+  @override
+  void dispose() {
+    _notesController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,63 +50,77 @@ class OrderDatailsViewBody extends StatelessWidget {
         if (state is OrdersDeleteSuccess) {
           showCustomSnackBar(
             context: context,
-            message: 'تم حذف المنتج بنجاح',
+            message: 'تم حذف الطلب بنجاح',
             isSuccess: true,
           );
-          Navigator.pop(context);
+          Future.delayed(const Duration(milliseconds: 300), () {
+            Navigator.pop(context);
+          });
         }
-
         if (state is OrderUpdateSuccess) {
           showCustomSnackBar(
             context: context,
             message: 'تم تحديث الطلب بنجاح',
             isSuccess: true,
           );
+
+          Future.delayed(const Duration(milliseconds: 300), () {
+            Navigator.pop(context);
+          });
         }
 
         if (state is OrdersDeleteError || state is OrderUpdateError) {
           final msg = (state as dynamic).message;
-          showCustomSnackBar(
-            context: context,
-            message: msg,
-            isSuccess: false,
-          );
+          showCustomSnackBar(context: context, message: msg, isSuccess: false);
         }
       },
 
       builder: (context, state) {
-        /// ✅ SHIMMER
-        if (state is OrderDetailsLoading) {
-          return const OrderDetailsShimmer();
-        }
+        /// 🔥 SHIMMER
 
-        
+        final data = state is OrderDetailsSuccess ? state.order : widget.model;
 
         return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              /// HEADER
               MessageDatailsViewHeader(
-                name: model.userName,
-                phone: model.userPhone,
-                status: model.userIsActive,
-                imageUrl: model.userImage,
-                location: model.deliveryAddress,
+                name: data.userName,
+                phone: data.userPhone,
+                status: data.userIsActive,
+                imageUrl: data.userImage,
+                location: data.deliveryAddress,
               ),
 
               const SizedBox(height: 25),
 
-              OrderDetailsViewBodyMiddleSection(model: model),
+              /// ITEMS
+              OrderDetailsViewBodyMiddleSection(model: data),
 
               const SizedBox(height: 25),
 
-              StatusAndNoteSection(statu: model.status),
+              /// STATUS + NOTES
+              StatusAndNoteSection(
+                status: _status,
+                notesController: _notesController,
+                onStatusChanged: (val) {
+                  setState(() {
+                    _status = val;
+                  });
+                },
+              ),
 
               const SizedBox(height: 25),
 
+              /// FOOTER
               OrderDetailsViewFooter(
                 editfun: () {
-                   context.read<OrdersCubit>().updateOrder(id:model.id ,notes: ,status: );
+                  context.read<OrdersCubit>().updateOrder(
+                    id: data.id,
+                    status: _status,
+                    notes: _notesController.text,
+                  );
                 },
                 deleteFun: () {
                   context.read<OrdersCubit>().deleteOrder(data.id);

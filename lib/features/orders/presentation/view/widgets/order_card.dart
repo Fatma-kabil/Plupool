@@ -35,7 +35,8 @@ class OrderCard extends StatelessWidget {
           ),
           OrderDatails(onTap: onTap, order: model),
           SizedBox(height: SizeConfig.h(12)),
-          if (model.adminNotes != null)
+          if ((model.adminNotes ?? '').isNotEmpty &&
+              model.adminNotesUpdated != null)
             NoteAndTimeSection(
               text: model.adminNotes!,
               date: model.adminNotesUpdated!,

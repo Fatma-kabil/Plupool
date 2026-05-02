@@ -106,12 +106,13 @@ class OrdersCubit extends Cubit<OrdersState> {
       await updateOrderUseCase(id: id, status: status, notes: notes);
 
       // 👇 refresh علشان البيانات تتحدث
-      await getOrderDetails(id);
 
       emit(OrderUpdateSuccess());
+      await refresh();
     } catch (e) {
       emit(OrderUpdateError(e is Failure ? e.message : "فشل تعديل الطلب"));
-        await getOrderDetails(id);
+      await refresh();
+      print(e);
     }
   }
 
@@ -124,9 +125,8 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       await deleteOrderUseCase(id);
 
-      await refresh();
-
       emit(OrdersDeleteSuccess());
+      await refresh();
     } catch (e) {
       emit(OrdersDeleteError(e is Failure ? e.message : "فشل حذف الطلب"));
 
