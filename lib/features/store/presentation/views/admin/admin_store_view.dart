@@ -17,34 +17,43 @@ class AdminStoreView extends StatefulWidget {
 
 class _AdminStoreViewState extends State<AdminStoreView> {
   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      sl<StoreStatisticsCubit>().getStoreStatistics();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: SafeArea(
-        child: Scaffold(
-          key: scaffoldkey,
-          appBar: CustomAppBar(
-            isSearch: false,
-            onPressed: () {
-              scaffoldkey.currentState!.openDrawer();
-            },
-          ),
-          drawer: AppDrawer(),
-          body: MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (_) => sl<StoreStatisticsCubit>()..getStoreStatistics(),
-              ),
-              BlocProvider(create: (_) => sl<ProductOfferCubit>()),
-            ],
-            child: Padding(
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => sl<StoreStatisticsCubit>()),
+        BlocProvider(create: (_) => sl<ProductOfferCubit>()),
+      ],
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: SafeArea(
+          child: Scaffold(
+            key: scaffoldkey,
+            appBar: CustomAppBar(
+              isSearch: false,
+              onPressed: () {
+                scaffoldkey.currentState!.openDrawer();
+              },
+            ),
+            drawer: const AppDrawer(),
+            body: Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: SizeConfig.w(13),
                 vertical: SizeConfig.h(15),
               ),
-              child: AdminStoreViewBody(),
+              child: const AdminStoreViewBody(),
             ),
           ),
         ),

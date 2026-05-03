@@ -15,7 +15,8 @@ class AdminPackaesCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = RequestStatusColors.getColors(mapApiStatus(request.status!));
+   final status = request.status ?? "scheduled"; // default safe
+final colors = RequestStatusColors.getColors(mapApiStatus(status));
 
     return Container(
       width: double.infinity,
@@ -43,7 +44,7 @@ class AdminPackaesCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        " ${request.nameAr} - ${request.clientName}",
+                      "${request.nameAr ?? ''} - ${request.clientName ?? 'بدون اسم'}",
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.styleSemiBold16(
@@ -62,7 +63,7 @@ class AdminPackaesCard extends StatelessWidget {
                           SizedBox(width: SizeConfig.w(6)),
                           Text(
                             textDirection: TextDirection.rtl,
-                            request.displayDate!,
+                            request.displayDate ?? "غير محدد",
                             style: AppTextStyles.styleRegular13(
                               context,
                             ).copyWith(color: Color(0xff999999)),

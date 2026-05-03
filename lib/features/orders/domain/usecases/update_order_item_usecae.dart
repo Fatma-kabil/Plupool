@@ -10,12 +10,14 @@ class UpdateOrderItemUseCase {
     required int itemId,
     int? quantity,
     double? price,
+   
   }) {
     return repo.updateItem(
       orderId: orderId,
       itemId: itemId,
       quantity: quantity,
       price: price,
+     
     );
   }
 }

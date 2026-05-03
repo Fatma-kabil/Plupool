@@ -5,7 +5,18 @@ class ApiService {
   final Dio dio;
   String? token; // 🔹 لتخزين التوكن
 
-  ApiService(this.dio);
+  ApiService(this.dio){
+      dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestBody: true,
+        responseBody: true,
+        requestHeader: true,
+        responseHeader: false,
+        error: true,
+      ),
+    );
+  }
 
   /// تحديث التوكن بعد login/logout
   void updateToken(String? newToken) {
@@ -61,12 +72,13 @@ class ApiService {
   Future<Response> put(
     String endpoint, {
     dynamic data,
-    
+     Map<String, dynamic>? queryParams,
     Options? options,
   }) async {
     try {
       final response = await dio.put(
         endpoint,
+        queryParameters: queryParams,
         data: data,
         options:
             options ??
