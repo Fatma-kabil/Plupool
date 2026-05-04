@@ -15,7 +15,7 @@ class ProjectsRemoteDataSource {
     String? status,
   }) async {
     final response = await api.get(
-      Endpoints.projects,
+     " ${Endpoints.projects}/our-projects",
       queryParams: {
         'skip': skip,
         'limit': limit,

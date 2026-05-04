@@ -64,10 +64,15 @@ import 'package:plupool/features/profile/data/remote_data_source.dart/user_remot
 import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
 import 'package:plupool/features/profile/domain/repos/user_repo.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
+import 'package:plupool/features/projects/data/date_sources/company_project_remotee_data_source.dart';
 import 'package:plupool/features/projects/data/date_sources/project_remot_date_source.dart';
+import 'package:plupool/features/projects/data/repo_impl/company_project_impl.dart';
 import 'package:plupool/features/projects/data/repo_impl/project_repo_impl.dart';
+import 'package:plupool/features/projects/domain/repos/company_project_repo.dart';
 import 'package:plupool/features/projects/domain/repos/project_repo.dart';
+import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_our_projects_usecase.dart';
+import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_cubit.dart';
 import 'package:plupool/features/rating/data/data_sources/ratings_remote_data_source.dart';
 import 'package:plupool/features/rating/data/repos_impl/ratings_repo_impl.dart';
@@ -719,6 +724,28 @@ sl.registerLazySingleton(
 sl.registerFactory(
   () => ProjectsCubit(
     sl<GetOurProjectsUseCase>(),
+  ),
+);
+
+sl.registerLazySingleton<CompanyProjectsRemoteDataSourceImpl>(
+  () => CompanyProjectsRemoteDataSourceImpl(sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<CompanyProjectsRepository>(
+  () => CompanyProjectsRepositoryImpl(sl<CompanyProjectsRemoteDataSourceImpl>()),
+);
+
+// UseCases
+sl.registerLazySingleton(
+  () => GetCompanyProjectsUseCase(sl<CompanyProjectsRepository>()),
+);
+
+
+// Cubit
+sl.registerFactory(
+  () => CompanyProjectCubit(
+    sl<GetCompanyProjectsUseCase>(),
   ),
 );
 }
