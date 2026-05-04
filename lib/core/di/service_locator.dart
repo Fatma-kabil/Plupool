@@ -64,6 +64,11 @@ import 'package:plupool/features/profile/data/remote_data_source.dart/user_remot
 import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
 import 'package:plupool/features/profile/domain/repos/user_repo.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
+import 'package:plupool/features/projects/data/date_sources/project_remot_date_source.dart';
+import 'package:plupool/features/projects/data/repo_impl/project_repo_impl.dart';
+import 'package:plupool/features/projects/domain/repos/project_repo.dart';
+import 'package:plupool/features/projects/domain/usecases/get_our_projects_usecase.dart';
+import 'package:plupool/features/projects/presentation/manager/project_cubit/project_cubit.dart';
 import 'package:plupool/features/rating/data/data_sources/ratings_remote_data_source.dart';
 import 'package:plupool/features/rating/data/repos_impl/ratings_repo_impl.dart';
 import 'package:plupool/features/rating/domain/repos/ratings_repo.dart';
@@ -695,5 +700,28 @@ sl.registerFactory(
     addVisitUseCase: sl<AddPackageVisitUseCase>(),
   ),
 );
+sl.registerLazySingleton<ProjectsRemoteDataSource>(
+  () => ProjectsRemoteDataSource(sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<ProjectsRepository>(
+  () => ProjectsRepositoryImpl(sl<ProjectsRemoteDataSource>()),
+);
+
+// UseCases
+sl.registerLazySingleton(
+  () => GetOurProjectsUseCase(sl<ProjectsRepository>()),
+);
+
+
+// Cubit
+sl.registerFactory(
+  () => ProjectsCubit(
+    sl<GetOurProjectsUseCase>(),
+  ),
+);
 }
+   
+
 

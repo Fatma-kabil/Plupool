@@ -1,14 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/project_card_model.dart';
+import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/edit_our_project_card.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/our_project_card_footer.dart';
 
 class OurProjectCard extends StatelessWidget {
-  const OurProjectCard({super.key, required this.model});
-  final ProjectCardModel model;
+  const OurProjectCard({super.key, required this.project});
+  final OurProjectEntity project;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,13 +27,28 @@ class OurProjectCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              model.imageUrl,
+            child: CachedNetworkImage(
+              imageUrl: project.image,
               height: SizeConfig.isWideScreen
                   ? SizeConfig.w(115)
                   : SizeConfig.h(140),
               width: SizeConfig.w(120),
               fit: BoxFit.cover,
+
+              /// Loading
+              placeholder: (context, url) => Container(
+                height: SizeConfig.h(140),
+                width: SizeConfig.w(120),
+                alignment: Alignment.center,
+                child: const CircularProgressIndicator(strokeWidth: 2),
+              ),
+
+              /// Error
+              errorWidget: (context, url, error) => Container(
+                color: Colors.grey[300],
+                alignment: Alignment.center,
+                child: const Icon(Icons.broken_image),
+              ),
             ),
           ),
           SizedBox(width: SizeConfig.w(12)),
@@ -50,7 +66,7 @@ class OurProjectCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        model.title,
+                        project.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.styleSemiBold16(
@@ -60,7 +76,7 @@ class OurProjectCard extends StatelessWidget {
 
                       SizedBox(height: SizeConfig.h(6)),
                       Text(
-                        model.description,
+                        project.description,
                         softWrap: true,
                         maxLines: 5,
                         overflow: TextOverflow.ellipsis,
@@ -72,10 +88,10 @@ class OurProjectCard extends StatelessWidget {
                   ),
                   OurProjectCardFooter(
                     onEditPressed: () {
-                       showDialog(
+                      showDialog(
                         context: context,
                         builder: (context) {
-                          return EditOurProjectCard(model: model,);
+                          return EditOurProjectCard(project: project);
                         },
                       );
                     },

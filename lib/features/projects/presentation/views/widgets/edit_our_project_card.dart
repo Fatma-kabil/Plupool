@@ -10,10 +10,11 @@ import 'package:plupool/features/auth/presentation/views/widgets/profile_image_p
 import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/description_input.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
+import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 
 class EditOurProjectCard extends StatefulWidget {
-  const EditOurProjectCard({super.key, required this.model});
-  final ProjectCardModel model;
+  const EditOurProjectCard({super.key, required this.project});
+  final OurProjectEntity project;
 
   @override
   State<EditOurProjectCard> createState() => _EditOurProjectCardState();
@@ -31,9 +32,9 @@ class _EditOurProjectCardState extends State<EditOurProjectCard> {
     super.initState();
 
     // تهيئة الكونترولرز بالقيم من الـ offer
-    titleController = TextEditingController(text: widget.model.title);
-    desController = TextEditingController(text: widget.model.description);
-    imageController = TextEditingController(text: widget.model.imageUrl);
+    titleController = TextEditingController(text: widget.project.title);
+    desController = TextEditingController(text: widget.project.description);
+    imageController = TextEditingController(text: widget.project.image);
 
     // لو عندك صورة، ممكن تحطها هنا _profileImage = ...
     // لو عندك قيمة acceptedTerms من العرض، هتعيطها برضه هنا
