@@ -13,13 +13,14 @@ class OrderItemModel extends OrderItemEntity {
 
   factory OrderItemModel.fromJson(Map<String, dynamic> json) {
     return OrderItemModel(
-      id: json['id'],
-      productId: json['product_id'],
       productName: json['product_name_ar'] ?? '',
       image: json['product_image_url'],
-      unitPrice: (json['unit_price'] as num).toDouble(),
-      quantity: json['quantity'],
-      totalPrice: (json['total_price'] as num).toDouble(),
+
+      id: json['id'] ?? 0,
+      productId: json['product_id'] ?? 0,
+      quantity: json['quantity'] ?? 0,
+      unitPrice: (json['unit_price'] ?? 0).toDouble(),
+      totalPrice: (json['total_price'] ?? 0).toDouble(),
     );
   }
 

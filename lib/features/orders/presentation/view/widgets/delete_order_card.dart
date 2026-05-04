@@ -63,6 +63,7 @@ class DeleteOrderCard extends StatelessWidget {
                         ),
                       ),
                       onPressed: isLoading ? null : onPressed,
+
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: SizeConfig.isWideScreen

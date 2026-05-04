@@ -83,6 +83,7 @@ class OrdersCubit extends Cubit<OrdersState> {
       final order = await getDetailsUseCase(id);
 
       emit(OrderDetailsSuccess(order));
+      //  await refresh();
     } catch (e) {
       emit(
         OrderDetailsError(e is Failure ? e.message : "خطأ في جلب تفاصيل الطلب"),
@@ -143,7 +144,7 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       await updateStatusUseCase(id, status);
 
-      await refresh();
+      //  await refresh();
 
       emit(OrdersActionSuccess());
     } catch (e) {
@@ -199,9 +200,11 @@ class OrdersCubit extends Cubit<OrdersState> {
         price: price,
       );
 
-      await refresh();
-
-      emit(OrdersActionSuccess());
+      final order = await getDetailsUseCase(orderId);
+      print("ITEMS COUNT FROM API: ${order.items.length}");
+      print(order.items.map((e) => e.id));
+    
+      await getOrderDetails(orderId); // 👈 ده الوحيد
     } catch (e) {
       emit(OrdersActionError(e is Failure ? e.message : "فشل تعديل المنتج"));
       print(e);
@@ -218,14 +221,12 @@ class OrdersCubit extends Cubit<OrdersState> {
 
       await deleteItemUseCase(orderId: orderId, itemId: itemId);
 
-      emit(OrdersDeleteItemSuccess());
-      await getOrderDetails(orderId); // عشان يجيب التفاصيل الجديدة بعد الحذف
-      // await refresh();
+      final order = await getDetailsUseCase(orderId);
+      print("ITEMS COUNT FROM API: ${order.items.length}");
+      print(order.items.map((e) => e.id));
+      emit(OrderDetailsSuccess(order)); // 👈 ده الوحيد
     } catch (e) {
       emit(OrdersActionError(e is Failure ? e.message : "فشل حذف المنتج"));
-
-      emit(OrdersSuccess(_cachedOrders));
-      print(e);
     }
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 import 'package:plupool/features/orders/domain/entities/order_entity.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order%20state.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
@@ -19,18 +20,18 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<OrdersCubit, OrdersState>(
       listener: (context, state) {
-        if (state is OrdersDeleteItemSuccess) {
-          Navigator.pop(context); // يقفل الديالوج بس
+        if (state is OrderDetailsSuccess) {
+          // يقفل الديالوج بس
 
           showCustomSnackBar(
             context: context,
-            message: "تم حذف المنتج بنجاح 🗑️",
+            message: "تم  تحديث منتجات الطلبات بنجاح",
             isSuccess: true,
           );
         }
 
         if (state is OrdersActionError) {
-          Navigator.pop(context);
+          //  Navigator.pop(context);
 
           showCustomSnackBar(context: context, message: state.message);
         }
@@ -52,7 +53,7 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
               child: Divider(),
             ),
-
+            AddOfferBtn(text: "اضافة منتج جديد"),
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),

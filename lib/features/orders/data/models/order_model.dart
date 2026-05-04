@@ -29,34 +29,33 @@ class OrderModel extends OrderEntity {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
-      id: json['id'],
-      orderNumber: json['order_number'],
-      totalAmount: (json['total_amount']).toDouble(),
-      deliveryFee: (json['delivery_fee']).toDouble(),
-      grandTotal: (json['grand_total']).toDouble(),
-      deliveryAddress: json['delivery_address'],
-      deliveryPhone: json['delivery_phone'],
-      paymentMethod: json['payment_method'],
-      paymentStatus: json['payment_status'],
-      status: json['status'],
+      id: json['id'] ?? 0,
+      orderNumber: json['order_number'] ?? '',
+      totalAmount: (json['total_amount'] ?? 0).toDouble(),
+      deliveryFee: (json['delivery_fee'] ?? 0).toDouble(),
+      grandTotal: (json['grand_total'] ?? 0).toDouble(),
+      deliveryAddress: json['delivery_address'] ?? '',
+      deliveryPhone: json['delivery_phone'] ?? '',
+      paymentMethod: json['payment_method'] ?? '',
+      paymentStatus: json['payment_status'] ?? '',
+      status: json['status'] ?? '',
       adminNotes: json['admin_notes'],
       createdAt: DateTime.parse(json['created_at']),
       deliveredAt: json['delivered_at'] != null
           ? DateTime.parse(json['delivered_at'])
           : null,
-      items: (json['order_items'] as List)
+
+      items: (json['order_items'] as List? ?? [])
           .map((e) => OrderItemModel.fromJson(e))
           .toList(),
-      userId: json['user_id'],
-      userName: json['user_name'],
-      userPhone: json['user_phone'],
+
+      userId: json['user_id'] ?? 0,
+      userName: json['user_name'] ?? '',
+      userPhone: json['user_phone'] ?? '',
       userImage: json['user_image'],
-      itemsCount: json['items_count'],
-      userIsActive: json['user_is_active'] ,
-     adminNotesUpdated: json['admin_notes_updated_at'] != null
-    ? DateTime.parse(json['admin_notes_updated_at'])
-    : null,
-      userRole: json['user_role'],
+      itemsCount: json['items_count'] ?? 0,
+      userIsActive: json['user_is_active'] ?? false,
+      userRole: json['user_role'] ?? '',
     );
   }
 }

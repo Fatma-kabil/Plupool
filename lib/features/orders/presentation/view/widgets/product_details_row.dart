@@ -9,6 +9,7 @@ import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/or
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/update_order_card.dart';
+
 class ProductDetailsRow extends StatelessWidget {
   const ProductDetailsRow({
     super.key,
@@ -70,15 +71,17 @@ class ProductDetailsRow extends StatelessWidget {
               children: [
                 Text(
                   orderr.productName,
-                  style: AppTextStyles.styleSemiBold14(context)
-                      .copyWith(color: const Color(0xff7B7B7B)),
+                  style: AppTextStyles.styleSemiBold14(
+                    context,
+                  ).copyWith(color: const Color(0xff7B7B7B)),
                 ),
                 SizedBox(height: SizeConfig.h(8)),
                 Text(
                   '${orderr.unitPrice} EGP',
                   textDirection: TextDirection.ltr,
-                  style: AppTextStyles.styleBold14(context)
-                      .copyWith(color: const Color(0xff333333)),
+                  style: AppTextStyles.styleBold14(
+                    context,
+                  ).copyWith(color: const Color(0xff333333)),
                 ),
               ],
             ),
@@ -102,9 +105,10 @@ class ProductDetailsRow extends StatelessWidget {
                           ? null
                           : () {
                               context.read<OrdersCubit>().deleteItem(
-                                    orderId: orderId,
-                                    itemId: orderr.id,
-                                  );
+                                orderId: orderId,
+                                itemId: orderr.id,
+                              );
+                              Navigator.pop(context);
                             },
                     );
                   },
@@ -113,7 +117,12 @@ class ProductDetailsRow extends StatelessWidget {
             ),
             onPressed: () => showDialog(
               context: context,
-              builder: (_) => UpdateOrderCard(),
+              builder: (_) => UpdateOrderCard(
+                orderId: orderId,
+                itemId: orderr.id,
+                qty: orderr.quantity,
+                productName: orderr.productName,
+              ),
             ),
           ),
         ],

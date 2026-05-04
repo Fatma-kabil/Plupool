@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class OurProjectModel {
   final int id;
   final String nameAr;
@@ -9,21 +11,21 @@ class OurProjectModel {
   final String startDate;
   final String expectedEndDate;
   final String? actualEndDate;
-  final int constructionDays;
+  final int? constructionDays;
   final int poolCount;
   final int progressPercentage;
   final String mainImage;
   final String clientName;
   final String clientPhone;
-  final int estimatedCost;
-  final int? actualCost;
+  final double? estimatedCost;
+  final double? actualCost;
   final String currency;
   final int priority;
   final String createdAt;
   final String updatedAt;
   final String descriptionAr;
   final String? descriptionEn;
-  final String images; // raw json string
+  final List<String> images;
 
   OurProjectModel({
     required this.id,
@@ -36,13 +38,13 @@ class OurProjectModel {
     required this.startDate,
     required this.expectedEndDate,
     this.actualEndDate,
-    required this.constructionDays,
+    this.constructionDays,
     required this.poolCount,
     required this.progressPercentage,
     required this.mainImage,
     required this.clientName,
     required this.clientPhone,
-    required this.estimatedCost,
+    this.estimatedCost,
     this.actualCost,
     required this.currency,
     required this.priority,
@@ -55,31 +57,49 @@ class OurProjectModel {
 
   factory OurProjectModel.fromJson(Map<String, dynamic> json) {
     return OurProjectModel(
-      id: json['id'],
+      id: (json['id'] as num).toInt(),
+
       nameAr: json['name_ar'] ?? '',
       nameEn: json['name_en'],
+
       projectType: json['project_type'] ?? '',
       status: json['status'] ?? '',
+
       locationAr: json['location_ar'] ?? '',
       locationEn: json['location_en'],
+
       startDate: json['start_date'] ?? '',
       expectedEndDate: json['expected_end_date'] ?? '',
       actualEndDate: json['actual_end_date'],
-      constructionDays: json['construction_days'] ?? 0,
-      poolCount: json['pool_count'] ?? 0,
-      progressPercentage: json['progress_percentage'] ?? 0,
+
+      constructionDays: (json['construction_days'] as num?)?.toInt(),
+
+      poolCount: (json['pool_count'] as num?)?.toInt() ?? 0,
+
+      progressPercentage: (json['progress_percentage'] as num?)?.toInt() ?? 0,
+
       mainImage: json['main_image'] ?? '',
+
       clientName: json['client_name'] ?? '',
       clientPhone: json['client_phone'] ?? '',
-      estimatedCost: json['estimated_cost'] ?? 0,
-      actualCost: json['actual_cost'],
+
+      estimatedCost: (json['estimated_cost'] as num?)?.toDouble(),
+
+      actualCost: (json['actual_cost'] as num?)?.toDouble(),
+
       currency: json['currency'] ?? '',
-      priority: json['priority'] ?? 0,
+
+      priority: (json['priority'] as num?)?.toInt() ?? 0,
+
       createdAt: json['created_at'] ?? '',
       updatedAt: json['updated_at'] ?? '',
-      descriptionAr: json['description_ar'] ?? '',
+
+      descriptionAr: json['description_ar'],
       descriptionEn: json['description_en'],
-      images: json['images'] ?? '[]',
+
+      images: json['images'] != null
+          ? List<String>.from(jsonDecode(json['images']))
+          : [],
     );
   }
 }

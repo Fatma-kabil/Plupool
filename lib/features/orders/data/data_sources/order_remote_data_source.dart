@@ -100,6 +100,10 @@ class OrdersRemoteDataSource  {
   }) async {
     await api.put(
       '${Endpoints.orders}/$orderId/items/$itemId',
+      queryParams: {
+        if (quantity != null) "quantity": quantity,
+        if (unitPrice != null) "unit_price": unitPrice,
+      } ,
       data: {
         if (quantity != null) "quantity": quantity,
         if (unitPrice != null) "unit_price": unitPrice,
