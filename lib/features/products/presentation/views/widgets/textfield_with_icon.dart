@@ -10,7 +10,9 @@ class TextFieldWithIcon extends StatelessWidget {
   final TextInputType keyboardType;
   final IconData? icon;
   final bool tailing;
-final String? Function(String?)? validator; // اضيفي كده للـ constructor
+  final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
+  final void Function()? onTap; // اضيفي كده للـ constructor
   const TextFieldWithIcon({
     super.key,
     required this.controller,
@@ -18,7 +20,10 @@ final String? Function(String?)? validator; // اضيفي كده للـ construc
     this.maxLines = 1,
     this.keyboardType = TextInputType.text,
     this.icon,
-    this.tailing = false, this.validator,
+    this.tailing = false,
+    this.validator,
+    this.onChanged,
+    this.onTap,
   });
 
   @override
@@ -26,6 +31,8 @@ final String? Function(String?)? validator; // اضيفي كده للـ construc
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+        onTap: onTap,
+        onChanged: onChanged,
         controller: controller,
         maxLines: maxLines,
         keyboardType: keyboardType,
@@ -67,12 +74,13 @@ final String? Function(String?)? validator; // اضيفي كده للـ construc
           ),
           suffixIcon: tailing
               ? Padding(
-            padding: EdgeInsets.only(left: SizeConfig.w(8)),
-            child: Icon(
-                      Icons.keyboard_arrow_down,
-                      size: SizeConfig.w(18),
-                      color: const Color(0xff777777),
-                    ),)
+                  padding: EdgeInsets.only(left: SizeConfig.w(8)),
+                  child: Icon(
+                    Icons.keyboard_arrow_down,
+                    size: SizeConfig.w(18),
+                    color: const Color(0xff777777),
+                  ),
+                )
               : null,
           hintText: hint,
           hintStyle: AppTextStyles.styleRegular14(

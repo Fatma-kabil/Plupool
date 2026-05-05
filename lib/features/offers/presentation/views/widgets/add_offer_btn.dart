@@ -9,13 +9,16 @@ class AddOfferBtn extends StatelessWidget {
     required this.text,
     this.onTap,
     this.icon,
-    this.style,  this.padding,
+    this.style,
+    this.padding,
+    this.hPadding
   });
   final String text;
   final void Function()? onTap;
   final IconData? icon;
   final TextStyle? style;
   final double? padding;
+  final double? hPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +26,8 @@ class AddOfferBtn extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: SizeConfig.w(10),
-          vertical: SizeConfig.h(padding??8),
+          horizontal: SizeConfig.w(hPadding??10),
+          vertical: SizeConfig.h(padding ?? 8),
         ),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.kprimarycolor, width: 1),

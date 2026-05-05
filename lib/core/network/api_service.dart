@@ -5,8 +5,8 @@ class ApiService {
   final Dio dio;
   String? token; // 🔹 لتخزين التوكن
 
-  ApiService(this.dio){
-      dio.interceptors.add(
+  ApiService(this.dio) {
+    dio.interceptors.add(
       LogInterceptor(
         request: true,
         requestBody: true,
@@ -46,12 +46,14 @@ class ApiService {
 
   Future<Response> post(
     String endpoint, {
+    Map<String, dynamic>? queryParams,
     dynamic data,
     Options? options,
   }) async {
     try {
       final response = await dio.post(
         endpoint,
+        queryParameters: queryParams,
         data: data,
         options:
             options ??
@@ -72,7 +74,7 @@ class ApiService {
   Future<Response> put(
     String endpoint, {
     dynamic data,
-     Map<String, dynamic>? queryParams,
+    Map<String, dynamic>? queryParams,
     Options? options,
   }) async {
     try {

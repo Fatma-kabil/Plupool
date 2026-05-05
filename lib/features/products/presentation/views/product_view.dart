@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
@@ -22,85 +21,74 @@ class _ProductViewState extends State<ProductView> {
   final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => ProductSearchCubit(sl()),
-      child: Builder(
-        builder: (context) {
-          SizeConfig.init(context);
+    SizeConfig.init(context);
 
-          return Directionality(
-            textDirection: TextDirection.rtl,
-            child: SafeArea(
-              child: Scaffold(
-                key: scaffoldkey,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SafeArea(
+        child: Scaffold(
+          key: scaffoldkey,
 
-                appBar: CustomAppBar(
-                  onChanged: (value) {
-                    final cubit = context.read<ProductSearchCubit>();
+          appBar: CustomAppBar(
+            onChanged: (value) {
+              final cubit = context.read<ProductSearchCubit>();
 
-                    print("typing: $value");
+              print("typing: $value");
 
-                    if (value.isEmpty) {
-                      cubit.clearSearch(); // 👈 ده الحل
+              if (value.isEmpty) {
+                cubit.clearSearch(); // 👈 ده الحل
 
-                      return;
-                    }
+                return;
+              }
 
-                    cubit.search(value);
-                  },
-                  isSearch: true,
-                  onPressed: () {
-                    scaffoldkey.currentState!.openDrawer();
-                  },
-                ),
+              cubit.search(value);
+            },
+            isSearch: true,
+            onPressed: () {
+              scaffoldkey.currentState!.openDrawer();
+            },
+          ),
 
-                drawer: AppDrawer(),
+          drawer: AppDrawer(),
 
-                body: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.w(13),
-                    vertical: SizeConfig.h(15),
-                  ),
+          body: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.w(13),
+              vertical: SizeConfig.h(15),
+            ),
 
-                  child: BlocBuilder<ProductSearchCubit, ProductSearchState>(
-                    builder: (context, state) {
-                      print("STATE: $state");
+            child: BlocBuilder<ProductSearchCubit, ProductSearchState>(
+              builder: (context, state) {
+                print("STATE: $state");
 
-                      return CustomScrollView(
-                        slivers: [
-                          /// 🔵 Loading
-                          if (state is ProductSearchLoading)
-                            ProductsShimmerList()
-                          /// 🔵 Success
-                          else if (state is ProductSearchSuccess)
-                            state.products.isEmpty
-                                ? const SliverFillRemaining(
-                                    child: Center(
-                                      child: ErrorText(
-                                        message: "مفيش نتائج 😢",
-                                      ),
-                                    ),
-                                  )
-                                : ProductsList(products: state.products)
-                          /// 🔵 Error
-                          else if (state is ProductSearchError)
-                            SliverFillRemaining(
+                return CustomScrollView(
+                  slivers: [
+                    /// 🔵 Loading
+                    if (state is ProductSearchLoading)
+                      ProductsShimmerList()
+                    /// 🔵 Success
+                    else if (state is ProductSearchSuccess)
+                      state.products.isEmpty
+                          ? const SliverFillRemaining(
                               child: Center(
-                                child: ErrorText(message: state.message),
+                                child: ErrorText(message: "مفيش نتائج 😢"),
                               ),
                             )
-                          /// 🔵 Default
-                          else
-                            const SliverFillRemaining(child: ProductViewBody()),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              ),
+                          : ProductsList(products: state.products)
+                    /// 🔵 Error
+                    else if (state is ProductSearchError)
+                      SliverFillRemaining(
+                        child: Center(child: ErrorText(message: state.message)),
+                      )
+                    /// 🔵 Default
+                    else
+                      const SliverFillRemaining(child: ProductViewBody()),
+                  ],
+                );
+              },
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

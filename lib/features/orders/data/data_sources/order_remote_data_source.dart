@@ -2,7 +2,7 @@ import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/orders/data/models/order_model.dart';
 
-class OrdersRemoteDataSource  {
+class OrdersRemoteDataSource {
   final ApiService api;
 
   OrdersRemoteDataSource(this.api);
@@ -10,22 +10,17 @@ class OrdersRemoteDataSource  {
   /// ==============================
   /// GET ORDERS (List + filters)
   /// ==============================
- 
-  Future<List<OrderModel>> getOrders(Map<String, dynamic> query) async {
-    final response = await api.get(
-      Endpoints.orders,
-      queryParams: query,
-    );
 
-    return (response.data as List)
-        .map((e) => OrderModel.fromJson(e))
-        .toList();
+  Future<List<OrderModel>> getOrders(Map<String, dynamic> query) async {
+    final response = await api.get(Endpoints.orders, queryParams: query);
+
+    return (response.data as List).map((e) => OrderModel.fromJson(e)).toList();
   }
 
   /// ==============================
   /// GET ORDER DETAILS
   /// ==============================
- 
+
   Future<OrderModel> getOrder(int id) async {
     final response = await api.get('${Endpoints.orders}/$id');
     return OrderModel.fromJson(response.data);
@@ -34,7 +29,7 @@ class OrdersRemoteDataSource  {
   /// ==============================
   /// UPDATE ORDER (status + notes)
   /// ==============================
-  
+
   Future<void> updateOrder({
     required int id,
     String? status,
@@ -52,7 +47,7 @@ class OrdersRemoteDataSource  {
   /// ==============================
   /// DELETE ORDER
   /// ==============================
- 
+
   Future<void> deleteOrder(int id) async {
     await api.delete('${Endpoints.orders}/$id');
   }
@@ -60,20 +55,18 @@ class OrdersRemoteDataSource  {
   /// ==============================
   /// UPDATE STATUS ONLY
   /// ==============================
- 
+
   Future<void> updateStatus(int id, String status) async {
     await api.put(
       '${Endpoints.orders}/$id/status',
-     data : {
-        "new_status": status,
-      },
+      data: {"new_status": status},
     );
   }
 
   /// ==============================
   /// ADD ITEM TO ORDER
   /// ==============================
- 
+
   Future<void> addItem({
     required int orderId,
     required int productId,
@@ -81,10 +74,8 @@ class OrdersRemoteDataSource  {
   }) async {
     await api.post(
       '${Endpoints.orders}/$orderId/items',
-      data: {
-        "product_id": productId,
-        "quantity": quantity,
-      },
+
+      queryParams: {"product_id": productId, "quantity": quantity},
     );
   }
 
@@ -103,7 +94,7 @@ class OrdersRemoteDataSource  {
       queryParams: {
         if (quantity != null) "quantity": quantity,
         if (unitPrice != null) "unit_price": unitPrice,
-      } ,
+      },
       data: {
         if (quantity != null) "quantity": quantity,
         if (unitPrice != null) "unit_price": unitPrice,
@@ -122,16 +113,14 @@ class OrdersRemoteDataSource  {
   }) async {
     await api.delete(
       '${Endpoints.orders}/$orderId/items/$itemId',
-      data: {
-        "restore_stock": restoreStock,
-      },
+      data: {"restore_stock": restoreStock},
     );
   }
 
   /// ==============================
   /// REPLACE ITEM
   /// ==============================
- 
+
   Future<void> replaceItem({
     required int orderId,
     required int itemId,

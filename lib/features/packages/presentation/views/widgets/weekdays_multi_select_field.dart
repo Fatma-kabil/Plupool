@@ -36,10 +36,7 @@ class _WeekDaysMultiSelectFieldState extends State<WeekDaysMultiSelectField> {
             });
           },
           child: AbsorbPointer(
-            child: 
-            
-            
-            TextFieldWithIcon(
+            child: TextFieldWithIcon(
               hint: "اختار أيام الصيانه",
               icon: Icons.calendar_month,
               controller: widget.controller,

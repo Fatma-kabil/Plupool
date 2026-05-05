@@ -171,12 +171,17 @@ class OrdersCubit extends Cubit<OrdersState> {
         quantity: quantity,
       );
 
-      await refresh();
+      //    await refresh();
 
-      emit(OrdersActionSuccess());
+      final order = await getDetailsUseCase(orderId);
+
+      /// ✅ 1. حدث التفاصيل
+     //   await refresh();
+      emit(OrderDetailsSuccess(order));
+    
     } catch (e) {
       emit(OrdersActionError(e is Failure ? e.message : "فشل إضافة المنتج"));
-
+      print(e);
       emit(OrdersSuccess(_cachedOrders));
     }
   }
@@ -201,9 +206,10 @@ class OrdersCubit extends Cubit<OrdersState> {
       );
 
       final order = await getDetailsUseCase(orderId);
+
       print("ITEMS COUNT FROM API: ${order.items.length}");
       print(order.items.map((e) => e.id));
-    
+
       await getOrderDetails(orderId); // 👈 ده الوحيد
     } catch (e) {
       emit(OrdersActionError(e is Failure ? e.message : "فشل تعديل المنتج"));
@@ -224,9 +230,10 @@ class OrdersCubit extends Cubit<OrdersState> {
       final order = await getDetailsUseCase(orderId);
       print("ITEMS COUNT FROM API: ${order.items.length}");
       print(order.items.map((e) => e.id));
-      emit(OrderDetailsSuccess(order)); // 👈 ده الوحيد
+      await getOrderDetails(orderId); // 👈 ده الوحيد
     } catch (e) {
       emit(OrdersActionError(e is Failure ? e.message : "فشل حذف المنتج"));
+      emit(OrdersSuccess(_cachedOrders));
     }
   }
 

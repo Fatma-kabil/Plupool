@@ -7,6 +7,7 @@ import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn
 import 'package:plupool/features/orders/domain/entities/order_entity.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order%20state.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
+import 'package:plupool/features/orders/presentation/view/widgets/add_order_item_card.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/customer_order_card_header.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/product_details_row.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/total_fees_sectin.dart';
@@ -28,6 +29,7 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
             message: "تم  تحديث منتجات الطلبات بنجاح",
             isSuccess: true,
           );
+         // context.read<OrdersCubit>().refresh();
         }
 
         if (state is OrdersActionError) {
@@ -35,6 +37,7 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
 
           showCustomSnackBar(context: context, message: state.message);
         }
+      //  context.read<OrdersCubit>().refresh();
       },
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -53,7 +56,21 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
               child: Divider(),
             ),
-            AddOfferBtn(text: "اضافة منتج جديد"),
+            AddOfferBtn(
+              text: "اضافة منتج جديد",
+              hPadding: 25,
+            //  padding: 12,
+              onTap: () {
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (_) {
+                    return AddOrderItemCard(orderId: model.id);
+                  },
+                );
+              },
+            ),
+            SizedBox(height: 20),
             ListView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
