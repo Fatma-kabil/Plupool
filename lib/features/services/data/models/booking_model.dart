@@ -7,7 +7,7 @@ class BookingModel {
   final int id;
   final int userId;
   final int? serviceId;
-  final int poolTypeId;
+  final int? poolTypeId;
   final int? packageId;
 
   final double? customLength;
@@ -23,7 +23,7 @@ class BookingModel {
   final String? updatedAt;
 
   final String? serviceName;
-  final String poolTypeName;
+  final String? poolTypeName;
   final String? packageName;
   final String userName;
   final String userRole;
@@ -44,7 +44,7 @@ class BookingModel {
     required this.id,
     required this.userId,
     this.serviceId,
-    required this.poolTypeId,
+     this.poolTypeId,
     this.packageId,
     this.customLength,
     this.customWidth,
@@ -56,7 +56,7 @@ class BookingModel {
     required this.createdAt,
     this.updatedAt,
     this.serviceName,
-    required this.poolTypeName,
+     this.poolTypeName,
     this.packageName,
     required this.userName,
     required this.userRole,
