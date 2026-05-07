@@ -1,4 +1,6 @@
-import 'package:plupool/features/profile/data/models/user_model.dart';
+
+
+import 'package:plupool/features/customers/data/models/users_model.dart';
 
 class UsersResponseModel {
   final int total;

@@ -25,4 +25,6 @@ class UsersRatingModel {
       createdAt: DateTime.parse(json['created_at']),
     );
   }
+
+  
 }

@@ -10,6 +10,14 @@ import 'package:plupool/features/auth/domain/repos/sign_up_repo.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
+import 'package:plupool/features/customers/data/data_sources/admin_users_remote_data_source.dart';
+import 'package:plupool/features/customers/data/repos_impl/admin_user_repo_impl.dart';
+import 'package:plupool/features/customers/domain/repos/admin_domain_rapos.dart';
+import 'package:plupool/features/customers/domain/usecases/delete_user_usecase.dart';
+import 'package:plupool/features/customers/domain/usecases/get_user_details_usecase.dart';
+import 'package:plupool/features/customers/domain/usecases/get_users_usecase.dart';
+import 'package:plupool/features/customers/domain/usecases/update_user_usecase.dart';
+import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 import 'package:plupool/features/home/data/remote_data_sources/notification_remote_data_source.dart';
 import 'package:plupool/features/home/data/repos_impl/notification_repo_impl.dart';
 
@@ -746,6 +754,66 @@ sl.registerLazySingleton(
 sl.registerFactory(
   () => CompanyProjectCubit(
     sl<GetCompanyProjectsUseCase>(),
+  ),
+);
+
+// =============================
+// 👥 USERS FEATURE
+// =============================
+
+// Remote Data Source
+sl.registerLazySingleton<AdminUsersRemoteDataSource>(
+  () => AdminUsersRemoteDataSource(sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<AdminUsersRepository>(
+  () => AdminUsersRepositoryImpl(
+    sl<AdminUsersRemoteDataSource>(),
+  ),
+);
+
+// =============================
+// USE CASES
+// =============================
+
+sl.registerLazySingleton(
+  () => GetUsersUseCase(
+    sl<AdminUsersRepository>(),
+  ),
+);
+
+sl.registerLazySingleton(
+  () => GetUserDetailsUseCase(
+    sl<AdminUsersRepository>(),
+  ),
+);
+
+sl.registerLazySingleton(
+  () => UpdateUserUseCase(
+    sl<AdminUsersRepository>(),
+  ),
+);
+
+sl.registerLazySingleton(
+  () => DeleteUserUseCase(
+    sl<AdminUsersRepository>(),
+  ),
+);
+
+// =============================
+// CUBIT
+// =============================
+
+sl.registerFactory(
+  () => UsersCubit(
+    sl<GetUsersUseCase>(),
+    getUserDetailsUseCase:
+        sl<GetUserDetailsUseCase>(),
+    updateUserUseCase:
+        sl<UpdateUserUseCase>(),
+    deleteUserUseCase:
+        sl<DeleteUserUseCase>(),
   ),
 );
 }

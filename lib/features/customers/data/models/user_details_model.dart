@@ -1,9 +1,9 @@
 import 'package:plupool/features/customers/data/models/user_contact_message_model.dart';
 import 'package:plupool/features/customers/data/models/users_booking_model.dart';
+import 'package:plupool/features/customers/data/models/users_model.dart';
 import 'package:plupool/features/customers/data/models/users_order_model.dart';
 import 'package:plupool/features/customers/data/models/users_project_model.dart';
 import 'package:plupool/features/customers/data/models/users_rating_models.dart';
-import 'package:plupool/features/profile/data/models/user_model.dart';
 
 class UserDetailsModel {
   final UserModel user;

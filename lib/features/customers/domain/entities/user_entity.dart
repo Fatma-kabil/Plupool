@@ -1,31 +1,34 @@
 class UserEntity {
   final int id;
   final String phone;
-  
+  final String countryCode;
   final String fullName;
-  final String profileImage;
+  final String? profileImage;
   final String role;
-  final double latitude;
-  final double longitude;
-  final String address;
-  final String skills;
-  final int yearsOfExperience;
+  final double? latitude;
+  final double? longitude;
+  final String? address;
+  final String? skills;
+  final int? yearsOfExperience;
+  final String? companyName;
   final bool isPhoneVerified;
   final bool isActive;
   final bool isApproved;
   final DateTime createdAt;
 
-  UserEntity({
+  const UserEntity({
     required this.id,
     required this.phone,
+    required this.countryCode,
     required this.fullName,
-    required this.profileImage,
+    this.profileImage,
     required this.role,
-    required this.latitude,
-    required this.longitude,
-    required this.address,
-    required this.skills,
-    required this.yearsOfExperience,
+    this.latitude,
+    this.longitude,
+    this.address,
+    this.skills,
+    this.yearsOfExperience,
+    this.companyName,
     required this.isPhoneVerified,
     required this.isActive,
     required this.isApproved,
