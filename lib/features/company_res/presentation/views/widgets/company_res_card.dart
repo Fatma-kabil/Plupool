@@ -3,10 +3,12 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/company_res/presentation/views/widgets/company_res_details.dart';
+import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_header.dart';
 
 class CompanyResCard extends StatelessWidget {
-  const CompanyResCard({super.key});
+  const CompanyResCard({super.key,required this.user});
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,14 @@ class CompanyResCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-          //  const CustomerHeader(),
+             CustomerHeader(user: user,),
             SizedBox(height: SizeConfig.h(8)),
             Divider(color: AppColors.textFieldBorderColor),
             SizedBox(height: SizeConfig.h(8)),
-            const CompanyResDetails(),
+             CompanyResDetails(
+              date: user.createdAt,
+              companyName: user.companyName,
+             ),
           ],
         ),
       ),
