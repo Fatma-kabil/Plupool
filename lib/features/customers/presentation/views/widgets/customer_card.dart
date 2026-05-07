@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_details.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_header.dart';
 
 class CustomerCard extends StatelessWidget {
-  const CustomerCard({super.key});
+  const CustomerCard({super.key, required this.user});
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,14 @@ class CustomerCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const CustomerHeader(),
+            CustomerHeader(user: user),
             SizedBox(height: SizeConfig.h(8)),
             Divider(color: AppColors.textFieldBorderColor),
             SizedBox(height: SizeConfig.h(8)),
-            const CustomerDetails(),
+            CustomerDetails(
+              date: user.createdAt,
+              location: user.address ?? "لا يوجد",
+            ),
           ],
         ),
       ),

@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
+import 'package:plupool/features/customers/presentation/views/widgets/customer_info.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_status.dart';
 
 class CustomerHeader extends StatelessWidget {
-  const CustomerHeader({super.key});
+  const CustomerHeader({super.key, required this.user});
 
-  final bool isActive = true;
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const CustomerAvatar(),
+         CustomerAvatar(imageUrl: user.profileImage,),
         SizedBox(width: SizeConfig.w(7)),
-      //  const CustomerInfo(),
+         CustomerInfo(name: user.fullName,phone: user.phone,),
         const Spacer(),
-        CustomerStatus(isActive: isActive),
+        CustomerStatus(isActive: user.isActive),
       ],
     );
   }

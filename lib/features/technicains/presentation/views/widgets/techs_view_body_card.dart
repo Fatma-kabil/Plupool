@@ -26,7 +26,7 @@ class TechsViewBodyCard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const CustomerHeader(),
+         //   const CustomerHeader(),
             SizedBox(height: SizeConfig.h(8)),
             Divider(color: AppColors.textFieldBorderColor),
             SizedBox(height: SizeConfig.h(8)),
