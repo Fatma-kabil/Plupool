@@ -4,7 +4,7 @@ class UserEntity {
   final String countryCode;
   final String fullName;
   final String? profileImage;
-  final String role;
+  final String? role;
   final double? latitude;
   final double? longitude;
   final String? address;
@@ -15,6 +15,7 @@ class UserEntity {
   final bool isActive;
   final bool isApproved;
   final DateTime createdAt;
+  final double? totalRating;
 
   const UserEntity({
     required this.id,
@@ -22,7 +23,7 @@ class UserEntity {
     required this.countryCode,
     required this.fullName,
     this.profileImage,
-    required this.role,
+     this.role,
     this.latitude,
     this.longitude,
     this.address,
@@ -33,5 +34,6 @@ class UserEntity {
     required this.isActive,
     required this.isApproved,
     required this.createdAt,
+     this.totalRating,
   });
 }

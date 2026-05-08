@@ -9,6 +9,8 @@ extension UsersResponseMapper on UsersResponseModel {
       pageSize: pageSize,
       totalPages: totalPages,
       users: users.map((e) => e.toEntity()).toList(),
+      activeTech: activeTech,
+      inactiveTeck: inactiveTech
     );
   }
 }

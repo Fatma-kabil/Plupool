@@ -66,7 +66,9 @@ class _TechsViewBodyState extends State<TechsViewBody> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TechViewBodyCardHeader(),
+                  TechViewBodyCardHeader(
+                    rate: u,
+                  ),
                   SizedBox(height: 15),
 
                   Row(

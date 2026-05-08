@@ -4,10 +4,11 @@ import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
 
 class CompanyResProfileViewFooter extends StatelessWidget {
-  const CompanyResProfileViewFooter({super.key});
-
+  const CompanyResProfileViewFooter({super.key, required this.user});
+  final UserDetailsEntity user;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -17,7 +18,7 @@ class CompanyResProfileViewFooter extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-           context.push(companyresFooter[index]['view']);
+            context.push(companyresFooter[index]['view']);
           },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: SizeConfig.h(6)),
@@ -42,7 +43,9 @@ class CompanyResProfileViewFooter extends StatelessWidget {
                 Icon(
                   companyresFooter[index]['icon'],
                   color: companyresFooter[index]['color'],
-                  size: SizeConfig.isWideScreen ? SizeConfig.h(26) : SizeConfig.w(24),
+                  size: SizeConfig.isWideScreen
+                      ? SizeConfig.h(26)
+                      : SizeConfig.w(24),
                 ),
                 SizedBox(width: SizeConfig.w(4)),
                 Text(

@@ -437,8 +437,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/companyresprofile',
       name: 'companyresprofile',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const CompanyResProfile()),
+      pageBuilder: (context, state) {
+        final id = state.extra as int;
+        return buildTransitionPage(CompanyResProfile(id: id));
+      },
     ),
     GoRoute(
       path: '/editcompanyresview',
@@ -500,7 +502,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const AddProjectView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/editprojectview',
       name: 'editprojectview',
       pageBuilder: (context, state) =>
@@ -632,13 +634,13 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminDrawerService()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/adminsettingview',
       name: 'adminsettingview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminSettingView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/admindrawerprojectview',
       name: 'admindrawerprojectview',
       pageBuilder: (context, state) =>

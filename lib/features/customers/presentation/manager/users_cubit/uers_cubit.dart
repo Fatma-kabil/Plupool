@@ -83,7 +83,9 @@ class UsersCubit extends Cubit<UsersState> {
     } catch (e) {
       emit(
         UsersError(e is Failure ? e.message : "حدث خطأ أثناء جلب المستخدمين"),
+      
       );
+        print(e);
     }
   }
 

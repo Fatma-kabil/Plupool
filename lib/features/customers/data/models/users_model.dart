@@ -4,7 +4,7 @@ class UserModel {
   final String countryCode;
   final String fullName;
   final String? profileImage;
-  final String role;
+  final String? role;
   final double? latitude;
   final double? longitude;
   final String? address;
@@ -15,6 +15,7 @@ class UserModel {
   final bool isActive;
   final bool isApproved;
   final DateTime createdAt;
+  final double? totalRatings;
 
   UserModel({
     required this.id,
@@ -22,13 +23,14 @@ class UserModel {
     required this.countryCode,
     required this.fullName,
     this.profileImage,
-    required this.role,
+     this.role,
     this.latitude,
     this.longitude,
     this.address,
     this.skills,
     this.yearsOfExperience,
     this.companyName,
+    this.totalRatings,
     required this.isPhoneVerified,
     required this.isActive,
     required this.isApproved,
@@ -45,6 +47,7 @@ class UserModel {
       role: json['role'],
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
+      totalRatings: (json['total_ratings'] as num?)?.toDouble(),
       address: json['address'],
       skills: json['skills'],
       yearsOfExperience: json['years_of_experience'],
@@ -69,6 +72,7 @@ class UserModel {
       "is_active": isActive,
       "is_approved": isApproved,
       "is_phone_verified": isPhoneVerified,
+      "total_ratings":totalRatings
     };
   }
 }

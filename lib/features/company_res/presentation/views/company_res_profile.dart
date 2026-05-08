@@ -5,7 +5,8 @@ import 'package:plupool/features/home/presentaation/views/admin/widgets/app_draw
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 
 class CompanyResProfile extends StatefulWidget {
-  const CompanyResProfile({super.key});
+  const CompanyResProfile({super.key,required this.id});
+  final int id;
 
   @override
   State<CompanyResProfile> createState() => _CompanyResProfileState();
@@ -32,7 +33,7 @@ class _CompanyResProfileState extends State<CompanyResProfile> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: CompanyResProfileBody(),
+            child: CompanyResProfileBody(id: widget.id,),
           ),
         ),
       ),

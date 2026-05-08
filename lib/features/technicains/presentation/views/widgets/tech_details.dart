@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_info_item.dart';
@@ -46,14 +47,16 @@ class TechDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               icon: Icons.workspace_premium,
               title: "عدد سنوات الخبره",
-              value:" ${user.yearsOfExperience}سنوات",
+             value: (user.yearsOfExperience == null || user.yearsOfExperience == 0)
+    ? "لا توجد سنوات خبرة"
+    : "${toArabicNumbers(user.yearsOfExperience.toString())} سنوات",
             ),
             SizedBox(height: 12),
             CustomerInfoItem(
               crossAxisAlignment: CrossAxisAlignment.center,
               icon: Icons.star_border_purple500_rounded,
               title: "التقييم",
-              value: "${user.id}",
+              value:toArabicNumbers( user.totalRating.toString()),
             ),
           ],
         ),
