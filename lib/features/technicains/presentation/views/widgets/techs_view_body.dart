@@ -34,8 +34,6 @@ class _TechsViewBodyState extends State<TechsViewBody> {
   void initState() {
     super.initState();
 
-    
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<UsersCubit>().getUsers(role: "technician", isActive: true);
     });
@@ -78,13 +76,13 @@ class _TechsViewBodyState extends State<TechsViewBody> {
     return BlocBuilder<UsersCubit, UsersState>(
       builder: (context, state) {
         /// ✅ نخزن الهيدر أول نجاح فقط
-        if (state is UsersSuccess && _headerData == null) {
-          _headerData = state;
+        if (state is UsersSuccess) {
+          _headerData ??= state;
         }
 
         /// 🔥 أول تحميل شاشة كاملة
         if (state is UsersLoading && _headerData == null) {
-          const TechsViewShimmer();
+          return const TechsViewShimmer();
         }
 
         return CustomScrollView(

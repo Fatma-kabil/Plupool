@@ -6,7 +6,10 @@ import 'package:plupool/core/utils/widgets/metric_card.dart';
 import 'package:plupool/features/technicains/presentation/views/widgets/edit_rate_card.dart';
 
 class TechProfileViewMiddle extends StatelessWidget {
-  const TechProfileViewMiddle({super.key});
+  const TechProfileViewMiddle({super.key, required this.rating, required this.weeklyTasks, required this.completedTasks});
+  final double rating;
+  final int weeklyTasks;
+  final int completedTasks;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +66,7 @@ class TechProfileViewMiddle extends StatelessWidget {
               child: MetricCard(
                 icon: Icons.star_purple500_rounded,
                 iconColor: Color(0xffFF9F1C),
-                value: "4.8",
+                value: rating.toString(),
                 label: 'التقييم',
                 valueTextStyle: AppTextStyles.styleBold16(
                   context,
@@ -78,7 +81,7 @@ class TechProfileViewMiddle extends StatelessWidget {
               child: MetricCard(
                 icon: Icons.calendar_view_week,
                 iconColor: Color(0xff05B285),
-                value: "10",
+                value: weeklyTasks.toString(),
                 label: 'مهام الأسبوع',
                 valueTextStyle: AppTextStyles.styleBold16(
                   context,
@@ -93,7 +96,7 @@ class TechProfileViewMiddle extends StatelessWidget {
               child: MetricCard(
                 icon: Icons.task_alt,
                 iconColor: Color(0xff00B4D8),
-                value: "119",
+                value: completedTasks.toString(),
                 valueTextStyle: AppTextStyles.styleBold16(
                   context,
                 ).copyWith(color: Color(0xff555555)),

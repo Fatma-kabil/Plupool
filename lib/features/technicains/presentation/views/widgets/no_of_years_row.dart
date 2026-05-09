@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class NoOfYearsRow extends StatelessWidget {
-  const NoOfYearsRow({
-    super.key,
-  });
+  const NoOfYearsRow({super.key, required this.years});
+  final double years;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class NoOfYearsRow extends StatelessWidget {
             shape: BoxShape.circle,
             border: Border.all(color: Color(0xff2B8EC2)),
           ),
-    
+
           child: Icon(
             Icons.workspace_premium_outlined,
             color: Color(0xff2B8EC2),
@@ -33,10 +32,10 @@ class NoOfYearsRow extends StatelessWidget {
             context,
           ).copyWith(color: Color(0xff555555)),
         ),
-    
+
         SizedBox(width: SizeConfig.w(115)),
         Text(
-          "5 سنوات",
+          "${toArabicNumbers(years.toString())}سنوات",
           style: AppTextStyles.styleSemiBold16(
             context,
           ).copyWith(color: AppColors.ktextcolor),

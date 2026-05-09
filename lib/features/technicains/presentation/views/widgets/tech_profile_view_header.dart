@@ -4,15 +4,18 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/location_row.dart';
+import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/container_status.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
+import 'package:plupool/features/customers/presentation/views/widgets/customer_info.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/info_col.dart';
 import 'package:plupool/features/technicains/presentation/views/widgets/no_of_years_row.dart';
 import 'package:plupool/features/technicains/presentation/views/widgets/skills_section.dart';
 
 class TechProfileViewHeader extends StatelessWidget {
-  const TechProfileViewHeader({super.key});
+  const TechProfileViewHeader({super.key, required this.user});
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +34,20 @@ class TechProfileViewHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CustomerAvatar(),
+              CustomerAvatar(imageUrl: user.profileImage),
               SizedBox(width: SizeConfig.w(7)),
-           //   const CustomerInfo(),
+              CustomerInfo(name: user.fullName, phone: user.phone),
               const Spacer(),
-              ContainerStatus(isActive: true),
+              ContainerStatus(isActive: user.isActive),
             ],
           ),
           SizedBox(height: SizeConfig.h(8)),
-          const InfoCol(
+           InfoCol(
             label: "العنوان:",
-            value: "٢٨٧ شارع النخيل، الإسكندرية، مصر",
+            value: user.address??"لا يوجد",
           ),
           SizedBox(height: SizeConfig.h(8)),
-          LocationRow(location: "٢٨٧ شارع النخيل، الإسكندرية، مصر"),
+          LocationRow(location: user.address??""),
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.w(16),
@@ -52,9 +55,13 @@ class TechProfileViewHeader extends StatelessWidget {
             ),
             child: Divider(),
           ),
-          NoOfYearsRow(),
+          NoOfYearsRow(
+            years: user.yearsOfExperience!.toDouble(),
+          ),
           SizedBox(height: SizeConfig.h(8)),
-          SkillsSection(),
+          SkillsSection(
+            skills: user.skills!,
+          ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

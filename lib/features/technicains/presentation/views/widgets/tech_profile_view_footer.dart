@@ -4,9 +4,11 @@ import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
 
 class TechProfileViewFooter extends StatelessWidget {
-  const TechProfileViewFooter({super.key});
+  const TechProfileViewFooter({super.key, required this.user});
+  final UserDetailsEntity user;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,9 @@ class TechProfileViewFooter extends StatelessWidget {
                 Icon(
                   techFooter[index]['icon'],
                   color: techFooter[index]['color'],
-                  size:SizeConfig.isWideScreen?SizeConfig.w(20):SizeConfig.w(24),
+                  size: SizeConfig.isWideScreen
+                      ? SizeConfig.w(20)
+                      : SizeConfig.w(24),
                 ),
                 SizedBox(width: SizeConfig.w(4)),
                 Text(
@@ -55,7 +59,9 @@ class TechProfileViewFooter extends StatelessWidget {
                 Icon(
                   Icons.arrow_forward_ios,
                   color: Color(0xffA4A4A4),
-                  size:SizeConfig.isWideScreen?SizeConfig.w(12): SizeConfig.w(15),
+                  size: SizeConfig.isWideScreen
+                      ? SizeConfig.w(12)
+                      : SizeConfig.w(15),
                 ),
               ],
             ),

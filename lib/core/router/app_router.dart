@@ -347,7 +347,7 @@ final GoRouter appRouter = GoRouter(
       name: 'customerprofileview',
       pageBuilder: (context, state) {
         final id = state.extra as int;
-       return buildTransitionPage(CustomerProfileView(id: id));
+        return buildTransitionPage(CustomerProfileView(id: id));
       },
     ),
     GoRoute(
@@ -603,8 +603,12 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/techprofileview',
       name: 'techprofileview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const TechProfileView()),
+      pageBuilder: (context, state) {
+        final id = state.extra as int;
+        return buildTransitionPage( TechProfileView(
+          id: id,
+        ));
+      },
     ),
     GoRoute(
       path: '/edittechview',

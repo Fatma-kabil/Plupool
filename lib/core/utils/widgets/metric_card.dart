@@ -1,6 +1,7 @@
 // widgets/metric_card.dart
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class MetricCard extends StatelessWidget {
@@ -16,7 +17,8 @@ class MetricCard extends StatelessWidget {
 
     required this.value,
     required this.label,
-    this.valueTextStyle, this.iconColor,
+    this.valueTextStyle,
+    this.iconColor,
   });
 
   @override
@@ -47,7 +49,7 @@ class MetricCard extends StatelessWidget {
                     ).copyWith(color: Colors.black),
               ),
               SizedBox(width: SizeConfig.w(4)),
-              Icon(icon ?? Icons.abc, size: SizeConfig.w(22),color: iconColor,),
+              Icon(icon ?? Icons.abc, size: SizeConfig.w(22), color: iconColor),
             ],
           ),
 
@@ -55,7 +57,7 @@ class MetricCard extends StatelessWidget {
 
           // التسمية تحت (مركزة)
           Text(
-            label,
+            toArabicNumbers(label),
             textAlign: TextAlign.center,
             style: AppTextStyles.styleRegular14(
               context,

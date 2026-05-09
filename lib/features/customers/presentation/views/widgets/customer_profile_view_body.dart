@@ -26,7 +26,7 @@ class _CustomerProfileViewBodyState extends State<CustomerProfileViewBody> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<UsersCubit>().getUserDetails(widget.id);
-     //  context.read<UsersCubit>().refresh();
+      //  context.read<UsersCubit>().refresh();
     });
   }
 
@@ -34,21 +34,14 @@ class _CustomerProfileViewBodyState extends State<CustomerProfileViewBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<UsersCubit, UsersState>(
       builder: (context, state) {
-
         /// 🔄 LOADING
         if (state is UserDetailsLoading) {
           return const CustomerProfileShimmer();
         }
-
         /// ❌ ERROR
         else if (state is UserDetailsError) {
-          return Center(
-            child: ErrorText(
-              message: state.message,
-            ),
-          );
+          return Center(child: ErrorText(message: state.message));
         }
-
         /// ✅ SUCCESS
         else if (state is UserDetailsSuccess) {
           final user = state.user;
@@ -56,7 +49,7 @@ class _CustomerProfileViewBodyState extends State<CustomerProfileViewBody> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                CustomerProfileViewHeader(user:user.user),
+                CustomerProfileViewHeader(user: user.user),
 
                 Padding(
                   padding: EdgeInsets.symmetric(
