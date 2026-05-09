@@ -12,6 +12,7 @@ import 'package:plupool/features/customers/presentation/views/widgets/user_shimm
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 import 'package:plupool/features/technicains/presentation/views/widgets/tech_view_body_card_header.dart';
 import 'package:plupool/features/technicains/presentation/views/widgets/techs_view_body_card.dart';
+import 'package:plupool/features/technicains/presentation/views/widgets/techs_view_shimmer.dart';
 
 class TechsViewBody extends StatefulWidget {
   const TechsViewBody({super.key});
@@ -24,17 +25,19 @@ class _TechsViewBodyState extends State<TechsViewBody> {
   String selected = "نشط";
   String _search = "";
 
+  /// 🔥 نخزن الهيدر أول مرة فقط
+  UsersSuccess? _headerData;
+
   bool get isSearching => _search.isNotEmpty;
 
   @override
   void initState() {
     super.initState();
 
+    
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<UsersCubit>().getUsers(
-            role: "technician",
-            isActive: true,
-          );
+      context.read<UsersCubit>().getUsers(role: "technician", isActive: true);
     });
   }
 
@@ -42,24 +45,48 @@ class _TechsViewBodyState extends State<TechsViewBody> {
     setState(() => _search = value);
 
     context.read<UsersCubit>().getUsers(
-          role: "technician",
-          search: value.isEmpty ? "" : value,
-        );
+      role: "technician",
+      search: value.isEmpty ? "" : value,
+    );
   }
 
   void onFilterChanged(String val) {
     setState(() => selected = val);
 
     context.read<UsersCubit>().getUsers(
-          role: "technician",
-          isActive: val == "نشط",
-        );
+      role: "technician",
+      isActive: val == "نشط",
+    );
+  }
+
+  double calculateAverageRate(UsersSuccess state) {
+    if (state.users.isEmpty) return 0;
+
+    double total = 0;
+
+    for (var user in state.users) {
+      total += user.totalRating ?? 0;
+    }
+
+    double avg = total / state.users.length;
+
+    return double.parse(avg.toStringAsFixed(2));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UsersCubit, UsersState>(
       builder: (context, state) {
+        /// ✅ نخزن الهيدر أول نجاح فقط
+        if (state is UsersSuccess && _headerData == null) {
+          _headerData = state;
+        }
+
+        /// 🔥 أول تحميل شاشة كاملة
+        if (state is UsersLoading && _headerData == null) {
+          const TechsViewShimmer();
+        }
+
         return CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -67,8 +94,13 @@ class _TechsViewBodyState extends State<TechsViewBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TechViewBodyCardHeader(
-                    rate: u,
+                    rate: _headerData != null
+                        ? calculateAverageRate(_headerData!)
+                        : 0,
+                    activeTech: _headerData?.activeTech ?? 0,
+                    inActiveTech: _headerData?.inActiveTech ?? 0,
                   ),
+
                   SizedBox(height: 15),
 
                   Row(
@@ -114,50 +146,32 @@ class _TechsViewBodyState extends State<TechsViewBody> {
               ),
             ),
 
-            /// 🔄 loading
+            /// 🔄 LOADING بعد أول مرة
             if (state is UsersLoading)
               UserShimmerList()
-
-            /// ❌ error
+            /// ❌ ERROR
             else if (state is UsersError)
               SliverFillRemaining(
-                child: Center(
-                  child: ErrorText(message: state.message),
-                ),
+                child: Center(child: ErrorText(message: state.message)),
               )
-
-            /// ✅ success
+            /// ✅ SUCCESS
             else if (state is UsersSuccess)
               state.users.isEmpty
                   ? const SliverFillRemaining(
-                      child: Center(
-                        child: ErrorText(
-                          message: "لا يوجد فنيين",
-                        ),
-                      ),
+                      child: Center(child: ErrorText(message: "لا يوجد فنيين")),
                     )
                   : SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final user = state.users[index];
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final user = state.users[index];
 
-                          return Padding(
-                            padding: EdgeInsets.only(
-                              bottom: SizeConfig.h(12),
-                            ),
-                            child: TechsViewBodyCard(
-                              user: user,
-                            ),
-                          );
-                        },
-                        childCount: state.users.length,
-                      ),
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
+                          child: TechsViewBodyCard(user: user),
+                        );
+                      }, childCount: state.users.length),
                     )
-
             else
-              const SliverToBoxAdapter(
-                child: SizedBox(),
-              ),
+              const SliverToBoxAdapter(child: SizedBox()),
           ],
         );
       },

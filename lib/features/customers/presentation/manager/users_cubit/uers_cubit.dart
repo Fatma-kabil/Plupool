@@ -1,15 +1,10 @@
-// users_cubit.dart
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:plupool/core/error/failure.dart';
-
-import 'package:plupool/features/customers/domain/entities/user_entity.dart';
+import 'package:plupool/features/customers/domain/entities/user_response_entity.dart';
 import 'package:plupool/features/customers/domain/usecases/delete_user_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/get_user_details_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/get_users_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/update_user_usecase.dart';
-
 import 'users_state.dart';
 
 class UsersCubit extends Cubit<UsersState> {
@@ -29,7 +24,7 @@ class UsersCubit extends Cubit<UsersState> {
   /// CACHE
   /// =========================
 
-  List<UserEntity> _cachedUsers = [];
+  UsersResponseEntity? _cachedUsers;
 
   /// =========================
   /// FILTERS
@@ -77,15 +72,23 @@ class UsersCubit extends Cubit<UsersState> {
         sortOrder: sortOrder,
       );
 
-      _cachedUsers = response.users;
+      _cachedUsers = response;
 
-      emit(UsersSuccess(response.users));
+      emit(
+        UsersSuccess(
+          response.users,
+          activeTech: response.activeTech,
+          inActiveTech: response.inactiveTeck,
+        ),
+      );
     } catch (e) {
       emit(
-        UsersError(e is Failure ? e.message : "حدث خطأ أثناء جلب المستخدمين"),
-      
+        UsersError(
+          e is Failure ? e.message : "حدث خطأ أثناء جلب المستخدمين",
+        ),
       );
-        print(e);
+
+      print(e);
     }
   }
 
@@ -107,8 +110,14 @@ class UsersCubit extends Cubit<UsersState> {
         ),
       );
 
-      if (_cachedUsers.isNotEmpty) {
-        emit(UsersSuccess(_cachedUsers));
+      if (_cachedUsers != null) {
+        emit(
+          UsersSuccess(
+            _cachedUsers!.users,
+            activeTech: _cachedUsers!.activeTech,
+            inActiveTech: _cachedUsers!.inactiveTeck,
+          ),
+        );
       }
     }
   }
@@ -158,10 +167,17 @@ class UsersCubit extends Cubit<UsersState> {
         sortOrder: _sortOrder ?? "desc",
       );
 
-      _cachedUsers = response.users;
+      _cachedUsers = response;
 
       emit(UsersActionSuccess());
-      emit(UsersSuccess(response.users));
+
+      emit(
+        UsersSuccess(
+          response.users,
+          activeTech: response.activeTech,
+          inActiveTech: response.inactiveTeck,
+        ),
+      );
     } catch (e) {
       emit(
         UsersActionError(
@@ -169,7 +185,15 @@ class UsersCubit extends Cubit<UsersState> {
         ),
       );
 
-      emit(UsersSuccess(_cachedUsers));
+      if (_cachedUsers != null) {
+        emit(
+          UsersSuccess(
+            _cachedUsers!.users,
+            activeTech: _cachedUsers!.activeTech,
+            inActiveTech: _cachedUsers!.inactiveTeck,
+          ),
+        );
+      }
     }
   }
 
@@ -183,10 +207,29 @@ class UsersCubit extends Cubit<UsersState> {
 
       await deleteUserUseCase(id);
 
-      _cachedUsers.removeWhere((e) => e.id == id);
+      if (_cachedUsers != null) {
+        _cachedUsers = UsersResponseEntity(
+          users: _cachedUsers!.users
+              .where((e) => e.id != id)
+              .toList(),
+          total: _cachedUsers!.total,
+          page: _cachedUsers!.page,
+          pageSize: _cachedUsers!.pageSize,
+          totalPages: _cachedUsers!.totalPages,
+          activeTech: _cachedUsers!.activeTech,
+          inactiveTeck: _cachedUsers!.inactiveTeck,
+        );
 
-      emit(UsersDeleteSuccess());
-      emit(UsersSuccess(_cachedUsers));
+        emit(UsersDeleteSuccess());
+
+        emit(
+          UsersSuccess(
+            _cachedUsers!.users,
+            activeTech: _cachedUsers!.activeTech,
+            inActiveTech: _cachedUsers!.inactiveTeck,
+          ),
+        );
+      }
     } catch (e) {
       emit(
         UsersDeleteError(
@@ -194,7 +237,15 @@ class UsersCubit extends Cubit<UsersState> {
         ),
       );
 
-      emit(UsersSuccess(_cachedUsers));
+      if (_cachedUsers != null) {
+        emit(
+          UsersSuccess(
+            _cachedUsers!.users,
+            activeTech: _cachedUsers!.activeTech,
+            inActiveTech: _cachedUsers!.inactiveTeck,
+          ),
+        );
+      }
     }
   }
 

@@ -14,13 +14,18 @@ class UsersInitial extends UsersState {}
 /// =========================
 /// GET USERS
 /// =========================
-
 class UsersLoading extends UsersState {}
 
 class UsersSuccess extends UsersState {
   final List<UserEntity> users;
+  final int? activeTech;
+  final int? inActiveTech;
 
-  UsersSuccess(this.users);
+  UsersSuccess(
+    this.users, {
+    this.activeTech,
+    this.inActiveTech,
+  });
 }
 
 class UsersError extends UsersState {
@@ -28,7 +33,6 @@ class UsersError extends UsersState {
 
   UsersError(this.message);
 }
-
 /// =========================
 /// USER DETAILS
 /// =========================
