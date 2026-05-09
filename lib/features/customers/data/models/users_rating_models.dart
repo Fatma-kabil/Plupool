@@ -1,6 +1,6 @@
 class UsersRatingModel {
   final int id;
-  final int rating;
+  final int? rating;
   final String content;
   final String status;
   final String serviceName;
@@ -8,7 +8,7 @@ class UsersRatingModel {
 
   UsersRatingModel({
     required this.id,
-    required this.rating,
+    this.rating,
     required this.content,
     required this.status,
     required this.serviceName,
@@ -17,14 +17,13 @@ class UsersRatingModel {
 
   factory UsersRatingModel.fromJson(Map<String, dynamic> json) {
     return UsersRatingModel(
-      id: json['id'],
-      rating: json['rating'],
-      content: json['content'],
-      status: json['status'],
-      serviceName: json['service_name'],
-      createdAt: DateTime.parse(json['created_at']),
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      rating: (json['rating'] as num?)?.toInt(),
+      content: json['content'] ?? '',
+      status: json['status'] ?? '',
+      serviceName: json['service_name'] ?? '',
+      createdAt: DateTime.tryParse(json['created_at'] ?? '') ??
+          DateTime.now(),
     );
   }
-
-  
 }

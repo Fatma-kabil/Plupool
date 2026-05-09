@@ -19,13 +19,14 @@ class UsersBookingModel {
 
   factory UsersBookingModel.fromJson(Map<String, dynamic> json) {
     return UsersBookingModel(
-      id: json['id'],
-      bookingType: json['booking_type'],
-      status: json['status'],
-      bookingDate: json['booking_date'],
-      bookingTime: json['booking_time'],
-      serviceName: json['service_name'],
-      createdAt: DateTime.parse(json['created_at']),
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      bookingType: json['booking_type'] ?? '',
+      status: json['status'] ?? '',
+      bookingDate: json['booking_date'] ?? '',
+      bookingTime: json['booking_time'] ?? '',
+      serviceName: json['service_name'] ?? '',
+      createdAt: DateTime.tryParse(json['created_at'] ?? '') ??
+          DateTime.now(),
     );
   }
 }

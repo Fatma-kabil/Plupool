@@ -37,27 +37,27 @@ class UserModel {
     required this.createdAt,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      id: json['id'],
-      phone: json['phone'],
-      countryCode: json['country_code'],
-      fullName: json['full_name'],
-      profileImage: json['profile_image'],
-      role: json['role'],
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
-      totalRatings: (json['total_ratings'] as num?)?.toDouble(),
-      address: json['address'],
-      skills: json['skills'],
-      yearsOfExperience: json['years_of_experience'],
-      companyName: json['company_name'],
-      isPhoneVerified: json['is_phone_verified'],
-      isActive: json['is_active'],
-      isApproved: json['is_approved'],
-      createdAt: DateTime.parse(json['created_at']),
-    );
-  }
+ factory UserModel.fromJson(Map<String, dynamic> json) {
+  return UserModel(
+    id: (json['id'] as num?)?.toInt() ?? 0,
+    phone: json['phone'] ?? '',
+    countryCode: json['country_code'] ?? '',
+    fullName: json['full_name'] ?? '',
+    profileImage: json['profile_image'],
+    role: json['role'],
+    latitude: (json['latitude'] as num?)?.toDouble(),
+    longitude: (json['longitude'] as num?)?.toDouble(),
+    totalRatings: (json['total_ratings'] as num?)?.toDouble(),
+    address: json['address'],
+    skills: json['skills'],
+    yearsOfExperience: (json['years_of_experience'] as num?)?.toInt(),
+    companyName: json['company_name'],
+    isPhoneVerified: json['is_phone_verified'] ?? false,
+    isActive: json['is_active'] ?? false,
+    isApproved: json['is_approved'] ?? false,
+    createdAt: DateTime.parse(json['created_at'] ?? DateTime.now().toString()),
+  );
+}
 
   Map<String, dynamic> toJson() {
     return {

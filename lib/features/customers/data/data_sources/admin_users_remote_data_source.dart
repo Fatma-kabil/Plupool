@@ -34,7 +34,7 @@ class AdminUsersRemoteDataSource {
   }
 
   Future<Map<String, dynamic>> getUserDetails(int id) async {
-    final response = await api.get('${Endpoints.users}$id');
+    final response = await api.get('${Endpoints.users}/$id');
 
     return response.data;
   }
@@ -43,7 +43,7 @@ class AdminUsersRemoteDataSource {
     int id,
     Map<String, dynamic> body,
   ) async {
-    final response = await api.put('${Endpoints.users}$id', data: body);
+    final response = await api.put('${Endpoints.users}/$id', data: body);
 
     return response.data;
   }

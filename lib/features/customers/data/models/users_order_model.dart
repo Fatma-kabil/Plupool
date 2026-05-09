@@ -19,13 +19,14 @@ class UserOrderModel {
 
   factory UserOrderModel.fromJson(Map<String, dynamic> json) {
     return UserOrderModel(
-      id: json['id'],
-      orderNumber: json['order_number'],
-      status: json['status'],
-      totalAmount: (json['total_amount'] as num).toDouble(),
-      grandTotal: (json['grand_total'] as num).toDouble(),
-      paymentMethod: json['payment_method'],
-      createdAt: DateTime.parse(json['created_at']),
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      orderNumber: json['order_number'] ?? '',
+      status: json['status'] ?? '',
+      totalAmount: (json['total_amount'] as num?)?.toDouble() ?? 0.0,
+      grandTotal: (json['grand_total'] as num?)?.toDouble() ?? 0.0,
+      paymentMethod: json['payment_method'] ?? '',
+      createdAt: DateTime.tryParse(json['created_at'] ?? '') ??
+          DateTime.now(),
     );
   }
 }

@@ -4,7 +4,7 @@ class UserProjectEntity {
   final String projectType;
   final String status;
   final String startDate;
-  final int progressPercentage;
+  final int? progressPercentage;
   final DateTime createdAt;
 
   const UserProjectEntity({
@@ -13,7 +13,7 @@ class UserProjectEntity {
     required this.projectType,
     required this.status,
     required this.startDate,
-    required this.progressPercentage,
+     this.progressPercentage,
     required this.createdAt,
   });
 }

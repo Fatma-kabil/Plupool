@@ -14,7 +14,7 @@ class CompanyResCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push('/companyresprofile');
+        context.push('/companyresprofile',extra: user.id);
       },
       child: Container(
         padding: EdgeInsets.symmetric(

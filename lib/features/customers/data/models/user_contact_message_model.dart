@@ -21,14 +21,15 @@ class UsersContactMessageModel {
 
   factory UsersContactMessageModel.fromJson(Map<String, dynamic> json) {
     return UsersContactMessageModel(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
-      phone: json['phone'],
-      message: json['message'],
-      status: json['status'],
-      senderRole: json['sender_role'],
-      createdAt: DateTime.parse(json['created_at']),
+      id: (json['id'] as num?)?.toInt() ?? 0,
+      name: json['name'] ?? '',
+      email: json['email'] ?? '',
+      phone: json['phone'] ?? '',
+      message: json['message'] ?? '',
+      status: json['status'] ?? '',
+      senderRole: json['sender_role'] ?? '',
+      createdAt: DateTime.tryParse(json['created_at'] ?? '') ??
+          DateTime.now(),
     );
   }
 }
