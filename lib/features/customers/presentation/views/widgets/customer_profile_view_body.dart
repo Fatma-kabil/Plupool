@@ -59,7 +59,7 @@ class _CustomerProfileViewBodyState extends State<CustomerProfileViewBody> {
                   child: CustomerProfileViewMiddleCard(),
                 ),
 
-                CustomerProfileViewFooter(),
+                CustomerProfileViewFooter(user: user,),
               ],
             ),
           );

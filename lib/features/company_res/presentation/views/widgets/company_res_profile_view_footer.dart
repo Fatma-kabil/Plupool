@@ -18,7 +18,7 @@ class CompanyResProfileViewFooter extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            context.push(companyresFooter[index]['view']);
+            context.push(companyresFooter[index]['view'],extra: user);
           },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: SizeConfig.h(6)),

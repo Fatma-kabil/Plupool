@@ -35,7 +35,7 @@ class NoOfYearsRow extends StatelessWidget {
 
         SizedBox(width: SizeConfig.w(115)),
         Text(
-          "${toArabicNumbers(years.toString())}سنوات",
+          "${toArabicNumbers(years.toString())} سنوات",
           style: AppTextStyles.styleSemiBold16(
             context,
           ).copyWith(color: AppColors.ktextcolor),

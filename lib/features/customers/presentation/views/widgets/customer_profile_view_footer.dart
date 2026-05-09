@@ -4,9 +4,11 @@ import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
 
 class CustomerProfileViewFooter extends StatelessWidget {
-  const CustomerProfileViewFooter({super.key});
+  const CustomerProfileViewFooter({super.key, required this.user});
+  final UserDetailsEntity user;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class CustomerProfileViewFooter extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            context.push(customerFooter[index]['view']);
+            context.push(customerFooter[index]['view'], extra: user,);
           },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: SizeConfig.h(6)),
@@ -42,7 +44,9 @@ class CustomerProfileViewFooter extends StatelessWidget {
                 Icon(
                   customerFooter[index]['icon'],
                   color: customerFooter[index]['color'],
-                  size:SizeConfig.isWideScreen?SizeConfig.w(20):SizeConfig.w(24),
+                  size: SizeConfig.isWideScreen
+                      ? SizeConfig.w(20)
+                      : SizeConfig.w(24),
                 ),
                 SizedBox(width: SizeConfig.w(4)),
                 Text(

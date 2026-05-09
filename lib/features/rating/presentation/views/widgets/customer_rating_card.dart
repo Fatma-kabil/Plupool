@@ -3,14 +3,14 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/customers/domain/entities/user_rating_entity.dart';
 import 'package:plupool/features/rating/presentation/views/widgets/delete_rating_btn.dart';
 
 //import 'package:intl/intl.dart';
 
 class CustomerRatingCard extends StatelessWidget {
-  CustomerRatingCard({super.key});
-
-  final date = DateTime(2025, 8, 5);
+  const CustomerRatingCard({super.key, required this.userRating});
+  final UserRatingEntity userRating;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +32,14 @@ class CustomerRatingCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'تقييم العميل',
+                'التقييم',
                 style: AppTextStyles.styleRegular16(
                   context,
                 ).copyWith(color: Colors.black),
               ),
               Text(
-             //   textDirection: TextDirection.rtl,
-                formatDate(date),
+                //   textDirection: TextDirection.rtl,
+                formatDate(userRating.createdAt),
                 style: AppTextStyles.styleRegular16(
                   context,
                 ).copyWith(color: Colors.black),
@@ -50,9 +50,11 @@ class CustomerRatingCard extends StatelessWidget {
           Row(
             children: List.generate(
               5,
-              (_) => Icon(
-                Icons.star,
-                color: Color(0xffFF9F1C),
+              (index) => Icon(
+                index < (userRating.rating ?? 0)
+                    ? Icons.star
+                    : Icons.star_border,
+                color: const Color(0xffFF9F1C),
                 size: SizeConfig.isWideScreen
                     ? SizeConfig.w(15)
                     : SizeConfig.w(22),
@@ -70,7 +72,7 @@ class CustomerRatingCard extends StatelessWidget {
               SizedBox(width: SizeConfig.w(8)),
               Expanded(
                 child: Text(
-                  'الفني فيصل عمل جيد بشكل عام لكنه تأخر حوالي 20 دقيقة عن الموعد دون إشعار مسبق. العمل نفسه كان نظيفاً واحترافياً.',
+                  userRating.content,
                   style: AppTextStyles.styleRegular14(
                     context,
                   ).copyWith(color: Color(0xff777777)),
@@ -78,13 +80,12 @@ class CustomerRatingCard extends StatelessWidget {
               ),
             ],
           ),
-            SizedBox(height: SizeConfig.h(5)),
+          SizedBox(height: SizeConfig.h(5)),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              
-             // DeleteRatingBtn()
-             ],
+              // DeleteRatingBtn()
+            ],
           ),
         ],
       ),

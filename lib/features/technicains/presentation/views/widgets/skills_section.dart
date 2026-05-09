@@ -15,7 +15,7 @@ class SkillsSection extends StatelessWidget {
 
     /// ✅ فصل المهارات
     final List<String> skillsList = skills
-        .split(RegExp(r'[,،]| و '))
+        .split(RegExp(r'[,،]| و - _'))
         .map((e) => e.trim())
         .where((e) => e.isNotEmpty)
         .toList();

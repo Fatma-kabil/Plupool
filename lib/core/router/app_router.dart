@@ -12,6 +12,7 @@ import 'package:plupool/features/company_res/presentation/views/edit_companny_re
 import 'package:plupool/features/contact_us/presentation/views/admin_drawer_contact_us_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/company_res_contact_us_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/contact_us_details_view.dart';
+import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
 import 'package:plupool/features/customers/presentation/views/customer_profile_view.dart';
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
@@ -527,8 +528,11 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/customerratingview',
       name: 'customerratingview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const CustomerRating()),
+      pageBuilder: (context, state) {
+        final user = state.extra as UserDetailsEntity;
+
+        return buildTransitionPage( CustomerRating(user: user,));
+      },
     ),
     GoRoute(
       path: '/visitview',
@@ -605,9 +609,7 @@ final GoRouter appRouter = GoRouter(
       name: 'techprofileview',
       pageBuilder: (context, state) {
         final id = state.extra as int;
-        return buildTransitionPage( TechProfileView(
-          id: id,
-        ));
+        return buildTransitionPage(TechProfileView(id: id));
       },
     ),
     GoRoute(

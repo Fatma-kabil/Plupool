@@ -56,11 +56,11 @@ class TechProfileViewHeader extends StatelessWidget {
             child: Divider(),
           ),
           NoOfYearsRow(
-            years: user.yearsOfExperience!.toDouble(),
+            years: user.yearsOfExperience?.toDouble()??0,
           ),
           SizedBox(height: SizeConfig.h(8)),
           SkillsSection(
-            skills: user.skills!,
+            skills: user.skills??"",
           ),
           SizedBox(height: 10),
           Row(
