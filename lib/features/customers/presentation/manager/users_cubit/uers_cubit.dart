@@ -83,9 +83,7 @@ class UsersCubit extends Cubit<UsersState> {
       );
     } catch (e) {
       emit(
-        UsersError(
-          e is Failure ? e.message : "حدث خطأ أثناء جلب المستخدمين",
-        ),
+        UsersError(e is Failure ? e.message : "حدث خطأ أثناء جلب المستخدمين"),
       );
 
       print(e);
@@ -101,8 +99,10 @@ class UsersCubit extends Cubit<UsersState> {
       emit(UserDetailsLoading());
 
       final user = await getUserDetailsUseCase(id);
-
+ 
       emit(UserDetailsSuccess(user));
+        
+   
     } catch (e) {
       emit(
         UserDetailsError(
@@ -209,9 +209,7 @@ class UsersCubit extends Cubit<UsersState> {
 
       if (_cachedUsers != null) {
         _cachedUsers = UsersResponseEntity(
-          users: _cachedUsers!.users
-              .where((e) => e.id != id)
-              .toList(),
+          users: _cachedUsers!.users.where((e) => e.id != id).toList(),
           total: _cachedUsers!.total,
           page: _cachedUsers!.page,
           pageSize: _cachedUsers!.pageSize,

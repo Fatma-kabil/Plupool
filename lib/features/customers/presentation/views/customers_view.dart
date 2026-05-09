@@ -16,6 +16,7 @@ class _CustomersViewState extends State<CustomersView> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: SafeArea(

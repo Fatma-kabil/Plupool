@@ -33,6 +33,7 @@ class _CustomerViewBodyState extends State<CustomerViewBody> {
       context.read<UsersCubit>().getUsers(role: "pool_owner", isActive: true);
     });
   }
+  
 
   void onSearchChanged(String value) {
     setState(() => _search = value);

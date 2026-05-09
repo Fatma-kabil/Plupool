@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/domain/entities/user_entity.dart';
+import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_details.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_header.dart';
 
@@ -13,9 +15,20 @@ class CustomerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.push('/customerprofileview');
+      onTap: () async {
+        final navContext = Navigator.of(context).context;
+
+        final result = await context.push(
+          '/customerprofileview',
+          extra: user.id,
+        );
+
+        if (result == true) {
+          // ignore: use_build_context_synchronously
+          navContext.read<UsersCubit>().refresh();
+        }
       },
+
       child: Container(
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(15),

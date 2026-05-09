@@ -345,8 +345,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/customerprofileview',
       name: 'customerprofileview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const CustomerProfileView()),
+      pageBuilder: (context, state) {
+        final id = state.extra as int;
+       return buildTransitionPage(CustomerProfileView(id: id));
+      },
     ),
     GoRoute(
       path: '/customerservicesview',
