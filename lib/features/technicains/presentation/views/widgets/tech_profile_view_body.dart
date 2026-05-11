@@ -45,19 +45,15 @@ class _TechProfileViewBodyState extends State<TechProfileViewBody> {
           return SingleChildScrollView(
             child: Column(
               children: [
-                TechProfileViewHeader(
-                  user: user.user,
-                ),
+                TechProfileViewHeader(user: user.user),
                 SizedBox(height: 28),
                 TechProfileViewMiddle(
-                  rating: user.user.totalRating??0,
-                  completedTasks: 14,
-                  weeklyTasks: 5,
+                  rating: user.user.totalRating ?? 0,
+                  completedTasks: user.statistics['completed_tasks'] ?? 0,
+                  weeklyTasks: user.statistics['weekly_tasks'] ?? 0,
                 ),
                 SizedBox(height: 22),
-                TechProfileViewFooter(
-                  user: user,
-                ),
+                TechProfileViewFooter(user: user),
               ],
             ),
           );
