@@ -10,12 +10,12 @@ class UpdateTechRatingUseCase {
 
   Future<Either<Failure, String>> call({
     required int userId,
-    required int ratingId,
+   
     required int rating,
   }) {
     return repo.updateTechRating(
       userId: userId,
-      ratingId: ratingId,
+      
       request: UpdateTechRatingRequest(
         rating: rating,
       ),

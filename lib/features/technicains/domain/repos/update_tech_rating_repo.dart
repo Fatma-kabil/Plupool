@@ -6,7 +6,7 @@ abstract class UpdateTechRatingRepo {
   Future<Either<Failure, String>>
       updateTechRating({
     required int userId,
-    required int ratingId,
+  
     required UpdateTechRatingRequest request,
   });
 

@@ -14,13 +14,13 @@ class UpdateTechRatingRepoImpl implements UpdateTechRatingRepo {
   @override
   Future<Either<Failure, String>> updateTechRating({
     required int userId,
-    required int ratingId,
+ 
     required UpdateTechRatingRequest request,
   }) async {
     try {
       final result = await remoteDataSource.updateTechRating(
         userId: userId,
-        ratingId: ratingId,
+     
         request: request,
       );
 

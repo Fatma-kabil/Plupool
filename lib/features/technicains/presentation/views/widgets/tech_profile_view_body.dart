@@ -48,6 +48,8 @@ class _TechProfileViewBodyState extends State<TechProfileViewBody> {
                 TechProfileViewHeader(user: user.user),
                 SizedBox(height: 28),
                 TechProfileViewMiddle(
+                  userId: user.user.id,
+                  
                   rating: user.user.totalRating ?? 0,
                   completedTasks: user.statistics['completed_tasks'] ?? 0,
                   weeklyTasks: user.statistics['weekly_tasks'] ?? 0,

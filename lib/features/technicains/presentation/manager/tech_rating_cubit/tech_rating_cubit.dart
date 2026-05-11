@@ -10,14 +10,14 @@ class TechRatingCubit extends Cubit<TechRatingState> {
 
   Future<void> updateTechRating({
     required int userId,
-    required int ratingId,
+  
     required int rating,
   }) async {
     emit(TechRatingLoading());
 
     final result = await updateTechRatingUseCase(
       userId: userId,
-      ratingId: ratingId,
+     
       rating: rating,
     );
 

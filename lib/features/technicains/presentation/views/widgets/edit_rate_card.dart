@@ -8,27 +8,37 @@ import 'package:plupool/features/offers/presentation/views/widgets/field_label.d
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
 
 class EditRateCard extends StatelessWidget {
-  const EditRateCard({super.key, required this.ratingController});
+  const EditRateCard({
+    super.key,
+    required this.ratingController,
+    this.onSubmit,
+    this.onCancel,
+    this.isLoading = false,
+  });
 
   final TextEditingController ratingController;
+  final VoidCallback? onSubmit;
+  final VoidCallback? onCancel;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-          width: SizeConfig.isWideScreen
-              ? SizeConfig.screenWidth * 0.80
-              : double.infinity,
+        width: SizeConfig.isWideScreen
+            ? SizeConfig.screenWidth * 0.80
+            : double.infinity,
         padding: EdgeInsets.symmetric(
           horizontal: SizeConfig.w(20),
           vertical: SizeConfig.h(25),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const FieldLabel("التقييم"),
+
             TextFieldWithIcon(
               hint: "ادخل تقييمك",
               icon: Icons.star_border,
@@ -36,19 +46,18 @@ class EditRateCard extends StatelessWidget {
               controller: ratingController,
             ),
 
-            // ✅ هيشتغل
             const SizedBox(height: 40),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomTextBtn(
-                  text: "تعديل",
-                  onPressed: () {},
+                  text: isLoading ? "جاري..." : "تعديل",
+                  onPressed: onSubmit,
                   padding: SizeConfig.isWideScreen ? 14 : 10,
                   width: SizeConfig.w(120),
-                  textStyle: AppTextStyles.styleBold16(
-                    context,
-                  ).copyWith(color: Colors.white),
+                  textStyle: AppTextStyles.styleBold16(context)
+                      .copyWith(color: Colors.white),
                   trailing: Icon(
                     Icons.edit_attributes_outlined,
                     color: Colors.white,
@@ -58,7 +67,8 @@ class EditRateCard extends StatelessWidget {
 
                 CustomOutlinedBtn(
                   text: 'إلغاء',
-                                    padding: SizeConfig.isWideScreen ? 12 : 10,
+                  onPressed: onCancel,
+                  padding: SizeConfig.isWideScreen ? 12 : 10,
                   trailing: Icon(
                     Icons.cancel_outlined,
                     color: AppColors.kprimarycolor,

@@ -9,11 +9,11 @@ class RatingsTechRemoteDataSource {
 
   Future<String> updateTechRating({
     required int userId,
-    required int ratingId,
+ 
     required UpdateTechRatingRequest request,
   }) async {
     final response = await apiService.patch(
-      '${Endpoints.users}/$userId/ratings/$ratingId',
+      '${Endpoints.users}/$userId/ratings',
 
       data: request.toJson(),
     );
