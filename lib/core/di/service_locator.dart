@@ -159,6 +159,12 @@ import 'package:plupool/features/support/data/remote_data_sources/contact_remote
 import 'package:plupool/features/support/data/repos_impl.dart/contact_repo_impl.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
 import 'package:plupool/features/support/domain/repos/contact_repo.dart';
+import 'package:plupool/features/technicains/data/data_sources/ratings_remote_data_source.dart';
+import 'package:plupool/features/technicains/data/repos_impl/update_tech_rating_repo_impl.dart';
+import 'package:plupool/features/technicains/domain/repos/update_tech_rating_repo.dart';
+import 'package:plupool/features/technicains/domain/usecases/update_tech_rating_use_case.dart';
+import 'package:plupool/features/technicains/presentation/manager/tech_rating_cubit/tech_rating_cubit.dart';
+
 final sl = GetIt.instance;
 
 Future<void> initServiceLocator() async {
@@ -184,7 +190,9 @@ Future<void> initServiceLocator() async {
   // ----------------------------
   // 🔐 FlutterSecureStorage
   // ----------------------------
-  sl.registerLazySingleton<FlutterSecureStorage>(() => const FlutterSecureStorage());
+  sl.registerLazySingleton<FlutterSecureStorage>(
+    () => const FlutterSecureStorage(),
+  );
 
   // ----------------------------
   // 🧱 Role Feature
@@ -198,23 +206,24 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(() => SaveRoleUseCase(sl<RoleRepository>()));
   sl.registerLazySingleton(() => GetSavedRoleUseCase(sl<RoleRepository>()));
 
-  sl.registerLazySingleton(() => SelectRoleCubit(
-        saveRoleUseCase: sl<SaveRoleUseCase>(),
-        getSavedRoleUseCase: sl<GetSavedRoleUseCase>(),
-      ));
+  sl.registerLazySingleton(
+    () => SelectRoleCubit(
+      saveRoleUseCase: sl<SaveRoleUseCase>(),
+      getSavedRoleUseCase: sl<GetSavedRoleUseCase>(),
+    ),
+  );
 
   // ----------------------------
   // 🔐 Auth Feature
   // ----------------------------
   // AuthCubit (يعتمد على FlutterSecureStorage)
   sl.registerLazySingleton<AuthCubit>(
-  () => AuthCubit(sl<FlutterSecureStorage>(), sl<ApiService>()),
-);
-
+    () => AuthCubit(sl<FlutterSecureStorage>(), sl<ApiService>()),
+  );
 
   // Remote Data Source
   sl.registerLazySingleton<SignUpRemoteDataSource>(
-    () => SignUpRemoteDataSourceImpl(sl<ApiService>(), sl<AuthCubit>(), ),
+    () => SignUpRemoteDataSourceImpl(sl<ApiService>(), sl<AuthCubit>()),
   );
 
   // Repositories
@@ -224,9 +233,9 @@ Future<void> initServiceLocator() async {
 
   sl.registerLazySingleton<OtpRemoteDataSource>(
     () => OtpRemoteDataSourceImpl(
-          sl<ApiService>(),
-          sl<AuthCubit>(), // ✅ تمرير الـ AuthCubit
-        ),
+      sl<ApiService>(),
+      sl<AuthCubit>(), // ✅ تمرير الـ AuthCubit
+    ),
   );
 
   sl.registerLazySingleton<OtpRepository>(
@@ -239,32 +248,31 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(() => SignupCompanyUseCase(sl<SignUpRepo>()));
 
   // Cubits
-  sl.registerLazySingleton(() => SignUpCubit(
-        signupTechnicianUseCase: sl<SignupTechnicianUseCase>(),
-        signupPoolOwnerUseCase: sl<SignupPoolOwnerUseCase>(),
-        signupCompanyUseCase: sl<SignupCompanyUseCase>(),
-      ));
+  sl.registerLazySingleton(
+    () => SignUpCubit(
+      signupTechnicianUseCase: sl<SignupTechnicianUseCase>(),
+      signupPoolOwnerUseCase: sl<SignupPoolOwnerUseCase>(),
+      signupCompanyUseCase: sl<SignupCompanyUseCase>(),
+    ),
+  );
 
   sl.registerLazySingleton(() => OtpCubit(sl<OtpRepository>()));
 
-
-
   // تسجيل DataSource
-sl.registerLazySingleton<UserRemoteDataSource>(
-  () => UserRemoteDataSourceImpl(sl<ApiService>()),
-);
+  sl.registerLazySingleton<UserRemoteDataSource>(
+    () => UserRemoteDataSourceImpl(sl<ApiService>()),
+  );
 
-// تسجيل Repository
-sl.registerLazySingleton<UserRepository>(
-  () => UserRepositoryImpl(sl<UserRemoteDataSource>()),
-);
+  // تسجيل Repository
+  sl.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(sl<UserRemoteDataSource>()),
+  );
 
-// تسجيل Cubit
-sl.registerLazySingleton(() => UserCubit(sl<UserRepository>()));
+  // تسجيل Cubit
+  sl.registerLazySingleton(() => UserCubit(sl<UserRepository>()));
 
-// تسجيل UpdateUserCubit
+  // تسجيل UpdateUserCubit
 
- 
   // Notification Feature
   // ----------------------------
 
@@ -282,77 +290,79 @@ sl.registerLazySingleton(() => UserCubit(sl<UserRepository>()));
   sl.registerLazySingleton(
     () => NotificationCubit(sl<NotificationRepository>()),
   );
-// ----------------------------
-// 🛒 Product Feature
-// ----------------------------
+  // ----------------------------
+  // 🛒 Product Feature
+  // ----------------------------
 
-sl.registerLazySingleton<ProductRemoteDataSource>(
-  () => ProductRemoteDataSource(sl<ApiService>()),
-);
+  sl.registerLazySingleton<ProductRemoteDataSource>(
+    () => ProductRemoteDataSource(sl<ApiService>()),
+  );
 
-sl.registerLazySingleton<ProductRepository>(
-  () => ProductRepoImpl(sl<ProductRemoteDataSource>()),
-);
+  sl.registerLazySingleton<ProductRepository>(
+    () => ProductRepoImpl(sl<ProductRemoteDataSource>()),
+  );
 
-sl.registerLazySingleton(() => GetAllProductsUsecase(sl<ProductRepository>()));
-sl.registerLazySingleton(() => AddProductUsecase(sl<ProductRepository>()));
-sl.registerLazySingleton(() => UpdateProductUsecase(sl<ProductRepository>()));
-sl.registerLazySingleton(() => DeleteProductUsecase(sl<ProductRepository>()));
+  sl.registerLazySingleton(
+    () => GetAllProductsUsecase(sl<ProductRepository>()),
+  );
+  sl.registerLazySingleton(() => AddProductUsecase(sl<ProductRepository>()));
+  sl.registerLazySingleton(() => UpdateProductUsecase(sl<ProductRepository>()));
+  sl.registerLazySingleton(() => DeleteProductUsecase(sl<ProductRepository>()));
 
-sl.registerLazySingleton(
-  () => ProductCubit(
-    sl<GetAllProductsUsecase>(),
-    sl<AddProductUsecase>(),
-    sl<UpdateProductUsecase>(),
-    sl<DeleteProductUsecase>(),
-  ),
-);
-// ----------------------------
-// 📊 Dashboard Feature
-// ----------------------------
+  sl.registerLazySingleton(
+    () => ProductCubit(
+      sl<GetAllProductsUsecase>(),
+      sl<AddProductUsecase>(),
+      sl<UpdateProductUsecase>(),
+      sl<DeleteProductUsecase>(),
+    ),
+  );
+  // ----------------------------
+  // 📊 Dashboard Feature
+  // ----------------------------
 
-// Remote Data Source
-sl.registerLazySingleton<DashboardRemoteDataSource>(
-  () => DashboardRemoteDataSourceImpl(sl<ApiService>()),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<DashboardRemoteDataSource>(
+    () => DashboardRemoteDataSourceImpl(sl<ApiService>()),
+  );
 
-// Repository
-sl.registerLazySingleton<DashboardRepository>(
-  () => DashboardRepositoryImpl(sl<DashboardRemoteDataSource>()),
-);
+  // Repository
+  sl.registerLazySingleton<DashboardRepository>(
+    () => DashboardRepositoryImpl(sl<DashboardRemoteDataSource>()),
+  );
 
-// UseCase
-sl.registerLazySingleton(
-  () => GetAdminStatisticsUseCase(sl<DashboardRepository>()),
-);
+  // UseCase
+  sl.registerLazySingleton(
+    () => GetAdminStatisticsUseCase(sl<DashboardRepository>()),
+  );
 
-// Cubit
-sl.registerLazySingleton(
-  () => DashboardCubit(sl<GetAdminStatisticsUseCase>()),
-);
-// ----------------------------
-// 🏬 Store Statistics Feature
-// ----------------------------
+  // Cubit
+  sl.registerLazySingleton(
+    () => DashboardCubit(sl<GetAdminStatisticsUseCase>()),
+  );
+  // ----------------------------
+  // 🏬 Store Statistics Feature
+  // ----------------------------
 
-// Remote Data Source
-sl.registerLazySingleton<StoreStatisticsRemoteDataSource>(
-  () => StoreStatisticsRemoteDataSourceImpl(sl<ApiService>()),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<StoreStatisticsRemoteDataSource>(
+    () => StoreStatisticsRemoteDataSourceImpl(sl<ApiService>()),
+  );
 
-// Repository
-sl.registerLazySingleton<StoreStatisticsRepo>(
-  () => StoreStatisticsRepoImpl(sl<StoreStatisticsRemoteDataSource>()),
-);
+  // Repository
+  sl.registerLazySingleton<StoreStatisticsRepo>(
+    () => StoreStatisticsRepoImpl(sl<StoreStatisticsRemoteDataSource>()),
+  );
 
-// UseCase
-sl.registerLazySingleton(
-  () => GetStoreStatisticsUseCase(sl<StoreStatisticsRepo>()),
-);
+  // UseCase
+  sl.registerLazySingleton(
+    () => GetStoreStatisticsUseCase(sl<StoreStatisticsRepo>()),
+  );
 
-// Cubit
-sl.registerLazySingleton(
-  () => StoreStatisticsCubit(sl<GetStoreStatisticsUseCase>()),
-);
+  // Cubit
+  sl.registerLazySingleton(
+    () => StoreStatisticsCubit(sl<GetStoreStatisticsUseCase>()),
+  );
 
   // 📦 Categories
   // =====================
@@ -369,23 +379,19 @@ sl.registerLazySingleton(
     () => GetCategoriesUseCase(sl<CategoryRepository>()),
   );
 
-  sl.registerFactory(
-    () => CategoryCubit(sl<GetCategoriesUseCase>()),
-  );
+  sl.registerFactory(() => CategoryCubit(sl<GetCategoriesUseCase>()));
 
-sl.registerLazySingleton<ProductSearchRemoteDataSource>(
-  () => ProductSearchRemoteDataSource(sl<ApiService>()),
-);
-sl.registerLazySingleton<ProductSearchRepository>(
-  () => ProductSearchRepositoryImpl(sl<ProductSearchRemoteDataSource>()),
-);
-sl.registerLazySingleton(
-  () => SearchProductsUseCase(sl<ProductSearchRepository>()),
-);
-sl.registerFactory(
-  () => ProductSearchCubit(sl<SearchProductsUseCase>()),
-);
- // ================= OFFERS (FIXED 💥) =================
+  sl.registerLazySingleton<ProductSearchRemoteDataSource>(
+    () => ProductSearchRemoteDataSource(sl<ApiService>()),
+  );
+  sl.registerLazySingleton<ProductSearchRepository>(
+    () => ProductSearchRepositoryImpl(sl<ProductSearchRemoteDataSource>()),
+  );
+  sl.registerLazySingleton(
+    () => SearchProductsUseCase(sl<ProductSearchRepository>()),
+  );
+  sl.registerFactory(() => ProductSearchCubit(sl<SearchProductsUseCase>()));
+  // ================= OFFERS (FIXED 💥) =================
   sl.registerLazySingleton<ProductOfferRemoteDataSource>(
     () => ProductOfferRemoteDataSource(api: sl<ApiService>()),
   );
@@ -394,10 +400,18 @@ sl.registerFactory(
     () => ProductOfferRepoImpl(remote: sl()),
   );
 
-  sl.registerLazySingleton(() => AddProductOfferUsecase(sl<ProductOfferRepo>()));
-  sl.registerLazySingleton(() => UpdateProductOfferUsecase(sl<ProductOfferRepo>()));
-  sl.registerLazySingleton(() => DeleteProductOfferUsecase(sl<ProductOfferRepo>()));
-  sl.registerLazySingleton(() => GetActiveOffersUseCase(sl<ProductOfferRepo>()));
+  sl.registerLazySingleton(
+    () => AddProductOfferUsecase(sl<ProductOfferRepo>()),
+  );
+  sl.registerLazySingleton(
+    () => UpdateProductOfferUsecase(sl<ProductOfferRepo>()),
+  );
+  sl.registerLazySingleton(
+    () => DeleteProductOfferUsecase(sl<ProductOfferRepo>()),
+  );
+  sl.registerLazySingleton(
+    () => GetActiveOffersUseCase(sl<ProductOfferRepo>()),
+  );
 
   sl.registerFactory(
     () => ProductOfferCubit(
@@ -407,181 +421,158 @@ sl.registerFactory(
       deleteUseCase: sl(),
     ),
   );
-// ================= OFFERS FEATURE =================
+  // ================= OFFERS FEATURE =================
 
-// Remote DataSource
-sl.registerLazySingleton<OfferRemoteDataSource>(
-  () => OfferRemoteDataSource(sl<ApiService>()),
+  // Remote DataSource
+  sl.registerLazySingleton<OfferRemoteDataSource>(
+    () => OfferRemoteDataSource(sl<ApiService>()),
+  );
 
-);
+  // Repository
+  sl.registerLazySingleton<OfferRepository>(
+    () => OfferRepoImpl(sl<OfferRemoteDataSource>()),
+  );
 
-// Repository
-sl.registerLazySingleton<OfferRepository>(
-  () => OfferRepoImpl(sl<OfferRemoteDataSource>()),
-);
+  // UseCases
+  sl.registerLazySingleton(() => GetAllOffersUsecase(sl<OfferRepository>()));
+  sl.registerLazySingleton(() => AddOfferUsecase(sl<OfferRepository>()));
+  sl.registerLazySingleton(() => UpdateOfferUsecase(sl<OfferRepository>()));
+  sl.registerLazySingleton(() => DeleteOfferUsecase(sl<OfferRepository>()));
 
-// UseCases
-sl.registerLazySingleton(() => GetAllOffersUsecase(sl<OfferRepository>()));
-sl.registerLazySingleton(() => AddOfferUsecase(sl<OfferRepository>()));
-sl.registerLazySingleton(() => UpdateOfferUsecase(sl<OfferRepository>()));
-sl.registerLazySingleton(() => DeleteOfferUsecase(sl<OfferRepository>()));
+  sl.registerLazySingleton(
+    () => OfferCubit(
+      sl<GetAllOffersUsecase>(),
+      sl<AddOfferUsecase>(),
+      sl<UpdateOfferUsecase>(),
+      sl<DeleteOfferUsecase>(),
+    ),
+  );
 
-sl.registerLazySingleton(
-  () => OfferCubit(
-    sl<GetAllOffersUsecase>(),
-    sl<AddOfferUsecase>(),
-    sl<UpdateOfferUsecase>(),
-    sl<DeleteOfferUsecase>(),
-  ),
-);
+  // ----------------------------
+  // ❓ FAQ Feature
+  // ----------------------------
 
-// ----------------------------
-// ❓ FAQ Feature
-// ----------------------------
+  sl.registerLazySingleton<FaqRemoteDataSource>(
+    () => FaqRemoteDataSource(sl<ApiService>()),
+  );
+  sl.registerLazySingleton<FaqRepository>(
+    () => FaqRepositoryImpl(sl<FaqRemoteDataSource>()),
+  );
+  sl.registerLazySingleton(() => GetAllFaqsUseCase(sl<FaqRepository>()));
+  sl.registerLazySingleton(() => CreateFaqUseCase(sl<FaqRepository>()));
+  sl.registerLazySingleton(() => GetFaqUseCase(sl<FaqRepository>()));
 
-sl.registerLazySingleton<FaqRemoteDataSource>(
-  () => FaqRemoteDataSource(sl<ApiService>()),
-);
-sl.registerLazySingleton<FaqRepository>(
-  () => FaqRepositoryImpl(sl<FaqRemoteDataSource>()),
-);
-sl.registerLazySingleton(() => GetAllFaqsUseCase(sl<FaqRepository>()));
-sl.registerLazySingleton(() => CreateFaqUseCase(sl<FaqRepository>()));
-sl.registerLazySingleton(() => GetFaqUseCase(sl<FaqRepository>()));
+  sl.registerLazySingleton(() => UpdateFaqUseCase(sl<FaqRepository>()));
+  sl.registerLazySingleton(() => DeleteFaqUseCase(sl<FaqRepository>()));
+  sl.registerLazySingleton(
+    () => ToggleFaqVisibilityUseCase(sl<FaqRepository>()),
+  );
 
-sl.registerLazySingleton(() => UpdateFaqUseCase(sl<FaqRepository>()));
-sl.registerLazySingleton(() => DeleteFaqUseCase(sl<FaqRepository>()));
-sl.registerLazySingleton(() => ToggleFaqVisibilityUseCase(sl<FaqRepository>()));
+  sl.registerFactory(
+    () => FaqCubit(
+      getFaqsUseCase: sl<GetAllFaqsUseCase>(),
+      createFaqUseCase: sl<CreateFaqUseCase>(),
+      getFaqUseCase: sl<GetFaqUseCase>(),
+      deleteFaqUseCase: sl<DeleteFaqUseCase>(),
+      toggleUseCase: sl<ToggleFaqVisibilityUseCase>(),
+      updateFaqUseCase: sl<UpdateFaqUseCase>(),
+    ),
+  );
+  // ----------------------------
+  // 📅 BOOKINGS FEATURE
+  // ----------------------------
 
-sl.registerFactory(
-  () => FaqCubit(
-    getFaqsUseCase: sl<GetAllFaqsUseCase>(),
-    createFaqUseCase: sl<CreateFaqUseCase>(),
-    getFaqUseCase: sl<GetFaqUseCase>(),
-    deleteFaqUseCase: sl<DeleteFaqUseCase>(),
-    toggleUseCase: sl<ToggleFaqVisibilityUseCase>(),
-    updateFaqUseCase: sl<UpdateFaqUseCase>(),
-  ),
-);
-// ----------------------------
-// 📅 BOOKINGS FEATURE
-// ----------------------------
+  // Remote Data Source
+  sl.registerLazySingleton<BookingRemoteDataSource>(
+    () => BookingRemoteDataSource(sl<ApiService>()),
+  );
 
-// Remote Data Source
-sl.registerLazySingleton<BookingRemoteDataSource>(
-  () => BookingRemoteDataSource(sl<ApiService>()),
-);
+  // Repository
+  sl.registerLazySingleton<BookingRepository>(
+    () => BookingRepositoryImpl(sl<BookingRemoteDataSource>()),
+  );
 
-// Repository
-sl.registerLazySingleton<BookingRepository>(
-  () => BookingRepositoryImpl(sl<BookingRemoteDataSource>()),
-);
+  // UseCases
+  sl.registerLazySingleton(() => GetBookingsUseCase(sl<BookingRepository>()));
 
-// UseCases
-sl.registerLazySingleton(
-  () => GetBookingsUseCase(sl<BookingRepository>()),
-);
+  sl.registerLazySingleton(
+    () => GetBookingDetailsUseCase(sl<BookingRepository>()),
+  );
 
-sl.registerLazySingleton(
-  () => GetBookingDetailsUseCase(sl<BookingRepository>()),
-);
+  sl.registerLazySingleton(() => UpdateBookingUseCase(sl<BookingRepository>()));
 
-sl.registerLazySingleton(
-  () => UpdateBookingUseCase(sl<BookingRepository>()),
-);
+  sl.registerLazySingleton(() => DeleteBookingUseCase(sl<BookingRepository>()));
 
-sl.registerLazySingleton(
-  () => DeleteBookingUseCase(sl<BookingRepository>()),
-);
+  // Cubit
+  sl.registerFactory(
+    () => BookingCubit(
+      getBookingsUseCase: sl<GetBookingsUseCase>(),
+      getDetailsUseCase: sl<GetBookingDetailsUseCase>(),
+      updateUseCase: sl<UpdateBookingUseCase>(),
+      deleteUseCase: sl<DeleteBookingUseCase>(),
+    ),
+  );
 
-// Cubit
-sl.registerFactory(
-  () => BookingCubit(
-    getBookingsUseCase: sl<GetBookingsUseCase>(),
-    getDetailsUseCase: sl<GetBookingDetailsUseCase>(),
-    updateUseCase: sl<UpdateBookingUseCase>(),
-    deleteUseCase: sl<DeleteBookingUseCase>(),
-  ),
-);
+  sl.registerLazySingleton<ContactRemoteDataSource>(
+    () => ContactRemoteDataSource(sl<ApiService>()),
+  );
+  sl.registerLazySingleton<ContactRepository>(
+    () => ContactRepoImpl(sl<ContactRemoteDataSource>()),
+  );
+  sl.registerLazySingleton(() => GetMessagesUseCase(sl<ContactRepository>()));
 
-sl.registerLazySingleton<ContactRemoteDataSource>(
-  () => ContactRemoteDataSource(sl<ApiService>()),
-);
-sl.registerLazySingleton<ContactRepository>(
-  () => ContactRepoImpl(sl<ContactRemoteDataSource>()),
+  sl.registerLazySingleton(
+    () => GetMessageDetailsUseCase(sl<ContactRepository>()),
+  );
 
-);
-sl.registerLazySingleton(
-  () => GetMessagesUseCase(sl<ContactRepository>()),
-);
+  sl.registerLazySingleton(() => DeleteMessageUseCase(sl<ContactRepository>()));
 
-sl.registerLazySingleton(
-  () => GetMessageDetailsUseCase(sl<ContactRepository>()),
-);
+  sl.registerLazySingleton(() => UpdateStatusUseCase(sl<ContactRepository>()));
+  sl.registerFactory(
+    () => ContactCubit(
+      sl<GetMessagesUseCase>(),
+      getDetailsUseCase: sl<GetMessageDetailsUseCase>(),
+      deleteUseCase: sl<DeleteMessageUseCase>(),
+      updateUseCase: sl<UpdateStatusUseCase>(),
+    ),
+  );
+  // ----------------------------
+  // ⭐ RATINGS FEATURE
+  // ----------------------------
 
-sl.registerLazySingleton(
-  () => DeleteMessageUseCase(sl<ContactRepository>()),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<RatingsRemoteDataSource>(
+    () => RatingsRemoteDataSource(sl<ApiService>()),
+  );
 
-sl.registerLazySingleton(
-  () => UpdateStatusUseCase(sl<ContactRepository>()),
-);
-sl.registerFactory(
-  () => ContactCubit(
-    sl<GetMessagesUseCase>(),
-    getDetailsUseCase: sl<GetMessageDetailsUseCase>(),
-    deleteUseCase: sl<DeleteMessageUseCase>(),
-    updateUseCase: sl<UpdateStatusUseCase>(),
-  ),
-);
-// ----------------------------
-// ⭐ RATINGS FEATURE
-// ----------------------------
+  // Repository
+  sl.registerLazySingleton<RatingsRepository>(
+    () => RatingsRepositoryImpl(sl<RatingsRemoteDataSource>()),
+  );
 
-// Remote Data Source
-sl.registerLazySingleton<RatingsRemoteDataSource>(
-  () => RatingsRemoteDataSource(sl<ApiService>()),
-);
+  // UseCases
+  sl.registerLazySingleton(() => GetRatingsUseCase(sl<RatingsRepository>()));
 
-// Repository
-sl.registerLazySingleton<RatingsRepository>(
-  () => RatingsRepositoryImpl(sl<RatingsRemoteDataSource>()),
-);
+  sl.registerLazySingleton(() => GetRatingByIdUseCase(sl<RatingsRepository>()));
 
-// UseCases
-sl.registerLazySingleton(
-  () => GetRatingsUseCase(sl<RatingsRepository>()),
-);
+  sl.registerLazySingleton(() => DeleteRatingUseCase(sl<RatingsRepository>()));
 
-sl.registerLazySingleton(
-  () => GetRatingByIdUseCase(sl<RatingsRepository>()),
-);
+  sl.registerLazySingleton(() => ApproveRatingUseCase(sl<RatingsRepository>()));
 
-sl.registerLazySingleton(
-  () => DeleteRatingUseCase(sl<RatingsRepository>()),
-);
+  sl.registerLazySingleton(() => RejectRatingUseCase(sl<RatingsRepository>()));
 
-sl.registerLazySingleton(
-  () => ApproveRatingUseCase(sl<RatingsRepository>()),
-);
+  // Cubit
+  sl.registerFactory(
+    () => RatingsCubit(
+      sl<GetRatingsUseCase>(),
+      getRatingByIdUseCase: sl<GetRatingByIdUseCase>(),
+      approveUseCase: sl<ApproveRatingUseCase>(),
+      rejectUseCase: sl<RejectRatingUseCase>(),
+      deleteUseCase: sl<DeleteRatingUseCase>(),
+    ),
+  );
 
-sl.registerLazySingleton(
-  () => RejectRatingUseCase(sl<RatingsRepository>()),
-);
-
-// Cubit
-sl.registerFactory(
-  () => RatingsCubit(
-    sl<GetRatingsUseCase>(),
-    getRatingByIdUseCase: sl<GetRatingByIdUseCase>(),
-    approveUseCase: sl<ApproveRatingUseCase>(),
-    rejectUseCase: sl<RejectRatingUseCase>(),
-    deleteUseCase: sl<DeleteRatingUseCase>(),
-  ),
-);
-
-
- // 📋 REQUESTS (NEW 💥)
+  // 📋 REQUESTS (NEW 💥)
   // =========================
   sl.registerLazySingleton<RequestedServicesRemoteDataSource>(
     () => RequestedServicesRemoteDataSource(sl<ApiService>()),
@@ -605,218 +596,197 @@ sl.registerFactory(
       updateStatusUseCase: sl(),
     ),
   );
-// ----------------------------
-// 📦 ORDERS FEATURE
-// ----------------------------
+  // ----------------------------
+  // 📦 ORDERS FEATURE
+  // ----------------------------
 
-// Remote Data Source
-sl.registerLazySingleton<OrdersRemoteDataSource>(
-  () => OrdersRemoteDataSource
-  (sl<ApiService>()),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<OrdersRemoteDataSource>(
+    () => OrdersRemoteDataSource(sl<ApiService>()),
+  );
 
-// Repository
-sl.registerLazySingleton<OrdersRepository>(
-  () => OrdersRepositoryImpl(sl<OrdersRemoteDataSource>()),
-);
+  // Repository
+  sl.registerLazySingleton<OrdersRepository>(
+    () => OrdersRepositoryImpl(sl<OrdersRemoteDataSource>()),
+  );
 
-// ==============================
-// USE CASES
-// ==============================
+  // ==============================
+  // USE CASES
+  // ==============================
 
-sl.registerLazySingleton(
-  () => GetOrdersUseCase(sl<OrdersRepository>()),
-);
+  sl.registerLazySingleton(() => GetOrdersUseCase(sl<OrdersRepository>()));
 
-sl.registerLazySingleton(
-  () => GetOrderDetailsUseCase(sl<OrdersRepository>()),
-);
+  sl.registerLazySingleton(
+    () => GetOrderDetailsUseCase(sl<OrdersRepository>()),
+  );
 
-sl.registerLazySingleton(
-  () => UpdateOrderStatusUseCase(sl<OrdersRepository>()),
-);
+  sl.registerLazySingleton(
+    () => UpdateOrderStatusUseCase(sl<OrdersRepository>()),
+  );
 
-sl.registerLazySingleton(
-  () => DeleteOrderUseCase(sl<OrdersRepository>()),
-);
+  sl.registerLazySingleton(() => DeleteOrderUseCase(sl<OrdersRepository>()));
 
-sl.registerLazySingleton(
-  () => AddItemToOrderUseCase(sl<OrdersRepository>()),
-);
+  sl.registerLazySingleton(() => AddItemToOrderUseCase(sl<OrdersRepository>()));
 
-sl.registerLazySingleton(
-  () => UpdateOrderItemUseCase(sl<OrdersRepository>()),
-);
+  sl.registerLazySingleton(
+    () => UpdateOrderItemUseCase(sl<OrdersRepository>()),
+  );
 
-sl.registerLazySingleton(
-  () => DeleteOrderItemUseCase(sl<OrdersRepository>()),
-);
+  sl.registerLazySingleton(
+    () => DeleteOrderItemUseCase(sl<OrdersRepository>()),
+  );
 
-sl.registerLazySingleton(
-  () => ReplaceOrderItemUseCase(sl<OrdersRepository>()),
-);
+  sl.registerLazySingleton(
+    () => ReplaceOrderItemUseCase(sl<OrdersRepository>()),
+  );
 
-// ==============================
-// CUBIT
-// ==============================
+  // ==============================
+  // CUBIT
+  // ==============================
 
-sl.registerFactory(
-  () => OrdersCubit(
-    sl<GetOrdersUseCase>(),
-    getDetailsUseCase: sl<GetOrderDetailsUseCase>(),
-    updateStatusUseCase: sl<UpdateOrderStatusUseCase>(),
-    deleteOrderUseCase: sl<DeleteOrderUseCase>(),
-    addItemUseCase: sl<AddItemToOrderUseCase>(),
-    updateItemUseCase: sl<UpdateOrderItemUseCase>(),
-    deleteItemUseCase: sl<DeleteOrderItemUseCase>(),
-    replaceItemUseCase: sl<ReplaceOrderItemUseCase>(),
-    updateOrderUseCase: sl<UpdateOrderUseCase>(),
-  ),
-);
-// =============================
-// 📦 PACKAGES FEATURE
-// =============================
+  sl.registerFactory(
+    () => OrdersCubit(
+      sl<GetOrdersUseCase>(),
+      getDetailsUseCase: sl<GetOrderDetailsUseCase>(),
+      updateStatusUseCase: sl<UpdateOrderStatusUseCase>(),
+      deleteOrderUseCase: sl<DeleteOrderUseCase>(),
+      addItemUseCase: sl<AddItemToOrderUseCase>(),
+      updateItemUseCase: sl<UpdateOrderItemUseCase>(),
+      deleteItemUseCase: sl<DeleteOrderItemUseCase>(),
+      replaceItemUseCase: sl<ReplaceOrderItemUseCase>(),
+      updateOrderUseCase: sl<UpdateOrderUseCase>(),
+    ),
+  );
+  // =============================
+  // 📦 PACKAGES FEATURE
+  // =============================
 
-// Remote Data Source
-sl.registerLazySingleton<PackagesRemoteDataSource>(
-  () => PackagesRemoteDataSource(sl<ApiService>().dio),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<PackagesRemoteDataSource>(
+    () => PackagesRemoteDataSource(sl<ApiService>().dio),
+  );
 
-// Repository
-sl.registerLazySingleton<PackagesRepository>(
-  () => PackagesRepositoryImpl(sl<PackagesRemoteDataSource>()),
-);
+  // Repository
+  sl.registerLazySingleton<PackagesRepository>(
+    () => PackagesRepositoryImpl(sl<PackagesRemoteDataSource>()),
+  );
 
-// UseCases
-sl.registerLazySingleton(
-  () => GetPackagesUseCase(sl<PackagesRepository>()),
-);
+  // UseCases
+  sl.registerLazySingleton(() => GetPackagesUseCase(sl<PackagesRepository>()));
 
-sl.registerLazySingleton(
-  () => GetPackageDetailsUseCase(sl<PackagesRepository>()),
-);
+  sl.registerLazySingleton(
+    () => GetPackageDetailsUseCase(sl<PackagesRepository>()),
+  );
 
-sl.registerLazySingleton(
-  () => UpdatePackageProgressUseCase(sl<PackagesRepository>()),
-);
+  sl.registerLazySingleton(
+    () => UpdatePackageProgressUseCase(sl<PackagesRepository>()),
+  );
 
-sl.registerLazySingleton(
-  () => AddPackageVisitUseCase(sl<PackagesRepository>()),
-);
+  sl.registerLazySingleton(
+    () => AddPackageVisitUseCase(sl<PackagesRepository>()),
+  );
 
-// Cubit
-sl.registerFactory(
-  () => PackagesCubit(
-    sl<GetPackagesUseCase>(),
-    getPackageDetailsUseCase: sl<GetPackageDetailsUseCase>(),
-    updateProgressUseCase: sl<UpdatePackageProgressUseCase>(),
-    addVisitUseCase: sl<AddPackageVisitUseCase>(),
-  ),
-);
-sl.registerLazySingleton<ProjectsRemoteDataSource>(
-  () => ProjectsRemoteDataSource(sl<ApiService>()),
-);
+  // Cubit
+  sl.registerFactory(
+    () => PackagesCubit(
+      sl<GetPackagesUseCase>(),
+      getPackageDetailsUseCase: sl<GetPackageDetailsUseCase>(),
+      updateProgressUseCase: sl<UpdatePackageProgressUseCase>(),
+      addVisitUseCase: sl<AddPackageVisitUseCase>(),
+    ),
+  );
+  sl.registerLazySingleton<ProjectsRemoteDataSource>(
+    () => ProjectsRemoteDataSource(sl<ApiService>()),
+  );
 
-// Repository
-sl.registerLazySingleton<ProjectsRepository>(
-  () => ProjectsRepositoryImpl(sl<ProjectsRemoteDataSource>()),
-);
+  // Repository
+  sl.registerLazySingleton<ProjectsRepository>(
+    () => ProjectsRepositoryImpl(sl<ProjectsRemoteDataSource>()),
+  );
 
-// UseCases
-sl.registerLazySingleton(
-  () => GetOurProjectsUseCase(sl<ProjectsRepository>()),
-);
+  // UseCases
+  sl.registerLazySingleton(
+    () => GetOurProjectsUseCase(sl<ProjectsRepository>()),
+  );
 
+  // Cubit
+  sl.registerFactory(() => ProjectsCubit(sl<GetOurProjectsUseCase>()));
 
-// Cubit
-sl.registerFactory(
-  () => ProjectsCubit(
-    sl<GetOurProjectsUseCase>(),
-  ),
-);
+  sl.registerLazySingleton<CompanyProjectsRemoteDataSourceImpl>(
+    () => CompanyProjectsRemoteDataSourceImpl(sl<ApiService>()),
+  );
 
-sl.registerLazySingleton<CompanyProjectsRemoteDataSourceImpl>(
-  () => CompanyProjectsRemoteDataSourceImpl(sl<ApiService>()),
-);
+  // Repository
+  sl.registerLazySingleton<CompanyProjectsRepository>(
+    () => CompanyProjectsRepositoryImpl(
+      sl<CompanyProjectsRemoteDataSourceImpl>(),
+    ),
+  );
 
-// Repository
-sl.registerLazySingleton<CompanyProjectsRepository>(
-  () => CompanyProjectsRepositoryImpl(sl<CompanyProjectsRemoteDataSourceImpl>()),
-);
+  // UseCases
+  sl.registerLazySingleton(
+    () => GetCompanyProjectsUseCase(sl<CompanyProjectsRepository>()),
+  );
 
-// UseCases
-sl.registerLazySingleton(
-  () => GetCompanyProjectsUseCase(sl<CompanyProjectsRepository>()),
-);
+  // Cubit
+  sl.registerFactory(
+    () => CompanyProjectCubit(sl<GetCompanyProjectsUseCase>()),
+  );
 
+  // =============================
+  // 👥 USERS FEATURE
+  // =============================
 
-// Cubit
-sl.registerFactory(
-  () => CompanyProjectCubit(
-    sl<GetCompanyProjectsUseCase>(),
-  ),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<AdminUsersRemoteDataSource>(
+    () => AdminUsersRemoteDataSource(sl<ApiService>()),
+  );
 
-// =============================
-// 👥 USERS FEATURE
-// =============================
+  // Repository
+  sl.registerLazySingleton<AdminUsersRepository>(
+    () => AdminUsersRepositoryImpl(sl<AdminUsersRemoteDataSource>()),
+  );
 
-// Remote Data Source
-sl.registerLazySingleton<AdminUsersRemoteDataSource>(
-  () => AdminUsersRemoteDataSource(sl<ApiService>()),
-);
+  // =============================
+  // USE CASES
+  // =============================
 
-// Repository
-sl.registerLazySingleton<AdminUsersRepository>(
-  () => AdminUsersRepositoryImpl(
-    sl<AdminUsersRemoteDataSource>(),
-  ),
-);
+  sl.registerLazySingleton(() => GetUsersUseCase(sl<AdminUsersRepository>()));
 
-// =============================
-// USE CASES
-// =============================
+  sl.registerLazySingleton(
+    () => GetUserDetailsUseCase(sl<AdminUsersRepository>()),
+  );
 
-sl.registerLazySingleton(
-  () => GetUsersUseCase(
-    sl<AdminUsersRepository>(),
-  ),
-);
+  sl.registerLazySingleton(() => UpdateUserUseCase(sl<AdminUsersRepository>()));
 
-sl.registerLazySingleton(
-  () => GetUserDetailsUseCase(
-    sl<AdminUsersRepository>(),
-  ),
-);
+  sl.registerLazySingleton(() => DeleteUserUseCase(sl<AdminUsersRepository>()));
 
-sl.registerLazySingleton(
-  () => UpdateUserUseCase(
-    sl<AdminUsersRepository>(),
-  ),
-);
+  // =============================
+  // CUBIT
+  // =============================
 
-sl.registerLazySingleton(
-  () => DeleteUserUseCase(
-    sl<AdminUsersRepository>(),
-  ),
-);
+  sl.registerFactory(
+    () => UsersCubit(
+      sl<GetUsersUseCase>(),
+      getUserDetailsUseCase: sl<GetUserDetailsUseCase>(),
+      updateUserUseCase: sl<UpdateUserUseCase>(),
+      deleteUserUseCase: sl<DeleteUserUseCase>(),
+    ),
+  );
 
-// =============================
-// CUBIT
-// =============================
-
-sl.registerFactory(
-  () => UsersCubit(
-    sl<GetUsersUseCase>(),
-    getUserDetailsUseCase:
-        sl<GetUserDetailsUseCase>(),
-    updateUserUseCase:
-        sl<UpdateUserUseCase>(),
-    deleteUserUseCase:
-        sl<DeleteUserUseCase>(),
-  ),
-);
+  sl.registerLazySingleton<RatingsTechRemoteDataSource>(
+    () => RatingsTechRemoteDataSource(apiService: sl<ApiService>()),
+  );
+  sl.registerLazySingleton<UpdateTechRatingRepo>(
+    () => UpdateTechRatingRepoImpl(
+      remoteDataSource: sl<RatingsTechRemoteDataSource>(),
+    ),
+  );
+  sl.registerLazySingleton(
+    () => UpdateTechRatingUseCase(sl<UpdateTechRatingRepo>()),
+  );
+  sl.registerFactory(
+    () =>
+        TechRatingCubit(updateTechRatingUseCase: sl<UpdateTechRatingUseCase>()),
+  );
 }
-   
-
-
