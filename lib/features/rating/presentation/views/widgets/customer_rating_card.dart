@@ -84,7 +84,7 @@ class CustomerRatingCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // DeleteRatingBtn()
+               DeleteRatingBtn(id:userRating.id,)
             ],
           ),
         ],

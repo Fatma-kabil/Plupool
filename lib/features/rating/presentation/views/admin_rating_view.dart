@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
-import 'package:plupool/features/rating/presentation/manager/cubits/rating_cubit/ratings_cubit.dart';
 import 'package:plupool/features/rating/presentation/views/widgets/admin_rating_view_body.dart';
 
 class AdminRatingView extends StatefulWidget {
@@ -19,29 +16,26 @@ class _AdminRatingViewState extends State<AdminRatingView> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return BlocProvider(
-      create: (context) => sl<RatingsCubit>(),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: SafeArea(
-        child: Scaffold(
-          key: scaffoldkey,
-          appBar: CustomAppBar(
-            isSearch: false,
-            onPressed: () {
-              scaffoldkey.currentState!.openDrawer();
-            },
-          ),
-          drawer: AppDrawer(),
-          body: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.w(13),
-              vertical: SizeConfig.h(15),
-            ),
-            child: AdminRatingViewBody(),
-          ),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: SafeArea(
+      child: Scaffold(
+        key: scaffoldkey,
+        appBar: CustomAppBar(
+          isSearch: false,
+          onPressed: () {
+            scaffoldkey.currentState!.openDrawer();
+          },
         ),
-         )   ),
-    );
+        drawer: AppDrawer(),
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.w(13),
+            vertical: SizeConfig.h(15),
+          ),
+          child: AdminRatingViewBody(),
+        ),
+      ),
+       )   );
   }
 }
