@@ -1,12 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class NotesRow extends StatelessWidget {
-  const NotesRow({
-    super.key,
-  });
+  const NotesRow({super.key, required this.note});
+  final String note;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,7 @@ class NotesRow extends StatelessWidget {
         SizedBox(width: SizeConfig.w(8)),
         Expanded(
           child: Text(
-            'العميل يفضل الخدمات في الصباح الباكر (قبل ٩ صباحاً). لديه مسبح كبير بحجم 10×5 متر.  وهو عميل متميز  للشركة منذ أكثر من سنتين.',
+           note,
             style: AppTextStyles.styleRegular14(
               context,
             ).copyWith(color: Color(0xff777777)),

@@ -20,8 +20,10 @@ class NoteModel extends NoteEntity {
       id: json['id'],
       userId: json['user_id'],
       note: json['note'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
+     createdAt: DateTime.parse(json['created_at']),
+      updatedAt: json['updated_at'] != null
+          ? DateTime.parse(json['updated_at'])
+          : null,
       files: (json['files'] as List)
           .map((e) => NoteFileModel.fromJson(e))
           .toList(),

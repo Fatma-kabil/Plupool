@@ -107,6 +107,7 @@ class MessageCard extends StatelessWidget {
 
                       return AttachmentChip(
                         fileName: file.toString().split('/').last,
+                        fileUrl: file,
                       );
                     },
                   ),

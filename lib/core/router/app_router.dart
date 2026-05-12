@@ -457,8 +457,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/companyresnotesview',
       name: 'companyresnotesview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const CompanyResNotesView()),
+      pageBuilder: (context, state) {
+        final user = state.extra as UserDetailsEntity;
+        return buildTransitionPage(CompanyResNotesView(user: user));
+      },
     ),
     GoRoute(
       path: '/addnotificationsview',
@@ -531,7 +533,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) {
         final user = state.extra as UserDetailsEntity;
 
-        return buildTransitionPage( CustomerRating(user: user,));
+        return buildTransitionPage(CustomerRating(user: user));
       },
     ),
     GoRoute(

@@ -37,20 +37,13 @@ class NotesCubit extends Cubit<NotesState> {
     try {
       final response = await getNotesUseCase(userId);
 
-      emit(
-        GetNotesSuccess(response.notes),
-      );
+      emit(GetNotesSuccess(response.notes));
     } catch (e) {
       if (e is Failure) {
-        emit(
-          GetNotesError(e.message),
-        );
+        emit(GetNotesError(e.message));
       } else {
-        emit(
-          GetNotesError(
-            'حدث خطأ أثناء جلب الملاحظات',
-          ),
-        );
+        emit(GetNotesError('حدث خطأ أثناء جلب الملاحظات'));
+        print(e);
       }
     }
   }
@@ -64,25 +57,16 @@ class NotesCubit extends Cubit<NotesState> {
     emit(AddNoteLoading());
 
     try {
-      await addNoteUseCase(
-        userId: userId,
-        model: model,
-      );
+      await addNoteUseCase(userId: userId, model: model);
 
       emit(AddNoteSuccess());
 
       await getNotes(userId);
     } catch (e) {
       if (e is Failure) {
-        emit(
-          AddNoteError(e.message),
-        );
+        emit(AddNoteError(e.message));
       } else {
-        emit(
-          AddNoteError(
-            'حدث خطأ أثناء إضافة الملاحظة',
-          ),
-        );
+        emit(AddNoteError('حدث خطأ أثناء إضافة الملاحظة'));
       }
     }
   }
@@ -97,26 +81,16 @@ class NotesCubit extends Cubit<NotesState> {
     emit(UpdateNoteLoading());
 
     try {
-      await updateNoteUseCase(
-        userId: userId,
-        noteId: noteId,
-        model: model,
-      );
+      await updateNoteUseCase(userId: userId, noteId: noteId, model: model);
 
       emit(UpdateNoteSuccess());
 
       await getNotes(userId);
     } catch (e) {
       if (e is Failure) {
-        emit(
-          UpdateNoteError(e.message),
-        );
+        emit(UpdateNoteError(e.message));
       } else {
-        emit(
-          UpdateNoteError(
-            'حدث خطأ أثناء تعديل الملاحظة',
-          ),
-        );
+        emit(UpdateNoteError('حدث خطأ أثناء تعديل الملاحظة'));
       }
     }
   }
@@ -131,58 +105,36 @@ class NotesCubit extends Cubit<NotesState> {
     emit(AddNoteFilesLoading());
 
     try {
-      await addNoteFilesUseCase(
-        userId: userId,
-        noteId: noteId,
-        model: model,
-      );
+      await addNoteFilesUseCase(userId: userId, noteId: noteId, model: model);
 
       emit(AddNoteFilesSuccess());
 
       await getNotes(userId);
     } catch (e) {
       if (e is Failure) {
-        emit(
-          AddNoteFilesError(e.message),
-        );
+        emit(AddNoteFilesError(e.message));
       } else {
-        emit(
-          AddNoteFilesError(
-            'حدث خطأ أثناء إضافة الملفات',
-          ),
-        );
+        emit(AddNoteFilesError('حدث خطأ أثناء إضافة الملفات'));
       }
     }
   }
 
   /// ================= DELETE NOTE =================
 
-  Future<void> deleteNote({
-    required int userId,
-    required int noteId,
-  }) async {
+  Future<void> deleteNote({required int userId, required int noteId}) async {
     emit(DeleteNoteLoading());
 
     try {
-      await deleteNoteUseCase(
-        userId: userId,
-        noteId: noteId,
-      );
+      await deleteNoteUseCase(userId: userId, noteId: noteId);
 
       emit(DeleteNoteSuccess());
 
       await getNotes(userId);
     } catch (e) {
       if (e is Failure) {
-        emit(
-          DeleteNoteError(e.message),
-        );
+        emit(DeleteNoteError(e.message));
       } else {
-        emit(
-          DeleteNoteError(
-            'حدث خطأ أثناء حذف الملاحظة',
-          ),
-        );
+        emit(DeleteNoteError('حدث خطأ أثناء حذف الملاحظة'));
       }
     }
   }
@@ -208,15 +160,9 @@ class NotesCubit extends Cubit<NotesState> {
       await getNotes(userId);
     } catch (e) {
       if (e is Failure) {
-        emit(
-          DeleteNoteFileError(e.message),
-        );
+        emit(DeleteNoteFileError(e.message));
       } else {
-        emit(
-          DeleteNoteFileError(
-            'حدث خطأ أثناء حذف الملف',
-          ),
-        );
+        emit(DeleteNoteFileError('حدث خطأ أثناء حذف الملف'));
       }
     }
   }

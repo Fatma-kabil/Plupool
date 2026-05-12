@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 
 class DateTimeNotes extends StatelessWidget {
-  const DateTimeNotes({
-    super.key,
-  });
+  const DateTimeNotes({super.key, required this.date});
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class DateTimeNotes extends StatelessWidget {
       children: [
         Text(
           textDirection: TextDirection.rtl,
-          "الخميس:  8 أكتوبر 2025 ",
+          formatMonthDate(date),
           style: AppTextStyles.styleRegular14(
             context,
           ).copyWith(color: const Color(0xff777777)),
@@ -23,7 +22,7 @@ class DateTimeNotes extends StatelessWidget {
         Spacer(),
         Text(
           textDirection: TextDirection.rtl,
-          "6:26 PM",
+          formatTimeArabic2(date),
           style: AppTextStyles.styleRegular14(
             context,
           ).copyWith(color: const Color(0xff777777)),

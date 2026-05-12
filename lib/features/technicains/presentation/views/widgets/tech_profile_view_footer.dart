@@ -19,7 +19,7 @@ class TechProfileViewFooter extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            context.push(techFooter[index]['view']);
+            context.push(techFooter[index]['view'],extra: user);
           },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: SizeConfig.h(6)),
