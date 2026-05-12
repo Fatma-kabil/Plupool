@@ -23,6 +23,16 @@ import 'package:plupool/features/home/data/repos_impl/notification_repo_impl.dar
 
 import 'package:plupool/features/home/domain/repos/notification_repo.dart';
 import 'package:plupool/features/home/presentaation/manager/notification_cubit/notification_cubit.dart';
+import 'package:plupool/features/notes/data/data_sources/notes_remote_data_source.dart';
+import 'package:plupool/features/notes/data/repos_impl/notes_repository_impl.dart';
+import 'package:plupool/features/notes/domain/repos/notes_repo.dart';
+import 'package:plupool/features/notes/domain/usecases/add_note_files_usecase.dart';
+import 'package:plupool/features/notes/domain/usecases/add_notes_usecase.dart';
+import 'package:plupool/features/notes/domain/usecases/delee_note_file_usecase.dart';
+import 'package:plupool/features/notes/domain/usecases/delete_note_usecase.dart';
+import 'package:plupool/features/notes/domain/usecases/get_notes_usecase.dart';
+import 'package:plupool/features/notes/domain/usecases/update_note_usecase.dart';
+import 'package:plupool/features/notes/presentation/manager/notes_cubit/notes_cubit.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/offer_remote_data_source.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/product_offer_remote_data_source.dart';
 import 'package:plupool/features/offers/data/repos_impl/offer_repo_impl.dart';
@@ -789,4 +799,77 @@ Future<void> initServiceLocator() async {
     () =>
         TechRatingCubit(updateTechRatingUseCase: sl<UpdateTechRatingUseCase>()),
   );
+
+  // =============================
+// 📝 NOTES FEATURE
+// =============================
+
+// Remote Data Source
+sl.registerLazySingleton<NotesRemoteDataSource>(
+  () => NotesRemoteDataSourceImpl(
+    sl<ApiService>(),
+  ),
+);
+
+// Repository
+sl.registerLazySingleton<NotesRepository>(
+  () => NotesRepositoryImpl(
+    sl<NotesRemoteDataSource>(),
+  ),
+);
+
+// =============================
+// USE CASES
+// =============================
+
+sl.registerLazySingleton(
+  () => GetNotesUseCase(
+    sl<NotesRepository>(),
+  ),
+);
+
+sl.registerLazySingleton(
+  () => AddNoteUseCase(
+    sl<NotesRepository>(),
+  ),
+);
+
+sl.registerLazySingleton(
+  () => UpdateNoteUseCase(
+    sl<NotesRepository>(),
+  ),
+);
+
+sl.registerLazySingleton(
+  () => DeleteNoteUseCase(
+    sl<NotesRepository>(),
+  ),
+);
+
+sl.registerLazySingleton(
+  () => AddNoteFilesUseCase(
+    sl<NotesRepository>(),
+  ),
+);
+
+sl.registerLazySingleton(
+  () => DeleteNoteFileUseCase(
+    sl<NotesRepository>(),
+  ),
+);
+
+// =============================
+// CUBIT
+// =============================
+
+sl.registerFactory(
+  () => NotesCubit(
+    getNotesUseCase: sl<GetNotesUseCase>(),
+    addNoteUseCase: sl<AddNoteUseCase>(),
+    updateNoteUseCase: sl<UpdateNoteUseCase>(),
+    deleteNoteUseCase: sl<DeleteNoteUseCase>(),
+    addNoteFilesUseCase: sl<AddNoteFilesUseCase>(),
+    deleteNoteFileUseCase: sl<DeleteNoteFileUseCase>(),
+  ),
+);
 }
