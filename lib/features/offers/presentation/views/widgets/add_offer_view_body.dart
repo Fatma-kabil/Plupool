@@ -16,6 +16,7 @@ import 'package:plupool/features/offers/presentation/views/widgets/add_edit_offe
 import 'package:plupool/features/offers/presentation/views/widgets/custom_check_btn.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/description_input.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
+
 class AddOfferViewBody extends StatefulWidget {
   const AddOfferViewBody({super.key});
 
@@ -59,7 +60,7 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
 
     if (_profileImage == null) {
       showCustomSnackBar(context: context, message: "من فضلك اختار صورة");
-      
+
       return;
     }
 
@@ -83,15 +84,20 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
       listener: (context, state) {
         if (state is OfferSuccess) {
           Navigator.pop(context);
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+          showCustomSnackBar(
+            context: context,
+            message: state.message,
+            isSuccess: true,
           );
+        
         }
 
         if (state is AddOfferError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+       //    Navigator.pop(context);
+          showCustomSnackBar(
+            context: context,
+            message: state.message,
+          //  isSuccess: true,
           );
         }
       },
@@ -110,7 +116,8 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
                   TextField(
                     controller: titleController,
                     hint: 'أكتب عنوان العرض....',
-                    validator: (value) => Validators.required(value, fieldName: "عنوان العرض"),
+                    validator: (value) =>
+                        Validators.required(value, fieldName: "عنوان العرض"),
                   ),
 
                   const SizedBox(height: 20),
@@ -120,7 +127,8 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
                     controller: offerController,
                     hint: 'أكتب قيمة الخصم....',
                     keyboardType: TextInputType.number,
-                    validator: (value) => Validators.required(value, fieldName: "قيمة الخصم"),
+                    validator: (value) =>
+                        Validators.required(value, fieldName: "قيمة الخصم"),
                   ),
 
                   const SizedBox(height: 20),
@@ -166,7 +174,11 @@ class _AddOfferViewBodyState extends State<AddOfferViewBody> {
                   const SizedBox(height: 20),
 
                   const FieldLabel('وصف العرض'),
-                  DescriptionInputContainer(controller: desController,validator: (value) => Validators.required(value, fieldName: "وصف العرض"),),
+                  DescriptionInputContainer(
+                    controller: desController,
+                    validator: (value) =>
+                        Validators.required(value, fieldName: "وصف العرض"),
+                  ),
 
                   const SizedBox(height: 25),
 

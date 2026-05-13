@@ -27,6 +27,7 @@ import 'package:plupool/features/home/presentaation/views/tech/tech_notification
 import 'package:plupool/features/notes/presentation/views/company_res_notes_view.dart';
 import 'package:plupool/features/notifications/presentation/views/add_notifications_view.dart';
 import 'package:plupool/features/notifications/presentation/views/notification_inbox_view.dart';
+import 'package:plupool/features/offers/domain/enities/offer_entity.dart';
 import 'package:plupool/features/offers/presentation/views/add_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/edit_offer_view.dart';
 import 'package:plupool/features/offers/presentation/views/offer_view.dart';
@@ -326,7 +327,7 @@ final GoRouter appRouter = GoRouter(
       path: '/editofferview',
       name: 'editofferview',
       pageBuilder: (context, state) {
-        final offer = state.extra as OfferModel; // استقبال الليست
+        final offer = state.extra as OfferEntity; // استقبال الليست
 
         return buildTransitionPage(EditOfferView(offer: offer));
       },

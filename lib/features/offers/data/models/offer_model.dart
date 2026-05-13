@@ -81,7 +81,7 @@ class OfferModel {
       discountValue: discountValue ?? 0,
       imageUrl: imageUrl ?? "",
       image: images,
-      id: id??0,
+      id: id ?? 0,
       isFeatured: isFeatured,
     );
   }
@@ -157,39 +157,65 @@ class OfferModel {
   // =========================
   // FormData (upload)
   // =========================
- Future<FormData> toFormData() async {
-  final map = <String, dynamic>{};
+  Future<FormData> toFormData() async {
+    final map = <String, dynamic>{};
 
-  // Required fields
-  map["title_ar"] = titleAr;
-  map["description_ar"] = descriptionAr;
-  map["service_id"] = serviceId;
-  map["discount_type"] = discountType ?? "percentage";
-  map["discount_value"] = discountValue;
-  map["sessions_count"] = sessionsCount ?? 1;
-  map["bonus_sessions"] = bonusSessions ?? 0;
-  map["start_date"] = startDate?.toIso8601String().split("T").first;
-  map["end_date"] = endDate?.toIso8601String().split("T").first;
+    // Required fields
+    map["title_ar"] = titleAr;
+    map["description_ar"] = descriptionAr;
 
-  // Optional fields
-  if (titleEn != null) map["title_en"] = titleEn;
-  if (descriptionEn != null) map["description_en"] = descriptionEn;
-  if (badgeText != null) map["badge_text"] = badgeText;
-  if (status != null) map["status"] = status;
+    if (serviceId != null) {
+      map["service_id"] = serviceId;
+    }
 
-  map["is_featured"] = isFeatured;
-  if (sortOrder != null) map["sort_order"] = sortOrder;
-  if (id != null) map["id"] = id;
-  if (finalPrice != null) map["final_price"] = finalPrice;
+    map["discount_type"] = discountType ?? "percentage";
+    map["discount_value"] = discountValue;
+    map["sessions_count"] = sessionsCount ?? 1;
+    map["bonus_sessions"] = bonusSessions ?? 0;
 
-  // Image upload
-  if (images != null) {
-    map["image"] = await MultipartFile.fromFile(
-      images!.path,
-      filename: images!.path.split('/').last,
-    );
+    map["start_date"] = startDate?.toIso8601String().split("T").first;
+
+    map["end_date"] = endDate?.toIso8601String().split("T").first;
+
+    // Optional fields
+    if (titleEn != null) {
+      map["title_en"] = titleEn;
+    }
+
+    if (descriptionEn != null) {
+      map["description_en"] = descriptionEn;
+    }
+
+    if (badgeText != null) {
+      map["badge_text"] = badgeText;
+    }
+
+    if (status != null) {
+      map["status"] = status;
+    }
+
+    map["is_featured"] = isFeatured;
+
+    if (sortOrder != null) {
+      map["sort_order"] = sortOrder;
+    }
+
+    if (id != null) {
+      map["id"] = id;
+    }
+
+    if (finalPrice != null) {
+      map["final_price"] = finalPrice;
+    }
+
+    // Image upload
+    if (images != null) {
+      map["image"] = await MultipartFile.fromFile(
+        images!.path,
+        filename: images!.path.split('/').last,
+      );
+    }
+
+    return FormData.fromMap(map);
   }
-
-  return FormData.fromMap(map);
-}
 }

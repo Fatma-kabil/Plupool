@@ -53,9 +53,9 @@ class _StoreViewState extends State<StoreView> {
           ActionsRow(cartCount: 0),
           const SizedBox(height: 30),
           const InfoCardsRow(),
-          const SizedBox(height: 5),
+          const SizedBox(height: 15),
           Text('الفئات', style: AppTextStyles.styleBold20(context).copyWith(color: Colors.black)),
-          const SizedBox(height: 16),
+          const SizedBox(height: 10),
 
           Row(
             children: [

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
+import 'package:plupool/features/offers/domain/enities/offer_entity.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/edit_offer_view_body.dart';
 
 class EditOfferView extends StatefulWidget {
   const EditOfferView({super.key, required this.offer});
-  final OfferModel offer;
+  final OfferEntity offer;
 
   @override
   State<EditOfferView> createState() => _EditOfferViewState();

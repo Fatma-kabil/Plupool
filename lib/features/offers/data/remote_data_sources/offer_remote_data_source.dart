@@ -58,7 +58,7 @@ class OfferRemoteDataSource {
   Future<void> updateOffer(OfferModel offer) async {
     final formData = await offer.toFormData(); // FormData + الصور
     //  print("UPDATE RESPONSE: ${response.data}");
-    await api.patch('${Endpoints.offers}${offer.id}', data: formData);
+    await api.put('${Endpoints.offers}${offer.id}', data: formData);
   }
 
   /// ================= DELETE =================

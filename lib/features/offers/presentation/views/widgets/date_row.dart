@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/domain/enities/offer_entity.dart';
 
@@ -11,11 +11,6 @@ class DateRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate = DateFormat(
-      'dd MMMM yyyy',
-      'ar',
-    ).format(offer.endDate);
-
     return Row(
       children: [
         Icon(
@@ -25,13 +20,10 @@ class DateRow extends StatelessWidget {
         ),
         SizedBox(width: SizeConfig.w(4)),
 
-        Text(
-          'العرض ساري حتى ',
-          style: AppTextStyles.styleRegular11(context),
-        ),
+        Text('العرض ساري حتى ', style: AppTextStyles.styleRegular11(context)),
 
         Text(
-          formattedDate,
+          formatDate(offer.endDate),
           style: AppTextStyles.styleRegular11(context),
         ),
       ],

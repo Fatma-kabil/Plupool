@@ -71,6 +71,7 @@ class OfferCubit extends Cubit<OfferState> {
 
   /// ================= UPDATE =================
   Future<void> updateOffer(OfferEntity offer) async {
+      emit(OfferLoading()); // 👈 مهم
     try {
       await updateOfferUseCase(offer);
 
