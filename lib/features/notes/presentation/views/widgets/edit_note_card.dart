@@ -234,14 +234,7 @@ class _EditNoteCardState extends State<EditNoteCard> {
                                 ),
                             ],
                           )
-                        : Text(
-                            'لا توجد ملفات',
-                            style: AppTextStyles.styleRegular16(
-                              context,
-                            ).copyWith(
-                              color: const Color(0xff777777),
-                            ),
-                          ),
+                        : SizedBox(),
 
                     SizedBox(height: SizeConfig.h(40)),
 

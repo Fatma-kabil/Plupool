@@ -70,8 +70,7 @@ class NotesCubit extends Cubit<NotesState> {
 
       await getNotes(userId);
     } catch (e) {
-      /// ✅ رجعي الداتا القديمة
-      emit(GetNotesSuccess(notes));
+     
 
       if (e is Failure) {
         emit(AddNoteError(e.message));
@@ -79,6 +78,7 @@ class NotesCubit extends Cubit<NotesState> {
         emit(AddNoteError('حدث خطأ أثناء إضافة الملاحظة'));
         print(e);
       }
+       emit(GetNotesSuccess(notes));
     }
   }
 
@@ -92,24 +92,20 @@ class NotesCubit extends Cubit<NotesState> {
     emit(UpdateNoteLoading());
 
     try {
-      await updateNoteUseCase(
-        userId: userId,
-        noteId: noteId,
-        model: model,
-      );
+      await updateNoteUseCase(userId: userId, noteId: noteId, model: model);
 
       emit(UpdateNoteSuccess());
 
       await getNotes(userId);
     } catch (e) {
-      /// ✅ رجعي الداتا القديمة
-      emit(GetNotesSuccess(notes));
+     
 
       if (e is Failure) {
         emit(UpdateNoteError(e.message));
       } else {
         emit(UpdateNoteError('حدث خطأ أثناء تعديل الملاحظة'));
       }
+       emit(GetNotesSuccess(notes));
     }
   }
 
@@ -123,53 +119,43 @@ class NotesCubit extends Cubit<NotesState> {
     emit(AddNoteFilesLoading());
 
     try {
-      await addNoteFilesUseCase(
-        userId: userId,
-        noteId: noteId,
-        model: model,
-      );
+      await addNoteFilesUseCase(userId: userId, noteId: noteId, model: model);
 
       emit(AddNoteFilesSuccess());
 
       await getNotes(userId);
     } catch (e) {
-      /// ✅ رجعي الداتا القديمة
-      emit(GetNotesSuccess(notes));
+      
 
       if (e is Failure) {
         emit(AddNoteFilesError(e.message));
       } else {
         emit(AddNoteFilesError('حدث خطأ أثناء إضافة الملفات'));
       }
+       emit(GetNotesSuccess(notes));
     }
   }
 
   /// ================= DELETE NOTE =================
 
-  Future<void> deleteNote({
-    required int userId,
-    required int noteId,
-  }) async {
+  Future<void> deleteNote({required int userId, required int noteId}) async {
     emit(DeleteNoteLoading());
 
     try {
-      await deleteNoteUseCase(
-        userId: userId,
-        noteId: noteId,
-      );
+      await deleteNoteUseCase(userId: userId, noteId: noteId);
 
       emit(DeleteNoteSuccess());
 
       await getNotes(userId);
     } catch (e) {
       /// ✅ رجعي الداتا القديمة
-      emit(GetNotesSuccess(notes));
 
       if (e is Failure) {
         emit(DeleteNoteError(e.message));
       } else {
         emit(DeleteNoteError('حدث خطأ أثناء حذف الملاحظة'));
       }
+      emit(GetNotesSuccess(notes));
     }
   }
 

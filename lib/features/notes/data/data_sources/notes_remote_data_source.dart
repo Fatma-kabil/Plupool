@@ -1,5 +1,4 @@
 
-import 'package:dio/dio.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 
@@ -85,7 +84,7 @@ class NotesRemoteDataSourceImpl
     required int noteId,
   }) async {
     await api.delete(
-      '${Endpoints.users}$userId/notes/$noteId',
+      '${Endpoints.users}/$userId/notes/$noteId',
     );
   }
 

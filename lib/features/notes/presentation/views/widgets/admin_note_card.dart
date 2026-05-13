@@ -8,15 +8,16 @@ import 'package:plupool/features/notes/domain/entities/note_entity.dart';
 import 'package:plupool/features/notes/presentation/manager/notes_cubit/notes_cubit.dart';
 
 import 'package:plupool/features/notes/presentation/views/widgets/date_time_notes.dart';
+import 'package:plupool/features/notes/presentation/views/widgets/delete_note_btn.dart';
 import 'package:plupool/features/notes/presentation/views/widgets/edit_note_card.dart';
 import 'package:plupool/features/notes/presentation/views/widgets/notes_row.dart';
 import 'package:plupool/features/support/presentation/views/widgets/attachment_chip.dart';
 
 class AdminNoteCard extends StatelessWidget {
-  const AdminNoteCard({super.key, required this.note, this.onDelete, required this.userId});
+  const AdminNoteCard({super.key, required this.note, required this.userId});
 
   final NoteEntity note;
-  final VoidCallback? onDelete;
+
   final int userId;
 
   @override
@@ -102,13 +103,9 @@ class AdminNoteCard extends StatelessWidget {
 
               SizedBox(width: SizeConfig.w(15)),
 
-              GestureDetector(
-                onTap: onDelete,
-                child: Icon(
-                  Icons.delete_outline,
-                  size: SizeConfig.w(20),
-                  color: const Color(0xffE63946),
-                ),
+              DeleteNoteBtn(
+                userId: userId,
+                noteId:note.id ,
               ),
             ],
           ),
