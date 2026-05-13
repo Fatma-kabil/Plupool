@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
 
 import 'package:plupool/features/notes/data/models/note_model.dart';
+import 'package:plupool/features/notes/domain/entities/note_entity.dart';
 
 import 'package:plupool/features/notes/domain/usecases/add_note_files_usecase.dart';
 import 'package:plupool/features/notes/domain/usecases/add_notes_usecase.dart';
@@ -29,6 +30,9 @@ class NotesCubit extends Cubit<NotesState> {
     required this.deleteNoteFileUseCase,
   }) : super(NotesInitial());
 
+  /// ✅ خزنة الداتا الحالية
+  List<NoteEntity> notes = [];
+
   /// ================= GET NOTES =================
 
   Future<void> getNotes(int userId) async {
@@ -37,7 +41,10 @@ class NotesCubit extends Cubit<NotesState> {
     try {
       final response = await getNotesUseCase(userId);
 
-      emit(GetNotesSuccess(response.notes));
+      /// ✅ خزني الداتا
+      notes = response.notes;
+
+      emit(GetNotesSuccess(notes));
     } catch (e) {
       if (e is Failure) {
         emit(GetNotesError(e.message));
@@ -63,6 +70,9 @@ class NotesCubit extends Cubit<NotesState> {
 
       await getNotes(userId);
     } catch (e) {
+      /// ✅ رجعي الداتا القديمة
+      emit(GetNotesSuccess(notes));
+
       if (e is Failure) {
         emit(AddNoteError(e.message));
       } else {
@@ -82,12 +92,19 @@ class NotesCubit extends Cubit<NotesState> {
     emit(UpdateNoteLoading());
 
     try {
-      await updateNoteUseCase(userId: userId, noteId: noteId, model: model);
+      await updateNoteUseCase(
+        userId: userId,
+        noteId: noteId,
+        model: model,
+      );
 
       emit(UpdateNoteSuccess());
 
       await getNotes(userId);
     } catch (e) {
+      /// ✅ رجعي الداتا القديمة
+      emit(GetNotesSuccess(notes));
+
       if (e is Failure) {
         emit(UpdateNoteError(e.message));
       } else {
@@ -106,12 +123,19 @@ class NotesCubit extends Cubit<NotesState> {
     emit(AddNoteFilesLoading());
 
     try {
-      await addNoteFilesUseCase(userId: userId, noteId: noteId, model: model);
+      await addNoteFilesUseCase(
+        userId: userId,
+        noteId: noteId,
+        model: model,
+      );
 
       emit(AddNoteFilesSuccess());
 
       await getNotes(userId);
     } catch (e) {
+      /// ✅ رجعي الداتا القديمة
+      emit(GetNotesSuccess(notes));
+
       if (e is Failure) {
         emit(AddNoteFilesError(e.message));
       } else {
@@ -122,16 +146,25 @@ class NotesCubit extends Cubit<NotesState> {
 
   /// ================= DELETE NOTE =================
 
-  Future<void> deleteNote({required int userId, required int noteId}) async {
+  Future<void> deleteNote({
+    required int userId,
+    required int noteId,
+  }) async {
     emit(DeleteNoteLoading());
 
     try {
-      await deleteNoteUseCase(userId: userId, noteId: noteId);
+      await deleteNoteUseCase(
+        userId: userId,
+        noteId: noteId,
+      );
 
       emit(DeleteNoteSuccess());
 
       await getNotes(userId);
     } catch (e) {
+      /// ✅ رجعي الداتا القديمة
+      emit(GetNotesSuccess(notes));
+
       if (e is Failure) {
         emit(DeleteNoteError(e.message));
       } else {
@@ -160,6 +193,9 @@ class NotesCubit extends Cubit<NotesState> {
 
       await getNotes(userId);
     } catch (e) {
+      /// ✅ رجعي الداتا القديمة
+      emit(GetNotesSuccess(notes));
+
       if (e is Failure) {
         emit(DeleteNoteFileError(e.message));
       } else {

@@ -69,7 +69,7 @@ class _CompanyResNotesViewBodyState extends State<CompanyResNotesViewBody> {
 
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 12),
-                      child: AdminNoteCard(note: note),
+                      child: AdminNoteCard(note: note, userId: widget.user.user.id,),
                     );
                   },
                 ),

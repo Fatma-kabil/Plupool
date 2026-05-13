@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 
 import 'package:plupool/core/utils/size_config.dart';
 
 import 'package:plupool/features/notes/domain/entities/note_entity.dart';
+import 'package:plupool/features/notes/presentation/manager/notes_cubit/notes_cubit.dart';
 
 import 'package:plupool/features/notes/presentation/views/widgets/date_time_notes.dart';
+import 'package:plupool/features/notes/presentation/views/widgets/edit_note_card.dart';
 import 'package:plupool/features/notes/presentation/views/widgets/notes_row.dart';
 import 'package:plupool/features/support/presentation/views/widgets/attachment_chip.dart';
 
 class AdminNoteCard extends StatelessWidget {
-  const AdminNoteCard({
-    super.key,
-    required this.note,
-    this.onDelete,
-    this.onEdit,
-  });
+  const AdminNoteCard({super.key, required this.note, this.onDelete, required this.userId});
 
   final NoteEntity note;
   final VoidCallback? onDelete;
-  final VoidCallback? onEdit;
+  final int userId;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +72,27 @@ class AdminNoteCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               GestureDetector(
-                onTap: onEdit,
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (dialogContext) {
+                      return BlocProvider.value(
+                        value: context.read<NotesCubit>(),
+                        child: Dialog(
+                          backgroundColor: AppColors.kScaffoldColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          insetPadding: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.w(20),
+                            vertical: SizeConfig.h(29),
+                          ),
+                          child: EditNoteCard(userId: userId, note: note),
+                        ),
+                      );
+                    },
+                  );
+                },
                 child: Icon(
                   Icons.edit_document,
                   size: SizeConfig.w(20),
