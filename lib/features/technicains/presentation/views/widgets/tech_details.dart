@@ -56,7 +56,7 @@ class TechDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               icon: Icons.star_border_purple500_rounded,
               title: "التقييم",
-              value:toArabicNumbers( user.totalRating.toString()),
+              value:toArabicNumbers( user.averageRating.toString()),
             ),
           ],
         ),

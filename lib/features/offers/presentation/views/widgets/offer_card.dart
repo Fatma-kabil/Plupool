@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/offers/domain/enities/offer_entity.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/offer_cubit.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/offer_state.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/date_row.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/offer_card_footer.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/offer_image_card.dart';
+import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
 
 class OfferCard extends StatelessWidget {
   const OfferCard({super.key, required this.offer});
@@ -59,7 +64,7 @@ class OfferCard extends StatelessWidget {
                         softWrap: true,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
-                        style: AppTextStyles.styleRegular13(
+                        style: AppTextStyles.styleRegular14(
                           context,
                         ).copyWith(color: Color(0xff777777)),
                       ),
@@ -69,6 +74,54 @@ class OfferCard extends StatelessWidget {
                   OfferCardFooter(
                     onPressed: () {
                       context.push('/editofferview', extra: offer);
+                    },
+                    delonPressed: () {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        builder: (dialogContext) {
+                          final cubit = context.read<OfferCubit>();
+
+                          return BlocConsumer<OfferCubit, OfferState>(
+                            bloc: cubit,
+
+                            listener: (context, state) {
+                              if (state is OfferSuccess) {
+                                Navigator.pop(dialogContext);
+
+                                showCustomSnackBar(
+                                  context: context,
+                                  message: "تم حذف العرض بنجاح 🗑️",
+                                  isSuccess: true,
+                                );
+                              }
+
+                              if (state is DeleteOfferError) {
+                                Navigator.pop(dialogContext);
+
+                                showCustomSnackBar(
+                                  context: context,
+                                  message: state.message,
+                                );
+                              }
+                            },
+
+                            builder: (context, state) {
+                              final isLoading = state is OfferLoading;
+
+                              return DeleteOrderCard(
+                                text: "هل أنت متأكد من حذف هذا العرض؟",
+                                isLoading: isLoading,
+                                onPressed: isLoading
+                                    ? null
+                                    : () {
+                                        cubit.deleteOffer(offer.id!);
+                                      },
+                              );
+                            },
+                          );
+                        },
+                      );
                     },
                   ),
                 ],

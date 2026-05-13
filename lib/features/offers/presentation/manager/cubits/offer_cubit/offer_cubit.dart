@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
@@ -34,11 +33,10 @@ class OfferCubit extends Cubit<OfferState> {
     } catch (e) {
       if (e is Failure) {
         emit(OfferError(e.message));
-        print(  "ERROR FETCHING OFFERS: ${e.message}");
-        
+        print("ERROR FETCHING OFFERS: ${e.message}");
       } else {
         emit(OfferError("حدث خطأ أثناء جلب العروض"));
-        print(  "ERROR FETCHING OFFERS: $e");
+        print("ERROR FETCHING OFFERS: $e");
       }
     }
   }
@@ -61,17 +59,18 @@ class OfferCubit extends Cubit<OfferState> {
 
       if (e is Failure) {
         emit(AddOfferError(e.message));
-         fetchOffers(ProductParams());
+      
       } else {
         emit(AddOfferError("حدث خطأ أثناء إضافة العرض"));
-         fetchOffers(ProductParams());
+      
       }
+        fetchOffers(ProductParams());
     }
   }
 
   /// ================= UPDATE =================
   Future<void> updateOffer(OfferEntity offer) async {
-      emit(OfferLoading()); // 👈 مهم
+    emit(OfferLoading()); // 👈 مهم
     try {
       await updateOfferUseCase(offer);
 
@@ -81,18 +80,18 @@ class OfferCubit extends Cubit<OfferState> {
     } catch (e) {
       if (e is Failure) {
         emit(UpdateOfferError(e.message));
-         fetchOffers(ProductParams());
       } else {
-       //  emit(ProductError(e.toString()));
-       print("FULL ERROR: $e");
+        //  emit(ProductError(e.toString()));
+        print("FULL ERROR: $e");
         emit(UpdateOfferError("حدث خطأ أثناء تعديل العرض"));
-         fetchOffers(ProductParams());
       }
+      fetchOffers(ProductParams());
     }
   }
 
   /// ================= DELETE =================
   Future<void> deleteOffer(int id) async {
+    emit(OfferLoading());
     try {
       await deleteOfferUseCase(id);
 
@@ -102,11 +101,10 @@ class OfferCubit extends Cubit<OfferState> {
     } catch (e) {
       if (e is Failure) {
         emit(DeleteOfferError(e.message));
-         fetchOffers(ProductParams());
       } else {
         emit(DeleteOfferError("حدث خطأ أثناء حذف العرض"));
-         fetchOffers(ProductParams());
       }
+      fetchOffers(ProductParams());
     }
   }
 }

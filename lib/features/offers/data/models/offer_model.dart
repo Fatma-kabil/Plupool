@@ -66,6 +66,7 @@ class OfferModel {
       images: entity.image,
       id: entity.id,
       isFeatured: entity.isFeatured,
+      status: entity.status
     );
   }
 
@@ -83,6 +84,7 @@ class OfferModel {
       image: images,
       id: id ?? 0,
       isFeatured: isFeatured,
+      status:status
     );
   }
 
