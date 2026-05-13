@@ -9,40 +9,52 @@ class CustomTextBtn extends StatelessWidget {
     required this.text,
     this.onPressed,
     this.width,
-    this.padding,  this.color, this.textStyle, this.trailing,
+    this.padding,
+    this.color,
+    this.textStyle,
+    this.trailing,
+    this.isLoading = false,
   });
+
   final String text;
   final double? width;
   final double? padding;
   final void Function()? onPressed;
   final Color? color;
   final TextStyle? textStyle;
-   final Widget? trailing;
+  final Widget? trailing;
+  final bool isLoading;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isLoading ? null : onPressed, // ✅ disable وقت اللودينج
         style: ElevatedButton.styleFrom(
-          backgroundColor:color?? AppColors.kprimarycolor,
+          backgroundColor: color ?? AppColors.kprimarycolor,
           foregroundColor: Colors.white,
+          disabledBackgroundColor:
+              (color ?? AppColors.kprimarycolor).withOpacity(0.6),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10), // ✅ صححت هنا
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: padding ?? SizeConfig.h(12)),
+          padding: EdgeInsets.symmetric(
+            vertical: padding ?? SizeConfig.h(12),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 textDirection: TextDirection.rtl,
                 text,
-                style:textStyle?? AppTextStyles.styleSemiBold20(context),
+                style: textStyle ??
+                    AppTextStyles.styleSemiBold20(context),
               ),
-               if (trailing != null) ...[
-                 SizedBox(width: SizeConfig.w(6) ),
+              if (trailing != null) ...[
+                SizedBox(width: SizeConfig.w(6)),
                 trailing!,
               ],
             ],

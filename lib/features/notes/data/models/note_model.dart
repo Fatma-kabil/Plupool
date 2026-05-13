@@ -31,6 +31,7 @@ class NoteModel extends NoteEntity {
   }
 }
 
+
 class AddNoteModel {
   final String note;
   final List<File>? files;
@@ -43,10 +44,12 @@ class AddNoteModel {
   Future<FormData> toFormData() async {
     final formData = FormData();
 
+    /// note (required)
     formData.fields.add(
       MapEntry('note', note),
     );
 
+    /// files (optional)
     if (files != null && files!.isNotEmpty) {
       for (final file in files!) {
         formData.files.add(

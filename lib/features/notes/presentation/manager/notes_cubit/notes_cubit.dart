@@ -67,6 +67,7 @@ class NotesCubit extends Cubit<NotesState> {
         emit(AddNoteError(e.message));
       } else {
         emit(AddNoteError('حدث خطأ أثناء إضافة الملاحظة'));
+        print(e);
       }
     }
   }

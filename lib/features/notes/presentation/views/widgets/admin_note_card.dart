@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+
 import 'package:plupool/core/utils/size_config.dart';
 
 import 'package:plupool/features/notes/domain/entities/note_entity.dart';
@@ -42,27 +43,29 @@ class AdminNoteCard extends StatelessWidget {
           SizedBox(height: SizeConfig.h(15)),
 
           /// NOTE TEXT
-          NotesRow(note: note.note),
+          if (note.note.trim().isNotEmpty)
+            NotesRow(note: note.note)
+          else
+            SizedBox(),
 
           SizedBox(height: SizeConfig.h(15)),
 
           /// FILES
           if (note.files.isNotEmpty)
-            SizedBox(
-              height: SizeConfig.h(32),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: note.files.length,
-                itemBuilder: (context, index) {
-                  final file = note.files[index];
+            Wrap(
+              spacing: SizeConfig.w(8),
+              runSpacing: SizeConfig.h(8),
+              children: List.generate(note.files.length, (index) {
+                final file = note.files[index];
 
-                  return AttachmentChip(
-                    fileName: file.originalName,
-                    fileUrl: file.fileUrl,
-                  );
-                },
-              ),
-            ),
+                return AttachmentChip(
+                  fileName: file.originalName,
+                  fileUrl: file.fileUrl,
+                );
+              }),
+            )
+          else
+            SizedBox(),
 
           SizedBox(height: SizeConfig.h(15)),
 

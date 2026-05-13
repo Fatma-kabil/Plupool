@@ -36,7 +36,9 @@ class _CompanyResNotesViewBodyState extends State<CompanyResNotesViewBody> {
         return SingleChildScrollView(
           child: Column(
             children: [
-              const NotesViewHeader(),
+               NotesViewHeader(
+                userId: widget.user.user.id,
+               ),
 
               const SizedBox(height: 20),
 

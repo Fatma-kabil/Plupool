@@ -14,35 +14,45 @@ class AttachedFile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom:SizeConfig.h(4) ,
-      right:SizeConfig.w(8) ,
-      left:SizeConfig.w(40) ,
-      child: Container(
-        padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(6), vertical: SizeConfig.h(4)),
-        decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Row(
-          children: [
-             Icon(Icons.insert_drive_file, size: SizeConfig.w(16), color: Colors.grey),
-             SizedBox(width: SizeConfig.w(6)),
-            Expanded(
-              child: Text(
-                fileName,
-                style: AppTextStyles.styleRegular13(context)
-                    .copyWith(color: Colors.black87),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            GestureDetector(
-              onTap: onRemove,
-              child:  Icon(Icons.close, size: SizeConfig.w(18), color: Colors.red),
-            ),
-          ],
+   return Container(
+  padding: EdgeInsets.symmetric(
+    horizontal: SizeConfig.w(6),
+    vertical: SizeConfig.h(4),
+  ),
+  decoration: BoxDecoration(
+    color: Colors.grey.shade200,
+    borderRadius: BorderRadius.circular(6),
+  ),
+  child: Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(
+        Icons.insert_drive_file,
+        size: SizeConfig.w(16),
+        color: Colors.grey,
+      ),
+
+      SizedBox(width: SizeConfig.w(6)),
+
+      Flexible(
+        child: Text(
+          fileName,
+          style: AppTextStyles.styleRegular13(context)
+              .copyWith(color: Colors.black87),
+          overflow: TextOverflow.ellipsis,
         ),
       ),
-    );
+
+      GestureDetector(
+        onTap: onRemove,
+        child: Icon(
+          Icons.close,
+          size: SizeConfig.w(18),
+          color: Colors.red,
+        ),
+      ),
+    ],
+  ),
+);
   }
 }
