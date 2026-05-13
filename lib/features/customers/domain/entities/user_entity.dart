@@ -16,6 +16,7 @@ class UserEntity {
   final bool isApproved;
   final DateTime createdAt;
   final double? totalRating;
+  final double? averageRating;
 
   const UserEntity({
     required this.id,
@@ -23,7 +24,7 @@ class UserEntity {
     required this.countryCode,
     required this.fullName,
     this.profileImage,
-     this.role,
+    this.role,
     this.latitude,
     this.longitude,
     this.address,
@@ -34,6 +35,7 @@ class UserEntity {
     required this.isActive,
     required this.isApproved,
     required this.createdAt,
-     this.totalRating,
+    this.totalRating,
+    this.averageRating
   });
 }

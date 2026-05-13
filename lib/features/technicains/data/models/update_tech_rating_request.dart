@@ -7,7 +7,8 @@ class UpdateTechRatingRequest {
 
   Map<String, dynamic> toJson() {
     return {
-      "rating": rating,
+      "average_rating": rating,
+
     };
   }
 }

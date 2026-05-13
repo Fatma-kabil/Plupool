@@ -50,7 +50,7 @@ class _TechProfileViewBodyState extends State<TechProfileViewBody> {
                 TechProfileViewMiddle(
                   userId: user.user.id,
                   
-                  rating: user.user.totalRating ?? 0,
+                 rating: (user.statistics['average_rating'] ?? 0),
                   completedTasks: user.statistics['completed_tasks'] ?? 0,
                   weeklyTasks: user.statistics['weekly_tasks'] ?? 0,
                 ),

@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/metric_card.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 import 'package:plupool/features/technicains/presentation/manager/tech_rating_cubit/tech_rating_cubit.dart';
 import 'package:plupool/features/technicains/presentation/manager/tech_rating_cubit/tech_rating_state.dart';
@@ -16,14 +17,12 @@ class TechProfileViewMiddle extends StatelessWidget {
     required this.weeklyTasks,
     required this.completedTasks,
     required this.userId,
-   
   });
 
   final double rating;
   final int weeklyTasks;
   final int completedTasks;
   final int userId;
-
 
   @override
   Widget build(BuildContext context) {
@@ -34,70 +33,99 @@ class TechProfileViewMiddle extends StatelessWidget {
           children: [
             Text(
               'الإحصائيات والأداء',
-              style: AppTextStyles.styleSemiBold16(context)
-                  .copyWith(color: AppColors.ktextcolor),
+              style: AppTextStyles.styleSemiBold16(
+                context,
+              ).copyWith(color: AppColors.ktextcolor),
             ),
 
             GestureDetector(
               onTap: () {
-                final controller =
-                    TextEditingController(text: rating.toString());
+                final controller = TextEditingController(
+                  text: rating.toString(),
+                );
 
                 showDialog(
                   context: context,
-                  builder: (dialogContext) {
-                    final cubit = context.read<TechRatingCubit>();
+                  builder: (_) {
+                    return BlocProvider.value(
+                      value: context.read<TechRatingCubit>(),
 
-                    return BlocConsumer<TechRatingCubit, TechRatingState>(
-                      listener: (context, state) {
-                        if (state is TechRatingSuccess) {
-                          Navigator.pop(dialogContext);
+                      child: Builder(
+                        builder: (dialogContext) {
+                          return BlocConsumer<TechRatingCubit, TechRatingState>(
+                            listener: (context, state) {
+                              if (state is TechRatingSuccess) {
+                                Navigator.pop(dialogContext);
+                                showCustomSnackBar(
+                                  context: context,
+                                  message: "تم تعديل التقييم بنجاح",
+                                  isSuccess: true,
+                                );
 
-                          context
-                              .read<UsersCubit>()
-                              .getUserDetails(userId);
-                        }
+                                context.read<UsersCubit>().getUserDetails(
+                                  userId,
+                                );
+                              }
 
-                        if (state is TechRatingError) {
-                          Navigator.pop(dialogContext);
-                        }
-                      },
-                      builder: (context, state) {
-                        final isLoading = state is TechRatingLoading;
+                              if (state is TechRatingError) {
+                                Navigator.pop(dialogContext);
+                                 showCustomSnackBar(
+                                  context: context,
+                                  message: state.message
+                                );
 
-                        return Dialog(
-                          backgroundColor: AppColors.kScaffoldColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          insetPadding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.w(20),
-                            vertical: SizeConfig.h(29),
-                          ),
-                          child: EditRateCard(
-                            ratingController: controller,
-                            isLoading: isLoading,
-
-                            onSubmit: isLoading
-                                ? null
-                                : () {
-                                    final value = double.tryParse(
-                                            controller.text) ??
-                                        0;
-
-                                    cubit.updateTechRating(
-                                      userId: userId,
-                                    
-                                      rating: value.toInt(),
-                                    );
-                                  },
-
-                            onCancel: () {
-                              Navigator.pop(dialogContext);
+                                context.read<UsersCubit>().getUserDetails(
+                                  userId,
+                                );
+                              }
                             },
-                          ),
-                        );
-                      },
+
+                            builder: (context, state) {
+                              final isLoading = state is TechRatingLoading;
+
+                              return Dialog(
+                                backgroundColor: AppColors.kScaffoldColor,
+
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+
+                                insetPadding: EdgeInsets.symmetric(
+                                  horizontal: SizeConfig.w(20),
+                                  vertical: SizeConfig.h(29),
+                                ),
+
+                                child: EditRateCard(
+                                  ratingController: controller,
+
+                                  isLoading: isLoading,
+
+                                  onSubmit: isLoading
+                                      ? null
+                                      : () {
+                                          final value =
+                                              double.tryParse(
+                                                controller.text,
+                                              ) ??
+                                              0;
+
+                                          context
+                                              .read<TechRatingCubit>()
+                                              .updateTechRating(
+                                                userId: userId,
+                                                rating: value.toInt(),
+                                              );
+                                        },
+
+                                  onCancel: () {
+                                    Navigator.pop(dialogContext);
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
                     );
                   },
                 );

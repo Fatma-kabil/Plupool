@@ -63,7 +63,7 @@ class _TechsViewBodyState extends State<TechsViewBody> {
     double total = 0;
 
     for (var user in state.users) {
-      total += user.totalRating ?? 0;
+      total += user.averageRating ?? 0;
     }
 
     double avg = total / state.users.length;

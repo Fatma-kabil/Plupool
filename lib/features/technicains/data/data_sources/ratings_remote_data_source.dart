@@ -13,7 +13,7 @@ class RatingsTechRemoteDataSource {
     required UpdateTechRatingRequest request,
   }) async {
     final response = await apiService.patch(
-      '${Endpoints.users}/$userId/ratings',
+      '${Endpoints.users}/$userId/average-rating',
 
       data: request.toJson(),
     );
