@@ -5,6 +5,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/customer_appbar.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/owner_offer_carusal_bloc.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
@@ -34,34 +35,27 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
       builder: (context, roleState) {
         // 🔄 Loading role
         if (roleState is GetRoleLoading) {
-          return const Center(
-            child: CustomLoadingIndecator(),
-          );
+          return const Center(child: CustomLoadingIndecator());
         }
 
         // ❌ Error (اختياري)
         if (roleState is GetRoleError) {
-          return const Center(
-            child: Text('حدث خطأ أثناء تحميل الدور'),
-          );
+          return const Center(child: Text('حدث خطأ أثناء تحميل الدور'));
         }
 
-        final roleName =
-            roleState is GetRoleSuccess ? roleState.roleName : 'ضيف';
+        final roleName = roleState is GetRoleSuccess
+            ? roleState.roleName
+            : 'ضيف';
 
         final token = context.watch<AuthCubit>().state.token ?? '';
 
         // 🟡 Guest
         if (token.isEmpty) {
-          return _buildHomeLayout(
-            appbar: GuestAppbar(role: roleName),
-          );
+          return _buildHomeLayout(appbar: GuestAppbar(role: roleName));
         }
 
         // 🟢 Logged In
-        return _buildHomeLayout(
-          appbar: CustomerAppbar(role: roleName),
-        );
+        return _buildHomeLayout(appbar: CustomerAppbar(role: roleName));
       },
     );
   }
@@ -81,10 +75,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
           const PromoCarousel(),
           const SizedBox(height: 29),
 
-          OfferSection(
-            offers: offers,
-            role: " ",
-          ),
+          OwnerOfferCarusalBloc(),
           const SizedBox(height: 27),
 
           const ProjectsSection(),

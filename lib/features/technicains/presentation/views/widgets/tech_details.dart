@@ -17,7 +17,7 @@ class TechDetails extends StatelessWidget {
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children:  [
+          children: [
             CustomerInfoItem(
               crossAxisAlignment: CrossAxisAlignment.center,
               icon: Icons.calendar_month_outlined,
@@ -29,7 +29,7 @@ class TechDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               icon: Icons.location_on,
               title: "العنوان",
-              value: user.address??"لا يوجد",
+              value: user.address ?? "لا يوجد",
             ),
           ],
         ),
@@ -42,21 +42,23 @@ class TechDetails extends StatelessWidget {
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children:  [
+          children: [
             CustomerInfoItem(
               crossAxisAlignment: CrossAxisAlignment.center,
               icon: Icons.workspace_premium,
               title: "عدد سنوات الخبره",
-             value: (user.yearsOfExperience == null || user.yearsOfExperience == 0)
-    ? "لا توجد سنوات خبرة"
-    : "${toArabicNumbers(user.yearsOfExperience.toString())} سنوات",
+              value:
+                  (user.yearsOfExperience == null ||
+                      user.yearsOfExperience == 0)
+                  ? "لا توجد سنوات خبرة"
+                  : "${toArabicNumbers(user.yearsOfExperience.toString())} سنوات",
             ),
             SizedBox(height: 12),
             CustomerInfoItem(
               crossAxisAlignment: CrossAxisAlignment.center,
               icon: Icons.star_border_purple500_rounded,
               title: "التقييم",
-              value:toArabicNumbers( user.averageRating.toString()),
+              value: toArabicNumbers(user.averageRating.toString()),
             ),
           ],
         ),

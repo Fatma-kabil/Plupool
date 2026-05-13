@@ -23,7 +23,7 @@ class _OfferViewState extends State<OfferView> {
         child: Scaffold(
           key: scaffoldkey,
           appBar: CustomAppBar(
-            isSearch: true,
+          //  isSearch: true,
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();
             },

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reserve_offer_btn.dart';
+import 'package:plupool/features/offers/domain/enities/offer_entity.dart';
+import 'package:plupool/features/offers/presentation/views/widgets/date_row.dart';
+import 'package:plupool/features/offers/presentation/views/widgets/offer_image_card.dart';
 
 class OfferDetailsCard extends StatelessWidget {
   const OfferDetailsCard({super.key, required this.offer});
-  final OfferModel offer;
+  final OfferEntity offer;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class OfferDetailsCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-      //    OfferImageCard(offer: offer),
+         OfferImageCard(offer: offer),
           SizedBox(width: SizeConfig.w(12)),
           Expanded(
             child: SizedBox(
@@ -49,10 +51,10 @@ class OfferDetailsCard extends StatelessWidget {
                         ).copyWith(color: AppColors.ktextcolor),
                       ),
                       SizedBox(height: SizeConfig.h(5)),
-                   //   DateRow(offer: offer),
+                      DateRow(offer: offer),
                       SizedBox(height: SizeConfig.h(5)),
                       Text(
-                        offer.desc,
+                        offer.description,
                         softWrap: true,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,

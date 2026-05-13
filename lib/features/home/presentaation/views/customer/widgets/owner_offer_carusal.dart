@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/owner_offer_card.dart';
+import 'package:plupool/features/offers/domain/enities/offer_entity.dart';
 
 class OwnerOfferCarusal extends StatefulWidget {
-  final List<OfferModel> offers;
+  final List<OfferEntity> offers;
   const OwnerOfferCarusal({super.key, required this.offers});
 
   @override

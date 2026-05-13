@@ -18,7 +18,6 @@ import 'package:plupool/features/customers/presentation/views/customer_profile_v
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
 import 'package:plupool/features/customers/presentation/views/edit_customer_pool_info.dart';
 import 'package:plupool/features/customers/presentation/views/edit_customer_view.dart';
-import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/presentaation/views/admin/admin_home_view.dart';
 import 'package:plupool/features/home/presentaation/views/admin/see_all_packages_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/cusmoter_notification_view.dart';
@@ -142,7 +141,7 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/MainHomeCustomerView',
+      path: '/',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCustomerView()),
@@ -274,7 +273,7 @@ final GoRouter appRouter = GoRouter(
       path: '/offerdetailsview',
       name: 'offerdetailsview',
       pageBuilder: (context, state) {
-        final offers = state.extra as List<OfferModel>; // استقبال الليست
+        final offers = state.extra as List<OfferEntity>; // استقبال الليست
 
         return buildTransitionPage(
           OfferDetailsView(offers: offers), // تمرير الليست للصفحة
@@ -295,7 +294,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const CusmoterNotificationView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/adminhomeview',
       name: 'adminhomeview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminHomeView()),
