@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -128,7 +127,7 @@ class _TechHomeViewState extends State<TechHomeView> {
             const SizedBox(height: 30),
           ],
 
-          OfferSection(offers: equipmentOffers, role: "فني"),
+          OfferSection(),
           const SizedBox(height: 30),
           const ProjectsSection(),
           const SizedBox(height: 30),

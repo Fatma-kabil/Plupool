@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_offer_card.dart';
+import 'package:plupool/features/products/domain/entities/product_entity.dart';
 
 
 
 class TechOffersCarousel extends StatefulWidget {
-   final List <OfferModel> offers;
+   final List <Product> offers;
   const TechOffersCarousel({super.key, required this.offers});
 
   @override
