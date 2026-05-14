@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
-Widget buildNavIcon(String path, {Color? color}) {
-    return SvgPicture.asset(
+Widget buildNavIcon(IconData path, {Color? color}) {
+    return Icon(
       path,
-      width: SizeConfig.w(24),
-      height: SizeConfig.h(24),
-      colorFilter: color != null
-          ? ColorFilter.mode(color, BlendMode.srcIn)
-          : null,
+      size: SizeConfig.w(24),
+    //  height: SizeConfig.h(24),
+      color:color
+     
     );
   }

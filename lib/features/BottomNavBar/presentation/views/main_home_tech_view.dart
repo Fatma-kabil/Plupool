@@ -17,6 +17,7 @@ class MainHomeTechView extends StatefulWidget {
   @override
   State<MainHomeTechView> createState() => _MainHomeTechViewState();
 }
+
 class _MainHomeTechViewState extends State<MainHomeTechView> {
   @override
   void initState() {
@@ -40,7 +41,7 @@ class _MainHomeTechViewState extends State<MainHomeTechView> {
         ];
 
         return Directionality(
-          textDirection:  TextDirection.rtl,
+          textDirection: TextDirection.rtl,
           child: Scaffold(
             extendBody: true,
             body: IndexedStack(index: currentIndex, children: pages),
@@ -49,10 +50,13 @@ class _MainHomeTechViewState extends State<MainHomeTechView> {
                 : null,
             floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             bottomNavigationBar: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
               child: BottomNavigationBar(
                 currentIndex: currentIndex,
-                onTap: (value) => context.read<BottomNavCubit>().changeCurrentIndex(value),
+                onTap: (value) =>
+                    context.read<BottomNavCubit>().changeCurrentIndex(value),
                 backgroundColor: Colors.white,
                 type: BottomNavigationBarType.fixed,
                 showSelectedLabels: true,
@@ -62,10 +66,10 @@ class _MainHomeTechViewState extends State<MainHomeTechView> {
                 selectedLabelStyle: AppTextStyles.styleBold13(context),
                 unselectedLabelStyle: AppTextStyles.styleBold13(context),
                 items: [
-                  buildNavItem(icon: 'assets/icons/home.svg', label: 'الرئيسيه'),
-                  buildNavItem(icon: 'assets/icons/tasks.svg', label: 'المهام'),
-                  buildNavItem(icon: 'assets/icons/store.svg', label: 'المتجر'),
-                  buildNavItem(icon: 'assets/icons/profile.svg', label: 'حسابي'),
+                  buildNavItem(icon: Icons.home_rounded, label: 'الرئيسيه'),
+                  buildNavItem(icon: Icons.task_alt_rounded, label: 'المهام'),
+                  buildNavItem(icon: Icons.storefront_rounded, label: 'المتجر'),
+                  buildNavItem(icon: Icons.person_rounded, label: 'حسابي'),
                 ],
               ),
             ),

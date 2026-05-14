@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_state.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/widgets/build_nav_item.dart';
@@ -19,19 +20,20 @@ class MainHomeCompanyView extends StatefulWidget {
 }
 
 class _MainHomeCompanyViewState extends State<MainHomeCompanyView> {
-
-@override
+  @override
   void initState() {
     super.initState();
     // ✅ ده هيتنادى أول ما الصفحة نفسها تتفتح من جديد (مش مجرد تبويب يتغير)
     context.read<BottomNavCubit>().changeCurrentIndex(0);
   }
+
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init(context);
     final pages = const [
       CustomerHomeView(),
       ServicesView(),
-     
+
       StoreView(),
       ProfileView(),
     ];
@@ -39,22 +41,24 @@ class _MainHomeCompanyViewState extends State<MainHomeCompanyView> {
     return BlocBuilder<BottomNavCubit, BottomNavState>(
       builder: (context, state) {
         final currentIndex = state.currentIndex;
- 
+
         return Directionality(
-           textDirection: TextDirection.rtl,
+          textDirection: TextDirection.rtl,
           child: Scaffold(
             extendBody: true,
             body: IndexedStack(index: currentIndex, children: pages),
-          
+
             // ✅ يظهر بس في الهوم
             floatingActionButton: currentIndex == 0
                 ? CustomFloatingActionButton()
                 : null,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.endFloat, // ✅ عاليمين تحت
-          
+
             bottomNavigationBar: ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
               child: BottomNavigationBar(
                 currentIndex: currentIndex,
                 onTap: (value) =>
@@ -68,14 +72,13 @@ class _MainHomeCompanyViewState extends State<MainHomeCompanyView> {
                 selectedLabelStyle: AppTextStyles.styleBold13(context),
                 unselectedLabelStyle: AppTextStyles.styleBold13(context),
                 items: [
-                  buildNavItem(icon: 'assets/icons/home.svg', label: 'الرئيسيه'),
+                  buildNavItem(icon: Icons.home_rounded, label: 'الرئيسيه'),
                   buildNavItem(
-                    icon: 'assets/icons/services.svg',
+                    icon: Icons.miscellaneous_services_rounded,
                     label: 'الخدمات',
                   ),
-
-                  buildNavItem(icon: 'assets/icons/store.svg', label: 'المتجر'),
-                  buildNavItem(icon: 'assets/icons/profile.svg', label: 'حسابي'),
+                  buildNavItem(icon: Icons.storefront_rounded, label: 'المتجر'),
+                  buildNavItem(icon: Icons.person_rounded, label: 'حسابي'),
                 ],
               ),
             ),

@@ -17,7 +17,7 @@ class OfferModel {
   final String? badgeText;
   final DateTime? startDate;
   final DateTime? endDate;
-  final String? status;
+  final String? computedStatus;
   final bool isFeatured;
   final int? sortOrder;
   final int? id;
@@ -42,7 +42,7 @@ class OfferModel {
     this.badgeText,
     this.startDate,
     this.endDate,
-    this.status,
+    this.computedStatus,
     this.isFeatured = false,
     this.sortOrder,
     this.id,
@@ -66,7 +66,7 @@ class OfferModel {
       images: entity.image,
       id: entity.id,
       isFeatured: entity.isFeatured,
-      status: entity.status
+      computedStatus: entity.status
     );
   }
 
@@ -84,7 +84,7 @@ class OfferModel {
       image: images,
       id: id ?? 0,
       isFeatured: isFeatured,
-      status:status
+      status:computedStatus
     );
   }
 
@@ -112,7 +112,7 @@ class OfferModel {
       endDate: json["end_date"] != null
           ? DateTime.parse(json["end_date"])
           : null,
-      status: json["status"],
+      computedStatus: json["computed_status"],
       isFeatured: json["is_featured"] ?? false,
       sortOrder: json["sort_order"],
       id: json["id"],
@@ -146,7 +146,7 @@ class OfferModel {
       "badge_text": badgeText,
       "start_date": startDate?.toIso8601String(),
       "end_date": endDate?.toIso8601String(),
-      "status": status,
+      "computed_status": computedStatus,
       "is_featured": isFeatured,
       "sort_order": sortOrder,
       "id": id,
@@ -192,8 +192,8 @@ class OfferModel {
       map["badge_text"] = badgeText;
     }
 
-    if (status != null) {
-      map["status"] = status;
+    if (computedStatus != null) {
+      map["computed_status"] = computedStatus;
     }
 
     map["is_featured"] = isFeatured;
