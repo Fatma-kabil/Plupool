@@ -9,6 +9,8 @@ class UpdateUserUseCase {
   Future<UserEntity> call({
     required int userId,
     String? fullName,
+     String? phone,
+    String? countryCode,
     String? companyName,
     String? role,
     double? latitude,

@@ -99,10 +99,8 @@ class UsersCubit extends Cubit<UsersState> {
       emit(UserDetailsLoading());
 
       final user = await getUserDetailsUseCase(id);
- 
+
       emit(UserDetailsSuccess(user));
-        
-   
     } catch (e) {
       emit(
         UserDetailsError(
@@ -129,6 +127,8 @@ class UsersCubit extends Cubit<UsersState> {
   Future<void> updateUser({
     required int userId,
     String? fullName,
+    String? phone,
+    String? countryCode,
     String? companyName,
     String? role,
     double? latitude,
@@ -147,6 +147,8 @@ class UsersCubit extends Cubit<UsersState> {
         userId: userId,
         fullName: fullName,
         companyName: companyName,
+        phone: phone,
+        countryCode: countryCode,
         role: role,
         latitude: latitude,
         longitude: longitude,

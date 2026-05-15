@@ -13,6 +13,7 @@ import 'package:plupool/features/contact_us/presentation/views/admin_drawer_cont
 import 'package:plupool/features/contact_us/presentation/views/company_res_contact_us_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/contact_us_details_view.dart';
 import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
+import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
 import 'package:plupool/features/customers/presentation/views/customer_profile_view.dart';
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
@@ -141,7 +142,7 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/',
+      path: '/MainHomeCustomerView',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCustomerView()),
@@ -294,7 +295,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const CusmoterNotificationView()),
     ),
     GoRoute(
-      path: '/adminhomeview',
+      path: '/',
       name: 'adminhomeview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminHomeView()),
@@ -449,9 +450,9 @@ final GoRouter appRouter = GoRouter(
       path: '/editcompanyresview',
       name: 'editcompanyresview',
       pageBuilder: (context, state) {
-        //  final model = state.extra as CompanyModel; // استقبال الليست
+          final model = state.extra as UserEntity; // استقبال الليست
 
-        return buildTransitionPage(EditCompannyResView());
+        return buildTransitionPage(EditCompannyResView(model: model,));
       },
     ),
     GoRoute(

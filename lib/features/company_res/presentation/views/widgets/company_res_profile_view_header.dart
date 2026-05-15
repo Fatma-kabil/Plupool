@@ -66,7 +66,7 @@ class CompanyResProfileViewHeader extends StatelessWidget {
                   context,
                 ).copyWith(color: AppColors.kprimarycolor),
                 onTap: () {
-                  context.push('/editcompanyresview');
+                  context.push('/editcompanyresview',extra: user);
                 },
               ),
               AddOfferBtn(

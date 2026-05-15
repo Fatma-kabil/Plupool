@@ -79,7 +79,7 @@ class EditAddTechForm extends StatelessWidget {
             validator: (v) => Validators.name(v),
           ),
           SizedBox(height: 15),
-          StatusRow(),
+        //  StatusRow(),
         ],
       ),
     );

@@ -20,7 +20,7 @@ class AddCompanyResViewBody extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
       child: Column(
         children: [
-          AddCompanyForm(nameController: nameController, companyController: companyController, phoneFieldKey: phoneFieldKey, phoneController: phoneController),
+      //    AddCompanyForm(nameController: nameController, companyController: companyController, phoneFieldKey: phoneFieldKey, phoneController: phoneController),
           CustomTextBtn(
             text: "إضافة",
             width: double.infinity,

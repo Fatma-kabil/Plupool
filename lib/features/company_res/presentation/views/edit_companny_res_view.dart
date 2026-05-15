@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/company_res/presentation/views/widgets/edit_company_res_view_body.dart';
+import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 
 class EditCompannyResView extends StatefulWidget {
-  const EditCompannyResView({super.key, });
- // final CompanyModel model;
+  const EditCompannyResView({super.key, required this.model, });
+  final UserEntity model;
 
   @override
   State<EditCompannyResView> createState() => _EditCompannyResViewState();
@@ -33,7 +34,7 @@ class _EditCompannyResViewState extends State<EditCompannyResView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: EditCompanyResViewBody(),
+            child: EditCompanyResViewBody(user:widget.model,),
           ),
         ),
       ),

@@ -60,7 +60,7 @@ class AddEditCustomerForm extends StatelessWidget {
                 validator: (v) => Validators.phone(v),
               ),
               SizedBox(height: SizeConfig.h(15)),
-              StatusRow(),
+           //   StatusRow(),
             ],
           ),
         ),
