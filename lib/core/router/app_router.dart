@@ -450,9 +450,9 @@ final GoRouter appRouter = GoRouter(
       path: '/editcompanyresview',
       name: 'editcompanyresview',
       pageBuilder: (context, state) {
-          final model = state.extra as UserEntity; // استقبال الليست
+        final model = state.extra as UserEntity; // استقبال الليست
 
-        return buildTransitionPage(EditCompannyResView(model: model,));
+        return buildTransitionPage(EditCompannyResView(model: model));
       },
     ),
     GoRoute(
@@ -588,8 +588,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/editcustomerview',
       name: 'editcustomerview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const EditCustomerView()),
+      pageBuilder: (context, state) {
+        final user = state.extra as UserEntity;
+      return  buildTransitionPage( EditCustomerView(user:user ,));
+      },
     ),
     GoRoute(
       path: '/editcustomerpoolinfo',

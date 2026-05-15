@@ -20,12 +20,12 @@ class AddCustomerViewBody extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
       child: Column(
         children: [
-          AddEditCustomerForm(
-            locationController: locationController,
-            nameController: nameController,
-            phoneFieldKey: phoneFieldKey,
-            phoneController: phoneController,
-          ),
+      //    AddEditCustomerForm(
+        //    locationController: locationController,
+          //  nameController: nameController,
+          //  phoneFieldKey: phoneFieldKey,
+          //  phoneController: phoneController,
+          //),
           CustomTextBtn(
             text: " إضافة العميل",
             width: double.infinity,
