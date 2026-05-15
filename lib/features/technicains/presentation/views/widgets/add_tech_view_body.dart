@@ -23,14 +23,14 @@ class AddTechViewBody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            EditAddTechForm(
-              nameController: nameController,
-              skillsController: skillsController,
-              noOfYearsController: noOfYearsController,
-              phoneFieldKey: phoneFieldKey,
-              phoneController: phoneController,
-              locationController: locationController,
-            ),
+          //  EditAddTechForm(
+           //   nameController: nameController,
+           //   skillsController: skillsController,
+           //   noOfYearsController: noOfYearsController,
+           //   phoneFieldKey: phoneFieldKey,
+           //   phoneController: phoneController,
+           //   locationController: locationController,
+          //  ),
               SizedBox(height: 40),
             CustomTextBtn(
               text: "إضافة",

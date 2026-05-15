@@ -58,7 +58,7 @@ class CustomerProfileViewHeader extends StatelessWidget {
             children: [
               AddOfferBtn(
                 onTap: () {
-                  context.push('/editcustomerview');
+                  context.push('/editcustomerview',extra: user);
                 },
                 padding: 8,
                 text: "تعديل البيانات",
@@ -69,7 +69,7 @@ class CustomerProfileViewHeader extends StatelessWidget {
               ),
               AddOfferBtn(
                 onTap: () {
-                  context.push('/addnotificationsview',extra: user);
+                  context.push('/addnotificationsview',);
                 },
                 padding: 8,
                 text: "إرسال إشعار",

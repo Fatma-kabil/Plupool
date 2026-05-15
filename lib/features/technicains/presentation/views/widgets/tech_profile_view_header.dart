@@ -68,7 +68,7 @@ class TechProfileViewHeader extends StatelessWidget {
             children: [
               AddOfferBtn(
                 onTap: () {
-                  context.push('/edittechview');
+                  context.push('/edittechview',extra:user);
                 },
                 padding: 8,
                 text: "تعديل البيانات",

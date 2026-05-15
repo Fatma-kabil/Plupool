@@ -590,7 +590,7 @@ final GoRouter appRouter = GoRouter(
       name: 'editcustomerview',
       pageBuilder: (context, state) {
         final user = state.extra as UserEntity;
-      return  buildTransitionPage( EditCustomerView(user:user ,));
+        return buildTransitionPage(EditCustomerView(user: user));
       },
     ),
     GoRoute(
@@ -620,8 +620,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/edittechview',
       name: 'edittechview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const EditTechView()),
+      pageBuilder: (context, state) {
+        final user = state.extra as UserEntity;
+      return  buildTransitionPage( EditTechView(user: user,));
+      },
     ),
     GoRoute(
       path: '/adminreportsview',

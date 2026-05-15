@@ -14,72 +14,143 @@ class EditAddTechForm extends StatelessWidget {
     required this.noOfYearsController,
     required this.phoneFieldKey,
     required this.phoneController,
+    required this.initialCountryCode,
+    required this.initialCountryFlag,
+    this.onCountryChanged,
+    required this.isActive,
   });
+
   final TextEditingController nameController;
+
   final TextEditingController locationController;
+
   final TextEditingController skillsController;
+
   final TextEditingController noOfYearsController;
+
   final GlobalKey<FormFieldState> phoneFieldKey;
+
   final TextEditingController phoneController;
+
+  final String initialCountryCode;
+
+  final String initialCountryFlag;
+
+  final bool isActive;
+
+  final void Function(
+    String code,
+    String flag,
+  )? onCountryChanged;
 
   @override
   Widget build(BuildContext context) {
     return Form(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment:
+            CrossAxisAlignment.start,
+
         children: [
-          // اسم العميل
           FieldLabel('اسم الفني'),
-    
+
           CustomTextFormField(
             controller: nameController,
+
             hintText: 'ادخل الاسم ',
-            icon: Icons.person_2_outlined,
-            validator: (v) => Validators.name(v),
+
+            icon:
+                Icons.person_2_outlined,
+
+            validator:
+                (v) => Validators.name(v),
           ),
-    
+
           SizedBox(height: 20),
+
           FieldLabel('مكان الإقامة'),
-    
+
           CustomTextFormField(
-            controller: locationController,
-            hintText: 'ادخل مكان الإقامة',
-            icon: Icons.location_on_outlined,
-            validator: (v) =>
-                Validators.required(v, fieldName: 'مكان الإقامة'),
+            controller:
+                locationController,
+
+            hintText:
+                'ادخل مكان الإقامة',
+
+            icon:
+                Icons.location_on_outlined,
+
+            validator:
+                (v) => Validators.required(
+                  v,
+                  fieldName:
+                      'مكان الإقامة',
+                ),
           ),
-    
+
           SizedBox(height: 20),
-    
-          // رقم الهاتف
+
           FieldLabel('رقم الهاتف'),
-    
+
           PhoneInputField(
             key: phoneFieldKey,
+
             controller: phoneController,
-            validator: (v) => Validators.phone(v),
+
+            validator:
+                (v) => Validators.phone(v),
+
+            initialCountryCode:
+                initialCountryCode,
+
+            initialCountryFlag:
+                initialCountryFlag,
+
+            onCountryChanged:
+                onCountryChanged,
           ),
+
           SizedBox(height: 20),
+
           FieldLabel('المهارات'),
-    
+
           CustomTextFormField(
-            controller: skillsController,
-            hintText: 'ادخل المهارات ',
-            icon: Icons.build_outlined,
-            validator: (v) => Validators.name(v),
+            controller:
+                skillsController,
+
+            hintText:
+                'ادخل المهارات ',
+
+            icon:
+                Icons.build_outlined,
+
+            validator:
+                (v) => Validators.name(v),
           ),
-    
+
           SizedBox(height: 20),
+
           FieldLabel('عدد سنوات الخبرة'),
-    
+
           CustomTextFormField(
-            controller: noOfYearsController,
-            hintText: 'ادخل عدد سنوات الخبرة',
-            icon: Icons.workspace_premium_outlined,
-            validator: (v) => Validators.name(v),
+            controller:
+                noOfYearsController,
+
+            hintText:
+                'ادخل عدد سنوات الخبرة',
+
+            icon:
+                Icons
+                    .workspace_premium_outlined,
+
+            validator:
+                (v) => Validators.name(v),
           ),
+
           SizedBox(height: 15),
-        //  StatusRow(),
+
+          StatusRow(
+            isActive: isActive,
+          ),
         ],
       ),
     );
