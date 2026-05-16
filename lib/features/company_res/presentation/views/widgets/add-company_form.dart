@@ -77,6 +77,7 @@ class AddCompanyForm extends StatelessWidget {
                 initialCountryFlag: initialCountryFlag,
 
                 onCountryChanged: onCountryChanged,
+                
               ),
 
               SizedBox(height: SizeConfig.h(15)),

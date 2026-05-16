@@ -38,17 +38,13 @@ class EditAddTechForm extends StatelessWidget {
 
   final bool isActive;
 
-  final void Function(
-    String code,
-    String flag,
-  )? onCountryChanged;
+  final void Function(String code, String flag)? onCountryChanged;
 
   @override
   Widget build(BuildContext context) {
     return Form(
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
           FieldLabel('اسم الفني'),
@@ -58,11 +54,9 @@ class EditAddTechForm extends StatelessWidget {
 
             hintText: 'ادخل الاسم ',
 
-            icon:
-                Icons.person_2_outlined,
+            icon: Icons.person_2_outlined,
 
-            validator:
-                (v) => Validators.name(v),
+            validator: (v) => Validators.name(v),
           ),
 
           SizedBox(height: 20),
@@ -70,21 +64,13 @@ class EditAddTechForm extends StatelessWidget {
           FieldLabel('مكان الإقامة'),
 
           CustomTextFormField(
-            controller:
-                locationController,
+            controller: locationController,
 
-            hintText:
-                'ادخل مكان الإقامة',
+            hintText: 'ادخل مكان الإقامة',
 
-            icon:
-                Icons.location_on_outlined,
+            icon: Icons.location_on_outlined,
 
-            validator:
-                (v) => Validators.required(
-                  v,
-                  fieldName:
-                      'مكان الإقامة',
-                ),
+            validator: (v) => Validators.required(v, fieldName: 'مكان الإقامة'),
           ),
 
           SizedBox(height: 20),
@@ -96,17 +82,13 @@ class EditAddTechForm extends StatelessWidget {
 
             controller: phoneController,
 
-            validator:
-                (v) => Validators.phone(v),
+            validator: (v) => Validators.phone(v),
 
-            initialCountryCode:
-                initialCountryCode,
+            initialCountryCode: initialCountryCode,
 
-            initialCountryFlag:
-                initialCountryFlag,
+            initialCountryFlag: initialCountryFlag,
 
-            onCountryChanged:
-                onCountryChanged,
+            onCountryChanged: onCountryChanged,
           ),
 
           SizedBox(height: 20),
@@ -114,17 +96,13 @@ class EditAddTechForm extends StatelessWidget {
           FieldLabel('المهارات'),
 
           CustomTextFormField(
-            controller:
-                skillsController,
+            controller: skillsController,
 
-            hintText:
-                'ادخل المهارات ',
+            hintText: 'ادخل المهارات ',
 
-            icon:
-                Icons.build_outlined,
+            icon: Icons.build_outlined,
 
-            validator:
-                (v) => Validators.name(v),
+            validator: (v) => Validators.name(v),
           ),
 
           SizedBox(height: 20),
@@ -132,25 +110,19 @@ class EditAddTechForm extends StatelessWidget {
           FieldLabel('عدد سنوات الخبرة'),
 
           CustomTextFormField(
-            controller:
-                noOfYearsController,
+            controller: noOfYearsController,
+            keyboardType: TextInputType.number,
 
-            hintText:
-                'ادخل عدد سنوات الخبرة',
+            hintText: 'ادخل عدد سنوات الخبرة',
 
-            icon:
-                Icons
-                    .workspace_premium_outlined,
+            icon: Icons.workspace_premium_outlined,
 
-            validator:
-                (v) => Validators.name(v),
+            validator: (v) => Validators.number(v),
           ),
 
           SizedBox(height: 15),
 
-          StatusRow(
-            isActive: isActive,
-          ),
+          StatusRow(isActive: isActive),
         ],
       ),
     );

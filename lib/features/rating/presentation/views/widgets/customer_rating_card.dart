@@ -48,19 +48,37 @@ class CustomerRatingCard extends StatelessWidget {
           ),
           SizedBox(height: SizeConfig.h(8)),
           Row(
-            children: List.generate(
-              5,
-              (index) => Icon(
-                index < (userRating.rating ?? 0)
-                    ? Icons.star
-                    : Icons.star_border,
+          children: List.generate(5, (index) {
+            if (userRating.rating ! >= index + 1) {
+              /// ⭐ star full
+              return Icon(
+                Icons.star,
                 color: const Color(0xffFF9F1C),
                 size: SizeConfig.isWideScreen
                     ? SizeConfig.w(15)
                     : SizeConfig.w(22),
-              ),
-            ),
-          ),
+              );
+            } else if (userRating.rating ! > index && userRating.rating ! < index + 1) {
+              /// 🌗 half star
+              return Icon(
+                Icons.star_half,
+                color: const Color(0xffFF9F1C),
+                size: SizeConfig.isWideScreen
+                    ? SizeConfig.w(15)
+                    : SizeConfig.w(22),
+              );
+            } else {
+              /// ☆ empty star
+              return Icon(
+                Icons.star_border,
+                color: const Color(0xffFF9F1C),
+                size: SizeConfig.isWideScreen
+                    ? SizeConfig.w(15)
+                    : SizeConfig.w(22),
+              );
+            }
+          }),
+        ),
           SizedBox(height: SizeConfig.h(8)),
           Row(
             children: [

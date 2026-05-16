@@ -3,7 +3,6 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/features/contact_us/data/models/contact_us_model.dart';
 import 'package:plupool/features/home/data/models/drawer_item_model.dart';
-import 'package:plupool/features/home/data/models/review_card_model.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
 import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
 import 'package:plupool/features/maintenance/data/models/requested_maintenance_card_model.dart';
@@ -14,7 +13,6 @@ import 'package:plupool/features/profile/data/models/project_model.dart';
 import 'package:plupool/features/projects/data/models/admin_project_model.dart';
 import 'package:plupool/features/reports/data/models/report_model.dart';
 import 'package:plupool/features/select_role/data/models/role_card_item.dart';
-import 'package:plupool/features/home/data/models/offer_model.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
@@ -83,32 +81,6 @@ final List<PromoCardModel> items = [
   // تقدر تكرري كروت تانية هنا
 ];
 
-final List<OfferModel> offers = [
-  OfferModel(
-    title: "تركيب أنظمة الترشيح",
-    desc: " تركيب أحدث أنظمة الترشيح والتطهير مع صيانة مجانية لمدة 6 أشهر.",
-    endDate: DateTime(2025, 12, 20),
-    startDate: DateTime(2025, 11, 20),
-    image: "assets/images/safty.png",
-    offerPercentage: '% خصم 15',
-  ),
-  OfferModel(
-    title: "تركيب أنظمة الإضاءة",
-    desc: "تركيب أنظمة إضاءة LED متطورة مع ألوان متعددة وتحكم عن بعد.",
-    endDate: DateTime(2025, 12, 20),
-    startDate: DateTime(2025, 11, 20),
-    image: "assets/images/tech_offer2.png",
-    offerPercentage: '% خصم 15',
-  ),
-  OfferModel(
-    title: "تنظيف فلاتر المسبح",
-    desc: "خدمة تنظيف فلاتر المسبح مع فحص شامل وضمان لمدة شهر.",
-    endDate: DateTime(2025, 12, 20),
-    startDate: DateTime(2025, 11, 20),
-    image: "assets/images/offercard1.png",
-    offerPercentage: '% خصم 10',
-  ),
-];
 
 final List<ProjectCardModel> projects = [
   ProjectCardModel(
@@ -135,32 +107,6 @@ final List<ProjectCardModel> projects = [
   // تقدر تضيف صور تانية هنا
 ];
 
-final List<ReviewCardModel> reviews = [
-  ReviewCardModel(
-    name: "Ahmed Hassan",
-    avatarUrl: "assets/images/user1.png",
-    rating: 5,
-    timeAgo: "يومين",
-    comment: "خدمة ممتازة وفريق محترف جدًا",
-  ),
-  ReviewCardModel(
-    name: "Ali Ahmed",
-    avatarUrl: "assets/images/user2.png",
-    rating: 4,
-    timeAgo: "3 ايام",
-    comment: "جودة عالية في التنفيذ والمتابعة",
-  ),
-];
-final Map<String, bool> options = {
-  "طلمبات (24)": false,
-  "فلاتر (38)": false,
-  "سخانات (18)": false,
-  "إكسسوارات (48)": false,
-  "إكسسوارات (18)": false,
-  "أدوات نظافة (18)": false,
-  "كيماويات (10)": false,
-  "قطع غيار (6)": false,
-};
 
 
 
@@ -464,33 +410,6 @@ final List<ServiceRequest> requests = [
   ),
 ];
 
-final List<OfferModel> equipmentOffers = [
-  OfferModel(
-    title: "معدات صيانة ",
-    desc: "طلمبة فلترة",
-    oldPrice: "2500 EGP",
-    newPrice: "2000 EGP",
-    image: "assets/images/mach_pro1.png",
-    offerPercentage: '% خصم 10',
-  ),
-  OfferModel(
-    title: "معدات إنشاء",
-    desc: "مجموعة إضاءة LED للمسابح",
-    oldPrice: "2000 EGP",
-    newPrice: "1600 EGP",
-    image: "assets/images/tech_offer2.png",
-    offerPercentage: '% خصم 15',
-  ),
-
-  OfferModel(
-    title: "مواد كيميائية آمنة",
-    desc: "مواد كيميائية آمنة",
-    oldPrice: "3000 EGP",
-    newPrice: "2000 EGP",
-    image: "assets/images/tech_offer3.png",
-    offerPercentage: '% خصم 20',
-  ),
-];
 
 final List<FaqItem> techQes = [
   FaqItem(

@@ -111,18 +111,18 @@ class _AdminRatingViewBodyState extends State<AdminRatingViewBody> {
               )
             /// ✅ List
             else if (state is RatingsSuccess)
-              state.ratings.isEmpty
+              state.data.ratings.isEmpty
                   ? const SliverFillRemaining(
                       child: Center(child: ErrorText(message: "لا توجد نتائج")),
                     )
                   : SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
-                        final rating = state.ratings[index];
+                        final rating = state.data.ratings[index];
                         return Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: AdminRatingCard(rating: rating),
                         );
-                      }, childCount: state.ratings.length),
+                      }, childCount: state.data.ratings.length),
                     )
             else
               const SliverToBoxAdapter(child: SizedBox()),

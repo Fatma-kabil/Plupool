@@ -1,3 +1,4 @@
+import 'package:plupool/features/rating/domain/entities/rating_entities.dart';
 import 'package:plupool/features/rating/domain/entities/rating_entity.dart';
 
 
@@ -9,9 +10,9 @@ class RatingsInitial extends RatingsState {}
 class RatingsLoading extends RatingsState {}
 
 class RatingsSuccess extends RatingsState {
-  final List<RatingEntity> ratings;
+  final RatingsEntity data;
 
-  RatingsSuccess(this.ratings);
+  RatingsSuccess(this.data);
 }
 
 class RatingsError extends RatingsState {

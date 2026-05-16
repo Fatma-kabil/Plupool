@@ -142,7 +142,7 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/MainHomeCustomerView',
+      path: '/',
       name: 'MainHomeCustomerView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCustomerView()),
@@ -295,7 +295,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const CusmoterNotificationView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/adminhomeview',
       name: 'adminhomeview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminHomeView()),

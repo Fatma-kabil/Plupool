@@ -40,3 +40,34 @@ String formatTimeArabic2(DateTime time) {
 String formatArabicDate2(DateTime date) {
   return DateFormat('yyyy/M/d - h:mm a', 'ar').format(date);
 }
+
+String timeAgo(DateTime date) {
+  final now = DateTime.now();
+  final diff = now.difference(date);
+
+  if (diff.inSeconds < 60) {
+    return "الآن";
+  }
+
+  if (diff.inMinutes < 60) {
+    return "منذ ${diff.inMinutes} دقيقة";
+  }
+
+  if (diff.inHours < 24) {
+    return "منذ ${diff.inHours} ساعة";
+  }
+
+  if (diff.inDays < 30) {
+    return "منذ ${diff.inDays} يوم";
+  }
+
+  final months = (diff.inDays / 30).floor();
+
+  if (months < 12) {
+    return "منذ $months شهر";
+  }
+
+  final years = (months / 12).floor();
+
+  return "منذ $years سنة";
+}

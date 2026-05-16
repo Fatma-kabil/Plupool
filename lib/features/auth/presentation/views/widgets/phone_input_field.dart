@@ -71,6 +71,7 @@ class PhoneInputFieldState extends State<PhoneInputField> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: TextFormField(
+        
         textDirection: TextDirection.ltr,
         textAlign: TextAlign.right,
         style: AppTextStyles.styleMedium16(context)

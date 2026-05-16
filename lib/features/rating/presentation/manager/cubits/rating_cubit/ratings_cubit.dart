@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
-import 'package:plupool/features/rating/domain/entities/rating_entity.dart';
+import 'package:plupool/features/rating/domain/entities/rating_entities.dart';
 import 'package:plupool/features/rating/domain/usecases/approve_rating.dart';
 import 'package:plupool/features/rating/domain/usecases/delete_rating_usecase.dart';
 import 'package:plupool/features/rating/domain/usecases/get_rating_by_id_usecase.dart';
@@ -24,8 +24,8 @@ class RatingsCubit extends Cubit<RatingsState> {
     required this.deleteUseCase,
   }) : super(RatingsInitial());
 
-  /// 🔥 cache
-  List<RatingEntity> _cachedRatings = [];
+  /// 🔥 cache (FULL RESPONSE)
+  RatingsEntity? _cachedResponse;
 
   /// 🔥 filters
   String? _status;
@@ -47,7 +47,6 @@ class RatingsCubit extends Cubit<RatingsState> {
     emit(RatingsLoading());
 
     try {
-      /// حفظ الفلاتر
       _status = status;
       _search = search;
       _sortBy = sortBy;
@@ -64,17 +63,19 @@ class RatingsCubit extends Cubit<RatingsState> {
         serviceId: serviceId,
       );
 
-      _cachedRatings = response.ratings;
+      _cachedResponse = response;
 
-      emit(RatingsSuccess(response.ratings));
+      emit(RatingsSuccess(response));
     } catch (e) {
       emit(
-        RatingsError(e is Failure ? e.message : "حدث خطأ أثناء جلب التقييمات"),
+        RatingsError(
+          e is Failure ? e.message : "حدث خطأ أثناء جلب التقييمات",
+        ),
       );
-      print(e);
     }
   }
 
+  /// 🔍 DETAILS
   Future<void> getRatingDetails(int id) async {
     try {
       emit(RatingDetailsLoading());
@@ -89,9 +90,8 @@ class RatingsCubit extends Cubit<RatingsState> {
         ),
       );
 
-      /// optional: رجّع الليست لو موجودة
-      if (_cachedRatings.isNotEmpty) {
-        emit(RatingsSuccess(_cachedRatings));
+      if (_cachedResponse != null) {
+        emit(RatingsSuccess(_cachedResponse!));
       }
     }
   }
@@ -111,11 +111,10 @@ class RatingsCubit extends Cubit<RatingsState> {
         serviceId: _serviceId,
       );
 
-      _cachedRatings = response.ratings;
+      _cachedResponse = response;
 
-     
       emit(RatingsDeleteSuccess());
-      emit(RatingsSuccess(response.ratings));
+      emit(RatingsSuccess(response));
     } catch (e) {
       emit(
         RatingsDeleteError(
@@ -123,8 +122,9 @@ class RatingsCubit extends Cubit<RatingsState> {
         ),
       );
 
-      /// 🔥 rollback
-      emit(RatingsSuccess(_cachedRatings));
+      if (_cachedResponse != null) {
+        emit(RatingsSuccess(_cachedResponse!));
+      }
     }
   }
 
@@ -143,9 +143,10 @@ class RatingsCubit extends Cubit<RatingsState> {
         serviceId: _serviceId,
       );
 
-      _cachedRatings = response.ratings;
+      _cachedResponse = response;
+
       emit(RatingsActionSuccess());
-      emit(RatingsSuccess(response.ratings));
+      emit(RatingsSuccess(response));
     } catch (e) {
       emit(
         RatingsActionError(
@@ -153,8 +154,9 @@ class RatingsCubit extends Cubit<RatingsState> {
         ),
       );
 
-      /// 🔥 rollback
-      emit(RatingsSuccess(_cachedRatings));
+      if (_cachedResponse != null) {
+        emit(RatingsSuccess(_cachedResponse!));
+      }
     }
   }
 
@@ -173,11 +175,10 @@ class RatingsCubit extends Cubit<RatingsState> {
         serviceId: _serviceId,
       );
 
-      _cachedRatings = response.ratings;
+      _cachedResponse = response;
 
-      
       emit(RatingsActionSuccess());
-      emit(RatingsSuccess(response.ratings));
+      emit(RatingsSuccess(response));
     } catch (e) {
       emit(
         RatingsActionError(
@@ -185,8 +186,9 @@ class RatingsCubit extends Cubit<RatingsState> {
         ),
       );
 
-      /// 🔥 rollback
-      emit(RatingsSuccess(_cachedRatings));
+      if (_cachedResponse != null) {
+        emit(RatingsSuccess(_cachedResponse!));
+      }
     }
   }
 
