@@ -39,9 +39,7 @@ String formatTimeArabic2(DateTime time) {
 
 String formatArabicDate2(DateTime date) {
   return DateFormat('yyyy/M/d - h:mm a', 'ar').format(date);
-}
-
-String timeAgo(DateTime date) {
+}String timeAgo(DateTime date) {
   final now = DateTime.now();
   final diff = now.difference(date);
 
@@ -49,25 +47,63 @@ String timeAgo(DateTime date) {
     return "الآن";
   }
 
-  if (diff.inMinutes < 60) {
-    return "منذ ${diff.inMinutes} دقيقة";
+  final totalMinutes = diff.inMinutes;
+ // final totalHours = diff.inHours;
+  final totalDays = diff.inDays;
+
+  final years = totalDays ~/ 365;
+  final months = (totalDays % 365) ~/ 30;
+  final days = (totalDays % 365) % 30;
+
+  final hours = diff.inHours % 24;
+  final minutes = diff.inMinutes % 60;
+
+  // =======================
+  // سنة + شهر
+  // =======================
+  if (years > 0) {
+    if (months > 0) {
+      return "منذ $years سنة و $months شهر";
+    }
+    return "منذ $years سنة";
   }
 
-  if (diff.inHours < 24) {
-    return "منذ ${diff.inHours} ساعة";
-  }
-
-  if (diff.inDays < 30) {
-    return "منذ ${diff.inDays} يوم";
-  }
-
-  final months = (diff.inDays / 30).floor();
-
-  if (months < 12) {
+  // =======================
+  // شهر + يوم
+  // =======================
+  if (months > 0) {
+    if (days > 0) {
+      return "منذ $months شهر و $days يوم";
+    }
     return "منذ $months شهر";
   }
 
-  final years = (months / 12).floor();
+  // =======================
+  // يوم + ساعة
+  // =======================
+  if (days > 0) {
+    if (hours > 0) {
+      return "منذ $days يوم و $hours ساعة";
+    }
+    return "منذ $days يوم";
+  }
 
-  return "منذ $years سنة";
+  // =======================
+  // ساعة + دقيقة
+  // =======================
+  if (hours > 0) {
+    if (minutes > 0) {
+      return "منذ $hours ساعة و $minutes دقيقة";
+    }
+    return "منذ $hours ساعة";
+  }
+
+  // =======================
+  // دقيقة
+  // =======================
+  if (totalMinutes > 0) {
+    return "منذ $totalMinutes دقيقة";
+  }
+
+  return "الآن";
 }

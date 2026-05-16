@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/customer_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/owner_offer_carusal_bloc.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_appbar.dart';
-import 'package:plupool/features/home/presentaation/views/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/promo_carousel.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_section.dart';

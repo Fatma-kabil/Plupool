@@ -54,7 +54,7 @@ class TechOfferCard extends StatelessWidget {
                             : SizeConfig.h(173),
 
                         width: SizeConfig.w(246),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
 
                         placeholder: (context, url) => Container(
                           height: SizeConfig.isWideScreen
@@ -111,8 +111,8 @@ class TechOfferCard extends StatelessWidget {
 
                 Text(
                   offer.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                //  maxLines: 1,
+                //  overflow: TextOverflow.ellipsis,
                   style: AppTextStyles.styleSemiBold20(
                     context,
                   ).copyWith(color: AppColors.kprimarycolor),

@@ -41,7 +41,7 @@ class _TechOffersCarouselState extends State<TechOffersCarousel> {
       children: [
         /// PageView
         SizedBox(
-          height: SizeConfig.isWideScreen? SizeConfig.w(300):SizeConfig.h(360),
+          height: SizeConfig.isWideScreen? SizeConfig.w(290):SizeConfig.h(350),
           child: PageView.builder(
              padEnds: false,
             controller: _pageController,
