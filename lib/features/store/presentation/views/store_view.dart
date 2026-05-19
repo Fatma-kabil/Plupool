@@ -6,6 +6,7 @@ import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/features/store/presentation/views/widgets/action_raw.dart';
 import 'package:plupool/core/utils/widgets/filter_button.dart';
 import 'package:plupool/features/store/presentation/views/widgets/info_card_row.dart';
+import 'package:plupool/features/store/presentation/views/widgets/stores_widget_section.dart';
 
 class StoreView extends StatefulWidget {
   final StoreFilter? initialFilter;
@@ -17,27 +18,7 @@ class StoreView extends StatefulWidget {
 }
 
 class _StoreViewState extends State<StoreView> {
-  late StoreFilter selected;
-  final int topCount = 3;
-
-  @override
-  void initState() {
-    super.initState();
-    selected = widget.initialFilter ?? StoreFilter.best_selling;
-  }
-
-  // 👇👇 أهم إضافة — تحديث الفلتر عند تغيّر initialFilter
-  @override
-  void didUpdateWidget(covariant StoreView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (widget.initialFilter != oldWidget.initialFilter) {
-      setState(() {
-        selected = widget.initialFilter ?? StoreFilter.best_selling;
-      });
-    }
-  }
-
+ 
  
 
   @override
@@ -56,37 +37,10 @@ class _StoreViewState extends State<StoreView> {
           const SizedBox(height: 15),
           Text('الفئات', style: AppTextStyles.styleBold20(context).copyWith(color: Colors.black)),
           const SizedBox(height: 10),
+          const StoresWidgetSection(),
+         
 
-          Row(
-            children: [
-               FilterOption(
-                icon: Icons.keyboard_arrow_down,
-                value: selected.label,
-                items: StoreFilter.values.map((f) => f.label).toList(),
-                onChanged: (val) {
-                  setState(() {
-                    selected =
-                        StoreFilter.values.firstWhere((f) => f.label == val);
-                  });
-                },
-              ),
-                const Spacer(),
-              FilterButton(
-                onTap: () {
-              //    showDialog(
-               //     context: context,
-               //     builder: (_) => const FilterDialog(),
-               //   );
-                },
-              ),
-            
-             
-            ],
-          ),
-
-          const SizedBox(height: 28),
-
-     //     ProductsGrid(products: filteredProducts),
+     //    
         ],
       ),
     );

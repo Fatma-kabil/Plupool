@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/parse_hex_color_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/products/domain/entities/product_entity.dart';
 
@@ -12,14 +13,6 @@ class ProductImageWithBadge extends StatelessWidget {
     if (url == null || url.isEmpty) return "";
     return url.replaceAll("localhost", "10.0.2.2");
   }
-  Color parseHexColor(String? hex) {
-  try {
-    if (hex == null || hex.isEmpty) return Colors.grey;
-    return Color(int.parse('0xFF${hex.replaceAll('#', '')}'));
-  } catch (e) {
-    return Colors.grey;
-  }
-}
 
   @override
   Widget build(BuildContext context) {

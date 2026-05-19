@@ -33,6 +33,9 @@ class _OfferSectionState extends State<OfferSection> {
         }
 
         if (state is GetProductOfferSuccess) {
+          if (state.offers.isEmpty) {
+            return const SizedBox();
+          }
           final upOffers = state.offers
               .where((offer) => offer.isFeatured == true)
               .toList();

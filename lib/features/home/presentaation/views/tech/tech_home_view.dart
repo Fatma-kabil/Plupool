@@ -98,7 +98,7 @@ class _TechHomeViewState extends State<TechHomeView> {
         children: [
           appbar,
           const SizedBox(height: 30),
-          const TechInfoCardRow(),
+           TechInfoCardRow(userId: 6,),
           const SizedBox(height: 30),
 
           if (showWeekly) ...[

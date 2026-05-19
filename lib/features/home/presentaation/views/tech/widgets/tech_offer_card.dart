@@ -124,7 +124,7 @@ class TechOfferCard extends StatelessWidget {
                   children: [
                     Text(
                       "${toArabicNumbers(offer.price.toString())} ج.م",
-                      style: AppTextStyles.styleRegular14(context).copyWith(
+                      style: AppTextStyles.styleRegular16(context).copyWith(
                         decoration: TextDecoration.lineThrough,
                         color: const Color(0xff808080),
                       ),

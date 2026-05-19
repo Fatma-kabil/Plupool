@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/products/data/models/product_model.dart';
+import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/store/presentation/views/widgets/product_card.dart';
 
 class ProductsGrid extends StatelessWidget {
-  final List<ProductModel> products;
+  final List<Product> products;
 
   const ProductsGrid({super.key, required this.products});
 
@@ -24,12 +24,11 @@ class ProductsGrid extends StatelessWidget {
               ? .82
               : SizeConfig.screenWidth > 800
               ? 0.91 // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
-              :  0.71,
+              : 0.71,
           crossAxisSpacing: SizeConfig.w(12),
           mainAxisSpacing: SizeConfig.w(12),
         ),
-        itemBuilder: (_, i) =>
-            ProductCard(product: products[i], ),
+        itemBuilder: (_, i) => ProductCard(product: products[i]),
       ),
     );
   }

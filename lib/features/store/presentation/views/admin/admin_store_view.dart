@@ -32,10 +32,7 @@ class _AdminStoreViewState extends State<AdminStoreView> {
     SizeConfig.init(context);
 
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => sl<StoreStatisticsCubit>()),
-        BlocProvider(create: (_) => sl<ProductOfferCubit>()),
-      ],
+      providers: [BlocProvider(create: (_) => sl<ProductOfferCubit>())],
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: SafeArea(
