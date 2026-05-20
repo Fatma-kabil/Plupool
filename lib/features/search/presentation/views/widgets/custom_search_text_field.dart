@@ -21,7 +21,7 @@ class CustumSearchTextField extends StatelessWidget {
         cursorHeight: SizeConfig.isWideScreen
             ? SizeConfig.w(12)
             : SizeConfig.h(20),
-        cursorColor: AppColors.hintTextColor,
+        cursorColor: AppColors.kprimarycolor,
         controller: controller,
         validator: validator,
      //   keyboardType: keyboardType,
