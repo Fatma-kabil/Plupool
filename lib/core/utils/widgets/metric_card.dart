@@ -40,7 +40,7 @@ class MetricCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                value,
+                toArabicNumbers(value),
 
                 style:
                     valueTextStyle ??

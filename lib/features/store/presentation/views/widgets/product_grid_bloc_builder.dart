@@ -4,7 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_state.dart';
-import 'package:plupool/features/products/presentation/views/widgets/products_Shimmer_list.dart';
+import 'package:plupool/features/store/presentation/views/widgets/product_grid_shimmer.dart';
 import 'package:plupool/features/store/presentation/views/widgets/products_grid.dart';
 
 class ProductGridBlocBuilder extends StatelessWidget {
@@ -15,7 +15,7 @@ class ProductGridBlocBuilder extends StatelessWidget {
     return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
         if (state is ProductLoading) {
-          return CircularProgressIndicator();
+          return ProductGridShimmer();
         }
 
         if (state is ProductLoaded) {

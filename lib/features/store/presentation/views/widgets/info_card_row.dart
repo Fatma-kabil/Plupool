@@ -74,7 +74,7 @@ void initState() {
                 child: MetricCard(
                   icon: Icons.local_shipping_outlined,
                   iconColor: const Color(0xff00B4D8),
-                  value: "24 ساعه",
+                  value: "24 س",
                   label: 'توصيل',
                 ),
               ),
