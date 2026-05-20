@@ -113,7 +113,7 @@ class TechProfileViewMiddle extends StatelessWidget {
                                               .read<TechRatingCubit>()
                                               .updateTechRating(
                                                 userId: userId,
-                                                rating: value.toInt(),
+                                                rating: value,
                                               );
                                         },
 

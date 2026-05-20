@@ -1,5 +1,5 @@
 class UpdateTechRatingRequest {
-  final int rating;
+  final double rating;
 
   UpdateTechRatingRequest({
     required this.rating,

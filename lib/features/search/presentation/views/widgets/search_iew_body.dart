@@ -50,7 +50,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
               'نتائج البحث :',
               style: AppTextStyles.styleBold18(
                 context,
-              ).copyWith(color: Colors.black),
+              ).copyWith(color: Colors.black87),
             ),
           ),
         ),

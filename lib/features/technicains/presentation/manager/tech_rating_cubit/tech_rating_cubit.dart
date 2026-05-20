@@ -11,7 +11,7 @@ class TechRatingCubit extends Cubit<TechRatingState> {
   Future<void> updateTechRating({
     required int userId,
 
-    required int rating,
+    required double rating,
   }) async {
     emit(TechRatingLoading());
 

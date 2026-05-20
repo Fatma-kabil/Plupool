@@ -5,6 +5,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_list.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info_card_row.dart';
@@ -15,6 +16,7 @@ import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cu
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 import 'package:go_router/go_router.dart';
+
 class TechHomeView extends StatefulWidget {
   const TechHomeView({super.key});
 
@@ -84,10 +86,7 @@ class _TechHomeViewState extends State<TechHomeView> {
   }
 
   // ⬇️⬇️ UI مشتركة بين Guest / Logged
-  Widget buildHomeLayout({
-    required Widget appbar,
-    required bool showWeekly,
-  }) {
+  Widget buildHomeLayout({required Widget appbar, required bool showWeekly}) {
     return Padding(
       padding: EdgeInsets.only(
         top: SizeConfig.h(12),
@@ -98,7 +97,7 @@ class _TechHomeViewState extends State<TechHomeView> {
         children: [
           appbar,
           const SizedBox(height: 30),
-           TechInfoCardRow(userId: 6,),
+          TechInfoCardRow(userId: 6),
           const SizedBox(height: 30),
 
           if (showWeekly) ...[
@@ -107,7 +106,9 @@ class _TechHomeViewState extends State<TechHomeView> {
               children: [
                 Text(
                   "مهام الأسبوع",
-                  style: AppTextStyles.styleBold20(context).copyWith(color: AppColors.ktextcolor),
+                  style: AppTextStyles.styleBold20(
+                    context,
+                  ).copyWith(color: AppColors.ktextcolor),
                 ),
                 const Spacer(),
                 GestureDetector(
@@ -131,6 +132,7 @@ class _TechHomeViewState extends State<TechHomeView> {
           const SizedBox(height: 30),
           const ProjectsSection(),
           const SizedBox(height: 30),
+          ReviewsList(),
         ],
       ),
     );
