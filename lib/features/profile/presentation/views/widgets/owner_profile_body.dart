@@ -44,7 +44,7 @@ class OwnerProfileBody extends StatelessWidget {
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
             onTap: () {
-              context.push('/helpview', extra: 'صاحب حمام سباحه');
+              context.push('/helpview', extra: 'pool_owner');
             },
           ),
           SizedBox(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/profile/data/models/faq_item.dart';
+import 'package:plupool/features/settening/domain/entities/faq_entity.dart';
 
 class FaqSection extends StatefulWidget {
    const FaqSection({super.key, required this.items});
-  final List  <FaqItem> items;
+  final List  <FaqEntity> items;
 
   @override
   State<FaqSection> createState() => _FaqSectionState();

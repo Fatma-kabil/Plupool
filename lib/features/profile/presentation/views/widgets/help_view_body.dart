@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/constants.dart';
-import 'package:plupool/core/theme/app_colors.dart';
-import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/done_contact_us_card.dart';
-import 'package:plupool/features/profile/presentation/views/widgets/faq_section.dart';
+import 'package:plupool/features/profile/presentation/views/widgets/ques_section.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/support_contact_card.dart';
 
 class HelpViewBody extends StatelessWidget {
@@ -20,19 +16,7 @@ class HelpViewBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "الأسئلة الشائعة",
-            style: AppTextStyles.styleBold16(
-              context,
-            ).copyWith(color: AppColors.ktextcolor),
-          ),
-
-          SizedBox(height: SizeConfig.h(15)),
-          FaqSection(
-           items: role == "فني" ? techQes : ownerQes,
-
-          ),
-          SizedBox(height: SizeConfig.h(35)),
+          QuesSection(role: role),
 
           SupportContactCard(
             notesController: notesController,

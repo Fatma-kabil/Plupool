@@ -100,7 +100,7 @@ import 'package:plupool/features/visits/presentation/views/visit_view.dart';
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/splasherapper',
+      path: '/',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -155,7 +155,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const MainHomeCompanyView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/MainHomeTechView',
       name: 'MainHomeTechView',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeTechView()),
