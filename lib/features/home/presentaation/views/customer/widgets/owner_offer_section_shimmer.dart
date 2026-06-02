@@ -7,7 +7,9 @@ class OwnerOfferSectionShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Padding(
+      padding: EdgeInsets.only(bottom: 30),
+      child:     SizedBox(
       height: SizeConfig.h(360),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -16,7 +18,10 @@ class OwnerOfferSectionShimmer extends StatelessWidget {
           return const OwnerOfferCardShimmer();
         },
       ),
+    ),
     );
+    
+
   }
 }
 

@@ -74,10 +74,10 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
           const SizedBox(height: 29),
 
           OwnerOfferCarusalBloc(),
-          const SizedBox(height: 27),
+         
 
           const ProjectsSection(),
-          const SizedBox(height: 42),
+       //   const SizedBox(height: 42),
 
           const ReviewSection(imageUrl: ""),
         ],

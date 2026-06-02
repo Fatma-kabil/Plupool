@@ -22,9 +22,7 @@ class _TechInfoCardRowState extends State<TechInfoCardRow> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<UsersCubit>().getUserDetails(widget.userId);
-    });
+    context.read<UsersCubit>().getUserDetails(widget.userId);
   }
 
   @override

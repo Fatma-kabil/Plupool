@@ -65,6 +65,7 @@ class _OwnerOfferCarusalBlocState extends State<OwnerOfferCarusalBloc> {
               ),
               SizedBox(height: SizeConfig.h(16)),
               OwnerOfferCarusal(offers: upOffers),
+               const SizedBox(height: 27),
             ],
           );
         }

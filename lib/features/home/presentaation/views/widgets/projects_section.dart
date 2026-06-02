@@ -18,7 +18,8 @@ class ProjectsSection extends StatelessWidget {
           ).copyWith(color: AppColors.ktextcolor),
         ),
         const SizedBox(height: 12),
-        ProjectsCarousel()
+        ProjectsCarousel(),
+         const SizedBox(height: 30),
        // هنا هيظهر الكارد    ])],
       ],
     );

@@ -83,6 +83,7 @@ class _TechOffersCarouselState extends State<TechOffersCarousel> {
           ],
         )
       ],
+      
     );
   }
 }

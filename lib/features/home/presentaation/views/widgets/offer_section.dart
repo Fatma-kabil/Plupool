@@ -71,6 +71,8 @@ class _OfferSectionState extends State<OfferSection> {
               ),
               SizedBox(height: SizeConfig.h(16)),
               TechOffersCarousel(offers: upOffers),
+               const SizedBox(height: 30),
+              
             ],
           );
         }

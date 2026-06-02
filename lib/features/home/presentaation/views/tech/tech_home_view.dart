@@ -97,10 +97,11 @@ class _TechHomeViewState extends State<TechHomeView> {
         children: [
           appbar,
           const SizedBox(height: 30),
-          TechInfoCardRow(userId: 6),
-          const SizedBox(height: 30),
 
           if (showWeekly) ...[
+            TechInfoCardRow(userId: 6),
+            const SizedBox(height: 30),
+
             Row(
               textDirection: TextDirection.rtl,
               children: [
@@ -129,9 +130,9 @@ class _TechHomeViewState extends State<TechHomeView> {
           ],
 
           OfferSection(),
-          const SizedBox(height: 30),
+         
           const ProjectsSection(),
-          const SizedBox(height: 30),
+         // const SizedBox(height: 30),
           ReviewsList(),
         ],
       ),

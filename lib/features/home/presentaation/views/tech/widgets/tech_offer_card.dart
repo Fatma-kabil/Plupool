@@ -113,9 +113,9 @@ class TechOfferCard extends StatelessWidget {
                   offer.name,
                 //  maxLines: 1,
                 //  overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.styleSemiBold20(
+                  style: AppTextStyles.styleSemiBold18(
                     context,
-                  ).copyWith(color: AppColors.kprimarycolor),
+                  ).copyWith(color: AppColors.ktextcolor),
                 ),
 
                 SizedBox(height: SizeConfig.h(10)),
