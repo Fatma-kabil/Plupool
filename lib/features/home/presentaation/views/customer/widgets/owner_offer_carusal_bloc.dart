@@ -34,8 +34,13 @@ class _OwnerOfferCarusalBlocState extends State<OwnerOfferCarusalBloc> {
 
         if (state is OfferLoaded) {
           final upOffers = state.offers
-              .where((offer) => offer.isFeatured == true)
+              .where(
+                (offer) => offer.isFeatured == true && offer.status == "active",
+              )
               .toList();
+          if (upOffers.isEmpty) {
+            return const SizedBox.shrink();
+          }
 
           return Column(
             children: [
@@ -65,13 +70,13 @@ class _OwnerOfferCarusalBlocState extends State<OwnerOfferCarusalBloc> {
               ),
               SizedBox(height: SizeConfig.h(16)),
               OwnerOfferCarusal(offers: upOffers),
-               const SizedBox(height: 27),
+              const SizedBox(height: 27),
             ],
           );
         }
 
         if (state is OfferError) {
-          return ErrorText(message:  state.message);
+          return ErrorText(message: state.message);
         }
 
         return const SizedBox();

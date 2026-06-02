@@ -9,13 +9,16 @@ class OfferDetailsViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+      final activeOffers = offers
+      .where((offer) => offer.status == "active")
+      .toList();
+
     return ListView.builder(
-      itemCount: offers.length,
+      itemCount: activeOffers.length,
       itemBuilder: (context, index) {
         return Padding(
           padding:  EdgeInsets.only( bottom:  SizeConfig.h(12)),
-          child: OfferDetailsCard(offer: offers[index],),
+          child: OfferDetailsCard(offer: activeOffers[index],),
         );
       },
     );
