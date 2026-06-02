@@ -11,16 +11,31 @@ class ProjectsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'مشاريعنا',
-          style: AppTextStyles.styleBold20(
-            context,
-          ).copyWith(color: AppColors.ktextcolor),
+        Row(
+          children: [
+            Text(
+              'مشاريعنا',
+              style: AppTextStyles.styleBold20(
+                context,
+              ).copyWith(color: AppColors.ktextcolor),
+            ),
+            Spacer(),
+            GestureDetector(
+              onTap: () {},
+              child: Text(
+                ' عرض الكل',
+                style: AppTextStyles.styleBold16(context).copyWith(
+                  color: AppColors.kprimarycolor,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 12),
         ProjectsCarousel(),
-         const SizedBox(height: 30),
-       // هنا هيظهر الكارد    ])],
+        const SizedBox(height: 30),
+        // هنا هيظهر الكارد    ])],
       ],
     );
   }

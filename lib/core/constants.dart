@@ -85,23 +85,71 @@ final List<ProjectCardModel> projects = [
   ProjectCardModel(
     title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
     description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 شهور.',
-    imageUrl: 'assets/images/project1.png',
+    imageUrlAfter: 'assets/images/project1.png',
+    imageUrlBefore: 'assets/images/project1.png',
+    location: 'التجمع الخامس، القاهرة',
+    duration: '3 أشهر',
   ),
   ProjectCardModel(
     title: 'صيانة حمام سباحة – نادي خاص',
     description: 'تنظيف وفحص كيميائي للمياه مرتين أسبوعياً للحفاظ على الجودة',
-    imageUrl: 'assets/images/project2.png',
+    imageUrlAfter: 'assets/images/project2.png',
+    imageUrlBefore: 'assets/images/project2.png',
+    location: 'مدينة نصر، القاهرة',
+    duration: '6 شهور',
+    isFeatured:true
   ),
   ProjectCardModel(
     title: 'تصميم ثلاثي الأبعاد – حمام داخلي',
     description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
-    imageUrl: 'assets/images/project3.png',
+    imageUrlAfter: 'assets/images/project3.png',
+    imageUrlBefore: 'assets/images/project3.png',
+    location: 'الشيخ زايد، الجيزة',
+    duration: '1 شهر',
+    companyImage:'assets/images/project3.png',
+    companyName:'شركة النخيل',
+    isFeatured:true
   ),
   ProjectCardModel(
-    title: 'تنظيف حمام سباحة – خدمة دورية',
+    title: 'تصميم ثلاثي الأبعاد – حمام داخلي',
+    description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
+    imageUrlAfter: 'assets/images/project3.png',
+    imageUrlBefore: 'assets/images/project3.png',
+    location: 'الشيخ زايد، الجيزة',
+    duration: '1 شهر',
+    isFeatured: true
+  ),
+  ProjectCardModel(
+    title: 'صيانة شاملة – حمام خارجي',
     description:
         'تنظيف شامل للمياه والفلاتر والجدران للحفاظ على نقاء وجودة حمام السباحة.',
-    imageUrl: 'assets/images/project4.png',
+    imageUrlAfter: 'assets/images/project4.png',
+    imageUrlBefore: 'assets/images/project4.png',
+    location: 'القاهرة',
+    duration: '8 اشهر',
+    isFeatured: true
+  ),
+   ProjectCardModel(
+    title: 'تصميم ثلاثي الأبعاد – حمام داخلي',
+    description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
+    imageUrlAfter: 'assets/images/project3.png',
+    imageUrlBefore: 'assets/images/project3.png',
+    location: 'الشيخ زايد، الجيزة',
+    duration: '1 شهر',
+    companyImage:'assets/images/project3.png',
+    companyName:"شركه جاليم",
+ 
+  ),
+   ProjectCardModel(
+    title: 'تصميم ثلاثي الأبعاد – حمام داخلي',
+    description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
+    imageUrlAfter: 'assets/images/project3.png',
+    imageUrlBefore: 'assets/images/project3.png',
+    location: 'الشيخ زايد، الجيزة',
+    duration: '1 شهر',
+    companyImage:'assets/images/project3.png',
+    companyName:'شركة النخيل',
+ 
   ),
   // تقدر تضيف صور تانية هنا
 ];

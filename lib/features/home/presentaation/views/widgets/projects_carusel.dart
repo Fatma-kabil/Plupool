@@ -17,7 +17,9 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
   @override
   void initState() {
     super.initState();
-    // مهم: viewportFraction = 1.0 علشان الكارد ياخد العرض كله
+    // مهم: 
+  //  viewportFraction = 1.0 
+    //علشان الكارد ياخد العرض كله
     _pageController = PageController(viewportFraction: 1.0);
   }
 
@@ -33,23 +35,27 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
 
   @override
   Widget build(BuildContext context) {
+     final featuredProjects = projects
+    .where((project) => project.isFeatured == true)
+    .toList();
     return Column(
       children: [
         /// PageView
         SizedBox(
          
           width: double.infinity,
-          height:SizeConfig.isWideScreen?SizeConfig.w(215): SizeConfig.h(230),
+          height:SizeConfig.isWideScreen?SizeConfig.w(215): SizeConfig.h(360),
+         
           child: PageView.builder(
             padEnds: false,
             controller: _pageController,
-            itemCount: projects.length,
+            itemCount: featuredProjects.length,
             onPageChanged: (index) {
               setState(() => _currentPage = index);
             },
             itemBuilder: (context, index) {
-              final project = projects[index];
-              return ProjectCard(projects: project);
+              final project = featuredProjects[index];
+              return ProjectCard(project: project);
             },
           ),
         ),
