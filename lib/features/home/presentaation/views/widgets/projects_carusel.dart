@@ -44,7 +44,17 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
         SizedBox(
          
           width: double.infinity,
-          height:SizeConfig.isWideScreen?SizeConfig.w(215): SizeConfig.h(360),
+          height: SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
+              ? SizeConfig.h(345)
+              : SizeConfig.screenWidth == 800
+              ? SizeConfig.h(350)
+              : SizeConfig.screenWidth > 1000
+              ? SizeConfig.w(255)
+              : SizeConfig.screenWidth > 800
+              ? SizeConfig.w(
+                  272,
+                ) // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
+              : SizeConfig.h(363),
          
           child: PageView.builder(
             padEnds: false,

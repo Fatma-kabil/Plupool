@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_carusel.dart';
@@ -21,7 +23,9 @@ class ProjectsSection extends StatelessWidget {
             ),
             Spacer(),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                context.push('/usersprojectview', extra: projects);
+              },
               child: Text(
                 ' عرض الكل',
                 style: AppTextStyles.styleBold16(context).copyWith(

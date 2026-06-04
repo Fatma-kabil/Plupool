@@ -19,6 +19,7 @@ import 'package:plupool/features/customers/presentation/views/customer_profile_v
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
 import 'package:plupool/features/customers/presentation/views/edit_customer_pool_info.dart';
 import 'package:plupool/features/customers/presentation/views/edit_customer_view.dart';
+import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/presentaation/views/admin/admin_home_view.dart';
 import 'package:plupool/features/home/presentaation/views/admin/see_all_packages_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/cusmoter_notification_view.dart';
@@ -56,6 +57,7 @@ import 'package:plupool/features/projects/presentation/views/add_project_view.da
 import 'package:plupool/features/projects/presentation/views/admin_drawer_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_projects_view.dart';
 import 'package:plupool/features/projects/presentation/views/edit_project_view.dart';
+import 'package:plupool/features/projects/presentation/views/users_project_view.dart';
 import 'package:plupool/features/rating/presentation/views/admin_rating_view.dart';
 import 'package:plupool/features/rating/presentation/views/customer_rating.dart';
 import 'package:plupool/features/reports/admin_drawer_report_view.dart';
@@ -100,7 +102,7 @@ import 'package:plupool/features/visits/presentation/views/visit_view.dart';
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/',
+      path: '/splasherapper',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -302,7 +304,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const CusmoterNotificationView()),
     ),
     GoRoute(
-      path: '/adminhomeview',
+      path: '/',
       name: 'adminhomeview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminHomeView()),
@@ -667,6 +669,14 @@ final GoRouter appRouter = GoRouter(
       name: 'admindrawerprojectview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminDrawerProjectView()),
+    ),
+     GoRoute(
+      path: '/usersprojectview',
+      name: 'usersprojectview',
+      pageBuilder: (context, state) {
+        final projects = state.extra as List<ProjectCardModel>;
+      return  buildTransitionPage( UsersProjectView(projects: projects,));
+      },
     ),
   ],
 );

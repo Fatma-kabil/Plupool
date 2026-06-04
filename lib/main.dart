@@ -1,10 +1,13 @@
 
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:plupool/app_view.dart';
 import 'package:plupool/core/di/service_locator.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +23,7 @@ void main() async {
   runApp(
   //   DevicePreview(
    // enabled: !kReleaseMode, // ✅ يشتغل فقط في debug
-   // builder: (context) 
+    //builder: (context) 
    // => 
      const PlupoolApp(),
      

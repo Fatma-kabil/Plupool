@@ -23,7 +23,7 @@ class ProjectCard extends StatelessWidget {
         children: [
           /// الصور
           SizedBox(
-            height: SizeConfig.h(180),
+            height:SizeConfig.isWideScreen ? SizeConfig.h(210): SizeConfig.h(180),
             child: Stack(
               children: [
                 ClipRRect(
@@ -119,7 +119,7 @@ class ProjectCard extends StatelessWidget {
                       vertical: 8,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.kprimarycolor,
+                      color: Color(0xff2B8EC2),
                       borderRadius: BorderRadius.circular(25),
                     ),
                     child: Text(
@@ -200,7 +200,7 @@ class ProjectCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                SizedBox(height: SizeConfig.h(20)),
+                SizedBox(height: SizeConfig.h(10)),
                 Text(
                   project.title,
                   style: AppTextStyles.styleSemiBold16(
@@ -229,12 +229,12 @@ class ProjectCard extends StatelessWidget {
                     Icon(
                       Icons.location_on_outlined,
                       color: AppColors.kprimarycolor,
-                      size: SizeConfig.w(18),
+                      size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(18),
                     ),
                     SizedBox(width: SizeConfig.w(2)),
                     Text(
                       project.location,
-                      style: AppTextStyles.styleRegular13(
+                      style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: Color(0xff777777)),
                     ),
@@ -242,12 +242,12 @@ class ProjectCard extends StatelessWidget {
                     Icon(
                       Icons.calendar_month_outlined,
                       color: AppColors.kprimarycolor,
-                      size: SizeConfig.w(18),
+                      size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(18),
                     ),
                     SizedBox(width: SizeConfig.w(3)),
                     Text(
                       project.duration,
-                      style: AppTextStyles.styleRegular13(
+                      style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: Color(0xff777777)),
                     ),
