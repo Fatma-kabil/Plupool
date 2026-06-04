@@ -69,9 +69,9 @@ class TechProfileViewMiddle extends StatelessWidget {
 
                               if (state is TechRatingError) {
                                 Navigator.pop(dialogContext);
-                                 showCustomSnackBar(
+                                showCustomSnackBar(
                                   context: context,
-                                  message: state.message
+                                  message: state.message,
                                 );
 
                                 context.read<UsersCubit>().getUserDetails(

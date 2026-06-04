@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class ProjectViewHeaderCard extends StatelessWidget {
@@ -16,7 +17,9 @@ class ProjectViewHeaderCard extends StatelessWidget {
     this.icon,
 
     required this.value,
-    required this.label, required this.bkColor, required this.iconColor,
+    required this.label,
+    required this.bkColor,
+    required this.iconColor,
   });
 
   @override
@@ -27,7 +30,6 @@ class ProjectViewHeaderCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: bkColor,
         borderRadius: BorderRadius.circular(10),
-       
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,14 +40,14 @@ class ProjectViewHeaderCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                value,
+                toArabicNumbers(value),
 
                 style: AppTextStyles.styleBold20(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
               ),
               SizedBox(width: SizeConfig.w(4)),
-              Icon(icon ?? Icons.abc, size: SizeConfig.w(22),color: iconColor,),
+              Icon(icon ?? Icons.abc, size: SizeConfig.w(22), color: iconColor),
             ],
           ),
 
