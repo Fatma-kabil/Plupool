@@ -26,12 +26,14 @@ class CompanyResCustomerCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              CustomerAvatar(imageUrl: "assets/images/user2.png"),
+              CustomerAvatar(imageUrl: "assets/images/user1.png"),
               SizedBox(width: SizeConfig.w(7)),
               CustomerInfo(name: "أحمد محمد", phone: "01000000000"),
             ],
           ),
-          SizedBox(height: SizeConfig.h(12)),
+          SizedBox(height: SizeConfig.h(6)),
+        Divider(),
+        SizedBox(height: SizeConfig.h(6)),
 
           CustomerInfoItem(
             crossAxisAlignment: CrossAxisAlignment.start,
