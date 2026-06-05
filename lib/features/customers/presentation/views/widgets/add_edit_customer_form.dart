@@ -17,6 +17,8 @@ class AddEditCustomerForm extends StatelessWidget {
     required this.initialCountryFlag,
     this.onCountryChanged,
     required this.isActive,
+    this.onActiveChanged,
+    required this.formKey,
   });
 
   final TextEditingController nameController;
@@ -32,6 +34,9 @@ class AddEditCustomerForm extends StatelessWidget {
   final String initialCountryFlag;
 
   final bool isActive;
+  final ValueChanged<bool>? onActiveChanged;
+  final GlobalKey<FormState> formKey;
+
 
   final void Function(
     String code,
@@ -43,6 +48,7 @@ class AddEditCustomerForm extends StatelessWidget {
     return Expanded(
       child: SingleChildScrollView(
         child: Form(
+          key: formKey,
           child: Column(
             crossAxisAlignment:
                 CrossAxisAlignment.start,
@@ -117,6 +123,8 @@ class AddEditCustomerForm extends StatelessWidget {
 
               StatusRow(
                 isActive: isActive,
+                  onChanged: onActiveChanged!,
+
               ),
             ],
           ),

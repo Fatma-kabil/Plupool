@@ -47,7 +47,12 @@ class AdminUsersRepositoryImpl implements AdminUsersRepository {
 
     return UserDetailsModel.fromJson(data).toEntity();
   }
+ @override
+  Future<UserEntity> addUser( Map<String, dynamic> body) async {
+    final data = await remote.addUser(body);
 
+    return UserModel.fromJson(data).toEntity();
+  }
   @override
   Future<UserEntity> updateUser(int id, Map<String, dynamic> body) async {
     final data = await remote.updateUser(id, body);

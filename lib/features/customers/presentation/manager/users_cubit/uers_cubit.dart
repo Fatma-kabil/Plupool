@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/customers/domain/entities/user_response_entity.dart';
+import 'package:plupool/features/customers/domain/usecases/add_user_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/delete_user_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/get_user_details_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/get_users_usecase.dart';
@@ -12,9 +13,10 @@ class UsersCubit extends Cubit<UsersState> {
   final GetUserDetailsUseCase getUserDetailsUseCase;
   final UpdateUserUseCase updateUserUseCase;
   final DeleteUserUseCase deleteUserUseCase;
+  final AddUserUsecase addUserUseCase;
 
   UsersCubit(
-    this.getUsersUseCase, {
+    this.getUsersUseCase, this.addUserUseCase, {
     required this.getUserDetailsUseCase,
     required this.updateUserUseCase,
     required this.deleteUserUseCase,
@@ -119,6 +121,82 @@ class UsersCubit extends Cubit<UsersState> {
       }
     }
   }
+ Future<void> addUser({
+    String? fullName,
+    String? phone,
+    String? countryCode,
+    String? companyName,
+    String? role,
+    double? latitude,
+    double? longitude,
+    String? address,
+    String? skills,
+    int? yearsOfExperience,
+    bool? isActive,
+    bool? isApproved,
+    bool? isPhoneVerified,
+  }) async {
+    try {
+      emit(UsersActionLoading());
+
+      await addUserUseCase(
+
+        fullName: fullName,
+        companyName: companyName,
+        phone: phone,
+        countryCode: countryCode,
+        role: role,
+        latitude: latitude,
+        longitude: longitude,
+        address: address,
+        skills: skills,
+        yearsOfExperience: yearsOfExperience,
+        isActive: isActive,
+        isApproved: isApproved,
+        isPhoneVerified: isPhoneVerified,
+      );
+
+      final response = await getUsersUseCase(
+        search: _search,
+        role: _role,
+        isActive: _isActive,
+        isVerified: _isVerified,
+        sortBy: _sortBy ?? "created_at",
+        sortOrder: _sortOrder ?? "desc",
+      );
+
+      _cachedUsers = response;
+
+      emit(UsersActionSuccess());
+
+      emit(
+        UsersSuccess(
+          response.users,
+          activeTech: response.activeTech,
+          inActiveTech: response.inactiveTeck,
+        ),
+      );
+    } catch (e) {
+      emit(
+        UsersActionError(
+          e is Failure ? e.message : "حدث خطأ أثناء إضافة المستخدم",
+        ),
+      );
+      print(e);
+
+      if (_cachedUsers != null) {
+        emit(
+          UsersSuccess(
+            _cachedUsers!.users,
+            activeTech: _cachedUsers!.activeTech,
+            inActiveTech: _cachedUsers!.inactiveTeck,
+          ),
+        );
+      }
+    }
+  }
+
+
 
   /// =========================
   /// UPDATE USER

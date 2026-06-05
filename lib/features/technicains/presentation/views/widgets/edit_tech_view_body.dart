@@ -44,6 +44,7 @@ class _EditTechViewBodyState
   late String selectedCountryFlag;
 
   late bool isActive;
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -140,6 +141,7 @@ class _EditTechViewBodyState
             child: Column(
               children: [
                 EditAddTechForm(
+                  formKey: formKey,
                   nameController:
                       nameController,
 

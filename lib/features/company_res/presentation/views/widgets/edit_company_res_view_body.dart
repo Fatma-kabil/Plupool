@@ -34,6 +34,7 @@ class _EditCompanyResViewBodyState extends State<EditCompanyResViewBody> {
 
   late String selectedCountryFlag;
   late bool isActive;
+  final formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -97,6 +98,7 @@ class _EditCompanyResViewBodyState extends State<EditCompanyResViewBody> {
           child: Column(
             children: [
               AddCompanyForm(
+                formKey: formKey,
                 nameController: nameController,
                 companyController: companyController,
                 phoneFieldKey: phoneFieldKey,

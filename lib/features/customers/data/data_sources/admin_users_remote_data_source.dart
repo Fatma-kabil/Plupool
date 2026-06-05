@@ -39,6 +39,15 @@ class AdminUsersRemoteDataSource {
     return response.data;
   }
 
+  Future<Map<String, dynamic>> addUser(
+
+    Map<String, dynamic> body,
+  ) async {
+    final response = await api.post('${Endpoints.users}/', data: body);
+
+    return response.data;
+  }
+
   Future<Map<String, dynamic>> updateUser(
     int id,
     Map<String, dynamic> body,

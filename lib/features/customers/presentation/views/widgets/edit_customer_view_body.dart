@@ -41,6 +41,7 @@ class _EditCustomerViewBodyState
 
   late bool isActive;
 
+final formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -121,6 +122,7 @@ class _EditCustomerViewBodyState
           child: Column(
             children: [
               AddEditCustomerForm(
+                formKey: formKey,
                 locationController:
                     locationController,
 

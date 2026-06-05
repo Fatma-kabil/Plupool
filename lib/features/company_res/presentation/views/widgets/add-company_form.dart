@@ -16,6 +16,8 @@ class AddCompanyForm extends StatelessWidget {
     required this.initialCountryCode,
     required this.initialCountryFlag,
     this.onCountryChanged, required this.isActive,
+    this.onActiveChanged,
+      required this.formKey,
   });
 
   final TextEditingController nameController;
@@ -26,14 +28,16 @@ class AddCompanyForm extends StatelessWidget {
   final String initialCountryCode;
   final String initialCountryFlag;
    final   bool isActive;
-
+  final ValueChanged<bool>? onActiveChanged;
   final void Function(String code, String flag)? onCountryChanged;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: SingleChildScrollView(
         child: Form(
+          key: formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -82,7 +86,10 @@ class AddCompanyForm extends StatelessWidget {
 
               SizedBox(height: SizeConfig.h(15)),
 
-              StatusRow(isActive: isActive,),
+              StatusRow(
+                isActive: isActive,
+                onChanged: onActiveChanged!,
+              ),
             ],
           ),
         ),

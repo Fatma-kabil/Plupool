@@ -13,6 +13,7 @@ import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up
 import 'package:plupool/features/customers/data/data_sources/admin_users_remote_data_source.dart';
 import 'package:plupool/features/customers/data/repos_impl/admin_user_repo_impl.dart';
 import 'package:plupool/features/customers/domain/repos/admin_domain_rapos.dart';
+import 'package:plupool/features/customers/domain/usecases/add_user_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/delete_user_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/get_user_details_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/get_users_usecase.dart';
@@ -766,7 +767,7 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => GetUserDetailsUseCase(sl<AdminUsersRepository>()),
   );
-
+  sl.registerLazySingleton(() => AddUserUsecase(sl<AdminUsersRepository>()));
   sl.registerLazySingleton(() => UpdateUserUseCase(sl<AdminUsersRepository>()));
 
   sl.registerLazySingleton(() => DeleteUserUseCase(sl<AdminUsersRepository>()));
@@ -778,6 +779,7 @@ Future<void> initServiceLocator() async {
   sl.registerFactory(
     () => UsersCubit(
       sl<GetUsersUseCase>(),
+      sl<AddUserUsecase>(),
       getUserDetailsUseCase: sl<GetUserDetailsUseCase>(),
       updateUserUseCase: sl<UpdateUserUseCase>(),
       deleteUserUseCase: sl<DeleteUserUseCase>(),
@@ -801,75 +803,47 @@ Future<void> initServiceLocator() async {
   );
 
   // =============================
-// 📝 NOTES FEATURE
-// =============================
+  // 📝 NOTES FEATURE
+  // =============================
 
-// Remote Data Source
-sl.registerLazySingleton<NotesRemoteDataSource>(
-  () => NotesRemoteDataSourceImpl(
-    sl<ApiService>(),
-  ),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<NotesRemoteDataSource>(
+    () => NotesRemoteDataSourceImpl(sl<ApiService>()),
+  );
 
-// Repository
-sl.registerLazySingleton<NotesRepository>(
-  () => NotesRepositoryImpl(
-    sl<NotesRemoteDataSource>(),
-  ),
-);
+  // Repository
+  sl.registerLazySingleton<NotesRepository>(
+    () => NotesRepositoryImpl(sl<NotesRemoteDataSource>()),
+  );
 
-// =============================
-// USE CASES
-// =============================
+  // =============================
+  // USE CASES
+  // =============================
 
-sl.registerLazySingleton(
-  () => GetNotesUseCase(
-    sl<NotesRepository>(),
-  ),
-);
+  sl.registerLazySingleton(() => GetNotesUseCase(sl<NotesRepository>()));
 
-sl.registerLazySingleton(
-  () => AddNoteUseCase(
-    sl<NotesRepository>(),
-  ),
-);
+  sl.registerLazySingleton(() => AddNoteUseCase(sl<NotesRepository>()));
 
-sl.registerLazySingleton(
-  () => UpdateNoteUseCase(
-    sl<NotesRepository>(),
-  ),
-);
+  sl.registerLazySingleton(() => UpdateNoteUseCase(sl<NotesRepository>()));
 
-sl.registerLazySingleton(
-  () => DeleteNoteUseCase(
-    sl<NotesRepository>(),
-  ),
-);
+  sl.registerLazySingleton(() => DeleteNoteUseCase(sl<NotesRepository>()));
 
-sl.registerLazySingleton(
-  () => AddNoteFilesUseCase(
-    sl<NotesRepository>(),
-  ),
-);
+  sl.registerLazySingleton(() => AddNoteFilesUseCase(sl<NotesRepository>()));
 
-sl.registerLazySingleton(
-  () => DeleteNoteFileUseCase(
-    sl<NotesRepository>(),
-  ),
-);
+  sl.registerLazySingleton(() => DeleteNoteFileUseCase(sl<NotesRepository>()));
 
-// =============================
-// CUBIT
-// =============================
+  // =============================
+  // CUBIT
+  // =============================
 
-sl.registerFactory(
-  () => NotesCubit(
-    getNotesUseCase: sl<GetNotesUseCase>(),
-    addNoteUseCase: sl<AddNoteUseCase>(),
-    updateNoteUseCase: sl<UpdateNoteUseCase>(),
-    deleteNoteUseCase: sl<DeleteNoteUseCase>(),
-    addNoteFilesUseCase: sl<AddNoteFilesUseCase>(),
-    deleteNoteFileUseCase: sl<DeleteNoteFileUseCase>(),
-  ),
-);
+  sl.registerFactory(
+    () => NotesCubit(
+      getNotesUseCase: sl<GetNotesUseCase>(),
+      addNoteUseCase: sl<AddNoteUseCase>(),
+      updateNoteUseCase: sl<UpdateNoteUseCase>(),
+      deleteNoteUseCase: sl<DeleteNoteUseCase>(),
+      addNoteFilesUseCase: sl<AddNoteFilesUseCase>(),
+      deleteNoteFileUseCase: sl<DeleteNoteFileUseCase>(),
+    ),
+  );
 }

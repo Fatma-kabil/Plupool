@@ -1,13 +1,12 @@
 import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/customers/domain/repos/admin_domain_rapos.dart';
 
-class UpdateUserUseCase {
+class AddUserUsecase {
   final AdminUsersRepository repo;
 
-  UpdateUserUseCase(this.repo);
+  AddUserUsecase(this.repo);
 
   Future<UserEntity> call({
-    required int userId,
     String? fullName,
     String? phone,
     String? countryCode,
@@ -22,7 +21,7 @@ class UpdateUserUseCase {
     bool? isApproved,
     bool? isPhoneVerified,
   }) {
-    return repo.updateUser(userId, {
+    return repo.addUser({
       "phone": phone,
       "country_code": countryCode,
       "full_name": fullName,

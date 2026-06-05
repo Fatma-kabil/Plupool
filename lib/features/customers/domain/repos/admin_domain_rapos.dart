@@ -17,7 +17,8 @@ abstract class AdminUsersRepository {
 
   Future<UserDetailsEntity> getUserDetails(int id);
 
-  Future<UserEntity> updateUser(int id, Map<String, dynamic> body);
+  Future<UserEntity> addUser( Map<String, dynamic> body);
+    Future<UserEntity> updateUser(int id, Map<String, dynamic> body);
 
   Future<void> deleteUser(int id);
 }

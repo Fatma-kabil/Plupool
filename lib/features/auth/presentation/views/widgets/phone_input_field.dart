@@ -148,7 +148,9 @@ class PhoneInputFieldState extends State<PhoneInputField> {
             borderSide: const BorderSide(color: Color(0xFF0077B6), width: 1.5),
           ),
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: SizeConfig.w(10)),
+           errorStyle: AppTextStyles.styleRegular13(context).copyWith(color: Colors.red)
         ),
+        
       ),
     );
   }

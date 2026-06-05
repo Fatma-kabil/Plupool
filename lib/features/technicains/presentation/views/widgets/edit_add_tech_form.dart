@@ -18,6 +18,8 @@ class EditAddTechForm extends StatelessWidget {
     required this.initialCountryFlag,
     this.onCountryChanged,
     required this.isActive,
+    this.onActiveChanged,
+    required this.formKey,
   });
 
   final TextEditingController nameController;
@@ -39,10 +41,13 @@ class EditAddTechForm extends StatelessWidget {
   final bool isActive;
 
   final void Function(String code, String flag)? onCountryChanged;
+  final ValueChanged<bool>? onActiveChanged;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
 
@@ -122,7 +127,7 @@ class EditAddTechForm extends StatelessWidget {
 
           SizedBox(height: 15),
 
-          StatusRow(isActive: isActive),
+          StatusRow(isActive: isActive, onChanged: onActiveChanged!),
         ],
       ),
     );
