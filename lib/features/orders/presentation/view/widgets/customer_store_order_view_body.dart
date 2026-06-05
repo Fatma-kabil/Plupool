@@ -77,7 +77,7 @@ class _CustomerStoreOrderViewBodyState
                   ? const SliverFillRemaining(
                       child: Center(child: Text("لا توجد طلبات")),
                     )
-                  : CustomerOrdersList(orders: state.orders)
+                  : CustomerOrdersList(orders: state.orders, userId: widget.id, selected: selected)
             else
               const SliverToBoxAdapter(child: SizedBox()),
           ],

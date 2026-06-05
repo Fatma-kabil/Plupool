@@ -45,6 +45,9 @@ class OrdersCubit extends Cubit<OrdersState> {
   String? _status;
   String? _search;
 
+
+
+
   /// ==============================
   /// 📋 GET ORDERS
   /// ==============================
@@ -94,10 +97,8 @@ class OrdersCubit extends Cubit<OrdersState> {
         pageSize: pageSize,
       );
 
-final orders = (res["orders"] as List? ?? [])
-    .cast<Map<String, dynamic>>();
-
-
+      final orders = (res["orders"] as List? ?? [])
+          .cast<Map<String, dynamic>>();
 
       emit(UserOrdersSuccess(orders));
     } catch (e) {

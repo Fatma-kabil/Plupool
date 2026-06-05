@@ -37,13 +37,13 @@ final Map<String, dynamic> order;
           ),
           OrderDatails(
             onTap: onTap,
-            itemsCount: order["items_count"]??0,
+            itemsCount: order["items_count"],
             totalAmount: order["total_amount"],
-            deliveryFee: order["delivery_fee"]??0,
+            deliveryFee: order["delivery_fee"],
             grandTotal: order["grand_total"],
           ),
           SizedBox(height: SizeConfig.h(12)),
-        //  if (order["admin_notes"] != null) NoteAndTimeSection(text: order["admin_notes"]!, date: order["created_at"])
+          if (order["admin_notes"] != null) NoteAndTimeSection(text: order["admin_notes"]!, date: DateTime.parse(order["admin_notes_updated_at"]!) ),
         ],
       ),
     );

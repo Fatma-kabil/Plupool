@@ -535,8 +535,8 @@ final GoRouter appRouter = GoRouter(
       path: '/customerorderdetailsview',
       name: 'customerorderdetailsview',
       pageBuilder: (context, state) {
-        final order = state.extra as OrderCardModel;
-        return buildTransitionPage(CustomerOrderDetailsView(model: order));
+        final orderId = state.extra as int;
+        return buildTransitionPage(CustomerOrderDetailsView(orderId: orderId));
       },
     ),
     GoRoute(
