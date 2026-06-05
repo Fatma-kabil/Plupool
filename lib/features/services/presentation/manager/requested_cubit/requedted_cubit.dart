@@ -78,6 +78,7 @@ class RequestsCubit extends Cubit<RequestsState> {
       emit(
         RequestsError(e is Failure ? e.message : "حدث خطأ أثناء جلب الطلبات"),
       );
+      print(e);
     }
   }
 

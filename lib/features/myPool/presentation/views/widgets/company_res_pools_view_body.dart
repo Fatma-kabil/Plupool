@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/company_res_customer_card.dart';
@@ -25,6 +26,25 @@ class CompanyResPoolsViewBody extends StatelessWidget {
             //  onChanged: onSearchChanged,
           ),
           SizedBox(height: 20),
+           Row(
+          children: [
+            Text("قائمة المسابح",style:AppTextStyles.styleBold16(context).copyWith(color: AppColors.ktextcolor)),
+            Spacer(),
+             GestureDetector(
+                onTap: () {
+                 // context.push('/editcustomerpoolinfo');
+                },
+                child: Text(
+                  "عرض الخدمات",
+                  style: AppTextStyles.styleBold16(context).copyWith(
+                    color: AppColors.kprimarycolor,
+                    decoration: TextDecoration.underline, // ✅ الخط تحت النص
+                  ),
+                ),
+              ),
+          ],
+        ),
+         SizedBox(height: 20),
           ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),

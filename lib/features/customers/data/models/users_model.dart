@@ -50,7 +50,7 @@ class UserModel {
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
       totalRatings: (json['total_ratings'] as num?)?.toDouble(),
-      averageRatings: json['average_rating'],
+     averageRatings: (json['average_rating'] as num?)?.toDouble() ?? 0.0,
       address: json['address'],
       skills: json['skills'],
       yearsOfExperience: (json['years_of_experience'] as num?)?.toInt(),

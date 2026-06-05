@@ -20,7 +20,8 @@ extension UserMapper on UserModel {
       isActive: isActive,
       isApproved: isApproved,
       createdAt: createdAt,
-      totalRating: totalRatings
+      totalRating: totalRatings,
+       averageRating: averageRatings,
     );
   }
 }

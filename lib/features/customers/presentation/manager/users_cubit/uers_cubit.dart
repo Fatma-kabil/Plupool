@@ -186,6 +186,7 @@ class UsersCubit extends Cubit<UsersState> {
           e is Failure ? e.message : "حدث خطأ أثناء تحديث المستخدم",
         ),
       );
+      print(e);
 
       if (_cachedUsers != null) {
         emit(

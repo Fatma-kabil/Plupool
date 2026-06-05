@@ -92,6 +92,7 @@ class BookingCubit extends Cubit<BookingState> {
       emit(BookingSuccess(result));
     } catch (e) {
       emit(BookingError(e is Failure ? e.message : "حدث خطأ غير متوقع"));
+      
       print(e);
       if (_cachedData != null) {
         emit(BookingSuccess(_cachedData!));

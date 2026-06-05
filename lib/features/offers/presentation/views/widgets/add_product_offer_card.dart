@@ -14,6 +14,7 @@ import 'package:plupool/features/offers/domain/enities/product_offer_entity.dart
 import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/custom_check_btn.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
+import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
 
 class AddProductOfferCard extends StatefulWidget {
@@ -56,7 +57,6 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
     return BlocListener<ProductOfferCubit, ProductOfferState>(
       listener: (context, state) {
         if (state is ProductOfferSuccess) {
-          
           Navigator.pop(context);
           showCustomSnackBar(
             context: context,
@@ -64,10 +64,11 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
             isSuccess: true,
           );
         }
-    
+        context.read<ProductCubit>().fetchProducts();
         if (state is AddProductOfferError) {
           showCustomSnackBar(context: context, message: state.message);
         }
+         context.read<ProductCubit>().fetchProducts();
       },
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -134,9 +135,9 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                       ],
                     ),
                   ),
-    
+
                   SizedBox(height: SizeConfig.h(28)),
-    
+
                   /// start date
                   DatePickerField(
                     dirc: CrossAxisAlignment.start,
@@ -155,9 +156,9 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                       }
                     },
                   ),
-    
+
                   SizedBox(height: SizeConfig.h(15)),
-    
+
                   /// end date
                   DatePickerField(
                     dirc: CrossAxisAlignment.start,
@@ -176,11 +177,11 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                       }
                     },
                   ),
-    
+
                   SizedBox(height: SizeConfig.h(12)),
-    
+
                   const FieldLabel(' قيمة الخصم'),
-    
+
                   TextFieldWithIcon(
                     keyboardType: TextInputType.number,
                     validator: (v) => Validators.number(v),
@@ -188,22 +189,22 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                     hint: 'أدخل قيمة الخصم',
                     icon: Icons.percent,
                   ),
-    
+
                   SizedBox(height: SizeConfig.h(20)),
-    
+
                   CustomCheckbtn(
                     value: acceptedTerms,
                     onChanged: (val) => setState(() => acceptedTerms = val),
                     label: "عرض مميز (يظهر في الصفحة الرئيسية)",
                   ),
-    
+
                   SizedBox(height: SizeConfig.h(28)),
-    
+
                   /// buttons
                   BlocBuilder<ProductOfferCubit, ProductOfferState>(
                     builder: (context, state) {
                       final isLoading = state is ProductOfferLoading;
-    
+
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -220,15 +221,15 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                                       );
                                       return;
                                     }
-    
+
                                     if (endDate == null) {
                                       setState(
-                                        () => endDateError =
-                                            "اختر تاريخ النهاية",
+                                        () =>
+                                            endDateError = "اختر تاريخ النهاية",
                                       );
                                       return;
                                     }
-    
+
                                     if (endDate!.isBefore(startDate!)) {
                                       showCustomSnackBar(
                                         context: context,
@@ -237,7 +238,7 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                                       );
                                       return;
                                     }
-    
+
                                     if (offerController.text.isEmpty) {
                                       showCustomSnackBar(
                                         context: context,
@@ -249,7 +250,7 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                                       offerController.text.trim(),
                                     );
                                     final discount = double.tryParse(text);
-    
+
                                     if (discount == null || discount <= 0) {
                                       showCustomSnackBar(
                                         context: context,
@@ -257,22 +258,20 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                                       );
                                       return;
                                     }
-    
-                                    context
-                                        .read<ProductOfferCubit>()
-                                        .addOffer(
-                                          ProductOfferEntity(
-                                            id: widget.productId,
-                                            discountType: "percentage",
-                                            discountValue: double.tryParse(
-                                              offerController.text,
-                                            )!,
-                                            offerBadge: "عرض خاص",
-                                            offerStartDate: startDate!,
-                                            offerEndDate: endDate!,
-                                            isFeatured: acceptedTerms,
-                                          ),
-                                        );
+
+                                    context.read<ProductOfferCubit>().addOffer(
+                                      ProductOfferEntity(
+                                        id: widget.productId,
+                                        discountType: "percentage",
+                                        discountValue: double.tryParse(
+                                          offerController.text,
+                                        )!,
+                                        offerBadge: "عرض خاص",
+                                        offerStartDate: startDate!,
+                                        offerEndDate: endDate!,
+                                        isFeatured: acceptedTerms,
+                                      ),
+                                    );
                                   },
                             padding: SizeConfig.isWideScreen ? 12 : 7,
                             width: SizeConfig.w(120),
@@ -284,7 +283,7 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
                               color: Colors.white,
                             ),
                           ),
-    
+
                           CustomOutlinedBtn(
                             text: 'إلغاء',
                             trailing: Icon(
