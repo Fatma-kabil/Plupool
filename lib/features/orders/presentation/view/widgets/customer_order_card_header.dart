@@ -5,17 +5,18 @@ import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
-import 'package:plupool/features/orders/domain/entities/order_entity.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/ordr_status_row.dart';
 import 'package:plupool/features/store/presentation/views/widgets/time_date_row.dart';
 
 class CustomerOrderCardHeader extends StatelessWidget {
-  const CustomerOrderCardHeader({super.key, required this.model});
-  final OrderEntity model;
+  const CustomerOrderCardHeader({super.key,  required this.orderNumber, required this.status, required this.createdAt});
+  
+  final String orderNumber;
+  final String status;
+  final DateTime createdAt;
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -24,7 +25,7 @@ class CustomerOrderCardHeader extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                " طلب رقم #${toArabicNumbers(model.orderNumber)}",
+                " طلب رقم #${toArabicNumbers(orderNumber)}",
                 textDirection: TextDirection.rtl,
                 style: AppTextStyles.styleSemiBold16(
                   context,
@@ -32,12 +33,12 @@ class CustomerOrderCardHeader extends StatelessWidget {
               ),
             ),
             //    Spacer(),
-           OrdrStatusRow(status:model.status ),
+            OrdrStatusRow(status: status),
           ],
         ),
-       
+
         SizedBox(height: SizeConfig.h(6)),
-        TimeDateRow(formattedDate:formatArabicDate2( model.createdAt)),
+        TimeDateRow(formattedDate: formatArabicDate2(createdAt),),
       ],
     );
   }

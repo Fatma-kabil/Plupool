@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/note_and_time_section.dart';
-import 'package:plupool/features/orders/data/models/order_card_model.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/customer_order_card_header.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_datails.dart';
 
 class CustomerOrderCard extends StatelessWidget {
-  const CustomerOrderCard({super.key, required this.model, this.onTap});
-final OrderCardModel model;
+  const CustomerOrderCard({super.key, required this.order, this.onTap});
+final Map<String, dynamic> order;
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,11 @@ final OrderCardModel model;
       ),
       child: Column(
         children: [
-      //    CustomerOrderCardHeader(model: model),
+          CustomerOrderCardHeader(
+           orderNumber: order["order_number"],
+            status: order["status"],
+            createdAt: DateTime.parse(order["created_at"]),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(
               vertical: SizeConfig.h(7),
@@ -32,9 +35,15 @@ final OrderCardModel model;
             ),
             child: Divider(color: AppColors.textFieldBorderColor, thickness: 1),
           ),
-    //      OrderDatails(onTap:onTap ,),
+          OrderDatails(
+            onTap: onTap,
+            itemsCount: order["items_count"]??0,
+            totalAmount: order["total_amount"],
+            deliveryFee: order["delivery_fee"]??0,
+            grandTotal: order["grand_total"],
+          ),
           SizedBox(height: SizeConfig.h(12)),
-       //   if (model.note != null) NoteAndTimeSection(text: model.note!),
+        //  if (order["admin_notes"] != null) NoteAndTimeSection(text: order["admin_notes"]!, date: order["created_at"])
         ],
       ),
     );

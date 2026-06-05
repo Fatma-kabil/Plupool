@@ -56,6 +56,9 @@ class OrderModel extends OrderEntity {
       itemsCount: json['items_count'] ?? 0,
       userIsActive: json['user_is_active'] ?? false,
       userRole: json['user_role'] ?? '',
+      adminNotesUpdated: json['admin_notes_updated_at'] != null
+    ? DateTime.parse(json['admin_notes_updated_at'])
+    : null,
     );
   }
 }

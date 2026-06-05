@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/customer_store_order_view_body.dart';
 
 class CustomerStoreOrderView extends StatefulWidget {
-  const CustomerStoreOrderView({super.key});
+  const CustomerStoreOrderView({super.key, required this.user});
+ final UserDetailsEntity user;
 
   @override
   State<CustomerStoreOrderView> createState() => _CustomerStoreOrderViewState();
 }
 
 class _CustomerStoreOrderViewState extends State<CustomerStoreOrderView> {
- final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -33,8 +35,8 @@ class _CustomerStoreOrderViewState extends State<CustomerStoreOrderView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: CustomerStoreOrderViewBody()
-          )
+            child: CustomerStoreOrderViewBody(id: widget.user.user.id),
+          ),
         ),
       ),
     );

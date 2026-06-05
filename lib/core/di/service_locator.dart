@@ -58,6 +58,7 @@ import 'package:plupool/features/orders/domain/usecases/delete_item_from_order_u
 import 'package:plupool/features/orders/domain/usecases/delete_order_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/get_order_details_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/get_orders_usecase.dart';
+import 'package:plupool/features/orders/domain/usecases/get_user_orders_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/replace_order_item_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/update_order_item_usecae.dart';
 import 'package:plupool/features/orders/domain/usecases/update_order_usecase.dart';
@@ -650,6 +651,8 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => ReplaceOrderItemUseCase(sl<OrdersRepository>()),
   );
+  sl.registerLazySingleton(() => GetUserOrdersUseCase(sl<OrdersRepository>()));
+  
 
   // ==============================
   // CUBIT
@@ -666,6 +669,7 @@ Future<void> initServiceLocator() async {
       deleteItemUseCase: sl<DeleteOrderItemUseCase>(),
       replaceItemUseCase: sl<ReplaceOrderItemUseCase>(),
       updateOrderUseCase: sl<UpdateOrderUseCase>(),
+      getUserOrdersUseCase: sl<GetUserOrdersUseCase>(),
     ),
   );
   // =============================

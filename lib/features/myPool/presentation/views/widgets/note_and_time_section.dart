@@ -4,8 +4,8 @@ import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class NoteAndTimeSection extends StatelessWidget {
-  const NoteAndTimeSection({super.key, this.text, required this.date});
-  final String? text;
+  const NoteAndTimeSection({super.key,required this.text, required this.date});
+  final String text;
   final DateTime date;
 
   @override
@@ -52,7 +52,7 @@ class NoteAndTimeSection extends StatelessWidget {
               SizedBox(width: SizeConfig.w(6)),
               Expanded(
                 child: Text(
-                  text ?? "ضغط الفلتر ضعيف، في تسريب بسيط، محتاج تنظيف كامل",
+                  text ,
                   style: AppTextStyles.styleRegular14(
                     context,
                   ).copyWith(color: Color(0xff777777)),

@@ -7,21 +7,21 @@ abstract class OrdersRepository {
     String? search,
     String? status,
   });
+  Future<Map<String, dynamic>> getUserOrders({
+    required int userId,
+    String? status,
+    String? paymentMethod,
+    int page = 1,
+    int pageSize = 10,
+  });
 
   Future<OrderEntity> getOrderDetails(int id);
 
-  Future<void> updateOrder({
-    required int id,
-    String? status,
-    String? notes,
-  });
+  Future<void> updateOrder({required int id, String? status, String? notes});
 
   Future<void> deleteOrder(int id);
 
-  Future<void> updateOrderStatus({
-    required int id,
-    required String status,
-  });
+  Future<void> updateOrderStatus({required int id, required String status});
 
   Future<void> addItem({
     required int orderId,
@@ -36,10 +36,7 @@ abstract class OrdersRepository {
     double? price,
   });
 
-  Future<void> deleteItem({
-    required int orderId,
-    required int itemId,
-  });
+  Future<void> deleteItem({required int orderId, required int itemId});
 
   Future<void> replaceItem({
     required int orderId,

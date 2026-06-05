@@ -6,6 +6,7 @@ import 'package:plupool/features/orders/domain/usecases/delete_item_from_order_u
 import 'package:plupool/features/orders/domain/usecases/delete_order_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/get_order_details_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/get_orders_usecase.dart';
+import 'package:plupool/features/orders/domain/usecases/get_user_orders_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/replace_order_item_usecase.dart';
 import 'package:plupool/features/orders/domain/usecases/update_order_item_usecae.dart';
 import 'package:plupool/features/orders/domain/usecases/update_order_usecase.dart';
@@ -22,6 +23,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   final DeleteOrderItemUseCase deleteItemUseCase;
   final ReplaceOrderItemUseCase replaceItemUseCase;
   final UpdateOrderUseCase updateOrderUseCase;
+  final GetUserOrdersUseCase getUserOrdersUseCase;
 
   OrdersCubit(
     this.getOrdersUseCase, {
@@ -33,6 +35,7 @@ class OrdersCubit extends Cubit<OrdersState> {
     required this.deleteItemUseCase,
     required this.replaceItemUseCase,
     required this.updateOrderUseCase,
+    required this.getUserOrdersUseCase,
   }) : super(OrdersInitial());
 
   /// 🔥 CACHE
@@ -69,6 +72,36 @@ class OrdersCubit extends Cubit<OrdersState> {
       emit(OrdersSuccess(orders));
     } catch (e) {
       emit(OrdersError(e is Failure ? e.message : "حدث خطأ أثناء جلب الطلبات"));
+      print(e);
+    }
+  }
+
+  Future<void> getUserOrders({
+    required int userId,
+    String? status,
+    String? paymentMethod,
+    int page = 1,
+    int pageSize = 10,
+  }) async {
+    try {
+      emit(OrdersLoading());
+
+      final res = await getUserOrdersUseCase(
+        userId: userId,
+        status: status,
+        paymentMethod: paymentMethod,
+        page: page,
+        pageSize: pageSize,
+      );
+
+final orders = (res["orders"] as List? ?? [])
+    .cast<Map<String, dynamic>>();
+
+
+
+      emit(UserOrdersSuccess(orders));
+    } catch (e) {
+      emit(OrdersError(e.toString()));
       print(e);
     }
   }

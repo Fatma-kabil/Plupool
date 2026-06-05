@@ -526,8 +526,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/customerstoreorderview',
       name: 'customerstoreorderview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const CustomerStoreOrderView()),
+      pageBuilder: (context, state) {
+        final user = state.extra as UserDetailsEntity;
+        return buildTransitionPage(CustomerStoreOrderView(user: user));
+      },
     ),
     GoRoute(
       path: '/customerorderdetailsview',

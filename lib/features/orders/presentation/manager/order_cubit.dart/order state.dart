@@ -14,6 +14,11 @@ class OrdersSuccess extends OrdersState {
 
   OrdersSuccess(this.orders);
 }
+class UserOrdersSuccess extends OrdersState {
+  final List<Map<String, dynamic>> orders;
+
+  UserOrdersSuccess(this.orders);
+}
 
 class OrdersError extends OrdersState {
   final String message;

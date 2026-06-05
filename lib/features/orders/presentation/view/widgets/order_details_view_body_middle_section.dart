@@ -50,7 +50,11 @@ class OrderDetailsViewBodyMiddleSection extends StatelessWidget {
         ),
         child: Column(
           children: [
-            CustomerOrderCardHeader(model: model),
+            CustomerOrderCardHeader(
+              orderNumber: model.orderNumber,
+              status: model.status,
+              createdAt: model.createdAt,
+            ),
 
             Padding(
               padding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),

@@ -16,7 +16,25 @@ class OrdersRemoteDataSource {
 
     return (response.data as List).map((e) => OrderModel.fromJson(e)).toList();
   }
+Future<Map<String, dynamic>> getUserOrders({
+  required int userId,
+  String? status,
+  String? paymentMethod,
+  int page = 1,
+  int pageSize = 10,
+}) async {
+  final response = await api.get(
+    '${Endpoints.users}/$userId/orders',
+    queryParams: {
+      "status": status,
+      "payment_method": paymentMethod,
+      "page": page,
+      "page_size": pageSize,
+    }..removeWhere((key, value) => value == null),
+  );
 
+  return response.data;
+}
   /// ==============================
   /// GET ORDER DETAILS
   /// ==============================

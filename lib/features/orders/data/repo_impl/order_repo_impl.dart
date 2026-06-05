@@ -25,6 +25,23 @@ class OrdersRepositoryImpl implements OrdersRepository {
 });
   }
 
+  @override
+  Future<Map<String, dynamic>> getUserOrders({
+  required int userId,
+  String? status,
+  String? paymentMethod,
+  int page = 1,
+  int pageSize = 10,
+}) {
+  return remote.getUserOrders(
+    userId: userId,
+    status: status,
+    paymentMethod: paymentMethod,
+    page: page,
+    pageSize: pageSize,
+  );
+}
+
   /// ==============================
   /// GET ORDER DETAILS
   /// ==============================
