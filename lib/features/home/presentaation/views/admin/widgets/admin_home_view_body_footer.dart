@@ -6,6 +6,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/admin_packaes_card.dart';
+import 'package:plupool/features/packages/domain/entities/subscriber_entity.dart';
 import 'package:plupool/features/packages/presentation/manager/package_cubit/package_cubit.dart';
 import 'package:plupool/features/packages/presentation/manager/package_cubit/package_state.dart';
 import 'package:plupool/features/packages/presentation/views/widgets/packages_shimmer_list.dart';
@@ -48,7 +49,7 @@ class AdminHomeViewBodyFooter extends StatelessWidget {
 
             /// ❌ Error
             if (state is PackagesError) {
-              return Center(child: ErrorText( message:  state.message));
+              return Center(child: ErrorText(message: state.message));
             }
 
             /// ✅ Success
@@ -59,16 +60,35 @@ class AdminHomeViewBodyFooter extends StatelessWidget {
                   .where((e) => e.status == "in_progress")
                   .toList();
 
-              if (filtered.isEmpty) {
-                return const Center(child: ErrorText(message: "لا توجد باقات جارية"));
+              final subscribersData = filtered.expand((package) {
+                return package.subscribers.map(
+                  (subscriber) => {
+                    "subscriber": subscriber,
+                    "packageName": package.nameAr,
+                    "visitsCount": package.visitsCount,
+                    "status": package.status,
+                  },
+                );
+              }).toList();
+
+              if (subscribersData.isEmpty) {
+                return const Center(
+                  child: ErrorText(message: "لا توجد باقات جارية"),
+                );
               }
 
               return ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: filtered.length,
+                itemCount: subscribersData.length,
                 itemBuilder: (context, index) {
-                  return AdminPackaesCard(request: filtered[index]);
+                  final item = subscribersData[index];
+
+                  return AdminPackaesCard(
+                    request: item["subscriber"] as SubscriberEntity,
+                    packageName: item["packageName"] as String,
+                    status: item["status"] as String,
+                  );
                 },
               );
             }

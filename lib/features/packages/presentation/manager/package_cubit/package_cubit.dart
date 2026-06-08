@@ -199,4 +199,7 @@ class PackagesCubit extends Cubit<PackagesState> {
   int get completedCount => _cachedResponse?.stats.completed ?? 0;
 
   int get scheduledCount => _cachedResponse?.stats.scheduled ?? 0;
+
+  int get pendingCount =>
+    _cachedResponse?.stats.pending ?? 0;
 }

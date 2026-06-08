@@ -5,18 +5,20 @@ import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/progress_btn.dart';
-import 'package:plupool/features/packages/domain/entities/package_entity.dart';
+import 'package:plupool/features/packages/domain/entities/subscriber_entity.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/progress_section.dart';
 
 class AdminPackaesCard extends StatelessWidget {
-  const AdminPackaesCard({super.key, required this.request});
+  const AdminPackaesCard({super.key, required this.request, required this.packageName, required this.status});
 
-  final PackageEntity request;
+  final SubscriberEntity request;
+  final String packageName;
+  final String status ; // default safe
 
   @override
   Widget build(BuildContext context) {
-   final status = request.status ?? "scheduled"; // default safe
-final colors = RequestStatusColors.getColors(mapApiStatus(status));
+  //  final status = request.status; // default safe
+    final colors = RequestStatusColors.getColors(mapApiStatus(status));
 
     return Container(
       width: double.infinity,
@@ -44,7 +46,7 @@ final colors = RequestStatusColors.getColors(mapApiStatus(status));
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                      "${request.nameAr ?? ''} - ${request.clientName ?? 'بدون اسم'}",
+                        "$packageName - ${request.name }",
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.styleSemiBold16(
@@ -63,7 +65,7 @@ final colors = RequestStatusColors.getColors(mapApiStatus(status));
                           SizedBox(width: SizeConfig.w(6)),
                           Text(
                             textDirection: TextDirection.rtl,
-                            request.displayDate ?? "غير محدد",
+                            request.startDate ,
                             style: AppTextStyles.styleRegular13(
                               context,
                             ).copyWith(color: Color(0xff999999)),
@@ -73,18 +75,22 @@ final colors = RequestStatusColors.getColors(mapApiStatus(status));
                     ],
                   ),
                 ),
-                buildStatusLabel(colors, context, mapApiStatus(request.status!)),
+                buildStatusLabel(
+                  colors,
+                  context,
+                  mapApiStatus(status),
+                ),
               ],
             ),
 
             const SizedBox(height: 15),
             ProgressSection(
-              progress: request.completedVisits ,
-              status:mapApiStatus(request.status!),
-              visits: request.visitsCount,
+              progress: request.completedVisits,
+              status: mapApiStatus(status),
+              visits: request.visits.length,
             ),
             const SizedBox(height: 12),
-            ProgressBtn(status: mapApiStatus(request.status!)),
+            ProgressBtn(status: mapApiStatus(status)),
             // ---- بيانات المستخدم + زرار الموقع ----
           ],
         ),

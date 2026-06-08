@@ -5,6 +5,7 @@ class PackagesStatsModel extends PackagesStatsEntity {
     required super.inProgress,
     required super.completed,
     required super.scheduled,
+    required super.pending,
   });
 
   factory PackagesStatsModel.fromJson(Map<String, dynamic> json) {
@@ -12,6 +13,7 @@ class PackagesStatsModel extends PackagesStatsEntity {
       inProgress: json['in_progress'] ?? 0,
       completed: json['completed'] ?? 0,
       scheduled: json['scheduled'] ?? 0,
+      pending: json['pending'] ?? 0,
     );
   }
 }

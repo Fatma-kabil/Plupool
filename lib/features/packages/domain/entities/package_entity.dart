@@ -1,17 +1,28 @@
+import 'package:plupool/features/packages/domain/entities/subscriber_entity.dart';
+
 class PackageEntity {
   final int id;
   final String nameAr;
   final String? nameEn;
+
   final String? descriptionAr;
   final String? descriptionEn;
-  final String? clientName;
+
   final String duration;
   final int price;
+
   final int visitsCount;
   final int completedVisits;
+
   final String? status;
   final String? displayDate;
+
   final double progress;
+
+  final int subscribersCount;
+
+  final List<SubscriberEntity> subscribers;
+
   final String createdAt;
 
   PackageEntity({
@@ -20,7 +31,6 @@ class PackageEntity {
     this.nameEn,
     this.descriptionAr,
     this.descriptionEn,
-    this.clientName,
     required this.duration,
     required this.price,
     required this.visitsCount,
@@ -28,6 +38,8 @@ class PackageEntity {
     this.status,
     this.displayDate,
     required this.progress,
+    required this.subscribersCount,
+    required this.subscribers,
     required this.createdAt,
   });
 }

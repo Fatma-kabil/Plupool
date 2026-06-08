@@ -31,6 +31,7 @@ class PackagesRepositoryImpl implements PackagesRepository {
         inProgress: res.stats.inProgress,
         completed: res.stats.completed,
         scheduled: res.stats.scheduled,
+        pending: res.stats.pending,
       ),
       packages: res.packages,
     );
