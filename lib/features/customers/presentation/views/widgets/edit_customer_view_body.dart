@@ -13,20 +13,15 @@ import 'package:plupool/features/customers/presentation/manager/users_cubit/user
 import 'package:plupool/features/customers/presentation/views/widgets/add_edit_customer_form.dart';
 
 class EditCustomerViewBody extends StatefulWidget {
-  const EditCustomerViewBody({
-    super.key,
-    required this.user,
-  });
+  const EditCustomerViewBody({super.key, required this.user});
 
   final UserEntity user;
 
   @override
-  State<EditCustomerViewBody> createState() =>
-      _EditCustomerViewBodyState();
+  State<EditCustomerViewBody> createState() => _EditCustomerViewBodyState();
 }
 
-class _EditCustomerViewBodyState
-    extends State<EditCustomerViewBody> {
+class _EditCustomerViewBodyState extends State<EditCustomerViewBody> {
   late final TextEditingController nameController;
 
   late final TextEditingController locationController;
@@ -41,35 +36,23 @@ class _EditCustomerViewBodyState
 
   late bool isActive;
 
-final formKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
 
-    nameController = TextEditingController(
-      text: widget.user.fullName,
+    nameController = TextEditingController(text: widget.user.fullName);
+
+    locationController = TextEditingController(text: widget.user.address ?? "");
+
+    selectedCountryCode = widget.user.countryCode;
+
+    selectedCountryFlag = flagEmojiFromIso(
+      countryCodeFromDialCode(selectedCountryCode) ?? 'EG',
     );
-
-    locationController = TextEditingController(
-      text: widget.user.address ?? "",
-    );
-
-    selectedCountryCode =
-        widget.user.countryCode;
-
-    selectedCountryFlag =
-        flagEmojiFromIso(
-          countryCodeFromDialCode(
-                selectedCountryCode,
-              ) ??
-              'EG',
-        );
 
     phoneController = TextEditingController(
-      text: widget.user.phone.replaceFirst(
-        selectedCountryCode,
-        '',
-      ),
+      text: widget.user.phone.replaceFirst(selectedCountryCode, ''),
     );
 
     isActive = widget.user.isActive;
@@ -96,149 +79,99 @@ final formKey = GlobalKey<FormState>();
 
           Navigator.pop(context);
 
-          context
-              .read<UsersCubit>()
-              .getUserDetails(widget.user.id);
+          context.read<UsersCubit>().getUserDetails(widget.user.id);
         }
 
         if (state is UsersActionError) {
-          showCustomSnackBar(
-            context: context,
-            message: state.message,
-          );
+          showCustomSnackBar(context: context, message: state.message);
 
-          context
-              .read<UsersCubit>()
-              .getUserDetails(widget.user.id);
+          context.read<UsersCubit>().getUserDetails(widget.user.id);
         }
       },
 
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(6),
-          ),
+          padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
 
           child: Column(
             children: [
               AddEditCustomerForm(
                 formKey: formKey,
-                locationController:
-                    locationController,
+                locationController: locationController,
 
-                nameController:
-                    nameController,
+                nameController: nameController,
 
-                phoneFieldKey:
-                    phoneFieldKey,
+                phoneFieldKey: phoneFieldKey,
 
-                phoneController:
-                    phoneController,
+                phoneController: phoneController,
 
-                initialCountryCode:
-                    selectedCountryCode,
+                initialCountryCode: selectedCountryCode,
 
-                initialCountryFlag:
-                    selectedCountryFlag,
+                initialCountryFlag: selectedCountryFlag,
 
-                onCountryChanged:
-                    (code, flag) {
+                onCountryChanged: (code, flag) {
                   selectedCountryCode = code;
                   selectedCountryFlag = flag;
                 },
 
                 isActive: isActive,
+                onActiveChanged: (value) {
+                  setState(() {
+                    isActive = value;
+                  });
+                },
               ),
 
               CustomTextBtn(
-                text:
-                    state is UsersActionLoading
-                        ? "جارى التعديل..."
-                        : "تعديل",
+                text: state is UsersActionLoading ? "جارى التعديل..." : "تعديل",
 
                 width: double.infinity,
 
                 padding: SizeConfig.h(7),
 
-                textStyle:
-                    AppTextStyles
-                        .styleSemiBold16(
-                          context,
-                        )
-                        .copyWith(
+                textStyle: AppTextStyles.styleSemiBold16(
+                  context,
+                ).copyWith(color: Colors.white),
+
+                trailing: state is UsersActionLoading
+                    ? SizedBox(
+                        width: SizeConfig.w(18),
+
+                        height: SizeConfig.w(18),
+
+                        child: const CircularProgressIndicator(
                           color: Colors.white,
+
+                          strokeWidth: 2,
                         ),
+                      )
+                    : Icon(
+                        Icons.edit,
+                        color: Colors.white,
 
-                trailing:
-                    state is UsersActionLoading
-                        ? SizedBox(
-                          width:
-                              SizeConfig.w(18),
+                        size: SizeConfig.w(SizeConfig.isWideScreen ? 17 : 20),
+                      ),
 
-                          height:
-                              SizeConfig.w(18),
+                onPressed: state is UsersActionLoading
+                    ? null
+                    : () {
+                        context.read<UsersCubit>().updateUser(
+                          userId: widget.user.id,
 
-                          child:
-                              const CircularProgressIndicator(
-                                color:
-                                    Colors
-                                        .white,
+                          fullName: nameController.text,
 
-                                strokeWidth:
-                                    2,
-                              ),
-                        )
-                        : Icon(
-                          Icons.edit,
-                          color:
-                              Colors.white,
+                          address: locationController.text,
 
-                          size: SizeConfig.w(
-                            SizeConfig
-                                    .isWideScreen
-                                ? 17
-                                : 20,
-                          ),
-                        ),
+                          phone: phoneController.text,
 
-                onPressed:
-                    state is UsersActionLoading
-                        ? null
-                        : () {
-                          context
-                              .read<
-                                UsersCubit
-                              >()
-                              .updateUser(
-                                userId:
-                                    widget
-                                        .user
-                                        .id,
+                          countryCode: selectedCountryCode,
 
-                                fullName:
-                                    nameController
-                                        .text,
-
-                                address:
-                                    locationController
-                                        .text,
-
-                                phone:
-                                    phoneController
-                                        .text,
-
-                                countryCode:
-                                    selectedCountryCode,
-
-                                isActive:
-                                    isActive,
-                              );
-                        },
+                          isActive: isActive,
+                        );
+                      },
               ),
 
-              SizedBox(
-                height: SizeConfig.h(15),
-              ),
+              SizedBox(height: SizeConfig.h(15)),
 
               CustomOutlinedBtn(
                 text: " إلغاء",
@@ -247,14 +180,9 @@ final formKey = GlobalKey<FormState>();
                 trailing: Icon(
                   Icons.cancel_outlined,
 
-                  color:
-                      AppColors.kprimarycolor,
+                  color: AppColors.kprimarycolor,
 
-                  size: SizeConfig.w(
-                    SizeConfig.isWideScreen
-                        ? 20
-                        : 24,
-                  ),
+                  size: SizeConfig.w(SizeConfig.isWideScreen ? 20 : 24),
                 ),
               ),
             ],

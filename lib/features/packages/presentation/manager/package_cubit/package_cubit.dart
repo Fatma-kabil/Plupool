@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/packages/domain/entities/package_entity.dart';
@@ -40,13 +42,17 @@ class PackagesCubit extends Cubit<PackagesState> {
     String? duration,
     String? search,
   }) async {
+     log(
+    "GET PACKAGES => status=$status",
+    stackTrace: StackTrace.current,
+  );
     emit(PackagesLoading());
 
     try {
       _status = status;
       _duration = duration;
       _search = search;
-
+      print("STATUS = $status");
       final response = await getPackagesUseCase(
         status: status,
         duration: duration,
@@ -200,6 +206,5 @@ class PackagesCubit extends Cubit<PackagesState> {
 
   int get scheduledCount => _cachedResponse?.stats.scheduled ?? 0;
 
-  int get pendingCount =>
-    _cachedResponse?.stats.pending ?? 0;
+  int get pendingCount => _cachedResponse?.stats.pending ?? 0;
 }

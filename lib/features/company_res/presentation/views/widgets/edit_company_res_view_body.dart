@@ -74,7 +74,7 @@ class _EditCompanyResViewBodyState extends State<EditCompanyResViewBody> {
           showCustomSnackBar(
             context: context,
             message: 'تم تعديل المستخدم بنجاح',
-            isSuccess: true
+            isSuccess: true,
           );
 
           Navigator.pop(context);
@@ -82,12 +82,8 @@ class _EditCompanyResViewBodyState extends State<EditCompanyResViewBody> {
         }
 
         if (state is UsersActionError) {
-          showCustomSnackBar(
-            context: context,
-            message:state.message,
-            
-          );
-         context.read<UsersCubit>().getUserDetails(widget.user.id);
+          showCustomSnackBar(context: context, message: state.message);
+          context.read<UsersCubit>().getUserDetails(widget.user.id);
         }
       },
 
@@ -113,6 +109,11 @@ class _EditCompanyResViewBodyState extends State<EditCompanyResViewBody> {
                   selectedCountryFlag = flag;
                 },
                 isActive: isActive,
+                onActiveChanged: (value) {
+                  setState(() {
+                    isActive = value;
+                  });
+                },
               ),
 
               CustomTextBtn(

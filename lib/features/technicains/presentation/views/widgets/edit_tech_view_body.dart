@@ -13,20 +13,15 @@ import 'package:plupool/features/customers/presentation/manager/users_cubit/user
 import 'package:plupool/features/technicains/presentation/views/widgets/edit_add_tech_form.dart';
 
 class EditTechViewBody extends StatefulWidget {
-  const EditTechViewBody({
-    super.key,
-    required this.user,
-  });
+  const EditTechViewBody({super.key, required this.user});
 
   final UserEntity user;
 
   @override
-  State<EditTechViewBody> createState() =>
-      _EditTechViewBodyState();
+  State<EditTechViewBody> createState() => _EditTechViewBodyState();
 }
 
-class _EditTechViewBodyState
-    extends State<EditTechViewBody> {
+class _EditTechViewBodyState extends State<EditTechViewBody> {
   late final TextEditingController nameController;
 
   late final TextEditingController locationController;
@@ -50,41 +45,24 @@ class _EditTechViewBodyState
   void initState() {
     super.initState();
 
-    nameController = TextEditingController(
-      text: widget.user.fullName,
-    );
+    nameController = TextEditingController(text: widget.user.fullName);
 
-    locationController = TextEditingController(
-      text: widget.user.address ?? "",
-    );
+    locationController = TextEditingController(text: widget.user.address ?? "");
 
-    skillsController = TextEditingController(
-      text: widget.user.skills ?? "",
-    );
+    skillsController = TextEditingController(text: widget.user.skills ?? "");
 
     noOfYearsController = TextEditingController(
-      text:
-          widget.user.yearsOfExperience
-              ?.toString() ??
-          "",
+      text: widget.user.yearsOfExperience?.toString() ?? "",
     );
 
-    selectedCountryCode =
-        widget.user.countryCode;
+    selectedCountryCode = widget.user.countryCode;
 
-    selectedCountryFlag =
-        flagEmojiFromIso(
-          countryCodeFromDialCode(
-                selectedCountryCode,
-              ) ??
-              'EG',
-        );
+    selectedCountryFlag = flagEmojiFromIso(
+      countryCodeFromDialCode(selectedCountryCode) ?? 'EG',
+    );
 
     phoneController = TextEditingController(
-      text: widget.user.phone.replaceFirst(
-        selectedCountryCode,
-        '',
-      ),
+      text: widget.user.phone.replaceFirst(selectedCountryCode, ''),
     );
 
     isActive = widget.user.isActive;
@@ -114,183 +92,116 @@ class _EditTechViewBodyState
 
           Navigator.pop(context);
 
-          context
-              .read<UsersCubit>()
-              .getUserDetails(widget.user.id);
+          context.read<UsersCubit>().getUserDetails(widget.user.id);
         }
 
         if (state is UsersActionError) {
-          showCustomSnackBar(
-            context: context,
-            message: state.message,
-          );
+          showCustomSnackBar(context: context, message: state.message);
 
-          context
-              .read<UsersCubit>()
-              .getUserDetails(widget.user.id);
+          context.read<UsersCubit>().getUserDetails(widget.user.id);
         }
       },
 
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(6),
-          ),
+          padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
 
           child: SingleChildScrollView(
             child: Column(
               children: [
                 EditAddTechForm(
                   formKey: formKey,
-                  nameController:
-                      nameController,
+                  nameController: nameController,
 
-                  skillsController:
-                      skillsController,
+                  skillsController: skillsController,
 
-                  noOfYearsController:
-                      noOfYearsController,
+                  noOfYearsController: noOfYearsController,
 
-                  phoneFieldKey:
-                      phoneFieldKey,
+                  phoneFieldKey: phoneFieldKey,
 
-                  phoneController:
-                      phoneController,
+                  phoneController: phoneController,
 
-                  locationController:
-                      locationController,
+                  locationController: locationController,
 
-                  initialCountryCode:
-                      selectedCountryCode,
+                  initialCountryCode: selectedCountryCode,
 
-                  initialCountryFlag:
-                      selectedCountryFlag,
+                  initialCountryFlag: selectedCountryFlag,
 
-                  onCountryChanged:
-                      (code, flag) {
-                    selectedCountryCode =
-                        code;
+                  onCountryChanged: (code, flag) {
+                    selectedCountryCode = code;
 
-                    selectedCountryFlag =
-                        flag;
+                    selectedCountryFlag = flag;
                   },
 
                   isActive: isActive,
+                  onActiveChanged: (value) {
+                    setState(() {
+                      isActive = value;
+                    });
+                  },
                 ),
 
                 SizedBox(height: 40),
 
                 CustomTextBtn(
-                  text:
-                      state
-                              is UsersActionLoading
-                          ? "جارى التعديل..."
-                          : "تعديل",
+                  text: state is UsersActionLoading
+                      ? "جارى التعديل..."
+                      : "تعديل",
 
                   width: double.infinity,
 
                   padding: SizeConfig.h(7),
 
-                  textStyle:
-                      AppTextStyles
-                          .styleSemiBold16(
-                            context,
-                          )
-                          .copyWith(
-                            color:
-                                Colors.white,
+                  textStyle: AppTextStyles.styleSemiBold16(
+                    context,
+                  ).copyWith(color: Colors.white),
+
+                  trailing: state is UsersActionLoading
+                      ? SizedBox(
+                          width: SizeConfig.w(18),
+
+                          height: SizeConfig.w(18),
+
+                          child: const CircularProgressIndicator(
+                            color: Colors.white,
+
+                            strokeWidth: 2,
                           ),
+                        )
+                      : Icon(
+                          Icons.person_add_alt_1,
 
-                  trailing:
-                      state
-                              is UsersActionLoading
-                          ? SizedBox(
-                            width:
-                                SizeConfig.w(
-                                  18,
-                                ),
+                          color: Colors.white,
 
-                            height:
-                                SizeConfig.w(
-                                  18,
-                                ),
+                          size: SizeConfig.w(SizeConfig.isWideScreen ? 20 : 24),
+                        ),
 
-                            child:
-                                const CircularProgressIndicator(
-                                  color:
-                                      Colors
-                                          .white,
+                  onPressed: state is UsersActionLoading
+                      ? null
+                      : () {
+                          context.read<UsersCubit>().updateUser(
+                            userId: widget.user.id,
 
-                                  strokeWidth:
-                                      2,
-                                ),
-                          )
-                          : Icon(
-                            Icons
-                                .person_add_alt_1,
+                            fullName: nameController.text,
 
-                            color:
-                                Colors.white,
+                            address: locationController.text,
 
-                            size: SizeConfig.w(
-                              SizeConfig
-                                      .isWideScreen
-                                  ? 20
-                                  : 24,
+                            phone: phoneController.text,
+
+                            countryCode: selectedCountryCode,
+
+                            skills: skillsController.text,
+
+                            yearsOfExperience: int.tryParse(
+                              noOfYearsController.text,
                             ),
-                          ),
 
-                  onPressed:
-                      state
-                              is UsersActionLoading
-                          ? null
-                          : () {
-                            context
-                                .read<
-                                  UsersCubit
-                                >()
-                                .updateUser(
-                                  userId:
-                                      widget
-                                          .user
-                                          .id,
-
-                                  fullName:
-                                      nameController
-                                          .text,
-
-                                  address:
-                                      locationController
-                                          .text,
-
-                                  phone:
-                                      phoneController
-                                          .text,
-
-                                  countryCode:
-                                      selectedCountryCode,
-
-                                  skills:
-                                      skillsController
-                                          .text,
-
-                                  yearsOfExperience:
-                                      int.tryParse(
-                                        noOfYearsController
-                                            .text,
-                                      ),
-
-                                  isActive:
-                                      isActive,
-                                );
-                          },
+                            isActive: isActive,
+                          );
+                        },
                 ),
 
-                SizedBox(
-                  height: SizeConfig.h(
-                    15,
-                  ),
-                ),
+                SizedBox(height: SizeConfig.h(15)),
 
                 CustomOutlinedBtn(
                   text: " إلغاء",
@@ -300,16 +211,9 @@ class _EditTechViewBodyState
                   trailing: Icon(
                     Icons.cancel_outlined,
 
-                    color:
-                        AppColors
-                            .kprimarycolor,
+                    color: AppColors.kprimarycolor,
 
-                    size: SizeConfig.w(
-                      SizeConfig
-                              .isWideScreen
-                          ? 20
-                          : 24,
-                    ),
+                    size: SizeConfig.w(SizeConfig.isWideScreen ? 20 : 24),
                   ),
                 ),
               ],

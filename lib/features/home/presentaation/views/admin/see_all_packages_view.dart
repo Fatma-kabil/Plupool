@@ -5,7 +5,6 @@ import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/admin_packaes_card.dart';
-import 'package:plupool/features/home/presentaation/views/admin/widgets/admin_home_view_body_footer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/see_all_packages_view_body.dart';
 import 'package:plupool/features/packages/presentation/manager/package_cubit/package_cubit.dart';
 import 'package:plupool/features/packages/presentation/manager/package_cubit/package_state.dart';
@@ -23,14 +22,6 @@ class _SeeAllPackagesViewState extends State<SeeAllPackagesView> {
 
   bool isSearching = false;
 
-  @override
-  void initState() {
-    super.initState();
-
-    Future.microtask(() {
-      context.read<PackagesCubit>().getPackages();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +42,8 @@ class _SeeAllPackagesViewState extends State<SeeAllPackagesView> {
               });
 
               context.read<PackagesCubit>().getPackages(
-                    search: value.trim().isEmpty ? null : value,
-                  );
+                search: value.trim().isEmpty ? null : value,
+              );
             },
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();
@@ -68,34 +59,57 @@ class _SeeAllPackagesViewState extends State<SeeAllPackagesView> {
             child: isSearching
                 ? BlocBuilder<PackagesCubit, PackagesState>(
                     builder: (context, state) {
-                      /// 🔄 Loading
+                      /// Loading
                       if (state is PackagesLoading) {
                         return const PackagesShimmerList();
                       }
 
-                      /// ❌ Error
+                      /// Error
                       if (state is PackagesError) {
-                        return Center(
-                          child: ErrorText(message: state.message),
-                        );
+                        return Center(child: ErrorText(message: state.message));
                       }
 
-                      /// ✅ Success
+                      /// Success
                       if (state is PackagesSuccess) {
                         final packages = state.response.packages;
 
-                        if (packages.isEmpty) {
-                          return const Center(
-                            child: Text("📭 لا توجد باقات"),
-                          );
+                        final List<Map<String, dynamic>> subscribers = [];
+
+                        for (final package in packages) {
+                          for (final subscriber in package.subscribers) {
+                            subscribers.add({
+                              "subscriber": subscriber,
+                              "packageName": package.nameAr,
+                              "status": package.status,
+                            });
+                          }
+                        }
+
+                        if (subscribers.isEmpty) {
+                          return const Center(child: Text("📭 لا توجد نتائج"));
                         }
 
                         return ListView.builder(
-                          itemCount: packages.length,
+                          itemCount: subscribers.length,
                           itemBuilder: (context, index) {
-                          //  return AdminPackaesCard(
-                          //    request: packages[index],
-                          //  );
+                            final subscriber = subscribers[index]["subscriber"];
+
+                            final packageName =
+                                subscribers[index]["packageName"] as String;
+
+                            final status =
+                                subscribers[index]["status"] as String? ?? "";
+
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                bottom: SizeConfig.h(15),
+                              ),
+                              child: AdminPackaesCard(
+                                request: subscriber,
+                                packageName: packageName,
+                                status: status,
+                              ),
+                            );
                           },
                         );
                       }
@@ -103,7 +117,6 @@ class _SeeAllPackagesViewState extends State<SeeAllPackagesView> {
                       return const SizedBox();
                     },
                   )
-
                 /// 👇 الوضع الطبيعي
                 : const SeeAllPackagesViewBody(),
           ),

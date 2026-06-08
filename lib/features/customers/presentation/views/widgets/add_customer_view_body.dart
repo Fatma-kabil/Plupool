@@ -14,12 +14,10 @@ class AddCustomerViewBody extends StatefulWidget {
   const AddCustomerViewBody({super.key});
 
   @override
-  State<AddCustomerViewBody> createState() =>
-      _AddCustomerViewBodyState();
+  State<AddCustomerViewBody> createState() => _AddCustomerViewBodyState();
 }
 
-class _AddCustomerViewBodyState
-    extends State<AddCustomerViewBody> {
+class _AddCustomerViewBodyState extends State<AddCustomerViewBody> {
   late final TextEditingController nameController;
   late final TextEditingController locationController;
   late final TextEditingController phoneController;
@@ -64,44 +62,32 @@ class _AddCustomerViewBodyState
         }
 
         if (state is UsersActionError) {
-          showCustomSnackBar(
-            context: context,
-            message: state.message,
-          );
+          showCustomSnackBar(context: context, message: state.message);
         }
       },
 
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(6),
-          ),
+          padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
 
           child: Column(
             children: [
               AddEditCustomerForm(
                 formKey: formKey,
 
-                locationController:
-                    locationController,
+                locationController: locationController,
 
-                nameController:
-                    nameController,
+                nameController: nameController,
 
-                phoneFieldKey:
-                    phoneFieldKey,
+                phoneFieldKey: phoneFieldKey,
 
-                phoneController:
-                    phoneController,
+                phoneController: phoneController,
 
-                initialCountryCode:
-                    selectedCountryCode,
+                initialCountryCode: selectedCountryCode,
 
-                initialCountryFlag:
-                    selectedCountryFlag,
+                initialCountryFlag: selectedCountryFlag,
 
-                onCountryChanged:
-                    (code, flag) {
+                onCountryChanged: (code, flag) {
                   selectedCountryCode = code;
                   selectedCountryFlag = flag;
                 },
@@ -116,131 +102,82 @@ class _AddCustomerViewBodyState
               ),
 
               CustomTextBtn(
-                text:
-                    state is UsersActionLoading
-                        ? "جارى الإضافة..."
-                        : "إضافة العميل",
+                text: state is UsersActionLoading
+                    ? "جارى الإضافة..."
+                    : "إضافة العميل",
 
                 width: double.infinity,
 
                 padding: SizeConfig.h(7),
 
-                textStyle:
-                    AppTextStyles
-                        .styleSemiBold16(
-                          context,
-                        )
-                        .copyWith(
+                textStyle: AppTextStyles.styleSemiBold16(
+                  context,
+                ).copyWith(color: Colors.white),
+
+                trailing: state is UsersActionLoading
+                    ? SizedBox(
+                        width: SizeConfig.w(18),
+
+                        height: SizeConfig.w(18),
+
+                        child: const CircularProgressIndicator(
                           color: Colors.white,
+
+                          strokeWidth: 2,
                         ),
+                      )
+                    : Icon(
+                        Icons.person_add_alt_1,
 
-                trailing:
-                    state is UsersActionLoading
-                        ? SizedBox(
-                          width:
-                              SizeConfig.w(18),
+                        color: Colors.white,
 
-                          height:
-                              SizeConfig.w(18),
+                        size: SizeConfig.w(24),
+                      ),
 
-                          child:
-                              const CircularProgressIndicator(
-                                color:
-                                    Colors.white,
+                onPressed: state is UsersActionLoading
+                    ? null
+                    : () {
+                        if (!formKey.currentState!.validate()) {
+                          return;
+                        }
 
-                                strokeWidth:
-                                    2,
-                              ),
-                        )
-                        : Icon(
-                          Icons
-                              .person_add_alt_1,
+                        context.read<UsersCubit>().addUser(
+                          fullName: nameController.text.trim(),
 
-                          color:
-                              Colors.white,
+                          phone: phoneController.text.trim(),
 
-                          size:
-                              SizeConfig.w(
-                                24,
-                              ),
-                        ),
+                          countryCode: selectedCountryCode,
 
-                onPressed:
-                    state is UsersActionLoading
-                        ? null
-                        : () {
-                          if (!formKey
-                              .currentState!
-                              .validate()) {
-                            return;
-                          }
+                          address: locationController.text.trim(),
 
-                          context
-                              .read<
-                                UsersCubit
-                              >()
-                              .addUser(
-                                fullName:
-                                    nameController
-                                        .text
-                                        .trim(),
+                          role: "pool_owner",
 
-                                phone:
-                                    phoneController
-                                        .text
-                                        .trim(),
+                          isActive: isActive,
 
-                                countryCode:
-                                    selectedCountryCode,
+                          isApproved: true,
 
-                                address:
-                                    locationController
-                                        .text
-                                        .trim(),
-
-                                role:
-                                    "pool_owner",
-
-                                isActive:
-                                    isActive,
-
-                                isApproved:
-                                    true,
-
-                                isPhoneVerified:
-                                    true,
-                              );
-                        },
+                          isPhoneVerified: true,
+                        );
+                      },
               ),
 
-              SizedBox(
-                height: SizeConfig.h(15),
-              ),
+              SizedBox(height: SizeConfig.h(15)),
 
               CustomOutlinedBtn(
                 text: "إلغاء",
 
-                width:
-                    double.infinity,
+                width: double.infinity,
 
                 trailing: Icon(
-                  Icons
-                      .cancel_outlined,
+                  Icons.cancel_outlined,
 
-                  color:
-                      AppColors
-                          .kprimarycolor,
+                  color: AppColors.kprimarycolor,
 
-                  size:
-                      SizeConfig.w(
-                        24,
-                      ),
+                  size: SizeConfig.w(24),
                 ),
 
                 onPressed: () {
-                  Navigator.pop(
-                    context,
-                  );
+                  Navigator.pop(context);
                 },
               ),
             ],
