@@ -25,6 +25,7 @@ import 'package:plupool/features/home/presentaation/views/admin/see_all_packages
 import 'package:plupool/features/home/presentaation/views/customer/cusmoter_notification_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/offer_details_view.dart';
 import 'package:plupool/features/home/presentaation/views/tech/tech_notifications.dart';
+import 'package:plupool/features/myPool/presentation/views/company_res_cus_pool_view.dart';
 import 'package:plupool/features/notes/presentation/views/company_res_notes_view.dart';
 import 'package:plupool/features/notifications/presentation/views/add_notifications_view.dart';
 import 'package:plupool/features/notifications/presentation/views/notification_inbox_view.dart';
@@ -151,7 +152,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const MainHomeCustomerView()),
     ),
     GoRoute(
-      path: '/MainHomecompanyview',
+      path: '/',
       name: 'MainHomecompanyview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeCompanyView()),
@@ -304,7 +305,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const CusmoterNotificationView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/adminhomeview',
       name: 'adminhomeview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminHomeView()),
@@ -685,6 +686,13 @@ final GoRouter appRouter = GoRouter(
       name: 'compayrescustmerserviceview',
       pageBuilder: (context, state) =>
        buildTransitionPage( CompayResCustmerServiceView())
+    
+    ),
+      GoRoute(
+      path: '/companyrescuspoolview',
+      name: 'companyrescuspoolview',
+      pageBuilder: (context, state) =>
+       buildTransitionPage( CompanyResCusPoolView())
     
     ),
   ],
