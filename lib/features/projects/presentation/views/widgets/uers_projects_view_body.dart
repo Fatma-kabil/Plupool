@@ -3,6 +3,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/project_card_model.dart';
+import 'package:plupool/features/projects/presentation/views/widgets/company_projects_list.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/users_projects_list.dart';
 
 class UsersProjectsViewBody extends StatelessWidget {
@@ -82,7 +83,7 @@ class UsersProjectsViewBody extends StatelessWidget {
               child:  TabBarView(
                 children: [
                   UsersProjectsList(projects: ourProjects),
-                  UsersProjectsList(projects: companyProjects),
+                  CompanyProjectsList(projects: companyProjects),
                 ],
               ),
             ),

@@ -37,6 +37,39 @@ RequestStatus mapApiStatus(String status) {
         return "confirmed";
     }
   }
+  
+  String getApiStatus(String tab) {
+    switch (tab) {
+      case "قيد التنفيذ":
+        return "in_progress";
+
+      case "مجدولة":
+        return "scheduled";
+
+      case "مكتمله":
+        return "completed";
+
+      default:
+        return "in_progress";
+    }
+  }
+  
+  String getApiDuration(String duration) {
+    switch (duration) {
+      case "باقة شهرية":
+        return "MONTHLY";
+
+      case "باقة 4 شهور":
+        return "QUARTERLY";
+
+      case "باقة سنوية":
+        return "YEARLY";
+
+      default:
+        return "MONTHLY";
+    }
+  }
+
 
 /// نص الحالة باللغة العربية
 String getStatusText(RequestStatus status) {
