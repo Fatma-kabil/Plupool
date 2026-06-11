@@ -734,6 +734,12 @@ final List<Map> companyresFooter = [
     'view': '/adminprojectview',
   },
   {
+     'icon': Icons.person,
+    'title': "العملاء",
+    'color': Color(0xff0096B4),
+    'view': '/adminprojectview',
+  },
+  {
     'icon': Icons.star_outlined,
     'title': "التقييمات",
     'color': Color(0xffFF9F1C),
@@ -741,7 +747,7 @@ final List<Map> companyresFooter = [
   },
   {
     'icon': Icons.headset_mic,
-    'title': "تواصل معنا ورسائل الدعم",
+    'title': "البلاغات ورسائل الدعم",
     'color': Color(0xffEA5A65),
     'view': '/companyrescontactusview',
   },

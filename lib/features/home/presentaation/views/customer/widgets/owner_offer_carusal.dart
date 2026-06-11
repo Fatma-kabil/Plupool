@@ -21,6 +21,16 @@ class _OwnerOfferCarusalState extends State<OwnerOfferCarusal> {
     _pageController = PageController(viewportFraction: 0.8);
   }
 
+  void _goToPage(int index) {
+    if (index >= 0 && index < widget.offers.length) {
+      _pageController.animateToPage(
+        index,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,7 +66,52 @@ class _OwnerOfferCarusalState extends State<OwnerOfferCarusal> {
             },
           ),
         ),
+        SizedBox(height: SizeConfig.h(16)),
+
+        /// Indicators + Arrows
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ArrowButton(
+              icon: Icons.arrow_back,
+              enabled: _currentPage > 0,
+              onTap: () => _goToPage(_currentPage - 1),
+            ),
+            const SizedBox(width: 16),
+
+            ArrowButton(
+              icon: Icons.arrow_forward,
+              enabled: _currentPage < widget.offers.length - 1,
+              onTap: () => _goToPage(_currentPage + 1),
+            ),
+          ],
+        ),
       ],
+    );
+  }
+}
+
+class ArrowButton extends StatelessWidget {
+  final IconData icon;
+  final bool enabled;
+  final VoidCallback onTap;
+
+  const ArrowButton({
+    super.key,
+    required this.icon,
+    required this.enabled,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: enabled ? onTap : null,
+      child: Icon(
+        icon,
+        size: SizeConfig.w(18),
+        color: enabled ? Color(0xff2B2B2B) : Color(0xff777777),
+      ),
     );
   }
 }
