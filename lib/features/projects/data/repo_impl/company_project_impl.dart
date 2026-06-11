@@ -2,6 +2,7 @@
 
 import 'package:plupool/features/projects/data/date_sources/company_project_remotee_data_source.dart';
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
+import 'package:plupool/features/projects/domain/entities/projects_statistics_entity.dart';
 import 'package:plupool/features/projects/domain/repos/company_project_repo.dart';
 
 class CompanyProjectsRepositoryImpl implements CompanyProjectsRepository {
@@ -20,5 +21,10 @@ class CompanyProjectsRepositoryImpl implements CompanyProjectsRepository {
       limit: limit,
       status: status,
     );
+  }
+
+   @override
+  Future<ProjectStatisticsEntity> getProjectStatistics() async {
+    return await remote.getProjectStatistics();
   }
 }

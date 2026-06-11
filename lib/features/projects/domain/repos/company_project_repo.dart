@@ -1,6 +1,7 @@
 
 
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
+import 'package:plupool/features/projects/domain/entities/projects_statistics_entity.dart';
 
 abstract class CompanyProjectsRepository {
   Future<List<CompanyProjectEntity>> getCompanyProjects({
@@ -8,4 +9,6 @@ abstract class CompanyProjectsRepository {
     int limit,
     String? status,
   });
+
+   Future<ProjectStatisticsEntity> getProjectStatistics();
 }

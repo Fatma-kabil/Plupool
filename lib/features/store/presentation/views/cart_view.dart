@@ -31,7 +31,7 @@ class _CartViewState extends State<CartView>
     _tabController = TabController(
       length: tabs.length,
       vsync: this,
-      initialIndex: 1,
+      initialIndex: 2,
     );
     _tabController.addListener(() {
       setState(() {});
@@ -136,20 +136,22 @@ class _CartViewState extends State<CartView>
                       controller: _tabController,
                       physics: const NeverScrollableScrollPhysics(),
                       children: [
-                        isGuest
-                            ? EmptyCartSection(
-                                icon: Icons.shopping_bag_outlined,
-                                tittle: "لا توجد مشتريات بعد",
-                              )
-                            : MyPurchasesSection(),
+                      //  isGuest
+                       //     ? EmptyCartSection(
+                         //       icon: Icons.shopping_bag_outlined,
+                           //     tittle: "لا توجد مشتريات بعد",
+                           //   )
+                           // :
+                            MyPurchasesSection(),
 
                         /// السلة
-                        isGuest
-                            ? EmptyCartSection(
-                                icon: Icons.remove_shopping_cart_outlined,
-                                tittle: "السله فارغه",
-                              )
-                            : CartFilledSection(),
+                   //     isGuest
+                    //        ? EmptyCartSection(
+                     //           icon: Icons.remove_shopping_cart_outlined,
+                       //         tittle: "السله فارغه",
+                         //     )
+                           // : 
+                           CartFilledSection(),
                       ],
                     ),
                   ),
