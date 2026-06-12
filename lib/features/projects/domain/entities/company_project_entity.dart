@@ -13,7 +13,7 @@ class CompanyProjectEntity {
   final String? preferredTime;
   final int? poolCount;
   final String? constructionStatus;
-  final int? progressPercentage;
+  final double? progressPercentage;
   final String? mainImage;
   final String? clientName;
   final String? clientPhone;

@@ -66,10 +66,7 @@ class AdminDrawerProjectViewBody extends StatelessWidget {
                       ),
                     ),
                     Tab(
-                      child: TabWithCount(
-                        title: 'مشاريع للشركات',
-                        count: 0, // لما تعملي API ليها
-                      ),
+                      child:Text('مشاريع للشركات')
                     ),
                   ],
                 );

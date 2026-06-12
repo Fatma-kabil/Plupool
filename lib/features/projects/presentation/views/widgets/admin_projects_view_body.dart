@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
+import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/projects_list.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/projects_view_header.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/rearrangment_row.dart';
@@ -16,6 +19,38 @@ class AdminProjectsViewBody extends StatefulWidget {
 
 class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
   String selected = 'قيد التنفيذ';
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<CompanyProjectCubit>().getCompanyProjects(
+      status: 'in_progress',
+    );
+  }
+
+  String getStatusFilter(String status) {
+    switch (status) {
+      case 'مكتمله':
+        return 'completed';
+
+      case 'مجدوله':
+        return 'pending';
+
+      case 'قيد التنفيذ':
+        return 'in_progress';
+
+      case 'متوقفة':
+        return 'on_hold';
+
+      case 'ملغية':
+        return 'cancelled';
+
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -25,29 +60,89 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
             'الإحصائيات والأداء',
             style: AppTextStyles.styleSemiBold16(
               context,
-            ).copyWith(color: AppColors.ktextcolor),
+            ).copyWith(
+              color: AppColors.ktextcolor,
+            ),
           ),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(12))),
-        SliverToBoxAdapter(child: ProjectsViewHeader()),
 
-        SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(22))),
+        SliverToBoxAdapter(
+          child: SizedBox(height: SizeConfig.h(12)),
+        ),
+
+        const SliverToBoxAdapter(
+          child: ProjectsViewHeader(),
+        ),
+
+        SliverToBoxAdapter(
+          child: SizedBox(height: SizeConfig.h(22)),
+        ),
+
         SliverToBoxAdapter(
           child: RearragnmentRow(
-            items: ["مكتمله", "مجدوله", 'قيد التنفيذ', "عاجله"],
+            items: const [
+              "مكتمله",
+              "مجدوله",
+              "قيد التنفيذ",
+              "متوقفة",
+              "ملغية",
+            ],
             selected: selected,
-            onChanged: (val) {
+            onChanged: (value) {
               setState(() {
-                selected = val;
+                selected = value;
               });
+
+              context.read<CompanyProjectCubit>().getCompanyProjects(
+                  status: getStatusFilter(value),
+                  );
             },
             onTap: () {
-                 context.push('/addprojectview');
+              context.push('/addprojectview');
             },
           ),
         ),
-          SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(18))),
-        ProjectsList(selected: selected,)
+
+        SliverToBoxAdapter(
+          child: SizedBox(height: SizeConfig.h(18)),
+        ),
+
+        BlocBuilder<CompanyProjectCubit, CompanyProjectState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const SliverFillRemaining(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+
+            if (state.error != null) {
+              return SliverFillRemaining(
+                child: Center(
+                  child: Text(
+                    'حدث خطأ أثناء تحميل المشاريع',
+                  ),
+                ),
+              );
+            }
+
+            if (state.projects.isEmpty) {
+              return const SliverFillRemaining(
+                child: Center(
+                  child: Text(
+                    'لا توجد مشاريع',
+                  ),
+                ),
+              );
+            }
+
+            return ProjectsList(
+              
+              projects: state.projects,
+            );
+          },
+        ),
       ],
     );
   }
