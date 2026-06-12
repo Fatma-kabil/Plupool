@@ -147,6 +147,9 @@ class _EditCompanyResViewBodyState extends State<EditCompanyResViewBody> {
                 onPressed: state is UsersActionLoading
                     ? null
                     : () {
+                       if (!formKey.currentState!.validate()) {
+                          return;
+                        }
                         context.read<UsersCubit>().updateUser(
                           userId: widget.user.id,
 

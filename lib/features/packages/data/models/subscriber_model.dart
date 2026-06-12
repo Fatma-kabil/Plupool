@@ -1,6 +1,5 @@
 import 'package:plupool/features/packages/data/models/visit_model.dart';
-
-import '../../domain/entities/subscriber_entity.dart';
+import 'package:plupool/features/packages/domain/entities/subscriber_entity.dart';
 
 class SubscriberModel extends SubscriberEntity {
   SubscriberModel({
@@ -17,6 +16,7 @@ class SubscriberModel extends SubscriberEntity {
     required super.inProgressVisits,
     required super.scheduledVisits,
     required super.lastVisitDate,
+    required super.nextVisitDate,
     required super.visits,
   });
 
@@ -35,9 +35,10 @@ class SubscriberModel extends SubscriberEntity {
       inProgressVisits: json['in_progress_visits'] ?? 0,
       scheduledVisits: json['scheduled_visits'] ?? 0,
       lastVisitDate: json['last_visit_date'],
+      nextVisitDate: json['next_visit_date'], // الجديد
       visits: (json['visits'] as List? ?? [])
-    .map((e) => VisitModel.fromJson(e))
-    .toList(),
+          .map((e) => VisitModel.fromJson(e))
+          .toList(),
     );
   }
 }

@@ -52,6 +52,7 @@ class AdminUsersRemoteDataSource {
     int id,
     Map<String, dynamic> body,
   ) async {
+      body.removeWhere((key, value) => value == null);
     final response = await api.put('${Endpoints.users}/$id', data: body);
 
     return response.data;

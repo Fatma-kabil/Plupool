@@ -179,6 +179,9 @@ class _EditTechViewBodyState extends State<EditTechViewBody> {
                   onPressed: state is UsersActionLoading
                       ? null
                       : () {
+                        if (!formKey.currentState!.validate()) {
+                          return;
+                        }
                           context.read<UsersCubit>().updateUser(
                             userId: widget.user.id,
 
