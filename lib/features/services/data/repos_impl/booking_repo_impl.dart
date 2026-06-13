@@ -2,6 +2,8 @@ import 'package:plupool/features/services/data/mapper/booking_mapper.dart';
 import 'package:plupool/features/services/data/remote_data_source/booking_remote_data_source.dart';
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
 import 'package:plupool/features/services/domain/entities/booking_list_entity.dart';
+import 'package:plupool/features/services/domain/entities/user_booking_entity.dart';
+import 'package:plupool/features/services/domain/params/get_user_booking_params.dart';
 import 'package:plupool/features/services/domain/repos/booking_repo.dart';
 
 class BookingRepositoryImpl implements BookingRepository {
@@ -43,5 +45,14 @@ class BookingRepositoryImpl implements BookingRepository {
   @override
   Future<void> deleteBooking(int id) {
     return remote.deleteBooking(id);
+  }
+
+  @override
+  Future<List<UserBookingEntity>> getUserBookings(
+    GetUserBookingsParams params,
+  ) async {
+    final result = await remote.getUserBookings(params);
+
+    return result.map((e) => e.toEntity()).toList();
   }
 }

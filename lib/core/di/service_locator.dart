@@ -115,8 +115,10 @@ import 'package:plupool/features/services/domain/repos/requested_services_reposi
 import 'package:plupool/features/services/domain/usecases/delete_request_usecase.dart';
 import 'package:plupool/features/services/domain/usecases/get_request_details.dart';
 import 'package:plupool/features/services/domain/usecases/get_requests_usecase.dart';
+import 'package:plupool/features/services/domain/usecases/get_user_booking_usecase.dart';
 import 'package:plupool/features/services/domain/usecases/update_request_statue.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/user_booking_cubit/user_booking_cubit.dart';
 import 'package:plupool/features/support/domain/usecases/delete_message_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/get_message_details_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/get_messages_usecase.dart';
@@ -856,4 +858,16 @@ Future<void> initServiceLocator() async {
       deleteNoteFileUseCase: sl<DeleteNoteFileUseCase>(),
     ),
   );
+
+  // User Bookings UseCase
+sl.registerLazySingleton(
+  () => GetUserBookingsUseCase(
+    sl<BookingRepository>(),
+  ),
+);
+sl.registerFactory(
+  () => UserBookingCubit(
+    getUserBookingsUseCase: sl<GetUserBookingsUseCase>(),
+  ),
+);
 }

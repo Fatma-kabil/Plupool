@@ -10,13 +10,16 @@ import 'package:plupool/features/packages/presentation/views/widgets/date_row_pa
 import 'package:plupool/features/packages/presentation/views/widgets/visits_section.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_row.dart';
 
+import '../../../../services/domain/entities/user_booking_entity.dart';
+
 class AdminPackageCard extends StatelessWidget {
   const AdminPackageCard({super.key, required this.model});
-  final PackageModel model;
+  final UserBookingEntity model;
 
   @override
   Widget build(BuildContext context) {
- //   final colors = RequestStatusColors.getColors(model.status);
+    final statu = mapApiStatus(model.status);
+    final colors = RequestStatusColors.getColors(statu);
 
     return GestureDetector(
       onTap: () {
@@ -26,8 +29,8 @@ class AdminPackageCard extends StatelessWidget {
         width: double.infinity,
         margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
         decoration: BoxDecoration(
-       //   color: colors['bg'],
-       //   border: Border.all(color: colors['border']),
+          color: colors['bg'],
+          border: Border.all(color: colors['border']),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
@@ -45,24 +48,29 @@ class AdminPackageCard extends StatelessWidget {
 
                 children: [
                   Text(
-                    "",
-              //      model.packageType,
+                    model.serviceName!,
+                    //      model.packageType,
                     style: AppTextStyles.styleBold16(
                       context,
                     ).copyWith(color: Color(0xff333333)),
                   ),
 
-              //    buildStatusLabel(colors, context, model.status),
+                  buildStatusLabel(colors, context, statu),
                 ],
               ),
-              //   SizedBox(height: 8),
-           //   DateRowPackage(date: model.finishedDate),
 
+              SizedBox(height: 8),
+              DateRowPackage(date: model.date),
               const SizedBox(height: 12),
 
-              ServiceCardRow(title: " العميل:", value: "احمد حسن"),
+              ServiceCardRow(title: " العميل:", value: model.userName),
               const SizedBox(height: 5),
-              ServiceCardRow(title: "الفنيين:", value: "علي حسين - احمد كامل"),
+              ServiceCardRow(
+                title: "الفنيين:",
+                value: (model.technicians?.isNotEmpty ?? false)
+                    ? model.technicians!.join(" - ")
+                    : "لا يوجد",
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: SizeConfig.w(10),

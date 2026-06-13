@@ -24,6 +24,7 @@ import 'package:plupool/features/search/presentation/manager/cubits/product_sear
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/user_booking_cubit/user_booking_cubit.dart';
 import 'package:plupool/features/settening/presentation/manager/cubits/faq_cubit/faq_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
@@ -48,6 +49,7 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<OfferCubit>()..fetchOffers()),
         BlocProvider(create: (_) => sl<FaqCubit>()),
         BlocProvider(create: (_) => sl<BookingCubit>()..getBookings()),
+          BlocProvider(create: (_) => sl<UserBookingCubit>()),
         BlocProvider(create: (_) => sl<ContactCubit>()..getMessages()),
         BlocProvider(create: (_) => sl<RequestsCubit>()..getTabCounts()),
         BlocProvider(create: (_) => sl<OrdersCubit>()),

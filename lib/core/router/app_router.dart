@@ -163,11 +163,10 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const MainHomeTechView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/searchview',
       name: 'searchview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const SearchView()),
+      pageBuilder: (context, state) => buildTransitionPage(const SearchView()),
     ),
     GoRoute(
       path: '/servicesview',
@@ -365,8 +364,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/customerservicesview',
       name: 'customerservicesview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const CustomerServicesView()),
+      pageBuilder: (context, state) {
+        final user = state.extra as UserDetailsEntity;
+        return buildTransitionPage(CustomerServicesView(user: user));
+      },
     ),
     GoRoute(
       path: '/adminsupportview',
@@ -634,7 +635,7 @@ final GoRouter appRouter = GoRouter(
       name: 'edittechview',
       pageBuilder: (context, state) {
         final user = state.extra as UserEntity;
-      return  buildTransitionPage( EditTechView(user: user,));
+        return buildTransitionPage(EditTechView(user: user));
       },
     ),
     GoRoute(
@@ -673,27 +674,25 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminDrawerProjectView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/usersprojectview',
       name: 'usersprojectview',
       pageBuilder: (context, state) {
         final projects = state.extra as List<ProjectCardModel>;
-      return  buildTransitionPage( UsersProjectView(projects: projects,));
+        return buildTransitionPage(UsersProjectView(projects: projects));
       },
     ),
-     GoRoute(
+    GoRoute(
       path: '/compayrescustmerserviceview',
       name: 'compayrescustmerserviceview',
       pageBuilder: (context, state) =>
-       buildTransitionPage( CompayResCustmerServiceView())
-    
+          buildTransitionPage(CompayResCustmerServiceView()),
     ),
-      GoRoute(
+    GoRoute(
       path: '/companyrescuspoolview',
       name: 'companyrescuspoolview',
       pageBuilder: (context, state) =>
-       buildTransitionPage( CompanyResCusPoolView())
-    
+          buildTransitionPage(CompanyResCusPoolView()),
     ),
   ],
 );

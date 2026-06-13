@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/customer_service_view_body.dart';
 
 class CustomerServicesView extends StatefulWidget {
-  const CustomerServicesView({super.key});
+  const CustomerServicesView({super.key,required this.user});
+   final UserDetailsEntity user;
 
   @override
   State<CustomerServicesView> createState() => _CustomerServicesViewState();
@@ -33,7 +35,7 @@ class _CustomerServicesViewState extends State<CustomerServicesView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: CustomerServiceViewBody(),
+            child: CustomerServiceViewBody(userId: widget.user.user.id,),
           ),
         ),
       ),
