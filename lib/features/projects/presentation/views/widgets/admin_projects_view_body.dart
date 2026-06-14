@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
@@ -25,32 +26,11 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
     super.initState();
 
     context.read<CompanyProjectCubit>().getCompanyProjects(
-      status: 'in_progress',
+      status: 'in_Progress',
     );
   }
 
-  String getStatusFilter(String status) {
-    switch (status) {
-      case 'مكتمله':
-        return 'completed';
-
-      case 'مجدوله':
-        return 'pending';
-
-      case 'قيد التنفيذ':
-        return 'in_progress';
-
-      case 'متوقفة':
-        return 'on_hold';
-
-      case 'ملغية':
-        return 'cancelled';
-
-      default:
-        return '';
-    }
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -84,8 +64,7 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
               "مكتمله",
               "مجدوله",
               "قيد التنفيذ",
-              "متوقفة",
-              "ملغية",
+             
             ],
             selected: selected,
             onChanged: (value) {
@@ -94,7 +73,7 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
               });
 
               context.read<CompanyProjectCubit>().getCompanyProjects(
-                  status: getStatusFilter(value),
+                  status: getApiStatus(value),
                   );
             },
             onTap: () {

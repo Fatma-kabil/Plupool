@@ -3,7 +3,6 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/projects/data/models/admin_project_model.dart';
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/admin_project_card_footer.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/next_visit_and_pools.dart';
@@ -17,14 +16,15 @@ class ProjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //  final colors = RequestStatusColors.getColors(model.status);
+    final statu = mapApiStatus(project.status!);
+    final colors = RequestStatusColors.getColors(statu);
 
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
       decoration: BoxDecoration(
-        //   color: colors['bg'],
-        //   border: Border.all(color: colors['border']),
+        color: colors['bg'],
+        border: Border.all(color: colors['border']),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
@@ -42,17 +42,24 @@ class ProjectCard extends StatelessWidget {
 
               children: [
                 Text(
-                  project.nameAr!,
-                  style: AppTextStyles.styleBold16(
+                  "ممثل الشركه : ${project.clientName}",
+                  style: AppTextStyles.styleSemiBold16(
                     context,
                   ).copyWith(color: Color(0xff333333)),
                 ),
 
-                //   buildStatusLabel(colors, context, model.status),
+                buildStatusLabel(colors, context, statu),
               ],
             ),
-            //   SizedBox(height: 8),
-            ProjectLocationRow(location: "القاهرة الجديدة"),
+            SizedBox(height: 4),
+            Text(
+              project.nameAr!,
+              style: AppTextStyles.styleSemiBold16(
+                context,
+              ).copyWith(color: Color(0xff333333)),
+            ),
+            SizedBox(height: 2),
+            ProjectLocationRow(location: project.locationAr ?? ""),
 
             const SizedBox(height: 18),
             StartEndProject(
@@ -67,7 +74,7 @@ class ProjectCard extends StatelessWidget {
               ),
               child: Divider(),
             ),
-            //  NextVisitAndPools(model: model),
+             NextVisitAndPools(project: project),
             SizedBox(height: SizeConfig.h(12)),
             AdminProjectCardFooter(),
             // ---- بيانات المستخدم + زرار الموقع ----

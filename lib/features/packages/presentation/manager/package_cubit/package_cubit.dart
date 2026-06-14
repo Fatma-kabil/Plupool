@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
@@ -42,10 +41,8 @@ class PackagesCubit extends Cubit<PackagesState> {
     String? duration,
     String? search,
   }) async {
-     log(
-    "GET PACKAGES => status=$status",
-    stackTrace: StackTrace.current,
-  );
+     
+  
     emit(PackagesLoading());
 
     try {

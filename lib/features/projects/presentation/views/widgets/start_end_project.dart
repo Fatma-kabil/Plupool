@@ -14,7 +14,7 @@ class StartEndProject extends StatelessWidget {
   final DateTime endDate;
 
   String formatDate(DateTime date) {
-    return DateFormat('d/M/yyyy', 'ar').format(date);
+    return DateFormat('yyyy/M/d', 'ar').format(date);
   }
 
   @override
