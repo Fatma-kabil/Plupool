@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/projects/domain/params/client_project_params.dart';
+import 'package:plupool/features/projects/domain/usecases/get_client_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_projects_statistics_usecse.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
@@ -7,10 +9,13 @@ import 'package:plupool/features/projects/presentation/manager/company_project_c
 class CompanyProjectCubit extends Cubit<CompanyProjectState> {
   final GetCompanyProjectsUseCase useCase;
   final GetProjectStatisticsUseCase statisticsUseCase;
+  final GetClientProjectsUseCase getClientProjectsUseCase;
 
-  CompanyProjectCubit(this.useCase, this.statisticsUseCase)
-    : super(CompanyProjectState());
-
+  CompanyProjectCubit(
+    this.useCase,
+    this.statisticsUseCase,
+    this.getClientProjectsUseCase,
+  ) : super(CompanyProjectState());
   Future<void> getCompanyProjects({
     int skip = 0,
     int limit = 50,
@@ -48,5 +53,38 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
         ),
       );
     }
+  }
+
+  Future<void> getClientProjects({
+    required int clientId,
+    String? status,
+    int skip = 0,
+    int limit = 50,
+  }) async {
+    emit(state.copyWith(isLoading: true, error: null));
+
+    final result = await getClientProjectsUseCase(
+      ClientProjectsParams(
+        clientId: clientId,
+        statusFilter: status,
+        skip: skip,
+        limit: limit,
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isLoading: false, error: failure.message));
+      },
+      (projects) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            clientProjects: projects,
+            error: null,
+          ),
+        );
+      },
+    );
   }
 }

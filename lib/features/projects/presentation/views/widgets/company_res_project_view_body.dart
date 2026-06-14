@@ -13,21 +13,25 @@ import 'package:plupool/features/projects/presentation/views/widgets/projects_li
 import 'package:plupool/features/projects/presentation/views/widgets/projects_view_header.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/rearrangment_row.dart';
 
-class AdminProjectsViewBody extends StatefulWidget {
-  const AdminProjectsViewBody({super.key});
+class CompanyResProjectViewBody extends StatefulWidget {
+  const CompanyResProjectViewBody({super.key, required this.companyResId});
+
+  final int companyResId;
 
   @override
-  State<AdminProjectsViewBody> createState() => _AdminProjectsViewBodyState();
+  State<CompanyResProjectViewBody> createState() =>
+      _CompanyResProjectViewBodyState();
 }
 
-class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
+class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
   String selected = 'قيد التنفيذ';
 
   @override
   void initState() {
     super.initState();
 
-    context.read<CompanyProjectCubit>().getCompanyProjects(
+    context.read<CompanyProjectCubit>().getClientProjects(
+      clientId: widget.companyResId,
       status: 'in_progress',
     );
   }
@@ -60,7 +64,8 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
                 selected = value;
               });
 
-              context.read<CompanyProjectCubit>().getCompanyProjects(
+              context.read<CompanyProjectCubit>().getClientProjects(
+                clientId: widget.companyResId,
                 status: getApiStatus(value),
               );
             },
@@ -75,7 +80,7 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
         BlocBuilder<CompanyProjectCubit, CompanyProjectState>(
           builder: (context, state) {
             if (state.isLoading) {
-              return SliverList(
+             return SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) => const ProjectCardShimmer(),
                   childCount: 4,
@@ -85,19 +90,17 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
 
             if (state.error != null) {
               return SliverFillRemaining(
-                child: Center(
-                  child: ErrorText(message: 'حدث خطأ أثناء تحميل المشاريع'),
-                ),
+                child: Center(child: ErrorText(message: state.error!)),
               );
             }
 
-            if (state.projects.isEmpty) {
+            if (state.clientProjects.isEmpty) {
               return const SliverFillRemaining(
                 child: Center(child: ErrorText(message: 'لا توجد مشاريع')),
               );
             }
 
-            return ProjectsList(projects: state.projects);
+            return ProjectsList(projects: state.clientProjects);
           },
         ),
       ],

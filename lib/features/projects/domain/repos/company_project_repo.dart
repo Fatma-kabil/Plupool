@@ -1,7 +1,8 @@
-
-
+import 'package:dartz/dartz.dart';
+import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
 import 'package:plupool/features/projects/domain/entities/projects_statistics_entity.dart';
+import 'package:plupool/features/projects/domain/params/client_project_params.dart';
 
 abstract class CompanyProjectsRepository {
   Future<List<CompanyProjectEntity>> getCompanyProjects({
@@ -10,5 +11,8 @@ abstract class CompanyProjectsRepository {
     String? status,
   });
 
-   Future<ProjectStatisticsEntity> getProjectStatistics();
+  Future<ProjectStatisticsEntity> getProjectStatistics();
+  Future<Either<Failure, List<CompanyProjectEntity>>> getClientProjects({
+    required ClientProjectsParams params,
+  });
 }

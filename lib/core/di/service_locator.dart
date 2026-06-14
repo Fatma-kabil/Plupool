@@ -90,6 +90,7 @@ import 'package:plupool/features/projects/data/repo_impl/company_project_impl.da
 import 'package:plupool/features/projects/data/repo_impl/project_repo_impl.dart';
 import 'package:plupool/features/projects/domain/repos/company_project_repo.dart';
 import 'package:plupool/features/projects/domain/repos/project_repo.dart';
+import 'package:plupool/features/projects/domain/usecases/get_client_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_our_projects_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_projects_statistics_usecse.dart';
@@ -753,8 +754,14 @@ Future<void> initServiceLocator() async {
     () => CompanyProjectCubit(
       sl<GetCompanyProjectsUseCase>(),
       sl<GetProjectStatisticsUseCase>(),
+      sl<GetClientProjectsUseCase>(),
     ),
   );
+  sl.registerLazySingleton<GetClientProjectsUseCase>(
+  () => GetClientProjectsUseCase(
+    sl<CompanyProjectsRepository>(),
+  ),
+);
 
   // =============================
   // 👥 USERS FEATURE

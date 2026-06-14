@@ -1,6 +1,7 @@
 
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/features/projects/data/models/projects_statistics_model.dart';
+import 'package:plupool/features/projects/domain/params/client_project_params.dart';
 import '../../../../core/network/end_points.dart';
 import '../models/company_project_model.dart';
 
@@ -37,5 +38,20 @@ class CompanyProjectsRemoteDataSourceImpl   {
     );
 
     return ProjectStatisticsModel.fromJson(response.data);
+  }
+    Future<List<CompanyProjectModel>> getClientProjects({
+    required ClientProjectsParams params,
+  }) async {
+    final response = await api.get(
+      
+          '${Endpoints.projects}/clients/${params.clientId}/projects',
+      queryParams: params.toQuery(),
+    );
+
+    final List data = response.data;
+
+    return data
+        .map((e) => CompanyProjectModel.fromJson(e))
+        .toList();
   }
 }
