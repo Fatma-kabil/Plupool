@@ -16,6 +16,12 @@ String formatArabicDate(String date) {
   return DateFormat('yyyy/M/d - h:mm a', 'ar').format(parsedDate);
 }
 
+String formatArabicDateOnly(String date) {
+  final parsedDate = DateTime.parse(date);
+
+  return DateFormat('yyyy/M/d ', 'ar').format(parsedDate);
+}
+
 String formatPhoneNumber(String phone) {
   String cleaned = phone.replaceAll(' ', '').replaceAll('+', '');
 

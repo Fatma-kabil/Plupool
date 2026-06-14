@@ -17,7 +17,8 @@ class SubscriberEntity {
   final int scheduledVisits;
 
   final String? lastVisitDate;
-  final String? nextVisitDate; // الجديد
+  final String? nextVisitDate;
+  final String? nextVisitTime; // الجديد
 
   final List<VisitEntity> visits;
 
@@ -35,7 +36,8 @@ class SubscriberEntity {
     required this.inProgressVisits,
     required this.scheduledVisits,
     required this.lastVisitDate,
-    required this.nextVisitDate, // الجديد
+    required this.nextVisitDate,
+    this.nextVisitTime, // الجديد
     required this.visits,
   });
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 
@@ -23,16 +24,16 @@ class ProgressSection extends StatelessWidget {
       textDirection: TextDirection.rtl,
       children: [
         Text(
-          "$progressPercent%",
-          style: AppTextStyles.styleBold13(
+        toArabicNumbers(  "$progressPercent%"),
+          style: AppTextStyles.styleBold14(
             context,
           ).copyWith(color: colors['labelText']),
         ),
         SizedBox(width: SizeConfig.w(4)),
         Text(
           textDirection: TextDirection.rtl,
-          "( $progress/$visits زيارات )",
-          style: AppTextStyles.styleSemiBold10(context).copyWith(color:  colors['progbar']),
+        toArabicNumbers(  "( $visits/$progress زيارات )"),
+          style: AppTextStyles.styleSemiBold12(context).copyWith(color:  colors['progbar']),
         ),
         SizedBox(width: SizeConfig.w(8)),
         Expanded(

@@ -33,7 +33,7 @@ class AdminHomeViewBodyFooter extends StatelessWidget {
                 style: AppTextStyles.styleSemiBold18(context).copyWith(
                   color: AppColors.kprimarycolor,
                   decoration: TextDecoration.underline,
-                  decorationColor: AppColors.kprimarycolor, // لون الخط زي النص
+                  decorationColor: AppColors.kprimarycolor,
                 ),
               ),
             ),
@@ -53,6 +53,7 @@ class AdminHomeViewBodyFooter extends StatelessWidget {
             }
 
             /// ✅ Success
+            /// ✅ Success
             if (state is PackagesSuccess) {
               final packages = state.response.packages;
 
@@ -71,7 +72,52 @@ class AdminHomeViewBodyFooter extends StatelessWidget {
                 );
               }).toList();
 
-              if (subscribersData.isEmpty) {
+              /// بداية بكرة الساعة 00:00
+              final now = DateTime.now();
+              final tomorrow = DateTime(
+                now.year,
+                now.month,
+                now.day,
+              ).add(const Duration(days: 1));
+
+              /// الاحتفاظ فقط بالزيارات من بكرة وما بعدها
+              final upcomingSubscribers = subscribersData.where((item) {
+                final subscriber = item["subscriber"] as SubscriberEntity;
+
+                if (subscriber.nextVisitDate?.isEmpty ?? true) {
+                  // التاريخ فاضي أو null
+
+                  return false;
+                }
+
+                final nextVisit = DateTime.tryParse(
+                  "${subscriber.nextVisitDate} ${subscriber.nextVisitTime ?? "00:00:00"}",
+                );
+
+                if (nextVisit == null) {
+                  return false;
+                }
+
+                return !nextVisit.isBefore(tomorrow);
+              }).toList();
+
+              /// ترتيبهم حسب أقرب زيارة
+              upcomingSubscribers.sort((a, b) {
+                final subscriberA = a["subscriber"] as SubscriberEntity;
+                final subscriberB = b["subscriber"] as SubscriberEntity;
+
+                final dateA = DateTime.parse(
+                  "${subscriberA.nextVisitDate} ${subscriberA.nextVisitTime ?? "00:00:00"}",
+                );
+
+                final dateB = DateTime.parse(
+                  "${subscriberB.nextVisitDate} ${subscriberB.nextVisitTime ?? "00:00:00"}",
+                );
+
+                return dateA.compareTo(dateB);
+              });
+
+              if (upcomingSubscribers.isEmpty) {
                 return const Center(
                   child: ErrorText(message: "لا توجد باقات جارية"),
                 );
@@ -80,9 +126,9 @@ class AdminHomeViewBodyFooter extends StatelessWidget {
               return ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: subscribersData.length,
+                itemCount: upcomingSubscribers.length,
                 itemBuilder: (context, index) {
-                  final item = subscribersData[index];
+                  final item = upcomingSubscribers[index];
 
                   return AdminPackaesCard(
                     request: item["subscriber"] as SubscriberEntity,

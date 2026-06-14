@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/packages/domain/entities/package_entity.dart';
@@ -41,8 +40,6 @@ class PackagesCubit extends Cubit<PackagesState> {
     String? duration,
     String? search,
   }) async {
-     
-  
     emit(PackagesLoading());
 
     try {
@@ -64,6 +61,7 @@ class PackagesCubit extends Cubit<PackagesState> {
       emit(
         PackagesError(e is Failure ? e.message : "حدث خطأ أثناء جلب الباقات"),
       );
+      print(e);
     }
   }
 

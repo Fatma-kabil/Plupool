@@ -18,27 +18,33 @@ class SubscriberModel extends SubscriberEntity {
     required super.lastVisitDate,
     required super.nextVisitDate,
     required super.visits,
+    super.nextVisitTime
   });
 
-  factory SubscriberModel.fromJson(Map<String, dynamic> json) {
-    return SubscriberModel(
-      subscriptionId: json['subscription_id'] ?? 0,
-      userId: json['user_id'] ?? 0,
-      name: json['name'] ?? '',
-      phone: json['phone'] ?? '',
-      status: json['status'] ?? '',
-      startDate: json['start_date'] ?? '',
-      endDate: json['end_date'] ?? '',
-      totalVisits: json['total_visits'] ?? 0,
-      completedVisits: json['completed_visits'] ?? 0,
-      pendingVisits: json['pending_visits'] ?? 0,
-      inProgressVisits: json['in_progress_visits'] ?? 0,
-      scheduledVisits: json['scheduled_visits'] ?? 0,
-      lastVisitDate: json['last_visit_date'],
-      nextVisitDate: json['next_visit_date'], // الجديد
-      visits: (json['visits'] as List? ?? [])
-          .map((e) => VisitModel.fromJson(e))
-          .toList(),
-    );
-  }
+ factory SubscriberModel.fromJson(Map<String, dynamic> json) {
+  final nextVisit = json['next_visit'];
+
+  return SubscriberModel(
+    subscriptionId: json['subscription_id'] ?? 0,
+    userId: json['user_id'] ?? 0,
+    name: json['name'] ?? '',
+    phone: json['phone'] ?? '',
+    status: json['status'] ?? '',
+    startDate: json['start_date'] ?? '',
+    endDate: json['end_date'] ?? '',
+    totalVisits: json['total_visits'] ?? 0,
+    completedVisits: json['completed_visits'] ?? 0,
+    pendingVisits: json['pending_visits'] ?? 0,
+    inProgressVisits: json['in_progress_visits'] ?? 0,
+    scheduledVisits: json['scheduled_visits'] ?? 0,
+    lastVisitDate: json['last_visit_date'],
+
+    nextVisitDate: nextVisit?['booking_date'] ?? '',
+    nextVisitTime: nextVisit?['booking_time'] ?? '',
+
+    visits: (json['visits'] as List? ?? [])
+        .map((e) => VisitModel.fromJson(e))
+        .toList(),
+  );
+}
 }

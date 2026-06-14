@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/progress_btn.dart';
@@ -9,15 +10,20 @@ import 'package:plupool/features/packages/domain/entities/subscriber_entity.dart
 import 'package:plupool/features/tasks/presentation/views/widgets/progress_section.dart';
 
 class AdminPackaesCard extends StatelessWidget {
-  const AdminPackaesCard({super.key, required this.request, required this.packageName, required this.status});
+  const AdminPackaesCard({
+    super.key,
+    required this.request,
+    required this.packageName,
+    required this.status,
+  });
 
   final SubscriberEntity request;
   final String packageName;
-  final String status ; // default safe
+  final String status; // default safe
 
   @override
   Widget build(BuildContext context) {
-  //  final status = request.status; // default safe
+    //  final status = request.status; // default safe
     final colors = RequestStatusColors.getColors(mapApiStatus(status));
 
     return Container(
@@ -46,7 +52,7 @@ class AdminPackaesCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "$packageName - ${request.name }",
+                        "$packageName - ${request.name}",
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.styleSemiBold16(
@@ -64,8 +70,8 @@ class AdminPackaesCard extends StatelessWidget {
                           ),
                           SizedBox(width: SizeConfig.w(6)),
                           Text(
-                            textDirection: TextDirection.rtl,
-                            request.startDate ,
+                            textDirection: TextDirection.ltr,
+                            formatArabicDateOnly(request.startDate),
                             style: AppTextStyles.styleRegular13(
                               context,
                             ).copyWith(color: Color(0xff999999)),
@@ -75,11 +81,7 @@ class AdminPackaesCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                buildStatusLabel(
-                  colors,
-                  context,
-                  mapApiStatus(status),
-                ),
+                buildStatusLabel(colors, context, mapApiStatus(status)),
               ],
             ),
 
