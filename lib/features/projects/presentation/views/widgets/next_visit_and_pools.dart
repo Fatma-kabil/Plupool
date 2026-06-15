@@ -15,7 +15,7 @@ class NextVisitAndPools extends StatelessWidget {
     final statu = mapApiStatus(project.status!);
     final colors = RequestStatusColors.getColors(statu);
 
-  //  final finishedPools = project. ?? 0;
+    final finishedPools = project.completedPoolsCounts ;
     final totalPools = project.poolCount ?? 0;
 
     return Column(
@@ -40,7 +40,7 @@ class NextVisitAndPools extends StatelessWidget {
                 ),
                 SizedBox(width: SizeConfig.w(4)),
                 Text(
-                 toArabicNumbers ("${2}/$totalPools"),
+                 toArabicNumbers ("$totalPools/$finishedPools"),
                   style: AppTextStyles.styleBold16(
                     context,
                   ).copyWith(color: Color(0xff555555)),

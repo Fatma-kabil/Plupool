@@ -40,6 +40,8 @@ class CompanyProjectEntity {
   final bool? isOverdue;
   final int? daysRemaining;
   final int? daysElapsed;
+  final int completedPoolsCounts;
+  final int? remainingPoolsCounts;
 
   CompanyProjectEntity({
     required this.id,
@@ -83,5 +85,7 @@ class CompanyProjectEntity {
     this.isOverdue,
     this.daysRemaining,
     this.daysElapsed,
+    required this.completedPoolsCounts,
+    this.remainingPoolsCounts,
   });
 }

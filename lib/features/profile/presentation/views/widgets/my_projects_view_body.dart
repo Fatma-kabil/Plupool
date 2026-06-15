@@ -5,7 +5,8 @@ import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/my_project_card.dart';
 
 class MyProjectsViewBody extends StatelessWidget {
-  const MyProjectsViewBody({super.key});
+  const MyProjectsViewBody({super.key, required this.userId});
+  final int userId;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,14 @@ class MyProjectsViewBody extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ...sortedRequests.map((p) => Column(
-                children: [
-                  MyProjectCard(project: p),
-                  SizedBox(height: SizeConfig.w(25)),
-                ],
-              )),
+          ...sortedRequests.map(
+            (p) => Column(
+              children: [
+                MyProjectCard(project: p),
+                SizedBox(height: SizeConfig.w(25)),
+              ],
+            ),
+          ),
         ],
       ),
     );

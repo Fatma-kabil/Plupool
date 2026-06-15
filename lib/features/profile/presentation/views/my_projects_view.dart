@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/my_projects_view_body.dart';
 
 class MyProjectsView extends StatelessWidget {
@@ -17,7 +19,7 @@ class MyProjectsView extends StatelessWidget {
               horizontal: SizeConfig.w(17),
               vertical: SizeConfig.h(25),
             ),
-            child: MyProjectsViewBody(),
+            child: MyProjectsViewBody(userId: 1,),
           ),
         ),
       ),

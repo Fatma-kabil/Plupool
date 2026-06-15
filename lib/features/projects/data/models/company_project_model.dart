@@ -44,6 +44,8 @@ class CompanyProjectModel extends CompanyProjectEntity {
     super.isOverdue,
     super.daysRemaining,
     super.daysElapsed,
+    required super.completedPoolsCounts,
+    super.remainingPoolsCounts
   });
 
   factory CompanyProjectModel.fromJson(Map<String, dynamic> json) {
@@ -100,6 +102,8 @@ class CompanyProjectModel extends CompanyProjectEntity {
       isOverdue: json['is_overdue'],
       daysRemaining: json['days_remaining'],
       daysElapsed: json['days_elapsed'],
+      completedPoolsCounts: json['completed_pools_count'],
+      remainingPoolsCounts: json['remaining_pools_count']
     );
   }
 }
