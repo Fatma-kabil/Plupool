@@ -42,4 +42,16 @@ Future<Either<Failure, List<CompanyProjectEntity>>> getClientProjects({
     return left(mapDioError(e));
   }
 }
+
+
+@override
+Future<Either<Failure, void>> deleteProject(int projectId) async {
+  try {
+    await remote.deleteProject(projectId);
+
+    return right(null);
+  } catch (e) {
+    return left(mapDioError(e));
+  }
+}
 }

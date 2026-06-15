@@ -16,6 +16,9 @@ RequestStatus mapApiStatus(String status) {
     case "in_progress":
       return RequestStatus.inProgress;
 
+    case "inProgress":
+      return RequestStatus.inProgress;
+
     case "scheduled":
       return RequestStatus.scheduled;
 

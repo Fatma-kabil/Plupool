@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/projects/presentation/views/widgets/delete_project_btn.dart';
 
 class AdminProjectCardFooter extends StatelessWidget {
-  const AdminProjectCardFooter({super.key});
-
+  const AdminProjectCardFooter({super.key, required this.projectId});
+  final int projectId;
   @override
   Widget build(BuildContext context) {
-    return  Row(
+    return Row(
       children: [
         Container(
           padding: EdgeInsets.symmetric(
@@ -42,7 +43,7 @@ class AdminProjectCardFooter extends StatelessWidget {
         Spacer(),
         GestureDetector(
           onTap: () {
-           context.push('/editprojectview');
+            context.push('/editprojectview');
           },
           child: Container(
             padding: EdgeInsets.all(SizeConfig.w(6)),
@@ -58,18 +59,7 @@ class AdminProjectCardFooter extends StatelessWidget {
           ),
         ),
         SizedBox(width: SizeConfig.w(12)),
-        Container(
-          padding: EdgeInsets.all(SizeConfig.w(6)),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xffFAD7DA),
-          ),
-          child: Icon(
-            Icons.delete_outline_rounded,
-            color: Color(0xffE63946),
-            size: SizeConfig.w(20),
-          ),
-        ),
+        DeleteProjectBtn(projectId: projectId),
       ],
     );
   }

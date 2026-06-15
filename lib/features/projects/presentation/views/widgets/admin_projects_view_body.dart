@@ -28,7 +28,7 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
     super.initState();
 
     context.read<CompanyProjectCubit>().getCompanyProjects(
-      status: 'in_progress',
+      status: 'inProgress',
     );
   }
 

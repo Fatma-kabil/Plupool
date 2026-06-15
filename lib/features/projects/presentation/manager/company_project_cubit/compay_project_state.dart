@@ -1,8 +1,8 @@
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
 import 'package:plupool/features/projects/domain/entities/projects_statistics_entity.dart';
-
 class CompanyProjectState {
   final bool isLoading;
+  final bool isDeleting;
   final List<CompanyProjectEntity> projects;
   final List<CompanyProjectEntity> clientProjects;
   final ProjectStatisticsEntity? statistics;
@@ -10,6 +10,7 @@ class CompanyProjectState {
 
   CompanyProjectState({
     this.isLoading = false,
+    this.isDeleting = false,
     this.projects = const [],
     this.clientProjects = const [],
     this.statistics,
@@ -18,6 +19,7 @@ class CompanyProjectState {
 
   CompanyProjectState copyWith({
     bool? isLoading,
+    bool? isDeleting,
     List<CompanyProjectEntity>? projects,
     List<CompanyProjectEntity>? clientProjects,
     ProjectStatisticsEntity? statistics,
@@ -25,6 +27,7 @@ class CompanyProjectState {
   }) {
     return CompanyProjectState(
       isLoading: isLoading ?? this.isLoading,
+      isDeleting: isDeleting ?? this.isDeleting,
       projects: projects ?? this.projects,
       clientProjects: clientProjects ?? this.clientProjects,
       statistics: statistics ?? this.statistics,

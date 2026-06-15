@@ -32,7 +32,7 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
 
     context.read<CompanyProjectCubit>().getClientProjects(
       clientId: widget.companyResId,
-      status: 'in_progress',
+      status: 'inProgress',
     );
   }
 

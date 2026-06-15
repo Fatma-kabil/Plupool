@@ -74,9 +74,9 @@ class ProjectCard extends StatelessWidget {
               ),
               child: Divider(),
             ),
-             NextVisitAndPools(project: project),
+            NextVisitAndPools(project: project),
             SizedBox(height: SizeConfig.h(12)),
-            AdminProjectCardFooter(),
+            AdminProjectCardFooter(projectId: project.id),
             // ---- بيانات المستخدم + زرار الموقع ----
           ],
         ),

@@ -12,7 +12,10 @@ abstract class CompanyProjectsRepository {
   });
 
   Future<ProjectStatisticsEntity> getProjectStatistics();
+  
   Future<Either<Failure, List<CompanyProjectEntity>>> getClientProjects({
     required ClientProjectsParams params,
   });
+
+   Future<Either<Failure, void>> deleteProject(int projectId);
 }

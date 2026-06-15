@@ -54,4 +54,10 @@ class CompanyProjectsRemoteDataSourceImpl   {
         .map((e) => CompanyProjectModel.fromJson(e))
         .toList();
   }
+
+   Future<void> deleteProject(int projectId) async {
+    await api.delete(
+      '${Endpoints.projects}/$projectId',
+    );
+  }
 }

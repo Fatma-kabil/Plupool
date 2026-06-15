@@ -90,6 +90,7 @@ import 'package:plupool/features/projects/data/repo_impl/company_project_impl.da
 import 'package:plupool/features/projects/data/repo_impl/project_repo_impl.dart';
 import 'package:plupool/features/projects/domain/repos/company_project_repo.dart';
 import 'package:plupool/features/projects/domain/repos/project_repo.dart';
+import 'package:plupool/features/projects/domain/usecases/delete_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_client_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_our_projects_usecase.dart';
@@ -755,10 +756,16 @@ Future<void> initServiceLocator() async {
       sl<GetCompanyProjectsUseCase>(),
       sl<GetProjectStatisticsUseCase>(),
       sl<GetClientProjectsUseCase>(),
+      sl<DeleteProjectUseCase>(),
     ),
   );
   sl.registerLazySingleton<GetClientProjectsUseCase>(
   () => GetClientProjectsUseCase(
+    sl<CompanyProjectsRepository>(),
+  ),
+);
+ sl.registerLazySingleton<DeleteProjectUseCase>(
+  () => DeleteProjectUseCase(
     sl<CompanyProjectsRepository>(),
   ),
 );
