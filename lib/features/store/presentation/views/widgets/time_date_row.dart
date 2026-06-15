@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:intl/intl.dart';
 
 class TimeDateRow extends StatelessWidget {
   const TimeDateRow({
@@ -11,17 +12,30 @@ class TimeDateRow extends StatelessWidget {
 
   final String formattedDate;
   final Color? color;
+String formatArabicDate(String date) {
+  try {
+    final parsedDate = DateFormat(
+      'yyyy-MM-dd - HH:mm:ss',
+    ).parse(date);
 
+    return DateFormat(
+      'yyyy/M/d - h:mm a',
+      'ar',
+    ).format(parsedDate);
+  } catch (e) {
+    return date;
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Row(
-      textDirection: TextDirection.rtl,
+     // textDirection: TextDirection.rtl,
       children: [
         Icon(Icons.calendar_today, color:color?? Color(0xff999999), size:SizeConfig.w( 13)),
         SizedBox(width: SizeConfig.w(2)),
         Text(
-          textDirection: TextDirection.rtl,
-          formattedDate,
+        //  textDirection: TextDirection.rtl,
+        formatArabicDate( formattedDate),
           style: AppTextStyles.styleRegular14(
             context,
           ).copyWith(color:color?? Color(0xff999999)),

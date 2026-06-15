@@ -4,7 +4,6 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/packages/data/models/package_model.dart';
 import 'package:plupool/features/packages/presentation/views/widgets/admin_package_card_footer.dart';
 import 'package:plupool/features/packages/presentation/views/widgets/date_row_package.dart';
 import 'package:plupool/features/packages/presentation/views/widgets/visits_section.dart';
@@ -47,20 +46,25 @@ class AdminPackageCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: [
-                  Text(
-                    model.serviceName!,
-                    //      model.packageType,
-                    style: AppTextStyles.styleBold16(
-                      context,
-                    ).copyWith(color: Color(0xff333333)),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        model.serviceName!,
+                        //      model.packageType,
+                        style: AppTextStyles.styleBold16(
+                          context,
+                        ).copyWith(color: Color(0xff333333)),
+                      ),
+                      SizedBox(height: 6),
+                      DateRowPackage(date: model.date),
+                    ],
                   ),
 
                   buildStatusLabel(colors, context, statu),
                 ],
               ),
 
-              SizedBox(height: 8),
-              DateRowPackage(date: model.date),
               const SizedBox(height: 12),
 
               ServiceCardRow(title: " العميل:", value: model.userName),

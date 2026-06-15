@@ -1,5 +1,5 @@
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class DateRowPackage extends StatelessWidget {
           ).copyWith(color: const Color(0xff777777)),
         ),
         Text(
-          toArabicNumbers(date),
+          formatArabicDateOnly(date),
           style: AppTextStyles.styleRegular13(
             context,
           ).copyWith(color: const Color(0xff777777)),
