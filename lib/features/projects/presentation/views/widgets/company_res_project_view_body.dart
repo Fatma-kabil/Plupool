@@ -66,7 +66,7 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
 
               context.read<CompanyProjectCubit>().getClientProjects(
                 clientId: widget.companyResId,
-                status: getApiStatus(value),
+                status: getApiStatusProj(value),
               );
             },
             onTap: () {

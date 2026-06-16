@@ -54,6 +54,7 @@ import 'package:plupool/features/profile/presentation/views/privacy_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_details_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_edit_view.dart';
 import 'package:plupool/features/profile/presentation/views/why_us_view.dart';
+import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
 import 'package:plupool/features/projects/presentation/views/add_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_drawer_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_projects_view.dart';
@@ -371,7 +372,7 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(CustomerServicesView(user: user));
       },
     ),
-     GoRoute(
+    GoRoute(
       path: '/companyresprojectview',
       name: 'companyresprojectview',
       pageBuilder: (context, state) {
@@ -532,8 +533,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/editprojectview',
       name: 'editprojectview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const EditProjectView()),
+      pageBuilder: (context, state) {
+        final project = state.extra as CompanyProjectEntity;
+        return buildTransitionPage(EditProjectView(model: project));
+      },
     ),
     GoRoute(
       path: '/customerstoreorderview',
@@ -648,7 +651,7 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(EditTechView(user: user));
       },
     ),
-     GoRoute(
+    GoRoute(
       path: '/companyresclientsview',
       name: 'companyresclientsview',
       pageBuilder: (context, state) {

@@ -1,17 +1,13 @@
-
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/features/projects/data/models/projects_statistics_model.dart';
 import 'package:plupool/features/projects/domain/params/client_project_params.dart';
 import '../../../../core/network/end_points.dart';
 import '../models/company_project_model.dart';
 
-
-
-class CompanyProjectsRemoteDataSourceImpl   {
+class CompanyProjectsRemoteDataSourceImpl {
   final ApiService api;
 
   CompanyProjectsRemoteDataSourceImpl(this.api);
-
 
   Future<List<CompanyProjectModel>> getCompanyProjects({
     int skip = 0,
@@ -32,32 +28,38 @@ class CompanyProjectsRemoteDataSourceImpl   {
     return list.map((e) => CompanyProjectModel.fromJson(e)).toList();
   }
 
-   Future<ProjectStatisticsModel> getProjectStatistics() async {
-    final response = await api.get(
-      '${Endpoints.projects}/statistics',
-    );
+  Future<ProjectStatisticsModel> getProjectStatistics() async {
+    final response = await api.get('${Endpoints.projects}/statistics');
 
     return ProjectStatisticsModel.fromJson(response.data);
   }
-    Future<List<CompanyProjectModel>> getClientProjects({
+
+  Future<List<CompanyProjectModel>> getClientProjects({
     required ClientProjectsParams params,
   }) async {
     final response = await api.get(
-      
-          '${Endpoints.projects}/clients/${params.clientId}/projects',
+      '${Endpoints.projects}/clients/${params.clientId}/projects',
       queryParams: params.toQuery(),
     );
 
     final List data = response.data;
 
-    return data
-        .map((e) => CompanyProjectModel.fromJson(e))
-        .toList();
+    return data.map((e) => CompanyProjectModel.fromJson(e)).toList();
   }
 
-   Future<void> deleteProject(int projectId) async {
-    await api.delete(
+  Future<void> deleteProject(int projectId) async {
+    await api.delete('${Endpoints.projects}/$projectId');
+  }
+
+  Future<CompanyProjectModel> updateProject(
+    int projectId,
+    CompanyProjectModel project,
+  ) async {
+    final response = await api.put(
       '${Endpoints.projects}/$projectId',
+      data: project.toJson(),
     );
+
+    return CompanyProjectModel.fromJson(response.data);
   }
 }

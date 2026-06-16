@@ -45,7 +45,7 @@ class CompanyProjectModel extends CompanyProjectEntity {
     super.daysRemaining,
     super.daysElapsed,
     required super.completedPoolsCounts,
-    super.remainingPoolsCounts
+    super.remainingPoolsCounts,
   });
 
   factory CompanyProjectModel.fromJson(Map<String, dynamic> json) {
@@ -103,7 +103,52 @@ class CompanyProjectModel extends CompanyProjectEntity {
       daysRemaining: json['days_remaining'],
       daysElapsed: json['days_elapsed'],
       completedPoolsCounts: json['completed_pools_count'],
-      remainingPoolsCounts: json['remaining_pools_count']
+      remainingPoolsCounts: json['remaining_pools_count'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+
+    if (nameAr != null) data['name_ar'] = nameAr;
+    if (nameEn != null) data['name_en'] = nameEn;
+    if (projectType != null) data['project_type'] = projectType;
+    if (status != null) data['status'] = status;
+    if (locationAr != null) data['location_ar'] = locationAr;
+    if (locationEn != null) data['location_en'] = locationEn;
+    if (startDate != null) data['start_date'] = startDate;
+    if (expectedEndDate != null) {
+      data['expected_end_date'] = expectedEndDate;
+    }
+    if (actualEndDate != null) data['actual_end_date'] = actualEndDate;
+    if (constructionDays != null) {
+      data['construction_days'] = constructionDays;
+    }
+    if (preferredTime != null) data['preferred_time'] = preferredTime;
+    if (poolCount != null) data['pool_count'] = poolCount;
+    if (constructionStatus != null) {
+      data['construction_status'] = constructionStatus;
+    }
+    if (progressPercentage != null) {
+      data['progress_percentage'] = progressPercentage;
+    }
+    if (latitude != null) data['latitude'] = latitude;
+    if (longitude != null) data['longitude'] = longitude;
+    if (descriptionAr != null) data['description_ar'] = descriptionAr;
+    if (descriptionEn != null) data['description_en'] = descriptionEn;
+    if (adminNotes != null) data['admin_notes'] = adminNotes;
+    if (clientId != null) data['client_id'] = clientId;
+    if (clientName != null) data['client_name'] = clientName;
+    if (clientPhone != null) data['client_phone'] = clientPhone;
+    if (clientEmail != null) data['client_email'] = clientEmail;
+    if (estimatedCost != null) data['estimated_cost'] = estimatedCost;
+    if (actualCost != null) data['actual_cost'] = actualCost;
+    if (currency != null) data['currency'] = currency;
+    if (priority != null) data['priority'] = priority;
+    if (technicianIds.isNotEmpty) {
+      data['technician_ids'] = technicianIds;
+    }
+
+    return data;
   }
 }

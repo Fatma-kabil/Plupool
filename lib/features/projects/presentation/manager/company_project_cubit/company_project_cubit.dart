@@ -1,10 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/projects/data/models/company_project_model.dart';
 import 'package:plupool/features/projects/domain/params/client_project_params.dart';
 import 'package:plupool/features/projects/domain/usecases/delete_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_client_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_projects_statistics_usecse.dart';
+import 'package:plupool/features/projects/domain/usecases/updat_company_project_usecase.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
 
 class CompanyProjectCubit extends Cubit<CompanyProjectState> {
@@ -12,12 +14,14 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
   final GetProjectStatisticsUseCase statisticsUseCase;
   final GetClientProjectsUseCase getClientProjectsUseCase;
   final DeleteProjectUseCase deleteProjectUseCase;
+  final UpdateProjectUseCase updateProjectUseCase;
 
   CompanyProjectCubit(
     this.useCase,
     this.statisticsUseCase,
     this.getClientProjectsUseCase,
     this.deleteProjectUseCase,
+    this.updateProjectUseCase,
   ) : super(CompanyProjectState());
   Future<void> getCompanyProjects({
     int skip = 0,
@@ -109,6 +113,38 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
             projects: state.projects
                 .where((project) => project.id != projectId)
                 .toList(),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> updateProject({
+    required int projectId,
+    required CompanyProjectModel project,
+  }) async {
+    emit(state.copyWith(isUpdating: true, error: null));
+
+    final result = await updateProjectUseCase(
+      projectId: projectId,
+      project: project,
+    );
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isUpdating: false, error: failure.message));
+        print(failure);
+      },
+      (updatedProject) {
+        final updatedProjects = state.projects.map((project) {
+          return project.id == updatedProject.id ? updatedProject : project;
+        }).toList();
+
+        emit(
+          state.copyWith(
+            isUpdating: false,
+            projects: updatedProjects,
+            error: null,
           ),
         );
       },

@@ -76,7 +76,7 @@ class ProjectCard extends StatelessWidget {
             ),
             NextVisitAndPools(project: project),
             SizedBox(height: SizeConfig.h(12)),
-            AdminProjectCardFooter(projectId: project.id),
+            AdminProjectCardFooter(project: project),
             // ---- بيانات المستخدم + زرار الموقع ----
           ],
         ),

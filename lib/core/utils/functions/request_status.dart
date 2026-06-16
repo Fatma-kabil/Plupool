@@ -56,6 +56,22 @@ RequestStatus mapApiStatus(String status) {
         return "in_progress";
     }
   }
+
+   String getApiStatusProj(String tab) {
+    switch (tab) {
+      case "قيد التنفيذ":
+        return "inProgress";
+
+      case "مجدولة":
+        return "scheduled";
+
+      case "مكتمله":
+        return "completed";
+
+      default:
+        return "inProgress";
+    }
+  }
   
   String getApiDuration(String duration) {
     switch (duration) {

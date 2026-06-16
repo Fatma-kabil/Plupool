@@ -6,6 +6,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
+import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/project_card_shimmer.dart';
@@ -52,22 +53,21 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(22))),
 
         SliverToBoxAdapter(
-          child: RearragnmentRow(
-            items: const ["مكتمله", "مجدوله", "قيد التنفيذ"],
-            selected: selected,
-            onChanged: (value) {
+          child: 
+           FilterOption(
+          value: selected,
+          items:const ["مكتمله", "مجدولة", "قيد التنفيذ"],
+          onChanged: (value) {
+              if (value == null) return;
               setState(() {
                 selected = value;
               });
 
               context.read<CompanyProjectCubit>().getCompanyProjects(
-                status: getApiStatus(value),
+                status: getApiStatusProj(value),
               );
             },
-            onTap: () {
-              context.push('/addprojectview');
-            },
-          ),
+        ),
         ),
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(18))),
