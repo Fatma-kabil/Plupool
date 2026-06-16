@@ -6,6 +6,7 @@ import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dar
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
 import 'package:plupool/features/company_res/presentation/views/add_company_res_view.dart';
+import 'package:plupool/features/company_res/presentation/views/company_res_clients_view.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_profile.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_view.dart';
 import 'package:plupool/features/company_res/presentation/views/edit_companny_res_view.dart';
@@ -645,6 +646,14 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) {
         final user = state.extra as UserEntity;
         return buildTransitionPage(EditTechView(user: user));
+      },
+    ),
+     GoRoute(
+      path: '/companyresclientsview',
+      name: 'companyresclientsview',
+      pageBuilder: (context, state) {
+        final user = state.extra as UserDetailsEntity;
+        return buildTransitionPage(CompanyResClientsView(usr: user));
       },
     ),
     GoRoute(

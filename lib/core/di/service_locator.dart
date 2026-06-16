@@ -10,6 +10,11 @@ import 'package:plupool/features/auth/domain/repos/sign_up_repo.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
+import 'package:plupool/features/company_res/data/remote_data_sources/company_res_clients_remote_data_source.dart';
+import 'package:plupool/features/company_res/data/repos_impl/company_res_clients_repo_impl.dart';
+import 'package:plupool/features/company_res/domain/repos/company_res_clients_repos.dart';
+import 'package:plupool/features/company_res/domain/usecases/get_company_res_usecase.dart';
+import 'package:plupool/features/company_res/presentation/views/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
 import 'package:plupool/features/customers/data/data_sources/admin_users_remote_data_source.dart';
 import 'package:plupool/features/customers/data/repos_impl/admin_user_repo_impl.dart';
 import 'package:plupool/features/customers/domain/repos/admin_domain_rapos.dart';
@@ -882,6 +887,27 @@ sl.registerLazySingleton(
 sl.registerFactory(
   () => UserBookingCubit(
     getUserBookingsUseCase: sl<GetUserBookingsUseCase>(),
+  ),
+);
+
+sl.registerLazySingleton<CompanyResClientsRemoteDataSource>(
+  () => CompanyResClientsRemoteDataSource(
+    sl<ApiService>(),
+  ),
+);
+sl.registerLazySingleton<CompanyResClientsRepository>(
+  () => CompanyResClientsRepositoryImpl(
+    sl<CompanyResClientsRemoteDataSource>(),
+  ),
+);
+sl.registerLazySingleton(
+  () => GetCompanyResClientsUseCase(
+    sl<CompanyResClientsRepository>(),
+  ),
+);
+sl.registerFactory(
+  () => CompanyResClientsCubit(
+    sl<GetCompanyResClientsUseCase>(),
   ),
 );
 }

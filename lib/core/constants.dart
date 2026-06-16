@@ -738,7 +738,7 @@ final List<Map> companyresFooter = [
      // Icons.groups_rounded
     'title': "العملاء",
     'color': Color(0xff0096B4),
-    'view': '/adminprojectview',
+    'view': '/companyresclientsview',
   },
   {
     'icon': Icons.star_outlined,
