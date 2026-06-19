@@ -32,9 +32,10 @@ class _EditOurProjectCardState extends State<EditOurProjectCard> {
     super.initState();
 
     // تهيئة الكونترولرز بالقيم من الـ offer
-    titleController = TextEditingController(text: widget.project.title);
-    desController = TextEditingController(text: widget.project.description);
-    imageController = TextEditingController(text: widget.project.image);
+    titleController = TextEditingController(text: widget.project.actualEndDate
+  );
+    desController = TextEditingController(text: widget.project.clientName);
+    imageController = TextEditingController(text: widget.project.clientPhone);
 
     // لو عندك صورة، ممكن تحطها هنا _profileImage = ...
     // لو عندك قيمة acceptedTerms من العرض، هتعيطها برضه هنا

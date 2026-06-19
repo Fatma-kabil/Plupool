@@ -1,21 +1,29 @@
 import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 
-
-
-abstract class ProjectsState {}
-
-class ProjectsInitial extends ProjectsState {}
-
-class OurProjectsLoading extends ProjectsState {}
-
-class OurProjectsSuccess extends ProjectsState {
+class OurProjectsState {
+  final bool isLoading;
+  final bool isDeleting;
   final List<OurProjectEntity> projects;
+  final String? error;
 
-  OurProjectsSuccess(this.projects);
-}
+  const OurProjectsState({
+    this.isLoading = false,
+    this.isDeleting = false,
+    this.projects = const [],
+    this.error,
+  });
 
-class OurProjectsError extends ProjectsState {
-  final String message;
-
-  OurProjectsError(this.message);
+  OurProjectsState copyWith({
+    bool? isLoading,
+    bool? isDeleting,
+    List<OurProjectEntity>? projects,
+    String? error,
+  }) {
+    return OurProjectsState(
+      isLoading: isLoading ?? this.isLoading,
+      isDeleting: isDeleting ?? this.isDeleting,
+      projects: projects ?? this.projects,
+      error: error,
+    );
+  }
 }

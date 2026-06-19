@@ -721,22 +721,22 @@ Future<void> initServiceLocator() async {
     ),
   );
 
-  sl.registerLazySingleton<ProjectsRemoteDataSource>(
-    () => ProjectsRemoteDataSource(sl<ApiService>()),
+  sl.registerLazySingleton<OurProjectsRemoteDataSource>(
+    () => OurProjectsRemoteDataSource(sl<ApiService>()),
   );
 
   // Repository
-  sl.registerLazySingleton<ProjectsRepository>(
-    () => ProjectsRepositoryImpl(sl<ProjectsRemoteDataSource>()),
+  sl.registerLazySingleton<OurProjectsRepo>(
+    () => OurProjectsRepoImpl(sl<OurProjectsRemoteDataSource>()),
   );
 
   // UseCases
   sl.registerLazySingleton(
-    () => GetOurProjectsUseCase(sl<ProjectsRepository>()),
+    () => GetOurProjectsUseCase(sl<OurProjectsRepo>()),
   );
 
   // Cubit
-  sl.registerFactory(() => ProjectsCubit(sl<GetOurProjectsUseCase>()));
+  sl.registerFactory(() => OurProjectsCubit(sl<GetOurProjectsUseCase>()));
 
   sl.registerLazySingleton<CompanyProjectsRemoteDataSourceImpl>(
     () => CompanyProjectsRemoteDataSourceImpl(sl<ApiService>()),

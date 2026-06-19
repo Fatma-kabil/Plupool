@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
@@ -12,7 +11,6 @@ import 'package:plupool/features/projects/presentation/manager/company_project_c
 import 'package:plupool/features/projects/presentation/views/widgets/project_card_shimmer.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/projects_list.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/projects_view_header.dart';
-import 'package:plupool/features/services/presentation/views/admin/widgets/rearrangment_row.dart';
 
 class AdminProjectsViewBody extends StatefulWidget {
   const AdminProjectsViewBody({super.key});

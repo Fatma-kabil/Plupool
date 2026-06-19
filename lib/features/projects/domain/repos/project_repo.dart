@@ -1,9 +1,11 @@
-import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
+import 'package:dartz/dartz.dart';
+import 'package:plupool/core/error/failure.dart';
+import '../entities/our_project_entity.dart';
 
-abstract class ProjectsRepository {
-  Future<List<OurProjectEntity>> getOurProjects({
-    int skip,
-    int limit,
+abstract class OurProjectsRepo {
+  Future<Either<Failure, List<OurProjectEntity>>> getOurProjects({
+    int skip = 0,
+    int limit = 50,
     String? status,
   });
 }

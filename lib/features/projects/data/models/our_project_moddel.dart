@@ -1,105 +1,148 @@
 import 'dart:convert';
+import '../../domain/entities/our_project_entity.dart';
 
-class OurProjectModel {
-  final int id;
-  final String nameAr;
-  final String? nameEn;
-  final String projectType;
-  final String status;
-  final String locationAr;
-  final String? locationEn;
-  final String startDate;
-  final String expectedEndDate;
-  final String? actualEndDate;
-  final int? constructionDays;
-  final int poolCount;
-  final int progressPercentage;
-  final String mainImage;
-  final String clientName;
-  final String clientPhone;
-  final double? estimatedCost;
-  final double? actualCost;
-  final String currency;
-  final int priority;
-  final String createdAt;
-  final String updatedAt;
-  final String descriptionAr;
-  final String? descriptionEn;
-  final List<String> images;
-
-  OurProjectModel({
-    required this.id,
-    required this.nameAr,
-    this.nameEn,
-    required this.projectType,
-    required this.status,
-    required this.locationAr,
-    this.locationEn,
-    required this.startDate,
-    required this.expectedEndDate,
-    this.actualEndDate,
-    this.constructionDays,
-    required this.poolCount,
-    required this.progressPercentage,
-    required this.mainImage,
-    required this.clientName,
-    required this.clientPhone,
-    this.estimatedCost,
-    this.actualCost,
-    required this.currency,
-    required this.priority,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.descriptionAr,
-    this.descriptionEn,
-    required this.images,
+class OurProjectModel extends OurProjectEntity {
+  const OurProjectModel({
+    required super.id,
+    super.nameAr,
+    super.nameEn,
+    super.projectType,
+    super.status,
+    super.locationAr,
+    super.locationEn,
+    super.startDate,
+    super.expectedEndDate,
+    super.actualEndDate,
+    super.constructionDays,
+    super.preferredTime,
+    super.poolCount,
+    super.constructionStatus,
+    super.progressPercentage,
+    super.mainImage,
+    super.clientName,
+    super.clientPhone,
+    super.estimatedCost,
+    super.actualCost,
+    super.currency,
+    super.priority,
+    super.createdAt,
+    super.updatedAt,
+    super.latitude,
+    super.longitude,
+    super.descriptionAr,
+    super.descriptionEn,
+    super.adminNotes,
+    super.images,
+    super.clientId,
+    super.clientEmail,
+    super.isCompanyProject,
+    super.constructionDaysAr,
+    super.createdBy,
+    super.durationWeeks,
+    super.deliveryDays,
+    super.companyPartner,
+    super.image1,
+    super.image2,
+    super.isHomeFeatured,
+    super.isActive,
+    super.technicianIds,
+    super.technicianNames,
+    super.techniciansDisplay,
+    super.statusLabel,
+    super.statusColor,
+    super.isOverdue,
+    super.daysRemaining,
+    super.daysElapsed,
   });
 
   factory OurProjectModel.fromJson(Map<String, dynamic> json) {
     return OurProjectModel(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] ?? 0,
 
-      nameAr: json['name_ar'] ?? '',
+      nameAr: json['name_ar'],
       nameEn: json['name_en'],
+      projectType: json['project_type'],
+      status: json['status'],
 
-      projectType: json['project_type'] ?? '',
-      status: json['status'] ?? '',
-
-      locationAr: json['location_ar'] ?? '',
+      locationAr: json['location_ar'],
       locationEn: json['location_en'],
 
-      startDate: json['start_date'] ?? '',
-      expectedEndDate: json['expected_end_date'] ?? '',
+      startDate: json['start_date'],
+      expectedEndDate: json['expected_end_date'],
       actualEndDate: json['actual_end_date'],
 
       constructionDays: (json['construction_days'] as num?)?.toInt(),
+      preferredTime: json['preferred_time'],
 
-      poolCount: (json['pool_count'] as num?)?.toInt() ?? 0,
+      poolCount: (json['pool_count'] as num?)?.toInt(),
+      constructionStatus: json['construction_status'],
 
-      progressPercentage: (json['progress_percentage'] as num?)?.toInt() ?? 0,
+      progressPercentage:
+          (json['progress_percentage'] as num?)?.toInt(),
 
-      mainImage: json['main_image'] ?? '',
+      mainImage: json['main_image'],
 
-      clientName: json['client_name'] ?? '',
-      clientPhone: json['client_phone'] ?? '',
+      clientName: json['client_name'],
+      clientPhone: json['client_phone'],
 
-      estimatedCost: (json['estimated_cost'] as num?)?.toDouble(),
+      estimatedCost:
+          (json['estimated_cost'] as num?)?.toDouble(),
+      actualCost:
+          (json['actual_cost'] as num?)?.toDouble(),
 
-      actualCost: (json['actual_cost'] as num?)?.toDouble(),
+      currency: json['currency'],
+      priority: (json['priority'] as num?)?.toInt(),
 
-      currency: json['currency'] ?? '',
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
 
-      priority: (json['priority'] as num?)?.toInt() ?? 0,
-
-      createdAt: json['created_at'] ?? '',
-      updatedAt: json['updated_at'] ?? '',
+      latitude: (json['latitude'] as num?)?.toDouble(),
+      longitude: (json['longitude'] as num?)?.toDouble(),
 
       descriptionAr: json['description_ar'],
       descriptionEn: json['description_en'],
+      adminNotes: json['admin_notes'],
 
       images: json['images'] != null
           ? List<String>.from(jsonDecode(json['images']))
           : [],
+
+      clientId: json['client_id'],
+      clientEmail: json['client_email'],
+
+      isCompanyProject: (json['is_company_project'] as num?)?.toInt(),
+
+      constructionDaysAr: json['construction_days_ar'],
+
+      createdBy: json['created_by'],
+
+      durationWeeks: json['duration_weeks'],
+      deliveryDays: json['delivery_days'],
+      companyPartner: json['company_partner'],
+
+      image1: json['image_1'],
+      image2: json['image_2'],
+
+      isHomeFeatured: (json['is_home_featured'] as num?)?.toInt(),
+      isActive: (json['is_active'] as num?)?.toInt(),
+
+      technicianIds: json['technician_ids'] != null
+          ? List<int>.from(json['technician_ids'])
+          : [],
+
+      technicianNames: json['technician_names'] != null
+          ? List<String>.from(json['technician_names'])
+          : [],
+
+      techniciansDisplay: json['technicians_display'],
+
+      statusLabel: json['status_label'],
+      statusColor: json['status_color'],
+
+      isOverdue: json['is_overdue'],
+
+      daysRemaining: json['days_remaining'],
+      daysElapsed: json['days_elapsed'],
     );
   }
 }
