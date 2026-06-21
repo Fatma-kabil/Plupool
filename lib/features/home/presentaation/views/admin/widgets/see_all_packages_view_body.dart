@@ -6,6 +6,7 @@ import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/admin_packaes_card.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/packages_tab_bar.dart';
 import 'package:plupool/features/packages/domain/entities/package_entity.dart';
@@ -38,23 +39,54 @@ class _SeeAllPackagesViewBodyState extends State<SeeAllPackagesViewBody> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<PackagesCubit, PackagesState>(
+Widget build(BuildContext context) {
+  return BlocListener<PackagesCubit, PackagesState>(
+    listener: (context, state) {
+      if (state is PackagesActionSuccess) {
+        showCustomSnackBar(
+          context: context,
+          message: "تم تحديث الباقه بنجاح",
+          isSuccess: true,
+        );
+      }
+
+      if (state is PackagesActionError) {
+        showCustomSnackBar(
+          context: context,
+          message: state.message,
+          isSuccess: false,
+        );
+      }
+    },
+    child: BlocBuilder<PackagesCubit, PackagesState>(
       builder: (context, state) {
         final cubit = context.read<PackagesCubit>();
 
         if (state is PackagesError) {
-          return Center(child: ErrorText(message: state.message));
+          return Center(
+            child: ErrorText(message: state.message),
+          );
         }
 
         if (state is PackagesSuccess) {
-          return _buildContent(context, state.response.packages, cubit, false);
+          return _buildContent(
+            context,
+            state.response.packages,
+            cubit,
+            false,
+          );
         }
 
-        return _buildContent(context, [], cubit, true);
+        return _buildContent(
+          context,
+          [],
+          cubit,
+          true,
+        );
       },
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildContent(
     BuildContext context,
@@ -70,6 +102,7 @@ class _SeeAllPackagesViewBodyState extends State<SeeAllPackagesViewBody> {
           "subscriber": subscriber,
           "packageName": package.nameAr,
           "status": package.status,
+          "packageId": package.id,
         });
       }
     }
@@ -147,6 +180,7 @@ class _SeeAllPackagesViewBodyState extends State<SeeAllPackagesViewBody> {
                 final packageName = subscribers[index]["packageName"] as String;
 
                 final status = subscribers[index]["status"] as String? ?? "";
+                final packageId = subscribers[index]["packageId"] as int;
 
                 return Padding(
                   padding: EdgeInsets.only(bottom: SizeConfig.h(15)),
@@ -154,6 +188,7 @@ class _SeeAllPackagesViewBodyState extends State<SeeAllPackagesViewBody> {
                     request: subscriber,
                     packageName: packageName,
                     status: status,
+                    packageId: packageId,
                   ),
                 );
               },

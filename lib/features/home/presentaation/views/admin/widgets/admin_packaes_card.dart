@@ -15,11 +15,13 @@ class AdminPackaesCard extends StatelessWidget {
     required this.request,
     required this.packageName,
     required this.status,
+    required this.packageId
   });
 
   final SubscriberEntity request;
   final String packageName;
   final String status; // default safe
+  final int packageId;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +94,7 @@ class AdminPackaesCard extends StatelessWidget {
               visits: request.visits.length,
             ),
             const SizedBox(height: 12),
-            ProgressBtn(status: mapApiStatus(status)),
+            ProgressBtn(status: mapApiStatus(status),bookingId: request.nextVisitId??0,packageId: packageId,),
             // ---- بيانات المستخدم + زرار الموقع ----
           ],
         ),

@@ -68,6 +68,7 @@ class AdminHomeViewBodyFooter extends StatelessWidget {
                     "packageName": package.nameAr,
                     "visitsCount": package.visitsCount,
                     "status": package.status,
+                    "packageId":package.id
                   },
                 );
               }).toList();
@@ -134,6 +135,7 @@ class AdminHomeViewBodyFooter extends StatelessWidget {
                     request: item["subscriber"] as SubscriberEntity,
                     packageName: item["packageName"] as String,
                     status: item["status"] as String,
+                    packageId: item["packageId"] as int,
                   );
                 },
               );

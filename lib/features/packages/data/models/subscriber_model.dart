@@ -18,7 +18,8 @@ class SubscriberModel extends SubscriberEntity {
     required super.lastVisitDate,
     required super.nextVisitDate,
     required super.visits,
-    super.nextVisitTime
+    super.nextVisitTime,
+    super.nextVisitId
   });
 
  factory SubscriberModel.fromJson(Map<String, dynamic> json) {
@@ -41,10 +42,12 @@ class SubscriberModel extends SubscriberEntity {
 
     nextVisitDate: nextVisit?['booking_date'] ?? '',
     nextVisitTime: nextVisit?['booking_time'] ?? '',
+    nextVisitId: nextVisit?['booking_id']??0,
 
     visits: (json['visits'] as List? ?? [])
         .map((e) => VisitModel.fromJson(e))
         .toList(),
+
   );
 }
 }

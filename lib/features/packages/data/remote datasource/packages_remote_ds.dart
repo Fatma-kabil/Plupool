@@ -15,7 +15,7 @@ class PackagesRemoteDataSource {
     int limit = 200,
   }) async {
     final res = await dio.get(
-     Endpoints.packages,
+      Endpoints.packages,
       queryParameters: {
         "status": status,
         "duration": duration,
@@ -31,25 +31,35 @@ class PackagesRemoteDataSource {
     final res = await dio.get("${Endpoints.packages}/$id");
     return PackageModel.fromJson(res.data);
   }
+Future<void> updateProgress({
+  required int packageId,
+  required int bookingId,
+  String? status,
+  DateTime? nextDate,
+  String? notes,
+}) async {
+  final Map<String, dynamic> queryParameters = {
+    "booking_id": bookingId,
+  };
 
-  Future<void> updateProgress({
-    required int packageId,
-    required int bookingId,
-    String? status,
-    DateTime? nextDate,
-    String? notes,
-  }) async {
-    await dio.patch(
-      "${Endpoints.packages}/$packageId/progress",
-      queryParameters: {
-        "booking_id": bookingId,
-        "status": status,
-        "next_maintenance_date": nextDate?.toIso8601String(),
-        "admin_notes": notes,
-      },
-    );
+  if (status != null) {
+    queryParameters["status"] = status;
   }
 
+  if (nextDate != null) {
+    queryParameters["next_maintenance_date"] =
+        nextDate.toIso8601String();
+  }
+
+  if (notes != null && notes.isNotEmpty) {
+    queryParameters["admin_notes"] = notes;
+  }
+
+  await dio.patch(
+    "${Endpoints.packages}/$packageId/progress",
+    queryParameters: queryParameters,
+  );
+}
   Future<void> addVisit({
     required int packageId,
     required int userId,

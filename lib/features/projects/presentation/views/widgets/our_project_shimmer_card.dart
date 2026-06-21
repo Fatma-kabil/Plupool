@@ -5,7 +5,7 @@ import 'package:plupool/core/utils/size_config.dart';
 class OurProjectCardShimmer extends StatelessWidget {
   const OurProjectCardShimmer({super.key});
 
-  Widget _box({double? height, double? width, double radius = 8}) {
+  Widget box({double? height, double? width, double radius = 8}) {
     return Container(
       height: height,
       width: width,

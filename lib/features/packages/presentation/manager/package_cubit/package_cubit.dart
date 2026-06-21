@@ -126,7 +126,9 @@ class PackagesCubit extends Cubit<PackagesState> {
         PackagesActionError(
           e is Failure ? e.message : "حدث خطأ أثناء تحديث حالة الباقة",
         ),
+       
       );
+       print(e);
 
       /// rollback
       if (_cachedResponse != null) {
