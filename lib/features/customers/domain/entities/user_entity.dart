@@ -17,6 +17,8 @@ class UserEntity {
   final DateTime createdAt;
   final double? totalRating;
   final double? averageRating;
+  final int? completedProjects;
+  final int? activeProjects;
 
   const UserEntity({
     required this.id,
@@ -36,6 +38,9 @@ class UserEntity {
     required this.isApproved,
     required this.createdAt,
     this.totalRating,
-    this.averageRating
+    this.averageRating,
+    this.completedProjects,
+    this.activeProjects
   });
+
 }

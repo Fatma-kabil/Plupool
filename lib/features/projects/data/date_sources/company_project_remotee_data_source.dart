@@ -42,9 +42,11 @@ class CompanyProjectsRemoteDataSourceImpl {
       queryParams: params.toQuery(),
     );
 
-    final List data = response.data;
+    final raw = response.data['projects'];
 
-    return data.map((e) => CompanyProjectModel.fromJson(e)).toList();
+    if (raw is! List) return [];
+
+    return raw.map((e) => CompanyProjectModel.fromJson(e)).toList();
   }
 
   Future<void> deleteProject(int projectId) async {

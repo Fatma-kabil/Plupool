@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 
@@ -200,7 +201,7 @@ class OurProjectCard extends StatelessWidget {
                     ),
                     SizedBox(width: SizeConfig.w(3)),
                     Text(
-                      "${project.durationWeeks ?? project.constructionDays ?? 0}",
+                      toArabicNumbers("${project.durationWeeks ?? project.constructionDays ?? 0} اسبوع"),
                       style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: const Color(0xff777777)),

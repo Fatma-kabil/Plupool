@@ -8,15 +8,19 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
+import 'package:plupool/features/projects/presentation/views/widgets/company_res_project_view_header.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/project_card_shimmer.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/projects_list.dart';
-import 'package:plupool/features/projects/presentation/views/widgets/projects_view_header.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/rearrangment_row.dart';
 
 class CompanyResProjectViewBody extends StatefulWidget {
-  const CompanyResProjectViewBody({super.key, required this.companyResId});
+  const CompanyResProjectViewBody({super.key, required this.companyResId, required this.completedProjects, required this.activeProjects});
 
   final int companyResId;
+    final int completedProjects;
+  final int activeProjects;
+  
+
 
   @override
   State<CompanyResProjectViewBody> createState() =>
@@ -51,7 +55,7 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(12))),
 
-        const SliverToBoxAdapter(child: ProjectsViewHeader()),
+         SliverToBoxAdapter(child: CompanyResProjectViewHeader(activeProjects:widget.activeProjects ,completedProjects: widget.completedProjects,)),
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(22))),
 

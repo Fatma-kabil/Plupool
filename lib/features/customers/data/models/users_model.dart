@@ -17,6 +17,8 @@ class UserModel {
   final DateTime createdAt;
   final double? totalRatings;
   final double? averageRatings;
+  final int? completedProjects;
+  final int? activeProjects;
 
   UserModel({
     required this.id,
@@ -37,6 +39,8 @@ class UserModel {
     required this.isApproved,
     required this.createdAt,
     this.averageRatings,
+    this.completedProjects,
+    this.activeProjects
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -50,7 +54,7 @@ class UserModel {
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
       totalRatings: (json['total_ratings'] as num?)?.toDouble(),
-     averageRatings: (json['average_rating'] as num?)?.toDouble() ?? 0.0,
+      averageRatings: (json['average_rating'] as num?)?.toDouble() ?? 0.0,
       address: json['address'],
       skills: json['skills'],
       yearsOfExperience: (json['years_of_experience'] as num?)?.toInt(),
@@ -61,6 +65,8 @@ class UserModel {
       createdAt: DateTime.parse(
         json['created_at'] ?? DateTime.now().toString(),
       ),
+      completedProjects: (json['completed_projects'] as num?)?.toInt(),
+      activeProjects: (json['active_projects'] as num?)?.toInt(),
     );
   }
 
