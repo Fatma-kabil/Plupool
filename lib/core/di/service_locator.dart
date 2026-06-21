@@ -731,12 +731,15 @@ Future<void> initServiceLocator() async {
   );
 
   // UseCases
-  sl.registerLazySingleton(
-    () => GetOurProjectsUseCase(sl<OurProjectsRepo>()),
-  );
+  sl.registerLazySingleton(() => GetOurProjectsUseCase(sl<OurProjectsRepo>()));
 
   // Cubit
-  sl.registerFactory(() => OurProjectsCubit(sl<GetOurProjectsUseCase>()));
+  sl.registerFactory(
+    () => OurProjectsCubit(
+      sl<GetOurProjectsUseCase>(),
+      sl<DeleteProjectUseCase>(),
+    ),
+  );
 
   sl.registerLazySingleton<CompanyProjectsRemoteDataSourceImpl>(
     () => CompanyProjectsRemoteDataSourceImpl(sl<ApiService>()),
@@ -756,7 +759,7 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => GetProjectStatisticsUseCase(sl<CompanyProjectsRepository>()),
   );
-   sl.registerLazySingleton(
+  sl.registerLazySingleton(
     () => UpdateProjectUseCase(sl<CompanyProjectsRepository>()),
   );
   // Cubit
@@ -770,15 +773,11 @@ Future<void> initServiceLocator() async {
     ),
   );
   sl.registerLazySingleton<GetClientProjectsUseCase>(
-  () => GetClientProjectsUseCase(
-    sl<CompanyProjectsRepository>(),
-  ),
-);
- sl.registerLazySingleton<DeleteProjectUseCase>(
-  () => DeleteProjectUseCase(
-    sl<CompanyProjectsRepository>(),
-  ),
-);
+    () => GetClientProjectsUseCase(sl<CompanyProjectsRepository>()),
+  );
+  sl.registerLazySingleton<DeleteProjectUseCase>(
+    () => DeleteProjectUseCase(sl<CompanyProjectsRepository>()),
+  );
 
   // =============================
   // 👥 USERS FEATURE
@@ -884,35 +883,26 @@ Future<void> initServiceLocator() async {
   );
 
   // User Bookings UseCase
-sl.registerLazySingleton(
-  () => GetUserBookingsUseCase(
-    sl<BookingRepository>(),
-  ),
-);
-sl.registerFactory(
-  () => UserBookingCubit(
-    getUserBookingsUseCase: sl<GetUserBookingsUseCase>(),
-  ),
-);
+  sl.registerLazySingleton(
+    () => GetUserBookingsUseCase(sl<BookingRepository>()),
+  );
+  sl.registerFactory(
+    () =>
+        UserBookingCubit(getUserBookingsUseCase: sl<GetUserBookingsUseCase>()),
+  );
 
-sl.registerLazySingleton<CompanyResClientsRemoteDataSource>(
-  () => CompanyResClientsRemoteDataSource(
-    sl<ApiService>(),
-  ),
-);
-sl.registerLazySingleton<CompanyResClientsRepository>(
-  () => CompanyResClientsRepositoryImpl(
-    sl<CompanyResClientsRemoteDataSource>(),
-  ),
-);
-sl.registerLazySingleton(
-  () => GetCompanyResClientsUseCase(
-    sl<CompanyResClientsRepository>(),
-  ),
-);
-sl.registerFactory(
-  () => CompanyResClientsCubit(
-    sl<GetCompanyResClientsUseCase>(),
-  ),
-);
+  sl.registerLazySingleton<CompanyResClientsRemoteDataSource>(
+    () => CompanyResClientsRemoteDataSource(sl<ApiService>()),
+  );
+  sl.registerLazySingleton<CompanyResClientsRepository>(
+    () => CompanyResClientsRepositoryImpl(
+      sl<CompanyResClientsRemoteDataSource>(),
+    ),
+  );
+  sl.registerLazySingleton(
+    () => GetCompanyResClientsUseCase(sl<CompanyResClientsRepository>()),
+  );
+  sl.registerFactory(
+    () => CompanyResClientsCubit(sl<GetCompanyResClientsUseCase>()),
+  );
 }

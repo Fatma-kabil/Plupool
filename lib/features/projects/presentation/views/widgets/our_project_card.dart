@@ -4,6 +4,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
+import 'package:plupool/features/projects/presentation/views/widgets/our_project_card_footer.dart';
 
 class OurProjectCard extends StatelessWidget {
   const OurProjectCard({super.key, required this.project});
@@ -33,8 +34,8 @@ class OurProjectCard extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Expanded(child: _imageWidget(project.image1)),
                       Expanded(child: _imageWidget(project.image2)),
+                      Expanded(child: _imageWidget(project.image1)),
                     ],
                   ),
                 ),
@@ -191,7 +192,7 @@ class OurProjectCard extends StatelessWidget {
                         ).copyWith(color: const Color(0xff777777)),
                       ),
                     ),
-                    const Spacer(),
+                    SizedBox(width: SizeConfig.w(40)),
                     Icon(
                       Icons.calendar_month_outlined,
                       color: AppColors.kprimarycolor,
@@ -199,14 +200,23 @@ class OurProjectCard extends StatelessWidget {
                           ? SizeConfig.w(15)
                           : SizeConfig.w(18),
                     ),
-                    SizedBox(width: SizeConfig.w(3)),
+                    //    SizedBox(width: SizeConfig.w(6)),
                     Text(
-                      toArabicNumbers("${project.durationWeeks ?? project.constructionDays ?? 0} اسبوع"),
+                      toArabicNumbers(
+                        " ${project.durationWeeks ?? project.constructionDays ?? 0} اسبوع",
+                      ),
                       style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: const Color(0xff777777)),
                     ),
                   ],
+                ),
+                SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: OurProjectCardFooter(
+                    projectId: project.id,
+                  ),
                 ),
               ],
             ),
