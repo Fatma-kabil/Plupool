@@ -24,10 +24,13 @@ class OurProjectCardFooter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       // mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          Icons.edit_note,
-          color: AppColors.kprimarycolor,
-          size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(24),
+        GestureDetector(
+          onTap: onEditPressed,
+          child: Icon(
+            Icons.edit_note,
+            color: AppColors.kprimarycolor,
+            size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(24),
+          ),
         ),
         SizedBox(width: SizeConfig.w(12)),
         Icon(

@@ -12,6 +12,9 @@ import 'package:plupool/features/products/presentation/cubits/product_cubit/prod
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_state.dart';
 import 'package:plupool/features/products/presentation/views/widgets/edit_product_view_body_footer.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
+import 'package:plupool/features/store/domain/entities/category_entity.dart';
+import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
+import 'package:plupool/features/store/presentation/cubits/category_cubit/category_state.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class EditProductViewBody extends StatefulWidget {
@@ -31,35 +34,19 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
   late final TextEditingController quantityController;
   late final TextEditingController imageController;
 
-  late String selectedCategory;
+  late CategoryEntity selectedCategory;
   File? _productImage;
 
-  final List<String> categories = const [
-    "فلاتر",
-    "مضخات",
-    "مواد تنظيف",
-    "اكسسوارات",
-  ];
+  bool _initializedCategory = false;
 
   @override
   void initState() {
     super.initState();
 
     nameController = TextEditingController(text: widget.product.name);
-    priceController = TextEditingController(
-      text: widget.product.price.toString(),
-    );
-    quantityController = TextEditingController(
-      text: widget.product.stock.toString(),
-    );
-    imageController = TextEditingController(
-      text: widget.product.imageUrl ?? "",
-    );
-
-    // ignore: unnecessary_null_comparison
-    selectedCategory = widget.product.categoryId != null
-        ? categories[widget.product.categoryId % categories.length]
-        : categories.first;
+    priceController = TextEditingController(text: widget.product.price.toString());
+    quantityController = TextEditingController(text: widget.product.stock.toString());
+    imageController = TextEditingController(text: widget.product.imageUrl ?? "");
   }
 
   @override
@@ -83,7 +70,6 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
       return;
     }
 
-    // تحويل النصوص لأرقام
     final int? price = int.tryParse(priceController.text);
     final int? stock = int.tryParse(quantityController.text);
 
@@ -96,7 +82,6 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
       return;
     }
 
-    // استدعاء Cubit لتحديث المنتج
     context.read<ProductCubit>().updateProduct(
       Product(
         id: widget.product.id,
@@ -104,7 +89,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
         image: _productImage,
         price: price,
         stock: stock,
-        categoryId: categories.indexOf(selectedCategory),
+        categoryId: selectedCategory.id,
         imageUrl: _productImage == null ? widget.product.imageUrl : null,
       ),
     );
@@ -120,21 +105,12 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
             message: state.message,
             isSuccess: true,
           );
-         Future.delayed(const Duration(milliseconds: 300), () {
-        Navigator.pop(context);
-      });
-    }
-
-        
+          Future.delayed(const Duration(milliseconds: 300), () {
+            Navigator.pop(context);
+          });
+        }
 
         if (state is UpdateProductError) {
-          showCustomSnackBar(
-            context: context,
-            message: state.message,
-            isSuccess: false,
-          );
-        }
-         if (state is DeleteProductError) {
           showCustomSnackBar(
             context: context,
             message: state.message,
@@ -148,15 +124,17 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
               /// اسم المنتج
               const FieldLabel('اسم المنتج'),
               TextField(
                 controller: nameController,
+                hint: 'اكتب اسم المنتج...',
                 keyboardType: TextInputType.text,
                 validator: (value) =>
                     value == null || value.isEmpty ? "مطلوب" : null,
-                hint: 'اكتب اسم المنتج...',
               ),
+
               const SizedBox(height: 16),
 
               /// السعر
@@ -169,6 +147,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                 validator: (value) =>
                     Validators.number(value, fieldName: "السعر"),
               ),
+
               const SizedBox(height: 16),
 
               /// الكمية
@@ -181,21 +160,63 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                 validator: (value) =>
                     Validators.number(value, fieldName: "الكمية"),
               ),
+
               const SizedBox(height: 16),
 
               /// التصنيف
               const FieldLabel('التصنيف'),
-              StatusSelector<String>(
-                selected: selectedCategory,
-                items: categories,
-                displayText: (status) => status,
-                onChanged: (val) => setState(() => selectedCategory = val),
-                icon: Icons.category_outlined,
+
+              BlocBuilder<CategoryCubit, CategoryState>(
+                builder: (context, state) {
+                  if (state is CategoryLoading) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12),
+                      child: Text("جاري تحميل التصنيفات..."),
+                    );
+                  }
+
+                  if (state is CategoryError) {
+                    return Text(state.message);
+                  }
+
+                  if (state is CategorySuccess) {
+                    if (state.categories.isEmpty) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        child: Text("مفيش تصنيفات متاحة 📭"),
+                      );
+                    }
+
+                    if (!_initializedCategory) {
+                      selectedCategory = state.categories.firstWhere(
+                        (e) => e.id == widget.product.categoryId,
+                        orElse: () => state.categories.first,
+                      );
+                      _initializedCategory = true;
+                    }
+
+                    return StatusSelector<CategoryEntity>(
+                      selected: selectedCategory,
+                      items: state.categories,
+                      displayText: (cat) => cat.name,
+                      onChanged: (val) {
+                        setState(() {
+                          selectedCategory = val;
+                        });
+                      },
+                      icon: Icons.category_outlined,
+                    );
+                  }
+
+                  return const SizedBox();
+                },
               ),
+
               const SizedBox(height: 20),
 
               /// صورة المنتج
               const FieldLabel('صورة المنتج'),
+
               ProfileImagePicker(
                 backgroundColor: const Color(0xffCDCDCD).withAlpha(70),
                 title: "أضف صورة للمنتج",
@@ -205,9 +226,9 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                   setState(() => _productImage = img);
                 },
               ),
+
               const SizedBox(height: 12),
 
-              /// صورة حالية
               if (_productImage == null &&
                   imageController.text.isNotEmpty &&
                   imageController.text.startsWith("http"))
@@ -226,9 +247,7 @@ class _EditProductViewBodyState extends State<EditProductViewBody> {
                   borderRadius: BorderRadius.circular(12),
                   child: Image.file(
                     _productImage!,
-                    height: SizeConfig.isWideScreen
-                        ? SizeConfig.w(90)
-                        : SizeConfig.h(90),
+                    height: SizeConfig.h(90),
                     width: SizeConfig.w(90),
                     fit: BoxFit.cover,
                   ),

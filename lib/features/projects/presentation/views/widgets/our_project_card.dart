@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
@@ -77,10 +78,18 @@ class OurProjectCard extends StatelessWidget {
                 ),
 
                 /// قبل
-                Positioned(top: 14, left: 14, child: _label("قبل", context)),
+                Positioned(
+                  top: 14,
+                  left: 14,
+                  child: _label("قبل", context, Colors.black87),
+                ),
 
                 /// بعد
-                Positioned(top: 14, right: 14, child: _label("بعد", context)),
+                Positioned(
+                  top: 14,
+                  right: 14,
+                  child: _label("بعد", context, AppColors.kprimarycolor),
+                ),
 
                 /// بالتعاون
                 if ((project.companyPartner?.isNotEmpty ?? false))
@@ -216,6 +225,9 @@ class OurProjectCard extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: OurProjectCardFooter(
                     projectId: project.id,
+                    onEditPressed: () {
+                      context.push('/editourprojectview', extra: project);
+                    },
                   ),
                 ),
               ],
@@ -241,11 +253,11 @@ class OurProjectCard extends StatelessWidget {
     );
   }
 
-  Widget _label(String text, BuildContext context) {
+  Widget _label(String text, BuildContext context, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.black87,
+        color: color,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Text(

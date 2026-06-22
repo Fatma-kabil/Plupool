@@ -1,21 +1,24 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/features/projects/data/models/update_project_model.dart';
 import 'package:plupool/features/projects/domain/usecases/delete_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_our_projects_usecase.dart';
+import 'package:plupool/features/projects/domain/usecases/update_project_usecase.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_state.dart';
 
 class OurProjectsCubit extends Cubit<OurProjectsState> {
   final GetOurProjectsUseCase getOurProjectsUseCase;
-  
-  final DeleteProjectUseCase deleteProjectUseCase;
 
-  OurProjectsCubit(this.getOurProjectsUseCase,this.deleteProjectUseCase
-  )
+  final DeleteProjectUseCase deleteProjectUseCase;
+  final UpdateProjectUseCase updateProjectUseCase;
+
+  OurProjectsCubit(this.getOurProjectsUseCase, this.deleteProjectUseCase,this.updateProjectUseCase)
     : super(const OurProjectsState());
 
   Future<void> getProjects({
     int skip = 0,
     int limit = 50,
     String? status,
+    bool? hasPartener,
   }) async {
     emit(state.copyWith(isLoading: true, error: null));
 
@@ -23,6 +26,7 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
       skip: skip,
       limit: limit,
       status: status,
+      hasPartener: hasPartener,
     );
 
     result.fold(
@@ -35,6 +39,7 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
       },
     );
   }
+
   Future<void> deleteProject(int projectId) async {
     emit(state.copyWith(isDeleting: true, error: null));
 
@@ -58,4 +63,36 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
     );
   }
 
+ Future<void> updateProject(
+  UpdateProjectRequest request,
+) async {
+  emit(
+    state.copyWith(
+      isUpdating: true,
+      error: null,
+    ),
+  );
+
+  final result = await updateProjectUseCase( request);
+
+  result.fold(
+    (failure) {
+      emit(
+        state.copyWith(
+          isUpdating: false,
+          error: failure.message,
+        ),
+      );
+    },
+    (_) async {
+      emit(
+        state.copyWith(
+          isUpdating: false,
+        ),
+      );
+
+      await getProjects();
+    },
+  );
+}
 }

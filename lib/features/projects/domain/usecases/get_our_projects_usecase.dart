@@ -12,11 +12,13 @@ class GetOurProjectsUseCase {
     int skip = 0,
     int limit = 50,
     String? status,
+     bool? hasPartener,
   }) {
     return repo.getOurProjects(
       skip: skip,
       limit: limit,
       status: status,
+      hasPartener: hasPartener
     );
   }
 }

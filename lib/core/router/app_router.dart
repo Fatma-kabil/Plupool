@@ -55,10 +55,12 @@ import 'package:plupool/features/profile/presentation/views/profile_details_view
 import 'package:plupool/features/profile/presentation/views/profile_edit_view.dart';
 import 'package:plupool/features/profile/presentation/views/why_us_view.dart';
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
+import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 import 'package:plupool/features/projects/presentation/views/add_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_drawer_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_projects_view.dart';
 import 'package:plupool/features/projects/presentation/views/company_res_project_view.dart';
+import 'package:plupool/features/projects/presentation/views/edit_our_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/edit_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/users_project_view.dart';
 import 'package:plupool/features/rating/presentation/views/admin_rating_view.dart';
@@ -714,6 +716,14 @@ final GoRouter appRouter = GoRouter(
       name: 'companyrescuspoolview',
       pageBuilder: (context, state) =>
           buildTransitionPage(CompanyResCusPoolView()),
+    ),
+     GoRoute(
+      path: '/editourprojectview',
+      name: 'editourprojectview',
+      pageBuilder: (context, state) {
+        final project = state.extra as OurProjectEntity;
+        return buildTransitionPage(EditOurProjectView(project: project));
+      },
     ),
   ],
 );
