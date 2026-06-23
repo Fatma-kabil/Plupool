@@ -4,7 +4,9 @@ import 'package:plupool/features/projects/domain/entities/projects_statistics_en
 class CompanyProjectState {
   final bool isLoading;
   final bool isDeleting;
-  final bool isUpdating;
+   final bool isUpdating;
+  final bool updateSuccess;
+
   final List<CompanyProjectEntity> projects;
   final List<CompanyProjectEntity> clientProjects;
   final ProjectStatisticsEntity? statistics;
@@ -13,7 +15,8 @@ class CompanyProjectState {
   CompanyProjectState({
     this.isLoading = false,
     this.isDeleting = false,
-    this.isUpdating = false,
+       this.isUpdating = false,
+    this.updateSuccess = false,
     this.projects = const [],
     this.clientProjects = const [],
     this.statistics,
@@ -24,6 +27,7 @@ class CompanyProjectState {
     bool? isLoading,
     bool? isDeleting,
     bool? isUpdating,
+     bool? updateSuccess,
     List<CompanyProjectEntity>? projects,
     List<CompanyProjectEntity>? clientProjects,
     ProjectStatisticsEntity? statistics,
@@ -33,6 +37,7 @@ class CompanyProjectState {
       isLoading: isLoading ?? this.isLoading,
       isDeleting: isDeleting ?? this.isDeleting,
       isUpdating: isUpdating ?? this.isUpdating,
+       updateSuccess: updateSuccess ?? this.updateSuccess,
       projects: projects ?? this.projects,
       clientProjects: clientProjects ?? this.clientProjects,
       statistics: statistics ?? this.statistics,

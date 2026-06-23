@@ -40,6 +40,18 @@ RequestStatus mapApiStatus(String status) {
         return "confirmed";
     }
   }
+   String mapStatusToApi2(RequestStatus status) {
+    switch (status) {
+      case RequestStatus.urgent:
+        return "urgent";
+      case RequestStatus.inProgress:
+        return "in_progress";
+      case RequestStatus.completed:
+        return "completed";
+      case RequestStatus.scheduled:
+        return "scheduled";
+    }
+  }
   
   String getApiStatus(String tab) {
     switch (tab) {

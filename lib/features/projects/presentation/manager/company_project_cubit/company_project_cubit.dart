@@ -1,10 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/projects/data/models/update_project_model.dart';
 import 'package:plupool/features/projects/domain/params/client_project_params.dart';
 import 'package:plupool/features/projects/domain/usecases/delete_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_client_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_projects_statistics_usecse.dart';
+import 'package:plupool/features/projects/domain/usecases/update_project_usecase.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
 
 class CompanyProjectCubit extends Cubit<CompanyProjectState> {
@@ -13,33 +15,40 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
   final GetClientProjectsUseCase getClientProjectsUseCase;
   final DeleteProjectUseCase deleteProjectUseCase;
 
+  final UpdateProjectUseCase updateProjectUseCase;
+ 
+
   CompanyProjectCubit(
     this.useCase,
     this.statisticsUseCase,
     this.getClientProjectsUseCase,
     this.deleteProjectUseCase,
+    this.updateProjectUseCase,
   ) : super(CompanyProjectState());
-  Future<void> getCompanyProjects({
-    int skip = 0,
-    int limit = 50,
-    String? status,
-  }) async {
-    emit(state.copyWith(isLoading: true));
+ Future<void> getCompanyProjects({
+  int skip = 0,
+  int limit = 50,
+  String? status,
+}) async {
+ 
 
-    try {
-      final data = await useCase(skip: skip, limit: limit, status: status);
+  emit(state.copyWith(isLoading: true));
 
-      emit(state.copyWith(isLoading: false, projects: data, error: null));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          isLoading: false,
-          error: e is Failure ? e.message : "حدث خطأ أثناء جلب المشاريع",
-        ),
-      );
-      print(e);
-    }
+  try {
+    final data = await useCase(skip: skip, limit: limit, status: status);
+
+    emit(state.copyWith(
+      isLoading: false,
+      projects: data,
+      error: null,
+    ));
+  } catch (e) {
+    emit(state.copyWith(
+      isLoading: false,
+      error: e is Failure ? e.message : "حدث خطأ أثناء جلب المشاريع",
+    ));
   }
+}
 
   Future<void> getProjectStatistics() async {
     emit(state.copyWith(isLoading: true));
@@ -115,4 +124,20 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
     );
   }
 
+  Future<void> updateProject(UpdateProjectRequest request) async {
+    emit(state.copyWith(isUpdating: true, updateSuccess: false, error: null));
+
+    final result = await updateProjectUseCase(request);
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isUpdating: false, error: failure.message));
+      },
+      (_) async {
+        emit(state.copyWith(isUpdating: false, updateSuccess: true));
+
+       
+      },
+    );
+  }
 }

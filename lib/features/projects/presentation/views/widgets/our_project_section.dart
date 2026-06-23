@@ -49,7 +49,7 @@ class _OurProjectSectionState extends State<OurProjectSection> {
               AddOfferBtn(
                 text: "إضافة مشروع جديد",
                 onTap: () {
-                  context.push('addtourprojectview');
+                  context.push('/addtourprojectview');
                 },
               ),
             ],

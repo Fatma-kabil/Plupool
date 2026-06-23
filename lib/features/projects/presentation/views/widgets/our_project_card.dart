@@ -10,6 +10,19 @@ import 'package:plupool/features/projects/presentation/views/widgets/our_project
 class OurProjectCard extends StatelessWidget {
   const OurProjectCard({super.key, required this.project});
   final OurProjectEntity project;
+  String weekText(int count) {
+    if (count == 0) return '0 أسبوع';
+
+    if (count == 1) return 'أسبوع';
+
+    if (count == 2) return 'أسبوعين';
+
+    if (count >= 3 && count <= 10) {
+      return '$count أسابيع';
+    }
+
+    return '$count أسبوع';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -211,9 +224,7 @@ class OurProjectCard extends StatelessWidget {
                     ),
                     //    SizedBox(width: SizeConfig.w(6)),
                     Text(
-                      toArabicNumbers(
-                        " ${project.durationWeeks ?? 0} اسبوع",
-                      ),
+                      toArabicNumbers(weekText(project.durationWeeks ?? 0)),
                       style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: const Color(0xff777777)),

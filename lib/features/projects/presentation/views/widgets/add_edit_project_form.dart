@@ -65,6 +65,8 @@ class _AddEditProjectFormState extends State<AddEditProjectForm> {
             icon: Icons.folder_open_rounded,
             keyboardType: TextInputType.text,
             controller: widget.projectNameController,
+             validator: (value) =>
+                          value == null || value.isEmpty ? "مطلوب" : null,
           ),
           const SizedBox(height: 15),
 
@@ -119,18 +121,20 @@ class _AddEditProjectFormState extends State<AddEditProjectForm> {
           TextFieldWithIcon(
             hint: "ادخل عدد المسابح",
             icon: Icons.pool_rounded,
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.number,
             controller: widget.noOfPoolsController,
+             validator: (value) =>
+                          value == null || value.isEmpty ? "مطلوب" : null,
           ),
           const SizedBox(height: 15),
-          FieldLabel('نوع الباقه'),
+          FieldLabel('حاله الانشاء'),
           StatusSelector<RequestStatus>(
             padding: EdgeInsets.symmetric(
               vertical: SizeConfig.h(12),
               horizontal: SizeConfig.w(10),
             ),
             selected: widget.selectedstatus,
-            items: [RequestStatus.scheduled, RequestStatus.urgent],
+            items: [RequestStatus.scheduled, RequestStatus.completed],
             displayText: (value) => getStatusText(value),
             onChanged: widget.onStatusChanged,
           ),

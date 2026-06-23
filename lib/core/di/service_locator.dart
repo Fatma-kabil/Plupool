@@ -770,6 +770,7 @@ Future<void> initServiceLocator() async {
       sl<GetProjectStatisticsUseCase>(),
       sl<GetClientProjectsUseCase>(),
       sl<DeleteProjectUseCase>(),
+      sl<UpdateProjectUseCase>()
     ),
   );
   sl.registerLazySingleton<GetClientProjectsUseCase>(
