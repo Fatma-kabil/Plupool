@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
@@ -9,7 +10,6 @@ import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_state.dart';
-import 'package:plupool/features/projects/presentation/views/widgets/add_new_our_project_card.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/our_project_card.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/our_project_shimmer_card.dart';
 
@@ -49,10 +49,7 @@ class _OurProjectSectionState extends State<OurProjectSection> {
               AddOfferBtn(
                 text: "إضافة مشروع جديد",
                 onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AddNewOurProjectCard(),
-                  );
+                  context.push('addtourprojectview');
                 },
               ),
             ],

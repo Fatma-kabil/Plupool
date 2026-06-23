@@ -56,6 +56,7 @@ import 'package:plupool/features/profile/presentation/views/profile_edit_view.da
 import 'package:plupool/features/profile/presentation/views/why_us_view.dart';
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
 import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
+import 'package:plupool/features/projects/presentation/views/add_our_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/add_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_drawer_project_view.dart';
 import 'package:plupool/features/projects/presentation/views/admin_projects_view.dart';
@@ -723,6 +724,14 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) {
         final project = state.extra as OurProjectEntity;
         return buildTransitionPage(EditOurProjectView(project: project));
+      },
+    ),
+         GoRoute(
+      path: '/addtourprojectview',
+      name: 'addourprojectview',
+      pageBuilder: (context, state) {
+       
+        return buildTransitionPage(AddOurProjectView());
       },
     ),
   ],

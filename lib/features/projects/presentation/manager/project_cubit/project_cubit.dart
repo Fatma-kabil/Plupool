@@ -11,8 +11,11 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
   final DeleteProjectUseCase deleteProjectUseCase;
   final UpdateProjectUseCase updateProjectUseCase;
 
-  OurProjectsCubit(this.getOurProjectsUseCase, this.deleteProjectUseCase,this.updateProjectUseCase)
-    : super(const OurProjectsState());
+  OurProjectsCubit(
+    this.getOurProjectsUseCase,
+    this.deleteProjectUseCase,
+    this.updateProjectUseCase,
+  ) : super(const OurProjectsState());
 
   Future<void> getProjects({
     int skip = 0,
@@ -63,36 +66,20 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
     );
   }
 
- Future<void> updateProject(
-  UpdateProjectRequest request,
-) async {
-  emit(
-    state.copyWith(
-      isUpdating: true,
-      error: null,
-    ),
-  );
+  Future<void> updateProject(UpdateProjectRequest request) async {
+    emit(state.copyWith(isUpdating: true, updateSuccess: false, error: null));
 
-  final result = await updateProjectUseCase( request);
+    final result = await updateProjectUseCase(request);
 
-  result.fold(
-    (failure) {
-      emit(
-        state.copyWith(
-          isUpdating: false,
-          error: failure.message,
-        ),
-      );
-    },
-    (_) async {
-      emit(
-        state.copyWith(
-          isUpdating: false,
-        ),
-      );
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isUpdating: false, error: failure.message));
+      },
+      (_) async {
+        emit(state.copyWith(isUpdating: false, updateSuccess: true));
 
-      await getProjects();
-    },
-  );
-}
+        await getProjects();
+      },
+    );
+  }
 }

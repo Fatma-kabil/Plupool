@@ -77,18 +77,15 @@ class OurProjectModel extends OurProjectEntity {
       poolCount: (json['pool_count'] as num?)?.toInt(),
       constructionStatus: json['construction_status'],
 
-      progressPercentage:
-          (json['progress_percentage'] as num?)?.toInt(),
+      progressPercentage: (json['progress_percentage'] as num?)?.toInt(),
 
       mainImage: json['main_image'],
 
       clientName: json['client_name'],
       clientPhone: json['client_phone'],
 
-      estimatedCost:
-          (json['estimated_cost'] as num?)?.toDouble(),
-      actualCost:
-          (json['actual_cost'] as num?)?.toDouble(),
+      estimatedCost: (json['estimated_cost'] as num?)?.toDouble(),
+      actualCost: (json['actual_cost'] as num?)?.toDouble(),
 
       currency: json['currency'],
       priority: (json['priority'] as num?)?.toInt(),
@@ -116,7 +113,7 @@ class OurProjectModel extends OurProjectEntity {
 
       createdBy: json['created_by'],
 
-      durationWeeks: json['duration_weeks'],
+     durationWeeks: (json['duration_weeks'] as num?)?.toInt(),
       deliveryDays: json['delivery_days'],
       companyPartner: json['company_partner'],
 
@@ -126,8 +123,8 @@ class OurProjectModel extends OurProjectEntity {
       isHomeFeatured: (json['is_home_featured'] as num?)?.toInt(),
       isActive: (json['is_active'] as num?)?.toInt(),
 
-      technicianIds: json['technician_ids'] != null
-          ? List<int>.from(json['technician_ids'])
+      technicianIds: json['technician_ids'] is List
+          ? List<int>.from(json['technician_ids'].map((e) => e as int))
           : [],
 
       technicianNames: json['technician_names'] != null
@@ -139,7 +136,10 @@ class OurProjectModel extends OurProjectEntity {
       statusLabel: json['status_label'],
       statusColor: json['status_color'],
 
-      isOverdue: json['is_overdue'],
+      isOverdue:
+          json['is_overdue'] == true ||
+          json['is_overdue'] == 1 ||
+          json['is_overdue'] == "true",
 
       daysRemaining: json['days_remaining'],
       daysElapsed: json['days_elapsed'],

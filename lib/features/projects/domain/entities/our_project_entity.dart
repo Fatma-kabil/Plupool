@@ -53,7 +53,7 @@ class OurProjectEntity {
 
   final int? createdBy;
 
-  final String? durationWeeks;
+  final int? durationWeeks;
   final String? deliveryDays;
   final String? companyPartner;
 

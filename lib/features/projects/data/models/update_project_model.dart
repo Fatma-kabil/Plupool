@@ -1,5 +1,5 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class UpdateProjectRequest {
@@ -36,6 +36,7 @@ class UpdateProjectRequest {
   final int? durationWeeks;
   final String? deliveryDays;
   final String? companyPartner;
+  final String? descriptionAr;
 
   /// 1 يظهر بالرئيسية
   /// 0 لا يظهر
@@ -44,14 +45,14 @@ class UpdateProjectRequest {
   /// 1 نشط
   /// 0 موقوف
   final int? isActive;
-
-  final XFile? image2File;
+  final File? image_1;
+  final File? image2File;
 
   /// الصورة الرئيسية
-  final XFile? mainImage;
+  final File? mainImage;
 
   /// الصور الإضافية
-  final List<XFile>? additionalImages;
+  final List<File>? additionalImages;
 
   /// مثل 1,2,5
   final String? technicianIds;
@@ -86,6 +87,8 @@ class UpdateProjectRequest {
     this.mainImage,
     this.additionalImages,
     this.technicianIds,
+    this.descriptionAr,
+    this.image_1
   });
 
   Future<FormData> toFormData() async {
@@ -105,9 +108,7 @@ class UpdateProjectRequest {
 
     addField(
       "start_date",
-      startDate != null
-          ? DateFormat('yyyy-MM-dd').format(startDate!)
-          : null,
+      startDate != null ? DateFormat('yyyy-MM-dd').format(startDate!) : null,
     );
 
     addField(
@@ -146,10 +147,23 @@ class UpdateProjectRequest {
     addField("is_active", isActive);
 
     addField("technician_ids", technicianIds);
+     addField("description_ar", descriptionAr);
 
     //-----------------------------------------
     // image_2_file
     //-----------------------------------------
+
+     if (image_1 != null) {
+      formData.files.add(
+        MapEntry(
+          "image_1",
+          await MultipartFile.fromFile(
+            image2File!.path,
+            filename: image2File!.path.split('/').last,
+          ),
+        ),
+      );
+    }
 
     if (image2File != null) {
       formData.files.add(
@@ -157,7 +171,7 @@ class UpdateProjectRequest {
           "image_2_file",
           await MultipartFile.fromFile(
             image2File!.path,
-            filename: image2File!.name,
+            filename: image2File!.path.split('/').last,
           ),
         ),
       );
@@ -173,7 +187,7 @@ class UpdateProjectRequest {
           "main_image",
           await MultipartFile.fromFile(
             mainImage!.path,
-            filename: mainImage!.name,
+            filename: mainImage!.path.split('/').last,
           ),
         ),
       );
@@ -190,7 +204,7 @@ class UpdateProjectRequest {
             "additional_images",
             await MultipartFile.fromFile(
               image.path,
-              filename: image.name,
+              filename: image.path.split('/').last,
             ),
           ),
         );

@@ -212,7 +212,7 @@ class OurProjectCard extends StatelessWidget {
                     //    SizedBox(width: SizeConfig.w(6)),
                     Text(
                       toArabicNumbers(
-                        " ${project.durationWeeks ?? project.constructionDays ?? 0} اسبوع",
+                        " ${project.durationWeeks ?? 0} اسبوع",
                       ),
                       style: AppTextStyles.styleRegular14(
                         context,
