@@ -8,7 +8,8 @@ import 'package:plupool/features/offers/presentation/views/widgets/add_edit_offe
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
 import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_state.dart';
-import 'package:plupool/features/services/presentation/views/admin/widgets/add_customer_service_form.dart';
+import 'package:plupool/features/services/presentation/views/admin/widgets/edit_customer_form_service.dart';
+import 'package:plupool/features/services/presentation/views/admin/widgets/tech_multi_selected_field.dart';
 
 class EditCustomerServiceViewBody extends StatefulWidget {
   final BookingEntity booking;
@@ -123,7 +124,7 @@ class _EditCustomerServiceViewBodyState
         children: [
           Expanded(
             child: SingleChildScrollView(
-              child: AddCustomerServiceForm(
+              child: EditCustomerFormService(
                 formKey: _formKey,
                 serviceTitleController: serviceTitleController,
                 technicianController: technicianController,
@@ -139,20 +140,23 @@ class _EditCustomerServiceViewBodyState
                   });
                 },
 
-                /// العميل
+                initialTechnicians: List.generate(
+                  widget.booking.techniciansIds.length,
+                  (index) => TechnicianItem(
+                    id: widget.booking.techniciansIds[index],
+                    name: widget.booking.techniciansNames[index],
+                  ),
+                ),
+
                 onCustomerSelected: (id, name) {
                   selectedCustomerId = id;
                   customerNameController.text = name;
                 },
 
-                /// الفنيين
                 onTechniciansSelected: (techs) {
-                  print(techs.map((e) => "${e.id} - ${e.fullName}").toList());
                   selectedTechnicianIds = techs.map((e) => e.id).toList();
 
-                  selectedTechnicianNames = techs
-                      .map((e) => e.fullName)
-                      .toList();
+                  selectedTechnicianNames = techs.map((e) => e.name).toList();
                 },
               ),
             ),
@@ -168,6 +172,14 @@ class _EditCustomerServiceViewBodyState
                     ? null
                     : () {
                         if (_formKey.currentState!.validate()) {
+                          if (selectedTechnicianIds.isEmpty) {
+                            showCustomSnackBar(
+                              context: context,
+                              message: "لازم تختار فني واحد على الأقل",
+                              isSuccess: false,
+                            );
+                            return;
+                          }
                           context.read<BookingCubit>().updateBooking(
                             id: widget.booking.id,
                             booking: BookingEntity(

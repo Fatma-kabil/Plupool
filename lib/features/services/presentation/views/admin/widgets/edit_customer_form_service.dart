@@ -5,15 +5,13 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/validators.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
-import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
-import 'package:plupool/features/services/presentation/views/admin/widgets/customer_serch_field.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/tech_multi_selected_field.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
-class AddCustomerServiceForm extends StatefulWidget {
-  const AddCustomerServiceForm({
+class EditCustomerFormService extends StatefulWidget {
+  const EditCustomerFormService({
     super.key,
     required this.formKey,
     required this.serviceTitleController,
@@ -55,14 +53,13 @@ class AddCustomerServiceForm extends StatefulWidget {
   final List<TechnicianItem> initialTechnicians;
 
   @override
-  State<AddCustomerServiceForm> createState() =>
-      _AddCustomerServiceFormState();
+  State<EditCustomerFormService> createState() =>
+      _EditCustomerFormServiceState();
 }
-
-class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
+class _EditCustomerFormServiceState extends State<EditCustomerFormService> {
   String formatDate(DateTime? date) {
     if (date == null) return '';
-    return "${date.day}/${date.month}/${date.year}";
+    return "${date.year}/${date.month}/${date.day}";
   }
 
   @override
@@ -74,16 +71,13 @@ class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
         children: [
           const FieldLabel("اسم العميل"),
 
-          CustomerSearchField(
+          TextFieldWithIcon(
+            hint: "اكتب اسم العميل",
+            icon: Icons.person,
+            validator: (value) =>
+                Validators.required(value, fieldName: "اسم العميل"),
             controller: widget.customerNameController,
-            onSelected: (UserEntity user) {
-              widget.customerNameController.text = user.fullName;
-
-              widget.onCustomerSelected(
-                user.id,
-                user.fullName,
-              );
-            },
+            readOnly: true,
           ),
 
           const SizedBox(height: 15),
@@ -150,4 +144,5 @@ class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
       ),
     );
   }
+
 }

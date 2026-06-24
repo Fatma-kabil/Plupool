@@ -5,6 +5,7 @@ import 'package:plupool/core/utils/functions/pick_time_fun.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_edit_offer_view_footer.dart';
+import 'package:plupool/features/services/presentation/views/admin/widgets/tech_multi_selected_field.dart';
 import 'add_customer_service_form.dart';
 
 class AddCustomerServiceViewBody extends StatefulWidget {
@@ -26,8 +27,9 @@ class _AddCustomerServiceViewBodyState
   int? selectedCustomerId;
 
   /// الفنيين المختارين
-  List<UserEntity> selectedTechnicians = [];
-
+ 
+  List<int> selectedTechnicianIds = [];
+  List<String> selectedTechnicianNames = [];
   DateTime? startDate;
   TimeOfDay? selectedTime;
   RequestStatus selectedStatus = RequestStatus.urgent;
@@ -67,36 +69,34 @@ class _AddCustomerServiceViewBodyState
         Expanded(
           child: SingleChildScrollView(
             child: AddCustomerServiceForm(
-              formKey: _formKey,
-              serviceTitleController: serviceTitleController,
-              technicianController: technicianController,
-              customerNameController: customerNameController,
-              startDate: startDate,
-              onPickDate: onPickDate,
-              selectedTime: selectedTime,
-              onPickTime: onPickTime,
-              selectedStatus: selectedStatus,
-              onStatusChanged: (newStatus) {
-                setState(() {
-                  selectedStatus = newStatus!;
-                });
-              },
+                formKey: _formKey,
+                serviceTitleController: serviceTitleController,
+                technicianController: technicianController,
+                customerNameController: customerNameController,
+                startDate: startDate,
+                onPickDate: onPickDate,
+                selectedTime: selectedTime,
+                onPickTime: onPickTime,
+                selectedStatus: selectedStatus,
+                onStatusChanged: (newStatus) {
+                  setState(() {
+                    selectedStatus = newStatus!;
+                  });
+                },
 
-              /// العميل المختار
-              onCustomerSelected: (id, name) {
-                setState(() {
+                initialTechnicians: const [],
+
+                onCustomerSelected: (id, name) {
                   selectedCustomerId = id;
                   customerNameController.text = name;
-                });
-              },
+                },
 
-              /// الفنيين المختارين
-              onTechniciansSelected: (techs) {
-                setState(() {
-                  selectedTechnicians = techs;
-                });
-              },
-            ),
+                onTechniciansSelected: (techs) {
+                  selectedTechnicianIds = techs.map((e) => e.id).toList();
+
+                  selectedTechnicianNames = techs.map((e) => e.name).toList();
+                },
+              ),
           ),
         ),
 
@@ -108,9 +108,7 @@ class _AddCustomerServiceViewBodyState
               print("Customer Name: ${customerNameController.text}");
               print("Service Title: ${serviceTitleController.text}");
 
-              print(
-                "Technicians: ${selectedTechnicians.map((e) => e.fullName).toList()}",
-              );
+
 
               print("Date: $startDate");
               print(

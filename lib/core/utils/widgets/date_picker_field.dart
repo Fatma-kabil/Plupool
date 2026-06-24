@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class DatePickerField extends StatelessWidget {
@@ -68,10 +69,12 @@ class DatePickerField extends StatelessWidget {
                   ),
                   SizedBox(width: SizeConfig.w(6)),
                   Text(
+                    textDirection: TextDirection.rtl,
+                    toArabicNumbers(
                     selectedDate != null
                         ? dateFormat?.call(selectedDate!) ??
                            formatDate(   selectedDate!)
-                        : "dd/mm/yy",
+                        : "dd/mm/yy",),
                     style: AppTextStyles.styleRegular14(context).copyWith(
                       color: selectedDate != null
                           ?selectedDateColor?? const Color(0xFF006398)

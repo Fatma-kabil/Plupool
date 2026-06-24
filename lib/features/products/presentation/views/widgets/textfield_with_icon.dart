@@ -12,7 +12,8 @@ class TextFieldWithIcon extends StatelessWidget {
   final bool tailing;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
-  final void Function()? onTap; // اضيفي كده للـ constructor
+  final void Function()? onTap;
+  final bool readOnly; // اضيفي كده للـ constructor
   const TextFieldWithIcon({
     super.key,
     required this.controller,
@@ -24,6 +25,7 @@ class TextFieldWithIcon extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.onTap,
+    this.readOnly=false
   });
 
   @override
@@ -34,6 +36,7 @@ class TextFieldWithIcon extends StatelessWidget {
         onTap: onTap,
         onChanged: onChanged,
         controller: controller,
+        readOnly:readOnly ,
         maxLines: maxLines,
         keyboardType: keyboardType,
         cursorColor: AppColors.ktextcolor,
