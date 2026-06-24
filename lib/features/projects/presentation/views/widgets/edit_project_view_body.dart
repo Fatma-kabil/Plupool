@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +28,6 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
   final _formKey = GlobalKey<FormState>();
 
   final projectNameController = TextEditingController();
-  final maintenanceDaysController = TextEditingController();
   final noOfPoolsController = TextEditingController();
 
   DateTime startDate = DateTime.now();
@@ -42,7 +43,6 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
 
     projectNameController.text = widget.model.nameAr ?? "";
 
-    maintenanceDaysController.text = "";
 
     noOfPoolsController.text = widget.model.poolCount?.toString() ?? "";
 
@@ -62,7 +62,6 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
   @override
   void dispose() {
     projectNameController.dispose();
-    maintenanceDaysController.dispose();
     noOfPoolsController.dispose();
     super.dispose();
   }
@@ -132,7 +131,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
             AddEditProjectForm(
               formKey: _formKey,
               projectNameController: projectNameController,
-              maintenanceDaysController: maintenanceDaysController,
+
               noOfPoolsController: noOfPoolsController,
               selectedstatus: selectedPackage,
               onStatusChanged: (val) {
@@ -159,6 +158,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
                 if (form == null || !form.validate()) return;
 
                 // ✅ REQUIRED CHECKS (DATE + TIME + STATUS)
+                // ignore: unnecessary_null_comparison
                 if (startDate == null) {
                   showCustomSnackBar(
                     context: context,
@@ -168,6 +168,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
                   return;
                 }
 
+                // ignore: unnecessary_null_comparison
                 if (endDate == null) {
                   showCustomSnackBar(
                     context: context,
@@ -209,9 +210,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
                   UpdateProjectRequest(
                     projectId: widget.model.id,
                     nameAr: projectNameController.text.trim(),
-                    constructionDays: int.tryParse(
-                      maintenanceDaysController.text,
-                    ),
+                    
                     poolCount: int.tryParse(noOfPoolsController.text),
                     startDate: startDate,
                     expectedEndDate: endDate,

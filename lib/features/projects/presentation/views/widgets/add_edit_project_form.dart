@@ -5,7 +5,6 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
-import 'package:plupool/features/packages/presentation/views/widgets/weekdays_multi_select_field.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
@@ -14,7 +13,6 @@ class AddEditProjectForm extends StatefulWidget {
     super.key,
     required this.formKey,
     required this.projectNameController,
-    required this.maintenanceDaysController,
     this.startDate,
     this.endDate,
     this.selectedTime,
@@ -27,7 +25,6 @@ class AddEditProjectForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
 
   final TextEditingController projectNameController;
-  final TextEditingController maintenanceDaysController;
   final TextEditingController noOfPoolsController;
   
   final RequestStatus selectedstatus;
@@ -94,14 +91,6 @@ class _AddEditProjectFormState extends State<AddEditProjectForm> {
             selectedDate: widget.endDate,
             dateFormat: formatDate,
             onTap: widget.onPickEndDate,
-          ),
-
-          const SizedBox(height: 15),
-
-          /// أيام الصيانة
-          const FieldLabel("أيام الانشاء"),
-          WeekDaysMultiSelectField(
-            controller: widget.maintenanceDaysController,
           ),
 
           const SizedBox(height: 15),

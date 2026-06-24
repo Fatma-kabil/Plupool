@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_company_view.dart';
@@ -15,6 +16,8 @@ import 'package:plupool/features/contact_us/presentation/views/company_res_conta
 import 'package:plupool/features/contact_us/presentation/views/contact_us_details_view.dart';
 import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
 import 'package:plupool/features/customers/domain/entities/user_entity.dart';
+import 'package:plupool/features/customers/domain/entities/user_pool_entity.dart';
+import 'package:plupool/features/customers/presentation/manager/user_pool_cubit/user_pool_cubit.dart';
 import 'package:plupool/features/customers/presentation/views/add_customer_view.dart';
 import 'package:plupool/features/customers/presentation/views/customer_profile_view.dart';
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
@@ -624,9 +627,19 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: '/editcustomerpoolinfo',
-      name: 'editcustomerpoolinfo',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const EditCustomerPoolInfo()),
+      pageBuilder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+
+        return buildTransitionPage(
+          BlocProvider.value(
+            value: extra['cubit'] as PoolCubit,
+            child: EditCustomerPoolInfo(
+              userId: extra['userId'] as int,
+              pool: extra['pool'] as UserPoolEntity,
+            ),
+          ),
+        );
+      },
     ),
     GoRoute(
       path: '/techsview',
@@ -718,7 +731,7 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) =>
           buildTransitionPage(CompanyResCusPoolView()),
     ),
-     GoRoute(
+    GoRoute(
       path: '/editourprojectview',
       name: 'editourprojectview',
       pageBuilder: (context, state) {
@@ -726,11 +739,10 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(EditOurProjectView(project: project));
       },
     ),
-         GoRoute(
+    GoRoute(
       path: '/addtourprojectview',
       name: 'addourprojectview',
       pageBuilder: (context, state) {
-       
         return buildTransitionPage(AddOurProjectView());
       },
     ),

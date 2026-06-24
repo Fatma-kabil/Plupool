@@ -68,7 +68,7 @@ class _AddProjectViewBodyState extends State<AddProjectViewBody> {
           AddEditProjectForm(
             formKey: _formKey,
             projectNameController: projectNameController,
-            maintenanceDaysController: maintenanceDaysController,
+          
             noOfPoolsController: noOfPoolsController,
             selectedstatus: selectedPackage,
             onStatusChanged: (val) {

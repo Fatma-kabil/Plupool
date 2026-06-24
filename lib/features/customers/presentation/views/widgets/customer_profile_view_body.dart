@@ -56,7 +56,9 @@ class _CustomerProfileViewBodyState extends State<CustomerProfileViewBody> {
                     horizontal: SizeConfig.w(15),
                     vertical: SizeConfig.h(30),
                   ),
-                  child: CustomerProfileViewMiddleCard(),
+                  child: CustomerProfileViewMiddleCard(
+                    userId: user.user.id,
+                  ),
                 ),
 
                 CustomerProfileViewFooter(user: user,),

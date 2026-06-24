@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class PoolInfoCard extends StatelessWidget {
@@ -21,7 +22,9 @@ class PoolInfoCard extends StatelessWidget {
     required this.icon,
     required this.iconcolor,
     this.titleTextStyle,
-    this.valueTextStyle, this.h1, this.h2,
+    this.valueTextStyle,
+    this.h1,
+    this.h2,
   });
 
   @override
@@ -50,7 +53,7 @@ class PoolInfoCard extends StatelessWidget {
                   child: Icon(icon, color: iconcolor, size: SizeConfig.w(20)),
                 ),
               ),
-              SizedBox(height: SizeConfig.h(h1??5)),
+              SizedBox(height: SizeConfig.h(h1 ?? 5)),
               Text(
                 title,
                 style:
@@ -59,10 +62,10 @@ class PoolInfoCard extends StatelessWidget {
                       context,
                     ).copyWith(color: Color(0xFF777777)),
               ),
-                SizedBox(height: SizeConfig.h(h2??0)),
+              SizedBox(height: SizeConfig.h(h2 ?? 0)),
               Text(
                 textDirection: TextDirection.rtl,
-                value,
+                toArabicNumbers(value),
                 textAlign: TextAlign.center,
                 style:
                     valueTextStyle ??

@@ -16,13 +16,19 @@ import 'package:plupool/features/company_res/domain/repos/company_res_clients_re
 import 'package:plupool/features/company_res/domain/usecases/get_company_res_usecase.dart';
 import 'package:plupool/features/company_res/presentation/views/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
 import 'package:plupool/features/customers/data/data_sources/admin_users_remote_data_source.dart';
+import 'package:plupool/features/customers/data/data_sources/pool_remote_data_source.dart';
 import 'package:plupool/features/customers/data/repos_impl/admin_user_repo_impl.dart';
+import 'package:plupool/features/customers/data/repos_impl/pool_repo_impl.dart';
 import 'package:plupool/features/customers/domain/repos/admin_domain_rapos.dart';
+import 'package:plupool/features/customers/domain/repos/pool_repo.dart';
 import 'package:plupool/features/customers/domain/usecases/add_user_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/delete_user_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/get_user_details_usecase.dart';
+import 'package:plupool/features/customers/domain/usecases/get_user_pool_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/get_users_usecase.dart';
+import 'package:plupool/features/customers/domain/usecases/update_user_pool_usecase.dart';
 import 'package:plupool/features/customers/domain/usecases/update_user_usecase.dart';
+import 'package:plupool/features/customers/presentation/manager/user_pool_cubit/user_pool_cubit.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 import 'package:plupool/features/home/data/remote_data_sources/notification_remote_data_source.dart';
 import 'package:plupool/features/home/data/repos_impl/notification_repo_impl.dart';
@@ -906,4 +912,22 @@ Future<void> initServiceLocator() async {
   sl.registerFactory(
     () => CompanyResClientsCubit(sl<GetCompanyResClientsUseCase>()),
   );
+
+  sl.registerLazySingleton<PoolRemoteDataSource>(
+  () => PoolRemoteDataSource(sl<ApiService>()),
+);
+
+sl.registerLazySingleton<PoolRepository>(
+  () => PoolRepositoryImpl(sl<PoolRemoteDataSource>()),
+);
+
+sl.registerLazySingleton(() => GetUserPoolUseCase(sl<PoolRepository>()));
+sl.registerLazySingleton(() => UpdateUserPoolUseCase(sl<PoolRepository>()));
+
+sl.registerFactory(
+  () => PoolCubit(
+    sl<GetUserPoolUseCase>(),
+    sl<UpdateUserPoolUseCase>(),
+  ),
+);
 }
