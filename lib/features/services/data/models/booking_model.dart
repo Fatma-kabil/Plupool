@@ -44,7 +44,7 @@ class BookingModel {
     required this.id,
     required this.userId,
     this.serviceId,
-     this.poolTypeId,
+    this.poolTypeId,
     this.packageId,
     this.customLength,
     this.customWidth,
@@ -56,7 +56,7 @@ class BookingModel {
     required this.createdAt,
     this.updatedAt,
     this.serviceName,
-     this.poolTypeName,
+    this.poolTypeName,
     this.packageName,
     required this.userName,
     required this.userRole,
@@ -107,42 +107,22 @@ class BookingModel {
     );
   }
   Map<String, dynamic> toJson() {
-  return {
-    "booking_type": bookingType,
-    "booking_date": bookingDate,
-    "booking_time": bookingTime,
-    "notes": notes,
+    return {
+      "booking_type": bookingType,
+      "booking_date": bookingDate,
+      "booking_time": bookingTime,
+      "notes": notes,
 
-    "id": id,
-    "user_id": userId,
-    "service_id": serviceId,
-    "pool_type_id": poolTypeId,
-    "package_id": packageId,
+      "user_id": userId,
+      "service_id": serviceId,
+      "package_id": packageId,
 
-    "custom_length": customLength,
-    "custom_width": customWidth,
-    "custom_depth": customDepth,
+      "status": status,
 
-    "status": status,
-    "admin_notes": adminNotes,
-    "next_maintenance_date": nextMaintenanceDate,
-    "reminder_sent": reminderSent,
+      "technician_ids": technicianIds,
+      "technician_names": technicianNames,
 
-    "created_at": createdAt,
-    "updated_at": updatedAt,
-
-    "service_name": serviceName,
-    "pool_type_name": poolTypeName,
-    "package_name": packageName,
-    "user_name": userName,
-    "user_role": userRole,
-
-    "technician_ids": technicianIds,
-    "technician_names": technicianNames,
-    "technicians_display": techniciansDisplay,
-
-    "can_be_rated": canBeRated,
-    "is_rated": isRated,
-  };
-}
+      "service_name": serviceName,
+    };
+  }
 }

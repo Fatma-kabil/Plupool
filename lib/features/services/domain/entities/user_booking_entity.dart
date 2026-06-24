@@ -1,6 +1,7 @@
 class UserBookingEntity {
   final int id;
   final String userName;
+  final int userId;
   final String userRole;
   final String date;
   final String time;
@@ -9,6 +10,7 @@ class UserBookingEntity {
   final String? serviceName;
   final int? serviceId;
   final List<String>? technicians;
+   final List<int>? techniciansIds;
   final int? visitCount;
   final int? completedVisits;
   final String? nextVisitDate;
@@ -24,10 +26,12 @@ class UserBookingEntity {
     required this.status,
     required this.bookingType,
     this.serviceName,
-     this.technicians,
+    this.technicians,
     this.visitCount,
     this.completedVisits,
     this.nextVisitDate,
-    this.nextVisitTime
+    this.nextVisitTime,
+    this.techniciansIds,
+    required this.userId
   });
 }

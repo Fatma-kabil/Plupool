@@ -65,13 +65,13 @@ class CustomerServiceCard extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            ServiceCardRow(title: "نوع الخدمة:", value: booking.bookingType),
+            ServiceCardRow(title: "نوع الخدمة:", value: booking.serviceName??""),
             const SizedBox(height: 5),
             ServiceCardRow(title: " العميل:", value: booking.userName),
             const SizedBox(height: 5),
             ServiceCardRow(
               title: "الفنيين:",
-              value: booking.technicians.join(" - "),
+              value: booking.techniciansNames.join(" - "),
             ),
             const SizedBox(height: 8),
             ServiceCardFooter(

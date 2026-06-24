@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/functions/pick_date_fun.dart';
 import 'package:plupool/core/utils/functions/pick_time_fun.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_edit_offer_view_footer.dart';
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
 import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
@@ -12,10 +13,7 @@ import 'package:plupool/features/services/presentation/views/admin/widgets/add_c
 class EditCustomerServiceViewBody extends StatefulWidget {
   final BookingEntity booking;
 
-  const EditCustomerServiceViewBody({
-    super.key,
-    required this.booking,
-  });
+  const EditCustomerServiceViewBody({super.key, required this.booking});
 
   @override
   State<EditCustomerServiceViewBody> createState() =>
@@ -34,32 +32,40 @@ class _EditCustomerServiceViewBodyState
   TimeOfDay? selectedTime;
   late RequestStatus selectedStatus;
 
+  int? selectedCustomerId;
+
+  List<int> selectedTechnicianIds = [];
+  List<String> selectedTechnicianNames = [];
+
   @override
   void initState() {
     super.initState();
 
     final booking = widget.booking;
 
-    serviceTitleController =
-        TextEditingController(text: booking.serviceName ?? "");
+    serviceTitleController = TextEditingController(
+      text: booking.serviceName ?? "",
+    );
 
-    technicianController =
-        TextEditingController(text: booking.technicians.join(" - "));
+    technicianController = TextEditingController(
+      text: booking.techniciansNames.join(" - "),
+    );
 
-    customerNameController =
-        TextEditingController(text: booking.userName);
+    customerNameController = TextEditingController(text: booking.userName);
 
-    /// 📅 Date
+    /// الفنيين الحاليين
+    selectedTechnicianIds = List<int>.from(booking.techniciansIds);
+
+    selectedTechnicianNames = List<String>.from(booking.techniciansNames);
+
     startDate = DateTime.parse(booking.date);
 
-    /// ⏰ Time
     final timeParts = booking.time.split(":");
     selectedTime = TimeOfDay(
       hour: int.parse(timeParts[0]),
       minute: int.parse(timeParts[1]),
     );
 
-    /// 🔁 Status
     selectedStatus = mapApiStatus(booking.status);
   }
 
@@ -71,9 +77,9 @@ class _EditCustomerServiceViewBodyState
     super.dispose();
   }
 
-  /// 📅 Pick Date
   Future<void> onPickDate() async {
     final picked = await pickDateFun(context);
+
     if (picked != null) {
       setState(() {
         startDate = picked;
@@ -81,9 +87,9 @@ class _EditCustomerServiceViewBodyState
     }
   }
 
-  /// ⏰ Pick Time
   Future<void> onPickTime() async {
     final picked = await pickTimeFun(context);
+
     if (picked != null) {
       setState(() {
         selectedTime = picked;
@@ -91,28 +97,30 @@ class _EditCustomerServiceViewBodyState
     }
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<BookingCubit, BookingState>(
       listener: (context, state) {
         if (state is BookingUpdated) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("تم التعديل بنجاح ✅")),
+          showCustomSnackBar(
+            context: context,
+            message: "تم التعديل بنجاح ✅",
+            isSuccess: true,
           );
+
           Navigator.pop(context);
         }
 
         if (state is BookingError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+          showCustomSnackBar(
+            context: context,
+            message: state.message,
+            isSuccess: false,
           );
         }
       },
       child: Column(
         children: [
-          /// 🧾 Form
           Expanded(
             child: SingleChildScrollView(
               child: AddCustomerServiceForm(
@@ -130,11 +138,26 @@ class _EditCustomerServiceViewBodyState
                     selectedStatus = newStatus!;
                   });
                 },
+
+                /// العميل
+                onCustomerSelected: (id, name) {
+                  selectedCustomerId = id;
+                  customerNameController.text = name;
+                },
+
+                /// الفنيين
+                onTechniciansSelected: (techs) {
+                  print(techs.map((e) => "${e.id} - ${e.fullName}").toList());
+                  selectedTechnicianIds = techs.map((e) => e.id).toList();
+
+                  selectedTechnicianNames = techs
+                      .map((e) => e.fullName)
+                      .toList();
+                },
               ),
             ),
           ),
 
-          /// 🔘 Save Button with loading
           BlocBuilder<BookingCubit, BookingState>(
             builder: (context, state) {
               final isLoading = state is BookingLoading;
@@ -142,27 +165,32 @@ class _EditCustomerServiceViewBodyState
               return AddEditOfferViewFooter(
                 text: isLoading ? "جاري الحفظ..." : "حفظ",
                 onPressed: isLoading
-                    ? null // 🔥 disable button
+                    ? null
                     : () {
                         if (_formKey.currentState!.validate()) {
                           context.read<BookingCubit>().updateBooking(
-                              
-                                id: widget.booking.id,
-                                booking: BookingEntity(
-                                  id: widget.booking.id,
-                                  userName: customerNameController.text,
-                                  bookingType: serviceTitleController.text,
-                                  date: startDate.toIso8601String(),
-                                  time:
-                                      "${selectedTime!.hour}:${selectedTime!.minute}",
-                                  status: mapStatusToApi(selectedStatus),
-                                  technicians: technicianController.text
-                                      .split(" - ")
-                                      .map((e) => e.trim())
-                                      .toList(), userRole: '',
-                                ),
-                               
-                              );
+                            id: widget.booking.id,
+                            booking: BookingEntity(
+                              bookingType: widget.booking.bookingType,
+                              id: widget.booking.id,
+                              userName: customerNameController.text,
+                              serviceName: serviceTitleController.text,
+                              date: startDate.toIso8601String(),
+                              time:
+                                  "${selectedTime!.hour.toString().padLeft(2, '0')}:${selectedTime!.minute.toString().padLeft(2, '0')}",
+                              status: mapStatusToApi2(selectedStatus),
+
+                              /// الفنيين
+                              techniciansNames: selectedTechnicianNames,
+
+                              techniciansIds: selectedTechnicianIds,
+
+                              userId:
+                                  selectedCustomerId ?? widget.booking.userId,
+
+                              userRole: widget.booking.userRole,
+                            ),
+                          );
                         }
                       },
               );

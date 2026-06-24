@@ -40,6 +40,7 @@ RequestStatus mapApiStatus(String status) {
         return "confirmed";
     }
   }
+  
    String mapStatusToApi2(RequestStatus status) {
     switch (status) {
       case RequestStatus.urgent:

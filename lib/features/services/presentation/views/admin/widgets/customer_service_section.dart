@@ -110,7 +110,10 @@ class _CustomerServiceSectionState extends State<CustomerServiceSection> {
               time: booking.time,
               status: booking.status,
               bookingType: booking.bookingType,
-              technicians: booking.technicians??[],
+              techniciansNames: booking.technicians??[],
+              userId: booking.userId,
+              techniciansIds: booking.techniciansIds??[]
+              
             ),
           );
         }, childCount: filteredServices.length),

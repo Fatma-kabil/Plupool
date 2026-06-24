@@ -1,6 +1,7 @@
 class BookingEntity {
   final int id;
   final String userName;
+  final int userId;
   final String userRole;
   final String date;
   final String time;
@@ -8,7 +9,8 @@ class BookingEntity {
   final String bookingType;
   final String? serviceName;
   final int? serviceId;
-  final List<String> technicians;
+  final List<String> techniciansNames;
+  final List<int> techniciansIds;
 
   BookingEntity({
     this.serviceId,
@@ -20,6 +22,8 @@ class BookingEntity {
     required this.status,
     required this.bookingType,
     this.serviceName,
-    required this.technicians,
+    required this.techniciansNames,
+    required this.techniciansIds,
+    required this.userId,
   });
 }

@@ -10,7 +10,7 @@ class BookingUserModel {
   final String? serviceName;
   final int? serviceId;
   final List<String>? technicianNames;
-
+  final List<int>? technicianIds;
   final int? visitCount;
   final int? completedVisits;
   final Map<String, dynamic>? nextVisit;
@@ -28,6 +28,7 @@ class BookingUserModel {
     this.visitCount,
     this.completedVisits,
     this.nextVisit,
+    this.technicianIds
   });
 
   factory BookingUserModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +52,8 @@ class BookingUserModel {
 
       technicianNames:
           List<String>.from(json['technician_names'] ?? []),
+            technicianIds:
+          List<int>.from(json['technician_ids'] ?? []),
 
       visitCount: json['visit_count'],
       completedVisits: json['completed_visits'],
@@ -66,6 +69,7 @@ class BookingUserModel {
       id: id,
       userName: user['name'] ?? '',
       userRole: user['role'] ?? '',
+      userId: user['id'] ?? '' ,
       date: bookingDate,
       time: bookingTime,
       status: status,
@@ -73,6 +77,7 @@ class BookingUserModel {
       serviceName: serviceName,
       serviceId: serviceId,
       technicians: technicianNames,
+      techniciansIds: technicianIds,
       visitCount: visitCount,
       completedVisits: completedVisits,
       nextVisitDate: nextVisit?['booking_date'] ?? '',

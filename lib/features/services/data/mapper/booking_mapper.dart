@@ -15,9 +15,11 @@ extension BookingMapper on BookingModel {
       status: status,
       bookingType: bookingType,
       serviceName: serviceName,
-      technicians: technicianNames,
+      techniciansNames: technicianNames,
       userRole: userRole,
       serviceId: serviceId,
+      techniciansIds: technicianIds,
+      userId: userId
     );
   }
 }
@@ -52,7 +54,7 @@ extension BookingEntityMapper on BookingEntity {
       notes: null,
 
       id: id,
-      userId: 0, // لو مش موجود في الـ entity خليه default أو خديه من مكان تاني
+      userId: userId, // لو مش موجود في الـ entity خليه default أو خديه من مكان تاني
       serviceId: serviceId,
       poolTypeId: 0,
       packageId: null,
@@ -75,9 +77,9 @@ extension BookingEntityMapper on BookingEntity {
       userName: userName,
       userRole: userRole,
 
-      technicianIds: [],
-      technicianNames: technicians,
-      techniciansDisplay: technicians.join(" - "),
+      technicianIds: techniciansIds,
+      technicianNames: techniciansNames,
+      techniciansDisplay: techniciansNames.join(" - "),
 
       canBeRated: false,
       isRated: false,
