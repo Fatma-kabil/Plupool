@@ -14,31 +14,56 @@ class OurProjectCardFooter extends StatelessWidget {
     this.onVisionPressed,
     required this.projectId,
   });
+
   final void Function()? onEditPressed;
   final void Function()? onVisionPressed;
   final int projectId;
 
+  Widget _iconWrap({required Widget child, required Color bg}) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: bg.withOpacity(0.12),
+        shape: BoxShape.circle,
+      ),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      // mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         GestureDetector(
           onTap: onEditPressed,
-          child: Icon(
-            Icons.edit_note,
-            color: AppColors.kprimarycolor,
-            size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(24),
+          child: _iconWrap(
+            bg: AppColors.kprimarycolor,
+            child: Icon(
+              Icons.edit_note,
+              color: AppColors.kprimarycolor,
+              size: SizeConfig.isWideScreen
+                  ? SizeConfig.w(18)
+                  : SizeConfig.w(24),
+            ),
           ),
         ),
+
         SizedBox(width: SizeConfig.w(12)),
-        Icon(
-          Icons.visibility_outlined,
-          color: Color(0xffFF9F1C),
-          size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(24),
+
+        _iconWrap(
+          bg: const Color(0xffFF9F1C),
+          child: Icon(
+            Icons.visibility_outlined,
+            color: const Color(0xffFF9F1C),
+            size: SizeConfig.isWideScreen
+                ? SizeConfig.w(18)
+                : SizeConfig.w(24),
+          ),
         ),
+
         SizedBox(width: SizeConfig.w(12)),
+
         GestureDetector(
           onTap: () {
             showDialog(
@@ -49,7 +74,6 @@ class OurProjectCardFooter extends StatelessWidget {
 
                 return BlocConsumer<OurProjectsCubit, OurProjectsState>(
                   bloc: cubit,
-
                   listener: (context, state) {
                     if (!state.isDeleting && state.error == null) {
                       Navigator.pop(dialogContext);
@@ -70,7 +94,6 @@ class OurProjectCardFooter extends StatelessWidget {
                       );
                     }
                   },
-
                   builder: (context, state) {
                     return DeleteOrderCard(
                       text: "هل أنت متأكد من حذف هذا المشروع؟",
@@ -86,10 +109,15 @@ class OurProjectCardFooter extends StatelessWidget {
               },
             );
           },
-          child: Icon(
-            Icons.delete_outline_rounded,
-            color: Color(0xffE63946),
-            size: SizeConfig.isWideScreen ? SizeConfig.w(18) : SizeConfig.w(24),
+          child: _iconWrap(
+            bg: const Color(0xffE63946),
+            child: Icon(
+              Icons.delete_outline_rounded,
+              color: const Color(0xffE63946),
+              size: SizeConfig.isWideScreen
+                  ? SizeConfig.w(18)
+                  : SizeConfig.w(24),
+            ),
           ),
         ),
       ],

@@ -48,62 +48,87 @@ class CompanyProjectModel extends CompanyProjectEntity {
     super.remainingPoolsCounts,
   });
 
+  /// 🔥 helpers عشان نمنع كل errors
+  static int _toInt(dynamic v) =>
+      v is int ? v : int.tryParse(v?.toString() ?? '') ?? 0;
+
+  static double _toDouble(dynamic v) =>
+      v is double ? v : double.tryParse(v?.toString() ?? '') ?? 0.0;
+
+  static String _toString(dynamic v) => v?.toString() ?? '';
+
   factory CompanyProjectModel.fromJson(Map<String, dynamic> json) {
     return CompanyProjectModel(
-      id: json['id'] ?? 0,
+      id: _toInt(json['id']),
 
-      nameAr: json['name_ar'],
-      nameEn: json['name_en'],
-      projectType: json['project_type'],
-      status: json['status'],
-      locationAr: json['location_ar'],
-      locationEn: json['location_en'],
-      startDate: json['start_date'],
-      expectedEndDate: json['expected_end_date'],
-      actualEndDate: json['actual_end_date'],
-      constructionDays: json['construction_days'],
-      preferredTime: json['preferred_time'],
-      poolCount: json['pool_count'],
-      constructionStatus: json['construction_status'],
-      progressPercentage: json['progress_percentage'],
-      mainImage: json['main_image'],
-      clientName: json['client_name'],
-      clientPhone: json['client_phone'],
-      estimatedCost: (json['estimated_cost'] as num?)?.toDouble(),
-      actualCost: (json['actual_cost'] as num?)?.toDouble(),
-      currency: json['currency'],
-      priority: json['priority'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
-      descriptionAr: json['description_ar'],
-      descriptionEn: json['description_en'],
-      adminNotes: json['admin_notes'],
-      clientId: json['client_id'],
-      clientEmail: json['client_email'],
-      createdBy: json['created_by'],
+      nameAr: _toString(json['name_ar']),
+      nameEn: _toString(json['name_en']),
+      projectType: _toString(json['project_type']),
+      status: _toString(json['status']),
+
+      locationAr: _toString(json['location_ar']),
+      locationEn: _toString(json['location_en']),
+
+      startDate: json['start_date']?.toString(),
+      expectedEndDate: json['expected_end_date']?.toString(),
+      actualEndDate: json['actual_end_date']?.toString(),
+
+      constructionDays: _toInt(json['construction_days']),
+      preferredTime: _toString(json['preferred_time']),
+
+      poolCount: _toInt(json['pool_count']),
+      constructionStatus: _toString(json['construction_status']),
+
+      progressPercentage: _toDouble(json['progress_percentage']),
+
+      mainImage: _toString(json['main_image']),
+
+      clientName: _toString(json['client_name']),
+      clientPhone: _toString(json['client_phone']),
+
+      estimatedCost: _toDouble(json['estimated_cost']),
+      actualCost: _toDouble(json['actual_cost']),
+
+      currency: _toString(json['currency']),
+      priority: _toInt(json['priority']),
+
+      createdAt: json['created_at']?.toString(),
+      updatedAt: json['updated_at']?.toString(),
+
+      latitude: _toDouble(json['latitude']),
+      longitude: _toDouble(json['longitude']),
+
+      descriptionAr: _toString(json['description_ar']),
+      descriptionEn: _toString(json['description_en']),
+      adminNotes: _toString(json['admin_notes']),
+
+      clientId: _toInt(json['client_id']),
+      clientEmail: _toString(json['client_email']),
+      createdBy: _toInt(json['created_by']),
 
       images: json['images'] != null
           ? List<String>.from(jsonDecode(json['images']))
           : [],
 
       technicianIds: json['technician_ids'] != null
-          ? List<int>.from(json['technician_ids'])
+          ? List<int>.from((json['technician_ids'] as List)
+              .map((e) => _toInt(e)))
           : [],
 
       technicianNames: json['technician_names'] != null
           ? List<String>.from(json['technician_names'])
           : [],
 
-      techniciansDisplay: json['technicians_display'],
-      statusLabel: json['status_label'],
-      statusColor: json['status_color'],
-      isOverdue: json['is_overdue'],
-      daysRemaining: json['days_remaining'],
-      daysElapsed: json['days_elapsed'],
-      completedPoolsCounts: json['completed_pools_count'],
-      remainingPoolsCounts: json['remaining_pools_count'],
+      techniciansDisplay: _toString(json['technicians_display']),
+      statusLabel: _toString(json['status_label']),
+      statusColor: _toString(json['status_color']),
+
+      isOverdue: json['is_overdue'] == true,
+      daysRemaining: _toInt(json['days_remaining']),
+      daysElapsed: _toInt(json['days_elapsed']),
+
+      completedPoolsCounts: _toInt(json['completed_pools_count']),
+      remainingPoolsCounts: _toInt(json['remaining_pools_count']),
     );
   }
 
@@ -117,21 +142,13 @@ class CompanyProjectModel extends CompanyProjectEntity {
     if (locationAr != null) data['location_ar'] = locationAr;
     if (locationEn != null) data['location_en'] = locationEn;
     if (startDate != null) data['start_date'] = startDate;
-    if (expectedEndDate != null) {
-      data['expected_end_date'] = expectedEndDate;
-    }
+    if (expectedEndDate != null) data['expected_end_date'] = expectedEndDate;
     if (actualEndDate != null) data['actual_end_date'] = actualEndDate;
-    if (constructionDays != null) {
-      data['construction_days'] = constructionDays;
-    }
+    if (constructionDays != null) data['construction_days'] = constructionDays;
     if (preferredTime != null) data['preferred_time'] = preferredTime;
     if (poolCount != null) data['pool_count'] = poolCount;
-    if (constructionStatus != null) {
-      data['construction_status'] = constructionStatus;
-    }
-    if (progressPercentage != null) {
-      data['progress_percentage'] = progressPercentage;
-    }
+    if (constructionStatus != null) data['construction_status'] = constructionStatus;
+    if (progressPercentage != null) data['progress_percentage'] = progressPercentage;
     if (latitude != null) data['latitude'] = latitude;
     if (longitude != null) data['longitude'] = longitude;
     if (descriptionAr != null) data['description_ar'] = descriptionAr;
@@ -145,6 +162,7 @@ class CompanyProjectModel extends CompanyProjectEntity {
     if (actualCost != null) data['actual_cost'] = actualCost;
     if (currency != null) data['currency'] = currency;
     if (priority != null) data['priority'] = priority;
+
     if (technicianIds.isNotEmpty) {
       data['technician_ids'] = technicianIds;
     }

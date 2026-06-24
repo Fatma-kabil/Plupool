@@ -233,7 +233,7 @@ class OurProjectCard extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Align(
-                  alignment: Alignment.centerRight,
+                  alignment: Alignment.center,
                   child: OurProjectCardFooter(
                     projectId: project.id,
                     onEditPressed: () {

@@ -16,7 +16,6 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
   final DeleteProjectUseCase deleteProjectUseCase;
 
   final UpdateProjectUseCase updateProjectUseCase;
- 
 
   CompanyProjectCubit(
     this.useCase,
@@ -25,30 +24,27 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
     this.deleteProjectUseCase,
     this.updateProjectUseCase,
   ) : super(CompanyProjectState());
- Future<void> getCompanyProjects({
-  int skip = 0,
-  int limit = 50,
-  String? status,
-}) async {
- 
+  Future<void> getCompanyProjects({
+    int skip = 0,
+    int limit = 50,
+    String? status,
+  }) async {
+    emit(state.copyWith(isLoading: true));
 
-  emit(state.copyWith(isLoading: true));
+    try {
+      final data = await useCase(skip: skip, limit: limit, status: status);
 
-  try {
-    final data = await useCase(skip: skip, limit: limit, status: status);
-
-    emit(state.copyWith(
-      isLoading: false,
-      projects: data,
-      error: null,
-    ));
-  } catch (e) {
-    emit(state.copyWith(
-      isLoading: false,
-      error: e is Failure ? e.message : "حدث خطأ أثناء جلب المشاريع",
-    ));
+      emit(state.copyWith(isLoading: false, projects: data, error: null));
+    } catch (e) {
+      emit(
+        state.copyWith(
+          isLoading: false,
+          error: e is Failure ? e.message : "حدث خطأ أثناء جلب المشاريع",
+        ),
+      );
+      print(e);
+    }
   }
-}
 
   Future<void> getProjectStatistics() async {
     emit(state.copyWith(isLoading: true));
@@ -135,8 +131,6 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
       },
       (_) async {
         emit(state.copyWith(isUpdating: false, updateSuccess: true));
-
-       
       },
     );
   }

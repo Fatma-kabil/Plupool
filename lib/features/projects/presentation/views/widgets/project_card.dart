@@ -53,18 +53,22 @@ class ProjectCard extends StatelessWidget {
             ),
             SizedBox(height: 4),
             Text(
-              project.nameAr!,
+              project.nameAr ?? "غير متوفر",
               style: AppTextStyles.styleSemiBold16(
                 context,
               ).copyWith(color: Color(0xff333333)),
             ),
             SizedBox(height: 2),
-            ProjectLocationRow(location: project.locationAr ?? ""),
+            ProjectLocationRow(location: project.locationAr ?? "لا يوجد"),
 
             const SizedBox(height: 18),
             StartEndProject(
-              startDate: DateTime.parse(project.startDate!),
-              endDate: DateTime.parse(project.expectedEndDate!),
+              startDate: project.startDate != null
+                  ? DateTime.parse(project.startDate!)
+                  : DateTime.now(),
+              endDate: project.expectedEndDate != null
+                  ? DateTime.parse(project.expectedEndDate!)
+                  : DateTime.now(),
             ),
 
             Padding(
