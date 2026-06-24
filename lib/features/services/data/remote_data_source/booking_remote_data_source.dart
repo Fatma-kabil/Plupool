@@ -37,30 +37,50 @@ class BookingRemoteDataSource {
     return BookingModel.fromJson(res.data);
   }
 
- Future<BookingModel> updateBooking({
-  required int id,
-  required BookingModel booking,
-}) async {
+  Future<BookingModel> updateBooking({
+    required int id,
+    required BookingModel booking,
+  }) async {
+    final body = booking.toJson();
 
-  final body = booking.toJson();
+    print("============== UPDATE BODY ==============");
+    print(body);
 
-  print("============== UPDATE BODY ==============");
-  print(body);
+    final res = await api.put('${Endpoints.servicesBookings}/$id', data: body);
 
-  final res = await api.put(
-    '${Endpoints.servicesBookings}/$id',
-    data: body,
-  );
+    print("============== RESPONSE ==============");
+    print(res.data);
 
-  print("============== RESPONSE ==============");
-  print(res.data);
+    return BookingModel.fromJson(res.data);
+  }
 
-  return BookingModel.fromJson(res.data);
-}
+
+
+   Future<BookingModel> addBooking({
+  
+    required BookingModel booking,
+  }) async {
+    final body = booking.toJson();
+
+    print("============== UPDATE BODY ==============");
+    print(body);
+
+    final res = await api.post(Endpoints.servicesBookings, data: body);
+
+    print("============== RESPONSE ==============");
+    print(res.data);
+
+    return BookingModel.fromJson(res.data);
+  }
+
+
 
   Future<void> deleteBooking(int id) async {
     await api.delete('${Endpoints.servicesBookings}/$id');
   }
+
+
+
 
   Future<List<BookingUserModel>> getUserBookings(
     GetUserBookingsParams params,

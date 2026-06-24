@@ -43,6 +43,16 @@ class BookingRepositoryImpl implements BookingRepository {
   }
 
   @override
+  Future<BookingEntity> addBooking({
+    
+    required BookingEntity booking,
+  }) async {
+    final res = await remote.addBooking( booking: booking.toModel());
+
+    return res.toEntity();
+  }
+
+  @override
   Future<void> deleteBooking(int id) {
     return remote.deleteBooking(id);
   }

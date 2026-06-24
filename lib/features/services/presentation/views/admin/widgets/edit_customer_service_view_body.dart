@@ -181,9 +181,9 @@ class _EditCustomerServiceViewBodyState
                             return;
                           }
                           context.read<BookingCubit>().updateBooking(
-                            id: widget.booking.id,
+                            id: widget.booking.id!,
                             booking: BookingEntity(
-                              bookingType: widget.booking.bookingType,
+                              bookingType: "maintenance_single",
                               id: widget.booking.id,
                               userName: customerNameController.text,
                               serviceName: serviceTitleController.text,

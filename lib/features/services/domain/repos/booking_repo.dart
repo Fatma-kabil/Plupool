@@ -16,6 +16,10 @@ abstract class BookingRepository {
     required int id,
     required BookingEntity booking,
   });
+   Future<BookingEntity> addBooking({
+  
+    required BookingEntity booking,
+  });
 
   Future<void> deleteBooking(int id);
   Future<List<UserBookingEntity>> getUserBookings(GetUserBookingsParams params);

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
+import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/card_footer_button.dart';
 
 class ServiceCardFooter extends StatelessWidget {
@@ -21,8 +23,15 @@ class ServiceCardFooter extends StatelessWidget {
             icon: Icons.edit_note,
             text: "تعديل",
             textColor: Color(0xff0077B6),
-            onTap: () {
-              context.push('/editcustomerserviceview', extra: booking, );
+            onTap: () async {
+              final result = await context.push(
+                '/editcustomerserviceview',
+                extra: booking,
+              );
+
+              if (result == true) {
+                context.read<BookingCubit>().getBooking(booking.id!);
+              }
             },
           ),
           CardFooterButton(

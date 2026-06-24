@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
 import 'package:plupool/features/services/domain/entities/booking_list_entity.dart';
+import 'package:plupool/features/services/domain/usecases/add_booking)usecae.dart';
 import 'package:plupool/features/services/domain/usecases/get_booking_details.dart';
 import 'package:plupool/features/services/domain/usecases/get_bookings_usecase.dart';
 import 'package:plupool/features/services/domain/usecases/update_booking_usecase.dart';
@@ -13,12 +14,14 @@ class BookingCubit extends Cubit<BookingState> {
   final GetBookingDetailsUseCase getDetailsUseCase;
   final UpdateBookingUseCase updateUseCase;
   final DeleteBookingUseCase deleteUseCase;
+  final AddBookingUseCase addUseCase;
 
   BookingCubit({
     required this.getBookingsUseCase,
     required this.getDetailsUseCase,
     required this.updateUseCase,
     required this.deleteUseCase,
+    required this.addUseCase,
   }) : super(BookingInitial());
 
   // 🔥 filters cache
@@ -92,14 +95,40 @@ class BookingCubit extends Cubit<BookingState> {
       emit(BookingSuccess(result));
     } catch (e) {
       emit(BookingError(e is Failure ? e.message : "حدث خطأ غير متوقع"));
-      
+
       print(e);
       if (_cachedData != null) {
         emit(BookingSuccess(_cachedData!));
       }
     }
   }
+Future<void> addBooking({required BookingEntity booking}) async {
+  try {
+    emit(BookingLoading());
 
+    print("🔥 BEFORE USECASE");
+
+    final result = await addUseCase(booking: booking);
+
+    print("🔥 AFTER USECASE: $result");
+
+    final bookings = await getBookingsUseCase(
+      status: _status,
+      type: _type,
+      search: _search,
+    );
+
+    _cachedData = bookings;
+
+    emit(BookingAdded());
+    emit(BookingSuccess(bookings));
+  } catch (e, s) {
+    print("🔥 BOOKING ERROR: $e");
+    print("🔥 STACK: $s");
+
+    emit(BookingError(e.toString()));
+  }
+}
   /// ================= DELETE =================
   Future<void> deleteBooking(int id) async {
     try {

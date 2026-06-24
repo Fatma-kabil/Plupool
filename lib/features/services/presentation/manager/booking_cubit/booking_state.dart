@@ -18,6 +18,7 @@ class BookingSingleLoaded extends BookingState {
 }
 
 class BookingUpdated extends BookingState {}
+class BookingAdded extends BookingState {}
 
 class BookingDeleted extends BookingState {}
 

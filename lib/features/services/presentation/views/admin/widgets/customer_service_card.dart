@@ -49,7 +49,7 @@ class CustomerServiceCard extends StatelessWidget {
 
                   children: [
                     Text(
-                     toArabicNumbers( "طلب رقم #${booking.id}"),
+                      toArabicNumbers("طلب رقم #${booking.id}"),
                       style: AppTextStyles.styleBold16(
                         context,
                       ).copyWith(color: Color(0xff333333)),
@@ -65,7 +65,10 @@ class CustomerServiceCard extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            ServiceCardRow(title: "نوع الخدمة:", value: booking.serviceName??""),
+            ServiceCardRow(
+              title: "نوع الخدمة:",
+              value: booking.serviceName ?? "",
+            ),
             const SizedBox(height: 5),
             ServiceCardRow(title: " العميل:", value: booking.userName),
             const SizedBox(height: 5),
@@ -92,6 +95,7 @@ class CustomerServiceCard extends StatelessWidget {
                             message: "تم حذف الطلب بنجاح 🗑️",
                             isSuccess: true,
                           );
+                          cubit.getBooking(booking.id!);
                         }
 
                         if (state is BookingError) {
@@ -112,7 +116,7 @@ class CustomerServiceCard extends StatelessWidget {
                           onPressed: isLoading
                               ? null
                               : () {
-                                  cubit.deleteBooking(booking.id);
+                                  cubit.deleteBooking(booking.id!);
                                 },
                         );
                       },

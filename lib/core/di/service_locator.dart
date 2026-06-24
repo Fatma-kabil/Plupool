@@ -126,6 +126,7 @@ import 'package:plupool/features/search/presentation/manager/cubits/product_sear
 import 'package:plupool/features/services/data/remote_data_source/requested_services_remote_ds.dart';
 import 'package:plupool/features/services/data/repos_impl/requested_services_repo_impl.dart';
 import 'package:plupool/features/services/domain/repos/requested_services_repository.dart';
+import 'package:plupool/features/services/domain/usecases/add_booking)usecae.dart';
 import 'package:plupool/features/services/domain/usecases/delete_request_usecase.dart';
 import 'package:plupool/features/services/domain/usecases/get_request_details.dart';
 import 'package:plupool/features/services/domain/usecases/get_requests_usecase.dart';
@@ -529,6 +530,7 @@ Future<void> initServiceLocator() async {
   );
 
   sl.registerLazySingleton(() => UpdateBookingUseCase(sl<BookingRepository>()));
+   sl.registerLazySingleton(() => AddBookingUseCase(sl<BookingRepository>()));
 
   sl.registerLazySingleton(() => DeleteBookingUseCase(sl<BookingRepository>()));
 
@@ -539,6 +541,7 @@ Future<void> initServiceLocator() async {
       getDetailsUseCase: sl<GetBookingDetailsUseCase>(),
       updateUseCase: sl<UpdateBookingUseCase>(),
       deleteUseCase: sl<DeleteBookingUseCase>(),
+      addUseCase:  sl<AddBookingUseCase>(),
     ),
   );
 

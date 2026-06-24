@@ -4,7 +4,7 @@ class BookingModel {
   final String bookingTime;
   final String? notes;
 
-  final int id;
+  final int? id;
   final int userId;
   final int? serviceId;
   final int? poolTypeId;

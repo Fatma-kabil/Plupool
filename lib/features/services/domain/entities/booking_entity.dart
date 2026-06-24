@@ -1,5 +1,5 @@
 class BookingEntity {
-  final int id;
+  final int? id;
   final String userName;
   final int userId;
   final String userRole;
@@ -14,7 +14,7 @@ class BookingEntity {
 
   BookingEntity({
     this.serviceId,
-    required this.id,
+     this.id,
     required this.userName,
     required this.userRole,
     required this.date,
