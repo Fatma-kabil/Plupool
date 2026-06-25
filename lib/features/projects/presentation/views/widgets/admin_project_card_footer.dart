@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
+import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/delete_project_btn.dart';
 
 class AdminProjectCardFooter extends StatelessWidget {
@@ -43,8 +45,15 @@ class AdminProjectCardFooter extends StatelessWidget {
         ),
         Spacer(),
         GestureDetector(
-          onTap: () {
-            context.push('/editprojectview',extra: project);
+          onTap: () async {
+            final result = await context.push(
+              '/editprojectview',
+              extra: project,
+            );
+
+            if (result == true) {
+              context.read<CompanyProjectCubit>().refreshClientProjects();
+            }
           },
           child: Container(
             padding: EdgeInsets.all(SizeConfig.w(6)),
@@ -60,7 +69,7 @@ class AdminProjectCardFooter extends StatelessWidget {
           ),
         ),
         SizedBox(width: SizeConfig.w(12)),
-        DeleteProjectBtn(projectId:project.id),
+        DeleteProjectBtn(projectId: project.id),
       ],
     );
   }

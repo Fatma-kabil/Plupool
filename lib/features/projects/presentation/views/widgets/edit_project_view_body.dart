@@ -114,7 +114,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
             isSuccess: true,
           );
 
-          if (context.canPop()) context.pop();
+          if (context.canPop()) context.pop(context);
         }
 
         if (state.error != null) {

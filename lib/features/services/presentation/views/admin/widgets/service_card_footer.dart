@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
-import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
+import 'package:plupool/features/services/presentation/manager/user_booking_cubit/user_booking_cubit.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/card_footer_button.dart';
 
 class ServiceCardFooter extends StatelessWidget {
@@ -29,8 +29,11 @@ class ServiceCardFooter extends StatelessWidget {
                 extra: booking,
               );
 
+              print('RESULT = $result');
+
               if (result == true) {
-                context.read<BookingCubit>().getBooking(booking.id!);
+                print('REFRESHING...');
+                context.read<UserBookingCubit>().refresh();
               }
             },
           ),

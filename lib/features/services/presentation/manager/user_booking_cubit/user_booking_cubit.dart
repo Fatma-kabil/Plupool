@@ -8,10 +8,14 @@ import 'user_booking_state.dart';
 class UserBookingCubit extends Cubit<UserBookingState> {
   final GetUserBookingsUseCase getUserBookingsUseCase;
 
-  UserBookingCubit({required this.getUserBookingsUseCase})
-    : super(UserBookingInitial());
+  UserBookingCubit({
+    required this.getUserBookingsUseCase,
+  }) : super(UserBookingInitial());
 
+  int? _userId;
   String? _status;
+  int _page = 1;
+  int _pageSize = 10;
 
   Future<void> getUserBookings({
     required int userId,
@@ -22,7 +26,10 @@ class UserBookingCubit extends Cubit<UserBookingState> {
     try {
       emit(UserBookingLoading());
 
+      _userId = userId;
       _status = status;
+      _page = page;
+      _pageSize = pageSize;
 
       final services = await getUserBookingsUseCase(
         GetUserBookingsParams(
@@ -44,14 +51,33 @@ class UserBookingCubit extends Cubit<UserBookingState> {
         ),
       );
 
-      emit(UserBookingLoaded(services: services, packages: packages));
+      emit(
+        UserBookingLoaded(
+          services: services,
+          packages: packages,
+        ),
+      );
     } catch (e) {
-      emit(UserBookingError(e is Failure ? e.message : 'حدث خطأ غير متوقع'));
+      emit(
+        UserBookingError(
+          e is Failure ? e.message : 'حدث خطأ غير متوقع',
+        ),
+      );
       print(e);
     }
   }
 
-  Future<void> refresh(int userId) async {
-    await getUserBookings(userId: userId, status: _status);
+ Future<void> refresh() async {
+  print('REFRESH CALLED');
+
+  if (_userId == null) {
+    print('_userId IS NULL');
+    return;
   }
+
+  await getUserBookings(
+    userId: _userId!,
+    status: _status,
+  );
+}
 }

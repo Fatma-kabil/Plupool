@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/functions/pick_date_fun.dart';
 import 'package:plupool/core/utils/functions/pick_time_fun.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
@@ -109,7 +110,7 @@ class _EditCustomerServiceViewBodyState
             isSuccess: true,
           );
 
-          Navigator.pop(context);
+         context.pop(true);
         }
 
         if (state is BookingError) {

@@ -223,4 +223,13 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
       },
     );
   }
+
+  Future<void> refreshClientProjects() async {
+  if (_currentClientId == null) return;
+
+  await getClientProjects(
+    clientId: _currentClientId!,
+    status: _currentStatus,
+  );
+}
 }

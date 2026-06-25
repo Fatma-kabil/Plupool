@@ -11,6 +11,7 @@ import 'package:plupool/features/orders/presentation/view/widgets/delete_order_c
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
 import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/booking_cubit/booking_state.dart';
+import 'package:plupool/features/services/presentation/manager/user_booking_cubit/user_booking_cubit.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/date_row.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_footer.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_row.dart';
@@ -95,7 +96,7 @@ class CustomerServiceCard extends StatelessWidget {
                             message: "تم حذف الطلب بنجاح 🗑️",
                             isSuccess: true,
                           );
-                          cubit.getBooking(booking.id!);
+                            context.read<UserBookingCubit>().refresh();
                         }
 
                         if (state is BookingError) {

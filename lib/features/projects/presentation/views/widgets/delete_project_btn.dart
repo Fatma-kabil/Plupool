@@ -38,6 +38,7 @@ class DeleteProjectBtn extends StatelessWidget {
                     message: "تم حذف المشروع بنجاح 🗑️",
                     isSuccess: true,
                   );
+                context.read<CompanyProjectCubit>().refreshClientProjects();
                 }
     
                 if (!state.isDeleting && state.error != null) {
