@@ -5,6 +5,8 @@ class OurProjectsState {
   final bool isDeleting;
   final bool isUpdating;
   final bool updateSuccess;
+  final bool isAdding;
+  final bool addSuccess;
 
   final List<OurProjectEntity> projects;
   final String? error;
@@ -13,7 +15,9 @@ class OurProjectsState {
     this.isLoading = false,
     this.isDeleting = false,
     this.isUpdating = false,
+    this.isAdding = false,
     this.updateSuccess = false,
+    this.addSuccess = false,
     this.projects = const [],
     this.error,
   });
@@ -22,7 +26,9 @@ class OurProjectsState {
     bool? isLoading,
     bool? isDeleting,
     bool? isUpdating,
+    bool? isAdding,
     bool? updateSuccess,
+    bool? addSuccess,
     List<OurProjectEntity>? projects,
     String? error,
   }) {
@@ -30,7 +36,9 @@ class OurProjectsState {
       isLoading: isLoading ?? this.isLoading,
       isDeleting: isDeleting ?? this.isDeleting,
       isUpdating: isUpdating ?? this.isUpdating,
+      isAdding: isAdding ?? this.isAdding,
       updateSuccess: updateSuccess ?? this.updateSuccess,
+      addSuccess: addSuccess ?? this.addSuccess,
       projects: projects ?? this.projects,
       error: error,
     );

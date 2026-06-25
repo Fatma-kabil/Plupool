@@ -14,13 +14,18 @@ import 'package:plupool/features/projects/presentation/views/widgets/projects_li
 import 'package:plupool/features/services/presentation/views/admin/widgets/rearrangment_row.dart';
 
 class CompanyResProjectViewBody extends StatefulWidget {
-  const CompanyResProjectViewBody({super.key, required this.companyResId, required this.completedProjects, required this.activeProjects});
+  const CompanyResProjectViewBody({
+    super.key,
+    required this.companyResId,
+    required this.completedProjects,
+    required this.activeProjects,
+    required this.companyResName,
+  });
 
   final int companyResId;
-    final int completedProjects;
+  final int completedProjects;
   final int activeProjects;
-  
-
+  final String companyResName;
 
   @override
   State<CompanyResProjectViewBody> createState() =>
@@ -55,26 +60,42 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(12))),
 
-         SliverToBoxAdapter(child: CompanyResProjectViewHeader(activeProjects:widget.activeProjects ,completedProjects: widget.completedProjects,)),
+        SliverToBoxAdapter(
+          child: CompanyResProjectViewHeader(
+            activeProjects: widget.activeProjects,
+            completedProjects: widget.completedProjects,
+          ),
+        ),
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(22))),
 
         SliverToBoxAdapter(
           child: RearragnmentRow(
-            items: const ["مكتمله", "مجدوله", "قيد التنفيذ"],
+            items: const ["مكتمله", "مجدولة", "قيد التنفيذ"],
             selected: selected,
             onChanged: (value) {
               setState(() {
                 selected = value;
               });
 
+              final status = getApiStatusProj(value);
+
+              print('Selected: $value');
+              print('Status: $status');
+
               context.read<CompanyProjectCubit>().getClientProjects(
                 clientId: widget.companyResId,
-                status: getApiStatusProj(value),
+                status: status,
               );
             },
             onTap: () {
-              context.push('/addprojectview');
+              context.push(
+                '/addprojectview',
+                extra: {
+                  'id': widget.companyResId,
+                  'name': widget.companyResName,
+                },
+              );
             },
           ),
         ),
@@ -84,7 +105,7 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
         BlocBuilder<CompanyProjectCubit, CompanyProjectState>(
           builder: (context, state) {
             if (state.isLoading) {
-             return SliverList(
+              return SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) => const ProjectCardShimmer(),
                   childCount: 4,

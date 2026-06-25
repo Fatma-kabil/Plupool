@@ -5,14 +5,15 @@ import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_a
 import 'package:plupool/features/projects/presentation/views/widgets/add_project_view_body.dart';
 
 class AddProjectView extends StatefulWidget {
-  const AddProjectView({super.key});
-
+  const AddProjectView({super.key, required this.clientId, required this.clientName});
+  final int clientId;
+  final String clientName;
   @override
   State<AddProjectView> createState() => _AddProjectViewState();
 }
 
 class _AddProjectViewState extends State<AddProjectView> {
- final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
+  final GlobalKey<ScaffoldState> scaffoldkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -32,7 +33,10 @@ class _AddProjectViewState extends State<AddProjectView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: AddProjectViewBody(),
+            child: AddProjectViewBody(
+              clientId: widget.clientId,
+              clientName: widget.clientName,
+            ),
           ),
         ),
       ),

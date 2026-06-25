@@ -14,4 +14,8 @@ abstract class OurProjectsRepo {
    Future<Either<Failure, Unit>> updateProject(
     UpdateProjectRequest request,
   );
+
+   Future<Either<Failure, Unit>> addProject(
+    UpdateProjectRequest request,
+  );
 }

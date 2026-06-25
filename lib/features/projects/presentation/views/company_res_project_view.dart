@@ -36,7 +36,7 @@ class _CompanyResProjectViewState extends State<CompanyResProjectView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: CompanyResProjectViewBody(companyResId:widget.user.user.id,activeProjects: widget.user.user.activeProjects??0,completedProjects: widget.user.user.completedProjects??0 ,),
+            child: CompanyResProjectViewBody(companyResId:widget.user.user.id,activeProjects: widget.user.user.activeProjects??0,completedProjects: widget.user.user.completedProjects??0 ,companyResName: widget.user.user.fullName,),
           ),
         ),
       ),

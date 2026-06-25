@@ -2,20 +2,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/projects/data/models/update_project_model.dart';
 import 'package:plupool/features/projects/domain/params/client_project_params.dart';
+import 'package:plupool/features/projects/domain/usecases/create_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/delete_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_client_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_projects_statistics_usecse.dart';
 import 'package:plupool/features/projects/domain/usecases/update_project_usecase.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
-
 class CompanyProjectCubit extends Cubit<CompanyProjectState> {
   final GetCompanyProjectsUseCase useCase;
   final GetProjectStatisticsUseCase statisticsUseCase;
   final GetClientProjectsUseCase getClientProjectsUseCase;
   final DeleteProjectUseCase deleteProjectUseCase;
-
+  final AddProjectUseCase addProjectUseCase;
   final UpdateProjectUseCase updateProjectUseCase;
+
+  int? _currentClientId;
+  String? _currentStatus;
 
   CompanyProjectCubit(
     this.useCase,
@@ -23,7 +26,9 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
     this.getClientProjectsUseCase,
     this.deleteProjectUseCase,
     this.updateProjectUseCase,
+    this.addProjectUseCase,
   ) : super(CompanyProjectState());
+
   Future<void> getCompanyProjects({
     int skip = 0,
     int limit = 50,
@@ -32,17 +37,28 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
     emit(state.copyWith(isLoading: true));
 
     try {
-      final data = await useCase(skip: skip, limit: limit, status: status);
+      final data = await useCase(
+        skip: skip,
+        limit: limit,
+        status: status,
+      );
 
-      emit(state.copyWith(isLoading: false, projects: data, error: null));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          projects: data,
+          error: null,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           isLoading: false,
-          error: e is Failure ? e.message : "حدث خطأ أثناء جلب المشاريع",
+          error: e is Failure
+              ? e.message
+              : "حدث خطأ أثناء جلب المشاريع",
         ),
       );
-      print(e);
     }
   }
 
@@ -52,12 +68,19 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
     try {
       final data = await statisticsUseCase();
 
-      emit(state.copyWith(isLoading: false, statistics: data));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          statistics: data,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           isLoading: false,
-          error: e is Failure ? e.message : "حدث خطأ أثناء جلب الإحصائيات",
+          error: e is Failure
+              ? e.message
+              : "حدث خطأ أثناء جلب الإحصائيات",
         ),
       );
     }
@@ -69,6 +92,9 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
     int skip = 0,
     int limit = 50,
   }) async {
+    _currentClientId = clientId;
+    _currentStatus = status;
+
     emit(state.copyWith(isLoading: true, error: null));
 
     final result = await getClientProjectsUseCase(
@@ -82,8 +108,12 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
 
     result.fold(
       (failure) {
-        emit(state.copyWith(isLoading: false, error: failure.message));
-        print(failure);
+        emit(
+          state.copyWith(
+            isLoading: false,
+            error: failure.message,
+          ),
+        );
       },
       (projects) {
         emit(
@@ -104,8 +134,12 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
 
     result.fold(
       (failure) {
-        emit(state.copyWith(isDeleting: false, error: failure.message));
-        print(failure);
+        emit(
+          state.copyWith(
+            isDeleting: false,
+            error: failure.message,
+          ),
+        );
       },
       (_) {
         emit(
@@ -121,16 +155,71 @@ class CompanyProjectCubit extends Cubit<CompanyProjectState> {
   }
 
   Future<void> updateProject(UpdateProjectRequest request) async {
-    emit(state.copyWith(isUpdating: true, updateSuccess: false, error: null));
+    emit(
+      state.copyWith(
+        isUpdating: true,
+        updateSuccess: false,
+        error: null,
+      ),
+    );
 
     final result = await updateProjectUseCase(request);
 
     result.fold(
       (failure) {
-        emit(state.copyWith(isUpdating: false, error: failure.message));
+        emit(
+          state.copyWith(
+            isUpdating: false,
+            error: failure.message,
+          ),
+        );
+      },
+      (_) {
+        emit(
+          state.copyWith(
+            isUpdating: false,
+            updateSuccess: true,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> addProject(UpdateProjectRequest request) async {
+    emit(
+      state.copyWith(
+        isAdding: true,
+        addSuccess: false,
+        error: null,
+      ),
+    );
+
+    final result = await addProjectUseCase(request);
+
+    await result.fold(
+      (failure) async {
+        emit(
+          state.copyWith(
+            isAdding: false,
+            error: failure.message,
+          ),
+        );
       },
       (_) async {
-        emit(state.copyWith(isUpdating: false, updateSuccess: true));
+        if (_currentClientId != null) {
+          await getClientProjects(
+            clientId: _currentClientId!,
+            status: _currentStatus,
+          );
+        }
+
+        emit(
+          state.copyWith(
+            isAdding: false,
+            addSuccess: true,
+            error: null,
+          ),
+        );
       },
     );
   }

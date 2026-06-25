@@ -19,14 +19,18 @@ class AddEditProjectForm extends StatefulWidget {
     required this.onPickStartDate,
     required this.onPickEndDate,
     required this.onPickTime,
-    required this.noOfPoolsController, required this.selectedstatus, required this.onStatusChanged,
+    required this.noOfPoolsController,
+    required this.selectedstatus,
+    required this.onStatusChanged,
+    required this.projectLocationController,
   });
 
   final GlobalKey<FormState> formKey;
 
   final TextEditingController projectNameController;
   final TextEditingController noOfPoolsController;
-  
+  final TextEditingController projectLocationController;
+
   final RequestStatus selectedstatus;
 
   final ValueChanged<RequestStatus?> onStatusChanged;
@@ -46,7 +50,7 @@ class AddEditProjectForm extends StatefulWidget {
 class _AddEditProjectFormState extends State<AddEditProjectForm> {
   String formatDate(DateTime? date) {
     if (date == null) return '';
-    return "${date.day}/${date.month}/${date.year}";
+    return "${date.year}/${date.month}/${date.day}";
   }
 
   @override
@@ -62,14 +66,14 @@ class _AddEditProjectFormState extends State<AddEditProjectForm> {
             icon: Icons.folder_open_rounded,
             keyboardType: TextInputType.text,
             controller: widget.projectNameController,
-             validator: (value) =>
-                          value == null || value.isEmpty ? "مطلوب" : null,
+            validator: (value) =>
+                value == null || value.isEmpty ? "مطلوب" : null,
           ),
           const SizedBox(height: 15),
 
           /// تاريخ بداية الباقة
           DatePickerField(
-             iconSize: SizeConfig.w(12),
+            iconSize: SizeConfig.w(12),
             iconColor: AppColors.ktextcolor,
             dirc: CrossAxisAlignment.start,
             text: "تاريخ بدأ المشروع",
@@ -97,14 +101,23 @@ class _AddEditProjectFormState extends State<AddEditProjectForm> {
 
           /// وقت الزيارة
           TimePickerField(
-             iconSize: SizeConfig.w(13),
+            iconSize: SizeConfig.w(13),
             iconColor: AppColors.ktextcolor,
             dirc: CrossAxisAlignment.start,
             selectedTime: widget.selectedTime,
             selectedTimeColor: AppColors.ktextcolor,
             onTap: widget.onPickTime,
           ),
-
+          const SizedBox(height: 15),
+          const FieldLabel("الموقع"),
+          TextFieldWithIcon(
+            hint: "ادخل الموقع ",
+            icon: Icons.location_on_outlined,
+            //  keyboardType: TextInputType.number,
+            controller: widget.projectLocationController,
+            validator: (value) =>
+                value == null || value.isEmpty ? "مطلوب" : null,
+          ),
           const SizedBox(height: 15),
           const FieldLabel("عدد المسابح"),
           TextFieldWithIcon(
@@ -112,8 +125,8 @@ class _AddEditProjectFormState extends State<AddEditProjectForm> {
             icon: Icons.pool_rounded,
             keyboardType: TextInputType.number,
             controller: widget.noOfPoolsController,
-             validator: (value) =>
-                          value == null || value.isEmpty ? "مطلوب" : null,
+            validator: (value) =>
+                value == null || value.isEmpty ? "مطلوب" : null,
           ),
           const SizedBox(height: 15),
           FieldLabel('حاله الانشاء'),
@@ -123,7 +136,11 @@ class _AddEditProjectFormState extends State<AddEditProjectForm> {
               horizontal: SizeConfig.w(10),
             ),
             selected: widget.selectedstatus,
-            items: [RequestStatus.scheduled, RequestStatus.completed],
+            items: [
+              RequestStatus.scheduled,
+              RequestStatus.completed,
+              RequestStatus.inProgress,
+            ],
             displayText: (value) => getStatusText(value),
             onChanged: widget.onStatusChanged,
           ),

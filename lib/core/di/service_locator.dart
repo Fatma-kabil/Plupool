@@ -101,6 +101,7 @@ import 'package:plupool/features/projects/data/repo_impl/company_project_impl.da
 import 'package:plupool/features/projects/data/repo_impl/project_repo_impl.dart';
 import 'package:plupool/features/projects/domain/repos/company_project_repo.dart';
 import 'package:plupool/features/projects/domain/repos/project_repo.dart';
+import 'package:plupool/features/projects/domain/usecases/create_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/delete_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_client_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
@@ -530,7 +531,7 @@ Future<void> initServiceLocator() async {
   );
 
   sl.registerLazySingleton(() => UpdateBookingUseCase(sl<BookingRepository>()));
-   sl.registerLazySingleton(() => AddBookingUseCase(sl<BookingRepository>()));
+  sl.registerLazySingleton(() => AddBookingUseCase(sl<BookingRepository>()));
 
   sl.registerLazySingleton(() => DeleteBookingUseCase(sl<BookingRepository>()));
 
@@ -541,7 +542,7 @@ Future<void> initServiceLocator() async {
       getDetailsUseCase: sl<GetBookingDetailsUseCase>(),
       updateUseCase: sl<UpdateBookingUseCase>(),
       deleteUseCase: sl<DeleteBookingUseCase>(),
-      addUseCase:  sl<AddBookingUseCase>(),
+      addUseCase: sl<AddBookingUseCase>(),
     ),
   );
 
@@ -741,13 +742,15 @@ Future<void> initServiceLocator() async {
 
   // UseCases
   sl.registerLazySingleton(() => GetOurProjectsUseCase(sl<OurProjectsRepo>()));
+  sl.registerLazySingleton(() => AddProjectUseCase(sl<OurProjectsRepo>()));
 
   // Cubit
   sl.registerFactory(
     () => OurProjectsCubit(
       sl<GetOurProjectsUseCase>(),
       sl<DeleteProjectUseCase>(),
-      sl<UpdateProjectUseCase>()
+      sl<UpdateProjectUseCase>(),
+      sl<AddProjectUseCase>(),
     ),
   );
 
@@ -769,9 +772,7 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => GetProjectStatisticsUseCase(sl<CompanyProjectsRepository>()),
   );
-  sl.registerLazySingleton(
-    () => UpdateProjectUseCase(sl<OurProjectsRepo>()),
-  );
+  sl.registerLazySingleton(() => UpdateProjectUseCase(sl<OurProjectsRepo>()));
   // Cubit
   sl.registerFactory(
     () => CompanyProjectCubit(
@@ -779,7 +780,8 @@ Future<void> initServiceLocator() async {
       sl<GetProjectStatisticsUseCase>(),
       sl<GetClientProjectsUseCase>(),
       sl<DeleteProjectUseCase>(),
-      sl<UpdateProjectUseCase>()
+      sl<UpdateProjectUseCase>(),
+      sl<AddProjectUseCase>(),
     ),
   );
   sl.registerLazySingleton<GetClientProjectsUseCase>(
@@ -917,20 +919,17 @@ Future<void> initServiceLocator() async {
   );
 
   sl.registerLazySingleton<PoolRemoteDataSource>(
-  () => PoolRemoteDataSource(sl<ApiService>()),
-);
+    () => PoolRemoteDataSource(sl<ApiService>()),
+  );
 
-sl.registerLazySingleton<PoolRepository>(
-  () => PoolRepositoryImpl(sl<PoolRemoteDataSource>()),
-);
+  sl.registerLazySingleton<PoolRepository>(
+    () => PoolRepositoryImpl(sl<PoolRemoteDataSource>()),
+  );
 
-sl.registerLazySingleton(() => GetUserPoolUseCase(sl<PoolRepository>()));
-sl.registerLazySingleton(() => UpdateUserPoolUseCase(sl<PoolRepository>()));
+  sl.registerLazySingleton(() => GetUserPoolUseCase(sl<PoolRepository>()));
+  sl.registerLazySingleton(() => UpdateUserPoolUseCase(sl<PoolRepository>()));
 
-sl.registerFactory(
-  () => PoolCubit(
-    sl<GetUserPoolUseCase>(),
-    sl<UpdateUserPoolUseCase>(),
-  ),
-);
+  sl.registerFactory(
+    () => PoolCubit(sl<GetUserPoolUseCase>(), sl<UpdateUserPoolUseCase>()),
+  );
 }

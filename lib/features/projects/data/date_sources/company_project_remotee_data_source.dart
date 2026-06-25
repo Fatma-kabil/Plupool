@@ -53,15 +53,7 @@ class CompanyProjectsRemoteDataSourceImpl {
     await api.delete('${Endpoints.projects}/$projectId');
   }
 
-  Future<CompanyProjectModel> updateProject(
-    int projectId,
-    CompanyProjectModel project,
-  ) async {
-    final response = await api.put(
-      '${Endpoints.projects}/$projectId',
-      data: project.toJson(),
-    );
-
-    return CompanyProjectModel.fromJson(response.data);
-  }
+  
+  
 }
+

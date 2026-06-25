@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
-import 'package:plupool/features/projects/data/models/company_project_model.dart';
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
 import 'package:plupool/features/projects/domain/entities/projects_statistics_entity.dart';
 import 'package:plupool/features/projects/domain/params/client_project_params.dart';
@@ -20,8 +19,5 @@ abstract class CompanyProjectsRepository {
 
    Future<Either<Failure, void>> deleteProject(int projectId);
 
-   Future<Either<Failure, CompanyProjectEntity>> updateProject({
-  required int projectId,
-  required CompanyProjectModel project,
-});
+  
 }

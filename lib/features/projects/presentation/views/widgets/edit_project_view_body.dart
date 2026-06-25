@@ -29,6 +29,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
 
   final projectNameController = TextEditingController();
   final noOfPoolsController = TextEditingController();
+  final locationController = TextEditingController();
 
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
@@ -42,8 +43,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
     super.initState();
 
     projectNameController.text = widget.model.nameAr ?? "";
-
-
+    locationController.text = widget.model.locationAr ?? "";
     noOfPoolsController.text = widget.model.poolCount?.toString() ?? "";
 
     if (widget.model.startDate != null) {
@@ -106,7 +106,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
           context.read<CompanyProjectCubit>().getCompanyProjects(
             skip: 0,
             limit: 50,
-            status:  getApiStatusProj(widget.model.status!), // 👈 ده المهم
+            status: getApiStatusProj(widget.model.status!), // 👈 ده المهم
           );
           showCustomSnackBar(
             context: context,
@@ -131,7 +131,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
             AddEditProjectForm(
               formKey: _formKey,
               projectNameController: projectNameController,
-
+              projectLocationController: locationController,
               noOfPoolsController: noOfPoolsController,
               selectedstatus: selectedPackage,
               onStatusChanged: (val) {
@@ -157,8 +157,6 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
                 // ✅ FORM VALIDATION
                 if (form == null || !form.validate()) return;
 
-                // ✅ REQUIRED CHECKS (DATE + TIME + STATUS)
-                // ignore: unnecessary_null_comparison
                 if (startDate == null) {
                   showCustomSnackBar(
                     context: context,
@@ -168,7 +166,6 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
                   return;
                 }
 
-                // ignore: unnecessary_null_comparison
                 if (endDate == null) {
                   showCustomSnackBar(
                     context: context,
@@ -187,7 +184,6 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
                   return;
                 }
 
-                // ignore: unnecessary_null_comparison
                 if (selectedPackage == null) {
                   showCustomSnackBar(
                     context: context,
@@ -210,7 +206,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
                   UpdateProjectRequest(
                     projectId: widget.model.id,
                     nameAr: projectNameController.text.trim(),
-                    
+                    locationAr: locationController.text,
                     poolCount: int.tryParse(noOfPoolsController.text),
                     startDate: startDate,
                     expectedEndDate: endDate,

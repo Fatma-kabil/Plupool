@@ -533,9 +533,17 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/addprojectview',
       name: 'addprojectview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const AddProjectView()),
+      pageBuilder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+        return buildTransitionPage(
+          AddProjectView(
+            clientId: extra['id'] as int,
+            clientName: extra['name'] as String,
+          ),
+        );
+      },
     ),
+
     GoRoute(
       path: '/editprojectview',
       name: 'editprojectview',

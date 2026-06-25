@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 
 class UpdateProjectRequest {
-  final int projectId;
+  final int? projectId;
 
   final String? nameAr;
   final String? nameEn;
@@ -19,7 +19,7 @@ class UpdateProjectRequest {
   final int? poolCount;
   final String? constructionStatus;
   final double? progressPercentage;
-
+  final int? clientId;
   final String? clientName;
   final String? clientPhone;
 
@@ -58,7 +58,7 @@ class UpdateProjectRequest {
   final String? technicianIds;
 
   UpdateProjectRequest({
-    required this.projectId,
+    this.projectId,
     this.nameAr,
     this.nameEn,
     this.projectType,
@@ -88,7 +88,8 @@ class UpdateProjectRequest {
     this.additionalImages,
     this.technicianIds,
     this.descriptionAr,
-    this.image_1
+    this.image_1,
+    this.clientId,
   });
 
   Future<FormData> toFormData() async {
@@ -123,7 +124,7 @@ class UpdateProjectRequest {
     addField("pool_count", poolCount);
     addField("construction_status", constructionStatus);
     addField("progress_percentage", progressPercentage);
-
+    addField("client_id", clientId);
     addField("client_name", clientName);
     addField("client_phone", clientPhone);
 
@@ -147,13 +148,13 @@ class UpdateProjectRequest {
     addField("is_active", isActive);
 
     addField("technician_ids", technicianIds);
-     addField("description_ar", descriptionAr);
+    addField("description_ar", descriptionAr);
 
     //-----------------------------------------
     // image_2_file
     //-----------------------------------------
 
-     if (image_1 != null) {
+    if (image_1 != null) {
       formData.files.add(
         MapEntry(
           "image_1",

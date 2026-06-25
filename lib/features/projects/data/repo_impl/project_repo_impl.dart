@@ -31,12 +31,25 @@ class OurProjectsRepoImpl implements OurProjectsRepo {
     }
   }
 
- @override
+ 
 @override
 Future<Either<Failure, Unit>> updateProject(
     UpdateProjectRequest request) async {
   try {
     await remoteDataSource.updateProject(request);
+
+    return right(unit);
+  } catch (e) {
+    return left(mapDioError(e));
+  }
+}
+
+
+@override
+Future<Either<Failure, Unit>> addProject(
+    UpdateProjectRequest request) async {
+  try {
+    await remoteDataSource.addProject(request);
 
     return right(unit);
   } catch (e) {

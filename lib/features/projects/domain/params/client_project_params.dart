@@ -13,7 +13,7 @@ class ClientProjectsParams {
 
   Map<String, dynamic> toQuery() {
     return {
-      if (statusFilter != null) 'status_filter': statusFilter,
+      if (statusFilter != null) 'status': statusFilter,
       'skip': skip,
       'limit': limit,
     };
