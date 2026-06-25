@@ -18,4 +18,7 @@ abstract class OurProjectsRepo {
    Future<Either<Failure, Unit>> addProject(
     UpdateProjectRequest request,
   );
+  
+  Future<Either<Failure, String>> toggleProjectActive(int projectId);
+
 }

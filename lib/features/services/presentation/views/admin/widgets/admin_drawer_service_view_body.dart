@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -56,11 +57,35 @@ class _AdminDrawerServiceViewBodyState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// 🧾 Title
-                Text(
-                  "إدارة الخدمات",
-                  style: AppTextStyles.styleSemiBold18(
-                    context,
-                  ).copyWith(color: AppColors.ktextcolor),
+                Row(
+                  children: [
+                    Text(
+                      "إدارة الخدمات",
+                      style: AppTextStyles.styleSemiBold18(
+                        context,
+                      ).copyWith(color: AppColors.ktextcolor),
+                    ),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        context.push('/addcustomerserviceview');
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(SizeConfig.w(6)),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xff0077B6),
+                        ),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: SizeConfig.isWideScreen
+                              ? SizeConfig.w(15)
+                              : SizeConfig.w(18),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
 
                 SizedBox(height: SizeConfig.h(15)),

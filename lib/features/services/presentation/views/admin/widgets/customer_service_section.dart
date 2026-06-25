@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
+import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
 import 'package:plupool/features/services/domain/entities/user_booking_entity.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/customer_service_card.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/customr_service_card_shimmer.dart';
-import 'package:plupool/features/services/presentation/views/admin/widgets/rearrangment_row.dart';
 
 class CustomerServiceSection extends StatefulWidget {
   const CustomerServiceSection({
@@ -34,17 +33,18 @@ class _CustomerServiceSectionState extends State<CustomerServiceSection> {
       slivers: [
         /// 🔹 الفلتر (ثابت)
         SliverToBoxAdapter(
-          child: RearragnmentRow(
-            selected: selected,
-            onChanged: (val) {
+          child: FilterOption(
+          value: selected,
+          items:  ["مكتمله", "مجدوله", "عاجله"],
+          onChanged: (val) {
               setState(() {
-                selected = val;
+                selected = val!;
               });
             },
-            onTap: () {
-              context.push('/addcustomerserviceview');
-            },
-          ),
+        ),
+          
+          
+         
         ),
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(15))),

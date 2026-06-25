@@ -3,6 +3,7 @@ import 'package:plupool/features/projects/data/models/update_project_model.dart'
 import 'package:plupool/features/projects/domain/usecases/create_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/delete_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_our_projects_usecase.dart';
+import 'package:plupool/features/projects/domain/usecases/toggle_project_active_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/update_project_usecase.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_state.dart';
 
@@ -12,12 +13,13 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
   final DeleteProjectUseCase deleteProjectUseCase;
   final UpdateProjectUseCase updateProjectUseCase;
   final AddProjectUseCase addProjectUseCase;
-
+  final ToggleProjectActiveUseCase toggleProjectActiveUseCase;
   OurProjectsCubit(
     this.getOurProjectsUseCase,
     this.deleteProjectUseCase,
     this.updateProjectUseCase,
-    this.addProjectUseCase
+    this.addProjectUseCase,
+    this.toggleProjectActiveUseCase,
   ) : super(const OurProjectsState());
 
   Future<void> getProjects({
@@ -86,37 +88,37 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
     );
   }
 
-
   Future<void> addProject(UpdateProjectRequest request) async {
-  emit(
-    state.copyWith(
-      isAdding: true,
-      addSuccess: false,
-      error: null,
-    ),
-  );
+    emit(state.copyWith(isAdding: true, addSuccess: false, error: null));
 
-  final result = await addProjectUseCase(request);
+    final result = await addProjectUseCase(request);
 
-  result.fold(
-    (failure) {
-      emit(
-        state.copyWith(
-          isAdding: false,
-          error: failure.message,
-        ),
-      );
-    },
-    (_) async {
-      emit(
-        state.copyWith(
-          isAdding: false,
-          addSuccess: true,
-        ),
-      );
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isAdding: false, error: failure.message));
+      },
+      (_) async {
+        emit(state.copyWith(isAdding: false, addSuccess: true));
 
-      await getProjects();
-    },
-  );
-}
+        await getProjects();
+      },
+    );
+  }
+
+  Future<void> toggleProjectActive(int projectId) async {
+    emit(state.copyWith(isToggling: true, toggleSuccess: false, error: null));
+
+    final result = await toggleProjectActiveUseCase(projectId);
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isToggling: false, error: failure.message));
+      },
+      (_) async {
+        emit(state.copyWith(isToggling: false, toggleSuccess: true));
+
+        await getProjects();
+      },
+    );
+  }
 }

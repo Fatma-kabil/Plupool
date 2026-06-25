@@ -45,4 +45,11 @@ class OurProjectsRemoteDataSource {
       data: formData,
     );
   }
+    Future<String> toggleProjectActive(int projectId) async {
+    final response = await apiService.patch(
+      '"${Endpoints.projects}/$projectId/toggle-active',
+    );
+
+    return response.data.toString();
+  }
 }

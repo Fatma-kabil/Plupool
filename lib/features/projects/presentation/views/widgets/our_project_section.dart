@@ -70,7 +70,27 @@ class _OurProjectSectionState extends State<OurProjectSection> {
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(20))),
 
         /// هنا فقط
-        BlocBuilder<OurProjectsCubit, OurProjectsState>(
+BlocConsumer<OurProjectsCubit, OurProjectsState>(
+  listenWhen: (previous, current) {
+    return previous.isToggling != current.isToggling;
+  },
+  listener: (context, state) {
+    if (!state.isToggling) {
+      if (state.toggleSuccess) {
+        showCustomSnackBar(
+          context: context,
+          message: "تم تحديث حالة المشروع بنجاح ✅",
+          isSuccess: true,
+        );
+      } else if (state.error != null) {
+        showCustomSnackBar(
+          context: context,
+          message: state.error!,
+        );
+      }
+    }
+  },
+
           builder: (context, state) {
             if (state.isLoading) {
               return SliverList(

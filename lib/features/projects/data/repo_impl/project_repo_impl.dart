@@ -56,4 +56,18 @@ Future<Either<Failure, Unit>> addProject(
     return left(mapDioError(e));
   }
 }
+
+@override
+Future<Either<Failure, String>> toggleProjectActive(
+  int projectId,
+) async {
+  try {
+    final result =
+        await remoteDataSource.toggleProjectActive(projectId);
+
+    return Right(result);
+  }  catch (e) {
+    return left(mapDioError(e));
+  }
+}
 }

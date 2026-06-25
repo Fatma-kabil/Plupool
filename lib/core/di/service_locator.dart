@@ -107,6 +107,7 @@ import 'package:plupool/features/projects/domain/usecases/get_client_project_use
 import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_our_projects_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_projects_statistics_usecse.dart';
+import 'package:plupool/features/projects/domain/usecases/toggle_project_active_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/update_project_usecase.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_cubit.dart';
@@ -720,6 +721,7 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => AddPackageVisitUseCase(sl<PackagesRepository>()),
   );
+  
 
   // Cubit
   sl.registerFactory(
@@ -743,7 +745,9 @@ Future<void> initServiceLocator() async {
   // UseCases
   sl.registerLazySingleton(() => GetOurProjectsUseCase(sl<OurProjectsRepo>()));
   sl.registerLazySingleton(() => AddProjectUseCase(sl<OurProjectsRepo>()));
-
+ sl.registerLazySingleton(
+    () => ToggleProjectActiveUseCase(sl<OurProjectsRepo>()),
+  );
   // Cubit
   sl.registerFactory(
     () => OurProjectsCubit(
@@ -751,6 +755,7 @@ Future<void> initServiceLocator() async {
       sl<DeleteProjectUseCase>(),
       sl<UpdateProjectUseCase>(),
       sl<AddProjectUseCase>(),
+      sl<ToggleProjectActiveUseCase>()
     ),
   );
 

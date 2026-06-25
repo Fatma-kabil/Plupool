@@ -7,7 +7,8 @@ class OurProjectsState {
   final bool updateSuccess;
   final bool isAdding;
   final bool addSuccess;
-
+  final bool isToggling;
+  final bool toggleSuccess;
   final List<OurProjectEntity> projects;
   final String? error;
 
@@ -18,6 +19,8 @@ class OurProjectsState {
     this.isAdding = false,
     this.updateSuccess = false,
     this.addSuccess = false,
+    this.isToggling = false,
+    this.toggleSuccess = false,
     this.projects = const [],
     this.error,
   });
@@ -29,6 +32,8 @@ class OurProjectsState {
     bool? isAdding,
     bool? updateSuccess,
     bool? addSuccess,
+    bool? isToggling,
+    bool? toggleSuccess,
     List<OurProjectEntity>? projects,
     String? error,
   }) {
@@ -39,6 +44,8 @@ class OurProjectsState {
       isAdding: isAdding ?? this.isAdding,
       updateSuccess: updateSuccess ?? this.updateSuccess,
       addSuccess: addSuccess ?? this.addSuccess,
+      isToggling: isToggling??this.isToggling,
+      toggleSuccess: toggleSuccess??this.toggleSuccess,
       projects: projects ?? this.projects,
       error: error,
     );
