@@ -1,6 +1,7 @@
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/features/projects/data/models/projects_statistics_model.dart';
 import 'package:plupool/features/projects/domain/params/client_project_params.dart';
+import 'package:plupool/features/projects/domain/params/update_project_progress_params.dart';
 import '../../../../core/network/end_points.dart';
 import '../models/company_project_model.dart';
 
@@ -53,7 +54,14 @@ class CompanyProjectsRemoteDataSourceImpl {
     await api.delete('${Endpoints.projects}/$projectId');
   }
 
-  
-  
+  Future<void> updateProjectProgress(UpdateProjectProgressParams params) async {
+    await api.patch(
+      '${Endpoints.projects}/${params.projectId}/progress',
+      queryParams: {
+        'progress_percentage': params.progressPercentage,
+        if (params.newStatus != null) 'new_status': params.newStatus,
+        if (params.adminNotes != null) 'admin_notes': params.adminNotes,
+      },
+    );
+  }
 }
-

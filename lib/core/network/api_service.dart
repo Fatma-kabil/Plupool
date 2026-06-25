@@ -100,12 +100,14 @@ class ApiService {
   Future<Response> patch(
     String endpoint, {
     dynamic data,
+     Map<String, dynamic>? queryParams,
     Options? options,
   }) async {
     try {
       final response = await dio.patch(
         endpoint,
         data: data,
+        queryParameters: queryParams,
         options:
             options ??
             Options(

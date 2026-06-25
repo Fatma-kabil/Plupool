@@ -7,6 +7,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_offer_btn.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_state.dart';
@@ -23,13 +24,18 @@ class OurProjectSection extends StatefulWidget {
 class _OurProjectSectionState extends State<OurProjectSection> {
   String selected = "الكل";
 
-  void onFilterChanged(String val) {
-    setState(() => selected = val);
+ void onFilterChanged(String val) {
+  setState(() => selected = val);
 
-    context.read<OurProjectsCubit>().getProjects(
-      hasPartener: val == "الكل" ? null : val == "الشركاء",
-    );
-  }
+  final hasPartner = val == "الكل" ? null : val == "الشركاء";
+
+  print("Filter: $val");
+  print("hasPartner: $hasPartner");
+
+  context.read<OurProjectsCubit>().getProjects(
+    hasPartener: hasPartner,
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -70,26 +76,23 @@ class _OurProjectSectionState extends State<OurProjectSection> {
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(20))),
 
         /// هنا فقط
-BlocConsumer<OurProjectsCubit, OurProjectsState>(
-  listenWhen: (previous, current) {
-    return previous.isToggling != current.isToggling;
-  },
-  listener: (context, state) {
-    if (!state.isToggling) {
-      if (state.toggleSuccess) {
-        showCustomSnackBar(
-          context: context,
-          message: "تم تحديث حالة المشروع بنجاح ✅",
-          isSuccess: true,
-        );
-      } else if (state.error != null) {
-        showCustomSnackBar(
-          context: context,
-          message: state.error!,
-        );
-      }
-    }
-  },
+        BlocConsumer<OurProjectsCubit, OurProjectsState>(
+          listenWhen: (previous, current) {
+            return previous.isToggling != current.isToggling;
+          },
+          listener: (context, state) {
+            if (!state.isToggling) {
+              if (state.toggleSuccess) {
+                showCustomSnackBar(
+                  context: context,
+                  message: "تم تحديث حالة المشروع بنجاح ✅",
+                  isSuccess: true,
+                );
+              } else if (state.error != null) {
+                showCustomSnackBar(context: context, message: state.error!);
+              }
+            }
+          },
 
           builder: (context, state) {
             if (state.isLoading) {

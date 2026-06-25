@@ -6,7 +6,8 @@ class CompanyProjectState {
   final bool isDeleting;
   final bool isUpdating;
   final bool updateSuccess;
-
+final bool isUpdatingProgress;
+final bool progressUpdated;
   final bool isAdding;
   final bool addSuccess;
 
@@ -22,6 +23,8 @@ class CompanyProjectState {
     this.updateSuccess = false,
     this.isAdding = false,
     this.addSuccess = false,
+    this.isUpdatingProgress = false,
+this.progressUpdated = false,
     this.projects = const [],
     this.clientProjects = const [],
     this.statistics,
@@ -35,6 +38,8 @@ class CompanyProjectState {
     bool? updateSuccess,
     bool? isAdding,
     bool? addSuccess,
+    bool? isUpdatingProgress,
+bool? progressUpdated,
     List<CompanyProjectEntity>? projects,
     List<CompanyProjectEntity>? clientProjects,
     ProjectStatisticsEntity? statistics,
@@ -48,6 +53,11 @@ class CompanyProjectState {
       isAdding: isAdding ?? this.isAdding,
       addSuccess: addSuccess ?? this.addSuccess,
       projects: projects ?? this.projects,
+      isUpdatingProgress:
+    isUpdatingProgress ?? this.isUpdatingProgress,
+
+progressUpdated:
+    progressUpdated ?? this.progressUpdated,
       clientProjects: clientProjects ?? this.clientProjects,
       statistics: statistics ?? this.statistics,
       error: error,

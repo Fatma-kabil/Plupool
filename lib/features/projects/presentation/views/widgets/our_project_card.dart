@@ -236,6 +236,7 @@ class OurProjectCard extends StatelessWidget {
                   alignment: Alignment.center,
                   child: OurProjectCardFooter(
                     projectId: project.id,
+                   isActive: project.isActive == 1,
                     onEditPressed: () {
                       context.push('/editourprojectview', extra: project);
                     },

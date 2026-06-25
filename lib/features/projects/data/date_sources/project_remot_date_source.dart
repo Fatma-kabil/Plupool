@@ -2,6 +2,7 @@ import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/projects/data/models/our_project_moddel.dart';
 import 'package:plupool/features/projects/data/models/update_project_model.dart';
+
 class OurProjectsRemoteDataSource {
   final ApiService apiService;
 
@@ -16,6 +17,8 @@ class OurProjectsRemoteDataSource {
     final queryParameters = {
       'skip': skip,
       'limit': limit,
+      if (status != null) 'status': status,
+      if (hasPartener != null) 'has_partner': hasPartener,
     };
 
     final response = await apiService.get(
@@ -40,14 +43,12 @@ class OurProjectsRemoteDataSource {
   Future<void> addProject(UpdateProjectRequest request) async {
     final formData = await request.toFormData();
 
-    await apiService.post(
-     "${Endpoints.projects}/",
-      data: formData,
-    );
+    await apiService.post("${Endpoints.projects}/", data: formData);
   }
-    Future<String> toggleProjectActive(int projectId) async {
+
+  Future<String> toggleProjectActive(int projectId) async {
     final response = await apiService.patch(
-      '"${Endpoints.projects}/$projectId/toggle-active',
+      '${Endpoints.projects}/$projectId/toggle-active',
     );
 
     return response.data.toString();

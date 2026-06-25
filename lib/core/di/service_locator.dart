@@ -108,6 +108,7 @@ import 'package:plupool/features/projects/domain/usecases/get_company_project_us
 import 'package:plupool/features/projects/domain/usecases/get_our_projects_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_projects_statistics_usecse.dart';
 import 'package:plupool/features/projects/domain/usecases/toggle_project_active_usecase.dart';
+import 'package:plupool/features/projects/domain/usecases/update_project_progress_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/update_project_usecase.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_cubit.dart';
@@ -721,7 +722,6 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => AddPackageVisitUseCase(sl<PackagesRepository>()),
   );
-  
 
   // Cubit
   sl.registerFactory(
@@ -745,7 +745,7 @@ Future<void> initServiceLocator() async {
   // UseCases
   sl.registerLazySingleton(() => GetOurProjectsUseCase(sl<OurProjectsRepo>()));
   sl.registerLazySingleton(() => AddProjectUseCase(sl<OurProjectsRepo>()));
- sl.registerLazySingleton(
+  sl.registerLazySingleton(
     () => ToggleProjectActiveUseCase(sl<OurProjectsRepo>()),
   );
   // Cubit
@@ -755,7 +755,7 @@ Future<void> initServiceLocator() async {
       sl<DeleteProjectUseCase>(),
       sl<UpdateProjectUseCase>(),
       sl<AddProjectUseCase>(),
-      sl<ToggleProjectActiveUseCase>()
+      sl<ToggleProjectActiveUseCase>(),
     ),
   );
 
@@ -778,6 +778,9 @@ Future<void> initServiceLocator() async {
     () => GetProjectStatisticsUseCase(sl<CompanyProjectsRepository>()),
   );
   sl.registerLazySingleton(() => UpdateProjectUseCase(sl<OurProjectsRepo>()));
+  sl.registerLazySingleton(
+    () => UpdateProjectProgressUseCase(sl<CompanyProjectsRepository>()),
+  );
   // Cubit
   sl.registerFactory(
     () => CompanyProjectCubit(
@@ -787,6 +790,7 @@ Future<void> initServiceLocator() async {
       sl<DeleteProjectUseCase>(),
       sl<UpdateProjectUseCase>(),
       sl<AddProjectUseCase>(),
+      sl<UpdateProjectProgressUseCase>(),
     ),
   );
   sl.registerLazySingleton<GetClientProjectsUseCase>(

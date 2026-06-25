@@ -4,6 +4,7 @@ import 'package:plupool/features/projects/data/date_sources/company_project_remo
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
 import 'package:plupool/features/projects/domain/entities/projects_statistics_entity.dart';
 import 'package:plupool/features/projects/domain/params/client_project_params.dart';
+import 'package:plupool/features/projects/domain/params/update_project_progress_params.dart';
 import 'package:plupool/features/projects/domain/repos/company_project_repo.dart';
 
 class CompanyProjectsRepositoryImpl implements CompanyProjectsRepository {
@@ -54,5 +55,16 @@ class CompanyProjectsRepositoryImpl implements CompanyProjectsRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, void>> updateProjectProgress(
+    UpdateProjectProgressParams params,
+  ) async {
+    try {
+      await remote.updateProjectProgress(params);
 
+      return right(null);
+    } catch (e) {
+      return left(mapDioError(e));
+    }
+  }
 }

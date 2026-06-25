@@ -11,7 +11,7 @@ class OurProjectCardFooter extends StatelessWidget {
   const OurProjectCardFooter({
     super.key,
     this.onEditPressed,
-    this.isActive,
+   required this.isActive,
     required this.projectId,
   });
 
@@ -21,7 +21,7 @@ class OurProjectCardFooter extends StatelessWidget {
 
   Widget _iconWrap({required Widget child, required Color bg}) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: bg.withOpacity(0.12),
         shape: BoxShape.circle,
@@ -51,27 +51,25 @@ class OurProjectCardFooter extends StatelessWidget {
 
         SizedBox(width: SizeConfig.w(12)),
 
-      GestureDetector(
-  onTap: () {
-    context.read<OurProjectsCubit>().toggleProjectActive(projectId);
-  },
-  child: _iconWrap(
-    bg: 
-         const Color(0xffE63946)
-        
-    child: Icon(
-      isActive
-          ? Icons.visibility_off_outlined
-          : Icons.visibility_outlined,
-      color: 
-           const Color(0xffE63946)
-          
-      size: SizeConfig.isWideScreen
-          ? SizeConfig.w(18)
-          : SizeConfig.w(24),
-    ),
-  ),
-),
+        GestureDetector(
+          onTap: () {
+            context.read<OurProjectsCubit>().toggleProjectActive(projectId);
+          },
+          child: _iconWrap(
+            bg: const Color(0xffFFECD2),
+
+            child: Icon(
+              isActive
+                  ? Icons.visibility_off_outlined
+                  : Icons.visibility_outlined,
+              color: const Color(0xffD48417),
+
+              size: SizeConfig.isWideScreen
+                  ? SizeConfig.w(18)
+                  : SizeConfig.w(24),
+            ),
+          ),
+        ),
 
         SizedBox(width: SizeConfig.w(12)),
 

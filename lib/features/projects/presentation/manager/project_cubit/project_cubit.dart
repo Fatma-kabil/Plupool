@@ -9,11 +9,11 @@ import 'package:plupool/features/projects/presentation/manager/project_cubit/pro
 
 class OurProjectsCubit extends Cubit<OurProjectsState> {
   final GetOurProjectsUseCase getOurProjectsUseCase;
-
   final DeleteProjectUseCase deleteProjectUseCase;
   final UpdateProjectUseCase updateProjectUseCase;
   final AddProjectUseCase addProjectUseCase;
   final ToggleProjectActiveUseCase toggleProjectActiveUseCase;
+
   OurProjectsCubit(
     this.getOurProjectsUseCase,
     this.deleteProjectUseCase,
@@ -22,12 +22,22 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
     this.toggleProjectActiveUseCase,
   ) : super(const OurProjectsState());
 
+  int _currentSkip = 0;
+  int _currentLimit = 50;
+  String? _currentStatus;
+  bool? _currentHasPartner;
+
   Future<void> getProjects({
     int skip = 0,
     int limit = 50,
     String? status,
     bool? hasPartener,
   }) async {
+    _currentSkip = skip;
+    _currentLimit = limit;
+    _currentStatus = status;
+    _currentHasPartner = hasPartener;
+
     emit(state.copyWith(isLoading: true, error: null));
 
     final result = await getOurProjectsUseCase(
@@ -43,8 +53,23 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
         print(failure);
       },
       (projects) {
-        emit(state.copyWith(isLoading: false, projects: projects, error: null));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            projects: projects,
+            error: null,
+          ),
+        );
       },
+    );
+  }
+
+  Future<void> refreshProjects() async {
+    await getProjects(
+      skip: _currentSkip,
+      limit: _currentLimit,
+      status: _currentStatus,
+      hasPartener: _currentHasPartner,
     );
   }
 
@@ -58,15 +83,10 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
         emit(state.copyWith(isDeleting: false, error: failure.message));
         print(failure);
       },
-      (_) {
-        emit(
-          state.copyWith(
-            isDeleting: false,
-            projects: state.projects
-                .where((project) => project.id != projectId)
-                .toList(),
-          ),
-        );
+      (_) async {
+        emit(state.copyWith(isDeleting: false));
+
+        await refreshProjects();
       },
     );
   }
@@ -83,7 +103,7 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
       (_) async {
         emit(state.copyWith(isUpdating: false, updateSuccess: true));
 
-        await getProjects();
+        await refreshProjects();
       },
     );
   }
@@ -100,7 +120,7 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
       (_) async {
         emit(state.copyWith(isAdding: false, addSuccess: true));
 
-        await getProjects();
+        await refreshProjects();
       },
     );
   }
@@ -117,7 +137,7 @@ class OurProjectsCubit extends Cubit<OurProjectsState> {
       (_) async {
         emit(state.copyWith(isToggling: false, toggleSuccess: true));
 
-        await getProjects();
+        await refreshProjects();
       },
     );
   }
