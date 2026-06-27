@@ -31,7 +31,7 @@ class MessagesList extends StatelessWidget {
 
         /// ✅ success
         if (state is ContactSuccess) {
-          final messages = state.messages;
+          final messages = state.response.messages;
 
           /// 🔥 فلترة UI (مش API)
           final filteredMessages = messages.where((message) {

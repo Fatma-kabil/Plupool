@@ -1,5 +1,7 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
 import 'package:plupool/features/support/presentation/views/widgets/messages_list.dart';
 
 class AdminSupportViewBody extends StatefulWidget {
@@ -13,13 +15,26 @@ class _AdminSupportViewBodyState extends State<AdminSupportViewBody> {
   String selected = "جديد";
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ContactCubit>().getMessages(type: "support");
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
           child: FilterOption(
             value: selected,
-            items: const [ "جديد","قيد المراجعه","تم الحل",],
+            items: const [
+              "جديد",
+              "قيد المراجعه",
+              "تم الحل",
+            ],
             onChanged: (val) {
               if (val != null) {
                 setState(() {
@@ -29,8 +44,10 @@ class _AdminSupportViewBodyState extends State<AdminSupportViewBody> {
             },
           ),
         ),
-        SliverToBoxAdapter(child: SizedBox(height: 25)),
-         MessagesList(selected:selected ,),
+        const SliverToBoxAdapter(
+          child: SizedBox(height: 25),
+        ),
+        MessagesList(selected: selected),
       ],
     );
   }

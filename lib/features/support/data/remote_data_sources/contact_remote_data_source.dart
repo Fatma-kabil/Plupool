@@ -1,6 +1,7 @@
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
-import 'package:plupool/features/support/data/models/contact_model.dart';
+import 'package:plupool/features/reports/data/models/contact_message_model.dart';
+import 'package:plupool/features/reports/data/models/contact_message_response_model.dart';
 
 class ContactRemoteDataSource  {
   final ApiService api;
@@ -8,33 +9,31 @@ class ContactRemoteDataSource  {
   ContactRemoteDataSource(this.api);
 
   
-  Future<List<ContactModel>> getMessages({
+  Future<ContactMessagesResponseModel> getMessages({
+    String? type,
     String? status,
     String? senderRole,
     String? search,
   }) async {
     final response = await api.get(
       Endpoints.contactMessages,
-     queryParams : {
-        'status': status,
-        'sender_role': senderRole,
-        'search': search,
-        'skip': 0,
-        'limit': 100,
-      }..removeWhere((k, v) => v == null),
+      queryParams: {
+        if (type != null) 'type': type,
+        if (status != null) 'status': status,
+        if (senderRole != null) 'sender_role': senderRole,
+        if (search != null) 'search': search,
+      },
     );
 
-    final list = response.data['messages'] as List;
-
-    return list.map((e) => ContactModel.fromJson(e)).toList();
+    return ContactMessagesResponseModel.fromJson(response.data);
   }
 
  
-  Future<ContactModel> getMessageDetails(int id) async {
+  Future<ContactMessageModel> getMessageDetails(int id) async {
     final response =
         await api.get('${Endpoints.contactMessages}/$id');
 
-    return ContactModel.fromJson(response.data);
+    return ContactMessageModel.fromJson(response.data);
   }
 
  

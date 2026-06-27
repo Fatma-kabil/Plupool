@@ -23,6 +23,18 @@ class _AdminSupportViewState extends State<AdminSupportView> {
   bool isSearching = false;
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ContactCubit>().getMessages(
+        type: "support",
+        status: "pending_review",
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
@@ -32,7 +44,6 @@ class _AdminSupportViewState extends State<AdminSupportView> {
         child: Scaffold(
           key: scaffoldkey,
           drawer: const AppDrawer(),
-
           appBar: CustomAppBar(
             isSearch: true,
             onChanged: (value) {
@@ -40,13 +51,15 @@ class _AdminSupportViewState extends State<AdminSupportView> {
                 isSearching = value.trim().isNotEmpty;
               });
 
-              context.read<ContactCubit>().getMessages(search: value);
+              context.read<ContactCubit>().getMessages(
+                search: value,
+                type: "support",
+              );
             },
             onPressed: () {
               scaffoldkey.currentState!.openDrawer();
             },
           ),
-
           body: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.w(13),
@@ -55,46 +68,67 @@ class _AdminSupportViewState extends State<AdminSupportView> {
             child: isSearching
                 ? BlocBuilder<ContactCubit, ContactState>(
                     builder: (context, state) {
-                      return CustomScrollView(
-                        slivers: [
-                          /// 🔄 Loading
-                          if (state is ContactLoading) MessagesListShimmer(),
+                      if (state is ContactLoading) {
+                        return CustomScrollView(
+                          slivers: [
+                            MessagesListShimmer(),
+                          ],
+                        );
+                      }
 
-                          /// ❌ Error
-                          if (state is ContactError)
+                      if (state is ContactError) {
+                        return CustomScrollView(
+                          slivers: [
                             SliverToBoxAdapter(
                               child: Center(
                                 child: ErrorText(message: state.message),
                               ),
                             ),
+                          ],
+                        );
+                      }
 
-                          /// ✅ Success
-                          if (state is ContactSuccess) ...[
-                            if (state.messages.isEmpty)
-                              const SliverToBoxAdapter(
-                                child: Center(child: Text("📭 لا توجد رسائل")),
-                              )
-                            else
-                              SliverList(
-                                delegate: SliverChildBuilderDelegate((
-                                  context,
-                                  index,
-                                ) {
-                                  final message = state.messages[index];
+                      if (state is ContactSuccess) {
+                        final messages = state.response.messages;
+
+                        if (messages.isEmpty) {
+                          return const CustomScrollView(
+                            slivers: [
+                              SliverToBoxAdapter(
+                                child: Center(
+                                  child: Text("📭 لا توجد رسائل"),
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+
+                        return CustomScrollView(
+                          slivers: [
+                            SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                (context, index) {
+                                  final message = messages[index];
 
                                   return MessageCard(
                                     message: message,
-                                    onTap: () => Navigator.pushNamed(
-                                      context,
-                                      '/messagedetails',
-                                      arguments: message,
-                                    ),
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        '/messagedetails',
+                                        arguments: message,
+                                      );
+                                    },
                                   );
-                                }, childCount: state.messages.length),
+                                },
+                                childCount: messages.length,
                               ),
+                            ),
                           ],
-                        ],
-                      );
+                        );
+                      }
+
+                      return const SizedBox();
                     },
                   )
                 : const AdminSupportViewBody(),

@@ -1,8 +1,7 @@
-import 'package:plupool/features/support/domain/entities/contact_entity.dart';
 
 
-
-
+import 'package:plupool/features/reports/domain/entities/contact_mesage_response.dart';
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 
 abstract class ContactState {}
 
@@ -11,19 +10,29 @@ class ContactInitial extends ContactState {}
 class ContactLoading extends ContactState {}
 
 class ContactSuccess extends ContactState {
-  final List<ContactEntity> messages;
+  final ContactMessagesResponse response;
 
-  ContactSuccess(this.messages);
+  ContactSuccess(this.response);
 }
 
-class ContactActionSuccess extends ContactState {}
+/// تفاصيل رسالة
+class ContactDetailsLoading extends ContactState {}
 
-class ContactError extends ContactState {
+class ContactDetailsSuccess extends ContactState {
+  final ContactMessageEntity message;
+
+  ContactDetailsSuccess(this.message);
+}
+
+class ContactDetailsError extends ContactState {
   final String message;
 
-  ContactError(this.message);
+  ContactDetailsError(this.message);
 }
+
+/// Delete
 class ContactDeleting extends ContactState {}
+
 class ContactDeleteSuccess extends ContactState {}
 
 class ContactDeleteError extends ContactState {
@@ -32,11 +41,20 @@ class ContactDeleteError extends ContactState {
   ContactDeleteError(this.message);
 }
 
+/// Update
+class ContactUpdateLoading extends ContactState {}
+
+class ContactUpdateSuccess extends ContactState {}
+
 class ContactUpdateError extends ContactState {
   final String message;
 
   ContactUpdateError(this.message);
 }
-class ContactUpdateLoading extends ContactState {}
 
-class ContactUpdateSuccess extends ContactState {}
+/// General
+class ContactError extends ContactState {
+  final String message;
+
+  ContactError(this.message);
+}

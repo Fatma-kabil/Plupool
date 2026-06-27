@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
-import 'package:plupool/features/support/domain/entities/contact_entity.dart';
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_state.dart';
 
@@ -13,7 +13,7 @@ import 'package:plupool/features/support/presentation/views/widgets/message_stat
 
 class MessageDetailsBody extends StatefulWidget {
   const MessageDetailsBody({super.key, required this.message});
-  final ContactEntity message;
+  final ContactMessageEntity message;
 
   @override
   State<MessageDetailsBody> createState() => _MessageDetailsBodyState();
@@ -37,9 +37,9 @@ class _MessageDetailsBodyState extends State<MessageDetailsBody> {
           /// HEADER
           MessageDatailsViewHeader(
             name: widget.message.name,
-            status: widget.message.isActive!,
-            imageUrl: widget.message.imageUrl,
-            location: widget.message.address,
+            status: true,
+            imageUrl: widget.message.userProfileImage,
+            location: widget.message.poolOwnerAddress,
             phone: widget.message.phone,
           ),
 

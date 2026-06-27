@@ -4,14 +4,14 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/functions/message_status_text.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/support/domain/entities/contact_entity.dart';
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 import 'package:plupool/features/support/presentation/views/widgets/attachment_chip.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_card_title.dart';
 
 class MessageCard extends StatelessWidget {
   const MessageCard({super.key, required this.message, this.onTap});
 
-  final ContactEntity message;
+  final ContactMessageEntity message;
   final void Function()? onTap;
 
   @override

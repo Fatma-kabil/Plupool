@@ -1,13 +1,14 @@
-import 'package:plupool/features/support/domain/entities/contact_entity.dart';
+import 'package:plupool/features/reports/domain/entities/contact_mesage_response.dart';
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 
 abstract class ContactRepository {
-  Future<List<ContactEntity>> getMessages({
+  Future<ContactMessagesResponse> getMessages({
+    String? type,
     String? status,
     String? senderRole,
     String? search,
   });
-
-  Future<ContactEntity> getMessageDetails(int id);
+  Future<ContactMessageEntity> getMessageDetails(int id);
 
   Future<void> deleteMessage(int id);
 

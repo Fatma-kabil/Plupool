@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
-import 'package:plupool/features/support/domain/entities/contact_entity.dart';
+import 'package:plupool/features/reports/domain/entities/contact_mesage_response.dart';
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 import 'package:plupool/features/support/domain/usecases/delete_message_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/get_message_details_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/get_messages_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/update_status_usecase.dart';
-import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_state.dart';
-
+import 'contact_state.dart';
 
 class ContactCubit extends Cubit<ContactState> {
   final GetMessagesUseCase getUseCase;
@@ -21,115 +21,165 @@ class ContactCubit extends Cubit<ContactState> {
     required this.updateUseCase,
   }) : super(ContactInitial());
 
-  /// 🔥 cache
-  List<ContactEntity> _cachedMessages = [];
+  /// cache
+  ContactMessagesResponse? _cachedResponse;
 
-  /// 🔥 filters
-  
   String? _status;
   String? _senderRole;
   String? _search;
+  String? _type;
 
-  /// 📋 GET MESSAGES
+  ///==============================
+  /// GET ALL
+  ///==============================
   Future<void> getMessages({
     int skip = 0,
-    int limit = 50,
+    int limit = 200,
     String? status,
     String? senderRole,
     String? search,
+    String? type,
   }) async {
     emit(ContactLoading());
 
     try {
-      /// حفظ الفلاتر
-      
       _status = status;
       _senderRole = senderRole;
       _search = search;
+      _type = type;
 
-      final messages = await getUseCase(
-       
+      final response = await getUseCase(
         status: status,
         senderRole: senderRole,
         search: search,
+        type: type,
       );
 
-      _cachedMessages = messages;
+      _cachedResponse = response;
 
-      emit(ContactSuccess(messages));
+      emit(ContactSuccess(response));
     } catch (e) {
-      emit(ContactError(
-        e is Failure ? e.message : "حدث خطأ أثناء جلب الرسائل",
-      ));
+      emit(
+        ContactError(e is Failure ? e.message : "حدث خطأ أثناء جلب الرسائل"),
+      );
     }
   }
 
-  /// 🗑 DELETE
+  ///==============================
+  /// DETAILS
+  ///==============================
+  Future<void> getMessageDetails(int id) async {
+    try {
+      emit(ContactDetailsLoading());
+
+      final message = await getDetailsUseCase(id);
+
+      emit(ContactDetailsSuccess(message));
+    } catch (e) {
+      emit(
+        ContactDetailsError(
+          e is Failure ? e.message : "حدث خطأ أثناء جلب التفاصيل",
+        ),
+      );
+
+      if (_cachedResponse != null) {
+        emit(ContactSuccess(_cachedResponse!));
+      }
+    }
+  }
+
+  ///==============================
+  /// DELETE
+  ///==============================
   Future<void> deleteMessage(int id) async {
     try {
       emit(ContactDeleting());
 
       await deleteUseCase(id);
 
-      final messages = await getUseCase(
-        
+      final response = await getUseCase(
         status: _status,
         senderRole: _senderRole,
         search: _search,
+        type: _type,
+      );
+      _cachedResponse = response;
+
+      emit(ContactDeleteSuccess());
+      emit(ContactSuccess(response));
+    } catch (e) {
+      emit(
+        ContactDeleteError(
+          e is Failure ? e.message : "حدث خطأ أثناء حذف الرسالة",
+        ),
       );
 
-      _cachedMessages = messages;
-
-    //  emit(ContactSuccess(messages));
-      emit(ContactDeleteSuccess());
-      
-      emit(ContactSuccess(messages));
-    } catch (e) {
-      emit(ContactDeleteError(
-        e is Failure ? e.message : "حدث خطأ أثناء حذف الرسالة",
-      ));
-
-      /// 🔥 rollback
-      emit(ContactSuccess(_cachedMessages));
+      if (_cachedResponse != null) {
+        emit(ContactSuccess(_cachedResponse!));
+      }
     }
   }
 
-  /// ✏️ UPDATE STATUS
+  ///==============================
+  /// UPDATE STATUS
+  ///==============================
   Future<void> updateMessageStatus(int id, String status) async {
     try {
       emit(ContactUpdateLoading());
 
       await updateUseCase(id, status);
 
-      final messages = await getUseCase(
-        
+      final response = await getUseCase(
         status: _status,
         senderRole: _senderRole,
         search: _search,
+        type: _type,
       );
 
-      _cachedMessages = messages;
+      _cachedResponse = response;
 
-     
       emit(ContactUpdateSuccess());
-       emit(ContactSuccess(messages));
+      emit(ContactSuccess(response));
     } catch (e) {
-      emit(ContactUpdateError(
-        e is Failure ? e.message : "حدث خطأ أثناء تحديث الحالة",
-      ));
+      emit(
+        ContactUpdateError(
+          e is Failure ? e.message : "حدث خطأ أثناء تحديث الحالة",
+        ),
+      );
 
-      /// 🔥 rollback
-      emit(ContactSuccess(_cachedMessages));
+      if (_cachedResponse != null) {
+        emit(ContactSuccess(_cachedResponse!));
+      }
     }
   }
 
-  /// 🔄 REFRESH MANUAL
+  ///==============================
+  /// REFRESH
+  ///==============================
   Future<void> refresh() async {
     await getMessages(
-     
       status: _status,
       senderRole: _senderRole,
       search: _search,
+      type: _type,
     );
   }
+
+  ///==============================
+  /// GETTERS
+  ///==============================
+
+  ContactMessagesResponse? get cachedResponse => _cachedResponse;
+
+  List<ContactMessageEntity> get messages => _cachedResponse?.messages ?? [];
+
+  int get total => _cachedResponse?.total ?? 0;
+
+  int get pendingReview => _cachedResponse?.statistics.pendingReview ?? 0;
+
+  int get inProgress => _cachedResponse?.statistics.inProgress ?? 0;
+
+  int get resolved => _cachedResponse?.statistics.resolved ?? 0;
+
+  int get company => _cachedResponse?.statistics.company ?? 0;
 }

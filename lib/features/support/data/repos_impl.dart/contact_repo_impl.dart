@@ -1,6 +1,7 @@
-
+import 'package:plupool/features/reports/domain/entities/contact_mesage_response.dart';
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 import 'package:plupool/features/support/data/remote_data_sources/contact_remote_data_source.dart';
-import 'package:plupool/features/support/domain/entities/contact_entity.dart';
+
 import 'package:plupool/features/support/domain/repos/contact_repo.dart';
 
 class ContactRepoImpl implements ContactRepository {
@@ -9,12 +10,14 @@ class ContactRepoImpl implements ContactRepository {
   ContactRepoImpl(this.remote);
 
   @override
-  Future<List<ContactEntity>> getMessages({
+  Future<ContactMessagesResponse> getMessages({
+    String? type,
     String? status,
     String? senderRole,
     String? search,
   }) {
     return remote.getMessages(
+      type: type,
       status: status,
       senderRole: senderRole,
       search: search,
@@ -22,7 +25,7 @@ class ContactRepoImpl implements ContactRepository {
   }
 
   @override
-  Future<ContactEntity> getMessageDetails(int id) {
+  Future<ContactMessageEntity> getMessageDetails(int id) {
     return remote.getMessageDetails(id);
   }
 
@@ -35,6 +38,4 @@ class ContactRepoImpl implements ContactRepository {
   Future<void> updateStatus(int id, String status) {
     return remote.updateStatus(id, status);
   }
-
-  
 }

@@ -70,6 +70,7 @@ import 'package:plupool/features/projects/presentation/views/users_project_view.
 import 'package:plupool/features/rating/presentation/views/admin_rating_view.dart';
 import 'package:plupool/features/rating/presentation/views/customer_rating.dart';
 import 'package:plupool/features/reports/admin_drawer_report_view.dart';
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 import 'package:plupool/features/reports/presentation/views/admin_reports_view.dart';
 import 'package:plupool/features/search/presentation/views/searh_view.dart';
 import 'package:plupool/features/select_role/presentation/views/select_role_view.dart';
@@ -95,7 +96,6 @@ import 'package:plupool/features/statistics/presentation/views/statistics_view.d
 import 'package:plupool/features/store/presentation/views/admin/admin_store_view.dart';
 import 'package:plupool/features/store/presentation/views/cart_view.dart';
 import 'package:plupool/features/store/presentation/views/order_summary_view.dart';
-import 'package:plupool/features/support/domain/entities/contact_entity.dart';
 import 'package:plupool/features/support/presentation/views/admin_support_view.dart';
 import 'package:plupool/features/support/presentation/views/compny_res_support_view.dart';
 import 'package:plupool/features/support/presentation/views/message_details.dart';
@@ -396,7 +396,7 @@ final GoRouter appRouter = GoRouter(
       path: '/messagedetails',
       name: 'messagedetails',
       pageBuilder: (context, state) {
-        final message = state.extra as ContactEntity; // استقبال الليست
+        final message = state.extra as ContactMessageEntity; // استقبال الليست
 
         return buildTransitionPage(MessageDetails(message: message));
       },
