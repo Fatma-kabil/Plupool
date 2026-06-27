@@ -60,3 +60,5 @@ class ContactError extends ContactState {
 }
 
 class ContactCountUpdated extends ContactState {}
+
+class ContactUsCountUpdated extends ContactState {}

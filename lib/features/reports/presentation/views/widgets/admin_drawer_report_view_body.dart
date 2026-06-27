@@ -6,6 +6,7 @@ import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/packages_tab_bar.dart';
 import 'package:plupool/features/reports/presentation/views/widgets/admin_drawer_report_card.dart';
+import 'package:plupool/features/reports/presentation/views/widgets/admin_drawer_report_shimmer_list.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_state.dart';
 
@@ -125,11 +126,9 @@ class _AdminDrawerReportViewBodyState
             Expanded(
               child: Builder(
                 builder: (_) {
-                  if (state is ContactLoading) {
+                  if (state is ContactLoading||state is ContactUpdateLoading ) {
                     // return const ReportListShimmer();
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return AdminDrawerReportShimmerList();
                   }
 
                   if (state is ContactError) {

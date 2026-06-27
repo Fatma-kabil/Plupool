@@ -1,77 +1,101 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/theme/app_colors.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/contact_us/presentation/views/widgets/admin_drawer_company.dart';
-import 'package:plupool/features/contact_us/presentation/views/widgets/drawer_customer_section.dart';
-import 'package:plupool/features/services/presentation/views/admin/widgets/tab_with_count.dart';
+import 'package:plupool/core/utils/widgets/filter_option.dart';
+import 'package:plupool/features/contact_us/presentation/views/widgets/contact_us_massage_list.dart';
+import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
 
-class AdminDrawerContactUsViewBody extends StatelessWidget {
+class AdminDrawerContactUsViewBody extends StatefulWidget {
   const AdminDrawerContactUsViewBody({super.key});
 
   @override
+  State<AdminDrawerContactUsViewBody> createState() => _AdminDrawerContactUsViewBodyState();
+}
+class _AdminDrawerContactUsViewBodyState
+    extends State<AdminDrawerContactUsViewBody> {
+  String selected = "جديد";
+
+  String? get status {
+    switch (selected) {
+      case "قيد المراجعه":
+        return "in_progress";
+      case "تم الحل":
+        return "resolved";
+      default:
+        return "pending_review";
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ContactCubit>().getMessages(
+        type: "contact",
+        status: status,
+      );
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Column(
-        children: [
-          /// TabBar
-          Container(
-            height: SizeConfig.h(SizeConfig.isWideScreen ? 55 : 44),
-            margin: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: const Color(0xffF1F1F1),
-              boxShadow: const [
-                BoxShadow(
-                  blurRadius: 4,
-                  offset: Offset(0, 1),
-                  color: Colors.black26,
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "ابحث عن ممثل الشركه:",
+                style: AppTextStyles.styleSemiBold16(context),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.w(4),
+                  vertical: SizeConfig.h(20),
                 ),
-              ],
-            ),
-            child: TabBar(
-              labelStyle: AppTextStyles.styleRegular16(
-                context,
-              ).copyWith(fontFamily: 'Cairo'),
-              unselectedLabelStyle: AppTextStyles.styleRegular16(
-                context,
-              ).copyWith(fontFamily: 'Cairo'),
-              indicatorPadding: EdgeInsets.symmetric(
-                vertical: SizeConfig.h(7),
-                horizontal: SizeConfig.w(7),
+                child: CustomSearchPerson(
+                  hintText: "ابحث بأسم ممثل الشركه او رقم الهاتف",
+                  onChanged: (value) {
+                    context.read<ContactCubit>().getMessages(
+                          type: "contact",
+                          status: status,
+                          search: value,
+                        );
+                  },
+                ),
               ),
-              indicatorSize: TabBarIndicatorSize.tab,
-              dividerHeight: 0,
-              labelColor: AppColors.kprimarycolor,
-              unselectedLabelColor: const Color(0xff7B7B7B),
-              indicator: BoxDecoration(
-                color: const Color(0xffCCE4F0),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              tabs: [
-                Tab(child: TabWithCount(title: 'العملاء', count: 2)),
-                Tab(child: TabWithCount(title: 'ممثلي الشركه', count: 3)),
-              ],
-            ),
-          ),
-
-          SizedBox(height: SizeConfig.h(22)),
-
-          /// TabBarView
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
-              child: TabBarView(
-                children: [
-                  DrawerCustomerSection(),
-                  AdminDrawerCompany(),
+              FilterOption(
+                value: selected,
+                items: const [
+                  "تم الحل",
+                  "قيد المراجعه",
+                  "جديد",
                 ],
+                onChanged: (val) {
+                  if (val != null) {
+                    setState(() => selected = val);
+
+                    context.read<ContactCubit>().getMessages(
+                          type: "contact",
+                          status: status,
+                        );
+                  }
+                },
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const SliverToBoxAdapter(child: SizedBox(height: 25)),
+        const ContactUsMassageList(),
+      ],
     );
   }
-}
+
+    
+    
+  }
+    

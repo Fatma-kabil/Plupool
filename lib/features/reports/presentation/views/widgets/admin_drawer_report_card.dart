@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/message_status_text.dart';
@@ -9,6 +10,8 @@ import 'package:intl/intl.dart' as intl;
 import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 import 'package:plupool/features/reports/presentation/views/widgets/admin_drawer_report_header_card.dart';
 import 'package:plupool/features/reports/presentation/views/widgets/report_card_row.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_state.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class AdminDrawerReportCard extends StatefulWidget {
@@ -24,20 +27,19 @@ class _AdminDrawerReportCardState extends State<AdminDrawerReportCard> {
   Widget build(BuildContext context) {
     MessageStatus selected = mapMessageApiStatus(widget.model.status);
 
-  String formatVisitDateTime(String? dateTime) {
-  if (dateTime == null || dateTime.isEmpty) return "";
+    String formatVisitDateTime(String? dateTime) {
+      if (dateTime == null || dateTime.isEmpty) return "";
 
-  final date = DateTime.parse(dateTime);
+      final date = DateTime.parse(dateTime);
 
-  return toArabicNumbers(
-    intl.DateFormat(
-      'dd / MM / yyyy - h:mm a',
-      'ar',
-    ).format(date)
-      .replaceAll('ص', 'صباحاً')
-      .replaceAll('م', 'مساءً'),
-  );
-}
+      return toArabicNumbers(
+        intl.DateFormat(
+          'dd / MM / yyyy - h:mm a',
+          'ar',
+        ).format(date).replaceAll('ص', 'صباحاً').replaceAll('م', 'مساءً'),
+      );
+    }
+
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
@@ -82,7 +84,7 @@ class _AdminDrawerReportCardState extends State<AdminDrawerReportCard> {
             ReportCardRow(
               title: "تاريخ ووقت الزيارة",
               value: formatVisitDateTime(
-                widget.model.visit?['visit_datetime']??"",
+                widget.model.visit?['visit_datetime'] ?? "",
               ),
             ),
 
@@ -113,8 +115,14 @@ class _AdminDrawerReportCardState extends State<AdminDrawerReportCard> {
                           MessageStatus.resolved,
                         ],
                         displayText: (status) => statusText(status),
+
                         onChanged: (val) {
                           setState(() => selected = val);
+
+                          context.read<ContactCubit>().updateMessageStatus(
+                            widget.model.id,
+                            mapMessageStatusToApi(val),
+                          );
                         },
                       ),
                     ),
@@ -125,10 +133,29 @@ class _AdminDrawerReportCardState extends State<AdminDrawerReportCard> {
                       onTap: () => {
                         showDialog(
                           context: context,
-                          barrierDismissible: true,
-                          builder: (_) => const DeleteOrderCard(
-                            text: "هل أنت متأكد من حذف هذا البلاغ ؟",
-                          ),
+                          barrierDismissible: false,
+                          builder: (_) {
+                            return BlocConsumer<ContactCubit, ContactState>(
+                              listener: (context, state) {
+                                if (state is ContactDeleteSuccess) {
+                                  Navigator.pop(context);
+                                }
+                              },
+                              builder: (context, state) {
+                                return DeleteOrderCard(
+                                  text: "هل أنت متأكد من حذف هذا البلاغ ؟",
+                                  isLoading: state is ContactDeleting,
+                                  onPressed: state is ContactDeleting
+                                      ? null
+                                      : () {
+                                          context
+                                              .read<ContactCubit>()
+                                              .deleteMessage(widget.model.id);
+                                        },
+                                );
+                              },
+                            );
+                          },
                         ),
                       },
                       child: Container(

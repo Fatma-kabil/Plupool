@@ -23,26 +23,39 @@ class ContactCubit extends Cubit<ContactState> {
 
   /// cache
   ContactMessagesResponse? _cachedResponse;
-int _complaintPendingCount = 0;
+  int _complaintPendingCount = 0;
+  int _contactPendingCount = 0;
   String? _status;
   String? _senderRole;
   String? _search;
   String? _type;
 
+  Future<void> loadComplaintCount() async {
+    try {
+      final response = await getUseCase(
+        type: "complaint",
+        status: "pending_review",
+      );
 
+      _complaintPendingCount = response.statistics.pendingReview;
 
-Future<void> loadComplaintCount() async {
-  try {
-    final response = await getUseCase(
-      type: "complaint",
-      status: "pending_review",
-    );
+      emit(ContactCountUpdated());
+    } catch (_) {}
+  }
 
-    _complaintPendingCount = response.statistics.pendingReview;
+  Future<void> loadContactCount() async {
+    try {
+      final response = await getUseCase(
+        type: "contact",
+        status: "pending_review",
+      );
 
-    emit(ContactCountUpdated());
-  } catch (_) {}
-}
+      _contactPendingCount = response.statistics.pendingReview;
+
+      emit(ContactUsCountUpdated());
+    } catch (_) {}
+  }
+
   ///==============================
   /// GET ALL
   ///==============================
@@ -117,12 +130,13 @@ Future<void> loadComplaintCount() async {
         search: _search,
         type: _type,
       );
-    _cachedResponse = response;
+      _cachedResponse = response;
 
-await loadComplaintCount();
+      await loadComplaintCount();
+      await loadContactCount();
 
-emit(ContactDeleteSuccess());
-emit(ContactSuccess(response));
+      emit(ContactDeleteSuccess());
+      emit(ContactSuccess(response));
     } catch (e) {
       emit(
         ContactDeleteError(
@@ -152,12 +166,12 @@ emit(ContactSuccess(response));
         type: _type,
       );
 
-    _cachedResponse = response;
+      _cachedResponse = response;
 
-await loadComplaintCount();
-
-emit(ContactUpdateSuccess());
-emit(ContactSuccess(response));
+      await loadComplaintCount();
+      await loadContactCount();
+      emit(ContactUpdateSuccess());
+      emit(ContactSuccess(response));
     } catch (e) {
       emit(
         ContactUpdateError(
@@ -190,7 +204,9 @@ emit(ContactSuccess(response));
   ContactMessagesResponse? get cachedResponse => _cachedResponse;
 
   List<ContactMessageEntity> get messages => _cachedResponse?.messages ?? [];
-int get complaintPendingCount => _complaintPendingCount;
+  int get complaintPendingCount => _complaintPendingCount;
+  int get contactPendingCount => _contactPendingCount;
+
   int get total => _cachedResponse?.total ?? 0;
 
   int get pendingReview => _cachedResponse?.statistics.pendingReview ?? 0;

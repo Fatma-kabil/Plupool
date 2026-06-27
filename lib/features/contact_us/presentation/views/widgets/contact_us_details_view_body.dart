@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/features/contact_us/presentation/views/widgets/companyres_contactus_details_header.dart';
+import 'package:plupool/features/support/presentation/views/widgets/message_status_section.dart';
 
 
 class ContactUsDetailsViewBody extends StatelessWidget {
@@ -10,7 +12,7 @@ class ContactUsDetailsViewBody extends StatelessWidget {
       child: Column(
         children: [
        //   MessageDatailsViewHeader(),
-         // CompanyresContactusDetailsHeader(),
+          CompanyresContactusDetailsHeader(),
           SizedBox(height: 25),
       //    MessageDetailsSection(
         //    message: MessageModel(
@@ -22,7 +24,7 @@ class ContactUsDetailsViewBody extends StatelessWidget {
           //  ),
          // ),
           SizedBox(height: 25),
-      //    MessageStatusSection(text: "تعديل حالة الطلب",),
+      //   MessageStatusSection(text: "تعديل حالة الطلب",),
         ],
       ),
     );

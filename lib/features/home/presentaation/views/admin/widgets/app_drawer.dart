@@ -119,7 +119,9 @@ class AppDrawer extends StatelessWidget {
                           return DrawerItem(
                             icon: Icons.flag_outlined,
                             title: 'البلاغات',
-                            badgeCount:normalizeArabicNumbers(  cubit.complaintPendingCount.toString(),),
+                            badgeCount: normalizeArabicNumbers(
+                              cubit.complaintPendingCount.toString(),
+                            ),
                             isSelected: selectedIndex == 8,
                             onTap: () => onItemTap(8, () {
                               context.go('/admindrawerreportview');
@@ -127,14 +129,21 @@ class AppDrawer extends StatelessWidget {
                           );
                         },
                       ),
-                      DrawerItem(
-                        icon: Icons.chat_outlined,
-                        title: 'رسائل تواصل معنا',
-                        badgeCount: "10",
-                        isSelected: selectedIndex == 9,
-                        onTap: () => onItemTap(9, () {
-                          context.go('/admindrawercontactusview');
-                        }),
+                      BlocBuilder<ContactCubit, ContactState>(
+                        builder: (context, state) {
+                          final cubit = context.read<ContactCubit>();
+                          return DrawerItem(
+                            icon: Icons.chat_outlined,
+                            title: 'رسائل تواصل معنا',
+                            badgeCount: normalizeArabicNumbers(
+                              cubit.contactPendingCount.toString(),
+                            ),
+                            isSelected: selectedIndex == 9,
+                            onTap: () => onItemTap(9, () {
+                              context.go('/admindrawercontactusview');
+                            }),
+                          );
+                        },
                       ),
                       DrawerItem(
                         icon: Icons.settings_outlined,
