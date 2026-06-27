@@ -79,6 +79,7 @@ import 'package:plupool/features/packages/data/remote%20datasource/packages_remo
 import 'package:plupool/features/packages/data/repos_impl/packages_repository_impl.dart';
 import 'package:plupool/features/packages/domain/repos/package_reposetriy.dart';
 import 'package:plupool/features/packages/domain/usecases/add_package_visit_usecase.dart';
+import 'package:plupool/features/packages/domain/usecases/create_package_usecase.dart';
 import 'package:plupool/features/packages/domain/usecases/get_package_details_usecase.dart';
 import 'package:plupool/features/packages/domain/usecases/get_packages_usecase.dart';
 import 'package:plupool/features/packages/domain/usecases/update_package_progress_usecase.dart';
@@ -722,6 +723,10 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => AddPackageVisitUseCase(sl<PackagesRepository>()),
   );
+  
+  sl.registerLazySingleton(
+    () => CreatePackageUseCase(sl<PackagesRepository>()),
+  );
 
   // Cubit
   sl.registerFactory(
@@ -730,6 +735,7 @@ Future<void> initServiceLocator() async {
       getPackageDetailsUseCase: sl<GetPackageDetailsUseCase>(),
       updateProgressUseCase: sl<UpdatePackageProgressUseCase>(),
       addVisitUseCase: sl<AddPackageVisitUseCase>(),
+      createPackageUseCase: sl<CreatePackageUseCase>(),
     ),
   );
 

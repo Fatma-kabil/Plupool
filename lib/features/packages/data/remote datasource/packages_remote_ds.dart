@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:plupool/core/network/end_points.dart';
+import 'package:plupool/features/packages/data/models/create_package_request.dart';
 import '../models/packages_response_model.dart';
 import '../models/package_model.dart';
 
@@ -77,4 +78,10 @@ Future<void> updateProgress({
       },
     );
   }
+  Future<void> createPackage(CreatePackageRequest request) async {
+  await dio.post(
+    Endpoints.packages,
+    data: request.toJson(),
+  );
+}
 }

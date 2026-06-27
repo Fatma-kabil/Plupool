@@ -5,7 +5,7 @@ import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/add_edit_offer_view_footer.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
-import 'package:plupool/features/packages/presentation/views/widgets/add_edit_package_form.dart';
+import 'package:plupool/features/packages/presentation/views/widgets/add_package_form.dart';
 import 'package:plupool/features/packages/presentation/views/widgets/visits_check.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
@@ -77,7 +77,7 @@ final customerNameController = TextEditingController(text: "احمد محمود"
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           /// المحتوى اللي بيعمل scroll
-          AddEditPackageForm(
+          AddPackageForm(
             formKey: _formKey,
             visitsNumberController: visitsNumberController,
             maintenanceDaysController: maintenanceDaysController,
@@ -86,7 +86,13 @@ final customerNameController = TextEditingController(text: "احمد محمود"
             startDate: startDate,
             endDate: endDate,
             selectedTime: selectedTime,
-
+initialTechnicians: [],
+onCustomerSelected: (id, name) {
+  
+},
+onTechniciansSelected: (p0) {
+  
+},
             selectedPackage: selectedPackage,
 
             onPackageChanged: (value) {

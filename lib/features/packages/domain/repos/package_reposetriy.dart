@@ -1,3 +1,7 @@
+import 'package:dartz/dartz.dart';
+import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/packages/data/models/create_package_request.dart';
+
 import '../entities/package_entity.dart';
 import '../entities/packages_response_entity.dart';
 
@@ -25,4 +29,8 @@ abstract class PackagesRepository {
     required String time,
     String? notes,
   });
+
+  Future<Either<Failure, Unit>> createPackage(
+  CreatePackageRequest request,
+);
 }

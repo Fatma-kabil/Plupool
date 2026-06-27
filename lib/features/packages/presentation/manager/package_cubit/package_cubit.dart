@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/packages/data/models/create_package_request.dart';
 import 'package:plupool/features/packages/domain/entities/package_entity.dart';
 import 'package:plupool/features/packages/domain/entities/packages_response_entity.dart';
 import 'package:plupool/features/packages/domain/usecases/add_package_visit_usecase.dart';
+import 'package:plupool/features/packages/domain/usecases/create_package_usecase.dart';
 import 'package:plupool/features/packages/domain/usecases/get_package_details_usecase.dart';
 import 'package:plupool/features/packages/domain/usecases/get_packages_usecase.dart';
 import 'package:plupool/features/packages/domain/usecases/update_package_progress_usecase.dart';
@@ -13,12 +15,14 @@ class PackagesCubit extends Cubit<PackagesState> {
   final GetPackageDetailsUseCase getPackageDetailsUseCase;
   final UpdatePackageProgressUseCase updateProgressUseCase;
   final AddPackageVisitUseCase addVisitUseCase;
+  final CreatePackageUseCase createPackageUseCase;
 
   PackagesCubit(
     this.getPackagesUseCase, {
     required this.getPackageDetailsUseCase,
     required this.updateProgressUseCase,
     required this.addVisitUseCase,
+    required this.createPackageUseCase
   }) : super(PackagesInitial());
 
   /// 🧠 cache
@@ -181,6 +185,35 @@ class PackagesCubit extends Cubit<PackagesState> {
       }
     }
   }
+  Future<void> addPackage(CreatePackageRequest request) async {
+  try {
+    emit(PackagesActionLoading());
+
+    await createPackageUseCase(request);
+
+    final response = await getPackagesUseCase(
+      status: _status,
+      duration: _duration,
+      search: _search,
+    );
+
+    _cachedResponse = response;
+    _cachedPackages = response.packages;
+
+    emit(PackagesActionSuccess());
+    emit(PackagesSuccess(response));
+  } catch (e) {
+    emit(
+      PackagesActionError(
+        e is Failure ? e.message : "حدث خطأ أثناء إضافة الباقة",
+      ),
+    );
+
+    if (_cachedResponse != null) {
+      emit(PackagesSuccess(_cachedResponse!));
+    }
+  }
+}
 
   // =========================
   // 🔄 REFRESH

@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/packages/data/models/create_package_request.dart';
 import 'package:plupool/features/packages/data/remote%20datasource/packages_remote_ds.dart';
 import 'package:plupool/features/packages/domain/repos/package_reposetriy.dart';
 
@@ -75,4 +78,15 @@ class PackagesRepositoryImpl implements PackagesRepository {
       notes: notes,
     );
   }
+  @override
+Future<Either<Failure, Unit>> createPackage(
+  CreatePackageRequest request,
+) async {
+  try {
+    await remote.createPackage(request);
+    return const Right(unit);
+  } catch (e) {
+    return Left(mapDioError(e));
+  }
+}
 }
