@@ -27,6 +27,8 @@ class ContactMessageModel extends ContactMessageEntity {
     required super.poolOwnerAddress,
     required super.roleLabelAr,
     required super.attachments,
+    super.bookingId,
+    super.visit
   });
 
   factory ContactMessageModel.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,9 @@ class ContactMessageModel extends ContactMessageEntity {
       roleLabelAr: json['role_label_ar'],
 
       attachments: json['attachments'] ?? [],
+      bookingId: json['booking_id'],
+       visit: json['visit'] as Map<String, dynamic>?,
+
     );
   }
 }

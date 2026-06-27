@@ -6,7 +6,7 @@ import 'drawer_badge.dart';
 class DrawerItem extends StatelessWidget {
   final IconData icon;
   final String title;
-  final int? badgeCount;
+  final String? badgeCount;
   final bool isSelected;
   final VoidCallback onTap;
 

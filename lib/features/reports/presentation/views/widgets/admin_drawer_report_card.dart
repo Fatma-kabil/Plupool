@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/message_status_text.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/delete_order_card.dart';
-import 'package:plupool/features/reports/data/models/report_model.dart';
-
 import 'package:intl/intl.dart' as intl;
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 import 'package:plupool/features/reports/presentation/views/widgets/admin_drawer_report_header_card.dart';
 import 'package:plupool/features/reports/presentation/views/widgets/report_card_row.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
 
 class AdminDrawerReportCard extends StatefulWidget {
   const AdminDrawerReportCard({super.key, required this.model});
-  final ReportModel model;
+  final ContactMessageEntity model;
 
   @override
   State<AdminDrawerReportCard> createState() => _AdminDrawerReportCardState();
@@ -22,16 +22,22 @@ class AdminDrawerReportCard extends StatefulWidget {
 class _AdminDrawerReportCardState extends State<AdminDrawerReportCard> {
   @override
   Widget build(BuildContext context) {
-    MessageStatus selected = widget.model.status;
-    final formattedDate = intl.DateFormat('EEEE  yyyy/MM/d – hh:mm a', 'ar')
-        .format(DateTime(2025, 12, 1, 12, 00))
-        .replaceAll('ص', 'صباحاً')
-        .replaceAll('م', 'مساءً');
+    MessageStatus selected = mapMessageApiStatus(widget.model.status);
 
-    final parts = formattedDate.split('–');
-    final date = parts[0].trim();
-    final time = parts.length > 1 ? parts[1].trim() : '';
+  String formatVisitDateTime(String? dateTime) {
+  if (dateTime == null || dateTime.isEmpty) return "";
 
+  final date = DateTime.parse(dateTime);
+
+  return toArabicNumbers(
+    intl.DateFormat(
+      'dd / MM / yyyy - h:mm a',
+      'ar',
+    ).format(date)
+      .replaceAll('ص', 'صباحاً')
+      .replaceAll('م', 'مساءً'),
+  );
+}
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
@@ -48,17 +54,37 @@ class _AdminDrawerReportCardState extends State<AdminDrawerReportCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// ---- Header ----
-            AdminDrawerReportHeaderCard(status: widget.model.status),
+            AdminDrawerReportHeaderCard(
+              userName: widget.model.name,
+              userrole: widget.model.senderRole,
+              status: mapMessageApiStatus(widget.model.status),
+            ),
             SizedBox(height: SizeConfig.h(10)),
 
-            ReportCardRow(title: "نوع الخدمة", value: "باقة شهرية"),
+            ReportCardRow(
+              title: "نوع الخدمة",
+              value: widget.model.visit?['service_type'] ?? "",
+            ),
             SizedBox(height: SizeConfig.h(5)),
-            ReportCardRow(title: "رقم الزياره", value: "4"),
+            ReportCardRow(
+              title: "رقم الزيارة",
+              value: toArabicNumbers(
+                widget.model.visit?['visit_number']?.toString() ?? "",
+              ),
+            ),
             SizedBox(height: SizeConfig.h(5)),
-            ReportCardRow(title: "اسم الفني", value: "أحمد محمد"),
+            ReportCardRow(
+              title: "اسم الفني",
+              value: widget.model.visit?['technicians_display'] ?? "",
+            ),
             SizedBox(height: SizeConfig.h(5)),
 
-            ReportCardRow(title: "تاريخ ووقت الزيارة", value: "$date - $time"),
+            ReportCardRow(
+              title: "تاريخ ووقت الزيارة",
+              value: formatVisitDateTime(
+                widget.model.visit?['visit_datetime']??"",
+              ),
+            ),
 
             SizedBox(height: SizeConfig.h(8)),
             Divider(color: AppColors.textFieldBorderColor),
@@ -82,9 +108,9 @@ class _AdminDrawerReportCardState extends State<AdminDrawerReportCard> {
                       child: StatusSelector<MessageStatus>(
                         selected: selected,
                         items: const [
-                        //  MessageStatus.pending,
-                       //   MessageStatus.solved,
-                       //   MessageStatus.newer,
+                          MessageStatus.pending_review,
+                          MessageStatus.in_progress,
+                          MessageStatus.resolved,
                         ],
                         displayText: (status) => statusText(status),
                         onChanged: (val) {

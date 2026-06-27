@@ -4,7 +4,7 @@ import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class DrawerBadge extends StatelessWidget {
-  final int count;
+  final String count;
 
   const DrawerBadge({super.key, required this.count});
 

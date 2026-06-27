@@ -30,6 +30,8 @@ class ContactMessageEntity {
   final String? roleLabelAr;
 
   final List<dynamic> attachments;
+  final int? bookingId;
+final Map<String, dynamic>? visit;
 
   ContactMessageEntity({
     required this.id,
@@ -57,5 +59,7 @@ class ContactMessageEntity {
     required this.poolOwnerAddress,
     required this.roleLabelAr,
     required this.attachments,
+    this.bookingId,
+    this.visit
   });
 }

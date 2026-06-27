@@ -7,6 +7,8 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/manager/drawer_cubit/drawer_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requested_state.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
+import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_state.dart';
 import 'drawer_item.dart'; // استورد الـ Cubit
 
 class AppDrawer extends StatelessWidget {
@@ -77,7 +79,7 @@ class AppDrawer extends StatelessWidget {
                           return DrawerItem(
                             icon: Icons.list_alt_outlined,
                             title: 'الخدمات المطلوبة',
-                            badgeCount: newCount, // 👈 هنا
+                            badgeCount: "$newCount", // 👈 هنا
                             isSelected: selectedIndex == 4,
                             onTap: () => onItemTap(4, () {
                               context.go('/requestedserviceview');
@@ -88,7 +90,7 @@ class AppDrawer extends StatelessWidget {
                       DrawerItem(
                         icon: Icons.notifications_none,
                         title: 'الإشعارات',
-                        badgeCount: 8,
+                        badgeCount: "8",
                         isSelected: selectedIndex == 5,
                         onTap: () => onItemTap(5, () {
                           context.go('/notificationinboxview');
@@ -110,19 +112,25 @@ class AppDrawer extends StatelessWidget {
                           context.go('/techsview');
                         }),
                       ),
-                      DrawerItem(
-                        icon: Icons.flag_outlined,
-                        title: 'البلاغات',
-                        badgeCount: 5,
-                        isSelected: selectedIndex == 8,
-                        onTap: () => onItemTap(8, () {
-                          context.go('/admindrawerreportview');
-                        }),
+                      BlocBuilder<ContactCubit, ContactState>(
+                        builder: (context, state) {
+                          final cubit = context.read<ContactCubit>();
+
+                          return DrawerItem(
+                            icon: Icons.flag_outlined,
+                            title: 'البلاغات',
+                            badgeCount:normalizeArabicNumbers(  cubit.complaintPendingCount.toString(),),
+                            isSelected: selectedIndex == 8,
+                            onTap: () => onItemTap(8, () {
+                              context.go('/admindrawerreportview');
+                            }),
+                          );
+                        },
                       ),
                       DrawerItem(
                         icon: Icons.chat_outlined,
                         title: 'رسائل تواصل معنا',
-                        badgeCount: 10,
+                        badgeCount: "10",
                         isSelected: selectedIndex == 9,
                         onTap: () => onItemTap(9, () {
                           context.go('/admindrawercontactusview');

@@ -23,12 +23,26 @@ class ContactCubit extends Cubit<ContactState> {
 
   /// cache
   ContactMessagesResponse? _cachedResponse;
-
+int _complaintPendingCount = 0;
   String? _status;
   String? _senderRole;
   String? _search;
   String? _type;
 
+
+
+Future<void> loadComplaintCount() async {
+  try {
+    final response = await getUseCase(
+      type: "complaint",
+      status: "pending_review",
+    );
+
+    _complaintPendingCount = response.statistics.pendingReview;
+
+    emit(ContactCountUpdated());
+  } catch (_) {}
+}
   ///==============================
   /// GET ALL
   ///==============================
@@ -103,10 +117,12 @@ class ContactCubit extends Cubit<ContactState> {
         search: _search,
         type: _type,
       );
-      _cachedResponse = response;
+    _cachedResponse = response;
 
-      emit(ContactDeleteSuccess());
-      emit(ContactSuccess(response));
+await loadComplaintCount();
+
+emit(ContactDeleteSuccess());
+emit(ContactSuccess(response));
     } catch (e) {
       emit(
         ContactDeleteError(
@@ -136,10 +152,12 @@ class ContactCubit extends Cubit<ContactState> {
         type: _type,
       );
 
-      _cachedResponse = response;
+    _cachedResponse = response;
 
-      emit(ContactUpdateSuccess());
-      emit(ContactSuccess(response));
+await loadComplaintCount();
+
+emit(ContactUpdateSuccess());
+emit(ContactSuccess(response));
     } catch (e) {
       emit(
         ContactUpdateError(
@@ -172,7 +190,7 @@ class ContactCubit extends Cubit<ContactState> {
   ContactMessagesResponse? get cachedResponse => _cachedResponse;
 
   List<ContactMessageEntity> get messages => _cachedResponse?.messages ?? [];
-
+int get complaintPendingCount => _complaintPendingCount;
   int get total => _cachedResponse?.total ?? 0;
 
   int get pendingReview => _cachedResponse?.statistics.pendingReview ?? 0;

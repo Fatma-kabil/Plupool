@@ -13,7 +13,7 @@ enum MessageStatus {
 
 MessageStatus mapMessageApiStatus(String status) {
   switch (status) {
-    case " pending_review":
+    case "pending_review":
       return MessageStatus.pending_review;
 
     case "in_progress":

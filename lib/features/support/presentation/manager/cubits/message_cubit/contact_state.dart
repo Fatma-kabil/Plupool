@@ -58,3 +58,5 @@ class ContactError extends ContactState {
 
   ContactError(this.message);
 }
+
+class ContactCountUpdated extends ContactState {}

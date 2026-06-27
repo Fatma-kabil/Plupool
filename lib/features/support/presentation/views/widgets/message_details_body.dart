@@ -37,7 +37,7 @@ class _MessageDetailsBodyState extends State<MessageDetailsBody> {
           /// HEADER
           MessageDatailsViewHeader(
             name: widget.message.name,
-            status: true,
+            status: widget.message.userIsActive!,
             imageUrl: widget.message.userProfileImage,
             location: widget.message.poolOwnerAddress,
             phone: widget.message.phone,
