@@ -97,20 +97,17 @@ class MessageCard extends StatelessWidget {
           ),
           SizedBox(height: 10),
           message.attachments.isNotEmpty
-              ? SizedBox(
-                  height: SizeConfig.h(30),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: message.attachments.length,
-                    itemBuilder: (context, index) {
-                      final file = message.attachments[index];
+              ? Wrap(
+                  spacing: SizeConfig.w(8),
+                  runSpacing: SizeConfig.h(8),
+                  children: List.generate(message.attachments.length, (index) {
+                    final file = message.attachments[index];
 
-                      return AttachmentChip(
-                        fileName: file.toString().split('/').last,
-                        fileUrl: file,
-                      );
-                    },
-                  ),
+                    return AttachmentChip(
+                      fileName: file.originalName,
+                      fileUrl: file.fileUrl,
+                    );
+                  }),
                 )
               : Text(
                   'لا توجد',

@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:plupool/core/constants.dart';
 import 'package:plupool/features/contact_us/presentation/views/widgets/company_re_contact_us_card.dart';
-
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 class CompanyResContactUsSection extends StatelessWidget {
-  const CompanyResContactUsSection({super.key});
+  const CompanyResContactUsSection({
+    super.key,
+    required this.messages,
+  });
+
+  final List<ContactMessageEntity> messages;
 
   @override
   Widget build(BuildContext context) {
+    if (messages.isEmpty) {
+      return const Center(child: Text("لا توجد رسائل تواصل"));
+    }
+
     return ListView.builder(
-      itemCount: companyContactUs.length,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
+      itemCount: messages.length,
+      itemBuilder: (_, index) {
         return CompanyReContactUsCard(
-          model: companyContactUs[index],
+          model: messages[index],
           onTap: () {
-            context.push('/contactusdetailsview');
+            context.push(
+              '/contactusdetailsview',
+              extra: messages[index],
+            );
           },
         );
       },

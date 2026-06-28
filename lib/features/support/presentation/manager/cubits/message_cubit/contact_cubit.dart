@@ -29,6 +29,7 @@ class ContactCubit extends Cubit<ContactState> {
   String? _senderRole;
   String? _search;
   String? _type;
+  int? _userId;
 
   Future<void> loadComplaintCount() async {
     try {
@@ -66,6 +67,7 @@ class ContactCubit extends Cubit<ContactState> {
     String? senderRole,
     String? search,
     String? type,
+    int? userId,
   }) async {
     emit(ContactLoading());
 
@@ -74,12 +76,15 @@ class ContactCubit extends Cubit<ContactState> {
       _senderRole = senderRole;
       _search = search;
       _type = type;
+      _userId = userId;
+
 
       final response = await getUseCase(
         status: status,
         senderRole: senderRole,
         search: search,
         type: type,
+        userId: userId
       );
 
       _cachedResponse = response;
@@ -129,6 +134,7 @@ class ContactCubit extends Cubit<ContactState> {
         senderRole: _senderRole,
         search: _search,
         type: _type,
+        userId: _userId
       );
       _cachedResponse = response;
 
@@ -164,6 +170,7 @@ class ContactCubit extends Cubit<ContactState> {
         senderRole: _senderRole,
         search: _search,
         type: _type,
+        userId: _userId
       );
 
       _cachedResponse = response;
@@ -194,6 +201,7 @@ class ContactCubit extends Cubit<ContactState> {
       senderRole: _senderRole,
       search: _search,
       type: _type,
+      userId: _userId
     );
   }
 

@@ -68,7 +68,7 @@ class AdminReportViewBody extends StatelessWidget {
               child: TabBarView(
                 children: [
                   ReportSection(),
-                  CompanyResSupportSection(),
+             //     CompanyResSupportSection(),
                 ],
               ),
             ),

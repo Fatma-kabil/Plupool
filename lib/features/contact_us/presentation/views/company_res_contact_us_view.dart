@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/contact_us/presentation/views/widgets/company_res_contact_us_view_body.dart';
+import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 
 class CompanyResContactUsView extends StatefulWidget {
-  const CompanyResContactUsView({super.key});
-
+  const CompanyResContactUsView({super.key,required this.user});
+ final UserDetailsEntity user;
   @override
   State<CompanyResContactUsView> createState() => _CompanyResContactUsViewState();
 }
@@ -33,7 +34,7 @@ class _CompanyResContactUsViewState extends State<CompanyResContactUsView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: CompanyResContactUsViewBody(),
+            child: CompanyResContactUsViewBody(user: widget.user,),
           ),
         ),
       ),

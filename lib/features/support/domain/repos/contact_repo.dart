@@ -7,6 +7,7 @@ abstract class ContactRepository {
     String? status,
     String? senderRole,
     String? search,
+    int? userId,
   });
   Future<ContactMessageEntity> getMessageDetails(int id);
 

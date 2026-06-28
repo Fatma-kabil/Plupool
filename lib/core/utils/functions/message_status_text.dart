@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:plupool/core/theme/app_colors.dart';
@@ -10,7 +11,6 @@ enum MessageStatus {
   resolved,
 }
 
-
 MessageStatus mapMessageApiStatus(String status) {
   switch (status) {
     case "pending_review":
@@ -22,11 +22,11 @@ MessageStatus mapMessageApiStatus(String status) {
     case "resolved":
       return MessageStatus.resolved;
 
-  
     default:
       return MessageStatus.pending_review;
   }
 }
+
 String mapMessageStatusToApi(MessageStatus status) {
   switch (status) {
     case MessageStatus.pending_review:
@@ -37,6 +37,21 @@ String mapMessageStatusToApi(MessageStatus status) {
 
     case MessageStatus.resolved:
       return "resolved";
+  }
+}
+String statusText2(String status) {
+  switch (status) {
+    case "pending_review":
+      return "جديد";
+
+    case "in_progress":
+      return "مجدولة";
+
+    case "resolved":
+      return "تم الحل";
+
+    default:
+      return status;
   }
 }
 

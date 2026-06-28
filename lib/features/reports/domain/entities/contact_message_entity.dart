@@ -1,3 +1,5 @@
+import 'package:plupool/features/reports/domain/entities/attached_file_entity.dart';
+
 class ContactMessageEntity {
   final int id;
   final String title;
@@ -29,7 +31,7 @@ class ContactMessageEntity {
 
   final String? roleLabelAr;
 
-  final List<dynamic> attachments;
+  final List<AttachedFileEntity> attachments;
   final int? bookingId;
 final Map<String, dynamic>? visit;
 

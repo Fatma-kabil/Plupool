@@ -14,6 +14,7 @@ class ContactRemoteDataSource  {
     String? status,
     String? senderRole,
     String? search,
+    int? userId
   }) async {
     final response = await api.get(
       Endpoints.contactMessages,
@@ -22,6 +23,7 @@ class ContactRemoteDataSource  {
         if (status != null) 'status': status,
         if (senderRole != null) 'sender_role': senderRole,
         if (search != null) 'search': search,
+        if(userId !=null) 'userId':userId
       },
     );
 

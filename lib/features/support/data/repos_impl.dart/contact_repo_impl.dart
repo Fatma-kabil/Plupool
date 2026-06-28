@@ -15,12 +15,14 @@ class ContactRepoImpl implements ContactRepository {
     String? status,
     String? senderRole,
     String? search,
+    int?userId
   }) {
     return remote.getMessages(
       type: type,
       status: status,
       senderRole: senderRole,
       search: search,
+      userId: userId
     );
   }
 

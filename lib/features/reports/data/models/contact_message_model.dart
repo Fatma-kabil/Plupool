@@ -1,3 +1,5 @@
+import 'package:plupool/features/reports/data/models/attached_file_model.dart';
+
 import '../../domain/entities/contact_message_entity.dart';
 
 class ContactMessageModel extends ContactMessageEntity {
@@ -28,7 +30,7 @@ class ContactMessageModel extends ContactMessageEntity {
     required super.roleLabelAr,
     required super.attachments,
     super.bookingId,
-    super.visit
+    super.visit,
   });
 
   factory ContactMessageModel.fromJson(Map<String, dynamic> json) {
@@ -62,11 +64,12 @@ class ContactMessageModel extends ContactMessageEntity {
       poolOwnerAddress: json['pool_owner_address'],
 
       roleLabelAr: json['role_label_ar'],
+      attachments: (json['attachments'] as List)
+          .map((e) => AttachedFileModel.fromJson(e))
+          .toList(),
 
-      attachments: json['attachments'] ?? [],
       bookingId: json['booking_id'],
-       visit: json['visit'] as Map<String, dynamic>?,
-
+      visit: json['visit'] as Map<String, dynamic>?,
     );
   }
 }

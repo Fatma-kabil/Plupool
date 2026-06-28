@@ -748,7 +748,7 @@ final List<Map> companyresFooter = [
   },
   {
     'icon': Icons.headset_mic,
-    'title': "البلاغات ورسائل الدعم",
+    'title': "البلاغات ورسائل الدعم وتواصل معنا",
     'color': Color(0xffEA5A65),
     'view': '/companyrescontactusview',
   },

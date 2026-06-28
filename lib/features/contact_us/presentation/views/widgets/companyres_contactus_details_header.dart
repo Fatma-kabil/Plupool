@@ -4,10 +4,12 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/contact_us/presentation/views/widgets/header_row.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/container_status.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
+import 'package:plupool/features/customers/presentation/views/widgets/customer_info.dart';
+import 'package:plupool/features/reports/domain/entities/contact_message_entity.dart';
 
 class CompanyresContactusDetailsHeader extends StatelessWidget {
-  const CompanyresContactusDetailsHeader({super.key});
-
+  const CompanyresContactusDetailsHeader({super.key, required this.message});
+  final ContactMessageEntity message;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,22 +27,22 @@ class CompanyresContactusDetailsHeader extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CustomerAvatar(),
+              CustomerAvatar(imageUrl: message.userProfileImage),
               SizedBox(width: SizeConfig.w(7)),
-            //  const CustomerInfo(),
+              CustomerInfo(name: message.name, phone: message.phone),
               const Spacer(),
-              ContainerStatus(isActive: true),
+              ContainerStatus(isActive: message.userIsActive!),
             ],
           ),
           SizedBox(height: SizeConfig.h(8)),
           Divider(),
           SizedBox(height: SizeConfig.h(8)),
-          HeaderRow(label: "اسم الشركة:", value: "شركة التقنية المتطورة"),
-           SizedBox(height: SizeConfig.h(8)),
-          HeaderRow(label: "مسئول التواصل", value: "أحمد محمد"),
-           SizedBox(height: SizeConfig.h(8)),
+          HeaderRow(label: "اسم الشركة:", value: message.companyName??""),
+          SizedBox(height: SizeConfig.h(8)),
+          HeaderRow(label: "مسئول التواصل", value: message.name),
+          SizedBox(height: SizeConfig.h(8)),
           HeaderRow(label: "نوع المشروع", value: "بناء حمامات سباحة"),
-           SizedBox(height: SizeConfig.h(8)),
+          SizedBox(height: SizeConfig.h(8)),
           HeaderRow(label: "رقم الموبايل", value: "01558098364"),
         ],
       ),

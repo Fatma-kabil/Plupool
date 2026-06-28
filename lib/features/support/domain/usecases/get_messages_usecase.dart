@@ -12,12 +12,14 @@ class GetMessagesUseCase {
     String? status,
     String? senderRole,
     String? search,
+    int?userId,
   }) {
     return repo.getMessages(
       type: type,
       status: status,
       senderRole: senderRole,
       search: search,
+      userId: userId
     );
   }
 }

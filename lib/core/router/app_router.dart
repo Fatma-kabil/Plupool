@@ -598,14 +598,19 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/companyrescontactusview',
       name: 'companyrescontactusview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const CompanyResContactUsView()),
+      pageBuilder: (context, state) {
+        final user = state.extra as UserDetailsEntity;
+
+        return buildTransitionPage(CompanyResContactUsView(user: user));
+      },
     ),
     GoRoute(
       path: '/contactusdetailsview',
       name: 'contactusdetailsview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const ContactUsDetailsView()),
+      pageBuilder: (context, state) {
+        final message = state.extra as ContactMessageEntity;
+        return buildTransitionPage(ContactUsDetailsView(message: message));
+      },
     ),
     GoRoute(
       path: '/compnyressupportview',
