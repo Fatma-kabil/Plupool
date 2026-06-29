@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
+import 'package:plupool/core/utils/functions/week_text_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/our_project_card_footer.dart';
@@ -10,20 +11,7 @@ import 'package:plupool/features/projects/presentation/views/widgets/our_project
 class OurProjectCard extends StatelessWidget {
   const OurProjectCard({super.key, required this.project});
   final OurProjectEntity project;
-  String weekText(int count) {
-    if (count == 0) return '0 أسبوع';
-
-    if (count == 1) return 'أسبوع';
-
-    if (count == 2) return 'أسبوعين';
-
-    if (count >= 3 && count <= 10) {
-      return '$count أسابيع';
-    }
-
-    return '$count أسبوع';
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -48,8 +36,8 @@ class OurProjectCard extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Expanded(child: _imageWidget(project.image2)),
                       Expanded(child: _imageWidget(project.image1)),
+                      Expanded(child: _imageWidget(project.image2)),
                     ],
                   ),
                 ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/arrow_button.dart';
+import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/company_hader.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/company_project_item.dart';
 
 class WCompanyProjectCard extends StatefulWidget {
   const WCompanyProjectCard({super.key, required this.projects});
 
-  final List<ProjectCardModel> projects;
+  final List<OurProjectEntity> projects;
 
   @override
   State<WCompanyProjectCard> createState() => _WCompanyProjectCardState();

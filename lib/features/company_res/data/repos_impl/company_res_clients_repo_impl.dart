@@ -4,9 +4,7 @@ import 'package:plupool/features/company_res/data/remote_data_sources/company_re
 import 'package:plupool/features/company_res/domain/entities/client_entity.dart';
 import 'package:plupool/features/company_res/domain/repos/company_res_clients_repos.dart';
 
-class CompanyResClientsRepositoryImpl
-    implements CompanyResClientsRepository {
-
+class CompanyResClientsRepositoryImpl implements CompanyResClientsRepository {
   final CompanyResClientsRemoteDataSource remote;
 
   CompanyResClientsRepositoryImpl(this.remote);
@@ -32,5 +30,9 @@ class CompanyResClientsRepositoryImpl
     } catch (e) {
       return left(mapDioError(e));
     }
+  }
+
+  Future<void> deleteClient(int userId, int clientId) {
+    return remote.deleteClient(userId, clientId);
   }
 }

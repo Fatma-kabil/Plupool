@@ -2,35 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/project_card_model.dart';
+import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/company_projects_list.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/users_projects_list.dart';
 
 class UsersProjectsViewBody extends StatelessWidget {
   const UsersProjectsViewBody({super.key, required this.projects});
-  final List<ProjectCardModel> projects;
+  final List<OurProjectEntity> projects;
 
   @override
   Widget build(BuildContext context) {
     final ourProjects = projects
         .where(
           (project) =>
-              (project.companyName?.trim().isEmpty ?? true) &&
-              (project.companyImage?.trim().isEmpty ?? true),
+              (project.mainImage?.trim().isEmpty ?? true) &&
+              (project.companyPartner?.trim().isEmpty ?? true),
         )
         .toList();
 
     final companyProjects = projects
         .where(
           (project) =>
-              (project.companyName?.trim().isNotEmpty ?? false) ||
-              (project.companyImage?.trim().isNotEmpty ?? false),
+              (project.companyPartner?.trim().isNotEmpty ?? false) ||
+              (project.mainImage?.trim().isNotEmpty ?? false),
         )
         .toList();
     return DefaultTabController(
       length: 2,
-      child:
-       Column(
+      child: Column(
         children: [
           /// TabBar
           Container(
@@ -72,7 +71,7 @@ class UsersProjectsViewBody extends StatelessWidget {
               ],
             ),
           ),
-       
+
           /// TabBarView
           Expanded(
             child: Padding(
@@ -80,7 +79,7 @@ class UsersProjectsViewBody extends StatelessWidget {
                 horizontal: SizeConfig.w(6),
                 vertical: SizeConfig.h(18),
               ),
-              child:  TabBarView(
+              child: TabBarView(
                 children: [
                   UsersProjectsList(projects: ourProjects),
                   CompanyProjectsList(projects: companyProjects),
@@ -89,7 +88,7 @@ class UsersProjectsViewBody extends StatelessWidget {
             ),
           ),
         ],
-             ),
+      ),
     );
   }
 }

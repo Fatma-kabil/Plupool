@@ -36,4 +36,8 @@ class CompanyResClientsRemoteDataSource {
         .map((e) => ClientModel.fromJson(e))
         .toList();
   }
+
+   Future<void> deleteClient(int userId ,int clientId) async {
+    await apiService.delete('${Endpoints.users}/$userId/clients/$clientId');
+  }
 }

@@ -15,19 +15,19 @@ class RatingModel extends RatingEntity {
     required super.createdAt,
   });
 
-  factory RatingModel.fromJson(Map<String, dynamic> json) {
-    return RatingModel(
-      id: json['id'],
-      userName: json['user_name'],
-      userAvatar: json['user_avatar'],
-      userPhone: json['user_phone'],
-      userRole: json['user_role']?? "",
-      rating: json['rating'].toDouble(),
-      content: json['content'],
-      status: json['status'],
-      bookingId: json['booking_id'],
-      serviceId: json['service_id'],
-      createdAt: DateTime.parse(json['created_at']),
-    );
-  }
+ factory RatingModel.fromJson(Map<String, dynamic> json) {
+  return RatingModel(
+    id: json['id'] ,
+    userName: json['user_name'] ?? '',
+    userAvatar: json['user_avatar'] ?? '',
+    userPhone: json['user_phone'] ?? '',
+    userRole: json['user_role'] ?? '',
+    rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
+    content: json['content'] ?? '',
+    status: json['status'] ?? '',
+    bookingId: json['booking_id'],
+    serviceId: json['service_id'],
+    createdAt: DateTime.tryParse(json['created_at'] ?? '') ?? DateTime.now(),
+  );
+}
 }

@@ -14,6 +14,7 @@ import 'package:plupool/features/company_res/presentation/views/edit_companny_re
 import 'package:plupool/features/contact_us/presentation/views/admin_drawer_contact_us_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/company_res_contact_us_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/contact_us_details_view.dart';
+import 'package:plupool/features/contact_us/presentation/views/tech_pool_owner_contact_us_view.dart';
 import 'package:plupool/features/customers/domain/entities/user_details_entity.dart';
 import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/customers/domain/entities/user_pool_entity.dart';
@@ -23,7 +24,6 @@ import 'package:plupool/features/customers/presentation/views/customer_profile_v
 import 'package:plupool/features/customers/presentation/views/customers_view.dart';
 import 'package:plupool/features/customers/presentation/views/edit_customer_pool_info.dart';
 import 'package:plupool/features/customers/presentation/views/edit_customer_view.dart';
-import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/presentaation/views/admin/admin_home_view.dart';
 import 'package:plupool/features/home/presentaation/views/admin/see_all_packages_view.dart';
 import 'package:plupool/features/home/presentaation/views/customer/cusmoter_notification_view.dart';
@@ -112,7 +112,7 @@ import 'package:plupool/features/visits/presentation/views/visit_view.dart';
 final GoRouter appRouter = GoRouter(
   routes: [
     GoRoute(
-      path: '/splasherapper',
+      path: '/',
       name: 'splasherapper',
       pageBuilder: (context, state) =>
           buildTransitionPage(const SplashWrapper()),
@@ -313,7 +313,7 @@ final GoRouter appRouter = GoRouter(
           buildTransitionPage(const CusmoterNotificationView()),
     ),
     GoRoute(
-      path: '/',
+      path: '/adminhomeview',
       name: 'adminhomeview',
       pageBuilder: (context, state) =>
           buildTransitionPage(const AdminHomeView()),
@@ -728,7 +728,7 @@ final GoRouter appRouter = GoRouter(
       path: '/usersprojectview',
       name: 'usersprojectview',
       pageBuilder: (context, state) {
-        final projects = state.extra as List<ProjectCardModel>;
+        final projects = state.extra as List<OurProjectEntity>;
         return buildTransitionPage(UsersProjectView(projects: projects));
       },
     ),
@@ -759,5 +759,16 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(AddOurProjectView());
       },
     ),
+     GoRoute(
+      path: '/techpoolownercontactusView',
+      name: 'techpoolownercontactusView',
+      pageBuilder: (context, state) {
+        final user = state.extra as UserDetailsEntity;
+
+        return buildTransitionPage(TechPoolOwnerContactUsView(user: user));
+      },
+    ),
   ],
 );
+
+

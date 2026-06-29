@@ -1,29 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
+import 'package:plupool/core/utils/functions/week_text_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/project_card_model.dart';
+import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 
 class ProjectCard extends StatelessWidget {
   const ProjectCard({super.key, required this.project});
 
-  final ProjectCardModel project;
+  final OurProjectEntity project;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: SizeConfig.w(3)),
       decoration: BoxDecoration(
-      //  color: Colors.white,
+        //  color: Colors.white,
         borderRadius: BorderRadius.circular(18),
-       border: Border.all(color: AppColors.textFieldBorderColor),
-       
+        border: Border.all(color: AppColors.textFieldBorderColor),
       ),
       child: Column(
         children: [
           /// الصور
           SizedBox(
-            height:SizeConfig.isWideScreen ? SizeConfig.h(210): SizeConfig.h(180),
+            height: SizeConfig.isWideScreen
+                ? SizeConfig.h(210)
+                : SizeConfig.h(180),
             child: Stack(
               children: [
                 ClipRRect(
@@ -34,16 +37,16 @@ class ProjectCard extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Image.asset(
-                          project.imageUrlBefore,
-                          fit: BoxFit.cover,
+                        child: _imageWidget(
+                          project.image1,
+
                           height: double.infinity,
                         ),
                       ),
                       Expanded(
-                        child: Image.asset(
-                          project.imageUrlAfter,
-                          fit: BoxFit.cover,
+                        child: _imageWidget(
+                          project.image2,
+
                           height: double.infinity,
                         ),
                       ),
@@ -130,8 +133,8 @@ class ProjectCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                if ((project.companyName?.isNotEmpty ?? false) &&
-                    (project.companyImage?.isNotEmpty ?? false))
+                if ((project.mainImage?.isNotEmpty ?? false) ||
+                    (project.companyPartner?.isNotEmpty ?? false))
                   /// بالتعاون
                   Positioned(
                     bottom: 14,
@@ -177,23 +180,22 @@ class ProjectCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// الشركة
-                if ((project.companyName?.isNotEmpty ?? false) &&
-                    (project.companyImage?.isNotEmpty ?? false))
+                if ((project.mainImage?.isNotEmpty ?? false) ||
+                    (project.companyPartner?.isNotEmpty ?? false))
                   Row(
                     //  mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          project.companyImage!,
-                          width: SizeConfig.w(30),
+                        child: _imageWidget(
+                          project.mainImage,
                           height: SizeConfig.h(30),
-                          fit: BoxFit.cover,
+                          width: SizeConfig.w(30),
                         ),
                       ),
                       SizedBox(width: SizeConfig.w(8)),
                       Text(
-                        project.companyName!,
+                        project.companyPartner ?? '',
                         style: AppTextStyles.styleSemiBold16(
                           context,
                         ).copyWith(color: AppColors.kprimarycolor),
@@ -202,7 +204,7 @@ class ProjectCard extends StatelessWidget {
                   ),
                 SizedBox(height: SizeConfig.h(10)),
                 Text(
-                  project.title,
+                  project.nameAr ?? '',
                   style: AppTextStyles.styleSemiBold16(
                     context,
                   ).copyWith(color: AppColors.ktextcolor),
@@ -210,18 +212,18 @@ class ProjectCard extends StatelessWidget {
 
                 SizedBox(height: SizeConfig.h(10)),
                 Text(
-                  project.description,
+                  project.descriptionAr ?? "",
                   maxLines: 2,
                   style: AppTextStyles.styleRegular13(
                     context,
                   ).copyWith(color: Color(0xff777777)),
                 ),
 
-                SizedBox(height: SizeConfig.h(10)),
+                SizedBox(height: SizeConfig.h(8)),
 
                 const Divider(),
 
-                SizedBox(height: 10),
+                SizedBox(height: SizeConfig.h(8)),
 
                 /// المكان والمدة
                 Row(
@@ -229,11 +231,13 @@ class ProjectCard extends StatelessWidget {
                     Icon(
                       Icons.location_on_outlined,
                       color: AppColors.kprimarycolor,
-                      size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(18),
+                      size: SizeConfig.isWideScreen
+                          ? SizeConfig.w(15)
+                          : SizeConfig.w(18),
                     ),
                     SizedBox(width: SizeConfig.w(2)),
                     Text(
-                      project.location,
+                      project.locationAr ?? "",
                       style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: Color(0xff777777)),
@@ -242,11 +246,13 @@ class ProjectCard extends StatelessWidget {
                     Icon(
                       Icons.calendar_month_outlined,
                       color: AppColors.kprimarycolor,
-                      size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(18),
+                      size: SizeConfig.isWideScreen
+                          ? SizeConfig.w(15)
+                          : SizeConfig.w(18),
                     ),
                     SizedBox(width: SizeConfig.w(3)),
                     Text(
-                      project.duration,
+                      toArabicNumbers(weekText(project.durationWeeks ?? 0)),
                       style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: Color(0xff777777)),
@@ -258,6 +264,21 @@ class ProjectCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  /// 🔥 safe image (network + fallback)
+  Widget _imageWidget(String? url, {double? width, double? height}) {
+    if (url == null || url.isEmpty) {
+      return Container(color: Colors.grey.shade300);
+    }
+
+    return Image.network(
+      url,
+      fit: BoxFit.cover,
+      width: width,
+      height: height,
+      errorBuilder: (_, __, ___) => Container(color: Colors.grey.shade300),
     );
   }
 }

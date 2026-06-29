@@ -10,9 +10,7 @@ import 'package:plupool/features/notifications/data/models/notifiction_type_mode
 
 import 'package:plupool/features/profile/data/models/project_model.dart';
 import 'package:plupool/features/projects/data/models/admin_project_model.dart';
-import 'package:plupool/features/reports/data/models/report_model.dart';
 import 'package:plupool/features/select_role/data/models/role_card_item.dart';
-import 'package:plupool/features/home/data/models/project_card_model.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
 import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
@@ -79,81 +77,6 @@ final List<PromoCardModel> items = [
   ),
   // تقدر تكرري كروت تانية هنا
 ];
-
-
-final List<ProjectCardModel> projects = [
-  ProjectCardModel(
-    title: 'مشروع إنشاء حمام سباحة – فيلا التجمع',
-    description: 'تصميم فاخر مع ضمان 10 سنوات وصيانة مجانية لمدة 3 شهور.',
-    imageUrlAfter: 'assets/images/project1.png',
-    imageUrlBefore: 'assets/images/project1.png',
-    location: 'التجمع الخامس، القاهرة',
-    duration: '3 أشهر',
-  ),
-  ProjectCardModel(
-    title: 'صيانة حمام سباحة – نادي خاص',
-    description: 'تنظيف وفحص كيميائي للمياه مرتين أسبوعياً للحفاظ على الجودة',
-    imageUrlAfter: 'assets/images/project2.png',
-    imageUrlBefore: 'assets/images/project2.png',
-    location: 'مدينة نصر، القاهرة',
-    duration: '6 شهور',
-    isFeatured:true
-  ),
-  ProjectCardModel(
-    title: 'تصميم ثلاثي الأبعاد – حمام داخلي',
-    description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
-    imageUrlAfter: 'assets/images/project3.png',
-    imageUrlBefore: 'assets/images/project3.png',
-    location: 'الشيخ زايد، الجيزة',
-    duration: '1 شهر',
-    companyImage:'assets/images/project3.png',
-    companyName:'شركة النخيل',
-    isFeatured:true
-  ),
-  ProjectCardModel(
-    title: 'تصميم ثلاثي الأبعاد – حمام داخلي',
-    description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
-    imageUrlAfter: 'assets/images/project3.png',
-    imageUrlBefore: 'assets/images/project3.png',
-    location: 'الشيخ زايد، الجيزة',
-    duration: '1 شهر',
-    isFeatured: true
-  ),
-  ProjectCardModel(
-    title: 'صيانة شاملة – حمام خارجي',
-    description:
-        'تنظيف شامل للمياه والفلاتر والجدران للحفاظ على نقاء وجودة حمام السباحة.',
-    imageUrlAfter: 'assets/images/project4.png',
-    imageUrlBefore: 'assets/images/project4.png',
-    location: 'القاهرة',
-    duration: '8 اشهر',
-    isFeatured: true
-  ),
-   ProjectCardModel(
-    title: 'تصميم ثلاثي الأبعاد – حمام داخلي',
-    description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
-    imageUrlAfter: 'assets/images/project3.png',
-    imageUrlBefore: 'assets/images/project3.png',
-    location: 'الشيخ زايد، الجيزة',
-    duration: '1 شهر',
-    companyImage:'assets/images/project3.png',
-    companyName:"شركه جاليم",
- 
-  ),
-   ProjectCardModel(
-    title: 'تصميم ثلاثي الأبعاد – حمام داخلي',
-    description: 'معاينة تصميم الحمام بشكل واقعي قبل التنفيذ',
-    imageUrlAfter: 'assets/images/project3.png',
-    imageUrlBefore: 'assets/images/project3.png',
-    location: 'الشيخ زايد، الجيزة',
-    duration: '1 شهر',
-    companyImage:'assets/images/project3.png',
-    companyName:'شركة النخيل',
- 
-  ),
-  // تقدر تضيف صور تانية هنا
-];
-
 
 
 
@@ -606,7 +529,7 @@ final List<Map> customerFooter = [
     'icon': Icons.flag,
     'title': "البلاغات ورسائل الدعم",
     'color': Color(0xffEA5A65),
-    'view': '/companyrescontactusview',
+    'view': '/techpoolownercontactusView',
   },
   {
     'icon': Icons.shopping_cart_outlined,
@@ -976,7 +899,7 @@ final List<Map> techFooter = [
     'icon': Icons.flag,
     'title': "الشكاوي ورسائل الدعم",
     'color': Color(0xffEA5A65),
-    'view': '/adminreportsview',
+    'view': '/techpoolownercontactusView',
   },
   {
     'icon': Icons.shopping_cart_outlined,
@@ -992,37 +915,4 @@ final List<Map> techFooter = [
   },
 ];
 
-final List<ReportModel> reports = [
-  ReportModel(
-    customerName: "أحمد محمد",
-    techName: "عادل محمود",
-    status: MessageStatus.pending_review,
-    date: "2025-12-22",
-  
-    time: "11:00 ص",
-  ),
-   ReportModel(
-    customerName: "أحمد محمد",
-    techName: "عادل محمود",
-    status: MessageStatus.in_progress,
-    date: "2025-12-22",
-   
-    time: "11:00 ص",
-  ),
-   ReportModel(
-    customerName: "أحمد محمد",
-    techName: "عادل محمود",
-    status: MessageStatus.in_progress,
-    date: "2025-12-22",
-   
-    time: "11:00 ص",
-  ),
-   ReportModel(
-    customerName: "أحمد محمد",
-    techName: "عادل محمود",
-    status: MessageStatus.resolved,
-    date: "2025-12-22",
-   
-    time: "11:00 ص",
-  ),
-];
+

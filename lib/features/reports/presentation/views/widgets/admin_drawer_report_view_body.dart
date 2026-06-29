@@ -27,7 +27,7 @@ class _AdminDrawerReportViewBodyState
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ContactCubit>().getMessages(type: "complaint");
+      context.read<ContactCubit>().getMessages(type: "complaint",status: "pending_review");
     });
   }
 

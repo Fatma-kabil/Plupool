@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/project_card_model.dart';
+import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 
 class CompanyHeader extends StatelessWidget {
-  const CompanyHeader({
-    super.key,
-    required this.projects,
-  });
+  const CompanyHeader({super.key, required this.projects});
 
-  final List<ProjectCardModel> projects;
+  final List<OurProjectEntity> projects;
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +21,20 @@ class CompanyHeader extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: AppColors.kprimarycolor,
-        ),
+        border: Border.all(color: AppColors.kprimarycolor),
       ),
       child: Row(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              company.companyImage!,
+            child: Image.network(
+              company.mainImage ?? "",
               width: SizeConfig.w(30),
               height: SizeConfig.h(30),
               fit: BoxFit.cover,
+
+              errorBuilder: (_, __, ___) =>
+                  Container(color: Colors.grey.shade300),
             ),
           ),
 
@@ -58,20 +57,16 @@ class CompanyHeader extends StatelessWidget {
                     "بالتعاون مع",
                     style: AppTextStyles.styleRegular13(
                       context,
-                    ).copyWith(
-                      color: const Color(0xff777777),
-                    ),
+                    ).copyWith(color: const Color(0xff777777)),
                   ),
                 ],
               ),
 
               Text(
-                company.companyName!,
+                company.companyPartner ?? "",
                 style: AppTextStyles.styleSemiBold16(
                   context,
-                ).copyWith(
-                  color: const Color(0xff333333),
-                ),
+                ).copyWith(color: const Color(0xff333333)),
               ),
             ],
           ),
@@ -88,12 +83,12 @@ class CompanyHeader extends StatelessWidget {
               color: const Color(0xffCCE4F0),
             ),
             child: Text(
-              "${projects.length} مشاريع",
+              toArabicNumbers(
+                "${projects.length} ${projects.length == 1 ? 'مشروع' : 'مشاريع'}",
+              ),
               style: AppTextStyles.styleSemiBold16(
                 context,
-              ).copyWith(
-                color: AppColors.kprimarycolor,
-              ),
+              ).copyWith(color: AppColors.kprimarycolor),
             ),
           ),
         ],

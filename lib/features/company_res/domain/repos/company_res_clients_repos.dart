@@ -10,4 +10,5 @@ abstract class CompanyResClientsRepository {
     int page,
     int pageSize,
   });
+  Future<void> deleteClient(int userId, int clientId);
 }

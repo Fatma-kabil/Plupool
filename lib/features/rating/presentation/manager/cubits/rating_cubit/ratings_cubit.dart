@@ -68,10 +68,9 @@ class RatingsCubit extends Cubit<RatingsState> {
       emit(RatingsSuccess(response));
     } catch (e) {
       emit(
-        RatingsError(
-          e is Failure ? e.message : "حدث خطأ أثناء جلب التقييمات",
-        ),
+        RatingsError(e is Failure ? e.message : "حدث خطأ أثناء جلب التقييمات"),
       );
+      print(e);
     }
   }
 

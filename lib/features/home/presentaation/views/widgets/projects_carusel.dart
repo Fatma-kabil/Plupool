@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/arrow_button.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/project_card.dart';
+import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 
 class ProjectsCarousel extends StatefulWidget {
-  const ProjectsCarousel({super.key});
-
+  const ProjectsCarousel({super.key, required this.projects});
+  final List<OurProjectEntity> projects;
   @override
   State<ProjectsCarousel> createState() => _ProjectsCarouselState();
 }
@@ -18,14 +18,14 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
   @override
   void initState() {
     super.initState();
-    // مهم: 
-  //  viewportFraction = 1.0 
+    // مهم:
+    //  viewportFraction = 1.0
     //علشان الكارد ياخد العرض كله
     _pageController = PageController(viewportFraction: 1.0);
   }
 
   void _goToPage(int index) {
-    if (index >= 0 && index < projects.length) {
+    if (index >= 0 && index < widget.projects.length) {
       _pageController.animateToPage(
         index,
         duration: const Duration(milliseconds: 300),
@@ -36,14 +36,10 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
 
   @override
   Widget build(BuildContext context) {
-     final featuredProjects = projects
-    .where((project) => project.isFeatured == true)
-    .toList();
     return Column(
       children: [
         /// PageView
         SizedBox(
-         
           width: double.infinity,
           height: SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
               ? SizeConfig.h(345)
@@ -56,22 +52,22 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
                   272,
                 ) // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
               : SizeConfig.h(363),
-         
+
           child: PageView.builder(
             padEnds: false,
             controller: _pageController,
-            itemCount: featuredProjects.length,
+            itemCount: widget.projects.length,
             onPageChanged: (index) {
               setState(() => _currentPage = index);
             },
             itemBuilder: (context, index) {
-              final project = featuredProjects[index];
+              final project = widget.projects[index];
               return ProjectCard(project: project);
             },
           ),
         ),
 
-         SizedBox(height:SizeConfig.h(16) ),
+        SizedBox(height: SizeConfig.h(16)),
 
         /// Arrows
         Row(
@@ -82,10 +78,10 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
               enabled: _currentPage > 0,
               onTap: () => _goToPage(_currentPage - 1),
             ),
-             SizedBox(width: SizeConfig.w(15)),
+            SizedBox(width: SizeConfig.w(15)),
             ArrowButton(
               icon: Icons.arrow_forward,
-              enabled: _currentPage < projects.length - 1,
+              enabled: _currentPage < widget.projects.length - 1,
               onTap: () => _goToPage(_currentPage + 1),
             ),
           ],

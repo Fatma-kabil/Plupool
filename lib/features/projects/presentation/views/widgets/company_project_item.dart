@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
+import 'package:plupool/core/utils/functions/week_text_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/project_card_model.dart';
+import 'package:plupool/features/projects/domain/entities/our_project_entity.dart';
 
 class CompanyProjectItem extends StatelessWidget {
   const CompanyProjectItem({super.key, required this.project});
 
-  final ProjectCardModel project;
+  final OurProjectEntity project;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,17 +36,27 @@ class CompanyProjectItem extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Image.asset(
-                          project.imageUrlBefore,
-                          fit: BoxFit.cover,
+                        child: Image.network(
+                          project.image1 ?? "",
                           height: double.infinity,
+
+                          fit: BoxFit.cover,
+
+                          errorBuilder: (_, __, ___) =>
+                              Container(color: Colors.grey.shade300),
                         ),
                       ),
+
                       Expanded(
-                        child: Image.asset(
-                          project.imageUrlAfter,
-                          fit: BoxFit.cover,
+                        child: Image.network(
+                          project.image2
+                           ?? "",
                           height: double.infinity,
+
+                          fit: BoxFit.cover,
+
+                          errorBuilder: (_, __, ___) =>
+                              Container(color: Colors.grey.shade300),
                         ),
                       ),
                     ],
@@ -144,7 +156,7 @@ class CompanyProjectItem extends StatelessWidget {
               children: [
                 /// الشركة
                 Text(
-                  project.title,
+                  project.nameAr??"",
                   style: AppTextStyles.styleSemiBold16(
                     context,
                   ).copyWith(color: AppColors.ktextcolor),
@@ -152,7 +164,7 @@ class CompanyProjectItem extends StatelessWidget {
 
                 SizedBox(height: SizeConfig.h(10)),
                 Text(
-                  project.description,
+                  project.descriptionAr??"",
                   maxLines: 2,
                   style: AppTextStyles.styleRegular13(
                     context,
@@ -177,7 +189,7 @@ class CompanyProjectItem extends StatelessWidget {
                     ),
                     SizedBox(width: SizeConfig.w(2)),
                     Text(
-                      project.location,
+                      project.locationAr??"",
                       style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: Color(0xff777777)),
@@ -192,7 +204,7 @@ class CompanyProjectItem extends StatelessWidget {
                     ),
                     SizedBox(width: SizeConfig.w(3)),
                     Text(
-                      project.duration,
+                      toArabicNumbers(weekText(project.durationWeeks ?? 0)),
                       style: AppTextStyles.styleRegular14(
                         context,
                       ).copyWith(color: Color(0xff777777)),
