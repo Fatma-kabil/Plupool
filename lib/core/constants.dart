@@ -43,7 +43,7 @@ final List<PromoCardModel> items = [
   PromoCardModel(
     title: "إنشاء حمامات السباحة",
     iconPath: "assets/icons/construct.svg",
-    imagePath: "assets/images/phone.png",
+    imagePath: "assets/images/promocard1.png",
     features: [
       "ضمان 10 سنين لأي إصلاح متعلق بإنشاء الحمام",
       "فترة صيانة مجانية تصل لمدة 3 شهور بعد الإنشاء",
@@ -53,21 +53,11 @@ final List<PromoCardModel> items = [
     textcolor: AppColors.kprimarycolor,
     titlecolor: Color(0xff006398),
   ),
-  PromoCardModel(
-    title: "تصميم ثلاثي الأبعاد",
-    iconPath: "assets/icons/design.svg",
-    imagePath: "assets/images/promocard2.png",
-    features: [
-      "تجربة تصميم تفاعلي لحمام السباحة الخاص \nبك قبل التنفيذ، مع إمكانية مشاهدة جميع \nالتفاصيل في عرض ثلاثي الأبعاد واقعي",
-    ],
-    cardcolor: Color(0xffCDF7EC),
-    textcolor: AppColors.kScenderycolor,
-    titlecolor: AppColors.kScenderycolor,
-  ),
+ 
   PromoCardModel(
     title: "  صيانة حمامات السباحة",
     iconPath: "assets/icons/services.svg",
-    imagePath: "assets/images/promocrd3.png",
+    imagePath: "assets/images/promocard2.png",
     features: [
       "تُعد صيانة حمامات السباحة مهمة جداً لضمان السلامة\nونظافه الحمام وموازنة كيماويات المياه. تشمل تنظيف \nالحمام، فحص الكلور والحمض، تنظيف الفلاتر، وصيانة \nالطلمبات.",
     ],

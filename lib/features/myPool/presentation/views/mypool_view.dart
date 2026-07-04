@@ -8,6 +8,7 @@ import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/pool_info_cubit/pool_info_cubit.dart';
+import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/my_pool_view_body.dart';
 
 class MyPoolView extends StatelessWidget {
@@ -16,9 +17,15 @@ class MyPoolView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return BlocProvider(
-      create: (_) => sl<PoolInfoCubit>()..getPoolInfo(),
-
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<PoolInfoCubit>(
+          create: (_) => sl<PoolInfoCubit>()..getPoolInfo(),
+        ),
+         BlocProvider<UserServicesCubit>(
+          create: (_) => sl<UserServicesCubit>(),
+        ),
+      ],
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(

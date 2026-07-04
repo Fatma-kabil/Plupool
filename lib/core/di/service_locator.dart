@@ -36,10 +36,15 @@ import 'package:plupool/features/home/data/repos_impl/notification_repo_impl.dar
 import 'package:plupool/features/home/domain/repos/notification_repo.dart';
 import 'package:plupool/features/home/presentaation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/myPool/data/remote_data_source/pool_remote_data_source.dart';
+import 'package:plupool/features/myPool/data/remote_data_source/user_service_remote_data_source.dart';
 import 'package:plupool/features/myPool/data/repos_impl/pool_repo_impl.dart';
+import 'package:plupool/features/myPool/data/repos_impl/user_services_repo_impl.dart';
 import 'package:plupool/features/myPool/domain/repos/pool_reposistory.dart';
+import 'package:plupool/features/myPool/domain/repos/user_services_repoditory.dart';
 import 'package:plupool/features/myPool/domain/usecases/get_pool_info_usecse.dart';
+import 'package:plupool/features/myPool/domain/usecases/get_user_services_usecase.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/pool_info_cubit/pool_info_cubit.dart';
+import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
 import 'package:plupool/features/notes/data/data_sources/notes_remote_data_source.dart';
 import 'package:plupool/features/notes/data/repos_impl/notes_repository_impl.dart';
 import 'package:plupool/features/notes/domain/repos/notes_repo.dart';
@@ -975,5 +980,34 @@ sl.registerLazySingleton(
 // Cubit
 sl.registerFactory(
   () => PoolInfoCubit(sl<GetPoolInfoUseCase>()),
+);
+// ==================== Services ====================
+
+// Remote Data Source
+sl.registerLazySingleton<UserServiceRemoteDataSource>(
+  () => UserServiceRemoteDataSource(
+    sl<ApiService>(),
+  ),
+);
+
+// Repository
+sl.registerLazySingleton<UserServicesRepoditory>(
+  () => UserServicesRepoImpl(
+    sl<UserServiceRemoteDataSource>(),
+  ),
+);
+
+// UseCase
+sl.registerLazySingleton(
+  () => GetUserServicesUsecase(
+    sl<UserServicesRepoditory>(),
+  ),
+);
+
+// Cubit
+sl.registerFactory(
+  () => UserServicesCubit(
+    sl<GetUserServicesUsecase>(),
+  ),
 );
 }

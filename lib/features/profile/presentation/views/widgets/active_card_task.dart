@@ -3,12 +3,13 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/data/models/service_request_model.dart';
+import 'package:plupool/features/myPool/domain/entities/user_service_entity.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/progress_section.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/reminder_section.dart';
 
 class ActiveCardTask extends StatelessWidget {
-  const ActiveCardTask({super.key, required this.request});
-  final ServiceRequest request;
+  const ActiveCardTask({super.key, required this.service});
+   final UserServiceEntity service;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ActiveCardTask extends StatelessWidget {
           Row(
             children: [
               Text(
-                request.packageType ?? "",
+                service.title ,
                 style: AppTextStyles.styleSemiBold16(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
@@ -38,7 +39,7 @@ class ActiveCardTask extends StatelessWidget {
                 ).copyWith(color: AppColors.ktextcolor),
               ),
               Text(
-                request.date,
+                "",
                 style: AppTextStyles.styleRegular13(
                   context,
                 ).copyWith(color: Color(0xff999999)),
@@ -79,7 +80,7 @@ class ActiveCardTask extends StatelessWidget {
               ),
               Text(
                
-                request.endTime ?? "",
+                 "",
                 style: AppTextStyles.styleRegular13(
                   context,
                 ).copyWith(color: Color(0xff999999)),
@@ -87,15 +88,15 @@ class ActiveCardTask extends StatelessWidget {
             ],
           ),
           SizedBox(height: SizeConfig.h(8)),
-          ProgressSection(
-            progress: request.progress!, // ده آمن دلوقتي عشان اتحققنا فوق
-            visits: request.visits!,
-            status: request.status,
-          ),
+      //    ProgressSection(
+        //    progress: service.progress!, // ده آمن دلوقتي عشان اتحققنا فوق
+          //  visits: service.visits!,
+         //   status: service.status,
+        //  ),
           SizedBox(height: SizeConfig.h(12)),
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(12)),
-            child: ReminderSection(request: request),
+            child: ReminderSection(request: service),
           ),
         ],
       ),

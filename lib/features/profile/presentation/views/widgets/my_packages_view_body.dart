@@ -1,73 +1,105 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/constants.dart';
-import 'package:plupool/core/utils/size_config.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
+import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_service_state.dart';
+import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/active_card_task.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/end_card_task.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/soon_card_tesk.dart';
 
-class MyPackagesViewBody extends StatelessWidget {
+class MyPackagesViewBody extends StatefulWidget {
   const MyPackagesViewBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    /// ----------------------------
-    /// نرتب الليست ترتيب مخصص
-    /// ----------------------------
-    final sortedRequests = [...requests.where((r) => r.visits != null)];
+  State<MyPackagesViewBody> createState() => _MyPackagesViewBodyState();
+}
 
-    sortedRequests.sort((a, b) {
-      int getOrder(RequestStatus status) {
-        switch (status) {
-          case RequestStatus.inProgress:
-            return 0;
-          case RequestStatus.scheduled:
-            return 1;
-          case RequestStatus.completed:
-            return 2;
-          default:
-            return 3;
-        }
-      }
+class _MyPackagesViewBodyState extends State<MyPackagesViewBody> {
+  @override
+  void initState() {
+    super.initState();
 
-      return getOrder(a.status).compareTo(getOrder(b.status));
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<UserServicesCubit>().getServices(
+        tab: 'packages',
+        skip: 0,
+        limit: 50,
+      );
     });
+  }
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          ...sortedRequests.map((req) {
-            if (req.status == RequestStatus.inProgress) {
-              return Column(
-                children: [
-                  ActiveCardTask(request: req),
-                  SizedBox(height: SizeConfig.w(25)),
-                ],
-              );
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<UserServicesCubit, UserServicesState>(
+      builder: (context, state) {
+        /// ----------------------------
+        /// نرتب الليست ترتيب مخصص
+        /// ----------------------------
+        final sortedRequests = [...state.services];
+
+        sortedRequests.sort((a, b) {
+          int getOrder(RequestStatus status) {
+            switch (status) {
+              case RequestStatus.inProgress:
+                return 0;
+              case RequestStatus.scheduled:
+                return 1;
+              case RequestStatus.completed:
+                return 2;
+              default:
+                return 3;
             }
+          }
 
-            if (req.status == RequestStatus.scheduled) {
-              return Column(
-                children: [
-                  SoonCardTesk(request: req),
-                  SizedBox(height: SizeConfig.w(25)),
-                ],
-              );
-            }
+          return getOrder(
+            mapApiStatus(a.status),
+          ).compareTo(
+            getOrder(
+              mapApiStatus(b.status),
+            ),
+          );
+        });
 
-            if (req.status == RequestStatus.completed) {
-              return Column(
-                children: [
-                  EndCardTask(request: req),
-                  SizedBox(height: SizeConfig.w(25)),
-                ],
-              );
-            }
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              ...sortedRequests.map((req) {
+                final status = mapApiStatus(req.status);
 
-            return const SizedBox();
-          }),
-        ],
-      ),
+                if (status == RequestStatus.inProgress) {
+                  return Column(
+                    children: [
+                      ActiveCardTask(service: req),
+                      SizedBox(height: SizeConfig.w(25)),
+                    ],
+                  );
+                }
+
+                if (status == RequestStatus.scheduled) {
+                  return Column(
+                    children: [
+                    //  SoonCardTesk(service: req),
+                      SizedBox(height: SizeConfig.w(25)),
+                    ],
+                  );
+                }
+
+                if (status == RequestStatus.completed) {
+                  return Column(
+                    children: [
+                    //  EndCardTask(service: req),
+                      SizedBox(height: SizeConfig.w(25)),
+                    ],
+                  );
+                }
+
+                return const SizedBox();
+              }),
+            ],
+          ),
+        );
+      },
     );
   }
 }

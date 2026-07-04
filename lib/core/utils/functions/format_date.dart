@@ -43,9 +43,18 @@ String formatTimeArabic2(DateTime time) {
   return DateFormat('h:mm a', 'ar').format(time);
 }
 
+String formatTimeArabic3(String? time) {
+  if (time == null || time.isEmpty) return "";
+
+  final dateTime = DateFormat("HH:mm:ss").parse(time);
+  return DateFormat('h:mm a', 'ar').format(dateTime);
+}
+
 String formatArabicDate2(DateTime date) {
   return DateFormat('yyyy/M/d - h:mm a', 'ar').format(date);
-}String timeAgo(DateTime date) {
+}
+
+String timeAgo(DateTime date) {
   final now = DateTime.now();
   final diff = now.difference(date);
 
@@ -54,7 +63,7 @@ String formatArabicDate2(DateTime date) {
   }
 
   final totalMinutes = diff.inMinutes;
- // final totalHours = diff.inHours;
+  // final totalHours = diff.inHours;
   final totalDays = diff.inDays;
 
   final years = totalDays ~/ 365;
