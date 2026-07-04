@@ -96,7 +96,7 @@ class PromoCard extends StatelessWidget {
             child: Image.asset(
               model.imagePath,
               width: SizeConfig.w(90),
-              height: SizeConfig.w(96),
+              height: SizeConfig.w(85),
               fit: BoxFit.fill,
             ),
           ),

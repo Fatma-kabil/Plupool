@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class ReminderSection extends StatelessWidget {
-  const ReminderSection({super.key, required this.request});
-  final dynamic request;
+  const ReminderSection({super.key, required this.date, required this.time});
+  final String date;
+  final String time;
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +81,12 @@ class ReminderSection extends StatelessWidget {
                       ),
                       SizedBox(height: SizeConfig.h(4)),
                       Text(
-                        "${request.nextVisitDay ?? ''}   ${request.nextVisitDate ?? ''} - ${request.nextVisitTime ?? ''}",
+                        date.isNotEmpty
+                            ? "${formatMonthDate(DateTime.parse(date))} - ${formatTimeArabic3(time)}"
+                            : "",
                         style: AppTextStyles.styleRegular14(
                           context,
-                        ).copyWith(color: Color(0xff777777)),
+                        ).copyWith(color: const Color(0xff777777)),
                       ),
                     ],
                   ),

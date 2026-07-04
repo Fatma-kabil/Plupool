@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/report_technician_absence.dart';
@@ -13,12 +15,13 @@ class VisitCard extends StatelessWidget {
     required this.visits,
     required this.status,
     this.reportTechnicianAbsence = false,
+    required this.date,
   });
-
+  final String? date;
   final int progress;
   final int visits;
   final RequestStatus status;
- final bool reportTechnicianAbsence;
+  final bool reportTechnicianAbsence;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +48,7 @@ class VisitCard extends StatelessWidget {
                   children: [
                     Text(
                       textDirection: TextDirection.ltr,
-                      "الزياره  $progress/$visits",
+                      "الزياره ${toArabicNumbers(visits.toString())}/${toArabicNumbers(progress.toString())}",
                       style: AppTextStyles.styleSemiBold16(
                         context,
                       ).copyWith(color: AppColors.ktextcolor),
@@ -62,7 +65,10 @@ class VisitCard extends StatelessWidget {
                         SizedBox(width: SizeConfig.w(6)),
                         Text(
                           textDirection: TextDirection.rtl,
-                          '22/9/2025',
+                          date != null && date!.isNotEmpty
+                              ? formatArabicDateOnly(date!)
+                              : "-",
+
                           style: AppTextStyles.styleRegular13(
                             context,
                           ).copyWith(color: Color(0xff999999)),
@@ -115,23 +121,25 @@ class VisitCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                if(reportTechnicianAbsence) ...[
-                //  Spacer(),
+                if (reportTechnicianAbsence) ...[
+                  //  Spacer(),
                   SizedBox(width: SizeConfig.w(60)),
-                 GestureDetector(
-                  onTap: () {
-                     showDialog(
-                      context: context,
-                      builder: (_) => const ReportTechnicianAbsence(),
-                    );
-                  },
-                   child: Container(
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => const ReportTechnicianAbsence(),
+                      );
+                    },
+                    child: Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.w(8),
                         vertical: SizeConfig.h(6),
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color:AppColors.textFieldBorderColor),
+                        border: Border.all(
+                          color: AppColors.textFieldBorderColor,
+                        ),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
@@ -151,9 +159,10 @@ class VisitCard extends StatelessWidget {
                         ],
                       ),
                     ),
-                 ),
-              ],]
-            )
+                  ),
+                ],
+              ],
+            ),
           ],
         ),
       ),

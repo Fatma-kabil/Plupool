@@ -9,6 +9,7 @@ import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 import 'package:plupool/features/home/presentaation/manager/drawer_cubit/drawer_cubit.dart';
+import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/offer_cubit.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
@@ -49,19 +50,26 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<OfferCubit>()..fetchOffers()),
         BlocProvider(create: (_) => sl<FaqCubit>()),
         BlocProvider(create: (_) => sl<BookingCubit>()..getBookings()),
-          BlocProvider(create: (_) => sl<UserBookingCubit>()),
-        BlocProvider(create: (_) => sl<ContactCubit>()..loadComplaintCount()..loadContactCount()),
+        BlocProvider(create: (_) => sl<UserBookingCubit>()),
+        BlocProvider(
+          create: (_) => sl<ContactCubit>()
+            ..loadComplaintCount()
+            ..loadContactCount(),
+        ),
         BlocProvider(create: (_) => sl<RequestsCubit>()..getTabCounts()),
         BlocProvider(create: (_) => sl<OrdersCubit>()),
         BlocProvider(create: (_) => sl<PackagesCubit>()..getPackages()),
         BlocProvider(create: (_) => sl<OurProjectsCubit>()..getProjects()),
         BlocProvider(
-          create: (_) => sl<CompanyProjectCubit>()..getProjectStatistics()..getCompanyProjects(status: "inProgress"),
+          create: (_) => sl<CompanyProjectCubit>()
+            ..getProjectStatistics()
+            ..getCompanyProjects(status: "inProgress"),
         ),
         BlocProvider(create: (_) => ProductSearchCubit(sl())),
         BlocProvider(create: (_) => sl<UsersCubit>()),
         BlocProvider(create: (context) => sl<RatingsCubit>()),
-         BlocProvider(create: (_) => sl<StoreStatisticsCubit>()),
+        BlocProvider(create: (_) => sl<StoreStatisticsCubit>()),
+        BlocProvider(create: (_) => sl<UserServicesCubit>()),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,

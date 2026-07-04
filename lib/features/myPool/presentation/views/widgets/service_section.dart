@@ -20,19 +20,7 @@ class ServiceSection extends StatefulWidget {
 class _ServiceSectionState extends State<ServiceSection> {
   String selected = "مجدولة";
 
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<UserServicesCubit>().getServices(
-        tab: 'services',
-        status: 'scheduled',
-        skip: 0,
-        limit: 50,
-      );
-    });
-  }
+ 
 
   @override
   Widget build(BuildContext context) {

@@ -15,6 +15,11 @@ import 'package:plupool/features/company_res/data/repos_impl/company_res_clients
 import 'package:plupool/features/company_res/domain/repos/company_res_clients_repos.dart';
 import 'package:plupool/features/company_res/domain/usecases/get_company_res_usecase.dart';
 import 'package:plupool/features/company_res/presentation/views/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
+import 'package:plupool/features/consruction_service/data/remote_data_source/pool_type_remote_data_source.dart';
+import 'package:plupool/features/consruction_service/data/repo_impl/pool_type_repo_impl.dart';
+import 'package:plupool/features/consruction_service/domain/repos/pool_type_repo.dart';
+import 'package:plupool/features/consruction_service/domain/usecases/get_pool_types_usecase.dart';
+import 'package:plupool/features/consruction_service/presentation/views/manager/pool_types_cubit/pool_types_cubit.dart';
 import 'package:plupool/features/customers/data/data_sources/admin_users_remote_data_source.dart';
 import 'package:plupool/features/customers/data/data_sources/pool_remote_data_source.dart';
 import 'package:plupool/features/customers/data/repos_impl/admin_user_repo_impl.dart';
@@ -1008,6 +1013,38 @@ sl.registerLazySingleton(
 sl.registerFactory(
   () => UserServicesCubit(
     sl<GetUserServicesUsecase>(),
+  ),
+);
+
+
+
+// ==================== pool TYpes ====================
+
+// Remote Data Source
+sl.registerLazySingleton<PoolTypeRemoteDataSource>(
+  () => PoolTypeRemoteDataSource(
+    sl<ApiService>(),
+  ),
+);
+
+// Repository
+sl.registerLazySingleton<PoolTypeRepo>(
+  () => PoolTypeRepoImpl(
+    sl<PoolTypeRemoteDataSource>(),
+  ),
+);
+
+// UseCase
+sl.registerLazySingleton(
+  () => GetPoolTypesUseCase(
+    sl<PoolTypeRepo>(),
+  ),
+);
+
+// Cubit
+sl.registerFactory(
+  () => PoolTypesCubit(
+    sl<GetPoolTypesUseCase>(),
   ),
 );
 }

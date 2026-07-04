@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/service_section.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/visits_section.dart';
 
@@ -16,6 +18,41 @@ class _ContentCardState extends State<ContentCard> {
   int currentIndex = 0;
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<UserServicesCubit>().getServices(
+        tab: 'services',
+        status: 'scheduled',
+        skip: 0,
+        limit: 50,
+      );
+    });
+  }
+
+  void _changeTab(int i) {
+    setState(() {
+      currentIndex = i;
+    });
+
+    if (i == 0) {
+      context.read<UserServicesCubit>().getServices(
+        tab: 'services',
+        status: 'scheduled',
+        skip: 0,
+        limit: 50,
+      );
+    } else {
+      context.read<UserServicesCubit>().getServices(
+        tab: 'packages',
+        status: 'in_progress',
+        skip: 0,
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(18)),
@@ -27,7 +64,7 @@ class _ContentCardState extends State<ContentCard> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: const Color(0xffF1F1F1),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   blurRadius: 4,
                   offset: Offset(0, 1),
@@ -36,11 +73,7 @@ class _ContentCardState extends State<ContentCard> {
               ],
             ),
             child: TabBar(
-              onTap: (i) {
-                setState(() {
-                  currentIndex = i;
-                });
-              },
+              onTap: _changeTab,
               labelStyle: AppTextStyles.styleMedium16(
                 context,
               ).copyWith(fontFamily: 'Cairo'),
@@ -71,9 +104,14 @@ class _ContentCardState extends State<ContentCard> {
 
           SizedBox(height: SizeConfig.h(20)),
 
-          // هنا عرض المحتوى بدون IndexedStack عشان كل تاب ياخد ارتفاعه الخاص
-          Offstage(offstage: currentIndex != 0, child: const ServiceSection()),
-          Offstage(offstage: currentIndex != 1, child: const VisitsSection()),
+          Offstage(
+            offstage: currentIndex != 0,
+            child: const ServiceSection(),
+          ),
+          Offstage(
+            offstage: currentIndex != 1,
+            child: const VisitsSection(),
+          ),
         ],
       ),
     );

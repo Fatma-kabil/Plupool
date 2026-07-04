@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
-import 'package:plupool/core/utils/widgets/filter_option.dart';
+import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
+import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_service_state.dart';
+import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/add_note.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/in_progress_card.dart';
+import 'package:plupool/features/myPool/presentation/views/widgets/my_pool_task_card_shimmer.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/visit_card.dart';
 
 class VisitsSection extends StatefulWidget {
@@ -17,102 +20,90 @@ class VisitsSection extends StatefulWidget {
 }
 
 class _VisitsSectionState extends State<VisitsSection> {
-  String selected = "يناير";
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ListView.builder(
+return Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    BlocBuilder<UserServicesCubit, UserServicesState>(
+      builder: (context, state) {
+        if (state.isLoading) {
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 3,
+            itemBuilder: (_, __) => const MyPoolTaskCardShimmer(),
+          );
+        }
+
+        if (state.errorMessage != null) {
+          return Center(
+            child: ErrorText(message: state.errorMessage!),
+          );
+        }
+
+        return ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: requests.length,
+          itemCount: state.services.length,
           itemBuilder: (context, index) {
-            final request = requests[index];
+            final request = state.services[index];
 
-            if (request.status == RequestStatus.inProgress) {
-              final progress = request.progress ?? 0;
-              final visits = request.visits ?? 0;
+            List<Widget> visitCards = [];
 
-              List<Widget> visitCards = [];
-
-              // كارد الزيارة المجدولة (لو ما زالت ضمن عدد الزيارات)
-              if (progress + 1 <= visits) {
-                visitCards.add(
-                  VisitCard(
-                    progress: progress + 1,
-                    visits: visits,
-                    status: RequestStatus.scheduled,
-                  ),
-                );
-              }
-
-              if (progress <= visits) {
-                // كارد الزيارة المكتملة مع تقرير غياب الفني
-                visitCards.add(
-                  VisitCard(
-                    progress: progress,
-                    visits: visits,
-                    status: RequestStatus.completed,
-                    reportTechnicianAbsence: true,
-                  ),
-                );
-              }
-
-              // كارد الزيارة المكتملة السابقة (لو ما زال ضمن حدود الزيارات)
-              if (progress - 1 > 0) {
-                visitCards.add(
-                  VisitCard(
-                    progress: progress - 1,
-                    visits: visits,
-                    status: RequestStatus.completed,
-                  ),
-                );
-              }
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  InProgressCard(request: request),
-                  SizedBox(height: SizeConfig.h(12)),
-                  Row(
-                    children: [
-                      Text(
-                        "الزيارات",
-                        style: AppTextStyles.styleBold16(
-                          context,
-                        ).copyWith(color: AppColors.ktextcolor),
-                      ),
-                      Spacer(),
-                      FilterOption(
-                        value: selected,
-                        items: const ["يناير", "فبراير", "مارس"],
-                        onChanged: (val) {
-                          if (val != null) {
-                            setState(() {
-                              selected = val;
-                            });
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                   SizedBox(height: SizeConfig.h(12)),
-                  ...visitCards,
-                ],
+            if (request.nextMaintenanceDate != null &&
+                request.nextMaintenanceDate!.isNotEmpty) {
+              visitCards.add(
+                VisitCard(
+                  progress: request.completedVisits + 1,
+                  visits: request.visitsCount,
+                  status: RequestStatus.scheduled,
+                  date: request.nextMaintenanceDate!,
+                ),
               );
-            } else {
-              return const SizedBox.shrink();
             }
-          },
-        ),
-        SizedBox(height: SizeConfig.h(10)),
-        AddNote(),
-        SizedBox(height: SizeConfig.h(20)),
 
-        //    NoteAndTimeSection(),
-        SizedBox(height: SizeConfig.h(20)),
-      ],
-    );
+            for (int i = request.visits.length - 1; i >= 0; i--) {
+              final visit = request.visits[i];
+
+              visitCards.add(
+                VisitCard(
+                  progress: i + 1,
+                  visits: request.visitsCount,
+                  status: RequestStatus.completed,
+                  date: visit.scheduledDate,
+                  reportTechnicianAbsence:
+                      i == request.visits.length - 1,
+                ),
+              );
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                InProgressCard(service: request),
+                SizedBox(height: SizeConfig.h(12)),
+                Text(
+                  "الزيارات",
+                  style: AppTextStyles.styleBold16(
+                    context,
+                  ).copyWith(color: AppColors.ktextcolor),
+                ),
+                SizedBox(height: SizeConfig.h(12)),
+                ...visitCards,
+              ],
+            );
+          },
+        );
+      },
+    ),
+
+    SizedBox(height: SizeConfig.h(10)),
+    const AddNote(),
+    SizedBox(height: SizeConfig.h(20)),
+    // NoteAndTimeSection(date: , time: , note: ,),
+    SizedBox(height: SizeConfig.h(20)),
+  ],
+);
   }
 }

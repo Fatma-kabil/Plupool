@@ -29,7 +29,7 @@ class ServicesView extends StatelessWidget {
             ServiceCard(
               title: "إنشاء حمامات سباحة",
               description: "ابدأ بتصميم وإنشاء حمام سباحة جديد يناسب احتياجاتك",
-              iconPath: 'assets/icons/pool-ladder.svg',
+              iconPath: Icons.pool,
               buttonText: "ابدأ الآن",
               onPressed: () {
                 context.push('/constructionservicesview');
@@ -42,7 +42,7 @@ class ServicesView extends StatelessWidget {
             ServiceCard(
               title: "صيانة حمام سباحة",
               description: "صيانة دورية أو عاجلة لحمامك للحفاظ على أدائه",
-              iconPath: 'assets/icons/proocardicon3.svg',
+              iconPath: Icons.build,
               buttonText: "اطلب صيانة",
               onPressed: () {
                 context.push('/maintenanceserviceview');

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/service_request_model.dart';
+import 'package:plupool/features/myPool/domain/entities/user_service_entity.dart';
 
 class SoonCardTesk extends StatelessWidget {
-  const SoonCardTesk({super.key,required this.request});
-   final ServiceRequest request;
+  const SoonCardTesk({super.key, required this.service});
+  final UserServiceEntity service;
 
   @override
   Widget build(BuildContext context) {
-return Container(
+    return Container(
       padding: EdgeInsets.all(SizeConfig.w(14)),
       decoration: BoxDecoration(
         //     color: Colors.white,
@@ -23,7 +24,7 @@ return Container(
           Row(
             children: [
               Text(
-                request.packageType ?? "",
+                service.title,
                 style: AppTextStyles.styleSemiBold16(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
@@ -36,14 +37,14 @@ return Container(
                 ).copyWith(color: AppColors.ktextcolor),
               ),
               Text(
-                request.date,
+                formatArabicDateOnly(service.scheduledDate),
                 style: AppTextStyles.styleRegular13(
                   context,
                 ).copyWith(color: Color(0xff999999)),
               ),
             ],
           ),
-             SizedBox(height: SizeConfig.h(6)),
+          SizedBox(height: SizeConfig.h(6)),
           Container(
             padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.w(15),
@@ -76,15 +77,15 @@ return Container(
                 ).copyWith(color: Color(0xff999999)),
               ),
               Text(
-                request.endTime ?? "",
+                service.endDate != null && service.endDate!.isNotEmpty
+                    ? formatArabicDateOnly(service.endDate!)
+                    : "-",
                 style: AppTextStyles.styleRegular13(
                   context,
-                ).copyWith(color: Color(0xff999999)),
+                ).copyWith(color: const Color(0xff999999)),
               ),
             ],
           ),
-
-        
         ],
       ),
     );

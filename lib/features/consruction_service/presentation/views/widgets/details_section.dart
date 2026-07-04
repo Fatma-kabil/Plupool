@@ -1,41 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/highlight_word.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
+import 'package:plupool/features/consruction_service/domain/entities/pool_type_entity.dart';
 
 class DetailsSection extends StatelessWidget {
-  final PoolModel pool;
+  final PoolTypeEntity pool;
 
   const DetailsSection({super.key, required this.pool});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.all(SizeConfig.w(10)),
+      padding: EdgeInsets.all(SizeConfig.w(10)),
       child: Column(
-   
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            pool.title,
+            pool.nameAr,
             style: AppTextStyles.styleBold16(
               context,
             ).copyWith(color: AppColors.ktextcolor),
-
-            //   textDirection: TextDirection.rtl,
           ),
           const SizedBox(height: 4),
 
           Text(
-            pool.description,
+            pool.descriptionAr ?? "",
             style: AppTextStyles.styleRegular13(
               context,
             ).copyWith(color: const Color(0xff777777)),
           ),
-           SizedBox(height:SizeConfig.h(4)),
+
+          SizedBox(height: SizeConfig.h(4)),
 
           Text(
             "المميزات:",
@@ -43,33 +40,41 @@ class DetailsSection extends StatelessWidget {
               context,
             ).copyWith(color: Colors.black),
           ),
-           SizedBox(height: SizeConfig.h(4)),
 
-          Column(
-            children: pool.features.map((feature) {
-              return Row(
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/done.svg',
-                    height: SizeConfig.h(16),
-                    width: SizeConfig.w(16),
-                  ),
-                   SizedBox(width:SizeConfig.w(6) ),
-                  Expanded(
-                    child: Text.rich(
-                      TextSpan(
-                        children: highlightWord(context, feature, "مناسب لـ:"),
+          SizedBox(height: SizeConfig.h(4)),
+
+          if (pool.features != null && pool.features!.isNotEmpty)
+            Column(
+              children: pool.features!.map((feature) {
+                return Padding(
+                  padding: EdgeInsets.only(bottom: SizeConfig.h(6)),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: SizeConfig.w(15),
                       ),
-                    ),
+                      SizedBox(width: SizeConfig.w(6)),
+                      Expanded(
+                        child: Text.rich(
+                          TextSpan(
+                            children: highlightWord(
+                              context,
+                              feature,
+                              "مناسب لـ:",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              );
-            }).toList(),
-          ),
+                );
+              }).toList(),
+            ),
 
           const SizedBox(height: 10),
-        
-        
         ],
       ),
     );

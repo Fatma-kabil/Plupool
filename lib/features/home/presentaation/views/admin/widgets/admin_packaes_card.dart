@@ -92,6 +92,7 @@ class AdminPackaesCard extends StatelessWidget {
               progress: request.completedVisits,
               status: mapApiStatus(status),
               visits: request.visits.length,
+              progressRatio: (request.totalVisits != 0) ? (request.completedVisits * 100) ~/ request.totalVisits : 0,
             ),
             const SizedBox(height: 12),
             ProgressBtn(status: mapApiStatus(status),bookingId: request.nextVisitId??0,packageId: packageId,),

@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
-import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
-import 'video_section.dart';
+import 'package:plupool/features/consruction_service/domain/entities/pool_type_entity.dart';
 import 'details_section.dart';
+import 'video_section.dart';
 
 class PoolCard extends StatelessWidget {
-  final PoolModel pool;
- final void Function()? onPressed;
-
-
   const PoolCard({super.key, required this.pool, this.onPressed});
+
+  final PoolTypeEntity pool;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +23,17 @@ class PoolCard extends StatelessWidget {
           side: const BorderSide(color: Color(0xff80BBDA), width: 1),
         ),
         child: Padding(
-          padding:  EdgeInsets.all(SizeConfig.h(10)),
+          padding: EdgeInsets.all(SizeConfig.h(10)),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               VideoSection(videoUrl: pool.videoUrl),
               DetailsSection(pool: pool),
-                CustomTextBtn(text: 'احجز الان', onPressed:onPressed ,width: double.infinity,),
+              CustomTextBtn(
+                text: 'احجز الان',
+                onPressed: onPressed,
+                width: double.infinity,
+              ),
             ],
           ),
         ),

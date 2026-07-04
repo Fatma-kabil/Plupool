@@ -9,8 +9,7 @@ class GuaranteesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-  
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           "ضماناتنا المميزة",
@@ -23,7 +22,7 @@ class GuaranteesSection extends StatelessWidget {
         // 👇 الكروت
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children:  [
+          children: [
             Expanded(
               child: GuaranteeCard(
                 imagecolor: Color(0xff05B285),
@@ -35,7 +34,7 @@ class GuaranteesSection extends StatelessWidget {
                 backgroundColor: Color(0xffCDF7EC), // أزرق فاتح
               ),
             ),
-            SizedBox(width:SizeConfig.w(8)),
+            SizedBox(width: SizeConfig.w(8)),
             Expanded(
               child: GuaranteeCard(
                 imagecolor: Color(0xffFF9F1C),

@@ -160,7 +160,7 @@ class MyProjectCard extends StatelessWidget {
             SizedBox(height: SizeConfig.h(12)),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(20)),
-              child: ReminderSection(request: project),
+            //  child: ReminderSection(request: project),
             ),
           ],
         ],

@@ -39,12 +39,13 @@ class ServiceCard extends StatelessWidget {
               progress: request.progress!, // ده آمن دلوقتي عشان اتحققنا فوق
               visits: request.visits!,
               status: request.status,
+              progressRatio: 10,
             ),
           ],
 
           if (request.nextVisitDay != null) ...[
              SizedBox(height: SizeConfig.h(12)),
-          ReminderSection(request: request,),
+        //  ReminderSection(request: request,),
           ],
         ],
       ),

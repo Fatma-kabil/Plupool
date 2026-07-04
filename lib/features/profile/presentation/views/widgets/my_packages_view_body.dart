@@ -79,7 +79,7 @@ class _MyPackagesViewBodyState extends State<MyPackagesViewBody> {
                 if (status == RequestStatus.scheduled) {
                   return Column(
                     children: [
-                    //  SoonCardTesk(service: req),
+                      SoonCardTesk(service: req),
                       SizedBox(height: SizeConfig.w(25)),
                     ],
                   );
@@ -88,7 +88,7 @@ class _MyPackagesViewBodyState extends State<MyPackagesViewBody> {
                 if (status == RequestStatus.completed) {
                   return Column(
                     children: [
-                    //  EndCardTask(service: req),
+                      EndCardTask(service: req),
                       SizedBox(height: SizeConfig.w(25)),
                     ],
                   );
