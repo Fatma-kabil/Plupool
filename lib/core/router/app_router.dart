@@ -11,6 +11,7 @@ import 'package:plupool/features/company_res/presentation/views/company_res_clie
 import 'package:plupool/features/company_res/presentation/views/company_res_profile.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_view.dart';
 import 'package:plupool/features/company_res/presentation/views/edit_companny_res_view.dart';
+import 'package:plupool/features/consruction_service/domain/entities/pool_type_entity.dart';
 import 'package:plupool/features/contact_us/presentation/views/admin_drawer_contact_us_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/company_res_contact_us_view.dart';
 import 'package:plupool/features/contact_us/presentation/views/contact_us_details_view.dart';
@@ -78,7 +79,6 @@ import 'package:plupool/features/BottomNavBar/presentation/views/main_home_custo
 import 'package:plupool/features/home/presentaation/views/tech/weekly_tasks_view.dart';
 import 'package:plupool/features/maintenance/presentation/views/maintenance_service_view.dart';
 import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.dart';
-import 'package:plupool/features/consruction_service/data/models/pool_model.dart';
 import 'package:plupool/features/consruction_service/presentation/views/construction_services_view.dart';
 import 'package:plupool/features/consruction_service/presentation/views/reserve_construction_view.dart';
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
@@ -193,7 +193,7 @@ final GoRouter appRouter = GoRouter(
       path: '/reserveconstructionview',
       name: 'reserveconstructionview',
       pageBuilder: (context, state) {
-        final pool = state.extra as PoolModel; // ✅ استقبلنا الموديل
+        final pool = state.extra as PoolTypeEntity; // ✅ استقبلنا الموديل
         return buildTransitionPage(ReserveConstructionView(pool: pool));
       },
     ),

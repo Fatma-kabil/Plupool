@@ -17,8 +17,9 @@ void handlePoolReservationSubmit({
   // عرض الديالوج
   showDialog(
     context: context,
-    builder: (_) => ReservationDetailsDialog(
-      reservation: reservation,
-    ),
+    builder: (_) => SizedBox()
+    //ReservationDetailsDialog(
+     // reservation: reservation,
+   // ),
   );
 }

@@ -15,16 +15,21 @@ import 'package:plupool/features/company_res/data/repos_impl/company_res_clients
 import 'package:plupool/features/company_res/domain/repos/company_res_clients_repos.dart';
 import 'package:plupool/features/company_res/domain/usecases/get_company_res_usecase.dart';
 import 'package:plupool/features/company_res/presentation/views/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
+import 'package:plupool/features/consruction_service/data/remote_data_source/construction_remote_data_source.dart';
 import 'package:plupool/features/consruction_service/data/remote_data_source/pool_type_remote_data_source.dart';
 import 'package:plupool/features/consruction_service/data/remote_data_source/user_notes_remote_data_source.dart';
+import 'package:plupool/features/consruction_service/data/repo_impl/construction_repo_impl.dart';
 import 'package:plupool/features/consruction_service/data/repo_impl/pool_type_repo_impl.dart';
 import 'package:plupool/features/consruction_service/data/repo_impl/user_note_repo_impl.dart';
+import 'package:plupool/features/consruction_service/domain/repos/construction_booking_repo.dart';
 import 'package:plupool/features/consruction_service/domain/repos/pool_type_repo.dart';
 import 'package:plupool/features/consruction_service/domain/repos/user_notes_repo.dart';
+import 'package:plupool/features/consruction_service/domain/usecases/booking_construction_usecase.dart';
 import 'package:plupool/features/consruction_service/domain/usecases/get_pool_types_usecase.dart';
 import 'package:plupool/features/consruction_service/domain/usecases/get_user_notes_usecase.dart';
+import 'package:plupool/features/consruction_service/presentation/views/manager/construction_booking_cubit/construction_booking_cubit.dart';
 import 'package:plupool/features/consruction_service/presentation/views/manager/pool_types_cubit/pool_types_cubit.dart';
-import 'package:plupool/features/consruction_service/presentation/views/manager/pool_types_cubit/user_notes_cubit/user_notes_cubit.dart';
+import 'package:plupool/features/consruction_service/presentation/views/manager/user_notes_cubit/user_notes_cubit.dart';
 import 'package:plupool/features/customers/data/data_sources/admin_users_remote_data_source.dart';
 import 'package:plupool/features/customers/data/data_sources/pool_remote_data_source.dart';
 import 'package:plupool/features/customers/data/repos_impl/admin_user_repo_impl.dart';
@@ -743,7 +748,7 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => AddPackageVisitUseCase(sl<PackagesRepository>()),
   );
-  
+
   sl.registerLazySingleton(
     () => CreatePackageUseCase(sl<PackagesRepository>()),
   );
@@ -969,118 +974,99 @@ Future<void> initServiceLocator() async {
   );
 
   // =============================
-// 🏊 MY POOL FEATURE
-// =============================
+  // 🏊 MY POOL FEATURE
+  // =============================
 
-// Remote Data Source
-sl.registerLazySingleton<PoolInfoRemoteDataSource>(
-  () => PoolInfoRemoteDataSource(sl<ApiService>()),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<PoolInfoRemoteDataSource>(
+    () => PoolInfoRemoteDataSource(sl<ApiService>()),
+  );
 
-// Repository
-sl.registerLazySingleton<PoolInfoRepository>(
-  () => PoolInfoRepositoryImpl(sl<PoolInfoRemoteDataSource>()),
-);
+  // Repository
+  sl.registerLazySingleton<PoolInfoRepository>(
+    () => PoolInfoRepositoryImpl(sl<PoolInfoRemoteDataSource>()),
+  );
 
-// UseCase
-sl.registerLazySingleton(
-  () => GetPoolInfoUseCase(sl<PoolInfoRepository>()),
-);
+  // UseCase
+  sl.registerLazySingleton(() => GetPoolInfoUseCase(sl<PoolInfoRepository>()));
 
-// Cubit
-sl.registerFactory(
-  () => PoolInfoCubit(sl<GetPoolInfoUseCase>()),
-);
-// ==================== Services ====================
+  // Cubit
+  sl.registerFactory(() => PoolInfoCubit(sl<GetPoolInfoUseCase>()));
+  // ==================== Services ====================
 
-// Remote Data Source
-sl.registerLazySingleton<UserServiceRemoteDataSource>(
-  () => UserServiceRemoteDataSource(
-    sl<ApiService>(),
-  ),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<UserServiceRemoteDataSource>(
+    () => UserServiceRemoteDataSource(sl<ApiService>()),
+  );
 
-// Repository
-sl.registerLazySingleton<UserServicesRepoditory>(
-  () => UserServicesRepoImpl(
-    sl<UserServiceRemoteDataSource>(),
-  ),
-);
+  // Repository
+  sl.registerLazySingleton<UserServicesRepoditory>(
+    () => UserServicesRepoImpl(sl<UserServiceRemoteDataSource>()),
+  );
 
-// UseCase
-sl.registerLazySingleton(
-  () => GetUserServicesUsecase(
-    sl<UserServicesRepoditory>(),
-  ),
-);
+  // UseCase
+  sl.registerLazySingleton(
+    () => GetUserServicesUsecase(sl<UserServicesRepoditory>()),
+  );
 
-// Cubit
-sl.registerFactory(
-  () => UserServicesCubit(
-    sl<GetUserServicesUsecase>(),
-  ),
-);
+  // Cubit
+  sl.registerFactory(() => UserServicesCubit(sl<GetUserServicesUsecase>()));
 
+  // ==================== pool TYpes ====================
 
+  // Remote Data Source
+  sl.registerLazySingleton<PoolTypeRemoteDataSource>(
+    () => PoolTypeRemoteDataSource(sl<ApiService>()),
+  );
 
-// ==================== pool TYpes ====================
+  // Repository
+  sl.registerLazySingleton<PoolTypeRepo>(
+    () => PoolTypeRepoImpl(sl<PoolTypeRemoteDataSource>()),
+  );
 
-// Remote Data Source
-sl.registerLazySingleton<PoolTypeRemoteDataSource>(
-  () => PoolTypeRemoteDataSource(
-    sl<ApiService>(),
-  ),
-);
+  // UseCase
+  sl.registerLazySingleton(() => GetPoolTypesUseCase(sl<PoolTypeRepo>()));
 
-// Repository
-sl.registerLazySingleton<PoolTypeRepo>(
-  () => PoolTypeRepoImpl(
-    sl<PoolTypeRemoteDataSource>(),
-  ),
-);
+  // Cubit
+  sl.registerFactory(() => PoolTypesCubit(sl<GetPoolTypesUseCase>()));
 
-// UseCase
-sl.registerLazySingleton(
-  () => GetPoolTypesUseCase(
-    sl<PoolTypeRepo>(),
-  ),
-);
+  // ==================== User Notes  ====================
 
-// Cubit
-sl.registerFactory(
-  () => PoolTypesCubit(
-    sl<GetPoolTypesUseCase>(),
-  ),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<UserNotesRemoteDataSource>(
+    () => UserNotesRemoteDataSource(sl<ApiService>()),
+  );
 
+  // Repository
+  sl.registerLazySingleton<UserNotesRepo>(
+    () => UserNoteRepoImpl(sl<UserNotesRemoteDataSource>()),
+  );
 
-// ==================== User Notes  ====================
+  // UseCase
+  sl.registerLazySingleton(() => GetUserNotesUsecase(sl<UserNotesRepo>()));
 
-// Remote Data Source
-sl.registerLazySingleton<UserNotesRemoteDataSource>(
-  () => UserNotesRemoteDataSource(
-    sl<ApiService>(),
-  ),
-);
+  // Cubit
+  sl.registerFactory(() => UserNotesCubit(sl<GetUserNotesUsecase>()));
 
-// Repository
-sl.registerLazySingleton<UserNotesRepo>(
-  () => UserNoteRepoImpl(
-    sl<UserNotesRemoteDataSource>(),
-  ),
-);
+  // ==================== // ==================== Construction Booking ====================
 
-// UseCase
-sl.registerLazySingleton(
-  () => GetUserNotesUsecase(
-    sl<UserNotesRepo>(),
-  ),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<ConstructionRemoteDataSource>(
+    () => ConstructionRemoteDataSource(sl<ApiService>()),
+  );
 
-// Cubit
-sl.registerFactory(
-  () => UserNotesCubit(
-    sl<GetUserNotesUsecase>(),
-  ),
-);
+  // Repository
+  sl.registerLazySingleton<ConstructionBookingRepo>(
+    () => ConstructionRepoImpl(sl<ConstructionRemoteDataSource>()),
+  );
+
+  // UseCase
+  sl.registerLazySingleton(
+    () => BookConstructionUseCase(sl<ConstructionBookingRepo>()),
+  );
+
+  // Cubit
+  sl.registerFactory(
+    () => ConstructionBookingCubit(sl<BookConstructionUseCase>()),
+  );
 }

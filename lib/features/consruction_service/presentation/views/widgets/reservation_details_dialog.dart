@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/consruction_service/data/models/pool_reservation_model.dart';
 import 'package:plupool/core/utils/widgets/close_section.dart';
+import 'package:plupool/features/consruction_service/domain/entities/construction_booking_entity.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/dimentions_section.dart';
 import 'details_header.dart';
 import 'pool_type_section.dart';
 import '../../../../../core/utils/widgets/date_time_section.dart';
 
 class ReservationDetailsDialog extends StatelessWidget {
-  final PoolReservation reservation;
-
-  const ReservationDetailsDialog({super.key, required this.reservation});
+  final ConstructionBookingEntity reservation;
+final String poolType;
+  const ReservationDetailsDialog({super.key, required this.reservation, required this.poolType});
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +39,15 @@ class ReservationDetailsDialog extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 textDirection: TextDirection.rtl,
                 children: [
-                  PoolTypeSection(title: reservation.title),
+                  PoolTypeSection(title: poolType),
                   const SizedBox(height: 20),
-                  DateTimeSection(date: reservation.date,time: reservation.time,),
+                  DateTimeSection(date:DateTime.tryParse(reservation.bookingDate)?? DateTime.now() ,time:parseTime(reservation.bookingTime),),
                   const SizedBox(height: 20),
                   DimensionsSection(reservation: reservation),
                    SizedBox(height:  SizeConfig.h(20)),
-                  const CloseSection(),
+                   CloseSection(
+                    reservation: reservation,
+                   ),
                    const SizedBox(height: 10),
                 ],
               ),

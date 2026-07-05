@@ -100,7 +100,7 @@ class ConfirmPackageBookingCard extends StatelessWidget {
             const SizedBox(height: 40),
 
             // الأزرار
-            CloseSection(),
+       //     CloseSection(),
           ],
         ),
       ),

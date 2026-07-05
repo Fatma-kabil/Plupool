@@ -24,3 +24,14 @@ String toArabicNumbers(String input) {
 
   return input.split('').map((e) => map[e] ?? e).join();
 }
+
+String convertArabicToEnglish(String value) {
+  const arabic = '٠١٢٣٤٥٦٧٨٩';
+  const english = '0123456789';
+
+  for (int i = 0; i < arabic.length; i++) {
+    value = value.replaceAll(arabic[i], english[i]);
+  }
+
+  return value;
+}

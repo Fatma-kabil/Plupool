@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/consruction_service/presentation/views/manager/pool_types_cubit/user_notes_cubit/user_notes_cubit.dart';
-import 'package:plupool/features/consruction_service/presentation/views/manager/pool_types_cubit/user_notes_cubit/user_notes_state.dart';
+import 'package:plupool/features/consruction_service/presentation/views/manager/user_notes_cubit/user_notes_cubit.dart';
+import 'package:plupool/features/consruction_service/presentation/views/manager/user_notes_cubit/user_notes_state.dart';
 import 'package:plupool/features/notes/presentation/views/widgets/notes_shimmer_list.dart';
 import 'package:plupool/features/support/presentation/views/widgets/attachment_chip.dart';
 
@@ -50,6 +50,7 @@ class ServiceNotesSection extends StatelessWidget {
                       BorderRadius.circular(SizeConfig.w(10)),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       textDirection: TextDirection.rtl,

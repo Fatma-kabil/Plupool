@@ -22,7 +22,7 @@ class DateTimeSection extends StatelessWidget {
       textDirection: TextDirection.rtl,
       children: [
         _buildDateColumn(context),
-        SizedBox(width: width ??SizeConfig.w(50) ),
+        SizedBox(width: width ?? SizeConfig.w(50)),
         _buildTimeColumn(context),
       ],
     );
@@ -30,7 +30,7 @@ class DateTimeSection extends StatelessWidget {
 
   Column _buildDateColumn(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           'التاريخ',
@@ -41,17 +41,18 @@ class DateTimeSection extends StatelessWidget {
         const SizedBox(height: 15),
         Row(
           children: [
+            Icon(
+              Icons.calendar_today,
+              size: SizeConfig.w(15),
+              color: AppColors.kprimarycolor,
+            ),
+            SizedBox(width: SizeConfig.w(5)),
+
             Text(
               formatDate(date!),
               style: AppTextStyles.styleRegular13(
                 context,
               ).copyWith(color: const Color(0xff006398)),
-            ),
-             SizedBox(width: SizeConfig.w(5)),
-             Icon(
-              Icons.calendar_today,
-              size: SizeConfig.w(15),
-              color: AppColors.kprimarycolor,
             ),
           ],
         ),
@@ -72,17 +73,17 @@ class DateTimeSection extends StatelessWidget {
         const SizedBox(height: 15),
         Row(
           children: [
-            Text(
-              time!.format(context),
-              style: AppTextStyles.styleRegular13(
-                context,
-              ).copyWith(color: const Color(0xff006398)),
-            ),
-             SizedBox(width: SizeConfig.w(5)),
-             Icon(
+            Icon(
               Icons.access_time,
               size: SizeConfig.w(15),
               color: AppColors.kprimarycolor,
+            ),
+            SizedBox(width: SizeConfig.w(5)),
+            Text(
+              formatTimeArabic(time!),
+              style: AppTextStyles.styleRegular13(
+                context,
+              ).copyWith(color: const Color(0xff006398)),
             ),
           ],
         ),

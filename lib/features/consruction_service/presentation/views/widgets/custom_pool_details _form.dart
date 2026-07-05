@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
@@ -41,6 +42,10 @@ class _CustomPoolDetailsFormState extends State<CustomPoolDetailsForm> {
               return null; // ❌ منرجعش error هنا عشان نعرضها يدوي
             },
             keyboardType: TextInputType.number,
+              inputFormatters: [
+    FilteringTextInputFormatter.allow(RegExp(r'[0-9٠-٩.]')),
+    ArabicNumberFormatter(),
+  ],
             style: AppTextStyles.styleRegular16(context).copyWith(
               color: AppColors.kprimarycolor,
             ),
@@ -116,6 +121,27 @@ class _CustomPoolDetailsFormState extends State<CustomPoolDetailsForm> {
           ]
         ],
       ),
+    );
+  }
+}
+class ArabicNumberFormatter extends TextInputFormatter {
+  static const _english = '0123456789';
+  static const _arabic = '٠١٢٣٤٥٦٧٨٩';
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    String text = newValue.text;
+
+    for (int i = 0; i < _english.length; i++) {
+      text = text.replaceAll(_english[i], _arabic[i]);
+    }
+
+    return TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
     );
   }
 }
