@@ -16,10 +16,15 @@ import 'package:plupool/features/company_res/domain/repos/company_res_clients_re
 import 'package:plupool/features/company_res/domain/usecases/get_company_res_usecase.dart';
 import 'package:plupool/features/company_res/presentation/views/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
 import 'package:plupool/features/consruction_service/data/remote_data_source/pool_type_remote_data_source.dart';
+import 'package:plupool/features/consruction_service/data/remote_data_source/user_notes_remote_data_source.dart';
 import 'package:plupool/features/consruction_service/data/repo_impl/pool_type_repo_impl.dart';
+import 'package:plupool/features/consruction_service/data/repo_impl/user_note_repo_impl.dart';
 import 'package:plupool/features/consruction_service/domain/repos/pool_type_repo.dart';
+import 'package:plupool/features/consruction_service/domain/repos/user_notes_repo.dart';
 import 'package:plupool/features/consruction_service/domain/usecases/get_pool_types_usecase.dart';
+import 'package:plupool/features/consruction_service/domain/usecases/get_user_notes_usecase.dart';
 import 'package:plupool/features/consruction_service/presentation/views/manager/pool_types_cubit/pool_types_cubit.dart';
+import 'package:plupool/features/consruction_service/presentation/views/manager/pool_types_cubit/user_notes_cubit/user_notes_cubit.dart';
 import 'package:plupool/features/customers/data/data_sources/admin_users_remote_data_source.dart';
 import 'package:plupool/features/customers/data/data_sources/pool_remote_data_source.dart';
 import 'package:plupool/features/customers/data/repos_impl/admin_user_repo_impl.dart';
@@ -1045,6 +1050,37 @@ sl.registerLazySingleton(
 sl.registerFactory(
   () => PoolTypesCubit(
     sl<GetPoolTypesUseCase>(),
+  ),
+);
+
+
+// ==================== User Notes  ====================
+
+// Remote Data Source
+sl.registerLazySingleton<UserNotesRemoteDataSource>(
+  () => UserNotesRemoteDataSource(
+    sl<ApiService>(),
+  ),
+);
+
+// Repository
+sl.registerLazySingleton<UserNotesRepo>(
+  () => UserNoteRepoImpl(
+    sl<UserNotesRemoteDataSource>(),
+  ),
+);
+
+// UseCase
+sl.registerLazySingleton(
+  () => GetUserNotesUsecase(
+    sl<UserNotesRepo>(),
+  ),
+);
+
+// Cubit
+sl.registerFactory(
+  () => UserNotesCubit(
+    sl<GetUserNotesUsecase>(),
   ),
 );
 }

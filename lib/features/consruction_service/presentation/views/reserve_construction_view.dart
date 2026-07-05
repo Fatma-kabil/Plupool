@@ -12,17 +12,23 @@ class ReserveConstructionView extends StatelessWidget {
   final PoolModel pool;
   final void Function(PoolReservation reservation)? onConfirm;
 
-  const ReserveConstructionView({super.key, required this.pool, this.onConfirm});
+  const ReserveConstructionView({
+    super.key,
+    required this.pool,
+    this.onConfirm,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal:SizeConfig.w(20) ,vertical:SizeConfig.h(20) ),
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.w(20),
+            vertical: SizeConfig.h(20),
+          ),
           child: ListView(
             children: [
-             
               PoolReserveHeaderCard(
                 title: pool.title,
                 description: pool.description,
@@ -31,11 +37,12 @@ class ReserveConstructionView extends StatelessWidget {
               Text(
                 '*املأ النموذج للتواصل وحجز موعد انشاء حمام السباحة الخاص بك',
                 textDirection: TextDirection.rtl,
-                style: AppTextStyles.styleRegular16(context)
-                    .copyWith(color: AppColors.kprimarycolor),
+                style: AppTextStyles.styleRegular16(
+                  context,
+                ).copyWith(color: AppColors.kprimarycolor),
               ),
               const SizedBox(height: 12),
-              PoolReservationForm(onConfirm: onConfirm,poolTitle: pool.title,),
+              PoolReservationForm(onConfirm: onConfirm, poolTitle: pool.title),
               const SizedBox(height: 28),
               CustomOutlinedBtn(
                 text: "إلغاء",

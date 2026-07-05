@@ -10,6 +10,7 @@ import 'package:plupool/features/myPool/presentation/views/manager/user_services
 import 'package:plupool/features/myPool/presentation/views/widgets/add_note.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/in_progress_card.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/my_pool_task_card_shimmer.dart';
+import 'package:plupool/features/myPool/presentation/views/widgets/service_notes_section.dart';
 import 'package:plupool/features/myPool/presentation/views/widgets/visit_card.dart';
 
 class VisitsSection extends StatefulWidget {
@@ -101,7 +102,7 @@ return Column(
     SizedBox(height: SizeConfig.h(10)),
     const AddNote(),
     SizedBox(height: SizeConfig.h(20)),
-    // NoteAndTimeSection(date: , time: , note: ,),
+     ServiceNotesSection(),
     SizedBox(height: SizeConfig.h(20)),
   ],
 );

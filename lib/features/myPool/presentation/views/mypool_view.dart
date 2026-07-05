@@ -6,6 +6,7 @@ import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
+import 'package:plupool/features/consruction_service/presentation/views/manager/pool_types_cubit/user_notes_cubit/user_notes_cubit.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/pool_info_cubit/pool_info_cubit.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
@@ -22,7 +23,9 @@ class MyPoolView extends StatelessWidget {
         BlocProvider<PoolInfoCubit>(
           create: (_) => sl<PoolInfoCubit>()..getPoolInfo(),
         ),
-        
+        BlocProvider<UserNotesCubit>(
+          create: (_) => sl<UserNotesCubit>()..getUserNotes(),
+        ),
       ],
       child: Directionality(
         textDirection: TextDirection.rtl,
