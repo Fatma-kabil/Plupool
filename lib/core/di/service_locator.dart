@@ -164,10 +164,15 @@ import 'package:plupool/features/services/domain/usecases/get_user_booking_useca
 import 'package:plupool/features/services/domain/usecases/update_request_statue.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/user_booking_cubit/user_booking_cubit.dart';
+import 'package:plupool/features/store/data/data_sources/cart_remote_data_source.dart';
 import 'package:plupool/features/store/data/data_sources/user_order_remote_data_source.dart';
+import 'package:plupool/features/store/data/repos_impl/cart_repo_impl.dart';
 import 'package:plupool/features/store/data/repos_impl/store_orders_repo_impl.dart';
+import 'package:plupool/features/store/domain/repos/cart_rpo.dart';
 import 'package:plupool/features/store/domain/repos/store_oder_repo.dart';
+import 'package:plupool/features/store/domain/usecases/add_to_cart_uscae.dart';
 import 'package:plupool/features/store/domain/usecases/get_store_orders_usecase.dart';
+import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/store_orders_cubit.dart';
 import 'package:plupool/features/support/domain/usecases/delete_message_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/get_message_details_usecase.dart';
@@ -1099,5 +1104,28 @@ Future<void> initServiceLocator() async {
   // Cubit
   sl.registerFactory(
     () => StoreOrdersCubit(sl<GetStoreOrdersUseCase>()),
+  );
+
+  
+  // ==================== cart cubit ====================
+
+  // Remote Data Source
+  sl.registerLazySingleton<CartRemoteDataSource>(
+    () => CartRemoteDataSourceImpl(sl<ApiService>()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<CartRepo>(
+    () => CartRepoImpl(sl<CartRemoteDataSource>()),
+  );
+
+  // UseCase
+  sl.registerLazySingleton(
+    () => AddToCartUseCase(sl<CartRepo>()),
+  );
+
+  // Cubit
+  sl.registerFactory(
+    () => CartCubit(sl<AddToCartUseCase>()),
   );
 }

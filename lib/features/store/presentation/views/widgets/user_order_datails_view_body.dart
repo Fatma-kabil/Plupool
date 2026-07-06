@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/location_row.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
@@ -70,7 +71,8 @@ class UserOrderDatailsViewBody extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: CachedNetworkImage(
-                              imageUrl: order.items[index].productImageUrl ?? "",
+                              imageUrl:
+                                  order.items[index].productImageUrl ?? "",
                               height: SizeConfig.isWideScreen
                                   ? SizeConfig.w(88)
                                   : SizeConfig.h(88),
@@ -109,14 +111,18 @@ class UserOrderDatailsViewBody extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  order.items[index].productNameAr,
+                                  toArabicNumbers(
+                                    "${order.items[index].quantity} ${order.items[index].productNameAr}",
+                                  ),
                                   style: AppTextStyles.styleSemiBold14(
                                     context,
                                   ).copyWith(color: const Color(0xff7B7B7B)),
                                 ),
                                 SizedBox(height: SizeConfig.h(8)),
                                 Text(
-                                  '${order.items[index].unitPrice} EGP',
+                                  toArabicNumbers(
+                                    '${order.items[index].unitPrice} ج.م',
+                                  ),
                                   textDirection: TextDirection.ltr,
                                   style: AppTextStyles.styleBold14(
                                     context,

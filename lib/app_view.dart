@@ -29,6 +29,7 @@ import 'package:plupool/features/services/presentation/manager/booking_cubit/boo
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/user_booking_cubit/user_booking_cubit.dart';
 import 'package:plupool/features/settening/presentation/manager/cubits/faq_cubit/faq_cubit.dart';
+import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
@@ -72,11 +73,9 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (context) => sl<RatingsCubit>()),
         BlocProvider(create: (_) => sl<StoreStatisticsCubit>()),
         BlocProvider(create: (_) => sl<UserServicesCubit>()),
-        BlocProvider(create: (context) => sl<ConstructionBookingCubit>(),),
-         BlocProvider(
-          create: (_) => sl<UserNotesCubit>()..getUserNotes(),
-        ),
-       
+        BlocProvider(create: (context) => sl<ConstructionBookingCubit>()),
+        BlocProvider(create: (_) => sl<UserNotesCubit>()..getUserNotes()),
+        BlocProvider(create: (_) => sl<CartCubit>()),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,

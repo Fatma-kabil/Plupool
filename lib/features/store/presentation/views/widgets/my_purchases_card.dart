@@ -31,7 +31,7 @@ class MyPurchasesCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                toArabicNumbers("طلب رقم #${order.id}"),
+                toArabicNumbers("طلب رقم #${order.orderNumber}"),
                 textDirection: TextDirection.rtl,
                 style: AppTextStyles.styleSemiBold14(
                   context,
@@ -40,7 +40,10 @@ class MyPurchasesCard extends StatelessWidget {
               Spacer(),
               GestureDetector(
                 onTap: () {
-                 context.push("/userordrdetailsview", extra: order); // Handle the "View Details" action here
+                  context.push(
+                    "/userordrdetailsview",
+                    extra: order,
+                  ); // Handle the "View Details" action here
                 },
                 child: Row(
                   children: [
@@ -60,7 +63,6 @@ class MyPurchasesCard extends StatelessWidget {
                   ],
                 ),
               ),
-
             ],
           ),
           SizedBox(height: SizeConfig.h(4)),
@@ -75,7 +77,7 @@ class MyPurchasesCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: firstItem.productImageUrl != null
                     ? Image.network(
-                        firstItem.productImageUrl??"",
+                        firstItem.productImageUrl ?? "",
                         width: SizeConfig.w(69),
                         height: SizeConfig.h(88),
                         fit: BoxFit.cover,
@@ -105,7 +107,7 @@ class MyPurchasesCard extends StatelessWidget {
                   children: [
                     Text(
                       toArabicNumbers(
-                        firstItem.quantity.toString() + firstItem.productNameAr,
+                        "${firstItem.quantity} ${firstItem.productNameAr}",
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
