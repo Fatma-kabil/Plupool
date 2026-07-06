@@ -172,6 +172,7 @@ import 'package:plupool/features/store/domain/repos/cart_rpo.dart';
 import 'package:plupool/features/store/domain/repos/store_oder_repo.dart';
 import 'package:plupool/features/store/domain/usecases/add_to_cart_uscae.dart';
 import 'package:plupool/features/store/domain/usecases/get_cart_count_usecase.dart';
+import 'package:plupool/features/store/domain/usecases/get_cart_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_store_orders_usecase.dart';
 import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/store_orders_cubit.dart';
@@ -1060,7 +1061,9 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(() => AddUserNoteUseCase(sl<UserNotesRepo>()));
 
   // Cubit
-  sl.registerFactory(() => UserNotesCubit(sl<GetUserNotesUsecase>(), sl<AddUserNoteUseCase>()));
+  sl.registerFactory(
+    () => UserNotesCubit(sl<GetUserNotesUsecase>(), sl<AddUserNoteUseCase>()),
+  );
 
   // ==================== // ==================== Construction Booking ====================
 
@@ -1084,7 +1087,6 @@ Future<void> initServiceLocator() async {
     () => ConstructionBookingCubit(sl<BookConstructionUseCase>()),
   );
 
-  
   // ==================== // ==================== Store Orders ====================
 
   // Remote Data Source
@@ -1098,16 +1100,11 @@ Future<void> initServiceLocator() async {
   );
 
   // UseCase
-  sl.registerLazySingleton(
-    () => GetStoreOrdersUseCase(sl<StoreOrdersRepo>()),
-  );
+  sl.registerLazySingleton(() => GetStoreOrdersUseCase(sl<StoreOrdersRepo>()));
 
   // Cubit
-  sl.registerFactory(
-    () => StoreOrdersCubit(sl<GetStoreOrdersUseCase>()),
-  );
+  sl.registerFactory(() => StoreOrdersCubit(sl<GetStoreOrdersUseCase>()));
 
-  
   // ==================== cart cubit ====================
 
   // Remote Data Source
@@ -1121,15 +1118,16 @@ Future<void> initServiceLocator() async {
   );
 
   // UseCase
-  sl.registerLazySingleton(
-    () => AddToCartUseCase(sl<CartRepo>()),
-  );
-  sl.registerLazySingleton(
-    () => GetCartCountUseCase(sl<CartRepo>()),
-  );
+  sl.registerLazySingleton(() => AddToCartUseCase(sl<CartRepo>()));
+  sl.registerLazySingleton(() => GetCartCountUseCase(sl<CartRepo>()));
+  sl.registerLazySingleton(() => GetCartUseCase(sl<CartRepo>()));
 
   // Cubit
   sl.registerFactory(
-    () => CartCubit(sl<AddToCartUseCase>(), sl<GetCartCountUseCase>()),
+    () => CartCubit(
+      sl<AddToCartUseCase>(),
+      sl<GetCartCountUseCase>(),
+      sl<GetCartUseCase>(),
+    ),
   );
 }

@@ -1,12 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/store/domain/entities/cart_entity.dart';
 import 'package:plupool/features/store/presentation/views/widgets/cart_card_footer.dart';
 import 'package:plupool/features/store/presentation/views/widgets/qty_section.dart';
 
 class CartItemCard extends StatelessWidget {
-  const CartItemCard({super.key});
+  final CartItemEntity item;
+
+  const CartItemCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -27,41 +32,59 @@ class CartItemCard extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  "assets/images/mach_pro2.png",
-                  width: SizeConfig.w(70),
-                  height: SizeConfig.h(88),
-                  fit: BoxFit.cover,
-                ),
+                child:
+                    item.productImageUrl != null &&
+                        item.productImageUrl!.isNotEmpty
+                    ? CachedNetworkImage(
+                        imageUrl: item.productImageUrl ?? "",
+                        width: SizeConfig.w(70),
+                        height: SizeConfig.h(88),
+                        fit: BoxFit.cover,
+                        errorWidget: (_, __, ___) =>
+                            const Icon(Icons.broken_image),
+                      )
+                    : Container(
+                        width: SizeConfig.w(70),
+                        height: SizeConfig.h(88),
+                        color: Colors.grey.shade300,
+                        child: const Icon(Icons.image_not_supported),
+                      ),
               ),
 
               SizedBox(width: SizeConfig.w(12)),
 
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    "مضخة مياه عالية الكفاءة",
-                    style: AppTextStyles.styleSemiBold14(
-                      context,
-                    ).copyWith(color: Color(0xff7B7B7B)),
-                  ),
-                  SizedBox(height: SizeConfig.h(5)),
-                  Text(
-                    "3000 EGP",
-                    style: AppTextStyles.styleBold14(
-                      context,
-                    ).copyWith(color: AppColors.ktextcolor),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.productName,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.right,
+                      style: AppTextStyles.styleSemiBold14(
+                        context,
+                      ).copyWith(color: const Color(0xff7B7B7B)),
+                    ),
+                    SizedBox(height: SizeConfig.h(5)),
+                    Text(
+                      "${toArabicNumbers(item.unitPrice.toString())} ج.م",
+                      style: AppTextStyles.styleBold14(
+                        context,
+                      ).copyWith(color: AppColors.ktextcolor),
+                    ),
+                  ],
+                ),
               ),
-              Spacer(),
-              QtySection(),
+
+              SizedBox(width: SizeConfig.w(10)),
+
+              QtySection(itemConts: item.quantity),
             ],
           ),
           SizedBox(height: SizeConfig.ismidwidthScreen ? SizeConfig.h(8) : 0),
           Divider(color: AppColors.textFieldBorderColor),
-          CartCardFooter(),
+          CartCardFooter(totalItemPrice: item.totalPrice),
         ],
       ),
     );
