@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
+import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/store_orders_cubit.dart';
 import 'package:plupool/features/store/presentation/views/widgets/cart_filled_section.dart';
 import 'package:plupool/features/store/presentation/views/widgets/empty_card_section.dart';
 import 'package:plupool/features/store/presentation/views/widgets/my_purchases_section.dart';
@@ -21,8 +23,8 @@ class _CartViewState extends State<CartView>
   late TabController _tabController;
 
   final List<Map<String, dynamic>> tabs = [
-    {'title': ' مشترياتي', 'icon': Icons.inventory_2},
     {'title': ' السلة', 'icon': Icons.shopping_cart},
+    {'title': ' مشترياتي', 'icon': Icons.inventory_2},
   ];
 
   @override
@@ -31,7 +33,7 @@ class _CartViewState extends State<CartView>
     _tabController = TabController(
       length: tabs.length,
       vsync: this,
-      initialIndex: 2,
+      initialIndex: 0,
     );
     _tabController.addListener(() {
       setState(() {});
@@ -50,115 +52,117 @@ class _CartViewState extends State<CartView>
     SizeConfig.init(context);
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<AuthCubit, AuthState>(
-          builder: (context, authState) {
-            bool isGuest = authState.status == AuthStatus.guest;
+    return BlocProvider(
+      create: (context) => sl<StoreOrdersCubit>()..getStoreOrders(),
+      child: Scaffold(
+        body: SafeArea(
+          child: BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, authState) {
+              bool isGuest = authState.status == AuthStatus.guest;
 
-            return Padding(
-              padding: EdgeInsets.only(
-                top: SizeConfig.h(20),
-                left: SizeConfig.w(15),
-                right: SizeConfig.w(15),
-              ),
-              child: Column(
-                //  textDirection: TextDirection.rtl,
-                children: [
-                  SizedBox(height: 15),
-                  // ✅ الجزء العلوي - Tabs buttons
-                  Row(
-                    //   textDirection: TextDirection.rtl,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List.generate(tabs.length, (index) {
-                      bool isSelected = _tabController.index == index;
+              return Padding(
+                padding: EdgeInsets.only(
+                  top: SizeConfig.h(20),
+                  left: SizeConfig.w(15),
+                  right: SizeConfig.w(15),
+                ),
+                child: Column(
+                  //  textDirection: TextDirection.rtl,
+                  children: [
+                    SizedBox(height: 15),
+                    // ✅ الجزء العلوي - Tabs buttons
+                    Row(
+                      //   textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: List.generate(tabs.length, (index) {
+                        bool isSelected = _tabController.index == index;
 
-                      return GestureDetector(
-                        onTap: () {
-                          _tabController.index = index;
-                          setState(() {});
-                        },
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 150),
-                          width:
-                              (screenWidth -
-                                  SizeConfig.w(16) * 2 -
-                                  SizeConfig.w(10)) /
-                              2, // نصف العرض تقريبًا مع مسافة
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.w(10),
-                            vertical: SizeConfig.h(8),
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.kScaffoldColor,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border(
-                              bottom: BorderSide(
-                                color: isSelected
-                                    ? AppColors.kprimarycolor
-                                    : Colors.grey.shade300,
-                                width: 2,
+                        return GestureDetector(
+                          onTap: () {
+                            _tabController.index = index;
+                            setState(() {});
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 150),
+                            width:
+                                (screenWidth -
+                                    SizeConfig.w(16) * 2 -
+                                    SizeConfig.w(10)) /
+                                2, // نصف العرض تقريبًا مع مسافة
+                            padding: EdgeInsets.symmetric(
+                              horizontal: SizeConfig.w(10),
+                              vertical: SizeConfig.h(8),
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.kScaffoldColor,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: isSelected
+                                      ? AppColors.kprimarycolor
+                                      : Colors.grey.shade300,
+                                  width: 2,
+                                ),
                               ),
                             ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  tabs[index]['icon'],
+                                  size: SizeConfig.w(20),
+                                  color: isSelected
+                                      ? AppColors.kprimarycolor
+                                      : const Color(0xffAAAAAA),
+                                ),
+                                SizedBox(width: SizeConfig.w(5)),
+                                Text(
+                                  tabs[index]['title'],
+                                  style: AppTextStyles.styleMedium20(context)
+                                      .copyWith(
+                                        color: isSelected
+                                            ? AppColors.kprimarycolor
+                                            : Color(0xffAAAAAA),
+                                      ),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                tabs[index]['title'],
-                                style: AppTextStyles.styleMedium20(context)
-                                    .copyWith(
-                                      color: isSelected
-                                          ? AppColors.kprimarycolor
-                                          : Color(0xffAAAAAA),
-                                    ),
-                              ),
-                              SizedBox(width: SizeConfig.w(5)),
-                              Icon(
-                                tabs[index]['icon'],
-                                size: SizeConfig.w(20),
-                                color: isSelected
-                                    ? AppColors.kprimarycolor
-                                    : const Color(0xffAAAAAA),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ✅ المحتوى - بدون سحب (ولا أنيميشن)
-                  Expanded(
-                    child: TabBarView(
-                      controller: _tabController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: [
-                      //  isGuest
-                       //     ? EmptyCartSection(
-                         //       icon: Icons.shopping_bag_outlined,
-                           //     tittle: "لا توجد مشتريات بعد",
-                           //   )
-                           // :
-                            MyPurchasesSection(),
-
-                        /// السلة
-                   //     isGuest
-                    //        ? EmptyCartSection(
-                     //           icon: Icons.remove_shopping_cart_outlined,
-                       //         tittle: "السله فارغه",
-                         //     )
-                           // : 
-                           CartFilledSection(),
-                      ],
+                        );
+                      }),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
+
+                    const SizedBox(height: 20),
+
+                    // ✅ المحتوى - بدون سحب (ولا أنيميشن)
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          /// السلة
+                          //     isGuest
+                          //        ? EmptyCartSection(
+                          //           icon: Icons.remove_shopping_cart_outlined,
+                          //         tittle: "السله فارغه",
+                          //     )
+                          // :
+                          CartFilledSection(),
+                          //  isGuest
+                          //     ? EmptyCartSection(
+                          //       icon: Icons.shopping_bag_outlined,
+                          //     tittle: "لا توجد مشتريات بعد",
+                          //   )
+                          // :
+                          MyPurchasesSection(),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

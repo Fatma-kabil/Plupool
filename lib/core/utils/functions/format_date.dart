@@ -10,6 +10,8 @@ String formatMonthDate(DateTime date) {
   return DateFormat('EEEE : yyyy/M/d', 'ar').format(date);
 }
 
+
+
 String formatArabicDate(String date) {
   final parsedDate = DateTime.parse(date);
 

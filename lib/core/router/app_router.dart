@@ -93,9 +93,11 @@ import 'package:plupool/features/settening/presentation/views/admin_setting_view
 import 'package:plupool/features/splash/presentation/views/splash_view.dart';
 import 'package:plupool/features/splash/presentation/views/splash_wrapper.dart';
 import 'package:plupool/features/statistics/presentation/views/statistics_view.dart';
+import 'package:plupool/features/store/domain/entities/store_rder_entity.dart';
 import 'package:plupool/features/store/presentation/views/admin/admin_store_view.dart';
 import 'package:plupool/features/store/presentation/views/cart_view.dart';
 import 'package:plupool/features/store/presentation/views/order_summary_view.dart';
+import 'package:plupool/features/store/presentation/views/user_ordr_details_view.dart';
 import 'package:plupool/features/support/presentation/views/admin_support_view.dart';
 import 'package:plupool/features/support/presentation/views/compny_res_support_view.dart';
 import 'package:plupool/features/support/presentation/views/message_details.dart';
@@ -766,6 +768,15 @@ final GoRouter appRouter = GoRouter(
         final user = state.extra as UserDetailsEntity;
 
         return buildTransitionPage(TechPoolOwnerContactUsView(user: user));
+      },
+    ),
+
+      GoRoute(
+      path: '/userordrdetailsview',
+      name: 'userordrdetailsview',
+      pageBuilder: (context, state) {
+        final order = state.extra as StoreOrderEntity;
+        return buildTransitionPage(UserOrdrDetailsView(order: order));
       },
     ),
   ],

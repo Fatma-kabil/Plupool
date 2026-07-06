@@ -24,6 +24,7 @@ import 'package:plupool/features/consruction_service/data/repo_impl/user_note_re
 import 'package:plupool/features/consruction_service/domain/repos/construction_booking_repo.dart';
 import 'package:plupool/features/consruction_service/domain/repos/pool_type_repo.dart';
 import 'package:plupool/features/consruction_service/domain/repos/user_notes_repo.dart';
+import 'package:plupool/features/consruction_service/domain/usecases/add_user_note_usecase.dart';
 import 'package:plupool/features/consruction_service/domain/usecases/booking_construction_usecase.dart';
 import 'package:plupool/features/consruction_service/domain/usecases/get_pool_types_usecase.dart';
 import 'package:plupool/features/consruction_service/domain/usecases/get_user_notes_usecase.dart';
@@ -163,6 +164,11 @@ import 'package:plupool/features/services/domain/usecases/get_user_booking_useca
 import 'package:plupool/features/services/domain/usecases/update_request_statue.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/user_booking_cubit/user_booking_cubit.dart';
+import 'package:plupool/features/store/data/data_sources/user_order_remote_data_source.dart';
+import 'package:plupool/features/store/data/repos_impl/store_orders_repo_impl.dart';
+import 'package:plupool/features/store/domain/repos/store_oder_repo.dart';
+import 'package:plupool/features/store/domain/usecases/get_store_orders_usecase.dart';
+import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/store_orders_cubit.dart';
 import 'package:plupool/features/support/domain/usecases/delete_message_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/get_message_details_usecase.dart';
 import 'package:plupool/features/support/domain/usecases/get_messages_usecase.dart';
@@ -1044,9 +1050,11 @@ Future<void> initServiceLocator() async {
 
   // UseCase
   sl.registerLazySingleton(() => GetUserNotesUsecase(sl<UserNotesRepo>()));
+  // UseCase
+  sl.registerLazySingleton(() => AddUserNoteUseCase(sl<UserNotesRepo>()));
 
   // Cubit
-  sl.registerFactory(() => UserNotesCubit(sl<GetUserNotesUsecase>()));
+  sl.registerFactory(() => UserNotesCubit(sl<GetUserNotesUsecase>(), sl<AddUserNoteUseCase>()));
 
   // ==================== // ==================== Construction Booking ====================
 
@@ -1068,5 +1076,28 @@ Future<void> initServiceLocator() async {
   // Cubit
   sl.registerFactory(
     () => ConstructionBookingCubit(sl<BookConstructionUseCase>()),
+  );
+
+  
+  // ==================== // ==================== Store Orders ====================
+
+  // Remote Data Source
+  sl.registerLazySingleton<StoreOrdersRemoteDataSource>(
+    () => StoreOrdersRemoteDataSourceImpl(sl<ApiService>()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<StoreOrdersRepo>(
+    () => StoreOrdersRepoImpl(sl<StoreOrdersRemoteDataSource>()),
+  );
+
+  // UseCase
+  sl.registerLazySingleton(
+    () => GetStoreOrdersUseCase(sl<StoreOrdersRepo>()),
+  );
+
+  // Cubit
+  sl.registerFactory(
+    () => StoreOrdersCubit(sl<GetStoreOrdersUseCase>()),
   );
 }

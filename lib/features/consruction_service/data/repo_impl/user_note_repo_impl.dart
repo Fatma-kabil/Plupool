@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/consruction_service/data/models/user_note_model.dart';
 import 'package:plupool/features/consruction_service/data/remote_data_source/user_notes_remote_data_source.dart';
 import 'package:plupool/features/consruction_service/domain/entities/user_notes_entity.dart';
 import 'package:plupool/features/consruction_service/domain/repos/user_notes_repo.dart';
@@ -14,6 +15,17 @@ class UserNoteRepoImpl implements UserNotesRepo {
       final result = await remoteDataSource.getNotes();
       return right(result);
     } on Failure catch (e) {
+      return Left(e);
+    }
+  }
+    Future<Either<Failure, UserNotesEntity>> addNote(
+    AddNoteModel model,
+  ) async {
+    try {
+      final result = await remoteDataSource.addNote(model);
+
+      return Right(result);
+    }on Failure catch (e) {
       return Left(e);
     }
   }

@@ -23,9 +23,7 @@ class MyPoolView extends StatelessWidget {
         BlocProvider<PoolInfoCubit>(
           create: (_) => sl<PoolInfoCubit>()..getPoolInfo(),
         ),
-        BlocProvider<UserNotesCubit>(
-          create: (_) => sl<UserNotesCubit>()..getUserNotes(),
-        ),
+       
       ],
       child: Directionality(
         textDirection: TextDirection.rtl,

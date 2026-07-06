@@ -27,4 +27,20 @@ class UserNotesRemoteDataSource {
         .map((e) => UserNotesModel.fromJson(e))
         .toList();
   }
+
+  Future<UserNotesModel> addNote(AddNoteModel model) async {
+  final response = await api.post(
+    '${Endpoints.baseUrl}/pool-owner/notes',
+      options: Options(
+         contentType: 'multipart/form-data',
+        headers: {
+          'Authorization':
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+        },
+      ),
+    data: await model.toFormData(),
+  );
+print(response.data);
+  return UserNotesModel.fromJson(response.data['data']);
+}
 }

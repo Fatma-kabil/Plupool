@@ -4,6 +4,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/store/presentation/views/widgets/order_confirmation_card.dart';
 import 'package:plupool/features/store/presentation/views/widgets/order_summary_view_body.dart';
 import 'package:plupool/features/store/presentation/views/widgets/verified_btn.dart';
+
 class OrderSummaryView extends StatelessWidget {
   const OrderSummaryView({super.key});
 
@@ -30,16 +31,15 @@ class OrderSummaryView extends StatelessWidget {
         color: AppColors.kScaffoldColor,
         child: SizedBox(
           height: SizeConfig.h(50),
-          child:VerifiedBtn(
-  onPressed: () {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (context) => const OrderConfirmationCard(),
-    );
-  },
-),
-
+          child: VerifiedBtn(
+            onPressed: () {
+              showDialog(
+                context: context,
+                barrierDismissible: true,
+                builder: (context) => const OrderConfirmationCard(),
+              );
+            },
+          ),
         ),
       ),
     );

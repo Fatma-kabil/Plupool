@@ -4,8 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:plupool/features/consruction_service/data/models/user_note_file_model.dart';
 import 'package:plupool/features/consruction_service/domain/entities/user_notes_entity.dart';
 
-
-
 class UserNotesModel extends UserNotesEntity {
   UserNotesModel({
     required super.id,
@@ -19,7 +17,7 @@ class UserNotesModel extends UserNotesEntity {
     return UserNotesModel(
       id: json['id'],
       note: json['note'],
-     createdAt: DateTime.parse(json['created_at']),
+      createdAt: DateTime.parse(json['created_at']),
       updatedAt: json['updated_at'] != null
           ? DateTime.parse(json['updated_at'])
           : null,
@@ -30,23 +28,17 @@ class UserNotesModel extends UserNotesEntity {
   }
 }
 
-
 class AddNoteModel {
   final String note;
   final List<File>? files;
 
-  const AddNoteModel({
-    required this.note,
-    this.files,
-  });
+  const AddNoteModel({required this.note, this.files});
 
   Future<FormData> toFormData() async {
     final formData = FormData();
 
     /// note (required)
-    formData.fields.add(
-      MapEntry('note', note),
-    );
+    formData.fields.add(MapEntry('note', note));
 
     /// files (optional)
     if (files != null && files!.isNotEmpty) {
@@ -62,6 +54,8 @@ class AddNoteModel {
         );
       }
     }
+    print(formData.fields);
+    print(formData.files);
 
     return formData;
   }
