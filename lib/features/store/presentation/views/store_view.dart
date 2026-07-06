@@ -29,7 +29,7 @@ class _StoreViewState extends State<StoreView> {
       ),
       child: ListView(
         children: [
-          ActionsRow(cartCount: 0),
+          ActionsRow(),
           const SizedBox(height: 30),
           const InfoCardsRow(),
           const SizedBox(height: 15),

@@ -171,6 +171,7 @@ import 'package:plupool/features/store/data/repos_impl/store_orders_repo_impl.da
 import 'package:plupool/features/store/domain/repos/cart_rpo.dart';
 import 'package:plupool/features/store/domain/repos/store_oder_repo.dart';
 import 'package:plupool/features/store/domain/usecases/add_to_cart_uscae.dart';
+import 'package:plupool/features/store/domain/usecases/get_cart_count_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_store_orders_usecase.dart';
 import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/store_orders_cubit.dart';
@@ -1123,9 +1124,12 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => AddToCartUseCase(sl<CartRepo>()),
   );
+  sl.registerLazySingleton(
+    () => GetCartCountUseCase(sl<CartRepo>()),
+  );
 
   // Cubit
   sl.registerFactory(
-    () => CartCubit(sl<AddToCartUseCase>()),
+    () => CartCubit(sl<AddToCartUseCase>(), sl<GetCartCountUseCase>()),
   );
 }

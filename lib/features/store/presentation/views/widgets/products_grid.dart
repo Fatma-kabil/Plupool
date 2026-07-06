@@ -15,6 +15,10 @@ class ProductsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartCubit, CartState>(
+      listenWhen: (previous, current) {
+        return previous.isSuccess != current.isSuccess;
+      },
+
       listener: (context, state) {
         if (state.isSuccess) {
           print("✅ Add To Cart Success");

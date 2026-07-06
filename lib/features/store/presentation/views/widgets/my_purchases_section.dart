@@ -5,6 +5,7 @@ import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/st
 import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/store_orders_state.dart';
 import 'package:plupool/features/store/presentation/views/widgets/empty_card_section.dart';
 import 'package:plupool/features/store/presentation/views/widgets/my_purchases_card.dart';
+import 'package:plupool/features/store/presentation/views/widgets/my_purchases_card_shimmer.dart';
 
 class MyPurchasesSection extends StatelessWidget {
   const MyPurchasesSection({super.key});
@@ -14,15 +15,16 @@ class MyPurchasesSection extends StatelessWidget {
     return BlocBuilder<StoreOrdersCubit, StoreOrdersState>(
       builder: (context, state) {
         if (state.status == StoreOrdersStatus.loading) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return ListView.builder(
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              return const MyPurchasesCardShimmer();
+            },
           );
         }
 
         if (state.status == StoreOrdersStatus.failure) {
-          return Center(
-            child: Text(state.errorMessage),
-          );
+          return Center(child: Text(state.errorMessage));
         }
 
         if (state.orders.isEmpty) {
@@ -34,17 +36,12 @@ class MyPurchasesSection extends StatelessWidget {
 
         return Column(
           children: [
-            SizedBox(
-              height:
-                  SizeConfig.ismidwidthScreen ? SizeConfig.h(8) : 0,
-            ),
+            SizedBox(height: SizeConfig.ismidwidthScreen ? SizeConfig.h(8) : 0),
             Expanded(
               child: ListView.builder(
                 itemCount: state.orders.length,
                 itemBuilder: (context, index) {
-                  return MyPurchasesCard(
-                    order: state.orders[index],
-                  );
+                  return MyPurchasesCard(order: state.orders[index]);
                 },
               ),
             ),
