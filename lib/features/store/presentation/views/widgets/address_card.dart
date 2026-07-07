@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/get_country_by_code.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
+import 'package:plupool/core/utils/functions/split_phone.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_text_form_field.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
+import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class AddressCard extends StatefulWidget {
-  const AddressCard({super.key});
+  const AddressCard({super.key, required this.user});
+
+  final UserEntity user;
 
   @override
   State<AddressCard> createState() => _AddressCardState();
@@ -15,10 +21,38 @@ class AddressCard extends StatefulWidget {
 class _AddressCardState extends State<AddressCard> {
   bool isEditing = false;
 
-  final addressController = TextEditingController(
-    text: "شارع الجمهورية، الدور الثالث، شقة 12، القاهرة",
-  );
-  final phoneController = TextEditingController(text: "+20 123 456 7890");
+  late final TextEditingController addressController;
+  late final TextEditingController phoneController;
+
+  late String selectedCountryCode;
+  late String selectedCountryFlag;
+
+  @override
+  void initState() {
+    super.initState();
+
+    addressController = TextEditingController(text: widget.user.address);
+
+    final phoneData = splitPhone2(widget.user.phone);
+
+    selectedCountryCode = phoneData.countryCode.isNotEmpty
+        ? phoneData.countryCode
+        : '+20';
+
+    phoneController = TextEditingController(
+      text: normalizeArabicNumbers(phoneData.number),
+    );
+
+    final iso = countryCodeFromDialCode(selectedCountryCode) ?? 'EG';
+    selectedCountryFlag = flagEmojiFromIso(iso);
+  }
+
+  @override
+  void dispose() {
+    addressController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +64,11 @@ class _AddressCardState extends State<AddressCard> {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Color(0xffCCE4F0),
+        color: const Color(0xffCCE4F0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          /// ---------- Header ----------
           Row(
             textDirection: TextDirection.rtl,
             children: [
@@ -43,19 +76,14 @@ class _AddressCardState extends State<AddressCard> {
                 "العنوان ورقم الهاتف",
                 style: AppTextStyles.styleSemiBold16(
                   context,
-                ).copyWith(color: Color(0xff333333)),
+                ).copyWith(color: const Color(0xff333333)),
               ),
-              Spacer(),
+              const Spacer(),
               GestureDetector(
                 onTap: () {
                   setState(() {
                     isEditing = !isEditing;
                   });
-                  if (isEditing) {
-                    phoneController.text = phoneController.text
-                        .replaceFirst("+20", "")
-                        .trim();
-                  }
                 },
                 child: Row(
                   textDirection: TextDirection.rtl,
@@ -78,9 +106,7 @@ class _AddressCardState extends State<AddressCard> {
 
           SizedBox(height: SizeConfig.h(12)),
 
-          /// ---------- Content ----------
           if (!isEditing) ...[
-            // ----------- View Mode -----------
             Row(
               textDirection: TextDirection.rtl,
               children: [
@@ -90,11 +116,13 @@ class _AddressCardState extends State<AddressCard> {
                   size: SizeConfig.w(17),
                 ),
                 SizedBox(width: SizeConfig.w(4)),
-                Text(
-                  addressController.text,
-                  style: AppTextStyles.styleRegular13(
-                    context,
-                  ).copyWith(color: Color(0xff777777)),
+                Expanded(
+                  child: Text(
+                    addressController.text,
+                    style: AppTextStyles.styleRegular13(
+                      context,
+                    ).copyWith(color: const Color(0xff777777)),
+                  ),
                 ),
               ],
             ),
@@ -107,30 +135,57 @@ class _AddressCardState extends State<AddressCard> {
                 Icon(
                   Icons.phone_rounded,
                   color: AppColors.kprimarycolor,
-                  size: SizeConfig.w(17),
+                  size: SizeConfig.w(15),
                 ),
                 SizedBox(width: SizeConfig.w(4)),
-                Text(
-                  phoneController.text,
-                  style: AppTextStyles.styleRegular13(
-                    context,
-                  ).copyWith(color: Color(0xff777777)),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: RichText(
+                      textDirection: TextDirection.rtl,
+                      text: TextSpan(
+                        style: AppTextStyles.styleRegular16(
+                          context,
+                        ).copyWith(color: const Color(0xff777777)),
+                        children: [
+                          const TextSpan(text: '+'),
+                          const TextSpan(text: ' '),
+                          TextSpan(
+                            text: reverseNumbers(
+                              toArabicNumbers(
+                                getCountryCodeDigits(selectedCountryCode),
+                              ),
+                            ),
+                          ),
+                          const TextSpan(text: ' '),
+                          TextSpan(
+                            text: reverseNumbers(
+                              toArabicNumbers(phoneController.text),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
           ] else ...[
-            // ----------- Edit Mode (Forms)-----------
             SizedBox(height: SizeConfig.h(10)),
+
             Text(
-              textDirection: TextDirection.rtl,
               "مكان الإقامة",
+              textDirection: TextDirection.rtl,
               style: AppTextStyles.styleRegular13(
                 context,
-              ).copyWith(color: Color(0xff555555)),
+              ).copyWith(color: const Color(0xff555555)),
             ),
+
             SizedBox(height: SizeConfig.h(6)),
+
             CustomTextFormField(
-             bordercolor: AppColors.hintTextColor,
+              bordercolor: AppColors.hintTextColor,
               iconColor: AppColors.kprimarycolor,
               controller: addressController,
               hintText: "العنوان",
@@ -138,15 +193,30 @@ class _AddressCardState extends State<AddressCard> {
             ),
 
             SizedBox(height: SizeConfig.h(15)),
+
             Text(
-              textDirection: TextDirection.rtl,
               "رقم الهاتف",
+              textDirection: TextDirection.rtl,
               style: AppTextStyles.styleRegular13(
                 context,
-              ).copyWith(color: Color(0xff555555)),
+              ).copyWith(color: const Color(0xff555555)),
             ),
+
             SizedBox(height: SizeConfig.h(6)),
-            PhoneInputField(controller: phoneController,iconcolor: AppColors.kprimarycolor, bordercolor: AppColors.hintTextColor),
+
+            PhoneInputField(
+              controller: phoneController,
+              iconcolor: AppColors.kprimarycolor,
+              bordercolor: AppColors.hintTextColor,
+              initialCountryCode: selectedCountryCode,
+              initialCountryFlag: selectedCountryFlag,
+              onCountryChanged: (code, flag) {
+                setState(() {
+                  selectedCountryCode = code;
+                  selectedCountryFlag = flag;
+                });
+              },
+            ),
 
             SizedBox(height: SizeConfig.h(12)),
 
@@ -155,7 +225,11 @@ class _AddressCardState extends State<AddressCard> {
               textDirection: TextDirection.rtl,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      isEditing = false;
+                    });
+                  },
                   child: Text(
                     "حفظ",
                     style: AppTextStyles.styleRegular16(
