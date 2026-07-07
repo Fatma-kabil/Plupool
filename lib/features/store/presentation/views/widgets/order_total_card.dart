@@ -1,14 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/store/domain/entities/cart_entity.dart';
 
 class OrderTotalCard extends StatelessWidget {
-  const OrderTotalCard({
-    super.key,
-  });
-
+  const OrderTotalCard({super.key, required this.cart});
+  final CartEntity cart;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +25,7 @@ class OrderTotalCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "عدد المنتجات : 6 ",
+            toArabicNumbers("عدد المنتجات : ${cart.totalItems} "),
             textDirection: TextDirection.rtl,
             style: AppTextStyles.styleSemiBold16(
               context,
@@ -45,7 +44,7 @@ class OrderTotalCard extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                "9000 EGP",
+                toArabicNumbers("${cart.totalAmount}ج.م"),
                 // textDirection: TextDirection.rtl,
                 style: AppTextStyles.styleSemiBold16(
                   context,
@@ -66,7 +65,7 @@ class OrderTotalCard extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                "50 EGP",
+                toArabicNumbers("${cart.deliveryFee}ج.م"),
                 //  textDirection: TextDirection.rtl,
                 style: AppTextStyles.styleSemiBold16(
                   context,
@@ -85,19 +84,19 @@ class OrderTotalCard extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "9050 EGP",
-                  //textDirection: TextDirection.rtl,
-                  style: AppTextStyles.styleBold16(
-                    context,
-                  ).copyWith(color: Color(0xff333333)),
-                ),
-                Spacer(),
-                Text(
-                  " الإجمالي الكلي  :  ",
+                  "الإجمالي الكلي : ",
                   textDirection: TextDirection.rtl,
                   style: AppTextStyles.styleRegular16(
                     context,
                   ).copyWith(color: Color(0xff555555)),
+                ),
+                Spacer(),
+                Text(
+                  toArabicNumbers("${cart.grandTotal}ج.م"),
+                  //textDirection: TextDirection.rtl,
+                  style: AppTextStyles.styleBold16(
+                    context,
+                  ).copyWith(color: Color(0xff333333)),
                 ),
               ],
             ),
