@@ -79,7 +79,7 @@ class CartItemCard extends StatelessWidget {
 
               SizedBox(width: SizeConfig.w(10)),
 
-              QtySection(itemConts: item.quantity),
+              QtySection(itemConts: item.quantity,itemId: item.id,),
             ],
           ),
           SizedBox(height: SizeConfig.ismidwidthScreen ? SizeConfig.h(8) : 0),

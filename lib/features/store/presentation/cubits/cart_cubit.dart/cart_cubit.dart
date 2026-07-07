@@ -1,9 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/features/store/data/models/add_to_cart_rquest_model.dart';
+import 'package:plupool/features/store/data/models/update_cart_item_request.dart';
 import 'package:plupool/features/store/domain/usecases/add_to_cart_uscae.dart';
 import 'package:plupool/features/store/domain/usecases/delete_cart_item_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_cart_count_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_cart_usecase.dart';
+import 'package:plupool/features/store/domain/usecases/update_cart_item_usecase.dart';
 
 import 'cart_state.dart';
 
@@ -12,11 +14,13 @@ class CartCubit extends Cubit<CartState> {
   final AddToCartUseCase addToCartUseCase;
   final GetCartUseCase getCartUseCase;
   final DeleteCartItemUseCase deleteCartItemUseCase;
+  final UpdateCartItemUseCase updateCartItemUseCase;
   CartCubit(
     this.addToCartUseCase,
     this.getCartCountUseCase,
     this.getCartUseCase,
     this.deleteCartItemUseCase,
+    this.updateCartItemUseCase
   ) : super(const CartState());
 
   Future<void> addToCart({required int productId}) async {
@@ -103,6 +107,45 @@ class CartCubit extends Cubit<CartState> {
       },
     );
   }
+  Future<void> updateCartItem({
+  required int cartItemId,
+  required int quantity,
+}) async {
+  emit(
+    state.copyWith(
+      isLoading: true,
+      errorMessage: null,
+    ),
+  );
+
+  final result = await updateCartItemUseCase(
+    cartItemId: cartItemId,
+    request: UpdateCartItemRequest(
+      quantity: quantity,
+    ),
+  );
+
+  result.fold(
+    (failure) {
+      emit(
+        state.copyWith(
+          isLoading: false,
+          errorMessage: failure.message,
+        ),
+      );
+    },
+    (_) async {
+      emit(
+        state.copyWith(
+          isLoading: false,
+        ),
+      );
+
+      await getCart();
+      await getCartCount();
+    },
+  );
+}
 
   void clearError() {
     emit(state.copyWith(errorMessage: null));

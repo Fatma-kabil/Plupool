@@ -4,12 +4,17 @@ import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/store/data/models/add_to_cart_rquest_model.dart';
 import 'package:plupool/features/store/data/models/cart_count_model.dart';
 import 'package:plupool/features/store/data/models/cart_model.dart';
+import 'package:plupool/features/store/data/models/update_cart_item_request.dart';
 
 abstract class CartRemoteDataSource {
   Future<void> addToCart({required AddToCartRequestModel request});
   Future<CartCountModel> getCartCount();
   Future<CartModel> getCart();
   Future<void> deleteCartItem({required int cartItemId});
+  Future<void> updateCartItem({
+    required int cartItemId,
+    required UpdateCartItemRequest request,
+  });
 }
 
 class CartRemoteDataSourceImpl implements CartRemoteDataSource {
@@ -71,6 +76,23 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
               'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
         },
       ),
+    );
+  }
+
+  @override
+  Future<void> updateCartItem({
+    required int cartItemId,
+    required UpdateCartItemRequest request,
+  }) async {
+    await apiService.patch(
+      '${Endpoints.baseUrl}/pool-owner/store/cart/items/$cartItemId',
+      options: Options(
+        headers: {
+          'Authorization':
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+        },
+      ),
+      data: request.toJson(),
     );
   }
 }

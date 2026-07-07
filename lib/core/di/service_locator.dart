@@ -175,6 +175,7 @@ import 'package:plupool/features/store/domain/usecases/delete_cart_item_usecase.
 import 'package:plupool/features/store/domain/usecases/get_cart_count_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_cart_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_store_orders_usecase.dart';
+import 'package:plupool/features/store/domain/usecases/update_cart_item_usecase.dart';
 import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/store_orders_cubit.dart';
 import 'package:plupool/features/support/domain/usecases/delete_message_usecase.dart';
@@ -1123,6 +1124,7 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(() => GetCartCountUseCase(sl<CartRepo>()));
   sl.registerLazySingleton(() => GetCartUseCase(sl<CartRepo>()));
   sl.registerLazySingleton(() => DeleteCartItemUseCase(sl<CartRepo>()));
+   sl.registerLazySingleton(() => UpdateCartItemUseCase(sl<CartRepo>()));
 
   // Cubit
   sl.registerFactory(
@@ -1131,6 +1133,7 @@ Future<void> initServiceLocator() async {
       sl<GetCartCountUseCase>(),
       sl<GetCartUseCase>(),
       sl<DeleteCartItemUseCase>(),
+      sl<UpdateCartItemUseCase>()
     ),
   );
 }

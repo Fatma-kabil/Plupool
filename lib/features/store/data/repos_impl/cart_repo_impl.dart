@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/store/data/data_sources/cart_remote_data_source.dart';
 import 'package:plupool/features/store/data/models/add_to_cart_rquest_model.dart';
+import 'package:plupool/features/store/data/models/update_cart_item_request.dart';
 import 'package:plupool/features/store/domain/entities/cart_count_entity.dart';
 import 'package:plupool/features/store/domain/entities/cart_entity.dart';
 import 'package:plupool/features/store/domain/repos/cart_rpo.dart';
@@ -58,4 +59,21 @@ class CartRepoImpl implements CartRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+Future<Either<Failure, Unit>> updateCartItem({
+  required int cartItemId,
+  required UpdateCartItemRequest request,
+}) async {
+  try {
+    await cartRemoteDataSource.updateCartItem(
+      cartItemId: cartItemId,
+      request: request,
+    );
+
+    return right(unit);
+  } catch (e) {
+    return left(ServerFailure(e.toString()));
+  }
+}
 }
