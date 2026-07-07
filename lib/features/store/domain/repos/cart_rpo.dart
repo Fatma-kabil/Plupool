@@ -10,4 +10,7 @@ abstract class CartRepo {
   });
   Future<Either<Failure, CartCountEntity>> getCartCount();
   Future<Either<Failure, CartEntity>> getCart();
+  Future<Either<Failure, void>> deleteCartItem({
+  required int cartItemId,
+});
 }

@@ -11,41 +11,51 @@ class CartRepoImpl implements CartRepo {
 
   CartRepoImpl(this.cartRemoteDataSource);
 
- @override
-Future<Either<Failure, Unit>> addToCart({
-   required AddToCartRequestModel request,
-}) async {
-  try {
-    await cartRemoteDataSource.addToCart(
-      request: request,
-    );
+  @override
+  Future<Either<Failure, Unit>> addToCart({
+    required AddToCartRequestModel request,
+  }) async {
+    try {
+      await cartRemoteDataSource.addToCart(request: request);
 
-    return const Right(unit);
-  } catch (e) {
+      return const Right(unit);
+    } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
-
   }
 
   @override
-Future<Either<Failure, CartCountEntity>> getCartCount() async {
-  try {
-    final result = await cartRemoteDataSource.getCartCount();
+  Future<Either<Failure, CartCountEntity>> getCartCount() async {
+    try {
+      final result = await cartRemoteDataSource.getCartCount();
 
-    return right(result);
-  } catch (e) {
-    return left(ServerFailure(e.toString()));
+      return right(result);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
   }
-}
 
-@override
-Future<Either<Failure, CartEntity>> getCart() async {
-  try {
-    final cart = await cartRemoteDataSource.getCart();
+  @override
+  Future<Either<Failure, CartEntity>> getCart() async {
+    try {
+      final cart = await cartRemoteDataSource.getCart();
 
-    return right(cart);
-  } catch (e) {
-    return left(ServerFailure(e.toString()));
+      return right(cart);
+    } catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
   }
-}
+
+  @override
+  Future<Either<Failure, void>> deleteCartItem({
+    required int cartItemId,
+  }) async {
+    try {
+      await cartRemoteDataSource.deleteCartItem(cartItemId: cartItemId);
+
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

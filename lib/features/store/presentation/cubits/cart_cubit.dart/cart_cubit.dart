@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/features/store/data/models/add_to_cart_rquest_model.dart';
 import 'package:plupool/features/store/domain/usecases/add_to_cart_uscae.dart';
+import 'package:plupool/features/store/domain/usecases/delete_cart_item_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_cart_count_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_cart_usecase.dart';
 
@@ -10,11 +11,12 @@ class CartCubit extends Cubit<CartState> {
   final GetCartCountUseCase getCartCountUseCase;
   final AddToCartUseCase addToCartUseCase;
   final GetCartUseCase getCartUseCase;
-
+  final DeleteCartItemUseCase deleteCartItemUseCase;
   CartCubit(
     this.addToCartUseCase,
     this.getCartCountUseCase,
     this.getCartUseCase,
+    this.deleteCartItemUseCase,
   ) : super(const CartState());
 
   Future<void> addToCart({required int productId}) async {
@@ -27,7 +29,7 @@ class CartCubit extends Cubit<CartState> {
     result.fold(
       (failure) {
         emit(
-          CartState(
+          state.copyWith(
             isLoading: false,
             isSuccess: false,
             errorMessage: failure.message,
@@ -35,7 +37,8 @@ class CartCubit extends Cubit<CartState> {
         );
       },
       (_) async {
-        emit(const CartState(isLoading: false, isSuccess: true));
+        emit(state.copyWith(isLoading: false, isSuccess: true));
+
         await getCartCount();
       },
     );
@@ -61,25 +64,51 @@ class CartCubit extends Cubit<CartState> {
 
     result.fold(
       (failure) {
-        emit(state.copyWith(isCartLoading: false, errorMessage: failure.message));
+        emit(
+          state.copyWith(isCartLoading: false, errorMessage: failure.message),
+        );
       },
       (cart) {
-        emit(
-          state.copyWith(
-            isCartLoading: false,
-            cart: cart,
-          )
-        );
+        emit(state.copyWith(isCartLoading: false, cart: cart));
       },
     );
   }
 
+  Future<void> deleteCartItem({required int cartItemId}) async {
+    emit(
+      state.copyWith(
+        isLoading: true,
+        isDeleteSuccess: false,
+        errorMessage: null,
+      ),
+    );
+
+    final result = await deleteCartItemUseCase(cartItemId: cartItemId);
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            isDeleteSuccess: false,
+            errorMessage: failure.message,
+          ),
+        );
+      },
+      (_) async {
+        
+        await getCart();
+        await getCartCount();
+        emit(state.copyWith(isLoading: false, isDeleteSuccess: true));
+      },
+    );
+  }
 
   void clearError() {
-  emit(
-    state.copyWith(
-      errorMessage: null,
-    ),
-  );
+    emit(state.copyWith(errorMessage: null));
+  }
+
+ void clearDeleteSuccess() {
+  emit(state.copyWith(isDeleteSuccess: false));
 }
 }

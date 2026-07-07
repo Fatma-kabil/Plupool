@@ -84,7 +84,7 @@ class CartItemCard extends StatelessWidget {
           ),
           SizedBox(height: SizeConfig.ismidwidthScreen ? SizeConfig.h(8) : 0),
           Divider(color: AppColors.textFieldBorderColor),
-          CartCardFooter(totalItemPrice: item.totalPrice),
+          CartCardFooter(totalItemPrice: item.totalPrice, cartItemId: item.id,),
         ],
       ),
     );

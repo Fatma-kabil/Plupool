@@ -9,6 +9,7 @@ abstract class CartRemoteDataSource {
   Future<void> addToCart({required AddToCartRequestModel request});
   Future<CartCountModel> getCartCount();
   Future<CartModel> getCart();
+  Future<void> deleteCartItem({required int cartItemId});
 }
 
 class CartRemoteDataSourceImpl implements CartRemoteDataSource {
@@ -46,17 +47,30 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   }
 
   @override
-Future<CartModel> getCart() async {
-  final response = await apiService.get(
-    '${Endpoints.baseUrl}/pool-owner/store/cart',
-    options: Options(
-      headers: {
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
-      },
-    ),
-  );
+  Future<CartModel> getCart() async {
+    final response = await apiService.get(
+      '${Endpoints.baseUrl}/pool-owner/store/cart',
+      options: Options(
+        headers: {
+          'Authorization':
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+        },
+      ),
+    );
 
-  return CartModel.fromJson(response.data);
-}
+    return CartModel.fromJson(response.data);
+  }
+
+  @override
+  Future<void> deleteCartItem({required int cartItemId}) async {
+    await apiService.delete(
+      '${Endpoints.baseUrl}/pool-owner/store/cart/items/$cartItemId',
+      options: Options(
+        headers: {
+          'Authorization':
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+        },
+      ),
+    );
+  }
 }

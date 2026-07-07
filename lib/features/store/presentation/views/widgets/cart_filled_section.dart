@@ -21,7 +21,7 @@ class _CartFilledSectionState extends State<CartFilledSection> {
   @override
   void initState() {
     super.initState();
-
+   
     Future.microtask(() {
       context.read<CartCubit>().getCart();
     });
@@ -31,11 +31,22 @@ class _CartFilledSectionState extends State<CartFilledSection> {
   Widget build(BuildContext context) {
     return BlocConsumer<CartCubit, CartState>(
       listener: (context, state) {
+       
         if (state.errorMessage != null) {
           showCustomSnackBar(context: context, message: state.errorMessage!);
           context.read<CartCubit>().clearError();
         }
+        if (state.isDeleteSuccess) {
+          showCustomSnackBar(
+            context: context,
+            message:"تم حذف المنتج من السلة بنجاح 🛒❌",
+            isSuccess: true,
+          );
+
+          context.read<CartCubit>().clearDeleteSuccess();
+        }
       },
+
       builder: (context, state) {
         if (state.isCartLoading) {
           return ListView.builder(
@@ -44,8 +55,11 @@ class _CartFilledSectionState extends State<CartFilledSection> {
           );
         }
 
-        final cart = state.cart!;
+        final cart = state.cart;
 
+        if (cart == null) {
+          return const SizedBox();
+        }
         if (cart.items.isEmpty) {
           return const EmptyCartSection(
             icon: Icons.remove_shopping_cart_outlined,
