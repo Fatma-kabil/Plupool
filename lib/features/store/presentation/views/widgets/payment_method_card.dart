@@ -54,7 +54,7 @@ class PaymentMethodCard extends StatelessWidget {
               SizedBox(width: SizeConfig.w(4)),
               Text(
             //    textDirection: TextDirection.rtl,
-                ". سيتم الدفع نقدًا عند استلام الطلب من المندوب",
+                "سيتم الدفع نقدًا عند استلام الطلب من المندوب",
     
                 style: AppTextStyles.styleRegular13(
                   context,

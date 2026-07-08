@@ -4,8 +4,7 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
-import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
+import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_state.dart';
 import 'package:plupool/features/store/presentation/views/widgets/address_card.dart';
@@ -14,22 +13,22 @@ import 'package:plupool/features/store/presentation/views/widgets/order_total_ca
 import 'package:plupool/features/store/presentation/views/widgets/payment_method_card.dart';
 import 'package:plupool/features/store/presentation/views/widgets/time_date_row.dart';
 
-class OrderSummaryViewBody extends StatefulWidget {
-  const OrderSummaryViewBody({super.key});
-
-  @override
-  State<OrderSummaryViewBody> createState() => _OrderSummaryViewBodyState();
-}
-
-class _OrderSummaryViewBodyState extends State<OrderSummaryViewBody> {
-  @override
-void initState() {
-  super.initState();
-
-  Future.microtask(() {
-    context.read<UserCubit>().fetchCurrentUser("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo");
+class OrderSummaryViewBody extends StatelessWidget {
+  const OrderSummaryViewBody({
+    super.key,
+    required this.user,
+    required this.addressController,
+    required this.phoneController,
+    required this.selectedCountryCode,
+    required this.onCountryChanged,
   });
-}
+
+  final UserEntity user;
+  final TextEditingController addressController;
+  final TextEditingController phoneController;
+  final String selectedCountryCode;
+  final ValueChanged<String> onCountryChanged;
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -40,11 +39,11 @@ void initState() {
           BlocBuilder<CartCubit, CartState>(
             builder: (context, cartState) {
               final cart = cartState.cart;
-      
+
               if (cart == null) {
                 return const OrderTotalCardShimmer();
               }
-      
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -55,35 +54,35 @@ void initState() {
                       context,
                     ).copyWith(color: AppColors.ktextcolor),
                   ),
-      
+
                   SizedBox(height: SizeConfig.h(4)),
-      
+
                   TimeDateRow(
-                    formattedDate: formatArabicDate(cart.items.first.createdAt),
+                    formattedDate: formatArabicDate2(
+                   DateTime.now()
+                    ),
                   ),
-      
+
                   SizedBox(height: SizeConfig.h(8)),
-      
+
                   OrderTotalCard(cart: cart),
-      
+
                   SizedBox(height: SizeConfig.h(15)),
-      
-                  BlocBuilder<UserCubit, UserState>(
-                    builder: (context, userState) {
-                      if (userState is UserLoaded) {
-                        return AddressCard(user: userState.user);
-                      }
-      
-                      return const SizedBox();
-                    },
+
+                  AddressCard(
+                    user: user,
+                    addressController: addressController,
+                    phoneController: phoneController,
+                    selectedCountryCode: selectedCountryCode,
+                    onCountryChanged: onCountryChanged,
                   ),
                 ],
               );
             },
           ),
-      
+
           SizedBox(height: SizeConfig.h(15)),
-      
+
           const PaymentMethodCard(),
         ],
       ),

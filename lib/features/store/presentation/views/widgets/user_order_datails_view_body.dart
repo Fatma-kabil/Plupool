@@ -144,6 +144,7 @@ class UserOrderDatailsViewBody extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height:15)
         ],
       ),
     );

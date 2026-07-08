@@ -59,15 +59,36 @@ Failure mapDioError(Object error) {
       case DioExceptionType.badResponse:
         final status = error.response?.statusCode;
         final data = error.response?.data;
-        final msg = (data is Map && data['detail'] is String)
-            ? data['detail'] as String
-            : FailureMessages.server;
-        if (status == 401 || status == 403) return AuthFailure(msg, status);
-        return ServerFailure(msg, status);
+
+        print("========== ERROR RESPONSE ==========");
+        print("Status: $status");
+        print(data);
+        print("===================================");
+
+        String message = FailureMessages.server;
+
+        if (data is Map<String, dynamic>) {
+          if (data["detail"] != null) {
+            message = data["detail"].toString();
+          } else if (data["message"] != null) {
+            message = data["message"].toString();
+          } else if (data["error"] != null) {
+            message = data["error"].toString();
+          } else if (data["errors"] != null) {
+            message = data["errors"].toString();
+          }
+        }
+
+        if (status == 401 || status == 403) {
+          return AuthFailure(message, status);
+        }
+
+        return ServerFailure(message, status);
 
       default:
         return UnknownFailure(error.message ?? FailureMessages.unknown);
     }
   }
+
   return UnknownFailure(error.toString());
 }

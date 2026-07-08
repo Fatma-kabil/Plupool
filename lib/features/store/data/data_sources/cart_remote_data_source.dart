@@ -4,6 +4,8 @@ import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/store/data/models/add_to_cart_rquest_model.dart';
 import 'package:plupool/features/store/data/models/cart_count_model.dart';
 import 'package:plupool/features/store/data/models/cart_model.dart';
+import 'package:plupool/features/store/data/models/confirm_order_request_model.dart';
+import 'package:plupool/features/store/data/models/store_order_model.dart';
 import 'package:plupool/features/store/data/models/update_cart_item_request.dart';
 
 abstract class CartRemoteDataSource {
@@ -14,6 +16,9 @@ abstract class CartRemoteDataSource {
   Future<void> updateCartItem({
     required int cartItemId,
     required UpdateCartItemRequest request,
+  });
+  Future<StoreOrderModel> confirmOrder({
+   required ConfirmOrderRequestModel request,
   });
 }
 
@@ -94,5 +99,23 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
       ),
       data: request.toJson(),
     );
+  }
+
+  @override
+  Future<StoreOrderModel> confirmOrder({
+    required ConfirmOrderRequestModel request,
+  }) async {
+    final response = await apiService.post(
+      '${Endpoints.baseUrl}/pool-owner/store/orders',
+       options: Options(
+        headers: {
+          'Authorization':
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+        },
+      ),
+      data: request.toJson(),
+    );
+
+    return StoreOrderModel.fromJson(response.data);
   }
 }

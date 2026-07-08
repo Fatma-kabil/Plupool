@@ -12,6 +12,7 @@ final bool isDeleteSuccess;
   final int cartCount;
 
   final CartEntity? cart;
+  final bool isOrderSuccess;
 
   const CartState({
     this.isLoading =false,
@@ -21,6 +22,7 @@ final bool isDeleteSuccess;
     this.cartCount = 0,
     this.isDeleteSuccess = false,
     this.cart,
+    this.isOrderSuccess = false,
   });
 
   CartState copyWith({
@@ -31,6 +33,7 @@ final bool isDeleteSuccess;
     int? cartCount,
     CartEntity? cart,
     bool? isDeleteSuccess,
+    bool? isOrderSuccess,
   }) {
     return CartState(
       isLoading: isLoading ?? this.isLoading,
@@ -40,6 +43,8 @@ final bool isDeleteSuccess;
       cartCount: cartCount ?? this.cartCount,
       cart: cart ?? this.cart,
       isDeleteSuccess: isDeleteSuccess ?? this.isDeleteSuccess,
+      isOrderSuccess:
+    isOrderSuccess ?? this.isOrderSuccess,
     );
   }
 
@@ -56,6 +61,7 @@ final bool isDeleteSuccess;
         cartCount,
         cart,
         isDeleteSuccess,
+        isOrderSuccess
         
       ];
 }

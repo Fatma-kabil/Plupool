@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/features/store/data/models/add_to_cart_rquest_model.dart';
+import 'package:plupool/features/store/data/models/confirm_order_request_model.dart';
 import 'package:plupool/features/store/data/models/update_cart_item_request.dart';
 import 'package:plupool/features/store/domain/usecases/add_to_cart_uscae.dart';
+import 'package:plupool/features/store/domain/usecases/confirm_order_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/delete_cart_item_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_cart_count_usecase.dart';
 import 'package:plupool/features/store/domain/usecases/get_cart_usecase.dart';
@@ -15,12 +17,14 @@ class CartCubit extends Cubit<CartState> {
   final GetCartUseCase getCartUseCase;
   final DeleteCartItemUseCase deleteCartItemUseCase;
   final UpdateCartItemUseCase updateCartItemUseCase;
+  final ConfirmOrderUseCase confirmOrderUseCase;
   CartCubit(
     this.addToCartUseCase,
     this.getCartCountUseCase,
     this.getCartUseCase,
     this.deleteCartItemUseCase,
-    this.updateCartItemUseCase
+    this.updateCartItemUseCase,
+    this.confirmOrderUseCase,
   ) : super(const CartState());
 
   Future<void> addToCart({required int productId}) async {
@@ -100,58 +104,86 @@ class CartCubit extends Cubit<CartState> {
         );
       },
       (_) async {
-        
         await getCart();
         await getCartCount();
         emit(state.copyWith(isLoading: false, isDeleteSuccess: true));
       },
     );
   }
+
   Future<void> updateCartItem({
-  required int cartItemId,
-  required int quantity,
-}) async {
-  emit(
-    state.copyWith(
-      isLoading: true,
-      errorMessage: null,
-    ),
-  );
+    required int cartItemId,
+    required int quantity,
+  }) async {
+    emit(state.copyWith(isLoading: true, errorMessage: null));
 
-  final result = await updateCartItemUseCase(
-    cartItemId: cartItemId,
-    request: UpdateCartItemRequest(
-      quantity: quantity,
-    ),
-  );
+    final result = await updateCartItemUseCase(
+      cartItemId: cartItemId,
+      request: UpdateCartItemRequest(quantity: quantity),
+    );
 
-  result.fold(
-    (failure) {
-      emit(
-        state.copyWith(
-          isLoading: false,
-          errorMessage: failure.message,
-        ),
-      );
-    },
-    (_) async {
-      emit(
-        state.copyWith(
-          isLoading: false,
-        ),
-      );
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isLoading: false, errorMessage: failure.message));
+      },
+      (_) async {
+        emit(state.copyWith(isLoading: false));
 
-      await getCart();
-      await getCartCount();
-    },
-  );
-}
+        await getCart();
+        await getCartCount();
+      },
+    );
+  }
+
+  Future<void> confirmOrder({
+    required String address,
+    required String phone,
+  }) async {
+    emit(
+      state.copyWith(
+        isLoading: true,
+        errorMessage: null,
+        isOrderSuccess: false,
+      ),
+    );
+  print("========== Confirm Order ==========");
+  print("Address: $address");
+  print("Phone: $phone");
+  print("Payment: CASH_ON_DELIVERY");
+  print("Cart Items: ${state.cart?.items.length}");
+  print("===================================");
+
+    final result = await confirmOrderUseCase(
+      request: ConfirmOrderRequestModel(
+        deliveryAddress: address,
+        deliveryPhone: phone,
+        paymentMethod: "CASH_ON_DELIVERY",
+      ),
+    );
+
+    result.fold(
+      (failure) {
+        emit(state.copyWith(isLoading: false, errorMessage: failure.message));
+        
+      },
+      (_) async {
+        await getCartCount();
+        await getCart();
+
+        emit(state.copyWith(isLoading: false, isOrderSuccess: true));
+      },
+    );
+  }
 
   void clearError() {
     emit(state.copyWith(errorMessage: null));
   }
 
- void clearDeleteSuccess() {
-  emit(state.copyWith(isDeleteSuccess: false));
-}
+  void clearDeleteSuccess() {
+    emit(state.copyWith(isDeleteSuccess: false));
+  }
+
+  void clearOrderSuccess() {
+    emit(state.copyWith(isOrderSuccess: false));
+  }
 }
