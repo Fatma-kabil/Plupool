@@ -59,7 +59,7 @@ class MaintenancePoolCard extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 6),
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
                           Icons.check_circle,

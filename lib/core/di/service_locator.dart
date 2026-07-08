@@ -54,6 +54,7 @@ import 'package:plupool/features/home/presentaation/manager/notification_cubit/n
 import 'package:plupool/features/maintenance/data/remote_data_source.dart/maintenance_remote_data_source.dart';
 import 'package:plupool/features/maintenance/data/repo_impl.dart/maintenance_repo_impl.dart';
 import 'package:plupool/features/maintenance/domain/repos/maintenance_repository.dart';
+import 'package:plupool/features/maintenance/domain/usecases/book_maintenance_usecase.dart';
 import 'package:plupool/features/maintenance/domain/usecases/get_maintenancr_service_usecase.dart';
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_cubit/maintenance_cubit.dart';
 import 'package:plupool/features/myPool/data/remote_data_source/pool_remote_data_source.dart';
@@ -1158,7 +1159,11 @@ sl.registerLazySingleton(
   () => GetMaintenanceServiceUseCase(sl()),
 );
 
+sl.registerLazySingleton(
+  () => BookMaintenanceUseCase(sl()),
+);
+
 sl.registerFactory(
-  () => MaintenanceCubit(sl()),
+  () => MaintenanceCubit(sl<GetMaintenanceServiceUseCase>(), sl<BookMaintenanceUseCase>())
 );
 }

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/core/utils/widgets/close_section.dart';
 import 'package:plupool/core/utils/widgets/date_time_section.dart';
+import 'package:plupool/features/maintenance/domain/entities/maintenance_booking_params.dart';
+import 'package:plupool/features/maintenance/presentation/views/widgets/confirm_maintenance_close_section.dart';
 
 class ConfirmMaintenanceBookingCard extends StatelessWidget {
   final DateTime? date;
@@ -82,7 +83,15 @@ class ConfirmMaintenanceBookingCard extends StatelessWidget {
             const SizedBox(height: 25),
 
             // الأزرار
-            //   CloseSection(),
+            ConfirmMaintenanceCloseSection(
+              reservation: MaintenanceBookingEntity(
+                bookingType: bookingtype ?? '',
+                bookingDate:
+                    "${date?.year}-${date?.month.toString().padLeft(2, '0')}-${date?.day.toString().padLeft(2, '0')}",
+                bookingTime:
+                    "${time?.hour.toString().padLeft(2, '0')}:${time?.minute.toString().padLeft(2, '0')}:00",
+              ),
+            ),
           ],
         ),
       ),

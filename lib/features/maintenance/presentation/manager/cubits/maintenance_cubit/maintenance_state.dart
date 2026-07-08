@@ -1,6 +1,5 @@
 import 'package:plupool/features/maintenance/domain/entities/maintenance_service_entity.dart';
 
-
 abstract class MaintenanceState {}
 
 class MaintenanceInitial extends MaintenanceState {}
@@ -17,4 +16,14 @@ class MaintenanceError extends MaintenanceState {
   final String message;
 
   MaintenanceError(this.message);
+}
+
+class MaintenanceBookingLoading extends MaintenanceState {}
+
+class MaintenanceBookingSuccess extends MaintenanceState {}
+
+class MaintenanceBookingError extends MaintenanceState {
+  final String message;
+
+  MaintenanceBookingError(this.message);
 }

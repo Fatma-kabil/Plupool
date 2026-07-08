@@ -10,7 +10,7 @@ import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state
 import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_cubit/maintenance_cubit.dart';
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_cubit/maintenance_state.dart';
-import 'package:plupool/features/maintenance/presentation/views/widgets/confirm_maintenance_booking%20card.dart';
+import 'package:plupool/features/maintenance/presentation/views/widgets/confirm_maintenance_booking card.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/maintenance_pool_list_shimmer.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/maintenance_pools_list.dart';
 
@@ -22,7 +22,7 @@ class MaintenanceSection extends StatelessWidget {
     return BlocBuilder<MaintenanceCubit, MaintenanceState>(
       builder: (context, state) {
         if (state is MaintenanceLoading) {
-          return MaintenancePoolsListShimmer();
+          return const MaintenancePoolsListShimmer();
         }
 
         if (state is MaintenanceError) {
@@ -41,7 +41,7 @@ class MaintenanceSection extends StatelessWidget {
                     Text(
                       "خدمة الصيانه تشمل : ",
                       textDirection: TextDirection.rtl,
-                      style: AppTextStyles.styleSemiBold20(
+                      style: AppTextStyles.styleSemiBold18(
                         context,
                       ).copyWith(color: Colors.black),
                     ),
@@ -64,48 +64,49 @@ class MaintenanceSection extends StatelessWidget {
                   color: Colors.white,
                   child: Padding(
                     padding: EdgeInsets.only(top: SizeConfig.h(8)),
-                    child: BlocBuilder<AuthCubit, AuthState>(
-                      builder: (context, authState) {
-                        return CustomTextBtn(
+                    child:
+                        // BlocBuilder<AuthCubit, AuthState>(
+                        // builder: (context, authState) {
+                        // return
+                        CustomTextBtn(
                           text: 'احجز الآن',
                           width: double.infinity,
                           onPressed: () {
-                            if (authState.status == AuthStatus.guest) {
-                              showDialog(
-                                context: context,
-                                builder: (_) => ErrorCard(
-                                  title: 'لم يتم تسجيل الدخول',
-                                  subtitle:
-                                      'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                                  color: Colors.white,
-                                ),
-                              );
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (_) => BookingCard(
-                                  onConfirm: (date, time) {
-                                    showDialog(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (_) => Dialog(
-                                        backgroundColor: Colors.transparent,
-                                        insetPadding: const EdgeInsets.all(16),
-                                        child: ConfirmMaintenanceBookingCard(
-                                          date: date,
-                                          time: time,
-                                          bookingtype: service.bookingType,
-                                        ),
+                            // if (authState.status == AuthStatus.guest) {
+                            //   showDialog(
+                            //     context: context,
+                            //     builder: (_) => ErrorCard(
+                            //       title: 'لم يتم تسجيل الدخول',
+                            //       subtitle:
+                            //           'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                            //       color: Colors.white,
+                            //     ),
+                            //   );
+                            // } else {
+                            showDialog(
+                              context: context,
+                              builder: (_) => BookingCard(
+                                onConfirm: (date, time) {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (_) => Dialog(
+                                      backgroundColor: Colors.transparent,
+                                      insetPadding: const EdgeInsets.all(16),
+                                      child: ConfirmMaintenanceBookingCard(
+                                        date: date,
+                                        time: time,
+                                        bookingtype: service.bookingType,
                                       ),
-                                    );
-                                  },
-                                ),
-                              );
-                            }
+                                    ),
+                                  );
+                                },
+                              ),
+                            );
+                            // }
                           },
-                        );
-                      },
-                    ),
+                        ),
+                    // },
                   ),
                 ),
               ),

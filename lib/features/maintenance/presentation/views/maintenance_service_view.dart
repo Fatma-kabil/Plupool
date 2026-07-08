@@ -27,7 +27,7 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
     _tabController = TabController(
       length: tabs.length,
       vsync: this,
-      initialIndex: 1,
+      initialIndex: 0,
     );
     _tabController.addListener(() {
       setState(() {});
