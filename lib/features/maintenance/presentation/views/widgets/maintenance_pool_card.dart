@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/maintenance/data/models/maintenance_pool_model.dart';
+import 'package:plupool/features/maintenance/domain/entities/maintenance_section_entity.dart';
 
 class MaintenancePoolCard extends StatelessWidget {
-  const MaintenancePoolCard({super.key, required this.maintenancePool});
+  const MaintenancePoolCard({super.key, required this.section});
 
-  final MaintenancePoolModel maintenancePool;
+  final MaintenanceSectionEntity section;
 
   @override
   Widget build(BuildContext context) {
@@ -21,48 +20,63 @@ class MaintenancePoolCard extends StatelessWidget {
           side: const BorderSide(color: Color(0xff80BBDA), width: 1),
         ),
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(10),vertical:SizeConfig.h(10) ),
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.w(10),
+            vertical: SizeConfig.h(10),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(20), // نفس درجة كاردك
-                child: Image.asset(
-                  maintenancePool.imageUrl,
-                  height:SizeConfig.isWideScreen? SizeConfig.w(170):SizeConfig.h(186),
-                  width:double.infinity,
-                //  width: SizeConfig.w(340),
-                  fit: BoxFit.cover, // علشان الصورة تملأ المساحة بشكل جميل
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  section.imageUrl,
+                  height: SizeConfig.isWideScreen
+                      ? SizeConfig.w(170)
+                      : SizeConfig.h(186),
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => SizedBox(
+                    height: SizeConfig.h(186),
+                    child: Center(child: Icon(Icons.image_not_supported)),
+                  ),
                 ),
               ),
-              SizedBox(height:SizeConfig.h(8) ,),
+
+              SizedBox(height: SizeConfig.h(8)),
+
               Text(
-              
-                maintenancePool.title,
+                section.titleAr,
                 style: AppTextStyles.styleBold16(
                   context,
                 ).copyWith(color: AppColors.kprimarycolor),
               ),
-                SizedBox(height: 5,),
+
+              const SizedBox(height: 8),
+
               Column(
-                children: maintenancePool.features.map((feature) {
-                  return Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/done.svg',
-                        height: SizeConfig.h(16),
-                        width: SizeConfig.w(16),
-                      ),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          feature,
-                          style: AppTextStyles.styleRegular16(
-                            context,
-                          ).copyWith(color: Color(0xff777777)),
+                children: section.features.map((feature) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                          size: SizeConfig.w(15),
                         ),
-                      ),
-                    ],
+                        SizedBox(width: SizeConfig.w(6)),
+                        Expanded(
+                          child: Text(
+                            feature,
+                            style: AppTextStyles.styleRegular16(
+                              context,
+                            ).copyWith(color: const Color(0xff777777)),
+                          ),
+                        ),
+                      ],
+                    ),
                   );
                 }).toList(),
               ),

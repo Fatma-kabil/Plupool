@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/constants.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/maintenance/domain/entities/maintenance_section_entity.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/maintenance_pool_card.dart';
 
 class MaintenancePoolsList extends StatelessWidget {
-  const MaintenancePoolsList({super.key});
+  const MaintenancePoolsList({
+    super.key,
+    required this.sections,
+  });
+
+  final List<MaintenanceSectionEntity> sections;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: maintenancePools
+      children: sections
           .map(
-            (pool) => Padding(
-              padding:  EdgeInsets.only(bottom:SizeConfig.h(22) ),
+            (section) => Padding(
+              padding: EdgeInsets.only(
+                bottom: SizeConfig.h(22),
+              ),
               child: MaintenancePoolCard(
-                maintenancePool: pool,
-               
+                section: section,
               ),
             ),
           )

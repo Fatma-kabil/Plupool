@@ -72,28 +72,16 @@ class _MainHomeCustomerViewState extends State<MainHomeCustomerView> {
                 unselectedItemColor: const Color(0xffBBBBBB),
                 selectedLabelStyle: AppTextStyles.styleBold13(context),
                 unselectedLabelStyle: AppTextStyles.styleBold13(context),
-               items: [
-  buildNavItem(
-    icon: Icons.home_rounded,
-    label: 'الرئيسيه',
-  ),
-  buildNavItem(
-    icon: Icons.miscellaneous_services_rounded,
-    label: 'الخدمات',
-  ),
-  buildNavItem(
-    icon: Icons.construction_rounded,
-    label: 'مسبحي',
-  ),
-  buildNavItem(
-    icon: Icons.storefront_rounded,
-    label: 'المتجر',
-  ),
-  buildNavItem(
-    icon: Icons.person_rounded,
-    label: 'حسابي',
-  ),
-],
+                items: [
+                  buildNavItem(icon: Icons.home_rounded, label: 'الرئيسيه'),
+                  buildNavItem(
+                    icon: Icons.miscellaneous_services_rounded,
+                    label: 'الخدمات',
+                  ),
+                  buildNavItem(icon: Icons.pool_rounded, label: 'مسبحي'),
+                  buildNavItem(icon: Icons.storefront_rounded, label: 'المتجر'),
+                  buildNavItem(icon: Icons.person_rounded, label: 'حسابي'),
+                ],
               ),
             ),
           ),

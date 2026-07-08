@@ -45,15 +45,13 @@ class _AddressCardState extends State<AddressCard> {
     }
 
     if (widget.phoneController.text.isEmpty) {
-      widget.phoneController.text =
-          normalizeArabicNumbers(phoneData.number);
+      widget.phoneController.text = normalizeArabicNumbers(phoneData.number);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final iso =
-        countryCodeFromDialCode(widget.selectedCountryCode) ?? 'EG';
+    final iso = countryCodeFromDialCode(widget.selectedCountryCode) ?? 'EG';
 
     final selectedCountryFlag = flagEmojiFromIso(iso);
 
@@ -75,8 +73,9 @@ class _AddressCardState extends State<AddressCard> {
             children: [
               Text(
                 "العنوان ورقم الهاتف",
-                style: AppTextStyles.styleSemiBold16(context)
-                    .copyWith(color: const Color(0xff333333)),
+                style: AppTextStyles.styleSemiBold16(
+                  context,
+                ).copyWith(color: const Color(0xff333333)),
               ),
               const Spacer(),
               GestureDetector(
@@ -119,8 +118,9 @@ class _AddressCardState extends State<AddressCard> {
                 Expanded(
                   child: Text(
                     widget.addressController.text,
-                    style: AppTextStyles.styleRegular13(context)
-                        .copyWith(color: const Color(0xff777777)),
+                    style: AppTextStyles.styleRegular13(
+                      context,
+                    ).copyWith(color: const Color(0xff777777)),
                   ),
                 ),
               ],
@@ -144,8 +144,9 @@ class _AddressCardState extends State<AddressCard> {
                     child: RichText(
                       textDirection: TextDirection.rtl,
                       text: TextSpan(
-                        style: AppTextStyles.styleRegular16(context)
-                            .copyWith(color: const Color(0xff777777)),
+                        style: AppTextStyles.styleRegular16(
+                          context,
+                        ).copyWith(color: const Color(0xff777777)),
                         children: [
                           const TextSpan(text: '+'),
                           const TextSpan(text: ' '),
@@ -153,15 +154,15 @@ class _AddressCardState extends State<AddressCard> {
                             text: reverseNumbers(
                               toArabicNumbers(
                                 getCountryCodeDigits(
-                                    widget.selectedCountryCode),
+                                  widget.selectedCountryCode,
+                                ),
                               ),
                             ),
                           ),
                           const TextSpan(text: ' '),
                           TextSpan(
                             text: reverseNumbers(
-                              toArabicNumbers(
-                                  widget.phoneController.text),
+                              toArabicNumbers(widget.phoneController.text),
                             ),
                           ),
                         ],
@@ -177,14 +178,15 @@ class _AddressCardState extends State<AddressCard> {
             Text(
               "مكان الإقامة",
               textDirection: TextDirection.rtl,
-              style: AppTextStyles.styleRegular13(context)
-                  .copyWith(color: const Color(0xff555555)),
+              style: AppTextStyles.styleRegular13(
+                context,
+              ).copyWith(color: const Color(0xff555555)),
             ),
 
             SizedBox(height: SizeConfig.h(6)),
 
             CustomTextFormField(
-              bordercolor: AppColors.hintTextColor,
+              bordercolor: Color(0xff777777),
               iconColor: AppColors.kprimarycolor,
               controller: widget.addressController,
               hintText: "العنوان",
@@ -196,15 +198,16 @@ class _AddressCardState extends State<AddressCard> {
             Text(
               "رقم الهاتف",
               textDirection: TextDirection.rtl,
-              style: AppTextStyles.styleRegular13(context)
-                  .copyWith(color: const Color(0xff555555)),
+              style: AppTextStyles.styleRegular13(
+                context,
+              ).copyWith(color: const Color(0xff555555)),
             ),
 
             SizedBox(height: SizeConfig.h(6)),
-                        PhoneInputField(
+            PhoneInputField(
               controller: widget.phoneController,
               iconcolor: AppColors.kprimarycolor,
-              bordercolor: AppColors.hintTextColor,
+              bordercolor:Color(0xff777777),
               initialCountryCode: widget.selectedCountryCode,
               initialCountryFlag: selectedCountryFlag,
               onCountryChanged: (code, flag) {
@@ -226,8 +229,9 @@ class _AddressCardState extends State<AddressCard> {
                   },
                   child: Text(
                     "حفظ",
-                    style: AppTextStyles.styleRegular16(context)
-                        .copyWith(color: AppColors.kprimarycolor),
+                    style: AppTextStyles.styleRegular16(
+                      context,
+                    ).copyWith(color: AppColors.kprimarycolor),
                   ),
                 ),
                 SizedBox(width: SizeConfig.w(8)),
@@ -239,8 +243,9 @@ class _AddressCardState extends State<AddressCard> {
                   },
                   child: Text(
                     "إلغاء",
-                    style: AppTextStyles.styleRegular16(context)
-                        .copyWith(color: AppColors.kprimarycolor),
+                    style: AppTextStyles.styleRegular16(
+                      context,
+                    ).copyWith(color: AppColors.kprimarycolor),
                   ),
                 ),
               ],

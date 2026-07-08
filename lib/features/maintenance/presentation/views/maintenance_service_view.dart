@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -19,8 +17,8 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
   late TabController _tabController;
 
   final List<Map<String, dynamic>> tabs = [
-    {'title': 'باقات الخدمات', 'icon': 'assets/icons/packages.svg'},
-    {'title': 'خدمة الصيانة', 'icon': 'assets/icons/services.svg'},
+    {'title': 'خدمة الصيانة', 'icon': Icons.handyman},
+    {'title': 'باقات الخدمات', 'icon': Icons.inventory_2_outlined},
   ];
 
   @override
@@ -44,14 +42,17 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context); 
+    SizeConfig.init(context);
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: SafeArea(
-        
         child: Padding(
-          padding:  EdgeInsets.only(top:SizeConfig.h(30) , left: SizeConfig.w(15), right: SizeConfig.w(15)),
+          padding: EdgeInsets.only(
+            top: SizeConfig.h(30),
+            left: SizeConfig.w(15),
+            right: SizeConfig.w(15),
+          ),
           child: Column(
             //  textDirection: TextDirection.rtl,
             children: [
@@ -71,11 +72,13 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 150),
                       width:
-                          (screenWidth -  SizeConfig.w(16) * 2 -  SizeConfig.w(15)) /
+                          (screenWidth -
+                              SizeConfig.w(16) * 2 -
+                              SizeConfig.w(15)) /
                           2, // نصف العرض تقريبًا مع مسافة
-                      padding:  EdgeInsets.symmetric(
-                        horizontal:  SizeConfig.w(10),
-                        vertical:  SizeConfig.h(8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: SizeConfig.w(10),
+                        vertical: SizeConfig.h(8),
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.kScaffoldColor,
@@ -92,6 +95,14 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Icon(
+                            tabs[index]['icon'],
+                            size: SizeConfig.w(20),
+                            color: isSelected
+                                ? AppColors.kprimarycolor
+                                : const Color(0xffAAAAAA),
+                          ),
+                          const SizedBox(width: 5),
                           Text(
                             tabs[index]['title'],
                             style: AppTextStyles.styleMedium20(context)
@@ -100,18 +111,6 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                                       ? AppColors.kprimarycolor
                                       : Color(0xffAAAAAA),
                                 ),
-                          ),
-                          const SizedBox(width: 5),
-                          SvgPicture.asset(
-                            tabs[index]['icon'],
-                            width:SizeConfig.w(20) ,
-                            height: SizeConfig.h(20),
-                            colorFilter: ColorFilter.mode(
-                              isSelected
-                                  ? AppColors.kprimarycolor
-                                  : Color(0xffAAAAAA),
-                              BlendMode.srcIn,
-                            ),
                           ),
                         ],
                       ),
@@ -128,8 +127,8 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                   controller: _tabController,
                   physics: const NeverScrollableScrollPhysics(),
                   children: const [
-                    ServicesPackagesSection(),
                     MaintenanceSection(),
+                    ServicesPackagesSection(),
                   ],
                 ),
               ),

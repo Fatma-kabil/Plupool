@@ -12,6 +12,7 @@ void showCustomSnackBar({
         textDirection: TextDirection.rtl,
         message, style: AppTextStyles.styleMedium16(context).copyWith(color: Colors.white),),
       backgroundColor: isSuccess ? Colors.green : Colors.grey[700],
+      duration: const Duration(seconds: 1),
       behavior: SnackBarBehavior.floating,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
