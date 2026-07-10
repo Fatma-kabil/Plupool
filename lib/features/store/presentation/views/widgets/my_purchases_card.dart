@@ -31,7 +31,7 @@ class MyPurchasesCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                toArabicNumbers("طلب رقم #${order.orderNumber}"),
+                toArabicNumbers("طلب رقم ${order.orderNumber}"),
                 textDirection: TextDirection.rtl,
                 style: AppTextStyles.styleSemiBold14(
                   context,

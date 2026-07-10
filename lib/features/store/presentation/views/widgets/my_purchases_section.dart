@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/store_orders_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_orders_cubit/store_orders_state.dart';
 import 'package:plupool/features/store/presentation/views/widgets/empty_card_section.dart';
@@ -24,7 +25,7 @@ class MyPurchasesSection extends StatelessWidget {
         }
 
         if (state.status == StoreOrdersStatus.failure) {
-          return Center(child: Text(state.errorMessage));
+          return Center(child: ErrorText(message: state.errorMessage,));
         }
 
         if (state.orders.isEmpty) {

@@ -77,7 +77,7 @@ class _ServiceSectionState extends State<ServiceSection> {
                 itemBuilder: (_, __) => const MyPoolTaskCardShimmer(),
               )
             else if (state.errorMessage != null)
-              Center(child: ErrorText(message: state.errorMessage!))
+              Center(child: ErrorText(message: "حدث خطأ أتناء تحميل البيانات"))
             else
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),

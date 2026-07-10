@@ -39,7 +39,7 @@ return Column(
 
         if (state.errorMessage != null) {
           return Center(
-            child: ErrorText(message: state.errorMessage!),
+            child: ErrorText(message: "حدث خطأ أتناء تحميل البيانات"),
           );
         }
 

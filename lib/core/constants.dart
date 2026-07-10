@@ -61,7 +61,7 @@ final List<PromoCardModel> items = [
     features: [
       "تُعد صيانة حمامات السباحة مهمة جداً لضمان السلامة\nونظافه الحمام وموازنة كيماويات المياه. تشمل تنظيف \nالحمام، فحص الكلور والحمض، تنظيف الفلاتر، وصيانة \nالطلمبات.",
     ],
-    cardcolor: Color(0xff048F6B),
+    cardcolor: Color(0xffCDF7EC),
     textcolor: AppColors.kScenderycolor,
     titlecolor: AppColors.kScenderycolor,
   ),

@@ -23,6 +23,8 @@ class MaintenanceRepositoryImpl implements MaintenanceRepository {
         bookingDate: booking.bookingDate,
         bookingTime: booking.bookingTime,
         serviceId: booking.serviceId,
+        packageId: booking.packageId
+        
       ),
     );
   }

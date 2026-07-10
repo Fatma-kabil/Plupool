@@ -80,6 +80,7 @@ class ReserveOfferBtn extends StatelessWidget {
                             date: date,
                             time: time,
                             packageType: service,
+                            packageId: 1,
                           ),
                         ),
                       );

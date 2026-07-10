@@ -95,14 +95,6 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(
-                            tabs[index]['icon'],
-                            size: SizeConfig.w(20),
-                            color: isSelected
-                                ? AppColors.kprimarycolor
-                                : const Color(0xffAAAAAA),
-                          ),
-                          const SizedBox(width: 5),
                           Text(
                             tabs[index]['title'],
                             style: AppTextStyles.styleMedium20(context)
@@ -111,6 +103,14 @@ class _MaintenanceServiceViewState extends State<MaintenanceServiceView>
                                       ? AppColors.kprimarycolor
                                       : Color(0xffAAAAAA),
                                 ),
+                          ),
+                          SizedBox(width: SizeConfig.w(5)),
+                          Icon(
+                            tabs[index]['icon'],
+                            size: SizeConfig.w(20),
+                            color: isSelected
+                                ? AppColors.kprimarycolor
+                                : const Color(0xffAAAAAA),
                           ),
                         ],
                       ),

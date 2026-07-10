@@ -7,6 +7,7 @@ class MaintenanceBookingModel extends MaintenanceBookingEntity {
     required super.bookingDate,
     required super.bookingTime,
     super.serviceId,
+    super.packageId
   });
 
   Map<String, dynamic> toJson() {
@@ -15,6 +16,8 @@ class MaintenanceBookingModel extends MaintenanceBookingEntity {
       "booking_date": bookingDate,
       "booking_time": bookingTime,
       if (serviceId != null) "service_id": serviceId,
+          if (packageId != null) "package_id": packageId,
+
     };
   }
 }

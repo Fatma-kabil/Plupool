@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/maintenance/data/models/maintenance_booking_model.dart';
@@ -31,6 +32,14 @@ class MaintenanceRemoteDataSourceImpl implements MaintenanceRemoteDataSource {
 
   @override
   Future<void> bookMaintenance(MaintenanceBookingModel booking) async {
+    final body = {
+      "booking_type": booking.bookingType,
+      "booking_date": booking.bookingDate,
+      "booking_time": booking.bookingTime,
+      "package_id": booking.packageId,
+    };
+    debugPrint(body.toString());
+
     await apiService.post(
       '${Endpoints.baseUrl}/pool-owner/services',
       options: Options(

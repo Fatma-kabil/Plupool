@@ -18,15 +18,7 @@ class WhyUsOwnerBody extends StatelessWidget {
               "أكثر من ١٠ سنوات من الخبرة في تصميم وبناء حمامات السباحة بدقة واحترافية عالية.",
         ),
         SizedBox(height: SizeConfig.h(15)),
-        WhyUsCard(
-          icon: Icons.view_in_ar,
-          backColor: Color(0xffCCF0F7),
-          iconColor: Color(0xff0096B4),
-          title: "محاكاة ثلاثية الأبعاد",
-          subtitle:
-              "تصور حمام السباحة الخاص بك قبل البناء من خلال معاينة تفاعلية ثلاثية الأبعاد.",
-        ),
-        SizedBox(height: SizeConfig.h(15)),
+      
         WhyUsCard(
           icon: Icons.build,
           backColor: Color(0xffFFECD2),

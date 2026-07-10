@@ -2,33 +2,32 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:plupool/core/utils/size_config.dart';
-
 class ProductGridShimmer extends StatelessWidget {
   const ProductGridShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: 6,
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) => const ProductCardShimmer(),
+        childCount: 6,
+      ),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
-            ? 0.62
-            : SizeConfig.screenWidth == 800
-            ? .82
-            : SizeConfig.screenWidth > 800
-            ? 0.91
-            : 0.71,
+        childAspectRatio:
+            SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
+                ? 0.62
+                : SizeConfig.screenWidth == 800
+                    ? .82
+                    : SizeConfig.screenWidth > 800
+                        ? 0.91
+                        : 0.71,
         crossAxisSpacing: SizeConfig.w(12),
         mainAxisSpacing: SizeConfig.w(12),
       ),
-      itemBuilder: (_, i) => const ProductCardShimmer(),
     );
   }
 }
-
 class ProductCardShimmer extends StatelessWidget {
   const ProductCardShimmer({super.key});
 

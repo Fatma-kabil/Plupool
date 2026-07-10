@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
@@ -25,7 +26,7 @@ class PackageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: AppTextStyles.styleBold14(context)),
           const SizedBox(height: 16),
@@ -45,27 +46,29 @@ class PackageCard extends StatelessWidget {
               color: AppColors.kScaffoldColor,
             ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: services
                   .map(
                     (service) => Padding(
                       padding: EdgeInsets.symmetric(vertical: SizeConfig.h(4)),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                           Icon(
+                          Icons.check_circle,
+                          color: Colors.green,
+                          size: SizeConfig.w(15),
+                        ),
+                           SizedBox(width: SizeConfig.w(8)),
                           Text(
-                            service,
+                          toArabicNumbers(  service),
                             textDirection: TextDirection.rtl,
                             style: AppTextStyles.styleRegular16(
                               context,
                             ).copyWith(color: AppColors.ktextcolor),
                           ),
-                          SizedBox(width: SizeConfig.w(8)),
-                          SvgPicture.asset(
-                            "assets/icons/done.svg",
-                            height: SizeConfig.h(16),
-                            width: SizeConfig.w(16),
-                          ),
+                         
+                         
                         ],
                       ),
                     ),
@@ -74,31 +77,32 @@ class PackageCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 40),
-          BlocBuilder<AuthCubit, AuthState>(
-            builder: (context, state) {
-              return CustomTextBtn(
+       //   BlocBuilder<AuthCubit, AuthState>(
+         //   builder: (context, state) {
+            //  return
+               CustomTextBtn(
                 text: "اختيار الباقة",
                 width: double.infinity,
                 onPressed: () {
-                  if (state.status == AuthStatus.guest) {
+              //    if (state.status == AuthStatus.guest) {
                     // لو ضيف — نعرض رسالة الخطأ
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return ErrorCard(
-                          title: 'لم يتم تسجيل الدخول',
-                          subtitle:
-                              'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                          color: Colors.white,
-                        );
-                      },
-                    );
-                  } else {
+                //    showDialog(
+                  //    context: context,
+                    //  builder: (context) {
+                      //  return ErrorCard(
+                        //  title: 'لم يتم تسجيل الدخول',
+                          //subtitle:
+                            //  'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                       //   color: Colors.white,
+                      //  );
+                    //  },
+                  //  );
+                //  } else {
                     onSelect();
                   }
-                },
-              );
-            },
+              //  },
+            //  );
+           //00 },
           ),
         ],
       ),

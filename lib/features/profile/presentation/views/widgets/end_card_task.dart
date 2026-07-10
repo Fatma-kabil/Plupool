@@ -108,6 +108,7 @@ class EndCardTask extends StatelessWidget {
                           date: date,
                           time: time,
                           packageType: service.title,
+                          packageId: service.id,
                         ),
                       ),
                     );
