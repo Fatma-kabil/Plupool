@@ -1,11 +1,9 @@
-
-
 import 'package:plupool/features/home/domain/entities/add_rating_entity.dart';
 
 class AddRatingModel extends AddRatingEntity {
   const AddRatingModel({
     required super.id,
-    required super.rating,
+    super.rating,
     required super.content,
     required super.status,
     required super.createdAt,

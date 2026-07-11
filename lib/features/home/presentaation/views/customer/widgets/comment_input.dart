@@ -78,7 +78,7 @@ class CommentInput extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: SizeConfig.w(18),
-                  backgroundColor: Colors.grey[50],
+                  backgroundColor: Colors.grey[200],
                   child: ClipOval(
                     child: _isValidImage(imageUrl)
                         ? CachedNetworkImage(
@@ -112,9 +112,9 @@ class CommentInput extends StatelessWidget {
                     controller: cubit.commentController,
                     cursorColor: AppColors.kprimarycolor,
                     style: AppTextStyles.styleSemiBold14(
-                    context,
-                  ).copyWith(color:Colors.black) ,
-                    cursorHeight: SizeConfig.w(10),
+                      context,
+                    ).copyWith(color: Colors.black),
+                    cursorHeight: SizeConfig.w(15),
                     textAlign: TextAlign.right,
                     decoration: InputDecoration(
                       isDense: true,
@@ -124,7 +124,7 @@ class CommentInput extends StatelessWidget {
                       ).copyWith(color: const Color(0xffBBBBBB)),
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.w(12),
-                        vertical: SizeConfig.h(7),
+                        vertical: SizeConfig.h(12),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -155,8 +155,8 @@ class CommentInput extends StatelessWidget {
                           cubit.addRating();
                         },
                   child: Container(
-                    width: SizeConfig.w(35),
-                    height: SizeConfig.w(35),
+                    width: SizeConfig.w(32),
+                    height: SizeConfig.w(32),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xff0077B6),
@@ -164,8 +164,8 @@ class CommentInput extends StatelessWidget {
                     child: Center(
                       child: state is RatingLoading
                           ? SizedBox(
-                              width: SizeConfig.w(18),
-                              height: SizeConfig.w(18),
+                              width: SizeConfig.w(16),
+                              height: SizeConfig.w(16),
                               child: const CircularProgressIndicator(
                                 strokeWidth: 2,
                                 color: Colors.white,

@@ -8,9 +8,7 @@ import 'package:plupool/features/home/presentaation/manager/add_rating_cubit/add
 class AddRatingCubit extends Cubit<RatingState> {
   final AddRatingUseCase addRatingUseCase;
 
-  AddRatingCubit(
-    this.addRatingUseCase,
-  ) : super(RatingInitial());
+  AddRatingCubit(this.addRatingUseCase) : super(RatingInitial());
 
   final TextEditingController commentController = TextEditingController();
 
@@ -37,14 +35,11 @@ class AddRatingCubit extends Cubit<RatingState> {
 
       emit(RatingSuccess(result));
     } catch (e) {
+      debugPrint(e.toString());
       if (e is Failure) {
         emit(RatingError(mapDioError(e.message) as String));
       } else {
-        emit(
-          RatingError(
-            "حدث خطأ أثناء إرسال التقييم",
-          ),
-        );
+        emit(RatingError("حدث خطأ أثناء إرسال التقييم"));
       }
     }
   }
