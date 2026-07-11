@@ -56,7 +56,7 @@ class _OfferSectionState extends State<OfferSection> {
                     onTap: () {
                       context.read<BottomNavCubit>().changeCurrentIndex(
                         2,
-                        filter: StoreFilter.discount,
+                        filter: StoreFilter.offers,
                       );
                     },
                     child: Text(
@@ -71,8 +71,7 @@ class _OfferSectionState extends State<OfferSection> {
               ),
               SizedBox(height: SizeConfig.h(16)),
               TechOffersCarousel(offers: upOffers),
-               const SizedBox(height: 30),
-              
+              const SizedBox(height: 30),
             ],
           );
         }

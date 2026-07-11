@@ -59,7 +59,7 @@ class VisitCard extends StatelessWidget {
                   children: [
                     Text(
                       textDirection: TextDirection.ltr,
-                      "الزيارة ${toArabicNumbers(progress.toString())}/${toArabicNumbers(visits.toString())}",
+                      "الزيارة ${toArabicNumbers(visits.toString())}/${toArabicNumbers(progress.toString())}",
                       style: AppTextStyles.styleSemiBold16(
                         context,
                       ).copyWith(color: AppColors.ktextcolor),

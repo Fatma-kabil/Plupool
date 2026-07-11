@@ -38,7 +38,7 @@ class _MainHomeTechViewState extends State<MainHomeTechView> {
         final pages = [
           const TechHomeView(),
           const TechTaskView(),
-          StoreView(initialFilter: filter), // هنا بتمرير الفلتر
+          StoreView(key: ValueKey(filter), initialFilter: filter),
           const ProfileView(),
         ];
 

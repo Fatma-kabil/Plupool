@@ -3,7 +3,7 @@ enum StoreFilter {
   price_low,
   price_high,
   best_selling,
-  discount,
+  offers
   
   
 }
@@ -13,7 +13,7 @@ extension StoreFilterX on StoreFilter {
       case StoreFilter.price_low: return "price_low";
       case StoreFilter.price_high: return "price_high";
       case StoreFilter.best_selling: return "best_selling";
-      case StoreFilter.discount: return "discount";
+      case StoreFilter.offers: return "offers";
     }
   }
 
@@ -22,7 +22,7 @@ extension StoreFilterX on StoreFilter {
       case StoreFilter.price_low: return "الأقل سعرا";
       case StoreFilter.price_high: return "الأعلى سعرا";
       case StoreFilter.best_selling: return "الأكثر مبيعا";
-      case StoreFilter.discount: return "العروض";
+      case StoreFilter.offers: return "العروض";
     }
   }
 }

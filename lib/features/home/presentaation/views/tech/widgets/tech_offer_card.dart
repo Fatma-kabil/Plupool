@@ -11,6 +11,7 @@ import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state
 import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
 
 import 'package:plupool/features/products/domain/entities/product_entity.dart';
+import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_cubit.dart';
 
 class TechOfferCard extends StatelessWidget {
   final Product offer;
@@ -144,23 +145,25 @@ class TechOfferCard extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: SizeConfig.h(4)),
                   child: AddCartBtn(
                     onPressed: () {
-                      if (authState.status == AuthStatus.guest) {
+                   //   if (authState.status == AuthStatus.guest) {
                         // لو ضيف — نعرض رسالة الخطأ
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return ErrorCard(
-                              title: 'لم يتم تسجيل الدخول',
-                              subtitle:
-                                  'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                              color: Colors.white,
-                            );
-                          },
-                        );
-                      } else {
+                    //    showDialog(
+                      //    context: context,
+                        //  builder: (context) {
+                          //  return ErrorCard(
+                         //     title: 'لم يتم تسجيل الدخول',
+                           //   subtitle:
+                             //     'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                          //    color: Colors.white,
+                         //   );
+                       //   },
+                      //  );
+                     // } else {
                         // مسجل دخول - اعمل العملية المطلوبة هنا
-                        print('Added to cart');
-                      }
+                        context.read<CartCubit>().addToCart(
+                            productId: offer.id!,
+                          );
+                    //  }
                     },
                   ),
                 ),

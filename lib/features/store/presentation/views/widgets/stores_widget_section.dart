@@ -10,8 +10,8 @@ import 'package:plupool/features/store/presentation/views/widgets/filter_dialog.
 import 'package:plupool/features/store/presentation/views/widgets/product_grid_bloc_builder.dart';
 
 class StoresWidgetSection extends StatefulWidget {
-  const StoresWidgetSection({super.key});
-
+  const StoresWidgetSection({super.key, this.initialFilter});
+  final StoreFilter? initialFilter;
   @override
   State<StoresWidgetSection> createState() => _StoresWidgetSectionState();
 }
@@ -23,7 +23,12 @@ class _StoresWidgetSectionState extends State<StoresWidgetSection> {
   @override
   void initState() {
     super.initState();
-    context.read<ProductCubit>().fetchProducts();
+
+    selected = widget.initialFilter;
+
+    context.read<ProductCubit>().fetchProducts(
+      ProductParams(sortBy: selected?.apiValue),
+    );
   }
 
   ProductParams get currentParams => ProductParams(
@@ -74,12 +79,11 @@ class _StoresWidgetSectionState extends State<StoresWidgetSection> {
                 }
               },
             ),
-          
           ],
         ),
 
         const SizedBox(height: 28),
-          ProductGridBlocBuilder(),
+        ProductGridBlocBuilder(),
       ],
     );
   }

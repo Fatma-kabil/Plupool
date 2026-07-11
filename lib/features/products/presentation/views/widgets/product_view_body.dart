@@ -32,7 +32,7 @@ class _ProductViewBodyState extends State<ProductViewBody> {
     sortBy: selected?.apiValue,
     categoryIds: selectedCategoryIds.isEmpty
         ? null
-    //    : selectedCategoryIds.first,
+        //    : selectedCategoryIds.first,
         : selectedCategoryIds.toList(),
   );
 
@@ -53,9 +53,8 @@ class _ProductViewBodyState extends State<ProductViewBody> {
                 items: [
                   "الكل",
                   ...StoreFilter.values
-                      .where((f) => f != StoreFilter.discount)
-                      .map((f) => f.label)
-                      ,
+                      .where((f) => f != StoreFilter.offers)
+                      .map((f) => f.label),
                 ],
                 onChanged: (val) {
                   if (val == "الكل") {

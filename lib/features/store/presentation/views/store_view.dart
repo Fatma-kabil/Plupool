@@ -16,9 +16,6 @@ class StoreView extends StatefulWidget {
 }
 
 class _StoreViewState extends State<StoreView> {
- 
- 
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,12 +30,16 @@ class _StoreViewState extends State<StoreView> {
           const SizedBox(height: 30),
           const InfoCardsRow(),
           const SizedBox(height: 15),
-          Text('الفئات', style: AppTextStyles.styleBold20(context).copyWith(color: Colors.black)),
+          Text(
+            'الفئات',
+            style: AppTextStyles.styleBold20(
+              context,
+            ).copyWith(color: Colors.black),
+          ),
           const SizedBox(height: 10),
-          const StoresWidgetSection(),
-         
+          StoresWidgetSection(initialFilter: widget.initialFilter),
 
-     //    
+          //
         ],
       ),
     );
