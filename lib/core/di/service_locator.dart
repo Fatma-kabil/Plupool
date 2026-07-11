@@ -46,10 +46,15 @@ import 'package:plupool/features/customers/domain/usecases/update_user_pool_usec
 import 'package:plupool/features/customers/domain/usecases/update_user_usecase.dart';
 import 'package:plupool/features/customers/presentation/manager/user_pool_cubit/user_pool_cubit.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
+import 'package:plupool/features/home/data/remote_data_sources/add_rating_remote_data_source.dart';
 import 'package:plupool/features/home/data/remote_data_sources/notification_remote_data_source.dart';
+import 'package:plupool/features/home/data/repos_impl/add_rating_repo_impl.dart';
 import 'package:plupool/features/home/data/repos_impl/notification_repo_impl.dart';
+import 'package:plupool/features/home/domain/repos/add_rating_repo.dart';
 
 import 'package:plupool/features/home/domain/repos/notification_repo.dart';
+import 'package:plupool/features/home/domain/usecases/add_rating_usecase.dart';
+import 'package:plupool/features/home/presentaation/manager/add_rating_cubit/add_rating_cubit.dart';
 import 'package:plupool/features/home/presentaation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/maintenance/data/remote_data_source.dart/maintenance_remote_data_souce.dart';
 import 'package:plupool/features/maintenance/data/remote_data_source.dart/maintenance_remote_data_source.dart';
@@ -1189,4 +1194,23 @@ sl.registerLazySingleton(
 sl.registerFactory(
   () => MaintenancePackagesCubit(sl<GetMaintenancePackagesUseCase>(), sl<BookMaintenanceUseCase>())
 );
+
+  // ==================== // ==================== Add Rating  ====================
+
+  // Remote Data Source
+  sl.registerLazySingleton<AddRatingRemoteDataSource>(
+    () => AddRatingRemoteDataSource(sl<ApiService>()),
+  );
+
+  // Repository
+  sl.registerLazySingleton<AddRatingRepository>(
+    () => AddRatingRepositoryImpl(sl<AddRatingRemoteDataSource>()),
+  );
+
+  // UseCase
+  sl.registerLazySingleton(() => AddRatingUseCase(sl<AddRatingRepository>()));
+
+  // Cubit
+  sl.registerFactory(() => AddRatingCubit(sl<AddRatingUseCase>()));
+
 }

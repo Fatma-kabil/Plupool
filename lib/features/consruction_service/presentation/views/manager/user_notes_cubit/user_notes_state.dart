@@ -15,13 +15,18 @@ class UserNotesSuccess extends UserNotesState {
 }
 
 class UserNotesAddedSuccessfully extends UserNotesState {
-  final List<UserNotesEntity> userNotes;
+ // final List<UserNotesEntity> userNotes;
 
-  UserNotesAddedSuccessfully(this.userNotes);
+  UserNotesAddedSuccessfully();
 }
 
 class UserNotesFailure extends UserNotesState {
   final String message;
 
   UserNotesFailure(this.message);
+}
+class UserNotesOperationFailure extends UserNotesState {
+  final String message;
+
+  UserNotesOperationFailure(this.message);
 }

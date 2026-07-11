@@ -10,6 +10,7 @@ import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.d
 import 'package:plupool/features/consruction_service/presentation/views/manager/construction_booking_cubit/construction_booking_cubit.dart';
 import 'package:plupool/features/consruction_service/presentation/views/manager/user_notes_cubit/user_notes_cubit.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
+import 'package:plupool/features/home/presentaation/manager/add_rating_cubit/add_rating_cubit.dart';
 import 'package:plupool/features/home/presentaation/manager/drawer_cubit/drawer_cubit.dart';
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_cubit/maintenance_cubit.dart';
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_package_cubit/maintenance_package_cubit.dart';
@@ -82,8 +83,10 @@ class PlupoolApp extends StatelessWidget {
           create: (_) => sl<MaintenanceCubit>()..getMaintenanceService(),
         ),
         BlocProvider(
-          create: (_) => sl<MaintenancePackagesCubit>()..getPackages(  duration: "MONTHLY",),
+          create: (_) =>
+              sl<MaintenancePackagesCubit>()..getPackages(duration: "MONTHLY"),
         ),
+        BlocProvider(create: (_) => sl<AddRatingCubit>()),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,

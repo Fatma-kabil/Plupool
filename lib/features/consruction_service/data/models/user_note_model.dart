@@ -29,18 +29,20 @@ class UserNotesModel extends UserNotesEntity {
 }
 
 class AddNoteModel {
-  final String note;
+  final String? note;
   final List<File>? files;
 
-  const AddNoteModel({required this.note, this.files});
+  const AddNoteModel({this.note, this.files});
 
   Future<FormData> toFormData() async {
     final formData = FormData();
 
-    /// note (required)
-    formData.fields.add(MapEntry('note', note));
+    // أرسل النص فقط إذا كان موجودًا
+    if (note != null && note!.trim().isNotEmpty) {
+      formData.fields.add(MapEntry('note', note!.trim()));
+    }
 
-    /// files (optional)
+    // أرسل الملفات إذا كانت موجودة
     if (files != null && files!.isNotEmpty) {
       for (final file in files!) {
         formData.files.add(
@@ -54,8 +56,6 @@ class AddNoteModel {
         );
       }
     }
-    print(formData.fields);
-    print(formData.files);
 
     return formData;
   }

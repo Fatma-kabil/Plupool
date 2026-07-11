@@ -46,11 +46,8 @@ class _AddNoteCardState extends State<AddNoteCard> {
             );
           }
 
-          if (state is UserNotesFailure) {
-            showCustomSnackBar(
-              context: context,
-              message: state.message,
-            );
+          if (state is UserNotesOperationFailure) {
+            showCustomSnackBar(context: context, message: state.message);
           }
         },
         builder: (context, state) {
@@ -92,10 +89,7 @@ class _AddNoteCardState extends State<AddNoteCard> {
 
                     const SizedBox(height: 8),
 
-                    NoteField(
-                      key: noteFieldKey,
-                      controller: _noteController,
-                    ),
+                    NoteField(key: noteFieldKey, controller: _noteController),
 
                     const SizedBox(height: 25),
 
@@ -110,13 +104,15 @@ class _AddNoteCardState extends State<AddNoteCard> {
                               if (!_formKey.currentState!.validate()) return;
 
                               await context.read<UserNotesCubit>().addUserNote(
-                                    AddNoteModel(
-                                      note: _noteController.text.trim(),
-                                      files: noteFieldKey
-                                              .currentState?.attachedFiles ??
-                                          [],
-                                    ),
-                                  );
+                                AddNoteModel(
+                                  note: _noteController.text.trim(),
+                                  files:
+                                      noteFieldKey
+                                          .currentState
+                                          ?.attachedFiles ??
+                                      [],
+                                ),
+                              );
                             },
                     ),
                   ],
