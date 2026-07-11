@@ -17,11 +17,11 @@ String formatArabicDate(String date) {
 
   return DateFormat('yyyy/M/d - h:mm a', 'ar').format(parsedDate);
 }
+String formatArabicDateOnly(String? dateString) {
+  final parsedDate = DateTime.tryParse(dateString ?? '');
+  if (parsedDate == null) return '-';
 
-String formatArabicDateOnly(String date) {
-  final parsedDate = DateTime.parse(date);
-
-  return DateFormat('yyyy/M/d ', 'ar').format(parsedDate);
+  return DateFormat('yyyy/M/d', 'ar').format(parsedDate);
 }
 
 String formatPhoneNumber(String phone) {

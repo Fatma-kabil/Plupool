@@ -15,8 +15,8 @@ class PoolInfoRepositoryImpl implements PoolInfoRepository {
     try {
       final result = await remoteDataSource.getPoolInfo();
       return Right(result);
-    } on Failure catch (e) {
-      return Left(e);
+    }catch (e) {
+      return Left(mapDioError(e));
     }
   }
 }

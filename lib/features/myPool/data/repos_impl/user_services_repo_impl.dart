@@ -6,7 +6,9 @@ import 'package:plupool/features/myPool/domain/repos/user_services_repoditory.da
 
 class UserServicesRepoImpl implements UserServicesRepoditory {
   final UserServiceRemoteDataSource remoteDataSource;
+
   UserServicesRepoImpl(this.remoteDataSource);
+
   @override
   Future<Either<Failure, List<UserServiceEntity>>> getUserServices({
     String? tab,
@@ -26,7 +28,7 @@ class UserServicesRepoImpl implements UserServicesRepoditory {
 
       return Right(services);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(mapDioError(e));
     }
   }
 }

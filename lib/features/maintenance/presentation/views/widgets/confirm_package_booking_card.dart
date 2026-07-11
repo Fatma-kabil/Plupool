@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -16,7 +15,8 @@ class ConfirmPackageBookingCard extends StatelessWidget {
     super.key,
     required this.date,
     required this.time,
-    required this.packageType, required this.packageId,
+    required this.packageType,
+    required this.packageId,
   });
 
   @override
@@ -73,7 +73,7 @@ class ConfirmPackageBookingCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                   Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -85,40 +85,35 @@ class ConfirmPackageBookingCard extends StatelessWidget {
                       const SizedBox(height: 15),
                       Row(
                         children: [
+                          Icon(
+                            Icons.inventory_2_outlined, // أو أي أيقونة مناسبة
+                            color: AppColors.kprimarycolor,
+                            size: SizeConfig.w(15),
+                          ),
+                          SizedBox(width: SizeConfig.w(5)),
                           Text(
                             packageType,
                             style: AppTextStyles.styleRegular13(
                               context,
                             ).copyWith(color: const Color(0xff006398)),
                           ),
-                           SizedBox(width: SizeConfig.w(5)),
-                           SvgPicture.asset(
-                            'assets/icons/packages.svg',
-                            color: AppColors.kprimarycolor,
-                            height: SizeConfig.h(15),
-                            width: SizeConfig.w(15),
-                          ),
-                         
-                         
                         ],
                       ),
                     ],
                   ),
-                   SizedBox(width: SizeConfig.w(20)),
+                  SizedBox(width: SizeConfig.w(20)),
                   DateTimeSection(date: date, time: time, width: 20),
-                 
-                 
                 ],
               ),
             ),
             const SizedBox(height: 40),
 
             // الأزرار
-                ConfirmMaintenancePackagesCloseSection(
-                  packageId: packageId,
-                  date: date,
-                  time: time,
-                ),
+            ConfirmMaintenancePackagesCloseSection(
+              packageId: packageId,
+              date: date,
+              time: time,
+            ),
           ],
         ),
       ),

@@ -15,7 +15,7 @@ class StoreOrdersRepoImpl implements StoreOrdersRepo {
       final orders = await remoteDataSource.getStoreOrders();
       return Right(orders);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(mapDioError(e));
     }
   }
 }

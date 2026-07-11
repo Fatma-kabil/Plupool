@@ -21,10 +21,7 @@ class AttachmentChip extends StatelessWidget {
     final uri = Uri.parse(fileUrl!);
 
     if (await canLaunchUrl(uri)) {
-      await launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-      );
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
   }
 
@@ -52,10 +49,14 @@ class AttachmentChip extends StatelessWidget {
               color: const Color(0xff777777),
             ),
             SizedBox(width: SizeConfig.w(4)),
-            Text(
-              fileName,
-              style: AppTextStyles.styleRegular16(context).copyWith(
-                color: const Color(0xff333333),
+            Expanded(
+              child: Text(
+                fileName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.styleRegular16(
+                  context,
+                ).copyWith(color: const Color(0xff333333)),
               ),
             ),
           ],

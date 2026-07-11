@@ -23,7 +23,7 @@ class CartRepoImpl implements CartRepo {
 
       return const Right(unit);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(mapDioError(e));
     }
   }
 
@@ -34,7 +34,7 @@ class CartRepoImpl implements CartRepo {
 
       return right(result);
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return Left(mapDioError(e));
     }
   }
 
@@ -45,7 +45,7 @@ class CartRepoImpl implements CartRepo {
 
       return right(cart);
     } catch (e) {
-      return left(ServerFailure(e.toString()));
+      return Left(mapDioError(e));
     }
   }
 
@@ -58,37 +58,37 @@ class CartRepoImpl implements CartRepo {
 
       return const Right(null);
     } catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(mapDioError(e));
     }
   }
 
   @override
-Future<Either<Failure, Unit>> updateCartItem({
-  required int cartItemId,
-  required UpdateCartItemRequest request,
-}) async {
-  try {
-    await cartRemoteDataSource.updateCartItem(
-      cartItemId: cartItemId,
-      request: request,
-    );
+  Future<Either<Failure, Unit>> updateCartItem({
+    required int cartItemId,
+    required UpdateCartItemRequest request,
+  }) async {
+    try {
+      await cartRemoteDataSource.updateCartItem(
+        cartItemId: cartItemId,
+        request: request,
+      );
 
-    return right(unit);
-  } catch (e) {
-    return left(ServerFailure(e.toString()));
+      return right(unit);
+    } catch (e) {
+      return Left(mapDioError(e));
+    }
   }
-}
 
-@override
-Future<Either<Failure, StoreOrderEntity>> confirmOrder({
-  required ConfirmOrderRequestModel request,
-}) async {
-  try {
-    final result = await cartRemoteDataSource.confirmOrder(request: request);
+  @override
+  Future<Either<Failure, StoreOrderEntity>> confirmOrder({
+    required ConfirmOrderRequestModel request,
+  }) async {
+    try {
+      final result = await cartRemoteDataSource.confirmOrder(request: request);
 
-    return Right(result);
-  } catch (e) {
-    return left(ServerFailure(e.toString()));
+      return Right(result);
+    } catch (e) {
+      return Left(mapDioError(e));
+    }
   }
-}
 }

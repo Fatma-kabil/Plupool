@@ -4,14 +4,11 @@ import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/consruction_service/data/models/user_note_model.dart';
 
 class UserNotesRemoteDataSource {
-   final ApiService api;
+  final ApiService api;
 
   UserNotesRemoteDataSource(this.api);
 
-  
-  Future <List<UserNotesModel>> getNotes(
-    
-  ) async {
+  Future<List<UserNotesModel>> getNotes() async {
     final response = await api.get(
       '${Endpoints.baseUrl}/pool-owner/notes',
 
@@ -29,18 +26,18 @@ class UserNotesRemoteDataSource {
   }
 
   Future<UserNotesModel> addNote(AddNoteModel model) async {
-  final response = await api.post(
-    '${Endpoints.baseUrl}/pool-owner/notes',
+    final response = await api.post(
+      '${Endpoints.baseUrl}/pool-owner/notes',
       options: Options(
-         contentType: 'multipart/form-data',
+        contentType: 'multipart/form-data',
         headers: {
           'Authorization':
               'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
         },
       ),
-    data: await model.toFormData(),
-  );
-print(response.data);
-  return UserNotesModel.fromJson(response.data['data']);
-}
+      data: await model.toFormData(),
+    );
+    print(response.data);
+    return UserNotesModel.fromJson(response.data);
+  }
 }
