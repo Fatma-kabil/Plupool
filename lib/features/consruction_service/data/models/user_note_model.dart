@@ -16,7 +16,7 @@ class UserNotesModel extends UserNotesEntity {
   factory UserNotesModel.fromJson(Map<String, dynamic> json) {
     return UserNotesModel(
       id: json['id'],
-      note: json['note'] ?? 0,
+      note: (json['note'] ?? '').toString(),
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: json['updated_at'] != null
           ? DateTime.parse(json['updated_at'])

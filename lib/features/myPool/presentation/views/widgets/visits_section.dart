@@ -23,88 +23,101 @@ class VisitsSection extends StatefulWidget {
 class _VisitsSectionState extends State<VisitsSection> {
   @override
   Widget build(BuildContext context) {
-return Column(
-  crossAxisAlignment: CrossAxisAlignment.start,
-  children: [
-    BlocBuilder<UserServicesCubit, UserServicesState>(
-      builder: (context, state) {
-        if (state.isLoading) {
-          return ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: 3,
-            itemBuilder: (_, __) => const MyPoolTaskCardShimmer(),
-          );
-        }
-
-        if (state.errorMessage != null) {
-          return Center(
-            child: ErrorText(message: "حدث خطأ أتناء تحميل البيانات"),
-          );
-        }
-
-        return ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: state.services.length,
-          itemBuilder: (context, index) {
-            final request = state.services[index];
-
-            List<Widget> visitCards = [];
-
-            if (request.nextMaintenanceDate != null &&
-                request.nextMaintenanceDate!.isNotEmpty) {
-              visitCards.add(
-                VisitCard(
-                  progress: request.completedVisits + 1,
-                  visits: request.visitsCount,
-                  status: RequestStatus.scheduled,
-                  date: request.nextMaintenanceDate!,
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BlocBuilder<UserServicesCubit, UserServicesState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 3,
+                itemBuilder: (_, __) => const MyPoolTaskCardShimmer(),
               );
             }
 
-            for (int i = request.visits.length - 1; i >= 0; i--) {
-              final visit = request.visits[i];
-
-              visitCards.add(
-                VisitCard(
-                  progress: i + 1,
-                  visits: request.visitsCount,
-                  status: RequestStatus.completed,
-                  date: visit.scheduledDate,
-                  reportTechnicianAbsence:
-                      i == request.visits.length - 1,
-                ),
+            if (state.errorMessage != null) {
+              return Center(
+                child: ErrorText(message: "حدث خطأ أتناء تحميل البيانات"),
               );
             }
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                InProgressCard(service: request),
-                SizedBox(height: SizeConfig.h(12)),
-                Text(
-                  "الزيارات",
-                  style: AppTextStyles.styleBold16(
-                    context,
-                  ).copyWith(color: AppColors.ktextcolor),
-                ),
-                SizedBox(height: SizeConfig.h(12)),
-                ...visitCards,
-              ],
+            return ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: state.services.length,
+              itemBuilder: (context, index) {
+                final request = state.services[index];
+
+                List<Widget> visitCards = [];
+
+                if (request.nextMaintenanceDate != null &&
+                    request.nextMaintenanceDate!.isNotEmpty) {
+                  visitCards.add(
+                    VisitCard(
+                      progress: request.completedVisits + 1,
+                      visits: request.visitsCount,
+                      status: RequestStatus.scheduled,
+                      date: request.nextMaintenanceDate!,
+                      bookingId: request.id,
+                      technicianNames: request.technicians
+                          .map((e) => e.name)
+                          .toList(),
+                      technicianImages: request.technicians
+                          .map((e) => e.profileImage)
+                          .toList(),
+                    ),
+                  );
+                }
+
+                for (int i = request.visits.length - 1; i >= 0; i--) {
+                  final visit = request.visits[i];
+
+                  visitCards.add(
+                    VisitCard(
+                      progress: i + 1,
+                      visits: request.visitsCount,
+                      status: RequestStatus.completed,
+                      date: visit.scheduledDate,
+                      reportTechnicianAbsence: i == request.visits.length - 1,
+                       bookingId: request.id,
+                      technicianNames: request.technicians
+                          .map((e) => e.name)
+                          .toList(),
+                      technicianImages: request.technicians
+                          .map((e) => e.profileImage)
+                          .toList(),
+                    ),
+                  );
+                }
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    InProgressCard(service: request),
+                    SizedBox(height: SizeConfig.h(12)),
+                    Text(
+                      "الزيارات",
+                      style: AppTextStyles.styleBold16(
+                        context,
+                      ).copyWith(color: AppColors.ktextcolor),
+                    ),
+                    SizedBox(height: SizeConfig.h(12)),
+                    ...visitCards,
+                  ],
+                );
+              },
             );
           },
-        );
-      },
-    ),
+        ),
 
-    SizedBox(height: SizeConfig.h(10)),
-    const AddNote(),
-    SizedBox(height: SizeConfig.h(20)),
-     ServiceNotesSection(),
-    SizedBox(height: SizeConfig.h(20)),
-  ],
-);
+        SizedBox(height: SizeConfig.h(10)),
+        const AddNote(),
+        SizedBox(height: SizeConfig.h(20)),
+        ServiceNotesSection(),
+        SizedBox(height: SizeConfig.h(20)),
+      ],
+    );
   }
 }

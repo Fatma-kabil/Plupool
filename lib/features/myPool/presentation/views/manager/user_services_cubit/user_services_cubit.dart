@@ -1,4 +1,3 @@
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/features/myPool/domain/usecases/get_user_services_usecase.dart';
 
@@ -8,7 +7,7 @@ class UserServicesCubit extends Cubit<UserServicesState> {
   final GetUserServicesUsecase getUserServicesUsecase;
 
   UserServicesCubit(this.getUserServicesUsecase)
-      : super(const UserServicesState());
+    : super(const UserServicesState());
 
   Future<void> getServices({
     String? tab,
@@ -17,12 +16,7 @@ class UserServicesCubit extends Cubit<UserServicesState> {
     int? skip,
     int? limit,
   }) async {
-    emit(
-      state.copyWith(
-        isLoading: true,
-        errorMessage: null,
-      ),
-    );
+    emit(state.copyWith(isLoading: true, errorMessage: null));
 
     final result = await getUserServicesUsecase(
       tab: tab,
@@ -34,12 +28,7 @@ class UserServicesCubit extends Cubit<UserServicesState> {
 
     result.fold(
       (failure) {
-        emit(
-          state.copyWith(
-            isLoading: false,
-            errorMessage: failure.message,
-          ),
-        );
+        emit(state.copyWith(isLoading: false, errorMessage: failure.message));
       },
       (services) {
         emit(

@@ -20,16 +20,14 @@ class ProductGridBlocBuilder extends StatelessWidget {
 
         if (state is ProductLoaded) {
           if (state.products.isEmpty) {
-            return SliverToBoxAdapter(
-              child: Center(
-                child: Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text(
-                    "لا توجد منتجات متاحة حالياً 🛒📭",
-                    style: AppTextStyles.styleMedium16(
-                      context,
-                    ).copyWith(color: Colors.grey),
-                  ),
+            return Center(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  "لا توجد منتجات متاحة حالياً 🛒📭",
+                  style: AppTextStyles.styleMedium16(
+                    context,
+                  ).copyWith(color: Colors.grey),
                 ),
               ),
             );
