@@ -10,13 +10,12 @@ String formatMonthDate(DateTime date) {
   return DateFormat('EEEE : yyyy/M/d', 'ar').format(date);
 }
 
-
-
 String formatArabicDate(String date) {
   final parsedDate = DateTime.parse(date);
 
   return DateFormat('yyyy/M/d - h:mm a', 'ar').format(parsedDate);
 }
+
 String formatArabicDateOnly(String? dateString) {
   final parsedDate = DateTime.tryParse(dateString ?? '');
   if (parsedDate == null) return '-';
@@ -124,10 +123,8 @@ String timeAgo(DateTime date) {
 
   return "الآن";
 }
+
 TimeOfDay parseTime(String time) {
   final parts = time.split(':');
-  return TimeOfDay(
-    hour: int.parse(parts[0]),
-    minute: int.parse(parts[1]),
-  );
+  return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
 }

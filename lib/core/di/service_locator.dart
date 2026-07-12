@@ -255,6 +255,12 @@ import 'package:plupool/features/support/data/remote_data_sources/contact_remote
 import 'package:plupool/features/support/data/repos_impl.dart/contact_repo_impl.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
 import 'package:plupool/features/support/domain/repos/contact_repo.dart';
+import 'package:plupool/features/tasks/data/remote_data_sources/technician_tasks_remote_data_source.dart';
+import 'package:plupool/features/tasks/data/repo_impl/technician_tasks_repo_impl.dart';
+import 'package:plupool/features/tasks/domain/repos/technician_tasks_repo.dart';
+import 'package:plupool/features/tasks/domain/usecases/get_tasks_use_case.dart';
+import 'package:plupool/features/tasks/domain/usecases/get_week_tasks_use_case.dart';
+import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
 import 'package:plupool/features/technicains/data/data_sources/ratings_remote_data_source.dart';
 import 'package:plupool/features/technicains/data/repos_impl/update_tech_rating_repo_impl.dart';
 import 'package:plupool/features/technicains/domain/repos/update_tech_rating_repo.dart';
@@ -1238,6 +1244,24 @@ sl.registerFactory(
 
   // Cubit
   sl.registerFactory(() => AddSupportMessageCubit(sl<AddSupportMessageUseCase>()));
+
+
+  sl.registerLazySingleton<TechnicianTasksRemoteDataSource>(
+  () => TechnicianTasksRemoteDataSource(sl()),
+);
+
+sl.registerLazySingleton<TechnicianTasksRepo>(
+  () => TechnicianTasksRepoImpl(sl()),
+);
+
+sl.registerLazySingleton(() => GetTasksUseCase(sl()));
+
+sl.registerLazySingleton(() => GetWeekTasksUseCase(sl()));
+
+sl.registerFactory(() => TechnicianTasksCubit(
+      sl(),
+      sl(),
+    ));
 
 
 

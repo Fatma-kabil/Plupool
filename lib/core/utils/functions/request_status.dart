@@ -8,6 +8,7 @@ enum RequestStatus {
   completed,
   scheduled, // 🟠 الحالة الجديدة
 }
+
 RequestStatus mapApiStatus(String status) {
   switch (status) {
     case "completed":
@@ -22,86 +23,87 @@ RequestStatus mapApiStatus(String status) {
     case "scheduled":
       return RequestStatus.scheduled;
 
-   
     default:
       return RequestStatus.urgent;
   }
 }
- /// 🔁 Convert enum → API
-  String mapStatusToApi(RequestStatus status) {
-    switch (status) {
-      case RequestStatus.urgent:
-        return "pending";
-      case RequestStatus.inProgress:
-        return "in_progress";
-      case RequestStatus.completed:
-        return "completed";
-      case RequestStatus.scheduled:
-        return "confirmed";
-    }
+
+/// 🔁 Convert enum → API
+String mapStatusToApi(RequestStatus status) {
+  switch (status) {
+    case RequestStatus.urgent:
+      return "pending";
+    case RequestStatus.inProgress:
+      return "in_progress";
+    case RequestStatus.completed:
+      return "completed";
+    case RequestStatus.scheduled:
+      return "confirmed";
   }
-  
-   String mapStatusToApi2(RequestStatus status) {
-    switch (status) {
-      case RequestStatus.urgent:
-        return "urgent";
-      case RequestStatus.inProgress:
-        return "in_progress";
-      case RequestStatus.completed:
-        return "completed";
-      case RequestStatus.scheduled:
-        return "scheduled";
-    }
+}
+
+String mapStatusToApi2(RequestStatus status) {
+  switch (status) {
+    case RequestStatus.urgent:
+      return "urgent";
+    case RequestStatus.inProgress:
+      return "in_progress";
+    case RequestStatus.inProgress:
+      return "inProgress";
+    case RequestStatus.completed:
+      return "completed";
+    case RequestStatus.scheduled:
+      return "scheduled";
   }
-  
-  String getApiStatus(String tab) {
-    switch (tab) {
-      case "قيد التنفيذ":
-        return "in_progress";
+}
 
-      case "مجدولة":
-        return "scheduled";
+String getApiStatus(String tab) {
+  switch (tab) {
+    case "قيد التنفيذ":
+      return "in_progress";
 
-      case "مكتمله":
-        return "completed";
+    case "مجدولة":
+      return "scheduled";
 
-      default:
-        return "in_progress";
-    }
+    case "مكتمله":
+      return "completed";
+
+    default:
+      return "in_progress";
   }
+}
 
-   String getApiStatusProj(String tab) {
-    switch (tab) {
-      case "قيد التنفيذ":
-        return "inProgress";
+String getApiStatusProj(String tab) {
+  switch (tab) {
+    case "قيد التنفيذ":
+      return "inProgress";
 
-      case "مجدولة":
-        return "scheduled";
+    case "مجدولة":
+      return "scheduled";
 
-      case "مكتمله":
-        return "completed";
+    case "مكتمله":
+      return "completed";
 
-      default:
-        return "inProgress";
-    }
+    default:
+      return "inProgress";
   }
-  
-  String getApiDuration(String duration) {
-    switch (duration) {
-      case "باقة شهرية":
-        return "MONTHLY";
+}
 
-      case "باقة 4 شهور":
-        return "QUARTERLY";
+String getApiDuration(String duration) {
+  switch (duration) {
+    case "باقة شهرية":
+      return "MONTHLY";
 
-      case "باقة سنوية":
-        return "YEARLY";
+    case "باقة 4 شهور":
+      return "QUARTERLY";
 
-      default:
-        return "MONTHLY";
-    }
+    case "باقة سنوية":
+      return "YEARLY";
+
+    default:
+      return "MONTHLY";
   }
-
+}
 
 /// نص الحالة باللغة العربية
 String getStatusText(RequestStatus status) {
@@ -127,7 +129,6 @@ class RequestStatusColors {
           'bg': AppColors.kScaffoldColor,
           'labelBg': const Color(0xFFFAD7DA),
           'labelText': const Color(0xFFC0303A),
-
         };
 
       case RequestStatus.inProgress:
@@ -146,7 +147,7 @@ class RequestStatusColors {
 
           'labelBg': const Color(0xFFACF1DF),
           'labelText': const Color(0xFF30DDB0),
-           'progbar': Color(0xff05B285),
+          'progbar': Color(0xff05B285),
         };
 
       case RequestStatus.scheduled: // 🟠 مجدولة
@@ -155,7 +156,7 @@ class RequestStatusColors {
           'bg': AppColors.kScaffoldColor,
           'labelBg': const Color(0xFFFFECD2),
           'labelText': const Color(0xFFD48417), // برتقالي غامق
-           'progbar': Color.fromARGB(255, 233, 146, 25),
+          'progbar': Color.fromARGB(255, 233, 146, 25),
         };
     }
   }

@@ -44,7 +44,7 @@ class TeskCard extends StatelessWidget {
                       ).copyWith(color: AppColors.ktextcolor),
                     ),
                     const SizedBox(height: 4),
-                    BuildDataTimeRow(request: request),
+                  //  BuildDataTimeRow(request: request),
                   ],
                 ),
               ],

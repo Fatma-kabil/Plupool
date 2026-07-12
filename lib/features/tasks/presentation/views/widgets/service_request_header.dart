@@ -37,7 +37,7 @@ class ServiceRequestHeader extends StatelessWidget {
               ).copyWith(color: AppColors.ktextcolor),
             ),
             SizedBox(height: SizeConfig.h(4)),
-            BuildDataTimeRow(request: request),
+         //   BuildDataTimeRow(request: request),
           ],
         ),
         Spacer(),

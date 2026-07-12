@@ -45,7 +45,7 @@ class MyTaskViewCard extends StatelessWidget {
                     children: [
                       _buildTitle(context),
                       const SizedBox(height: 4),
-                      BuildDataTimeRow(request: request),
+                  //    BuildDataTimeRow(request: request),
                     ],
                   ),
                 ),
@@ -63,7 +63,7 @@ class MyTaskViewCard extends StatelessWidget {
                 // ✅ لو الحالة inProgress يظهر الزرار الحقيقي
 
                 // ✅ بيانات المستخدم
-                Flexible(child: BuildUserSection(request: request)),
+             //   Flexible(child: BuildUserSection(request: request)),
                 LocationBtn(request: request, colors: colors),
               ],
             ),

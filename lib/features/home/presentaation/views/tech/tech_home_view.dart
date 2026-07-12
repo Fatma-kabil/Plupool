@@ -98,7 +98,7 @@ class _TechHomeViewState extends State<TechHomeView> {
           appbar,
           const SizedBox(height: 30),
 
-          if (showWeekly) ...[
+      //    if (showWeekly) ...[
             TechInfoCardRow(userId: 6),
             const SizedBox(height: 30),
 
@@ -127,7 +127,7 @@ class _TechHomeViewState extends State<TechHomeView> {
             const SizedBox(height: 20),
             const WeeklyRequestsList(),
             const SizedBox(height: 30),
-          ],
+      //    ],
 
           OfferSection(),
          
