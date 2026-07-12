@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/service_request_card.dart';
-import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_stae.dart';
+import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/week_tasks_cubit.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/task_card_shimmer.dart';
 
 class WeeklyRequestsList extends StatelessWidget {
@@ -10,7 +10,7 @@ class WeeklyRequestsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TechnicianTasksCubit, TechnicianTasksState>(
+    return BlocBuilder<WeekTasksCubit, TechnicianTasksState>(
       builder: (context, state) {
         if (state is GetWeekTasksLoading) {
           return ListView.builder(

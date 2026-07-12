@@ -6,11 +6,15 @@ import '../entities/task_entity.dart';
 abstract class TechnicianTasksRepo {
  Future<Either<Failure, List<TaskEntity>>> getTasks({
     String? search,
-    String? status,
-    String? dateFrom,
-    String? dateTo,
-    int page = 1,
-    int pageSize = 20,
+  List<String>? status,
+  List<String>? priorities,
+  List<String>? serviceTypes,
+  List<String>? locations,
+  String? dateFrom,
+  String? dateTo,
+  bool weekOnly = false,
+  int page = 1,
+  int pageSize = 20,
   });
 
   Future<Either<Failure, List<TaskEntity>>> getWeekTasks({

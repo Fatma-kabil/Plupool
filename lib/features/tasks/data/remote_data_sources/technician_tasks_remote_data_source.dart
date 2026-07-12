@@ -4,32 +4,45 @@ import 'package:plupool/core/network/end_points.dart';
 
 import '../models/task_model.dart';
 
-class TechnicianTasksRemoteDataSource
-    {
+class TechnicianTasksRemoteDataSource {
   final ApiService apiService;
 
   TechnicianTasksRemoteDataSource(this.apiService);
 
-  
   Future<List<TaskModel>> getTasks({
     String? search,
-    String? status,
+    List<String>? status,
+    List<String>? priorities,
+    List<String>? serviceTypes,
+    List<String>? locations,
     String? dateFrom,
     String? dateTo,
+    bool weekOnly = false,
     int page = 1,
     int pageSize = 20,
   }) async {
     final response = await apiService.get(
       '${Endpoints.baseUrl}/technician/tasks',
       queryParams: {
-        if (search != null) "search": search,
-        if (status != null) "status": status,
+        if (search != null && search.isNotEmpty) "search": search,
+
+        if (status != null && status.isNotEmpty) "status": status,
+
+        if (priorities != null && priorities.isNotEmpty) "priority": priorities,
+
+        if (serviceTypes != null && serviceTypes.isNotEmpty)
+          "service_type": serviceTypes,
+
+        if (locations != null && locations.isNotEmpty) "location": locations,
+
         if (dateFrom != null) "date_from": dateFrom,
         if (dateTo != null) "date_to": dateTo,
+
+        "week_only": weekOnly,
         "page": page,
         "page_size": pageSize,
       },
-       options: Options(
+      options: Options(
         headers: {
           'Authorization':
               'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6InRlY2huaWNpYW4iLCJleHAiOjE3ODU1OTgzNTh9.hbPWdg5QfUFbbta1D-EVG1Pi4-jLxd4c6uEM6xarU8Y',
@@ -39,7 +52,6 @@ class TechnicianTasksRemoteDataSource
 
     return TaskModel.fromList(response.data["tasks"]);
   }
-
 
   Future<List<TaskModel>> getWeekTasks({
     String? weekStart,
@@ -59,7 +71,7 @@ class TechnicianTasksRemoteDataSource
         "page": page,
         "page_size": pageSize,
       },
-       options: Options(
+      options: Options(
         headers: {
           'Authorization':
               'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2Iiwicm9sZSI6InRlY2huaWNpYW4iLCJleHAiOjE3ODU1OTgzNTh9.hbPWdg5QfUFbbta1D-EVG1Pi4-jLxd4c6uEM6xarU8Y',

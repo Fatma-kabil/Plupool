@@ -9,21 +9,30 @@ class GetTasksUseCase {
 
   GetTasksUseCase(this.repository);
 
-  Future<Either<Failure, List<TaskEntity>>> call({
-    String? search,
-    String? status,
-    String? dateFrom,
-    String? dateTo,
-    int page = 1,
-    int pageSize = 20,
-  }) {
-    return repository.getTasks(
-      search: search,
-      status: status,
-      dateFrom: dateFrom,
-      dateTo: dateTo,
-      page: page,
-      pageSize: pageSize,
-    );
+ Future<Either<Failure, List<TaskEntity>>> call({
+  String? search,
+  List<String>? status,
+  List<String>? priorities,
+  List<String>? serviceTypes,
+  List<String>? locations,
+  String? dateFrom,
+  String? dateTo,
+  bool weekOnly = false,
+  int page = 1,
+  int pageSize = 20,
+}) {
+  return repository.getTasks(
+    search: search,
+    status: status,
+    priorities: priorities,
+    serviceTypes: serviceTypes,
+    locations: locations,
+    dateFrom: dateFrom,
+    dateTo: dateTo,
+    weekOnly: weekOnly,
+    page: page,
+    pageSize: pageSize,
+  );
+
   }
 }

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'filter_section.dart';
+import 'package:plupool/features/tasks/data/models/task_filter_model.dart';
 import 'custom_location_dialog.dart';
+import 'filter_section.dart';
 
 class FilterSheet extends StatefulWidget {
   const FilterSheet({super.key});
@@ -17,17 +18,39 @@ class _FilterSheetState extends State<FilterSheet> {
   final Set<String> selectedService = {};
   final Set<String> selectedLocation = {};
 
-  final List<String> statusOptions = ["عاجل", "مجدول", "قيد التنفيذ"];
-  final List<String> serviceOptions = [ "إصلاح", "تنظيف","صيانة","إنشاء"];
-  final List<String> locationOptions = [
-    "القاهرة",
-     "الجيزة",
-        "مدينة نصر",
-    "موقع مخصص",
- 
-   
+  final List<String> statusOptions = [
+    "عاجل",
+    "مجدول",
+    "قيد التنفيذ",
     
   ];
+
+  final List<String> serviceOptions = [
+    "صيانة",
+    "باقات",
+    "إنشاء",
+  ];
+
+  final List<String> locationOptions = [
+    "القاهرة",
+    "الجيزة",
+    "مدينة نصر",
+    "موقع مخصص",
+  ];
+
+  /// تحويل القيم للعربي -> API
+  final Map<String, String> statusMap = {
+    "عاجل": "pending",
+    "مجدول": "scheduled",
+    "قيد التنفيذ": "in_progress",
+    
+  };
+
+  final Map<String, String> serviceMap = {
+    "صيانة": "maintenance_single",
+    "باقات":"maintenance_package",
+    "إنشاء": "construction",
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +62,13 @@ class _FilterSheetState extends State<FilterSheet> {
       ),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25),
+        ),
       ),
       child: SingleChildScrollView(
         child: Directionality(
-           textDirection: TextDirection.rtl, // ✅ الاتجاه من اليمين لليسار
+          textDirection: TextDirection.rtl,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -53,13 +78,17 @@ class _FilterSheetState extends State<FilterSheet> {
                 options: statusOptions,
                 selectedSet: selectedStatus,
               ),
+
               const SizedBox(height: 20),
+
               FilterSection(
                 title: "نوع الخدمة",
                 options: serviceOptions,
                 selectedSet: selectedService,
               ),
+
               const SizedBox(height: 20),
+
               FilterSection(
                 title: "الموقع",
                 options: locationOptions,
@@ -67,23 +96,41 @@ class _FilterSheetState extends State<FilterSheet> {
                 onCustomLocationRequested: () async {
                   final customLocation =
                       await showCustomLocationDialog(context);
-                  if (customLocation != null && customLocation.isNotEmpty) {
+
+                  if (customLocation != null &&
+                      customLocation.isNotEmpty) {
                     setState(() {
                       if (!locationOptions.contains(customLocation)) {
                         locationOptions.insert(1, customLocation);
                       }
+
                       selectedLocation.add(customLocation);
                     });
-          
-                   
                   }
                 },
               ),
+
               SizedBox(height: SizeConfig.h(25)),
+
               Row(
                 children: [
-                   ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(
+                        context,
+                        TaskFilterModel(
+                          statuses: selectedStatus
+                              .map((e) => statusMap[e] ?? e)
+                              .toList(),
+
+                          serviceTypes: selectedService
+                              .map((e) => serviceMap[e] ?? e)
+                              .toList(),
+
+                          locations: selectedLocation.toList(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.kprimarycolor,
                       shape: RoundedRectangleBorder(
@@ -102,10 +149,14 @@ class _FilterSheetState extends State<FilterSheet> {
                       ),
                     ),
                   ),
-                    const Spacer(),
+
+                  const Spacer(),
+
                   OutlinedButton(
                     style: ElevatedButton.styleFrom(
-                      side: BorderSide(color: AppColors.kprimarycolor),
+                      side: BorderSide(
+                        color: AppColors.kprimarycolor,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -116,12 +167,12 @@ class _FilterSheetState extends State<FilterSheet> {
                         vertical: SizeConfig.h(6),
                         horizontal: SizeConfig.w(10),
                       ),
-                      child: Text("إلغاء",
-                          style: AppTextStyles.styleBold16(context)),
+                      child: Text(
+                        "إلغاء",
+                        style: AppTextStyles.styleBold16(context),
+                      ),
                     ),
                   ),
-                
-                 
                 ],
               ),
             ],

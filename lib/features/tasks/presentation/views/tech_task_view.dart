@@ -21,38 +21,39 @@ class TechTaskView extends StatelessWidget {
           horizontal: SizeConfig.w(17),
           vertical: SizeConfig.h(18),
         ),
-        child: BlocBuilder<AuthCubit, AuthState>(
-          builder: (context, authState) {
-            return Stack(
-              children: [
+        child:
+        // BlocBuilder<AuthCubit, AuthState>(
+         // builder: (context, authState) {
+          //  return Stack(
+            //  children: [
                 TechTaskViewBody(),
 
-                if (authState.status == AuthStatus.guest) ...[
-                  Positioned.fill(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
-                      child: Container(
-                        color: Colors.black.withOpacity(0), // ضروري للبلور
-                      ),
-                    ),
-                  ),
+             //   if (authState.status == AuthStatus.guest) ...[
+              //    Positioned.fill(
+                //    child: BackdropFilter(
+                  //    filter: ImageFilter.blur(sigmaX: 7, sigmaY: 7),
+                    //  child: Container(
+                   //     color: Colors.black.withOpacity(0), // ضروري للبلور
+                   //   ),
+                //    ),
+                //  ),
 
                   // الخطوة المهمة: عرض الـ ErrorCard فوق البلور
-                  Center(
-                    child: ErrorCard(
-                      title: 'لم يتم تسجيل الدخول',
-                      subtitle:
-                          'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                     color: Colors.white
+              //    Center(
+                //    child: ErrorCard(
+                  ////    title: 'لم يتم تسجيل الدخول',
+                  //    subtitle:
+                    //      'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                  //   color: Colors.white
 
                     ),
-                  ),
-                ],
-              ],
-            );
-          },
-        ),
-      ),
+                //  ),
+             //   ],
+           //   ],
+         //   );
+         // },
+       // ),
+   //   ),
     );
   }
 }

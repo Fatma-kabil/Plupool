@@ -11,6 +11,7 @@ Future<String?> showCustomLocationDialog(BuildContext context) async {
     useRootNavigator: true,
     builder: (dialogContext) {
       return AlertDialog(
+        backgroundColor: AppColors.kScaffoldColor,
        contentPadding: EdgeInsets.symmetric(vertical: SizeConfig.h(15),horizontal:SizeConfig.w(15) ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: Text(
@@ -50,15 +51,7 @@ Future<String?> showCustomLocationDialog(BuildContext context) async {
              mainAxisAlignment: MainAxisAlignment.spaceBetween, // ✅ مسافة كبيرة بينهم
             children: [
               
-              TextButton(
-                onPressed: () => Navigator.pop(dialogContext),
-                child: Text(
-                  "إلغاء",
-                  style: AppTextStyles.styleBold16(
-                    context,
-                  ).copyWith(color: Colors.grey[700]),
-                ),
-              ),
+            
               //  Spacer(),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -82,6 +75,15 @@ Future<String?> showCustomLocationDialog(BuildContext context) async {
                       context,
                     ).copyWith(color: Colors.white),
                   ),
+                ),
+              ),
+                TextButton(
+                onPressed: () => Navigator.pop(dialogContext),
+                child: Text(
+                  "إلغاء",
+                  style: AppTextStyles.styleBold16(
+                    context,
+                  ).copyWith(color: Colors.grey[700]),
                 ),
               ),
             ],

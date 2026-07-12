@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:plupool/features/tasks/data/models/task_filter_model.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/filter_sheet.dart';
-
-void showFullWidthBottomSheet(BuildContext context) {
-  showGeneralDialog(
+Future<TaskFilterModel?> showFullWidthBottomSheet(
+  BuildContext context,
+) {
+  return showGeneralDialog<TaskFilterModel>(
     context: context,
     barrierLabel: "FilterSheet",
     barrierDismissible: true,
@@ -14,12 +16,13 @@ void showFullWidthBottomSheet(BuildContext context) {
         alignment: Alignment.bottomCenter,
         child: Material(
           color: Colors.transparent,
-          child: IntrinsicHeight( // 👈 ده اللي بيخلي الارتفاع حسب المحتوى
+          child: IntrinsicHeight(
             child: Container(
-              width: MediaQuery.of(context).size.width, // العرض الكامل
+              width: MediaQuery.of(context).size.width,
               decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(25)),
               ),
               child: const FilterSheet(),
             ),
@@ -31,11 +34,13 @@ void showFullWidthBottomSheet(BuildContext context) {
       return SlideTransition(
         position: Tween(
           begin: const Offset(0, 1),
-          end: const Offset(0, 0),
-        ).animate(CurvedAnimation(
-          parent: anim1,
-          curve: Curves.easeOutCubic,
-        )),
+          end: Offset.zero,
+        ).animate(
+          CurvedAnimation(
+            parent: anim1,
+            curve: Curves.easeOutCubic,
+          ),
+        ),
         child: child,
       );
     },

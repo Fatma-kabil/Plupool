@@ -7,8 +7,8 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tasks_list.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/week_day_bar.dart';
-import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_stae.dart';
+import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/week_tasks_cubit.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/task_card_shimmer.dart';
 
 class WeeklyTasksView extends flutter.StatefulWidget {
@@ -81,7 +81,7 @@ class _WeeklyTasksViewState extends flutter.State<WeeklyTasksView> {
               const flutter.Divider(),
 
               flutter.Expanded(
-                child: BlocBuilder<TechnicianTasksCubit, TechnicianTasksState>(
+                child: BlocBuilder<WeekTasksCubit, TechnicianTasksState>(
                   builder: (context, state) {
                     if (state is GetWeekTasksLoading) {
                       return flutter.ListView.builder(

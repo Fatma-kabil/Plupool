@@ -1,20 +1,21 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_tasks_use_case.dart';
-import 'package:plupool/features/tasks/domain/usecases/get_week_tasks_use_case.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_stae.dart';
 
 class TechnicianTasksCubit extends Cubit<TechnicianTasksState> {
-  TechnicianTasksCubit(this._getTasksUseCase, this._getWeekTasksUseCase)
-    : super(TechnicianTasksInitial());
+  TechnicianTasksCubit(this._getTasksUseCase) : super(TechnicianTasksInitial());
 
   final GetTasksUseCase _getTasksUseCase;
-  final GetWeekTasksUseCase _getWeekTasksUseCase;
 
   Future<void> getTasks({
     String? search,
-    String? status,
+    List<String>? status,
+    List<String>? priorities,
+    List<String>? serviceTypes,
+    List<String>? locations,
     String? dateFrom,
     String? dateTo,
+    bool weekOnly = false,
     int page = 1,
     int pageSize = 20,
   }) async {
@@ -23,8 +24,12 @@ class TechnicianTasksCubit extends Cubit<TechnicianTasksState> {
     final result = await _getTasksUseCase(
       search: search,
       status: status,
+      priorities: priorities,
+      serviceTypes: serviceTypes,
+      locations: locations,
       dateFrom: dateFrom,
       dateTo: dateTo,
+      weekOnly: weekOnly,
       page: page,
       pageSize: pageSize,
     );
@@ -32,31 +37,6 @@ class TechnicianTasksCubit extends Cubit<TechnicianTasksState> {
     result.fold(
       (failure) => emit(GetTasksFailure(failure.message)),
       (tasks) => emit(GetTasksSuccess(tasks)),
-    );
-  }
-
-  Future<void> getWeekTasks({
-    String? weekStart,
-    String? weekEnd,
-    String? search,
-    String? status,
-    int page = 1,
-    int pageSize = 20,
-  }) async {
-    emit(GetWeekTasksLoading());
-
-    final result = await _getWeekTasksUseCase(
-      weekStart: weekStart,
-      weekEnd: weekEnd,
-      search: search,
-      status: status,
-      page: page,
-      pageSize: pageSize,
-    );
-
-    result.fold(
-      (failure) => emit(GetWeekTasksFailure(failure.message)),
-      (tasks) => emit(GetWeekTasksSuccess(tasks)),
     );
   }
 }

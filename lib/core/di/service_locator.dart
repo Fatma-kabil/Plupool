@@ -261,6 +261,7 @@ import 'package:plupool/features/tasks/domain/repos/technician_tasks_repo.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_tasks_use_case.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_week_tasks_use_case.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
+import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/week_tasks_cubit.dart';
 import 'package:plupool/features/technicains/data/data_sources/ratings_remote_data_source.dart';
 import 'package:plupool/features/technicains/data/repos_impl/update_tech_rating_repo_impl.dart';
 import 'package:plupool/features/technicains/domain/repos/update_tech_rating_repo.dart';
@@ -1257,12 +1258,17 @@ sl.registerLazySingleton<TechnicianTasksRepo>(
 sl.registerLazySingleton(() => GetTasksUseCase(sl()));
 
 sl.registerLazySingleton(() => GetWeekTasksUseCase(sl()));
+sl.registerFactory(
+  () => TechnicianTasksCubit(
+    sl(),
+  ),
+);
 
-sl.registerFactory(() => TechnicianTasksCubit(
-      sl(),
-      sl(),
-    ));
-
+sl.registerFactory(
+  () => WeekTasksCubit(
+    sl(),
+  ),
+);
 
 
 }

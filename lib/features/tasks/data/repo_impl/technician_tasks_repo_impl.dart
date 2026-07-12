@@ -4,18 +4,21 @@ import 'package:plupool/features/tasks/data/remote_data_sources/technician_tasks
 import 'package:plupool/features/tasks/domain/entities/task_entity.dart';
 import 'package:plupool/features/tasks/domain/repos/technician_tasks_repo.dart';
 
-
 class TechnicianTasksRepoImpl implements TechnicianTasksRepo {
   final TechnicianTasksRemoteDataSource remoteDataSource;
 
   TechnicianTasksRepoImpl(this.remoteDataSource);
 
-@override
+  @override
   Future<Either<Failure, List<TaskEntity>>> getTasks({
     String? search,
-    String? status,
+    List<String>? status,
+    List<String>? priorities,
+    List<String>? serviceTypes,
+    List<String>? locations,
     String? dateFrom,
     String? dateTo,
+    bool weekOnly = false,
     int page = 1,
     int pageSize = 20,
   }) async {
@@ -23,8 +26,12 @@ class TechnicianTasksRepoImpl implements TechnicianTasksRepo {
       final tasks = await remoteDataSource.getTasks(
         search: search,
         status: status,
+        priorities: priorities,
+        serviceTypes: serviceTypes,
+        locations: locations,
         dateFrom: dateFrom,
         dateTo: dateTo,
+        weekOnly: weekOnly,
         page: page,
         pageSize: pageSize,
       );
@@ -59,5 +66,4 @@ class TechnicianTasksRepoImpl implements TechnicianTasksRepo {
       return Left(mapDioError(e.toString()));
     }
   }
-  
 }
