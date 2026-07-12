@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -11,7 +10,6 @@ import 'package:plupool/features/BottomNavBar/presentation/views/widgets/custom_
 import 'package:plupool/features/home/presentaation/views/tech/tech_home_view.dart';
 import 'package:plupool/features/profile/presentation/views/profile_view.dart';
 import 'package:plupool/features/store/presentation/views/store_view.dart';
-import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
 import 'package:plupool/features/tasks/presentation/views/tech_task_view.dart';
 
 class MainHomeTechView extends StatefulWidget {
@@ -38,16 +36,11 @@ class _MainHomeTechViewState extends State<MainHomeTechView> {
 
         // ابني الصفحات هنا مش ثابتة
         final pages = [
-          BlocProvider(
-            create: (_) => sl<TechnicianTasksCubit>()
-              ..getTasks(dateFrom: DateTime.now().toString().split(' ').first)
-              ..getWeekTasks(),
-            child: const TechHomeView(),
-          ),
-          BlocProvider(
-            create: (_) => sl<TechnicianTasksCubit>()..getWeekTasks(),
-            child: const TechTaskView(),
-          ),
+          
+             const TechHomeView(),
+          
+          const TechTaskView(),
+          
           StoreView(key: ValueKey(filter), initialFilter: filter),
           const ProfileView(),
         ];

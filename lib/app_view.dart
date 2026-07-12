@@ -37,6 +37,7 @@ import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_
 import 'package:plupool/features/store/presentation/cubits/category_cubit/category_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
+import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
 
 class PlupoolApp extends StatelessWidget {
   const PlupoolApp({super.key});
@@ -89,6 +90,11 @@ class PlupoolApp extends StatelessWidget {
         ),
         BlocProvider(create: (_) => sl<AddRatingCubit>()),
         BlocProvider(create: (_) => sl<AddSupportMessageCubit>()),
+        BlocProvider(
+          create: (_) => sl<TechnicianTasksCubit>()
+            ..getWeekTasks()
+            ..getTasks(dateFrom: DateTime.now().toString().split(' ').first),
+        ),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,

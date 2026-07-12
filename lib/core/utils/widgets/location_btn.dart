@@ -3,22 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/open_location.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/service_request_model.dart';
 
 class LocationBtn extends StatelessWidget {
   const LocationBtn({
     super.key,
-    required this.request,
+    required this.location,
     required this.colors,
   });
 
-  final ServiceRequest request;
+  final String location;
   final Map<String, dynamic> colors;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:() => openLocation(context,request.location) ,
+      onTap:() => openLocation(context,location) ,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

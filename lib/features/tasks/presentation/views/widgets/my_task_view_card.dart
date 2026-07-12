@@ -64,7 +64,7 @@ class MyTaskViewCard extends StatelessWidget {
 
                 // ✅ بيانات المستخدم
              //   Flexible(child: BuildUserSection(request: request)),
-                LocationBtn(request: request, colors: colors),
+            //    LocationBtn(request: request, colors: colors),
               ],
             ),
           ],

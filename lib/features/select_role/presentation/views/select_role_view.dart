@@ -6,6 +6,7 @@ class SelectRoleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: SelectRoleViewBody()));
+    return
+     Scaffold(body: SafeArea(child: SelectRoleViewBody()));
   }
 }
