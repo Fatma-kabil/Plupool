@@ -47,7 +47,7 @@ class CommentInput extends StatelessWidget {
                     context,
                   ).copyWith(color: const Color(0xff555555)),
                 ),
-                SizedBox(width: SizeConfig.w(34)),
+                SizedBox(width: SizeConfig.w(24)),
 
                 ...List.generate(
                   5,
@@ -63,8 +63,8 @@ class CommentInput extends StatelessWidget {
                         index < cubit.selectedRating
                             ? Icons.star
                             : Icons.star_border,
-                        color: const Color(0xffFFD423),
-                        size: SizeConfig.w(18),
+                        color: const Color(0xffFF9F1C),
+                        size: SizeConfig.w(22),
                       ),
                     ),
                   ),

@@ -17,6 +17,16 @@ class WhyUsOwnerBody extends StatelessWidget {
           subtitle:
               "أكثر من ١٠ سنوات من الخبرة في تصميم وبناء حمامات السباحة بدقة واحترافية عالية.",
         ),
+         SizedBox(height: SizeConfig.h(15)),
+      
+        WhyUsCard(
+          icon: Icons.timer_rounded,
+          backColor: Color(0xffCCF0F7),
+          iconColor: Color(0xff0096B4),
+          title:"سرعة في التنفيذ",
+          subtitle:
+            "اطلع على كل خدمة، سجل الزيارات، وتقارير الفنيين مباشرة من لوحة التحكم الخاصة بك.",
+        ),
         SizedBox(height: SizeConfig.h(15)),
       
         WhyUsCard(
@@ -38,12 +48,12 @@ class WhyUsOwnerBody extends StatelessWidget {
         ),
                  SizedBox(height: SizeConfig.h(15)),
         WhyUsCard(
-          icon: Icons.visibility_outlined,
+          icon: Icons.headphones_outlined,
           backColor: Color(0xffFAD7DA),
           iconColor: Color(0xffEA5A65),
-          title: "شفافية كاملة",
+          title: "دعم فني سريع",
           subtitle:
-            "اطلع على كل خدمة، سجل الزيارات، وتقارير الفنيين مباشرة من لوحة التحكم الخاصة بك.",
+           "فريق خدمة عملاء جاهز للإجابة على استفساراتك وتقديم المساعدة عند الحاجة.",
         ),
       ],
     );

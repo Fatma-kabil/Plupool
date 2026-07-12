@@ -23,10 +23,12 @@ class WhyUsViewBody extends StatelessWidget {
           ),
           SizedBox(height: SizeConfig.h(10)),
           Text(
-            "شريكك الموثوق للتصميم الذكي، البناء، والصيانة الاحترافية لحمامات السباحة",
+            role == "فني"
+                ? "في Plupool نوفر لك منصة تساعدك على إدارة أعمالك بسهولة، واستقبال الطلبات، وتنظيم المواعيد، مما يساهم في تحسين جودة الخدمة وتوفير الوقت والجهد."
+                : "في Plupool نقدم خدمات إنشاء وصيانة حمامات السباحة باحترافية، مع الالتزام بأعلى معايير الجودة لضمان أفضل تجربة لعملائنا.",
             style: AppTextStyles.styleRegular16(
               context,
-            ).copyWith(color: Color(0xff777777)),
+            ).copyWith(color: const Color(0xff777777)),
           ),
 
           SizedBox(height: SizeConfig.h(30)),
