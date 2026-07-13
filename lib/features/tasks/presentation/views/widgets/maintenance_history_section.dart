@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/tasks/data/models/water_quality_model.dart';
+import 'package:plupool/features/tasks/domain/entities/water_quality_history_entity.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/maintenance_card.dart';
 
 class MaintenanceHistorySection extends StatefulWidget {
-  const MaintenanceHistorySection({super.key});
-
+  const MaintenanceHistorySection({super.key, required this.history});
+  final List<WaterQualityHistoryEntity> history;
   @override
   State<MaintenanceHistorySection> createState() =>
       _MaintenanceHistorySectionState();
@@ -16,28 +16,14 @@ class MaintenanceHistorySection extends StatefulWidget {
 class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
   bool isExpanded = true;
 
-  final List<WaterQualityModel> history = [
-    WaterQualityModel(
-      temperature: 25,
-      phLevel: 7.2,
-      chlorineLevel: 2.5,
-      note: "جميع القراءات طبيعية. تم تنظيف سلال الكاشطة وغسل الفلتر.",
-      lastUpdated: DateTime(2025, 10, 8, 18, 26),
-    ),
-    WaterQualityModel(
-      temperature: 26,
-      phLevel: 7.9,
-      chlorineLevel: 1.8,
-      note: "تمت إضافة معالجة الكلور. فحص ضغط المضخة - تعمل بشكل طبيعي.",
-      lastUpdated: DateTime(2025, 10, 20, 11, 0),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    // ✅ الترتيب من الأحدث إلى الأقدم
-    final sortedHistory = [...history]
-      ..sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
+    final sortedHistory = [...widget.history]
+      ..sort(
+        (a, b) => DateTime.parse(
+          b.recordedAt,
+        ).compareTo(DateTime.parse(a.recordedAt)),
+      );
 
     return Column(
       children: [
@@ -55,8 +41,9 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
                 children: [
                   Text(
                     "تاريخ الصيانة",
-                    style: AppTextStyles.styleBold16(context)
-                        .copyWith(color: AppColors.ktextcolor),
+                    style: AppTextStyles.styleBold16(
+                      context,
+                    ).copyWith(color: AppColors.ktextcolor),
                   ),
                   SizedBox(width: SizeConfig.w(5)),
                   Icon(
@@ -75,7 +62,7 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
           ),
         ),
 
-         SizedBox(height:SizeConfig.h(8) ),
+        SizedBox(height: SizeConfig.h(8)),
 
         AnimatedCrossFade(
           duration: const Duration(milliseconds: 250),
@@ -84,11 +71,7 @@ class _MaintenanceHistorySectionState extends State<MaintenanceHistorySection> {
               : CrossFadeState.showSecond,
           firstChild: Column(
             children: sortedHistory
-                .map((model) => 
-              
-                    MaintenanceCard(model: model),
-                  
-                )
+                .map((item) => MaintenanceCard(model: item))
                 .toList(),
           ),
           secondChild: const SizedBox.shrink(),

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
+import 'package:plupool/features/tasks/data/models/task_details_model.dart';
 
 import '../models/task_model.dart';
 
@@ -80,5 +81,19 @@ class TechnicianTasksRemoteDataSource {
     );
 
     return TaskModel.fromList(response.data["tasks"]);
+  }
+
+  Future<TaskDetailsModel> getTaskDetails({required int taskId}) async {
+    final response = await apiService.get(
+      '${Endpoints.baseUrl}/technician/tasks/$taskId',
+       options: Options(
+        headers: {
+          'Authorization':
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMiIsImV4cCI6MTc4NDQ4NDI0OH0.wK0pRd_mySHLRGZ8hnF_gpGhhqUI0AMgjj-AIiI9uj0',
+        },
+      ),
+    );
+
+    return TaskDetailsModel.fromJson(response.data);
   }
 }

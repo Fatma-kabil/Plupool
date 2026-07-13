@@ -258,6 +258,7 @@ import 'package:plupool/features/support/domain/repos/contact_repo.dart';
 import 'package:plupool/features/tasks/data/remote_data_sources/technician_tasks_remote_data_source.dart';
 import 'package:plupool/features/tasks/data/repo_impl/technician_tasks_repo_impl.dart';
 import 'package:plupool/features/tasks/domain/repos/technician_tasks_repo.dart';
+import 'package:plupool/features/tasks/domain/usecases/get_task_details_use_case.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_tasks_use_case.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_week_tasks_use_case.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
@@ -1153,9 +1154,9 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(() => GetCartCountUseCase(sl<CartRepo>()));
   sl.registerLazySingleton(() => GetCartUseCase(sl<CartRepo>()));
   sl.registerLazySingleton(() => DeleteCartItemUseCase(sl<CartRepo>()));
-   sl.registerLazySingleton(() => UpdateCartItemUseCase(sl<CartRepo>()));
-   
-   sl.registerLazySingleton(() => ConfirmOrderUseCase(sl<CartRepo>()));
+  sl.registerLazySingleton(() => UpdateCartItemUseCase(sl<CartRepo>()));
+
+  sl.registerLazySingleton(() => ConfirmOrderUseCase(sl<CartRepo>()));
 
   // Cubit
   sl.registerFactory(
@@ -1165,47 +1166,45 @@ Future<void> initServiceLocator() async {
       sl<GetCartUseCase>(),
       sl<DeleteCartItemUseCase>(),
       sl<UpdateCartItemUseCase>(),
-      sl<ConfirmOrderUseCase>()
+      sl<ConfirmOrderUseCase>(),
     ),
   );
 
   sl.registerLazySingleton<MaintenanceRemoteDataSource>(
-  () => MaintenanceRemoteDataSourceImpl(sl()),
-);
+    () => MaintenanceRemoteDataSourceImpl(sl()),
+  );
 
-sl.registerLazySingleton<MaintenanceRepository>(
-  () => MaintenanceRepositoryImpl(sl()),
-);
+  sl.registerLazySingleton<MaintenanceRepository>(
+    () => MaintenanceRepositoryImpl(sl()),
+  );
 
-sl.registerLazySingleton(
-  () => GetMaintenanceServiceUseCase(sl()),
-);
+  sl.registerLazySingleton(() => GetMaintenanceServiceUseCase(sl()));
 
-sl.registerLazySingleton(
-  () => BookMaintenanceUseCase(sl()),
-);
+  sl.registerLazySingleton(() => BookMaintenanceUseCase(sl()));
 
-sl.registerFactory(
-  () => MaintenanceCubit(sl<GetMaintenanceServiceUseCase>(), sl<BookMaintenanceUseCase>())
-);
-
+  sl.registerFactory(
+    () => MaintenanceCubit(
+      sl<GetMaintenanceServiceUseCase>(),
+      sl<BookMaintenanceUseCase>(),
+    ),
+  );
 
   sl.registerLazySingleton<MaintenancePackageRemoteDataSource>(
-  () => MaintenancePackageRemoteDataSourceImpl(sl()),
-);
+    () => MaintenancePackageRemoteDataSourceImpl(sl()),
+  );
 
-sl.registerLazySingleton<MaintenancePackageRepository>(
-  () => MaintenancePackageRepoImpl(sl()),
-);
+  sl.registerLazySingleton<MaintenancePackageRepository>(
+    () => MaintenancePackageRepoImpl(sl()),
+  );
 
-sl.registerLazySingleton(
-  () => GetMaintenancePackagesUseCase(sl()),
-);
+  sl.registerLazySingleton(() => GetMaintenancePackagesUseCase(sl()));
 
-
-sl.registerFactory(
-  () => MaintenancePackagesCubit(sl<GetMaintenancePackagesUseCase>(), sl<BookMaintenanceUseCase>())
-);
+  sl.registerFactory(
+    () => MaintenancePackagesCubit(
+      sl<GetMaintenancePackagesUseCase>(),
+      sl<BookMaintenanceUseCase>(),
+    ),
+  );
 
   // ==================== // ==================== Add Rating  ====================
 
@@ -1225,9 +1224,6 @@ sl.registerFactory(
   // Cubit
   sl.registerFactory(() => AddRatingCubit(sl<AddRatingUseCase>()));
 
-
-
-  
   // ==================== // ==================== Add support message  ====================
 
   // Remote Data Source
@@ -1241,36 +1237,33 @@ sl.registerFactory(
   );
 
   // UseCase
-  sl.registerLazySingleton(() => AddSupportMessageUseCase(sl<SupportRepository>()));
+  sl.registerLazySingleton(
+    () => AddSupportMessageUseCase(sl<SupportRepository>()),
+  );
 
   // Cubit
-  sl.registerFactory(() => AddSupportMessageCubit(sl<AddSupportMessageUseCase>()));
-
+  sl.registerFactory(
+    () => AddSupportMessageCubit(sl<AddSupportMessageUseCase>()),
+  );
 
   sl.registerLazySingleton<TechnicianTasksRemoteDataSource>(
-  () => TechnicianTasksRemoteDataSource(sl()),
-);
+    () => TechnicianTasksRemoteDataSource(sl()),
+  );
 
-sl.registerLazySingleton<TechnicianTasksRepo>(
-  () => TechnicianTasksRepoImpl(sl()),
-);
+  sl.registerLazySingleton<TechnicianTasksRepo>(
+    () => TechnicianTasksRepoImpl(sl()),
+  );
 
-sl.registerLazySingleton(() => GetTasksUseCase(sl()));
+  sl.registerLazySingleton(() => GetTasksUseCase(sl()));
 
-sl.registerLazySingleton(() => GetWeekTasksUseCase(sl()));
-sl.registerFactory(
-  () => TechnicianTasksCubit(
-    sl(),
-  ),
-);
+  sl.registerLazySingleton(() => GetWeekTasksUseCase(sl()));
+  sl.registerLazySingleton(() => GetTaskDetailsUseCase(sl()));
+  sl.registerFactory(
+    () => TechnicianTasksCubit(
+      sl<GetTasksUseCase>(),
+      sl<GetTaskDetailsUseCase>(),
+    ),
+  );
 
-sl.registerFactory(
-  () => WeekTasksCubit(
-    sl(),
-  ),
-);
-
-
+  sl.registerFactory(() => WeekTasksCubit(sl()));
 }
-
-

@@ -16,19 +16,19 @@ class AdminMaintenanceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate = intl.DateFormat(
-  'EEEE yyyy/MM/d – hh:mm a',
-  'ar',
-)
-    .format(model.lastUpdated)
-    .replaceAll('ص', 'صباحاً')
-    .replaceAll('م', 'مساءً');
+  //  final formattedDate = intl.DateFormat(
+ // 'EEEE yyyy/MM/d – hh:mm a',
+//  'ar',
+//)
+   // .format(model.lastUpdated)
+   // .replaceAll('ص', 'صباحاً')
+   // .replaceAll('م', 'مساءً');
 
 
-   final parts = formattedDate.split('–');
+  // final parts = formattedDate.split('–');
 
-final date = parts[0].trim(); // الخميس 16/01/2025
-final time = parts.length > 1 ? parts[1].trim() : '';
+//final date = parts[0].trim(); // الخميس 16/01/2025
+//final time = parts.length > 1 ? parts[1].trim() : '';
 
 
     return Container(
@@ -47,7 +47,7 @@ final time = parts.length > 1 ? parts[1].trim() : '';
       child: Column(
         children: [
           // التاريخ والوقت
-          MaintenanceCardHeader(model: model, time: time,date: date,),
+       //   MaintenanceCardHeader(model: model, time: time,date: date,),
           SizedBox(height: SizeConfig.h(15)),
 
           // القيم
@@ -59,21 +59,24 @@ final time = parts.length > 1 ? parts[1].trim() : '';
               children: [
                 MaintenanceItem(
                   label: "مستوى الكلور",
-                  value: "${model.chlorineLevel.toString()} ppm",
+                  value:"",
+                  // "${model.chlorineLevel.toString()} ppm",
                   icon: Icons.science,
                   iconcolor: Color(0xff00B4D8),
                 ),
                 CustomDivider(),
                 MaintenanceItem(
                   label: "مستوى الحموضة",
-                  value: model.phLevel.toString(),
+                  value:"",
+                  // model.phLevel.toString(),
                   icon: Icons.water_drop,
                   iconcolor: Color(0xff0077B6),
                 ),
                 CustomDivider(),
                 MaintenanceItem(
                   label: "درجة الحرارة",
-                  value: "${model.temperature.toString()}°C",
+                  value: "",
+                  //"${model.temperature.toString()}°C",
                   icon: Icons.thermostat,
                   iconcolor: Color(0xffFF9F1C),
                 ),
@@ -83,9 +86,10 @@ final time = parts.length > 1 ? parts[1].trim() : '';
           SizedBox(height: SizeConfig.h(20)),
 
           // الملاحظات
-          if (model.note != null && model.note!.isNotEmpty)
+        //  if (model.note != null && model.note!.isNotEmpty)
             Text(
-              model.note!,
+           "",
+           //   model.note!,
               style: AppTextStyles.styleRegular14(
                 context,
               ).copyWith(color: const Color(0xff777777)),

@@ -101,6 +101,7 @@ import 'package:plupool/features/store/presentation/views/user_ordr_details_view
 import 'package:plupool/features/support/presentation/views/admin_support_view.dart';
 import 'package:plupool/features/support/presentation/views/compny_res_support_view.dart';
 import 'package:plupool/features/support/presentation/views/message_details.dart';
+import 'package:plupool/features/tasks/domain/entities/water_quality_entity.dart';
 import 'package:plupool/features/tasks/presentation/views/customer_details_view.dart';
 import 'package:plupool/features/tasks/presentation/views/maintenance_update_view.dart';
 import 'package:plupool/features/technicains/presentation/views/add_tech_view.dart';
@@ -220,14 +221,19 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/customerdetailsView',
       name: 'customerdetailsView',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const CustomerDetailsView()),
+      pageBuilder: (context, state) {
+        final taskId = state.extra as int;
+        return buildTransitionPage(CustomerDetailsView(taskId: taskId));
+      },
     ),
     GoRoute(
       path: '/maintenanceupdateview',
       name: 'maintenanceupdateview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const MaintenanceUpdateView()),
+      builder: (context, state) {
+        final latest = state.extra as WaterQualityEntity;
+
+        return MaintenanceUpdateView(data: latest);
+      },
     ),
     GoRoute(
       path: '/technotifications',
@@ -761,7 +767,7 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(AddOurProjectView());
       },
     ),
-     GoRoute(
+    GoRoute(
       path: '/techpoolownercontactusView',
       name: 'techpoolownercontactusView',
       pageBuilder: (context, state) {
@@ -771,7 +777,7 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-      GoRoute(
+    GoRoute(
       path: '/userordrdetailsview',
       name: 'userordrdetailsview',
       pageBuilder: (context, state) {
@@ -781,5 +787,3 @@ final GoRouter appRouter = GoRouter(
     ),
   ],
 );
-
-

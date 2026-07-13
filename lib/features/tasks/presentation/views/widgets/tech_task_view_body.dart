@@ -31,6 +31,8 @@ class _TechTaskViewBodyState extends State<TechTaskViewBody> {
 
   @override
   Widget build(BuildContext context) {
+    final tasksCubit = context.read<TechnicianTasksCubit>();
+
     return SingleChildScrollView(
       padding: EdgeInsets.zero,
       child: Column(
@@ -78,24 +80,19 @@ class _TechTaskViewBodyState extends State<TechTaskViewBody> {
               if (state is GetTasksFailure) {
                 return Padding(
                   padding: const EdgeInsets.only(top: 40),
-                  child: Center(
-                    child: Text(state.message),
-                  ),
+                  child: Center(child: Text(state.message)),
                 );
               }
 
               if (state is GetTasksSuccess) {
                 final tasks = state.tasks.where((task) {
-                  return mapApiStatus(task.status) !=
-                      RequestStatus.completed;
+                  return mapApiStatus(task.status) != RequestStatus.completed;
                 }).toList();
 
                 if (tasks.isEmpty) {
                   return const Padding(
                     padding: EdgeInsets.only(top: 40),
-                    child: Center(
-                      child: Text("لا توجد مهام"),
-                    ),
+                    child: Center(child: Text("لا توجد مهام")),
                   );
                 }
 
@@ -108,6 +105,11 @@ class _TechTaskViewBodyState extends State<TechTaskViewBody> {
                     return MyTaskViewCard(
                       key: ValueKey(tasks[index].id),
                       task: tasks[index],
+                      onReturn: () async {
+                        await tasksCubit.getTasks(
+                          dateFrom: DateTime.now().toString().split(' ').first,
+                        );
+                      },
                     );
                   },
                 );

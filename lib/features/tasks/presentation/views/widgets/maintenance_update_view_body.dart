@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+import 'package:plupool/features/tasks/domain/entities/water_quality_entity.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/input_fields_section.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/notes_and_action_section.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/previous_value_section.dart';
 
 class MaintenanceUpdateViewBody extends StatefulWidget {
-  const MaintenanceUpdateViewBody({super.key});
-
+  const MaintenanceUpdateViewBody({super.key,required this.data});
+final WaterQualityEntity data;
   @override
   State<MaintenanceUpdateViewBody> createState() =>
       _MaintenanceUpdateViewBodyState();
@@ -37,7 +38,9 @@ class _MaintenanceUpdateViewBodyState extends State<MaintenanceUpdateViewBody> {
         key: _formKey,
         child: Column(
           children: [
-            const PreviousValuesSection(),
+             PreviousValuesSection(
+              data: widget.data,
+             ),
             SizedBox(height: SizeConfig.h(20)),
             InputFieldsSection(
               chlorineController: chlorineController,

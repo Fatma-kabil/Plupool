@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -11,7 +10,7 @@ class NoteSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           textDirection: TextDirection.rtl,
@@ -31,11 +30,10 @@ class NoteSection extends StatelessWidget {
           child: Row(
             textDirection: TextDirection.rtl,
             children: [
-              SvgPicture.asset(
-                'assets/icons/notes.svg',
-                color: Color(0xff999999),
-                width: SizeConfig.w(24),
-                height: SizeConfig.w(24),
+              Icon(
+                Icons.notes_outlined,
+                color: const Color(0xff999999),
+                size: SizeConfig.w(18),
               ),
 
               SizedBox(width: SizeConfig.w(3)),

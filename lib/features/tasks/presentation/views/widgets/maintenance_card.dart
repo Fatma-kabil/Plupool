@@ -1,37 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/tasks/data/models/water_quality_model.dart';
+import 'package:plupool/features/tasks/domain/entities/water_quality_history_entity.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/custom_divider.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/maintenance_item.dart';
 
 class MaintenanceCard extends StatelessWidget {
-  final WaterQualityModel model;
+  final WaterQualityHistoryEntity model;
 
   const MaintenanceCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
-    final formattedDate = intl.DateFormat('d MMMM yyyy – hh:mm a', 'ar')
-        .format(model.lastUpdated)
-        .replaceAll('ص', 'صباحاً')
-        .replaceAll('م', 'مساءً');
-
-    final parts = formattedDate.split('–');
-    final date = parts[0].trim();
-    final time = parts.length > 1 ? parts[1].trim() : '';
-
     return Container(
       margin: EdgeInsets.symmetric(vertical: SizeConfig.h(6)),
-      padding: EdgeInsets.symmetric(horizontal:  SizeConfig.w(15),vertical: SizeConfig.h(10) ),
+      padding: EdgeInsets.symmetric(
+        horizontal: SizeConfig.w(15),
+        vertical: SizeConfig.h(10),
+      ),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.textFieldBorderColor),
         borderRadius: BorderRadius.circular(SizeConfig.w(10)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // التاريخ والوقت
           Row(
@@ -40,14 +35,16 @@ class MaintenanceCard extends StatelessWidget {
             children: [
               Text(
                 textDirection: TextDirection.rtl,
-                date,
+                formatArabicDateOnly(model.recordedAt),
+
                 style: AppTextStyles.styleMedium16(
                   context,
                 ).copyWith(color: const Color(0xff777777)),
               ),
               Text(
                 textDirection: TextDirection.rtl,
-                time,
+                formatTimeArabic3(model.recordedAt),
+                
                 style: AppTextStyles.styleRegular13(
                   context,
                 ).copyWith(color: const Color(0xff999999)),
@@ -55,49 +52,43 @@ class MaintenanceCard extends StatelessWidget {
             ],
           ),
           SizedBox(height: SizeConfig.h(10)),
-      
+
           // القيم
           Padding(
-            padding:  EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
+            padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
             child: Row(
               textDirection: TextDirection.rtl,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                 MaintenanceItem(
+                MaintenanceItem(
                   label: "مستوى الكلور",
-                  value: "${model.chlorineLevel.toString()} ppm",
-                    icon: Icons.science,
-                       iconcolor: Color(0xff00B4D8),
-                 
-                   
+                  value: toArabicNumbers("${model.chlorine} "),
+                  icon: Icons.science,
+                  iconcolor: const Color(0xff00B4D8),
                 ),
                 CustomDivider(),
-                 MaintenanceItem(
+                MaintenanceItem(
                   label: "مستوى الحموضة",
-                  value: model.phLevel.toString(),
-                   icon: Icons.water_drop,
-                    iconcolor: Color(0xff0077B6),
-                 
+                  value: toArabicNumbers(model.ph.toString()),
+                  icon: Icons.water_drop,
+                  iconcolor: const Color(0xff0077B6),
                 ),
                 CustomDivider(),
                 MaintenanceItem(
                   label: "درجة الحرارة",
-                  value: "${model.temperature.toString()}°C",
+                  value: toArabicNumbers("${model.temperature}°"),
                   icon: Icons.thermostat,
-                  iconcolor: Color(0xffFF9F1C),
-                
+                  iconcolor: const Color(0xffFF9F1C),
                 ),
-               
-               
               ],
             ),
           ),
-           SizedBox(height:SizeConfig.h(20) ),
-      
+          SizedBox(height: SizeConfig.h(20)),
+
           // الملاحظات
-          if (model.note != null && model.note!.isNotEmpty)
+          if (model.notes != null && model.notes!.isNotEmpty)
             Text(
-              model.note!,
+              model.notes!,
               style: AppTextStyles.styleRegular14(
                 context,
               ).copyWith(color: const Color(0xff777777)),

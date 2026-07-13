@@ -44,11 +44,18 @@ String formatTimeArabic2(DateTime time) {
   return DateFormat('h:mm a', 'ar').format(time);
 }
 
-String formatTimeArabic3(String? time) {
-  if (time == null || time.isEmpty) return "";
+String formatTimeArabic3(String? value) {
+  if (value == null || value.isEmpty) return "";
 
-  final dateTime = DateFormat("HH:mm:ss").parse(time);
-  return DateFormat('h:mm a', 'ar').format(dateTime);
+  DateTime parsed;
+
+  if (value.contains('T')) {
+    parsed = DateTime.parse(value);
+  } else {
+    parsed = DateFormat("HH:mm:ss").parse(value);
+  }
+
+  return DateFormat('h:mm a', 'ar').format(parsed);
 }
 
 String formatArabicDate2(DateTime date) {

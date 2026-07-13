@@ -15,28 +15,13 @@ class MaintenanceSection extends StatefulWidget {
 class _MaintenanceSectionState extends State<MaintenanceSection> {
   bool isExpanded = true;
 
-  final List<WaterQualityModel> history = [
-    WaterQualityModel(
-      temperature: 25,
-      phLevel: 7.2,
-      chlorineLevel: 2.5,
-      note: "جميع القراءات طبيعية. تم تنظيف سلال الكاشطة وغسل الفلتر.",
-      lastUpdated: DateTime(2025, 10, 8, 18, 26),
-    ),
-    WaterQualityModel(
-      temperature: 26,
-      phLevel: 7.9,
-      chlorineLevel: 1.8,
-      note: "تمت إضافة معالجة الكلور. فحص ضغط المضخة - تعمل بشكل طبيعي.",
-      lastUpdated: DateTime(2025, 10, 20, 11, 0),
-    ),
-  ];
+  final List<WaterQualityModel> history = [];
 
   @override
   Widget build(BuildContext context) {
     // ✅ الترتيب من الأحدث إلى الأقدم
-    final sortedHistory = [...history]
-      ..sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
+  //  final sortedHistory = [...history]
+    //  ..sort((a, b) => b.lastUpdated.compareTo(a.lastUpdated));
 
     return Column(
       children: [
@@ -54,8 +39,9 @@ class _MaintenanceSectionState extends State<MaintenanceSection> {
                 children: [
                   Text(
                     "تاريخ الصيانة",
-                    style: AppTextStyles.styleBold16(context)
-                        .copyWith(color: AppColors.ktextcolor),
+                    style: AppTextStyles.styleBold16(
+                      context,
+                    ).copyWith(color: AppColors.ktextcolor),
                   ),
                   SizedBox(width: SizeConfig.w(5)),
                   Icon(
@@ -74,7 +60,7 @@ class _MaintenanceSectionState extends State<MaintenanceSection> {
           ),
         ),
 
-         SizedBox(height:SizeConfig.h(8) ),
+        SizedBox(height: SizeConfig.h(8)),
 
         AnimatedCrossFade(
           duration: const Duration(milliseconds: 250),
@@ -82,13 +68,9 @@ class _MaintenanceSectionState extends State<MaintenanceSection> {
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
           firstChild: Column(
-            children: sortedHistory
-                .map((model) => 
-              
-                    AdminMaintenanceCard(model: model),
-                  
-                )
-                .toList(),
+           // children: sortedHistory
+             //   .map((model) => AdminMaintenanceCard(model: model))
+               // .toList(),
           ),
           secondChild: const SizedBox.shrink(),
         ),

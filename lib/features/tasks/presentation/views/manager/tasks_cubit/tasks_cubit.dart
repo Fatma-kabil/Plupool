@@ -1,11 +1,22 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/features/tasks/domain/entities/task_entity.dart';
+import 'package:plupool/features/tasks/domain/usecases/get_task_details_use_case.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_tasks_use_case.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_stae.dart';
 
 class TechnicianTasksCubit extends Cubit<TechnicianTasksState> {
-  TechnicianTasksCubit(this._getTasksUseCase) : super(TechnicianTasksInitial());
+  TechnicianTasksCubit(
+    this._getTasksUseCase,
+    this._getTaskDetailsUseCase,
+  ) : super(TechnicianTasksInitial());
 
   final GetTasksUseCase _getTasksUseCase;
+  final GetTaskDetailsUseCase _getTaskDetailsUseCase;
+
+  /// Cache
+  List<TaskEntity> _cachedTasks = [];
+
+  /// ---------------- Get Tasks ----------------
 
   Future<void> getTasks({
     String? search,
@@ -36,7 +47,37 @@ class TechnicianTasksCubit extends Cubit<TechnicianTasksState> {
 
     result.fold(
       (failure) => emit(GetTasksFailure(failure.message)),
-      (tasks) => emit(GetTasksSuccess(tasks)),
+      (tasks) {
+        _cachedTasks = tasks;
+        emit(GetTasksSuccess(tasks));
+      },
+    );
+  }
+
+  /// ---------------- Refresh Cached Tasks ----------------
+
+  void refreshTasks() {
+    emit(GetTasksSuccess(List.from(_cachedTasks)));
+  }
+
+  /// ---------------- Get Task Details ----------------
+
+  Future<void> getTaskDetails({
+    required int taskId,
+  }) async {
+    emit(GetTaskDetailsLoading());
+
+    final result = await _getTaskDetailsUseCase(
+      taskId: taskId,
+    );
+
+    result.fold(
+      (failure) => emit(
+        GetTaskDetailsFailure(failure.message),
+      ),
+      (taskDetails) => emit(
+        GetTaskDetailsSuccess(taskDetails),
+      ),
     );
   }
 }

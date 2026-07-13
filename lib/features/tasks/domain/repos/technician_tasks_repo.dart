@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/tasks/domain/entities/task_details_entity.dart';
 
 import '../entities/task_entity.dart';
 
@@ -24,5 +25,9 @@ abstract class TechnicianTasksRepo {
     String? search,
     int page = 1,
     int pageSize = 20,
+  });
+
+    Future<Either<Failure, TaskDetailsEntity>> getTaskDetails({
+    required int taskId,
   });
 }

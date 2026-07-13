@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/tasks/domain/entities/water_quality_entity.dart';
 
 class PreviousValuesSection extends StatelessWidget {
-  const PreviousValuesSection({super.key});
+  const PreviousValuesSection({super.key,required this.data});
+  final WaterQualityEntity data;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +39,11 @@ class PreviousValuesSection extends StatelessWidget {
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children:  [
-              _ValueItem(label: "درجة الحرارة", value: "25°c", icon: Icons.thermostat, iconColor: Color(0xffF48C06)),
+              _ValueItem(label: "درجة الحرارة", value: data.latest.temperature.toString(), icon: Icons.thermostat, iconColor: Color(0xffF48C06)),
                SizedBox(height:SizeConfig.w(4) ),
-              _ValueItem(label: "مستوى الكلور", value: "2.5 ppm", icon: Icons.science, iconColor: Color(0xff00B4D8)),
+              _ValueItem(label: "مستوى الكلور", value: data.latest.chlorine.toString(), icon: Icons.science, iconColor: Color(0xff00B4D8)),
                SizedBox(height:SizeConfig.w(4) ),
-              _ValueItem(label: "مستوى الحموضة", value: "7.2", icon: Icons.water_drop, iconColor: Color(0xff0077B6)),
+              _ValueItem(label: "مستوى الحموضة", value: data.latest.ph.toString(), icon: Icons.water_drop, iconColor: Color(0xff0077B6)),
             ],
           ),
         ],
@@ -70,7 +73,7 @@ class _ValueItem extends StatelessWidget {
        SizedBox(height:SizeConfig.w(4) ),
         Text(label, style:AppTextStyles.styleRegular14(context).copyWith(color: Color(0xff777777))),
         Spacer(),
-        Text(value, style: AppTextStyles.styleBold16(context).copyWith(color: Color(0xff555555))),
+        Text(toArabicNumbers(value), style: AppTextStyles.styleBold16(context).copyWith(color: Color(0xff555555))),
       ],
     );
   }

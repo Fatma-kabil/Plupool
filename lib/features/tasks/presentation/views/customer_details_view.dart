@@ -3,8 +3,8 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/customer_details_view_body.dart';
 
 class CustomerDetailsView extends StatelessWidget {
-  const CustomerDetailsView({super.key});
-
+  const CustomerDetailsView({super.key, required this.taskId});
+  final int taskId;
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -14,9 +14,10 @@ class CustomerDetailsView extends StatelessWidget {
           padding: EdgeInsets.symmetric(
             horizontal: SizeConfig.w(17),
             vertical: SizeConfig.h(18),
-          
           ),
-          child:CustomerDetailsViewBody() ,
+          child: CustomerDetailsViewBody(
+            taskId: taskId,
+          ),
         ),
       ),
     );

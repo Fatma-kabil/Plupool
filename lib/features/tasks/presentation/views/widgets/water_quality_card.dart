@@ -52,7 +52,7 @@ class WaterQualityCard extends StatelessWidget {
           /// 🧾 النصوص (العنوان والمعدل المثالي)
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   textDirection: TextDirection.rtl,

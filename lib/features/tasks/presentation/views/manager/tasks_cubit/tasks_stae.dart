@@ -1,5 +1,5 @@
+import 'package:plupool/features/tasks/domain/entities/task_details_entity.dart';
 import 'package:plupool/features/tasks/domain/entities/task_entity.dart';
-
 
 abstract class TechnicianTasksState {}
 
@@ -35,4 +35,20 @@ class GetWeekTasksFailure extends TechnicianTasksState {
   final String message;
 
   GetWeekTasksFailure(this.message);
+}
+
+/// ---------------- Task Details ----------------
+
+class GetTaskDetailsLoading extends TechnicianTasksState {}
+
+class GetTaskDetailsSuccess extends TechnicianTasksState {
+  final TaskDetailsEntity taskDetails;
+
+  GetTaskDetailsSuccess(this.taskDetails);
+}
+
+class GetTaskDetailsFailure extends TechnicianTasksState {
+  final String message;
+
+  GetTaskDetailsFailure(this.message);
 }

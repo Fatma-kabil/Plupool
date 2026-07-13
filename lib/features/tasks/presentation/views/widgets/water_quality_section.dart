@@ -1,45 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart' as intl; // ✅ حل التعارض باسم alias
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/tasks/data/models/water_quality_model.dart';
+import 'package:plupool/features/tasks/domain/entities/water_quality_entity.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/note_section.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/water_quality_card.dart';
 
 class WaterQualitySection extends StatelessWidget {
-  final WaterQualityModel data;
-
   const WaterQualitySection({super.key, required this.data});
+
+  final WaterQualityEntity data;
 
   @override
   Widget build(BuildContext context) {
-    // ✅ صيغة التاريخ بدون تعارض
-    final formattedDate = intl.DateFormat('yyyy/MM/dd – hh:mm a')
-        .format(data.lastUpdated)
-        .replaceAll('AM', 'صباحا')
-        .replaceAll('PM', 'مساء');
+    final latest = data.latest;
+    final ideal = data.idealRanges;
 
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(SizeConfig.w(12)),
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.textFieldBorderColor),
-        borderRadius: BorderRadius.circular((SizeConfig.w(10))),
+        borderRadius: BorderRadius.circular(SizeConfig.w(10)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         textDirection: TextDirection.rtl,
         children: [
-          // 🧾 العنوان مع زر التحديث
+          /// Header
           Row(
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                textDirection: TextDirection.rtl,
                 children: [
                   Text(
                     "مقاييس جودة المياه",
@@ -49,69 +46,67 @@ class WaterQualitySection extends StatelessWidget {
                   ),
                   SizedBox(height: SizeConfig.h(4)),
                   Text(
-                    "آخر تحديث: $formattedDate",
+                    "آخر تحديث : ${formatArabicDate(latest.recordedAt)}",
                     style: AppTextStyles.styleRegular14(
                       context,
-                    ).copyWith(color: Color(0xff999999)),
+                    ).copyWith(color: const Color(0xff999999)),
                   ),
                 ],
               ),
               GestureDetector(
                 onTap: () {
-                  context.push('/maintenanceupdateview');
-                  // هنا تحطي اللي عايزة يحصل لما المستخدم يضغط
-                  print("تضغطت على تحديث");
+                  context.push('/maintenanceupdateview', extra: data);
                 },
                 child: Text(
                   "تحديث",
                   style: AppTextStyles.styleBold16(context).copyWith(
                     color: AppColors.kprimarycolor,
-                    decoration: TextDecoration.underline, // ✅ الخط تحت النص
+                    decoration: TextDecoration.underline,
                   ),
                 ),
               ),
             ],
           ),
 
-          // 🕒 التاريخ (محاط بـ Directionality لتفادي التعارض)
-          SizedBox(height: SizeConfig.h(12)),
-
-          // 🌊 بطاقات القياسات
-          Column(
-            children: [
-              WaterQualityCard(
-                title: "مستوى الكلور",
-                value: "${data.chlorineLevel} ppm",
-                idealRange: "1.0 - 3.0",
-                icon: Icons.science_outlined,
-                color: const Color(0xFF00B4D8),
-                backgroundcolor: Color(0xffCCF0F7),
-              ),
-              SizedBox(height: SizeConfig.h(8)),
-              WaterQualityCard(
-                title: "مستوى الحموضة",
-                value: "${data.phLevel}",
-                idealRange: "7.2 - 7.6",
-                icon: Icons.water_drop_outlined,
-                color: const Color(0xFF0077B6),
-                backgroundcolor: Color(0xffCCE4F0),
-              ),
-              SizedBox(height: SizeConfig.h(8)),
-              WaterQualityCard(
-                title: "درجة الحرارة",
-                value: "${data.temperature}°c",
-                //  idealRange: "25 - 30°م",
-                icon: Icons.thermostat,
-                color: const Color(0xFFFF9F1C),
-                backgroundcolor: Color(0xffFFECD2),
-              ),
-            ],
-          ),
           SizedBox(height: SizeConfig.h(16)),
-          // 📝 الملاحظات (اختيارية)
-          if (data.note != null && data.note!.isNotEmpty) ...[
-            NoteSection(note: data.note!),
-          ],
+
+          /// Chlorine
+          WaterQualityCard(
+            title: "مستوى الكلور",
+            value: toArabicNumbers("${latest.chlorine} "),
+            idealRange: ideal.chlorine,
+            icon: Icons.science_outlined,
+            color: const Color(0xFF00B4D8),
+            backgroundcolor: const Color(0xffCCF0F7),
+          ),
+
+          SizedBox(height: SizeConfig.h(8)),
+
+          /// PH
+          WaterQualityCard(
+            title: "مستوى الحموضة",
+            value: toArabicNumbers(latest.ph.toString()),
+            idealRange: ideal.ph,
+            icon: Icons.water_drop_outlined,
+            color: const Color(0xFF0077B6),
+            backgroundcolor: const Color(0xffCCE4F0),
+          ),
+
+          SizedBox(height: SizeConfig.h(8)),
+
+          /// Temperature
+          WaterQualityCard(
+            title: "درجة الحرارة",
+            value: toArabicNumbers("${latest.temperature}°"),
+            idealRange: ideal.temperature,
+            icon: Icons.thermostat,
+            color: const Color(0xFFFF9F1C),
+            backgroundcolor: const Color(0xffFFECD2),
+          ),
+
+          SizedBox(height: SizeConfig.h(16)),
+
+          if (latest.notes!.isNotEmpty) NoteSection(note: latest.notes!),
         ],
       ),
     );
