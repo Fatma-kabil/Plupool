@@ -9,17 +9,19 @@ import 'package:plupool/core/utils/widgets/note_text_field.dart';
 class NotesAndActionsSection extends StatelessWidget {
   final TextEditingController notesController;
   final VoidCallback onSave;
+  final bool isLoading;
 
   const NotesAndActionsSection({
     super.key,
     required this.notesController,
     required this.onSave,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
-       textDirection: TextDirection.rtl,
+      textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -28,34 +30,47 @@ class NotesAndActionsSection extends StatelessWidget {
               .copyWith(color: AppColors.ktextcolor),
         ),
         SizedBox(height: SizeConfig.h(8)),
+
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SizeConfig.w(10)),
             border: Border.all(color: AppColors.textFieldBorderColor),
           ),
           child: NoteTextField(
-            size:SizeConfig.isWideScreen? SizeConfig.w(10):SizeConfig.w(20),
+            size: SizeConfig.isWideScreen
+                ? SizeConfig.w(10)
+                : SizeConfig.w(20),
             controller: notesController,
             onChanged: (_) {},
           ),
         ),
+
         SizedBox(height: SizeConfig.h(15)),
+
         Text(
+          "**برجاء تحري الدقة وحفظ البيانات قبل الإرسال",
           textDirection: TextDirection.rtl,
-          "**برجاء تحري الدقة وحفظ البيانات قبل الحفظ",
+          textAlign: TextAlign.right,
           style: AppTextStyles.styleSemiBold13(context)
               .copyWith(color: const Color(0xffC0303A)),
-          textAlign: TextAlign.right,
         ),
+
         SizedBox(height: SizeConfig.h(25)),
+
         Column(
           children: [
-            CustomTextBtn(text:"حفظ" ,onPressed: onSave,width: double.infinity,),
-           
+            CustomTextBtn(
+              width: double.infinity,
+              text: isLoading ? "جار الحفظ" : "حفظ",
+              onPressed: isLoading ? null : onSave,
+             
+            ),
+
             SizedBox(height: SizeConfig.h(12)),
+
             CustomOutlinedBtn(
               text: "إلغاء",
-             
+              onPressed: () => Navigator.pop(context),
               trailing: Icon(
                 Icons.cancel_outlined,
                 color: AppColors.kprimarycolor,

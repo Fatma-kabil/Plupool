@@ -15,7 +15,7 @@ class WaterQualityHistoryEntity extends Equatable {
 
   final String recordedAt;
 
-  final String relativeTime;
+  final String? relativeTime;
 
   const WaterQualityHistoryEntity({
     required this.temperature,
@@ -25,7 +25,7 @@ class WaterQualityHistoryEntity extends Equatable {
     required this.salinity,
      this.notes,
     required this.recordedAt,
-    required this.relativeTime,
+     this.relativeTime,
   });
 
   @override

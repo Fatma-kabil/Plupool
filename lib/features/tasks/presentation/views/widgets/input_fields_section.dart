@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/custom_text_field.dart';
 import 'package:plupool/core/utils/validators.dart'; // ✅ استيراد الفاليديتور
@@ -20,12 +21,12 @@ class InputFieldsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildField(
           context,
           label: "مستوى الكلور",
-          hint: "2.6",
+          hint: toArabicNumbers("2.6"),
           icon: Icons.science,
           controller: chlorineController,
           fieldName: "مستوى الكلور",
@@ -35,7 +36,7 @@ class InputFieldsSection extends StatelessWidget {
         _buildField(
           context,
           label: "مستوى الحموضة",
-          hint: "7.2",
+          hint: toArabicNumbers("7.2"),
           icon: Icons.water_drop,
           controller: phController,
           fieldName: "مستوى الحموضة",
@@ -45,7 +46,7 @@ class InputFieldsSection extends StatelessWidget {
         _buildField(
           context,
           label: "درجة الحرارة",
-          hint: "25°",
+          hint: toArabicNumbers("25°"),
           icon: Icons.thermostat,
           controller: tempController,
           fieldName: "درجة الحرارة",
@@ -64,12 +65,13 @@ class InputFieldsSection extends StatelessWidget {
     String? recommendation,
   }) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: AppTextStyles.styleSemiBold16(context)
-              .copyWith(color: AppColors.ktextcolor),
+          style: AppTextStyles.styleSemiBold16(
+            context,
+          ).copyWith(color: AppColors.ktextcolor),
         ),
         SizedBox(height: SizeConfig.h(8)),
         CustomTextField(
@@ -83,8 +85,9 @@ class InputFieldsSection extends StatelessWidget {
             padding: EdgeInsets.only(top: SizeConfig.h(4)),
             child: Text(
               recommendation,
-              style: AppTextStyles.styleRegular13(context)
-                  .copyWith(color: const Color(0xffBBBBBB)),
+              style: AppTextStyles.styleRegular13(
+                context,
+              ).copyWith(color: const Color(0xffBBBBBB)),
               textAlign: TextAlign.right,
             ),
           ),

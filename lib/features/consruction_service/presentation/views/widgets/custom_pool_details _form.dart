@@ -42,15 +42,16 @@ class _CustomPoolDetailsFormState extends State<CustomPoolDetailsForm> {
               return null; // ❌ منرجعش error هنا عشان نعرضها يدوي
             },
             keyboardType: TextInputType.number,
-              inputFormatters: [
-    FilteringTextInputFormatter.allow(RegExp(r'[0-9٠-٩.]')),
-    ArabicNumberFormatter(),
-  ],
-            style: AppTextStyles.styleRegular16(context).copyWith(
-              color: AppColors.kprimarycolor,
-            ),
-            cursorHeight:
-                SizeConfig.isWideScreen ? SizeConfig.w(12) : SizeConfig.h(20),
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9٠-٩.]')),
+              ArabicNumberFormatter(),
+            ],
+            style: AppTextStyles.styleRegular16(
+              context,
+            ).copyWith(color: AppColors.kprimarycolor),
+            cursorHeight: SizeConfig.isWideScreen
+                ? SizeConfig.w(12)
+                : SizeConfig.h(20),
             decoration: InputDecoration(
               isDense: true,
               border: OutlineInputBorder(
@@ -74,15 +75,19 @@ class _CustomPoolDetailsFormState extends State<CustomPoolDetailsForm> {
                 child: SvgPicture.asset(
                   widget.iconpath,
                   color: AppColors.hintTextColor,
-                  height:SizeConfig.isWideScreen?SizeConfig.w(20): SizeConfig.w(26),
-                  width: SizeConfig.isWideScreen?SizeConfig.w(20): SizeConfig.w(26),
-                //   fit: BoxFit.scaleDown,
+                  height: SizeConfig.isWideScreen
+                      ? SizeConfig.w(20)
+                      : SizeConfig.w(26),
+                  width: SizeConfig.isWideScreen
+                      ? SizeConfig.w(20)
+                      : SizeConfig.w(26),
+                  //   fit: BoxFit.scaleDown,
                 ),
               ),
-                // ✅ ده اللي هيقلل المسافة
+              // ✅ ده اللي هيقلل المسافة
               prefixIconConstraints: BoxConstraints(
                 minWidth: SizeConfig.w(25),
-              //  minHeight: SizeConfig.h(28),
+                //  minHeight: SizeConfig.h(28),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -118,12 +123,13 @@ class _CustomPoolDetailsFormState extends State<CustomPoolDetailsForm> {
                 ),
               ),
             ),
-          ]
+          ],
         ],
       ),
     );
   }
 }
+
 class ArabicNumberFormatter extends TextInputFormatter {
   static const _english = '0123456789';
   static const _arabic = '٠١٢٣٤٥٦٧٨٩';

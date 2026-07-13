@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
+import 'package:plupool/features/tasks/data/models/water_quality_history_model.dart';
 import 'package:plupool/features/tasks/data/remote_data_sources/technician_tasks_remote_data_source.dart';
 import 'package:plupool/features/tasks/domain/entities/task_details_entity.dart';
 import 'package:plupool/features/tasks/domain/entities/task_entity.dart';
+import 'package:plupool/features/tasks/domain/entities/water_quality_history_entity.dart';
 import 'package:plupool/features/tasks/domain/repos/technician_tasks_repo.dart';
 
 class TechnicianTasksRepoImpl implements TechnicianTasksRepo {
@@ -74,6 +76,23 @@ class TechnicianTasksRepoImpl implements TechnicianTasksRepo {
   }) async {
     try {
       final result = await remoteDataSource.getTaskDetails(taskId: taskId);
+
+      return Right(result);
+    } catch (e) {
+      return Left(mapDioError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, TaskDetailsEntity>> completeTaskWithReading({
+    required int taskId,
+    required WaterQualityHistoryEntity request,
+  }) async {
+    try {
+      final result = await remoteDataSource.completeTaskWithReading(
+        taskId: taskId,
+       request: WaterQualityHistoryModel.fromEntity(request),
+      );
 
       return Right(result);
     } catch (e) {

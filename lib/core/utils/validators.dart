@@ -1,3 +1,5 @@
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
+
 class Validators {
   // ✅ دوال مساعدة للـ Null & Trim
   static bool _isNullOrEmpty(String? v) => v == null || v.trim().isEmpty;
@@ -69,12 +71,14 @@ class Validators {
 static String? number(String? v, {String fieldName = 'الرقم'}) {
   if (_isNullOrEmpty(v)) return '$fieldName مطلوب';
 
-  final value = num.tryParse(v!.trim());
+  final normalized = normalizeArabicNumbers(v!.trim());
+
+  final value = num.tryParse(normalized);
+
   if (value == null) return '$fieldName يجب أن يكون رقمًا';
 
   return null;
 }
-
 
   static String? emailOrPhoneValidator(String? value) {
     if (value == null || value.trim().isEmpty) {

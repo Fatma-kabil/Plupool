@@ -38,24 +38,12 @@ class CompanyProfileBody extends StatelessWidget {
                 ? SizeConfig.h(35)
                 : SizeConfig.h(8),
           ),
-          ProfileOption(
-            title: 'خدماتي أو باقاتي ',
-            icon: Icons.list_alt_outlined,
-            onTap: () {
-              context.push('/mypackageview');
-            },
-          ),
-          SizedBox(
-            height: SizeConfig.isWideScreen
-                ? SizeConfig.h(35)
-                : SizeConfig.h(8),
-          ),
 
           ProfileOption(
             title: 'مركز المساعدة',
             icon: Icons.help_outline,
             onTap: () {
-              context.push('/helpview',extra: 'company');
+              context.push('/helpview', extra: 'company');
             },
           ),
           SizedBox(
@@ -80,7 +68,7 @@ class CompanyProfileBody extends StatelessWidget {
             title: 'لماذا نحن؟',
             icon: Icons.info_outline,
             onTap: () {
-              context.push('/whyusview',extra: 'مطور عقاري');
+              context.push('/whyusview', extra: 'مطور عقاري');
             },
           ),
           SizedBox(
@@ -89,7 +77,7 @@ class CompanyProfileBody extends StatelessWidget {
                 : SizeConfig.h(8),
           ),
 
-         ProfileOption(
+          ProfileOption(
             title: 'تسجيل الخروج',
             icon: Icons.logout,
             islogout: true,

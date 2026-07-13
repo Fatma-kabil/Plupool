@@ -10,9 +10,14 @@ import 'package:plupool/features/tasks/presentation/views/widgets/note_section.d
 import 'package:plupool/features/tasks/presentation/views/widgets/water_quality_card.dart';
 
 class WaterQualitySection extends StatelessWidget {
-  const WaterQualitySection({super.key, required this.data});
+  const WaterQualitySection({
+    super.key,
+    required this.data,
+    required this.taskId,
+  });
 
   final WaterQualityEntity data;
+  final int taskId;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +60,10 @@ class WaterQualitySection extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  context.push('/maintenanceupdateview', extra: data);
+                  context.push(
+                    '/maintenanceupdateview',
+                    extra: {"taskId": taskId, "data": data},
+                  );
                 },
                 child: Text(
                   "تحديث",

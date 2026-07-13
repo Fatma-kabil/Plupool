@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/consruction_service/presentation/views/widgets/custom_pool_details%20_form.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -11,7 +13,8 @@ class CustomTextField extends StatelessWidget {
     this.lines = 1,
     this.validator,
     this.controller,
-    this.prefixIcon,  this.keyboardType=TextInputType.number,
+    this.prefixIcon,
+    this.keyboardType = TextInputType.number,
   });
 
   final String hintText;
@@ -38,8 +41,11 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         validator: validator,
         keyboardType: keyboardType,
-        
-maxLines: lines,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9٠-٩.]')),
+          ArabicNumberFormatter(),
+        ],
+        maxLines: lines,
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderSide: BorderSide(
@@ -49,14 +55,18 @@ maxLines: lines,
             borderRadius: BorderRadius.circular(10.0),
           ),
           hintText: hintText,
-          hintStyle: AppTextStyles.styleRegular16(context).copyWith(color: Color(0xffBBBBBB)),
+          hintStyle: AppTextStyles.styleRegular16(
+            context,
+          ).copyWith(color: Color(0xffBBBBBB)),
           contentPadding: EdgeInsets.symmetric(
-            vertical:SizeConfig.isWideScreen?SizeConfig.h(8): SizeConfig.h(0),
+            vertical: SizeConfig.isWideScreen
+                ? SizeConfig.h(8)
+                : SizeConfig.h(0),
             horizontal: SizeConfig.w(14),
           ),
 
           prefixIcon: Padding(
-            padding: EdgeInsets.only(right: SizeConfig.w(7), ),
+            padding: EdgeInsets.only(right: SizeConfig.w(7)),
             child:
                 prefixIcon ??
                 Icon(
@@ -81,7 +91,9 @@ maxLines: lines,
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(color: AppColors.kprimarycolor, width: 1.0),
           ),
-           errorStyle: AppTextStyles.styleRegular13(context).copyWith(color: Colors.red)
+          errorStyle: AppTextStyles.styleRegular13(
+            context,
+          ).copyWith(color: Colors.red),
         ),
       ),
     );

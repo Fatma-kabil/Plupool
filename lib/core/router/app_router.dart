@@ -230,10 +230,13 @@ final GoRouter appRouter = GoRouter(
       path: '/maintenanceupdateview',
       name: 'maintenanceupdateview',
       builder: (context, state) {
-        final latest = state.extra as WaterQualityEntity;
+    final args = state.extra as Map<String, dynamic>;
 
-        return MaintenanceUpdateView(data: latest);
-      },
+    return MaintenanceUpdateView(
+      taskId: args["taskId"] as int,
+      data: args["data"] as WaterQualityEntity,
+    );
+  },
     ),
     GoRoute(
       path: '/technotifications',

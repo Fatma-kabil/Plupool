@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/tasks/domain/entities/task_details_entity.dart';
+import 'package:plupool/features/tasks/domain/entities/water_quality_history_entity.dart';
 
 import '../entities/task_entity.dart';
 
@@ -30,4 +31,8 @@ abstract class TechnicianTasksRepo {
     Future<Either<Failure, TaskDetailsEntity>> getTaskDetails({
     required int taskId,
   });
+  Future<Either<Failure, TaskDetailsEntity>> completeTaskWithReading({
+  required int taskId,
+  required WaterQualityHistoryEntity request,
+});
 }

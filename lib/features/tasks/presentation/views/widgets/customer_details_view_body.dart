@@ -59,7 +59,7 @@ class _CustomerDetailsViewBodyState extends State<CustomerDetailsViewBody> {
 
               SizedBox(height: SizeConfig.h(24)),
 
-              WaterQualitySection(data: data.waterQuality),
+              WaterQualitySection(data: data.waterQuality,taskId: widget.taskId,),
 
               SizedBox(height: SizeConfig.h(24)),
 

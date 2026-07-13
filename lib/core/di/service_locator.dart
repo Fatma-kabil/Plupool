@@ -258,6 +258,7 @@ import 'package:plupool/features/support/domain/repos/contact_repo.dart';
 import 'package:plupool/features/tasks/data/remote_data_sources/technician_tasks_remote_data_source.dart';
 import 'package:plupool/features/tasks/data/repo_impl/technician_tasks_repo_impl.dart';
 import 'package:plupool/features/tasks/domain/repos/technician_tasks_repo.dart';
+import 'package:plupool/features/tasks/domain/usecases/complete_task_with_reading_use_case.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_task_details_use_case.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_tasks_use_case.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_week_tasks_use_case.dart';
@@ -1258,10 +1259,13 @@ Future<void> initServiceLocator() async {
 
   sl.registerLazySingleton(() => GetWeekTasksUseCase(sl()));
   sl.registerLazySingleton(() => GetTaskDetailsUseCase(sl()));
+  
+  sl.registerLazySingleton(() => CompleteTaskWithReadingUseCase(sl()));
   sl.registerFactory(
     () => TechnicianTasksCubit(
       sl<GetTasksUseCase>(),
       sl<GetTaskDetailsUseCase>(),
+      sl<CompleteTaskWithReadingUseCase>()
     ),
   );
 

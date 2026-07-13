@@ -7,9 +7,9 @@ class WaterQualityHistoryModel extends WaterQualityHistoryEntity {
     required super.ph,
     required super.alkalinity,
     required super.salinity,
-     super.notes,
+    super.notes,
     required super.recordedAt,
-    required super.relativeTime,
+    super.relativeTime,
   });
 
   factory WaterQualityHistoryModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +22,32 @@ class WaterQualityHistoryModel extends WaterQualityHistoryEntity {
       notes: json['notes'] ?? '',
       recordedAt: json['recorded_at'] ?? '',
       relativeTime: json['relative_time'] ?? '',
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      "temperature_c": temperature,
+      "chlorine_ppm": chlorine,
+      "ph_level": ph,
+      "alkalinity_ppm": alkalinity,
+      "salinity_ppm": salinity,
+      "notes": notes,
+      "recorded_at": recordedAt,
+    };
+  }
+
+  factory WaterQualityHistoryModel.fromEntity(
+    WaterQualityHistoryEntity entity,
+  ) {
+    return WaterQualityHistoryModel(
+      temperature: entity.temperature,
+      chlorine: entity.chlorine,
+      ph: entity.ph,
+      alkalinity: entity.alkalinity,
+      salinity: entity.salinity,
+      notes: entity.notes,
+      recordedAt: entity.recordedAt,
+      relativeTime: entity.relativeTime,
     );
   }
 }
