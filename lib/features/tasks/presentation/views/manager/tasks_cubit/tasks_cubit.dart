@@ -17,10 +17,23 @@ class TechnicianTasksCubit extends Cubit<TechnicianTasksState> {
   final GetTaskDetailsUseCase _getTaskDetailsUseCase;
   final CompleteTaskWithReadingUseCase _completeTaskWithReadingUseCase;
 
-  /// Cache
+  /// ================= Cache =================
+
   List<TaskEntity> _cachedTasks = [];
 
-  /// ---------------- Get Tasks ----------------
+  /// آخر بارامترات مستخدمة
+  String? _search;
+  List<String>? _status;
+  List<String>? _priorities;
+  List<String>? _serviceTypes;
+  List<String>? _locations;
+  String? _dateFrom;
+  String? _dateTo;
+  bool _weekOnly = false;
+  int _page = 1;
+  int _pageSize = 20;
+
+  /// ================= Get Tasks =================
 
   Future<void> getTasks({
     String? search,
@@ -34,6 +47,18 @@ class TechnicianTasksCubit extends Cubit<TechnicianTasksState> {
     int page = 1,
     int pageSize = 20,
   }) async {
+    /// حفظ آخر بارامترات
+    _search = search;
+    _status = status;
+    _priorities = priorities;
+    _serviceTypes = serviceTypes;
+    _locations = locations;
+    _dateFrom = dateFrom;
+    _dateTo = dateTo;
+    _weekOnly = weekOnly;
+    _page = page;
+    _pageSize = pageSize;
+
     emit(GetTasksLoading());
 
     final result = await _getTasksUseCase(
@@ -49,30 +74,50 @@ class TechnicianTasksCubit extends Cubit<TechnicianTasksState> {
       pageSize: pageSize,
     );
 
-    result.fold((failure) => emit(GetTasksFailure(failure.message)), (tasks) {
-      _cachedTasks = tasks;
-      emit(GetTasksSuccess(tasks));
-    });
+    result.fold(
+      (failure) => emit(GetTasksFailure(failure.message)),
+      (tasks) {
+        _cachedTasks = tasks;
+        emit(GetTasksSuccess(tasks));
+      },
+    );
   }
 
-  /// ---------------- Refresh Cached Tasks ----------------
+  /// ================= Refresh =================
 
-  void refreshTasks() {
-    emit(GetTasksSuccess(List.from(_cachedTasks)));
+  Future<void> refreshTasks() async {
+    await getTasks(
+      search: _search,
+      status: _status,
+      priorities: _priorities,
+      serviceTypes: _serviceTypes,
+      locations: _locations,
+      dateFrom: _dateFrom,
+      dateTo: _dateTo,
+      weekOnly: _weekOnly,
+      page: _page,
+      pageSize: _pageSize,
+    );
   }
 
-  /// ---------------- Get Task Details ----------------
+  /// ================= Get Task Details =================
 
-  Future<void> getTaskDetails({required int taskId}) async {
+  Future<void> getTaskDetails({
+    required int taskId,
+  }) async {
     emit(GetTaskDetailsLoading());
 
-    final result = await _getTaskDetailsUseCase(taskId: taskId);
+    final result = await _getTaskDetailsUseCase(
+      taskId: taskId,
+    );
 
     result.fold(
       (failure) => emit(GetTaskDetailsFailure(failure.message)),
       (taskDetails) => emit(GetTaskDetailsSuccess(taskDetails)),
     );
   }
+
+  /// ================= Complete Task =================
 
   Future<void> completeTaskWithReading({
     required int taskId,
@@ -86,12 +131,17 @@ class TechnicianTasksCubit extends Cubit<TechnicianTasksState> {
     );
 
     result.fold(
-      (failure) => emit(CompleteTaskWithReadingFailure(failure.message)),
-      (taskDetails) {
-        emit(CompleteTaskWithReadingSuccess(taskDetails));
+      (failure) => emit(
+        CompleteTaskWithReadingFailure(failure.message),
+      ),
+      (_) async {
+        emit(CompleteTaskWithReadingSuccess());
 
-        // لو عايزة تعرضي البيانات المحدثة مباشرة
-        emit(GetTaskDetailsSuccess(taskDetails));
+        /// تحديث بيانات صفحة التفاصيل
+        await getTaskDetails(taskId: taskId);
+
+        /// تحديث قائمة التاسكات بنفس الفلاتر السابقة
+        await refreshTasks();
       },
     );
   }

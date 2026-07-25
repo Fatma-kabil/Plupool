@@ -57,9 +57,9 @@ class GetTaskDetailsFailure extends TechnicianTasksState {
 class CompleteTaskWithReadingLoading extends TechnicianTasksState {}
 
 class CompleteTaskWithReadingSuccess extends TechnicianTasksState {
-  final TaskDetailsEntity taskDetails;
+ 
 
-  CompleteTaskWithReadingSuccess(this.taskDetails);
+  CompleteTaskWithReadingSuccess();
 }
 
 class CompleteTaskWithReadingFailure extends TechnicianTasksState {

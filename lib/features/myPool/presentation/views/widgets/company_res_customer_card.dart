@@ -4,9 +4,15 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_info.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_info_item.dart';
+import 'package:plupool/features/myPool/domain/entities/client_entity.dart';
 
 class CompanyResCustomerCard extends StatelessWidget {
-  const CompanyResCustomerCard({super.key});
+  const CompanyResCustomerCard({
+    super.key,
+    required this.client,
+  });
+
+  final ClientEntity client;
 
   @override
   Widget build(BuildContext context) {
@@ -26,28 +32,33 @@ class CompanyResCustomerCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              CustomerAvatar(imageUrl: "assets/images/user1.png"),
+              CustomerAvatar(
+                imageUrl: client.profileImage ?? "assets/images/user1.png",
+              ),
               SizedBox(width: SizeConfig.w(7)),
-              CustomerInfo(name: "أحمد محمد", phone: "01000000000"),
+              Expanded(
+                child: CustomerInfo(
+                  name: client.fullName,
+                  phone: client.phone,
+                ),
+              ),
             ],
           ),
           SizedBox(height: SizeConfig.h(6)),
-        Divider(),
-        SizedBox(height: SizeConfig.h(6)),
-
+          Divider(),
+          SizedBox(height: SizeConfig.h(6)),
           CustomerInfoItem(
             crossAxisAlignment: CrossAxisAlignment.start,
             icon: Icons.pool_outlined,
             title: "النوع",
-            value: "مسبح خاص",
+            value: client.poolTypeName,
           ),
           SizedBox(height: SizeConfig.h(12)),
-
           CustomerInfoItem(
             crossAxisAlignment: CrossAxisAlignment.start,
             icon: Icons.location_on_outlined,
             title: "العنوان",
-            value: "شارع 123، مدينة، دولة",
+            value: client.address,
           ),
         ],
       ),
