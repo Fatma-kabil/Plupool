@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
-import 'package:plupool/features/profile/data/models/project_model.dart';
-import 'package:plupool/features/tasks/presentation/views/widgets/reminder_section.dart';
+import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/profile/domain/entities/company_project_entity.dart';
 
 class MyProjectCard extends StatelessWidget {
-  const MyProjectCard({super.key, required this.project});
-  final ProjectModel project;
+  const MyProjectCard({
+    super.key,
+    required this.project,
+  });
+
+  final CompanyProjectEntity project;
 
   @override
   Widget build(BuildContext context) {
-    final colors = RequestStatusColors.getColors(project.status);
+    final status = mapApiStatus(project.status);
+    final colors = RequestStatusColors.getColors(status);
+
     return Container(
       padding: EdgeInsets.all(SizeConfig.w(14)),
       decoration: BoxDecoration(
@@ -23,15 +28,14 @@ class MyProjectCard extends StatelessWidget {
       child: Column(
         children: [
           Row(
- 
-           children: [
+            children: [
               Text(
-                project.title,
+                project.projectName,
                 style: AppTextStyles.styleSemiBold16(
                   context,
                 ).copyWith(color: AppColors.ktextcolor),
               ),
-              Spacer(),
+              const Spacer(),
               Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: SizeConfig.w(10),
@@ -42,7 +46,7 @@ class MyProjectCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(SizeConfig.w(5)),
                 ),
                 child: Text(
-                  getStatusText(project.status),
+                  getStatusText(status),
                   style: AppTextStyles.styleSemiBold13(
                     context,
                   ).copyWith(color: colors['labelText']),
@@ -56,14 +60,14 @@ class MyProjectCard extends StatelessWidget {
               Icon(
                 Icons.location_on_outlined,
                 size: SizeConfig.w(15),
-                color: Color(0xff999999),
+                color: const Color(0xff999999),
               ),
-              SizedBox(height: SizeConfig.w(2)),
+              SizedBox(width: SizeConfig.w(2)),
               Text(
                 project.location,
                 style: AppTextStyles.styleRegular13(
                   context,
-                ).copyWith(color: Color(0xff999999)),
+                ).copyWith(color: const Color(0xff999999)),
               ),
             ],
           ),
@@ -73,14 +77,14 @@ class MyProjectCard extends StatelessWidget {
               Icon(
                 Icons.pool,
                 size: SizeConfig.w(15),
-                color: Color(0xff999999),
+                color: const Color(0xff999999),
               ),
               SizedBox(width: SizeConfig.w(2)),
               Text(
-                "عدد المسابح : ${project.nofpools}",
+                "عدد المسابح : ${project.poolsCount}",
                 style: AppTextStyles.styleRegular13(
                   context,
-                ).copyWith(color: Color(0xff999999)),
+                ).copyWith(color: const Color(0xff999999)),
               ),
             ],
           ),
@@ -88,22 +92,21 @@ class MyProjectCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                "الإنجاز: ${project.progress}%",
+                "الإنجاز: ${project.completionPercentage}%",
                 style: AppTextStyles.styleBold13(
                   context,
                 ).copyWith(color: colors['labelText']),
               ),
-
               SizedBox(width: SizeConfig.w(8)),
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    final progress = project.progress ?? 0;
-                    final barWidth = progress / 100 * constraints.maxWidth;
+                    final progress = project.completionPercentage;
+                    final barWidth =
+                        progress / 100 * constraints.maxWidth;
 
                     return Stack(
                       children: [
-                        // الخلفية الرمادية
                         Container(
                           height: SizeConfig.h(8),
                           decoration: BoxDecoration(
@@ -113,8 +116,6 @@ class MyProjectCard extends StatelessWidget {
                             ),
                           ),
                         ),
-
-                        // الجزء الملوّن يظهر فقط لو progress > 0
                         if (progress > 0)
                           Align(
                             alignment: Alignment.centerRight,
@@ -129,15 +130,13 @@ class MyProjectCard extends StatelessWidget {
                               ),
                             ),
                           ),
-
-                        // الدايرة تظهر فقط لو progress == 0
                         if (progress == 0)
                           Positioned(
-                            right: 0, // دايرة في بداية الخط
+                            right: 0,
                             top: 0,
-                            bottom:0,
+                            bottom: 0,
                             child: Container(
-                              width:  SizeConfig.w(8),
+                              width: SizeConfig.w(8),
                               height: SizeConfig.h(12),
                               decoration: BoxDecoration(
                                 color: colors['labelText'],
@@ -150,19 +149,20 @@ class MyProjectCard extends StatelessWidget {
                   },
                 ),
               ),
-
               SizedBox(width: SizeConfig.w(25)),
             ],
           ),
 
-          //  ProgressSection()
-          if (project.nextVisitDay != null) ...[
+          // لو رجعتي nextVisit في الـ Entity فكّي الكومنت عن الجزء ده
+          /*
+          if (project.nextVisit != null) ...[
             SizedBox(height: SizeConfig.h(12)),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(20)),
-            //  child: ReminderSection(request: project),
+              child: ReminderSection(request: project),
             ),
           ],
+          */
         ],
       ),
     );

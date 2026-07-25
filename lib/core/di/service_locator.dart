@@ -144,9 +144,15 @@ import 'package:plupool/features/products/domain/usecases/delete_product_usecase
 import 'package:plupool/features/products/domain/usecases/get_all_products_usecase.dart';
 import 'package:plupool/features/products/domain/usecases/update_product_usecase.dart';
 import 'package:plupool/features/products/presentation/cubits/product_cubit/product_cubit.dart';
+import 'package:plupool/features/profile/data/remote_data_source.dart/company_projects_remote_data_source.dart'
+    as profile;
 import 'package:plupool/features/profile/data/remote_data_source.dart/user_remote_data_source.dart';
+import 'package:plupool/features/profile/data/repo_impl/company_res_projects_repository_impl.dart';
 import 'package:plupool/features/profile/data/repo_impl/user_repo_impl.dart';
+import 'package:plupool/features/profile/domain/get_company_projects_usecase.dart';
+import 'package:plupool/features/profile/domain/repos/company_res_projects_repository.dart';
 import 'package:plupool/features/profile/domain/repos/user_repo.dart';
+import 'package:plupool/features/profile/presentation/manager/companr_res_projects_cubit/company_res_projects_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:plupool/features/projects/data/date_sources/company_project_remotee_data_source.dart';
 import 'package:plupool/features/projects/data/date_sources/project_remot_date_source.dart';
@@ -1294,8 +1300,31 @@ Future<void> initServiceLocator() async {
   );
 
   // Cubit
-  sl.registerFactory(
-    () => CompanyClientsCubit(sl<GetCompanyClientsUseCase>()),
+  sl.registerFactory(() => CompanyClientsCubit(sl<GetCompanyClientsUseCase>()));
+
+  // ==================== // ====================  get company res projects  ====================
+  // Remote Data Source
+  sl.registerLazySingleton<profile.CompanyResProjectsRemoteDataSource>(
+    () => profile.CompanyResProjectsRemoteDataSourceImpl(sl<ApiService>()),
+  );
+  // Repository
+  sl.registerLazySingleton<CompanyResProjectsRepository>(
+    () => CompanyRseProjectsRepositoryImpl(
+      sl<profile.CompanyResProjectsRemoteDataSource>(),
+    ),
   );
 
+  // UseCase
+  sl.registerLazySingleton(
+    () => GetCompanyResProjectsUseCase(
+      repository: sl<CompanyResProjectsRepository>(),
+    ),
+  );
+
+  // Cubit
+  sl.registerFactory(
+    () => CompanyResProjectsCubit(
+      getCompanyProjectsUseCase: sl<GetCompanyResProjectsUseCase>(),
+    ),
+  );
 }
