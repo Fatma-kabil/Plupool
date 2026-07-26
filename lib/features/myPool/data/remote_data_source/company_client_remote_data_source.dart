@@ -36,7 +36,7 @@ class CompanyClientRemoteDataSourceImpl
       options: Options(
         headers: {
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOCIsInJvbGUiOiJjb21wYW55IiwiZXhwIjoxNzg1MDU0NjkxfQ.I2NxvyNr2oO5jUYoHcIVl5bXt_ez3RDxerlMY2u4MU8',
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOCIsInJvbGUiOiJjb21wYW55IiwiZXhwIjoxNzg1Njc4Njc5fQ.ko2V_WPMshnbRo6dZeLdlXH-RRSiaMBq7SgsRu9InJw',
         },
         
       ),

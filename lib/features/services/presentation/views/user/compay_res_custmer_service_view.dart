@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/services/presentation/manager/company_service_cubit/company_service_cubit.dart';
 import 'package:plupool/features/services/presentation/views/user/widgets/compay_res_custmer_service_view.dart';
 
 class CompayResCustmerServiceView extends StatefulWidget {
@@ -17,15 +20,20 @@ class _CompayResCustmerServiceViewState
     SizeConfig.init(context);
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: SizeConfig.h(20),
-              left: SizeConfig.w(12),
-              right: SizeConfig.w(12),
+      child: BlocProvider(
+        create: (_) => sl<CompanyServiceCubit>()..getMaintenanceServices(
+           status:"scheduled"
+        ),
+        child: Scaffold(
+          body: SafeArea(
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: SizeConfig.h(20),
+                left: SizeConfig.w(12),
+                right: SizeConfig.w(12),
+              ),
+              child: const CompayResCustmerServiceViewBody(),
             ),
-            child: CompayResCustmerServiceViewBody(),
           ),
         ),
       ),

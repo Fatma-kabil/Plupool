@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
+import 'package:plupool/features/services/domain/entities/company_service_entity.dart';
 
 class CompanyCusServicesCard extends StatelessWidget {
-  const CompanyCusServicesCard({super.key});
+  const CompanyCusServicesCard({super.key, required this.service});
+
+  final CompanyServiceEntity service;
 
   @override
   Widget build(BuildContext context) {
-    final status = mapApiStatus("scheduled");
+    final status = mapApiStatus(service.status);
     final colors = RequestStatusColors.getColors(status);
 
     return GestureDetector(
@@ -34,132 +38,177 @@ class CompanyCusServicesCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // ---- العنوان و الحالة ----
-              Column(
+              /// العميل + الحالة
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "أحمد القحطاني",
-                            style: AppTextStyles.styleSemiBold16(
-                              context,
-                            ).copyWith(color: Color(0xff333333)),
-                          ),
-                          SizedBox(height: 2),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.location_on_outlined,
-                                size: SizeConfig.w(14),
-                                color: Color(0xff777777),
-                              ),
-                              SizedBox(width: SizeConfig.w(2)),
-                              Text(
-                                "الرياض - حي العليا",
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          service.clientName,
+                          style: AppTextStyles.styleSemiBold16(
+                            context,
+                          ).copyWith(color: const Color(0xff333333)),
+                        ),
+                        const SizedBox(height: 2),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              size: SizeConfig.w(14),
+                              color: const Color(0xff777777),
+                            ),
+                            SizedBox(width: SizeConfig.w(3)),
+                            Expanded(
+                              child: Text(
+                                service.clientAddress.isEmpty
+                                    ? "لا يوجد عنوان"
+                                    : service.clientAddress,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: AppTextStyles.styleRegular13(
                                   context,
-                                ).copyWith(color: Color(0xff777777)),
+                                ).copyWith(color: const Color(0xff777777)),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  buildStatusLabel(colors, context, status),
+                ],
+              ),
 
-                      buildStatusLabel(colors, context, status),
-                    ],
-                  ),
+              SizedBox(height: SizeConfig.h(10)),
 
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.miscellaneous_services,
-                        size: SizeConfig.w(14),
-                        color: Color(0xff555555),
-                      ),
-                      SizedBox(width: SizeConfig.w(4)),
-                      Text(
-                        "نوع الخدمه : ",
-                        style: AppTextStyles.styleSemiBold13(
-                          context,
-                        ).copyWith(color: Color(0xff555555)),
-                      ),
-                      Text(
-                        "صيانة فلتر",
-                        style: AppTextStyles.styleSemiBold13(
-                          context,
-                        ).copyWith(color: Color(0xff777777)),
-                      ),
-                    ],
+              /// نوع الخدمة
+              Row(
+                children: [
+                  Icon(
+                    Icons.miscellaneous_services,
+                    size: SizeConfig.w(14),
+                    color: const Color(0xff555555),
                   ),
-                  SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.calendar_today_outlined,
-                        size: SizeConfig.w(14),
-                        color: Color(0xff555555),
-                      ),
-                      SizedBox(width: SizeConfig.w(4)),
-                      Text(
-                        " تاريخ الخدمه : ",
-                        style: AppTextStyles.styleSemiBold13(
-                          context,
-                        ).copyWith(color: Color(0xff555555)),
-                      ),
-                      Text(
-                        "15-10-2023",
-                        style: AppTextStyles.styleSemiBold13(
-                          context,
-                        ).copyWith(color: Color(0xff777777)),
-                      ),
-                    ],
+                  SizedBox(width: SizeConfig.w(4)),
+                  Text(
+                    "نوع الخدمة : ",
+                    style: AppTextStyles.styleSemiBold13(
+                      context,
+                    ).copyWith(color: const Color(0xff555555)),
                   ),
-                  SizedBox(height: SizeConfig.h(6)),
-                  Divider(),
-                  SizedBox(height: SizeConfig.h(6)),
-                  Row(
-                    children: [
-                      CustomerAvatar(imageUrl: "assets/images/user1.png"),
-                      SizedBox(width: SizeConfig.w(7)),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "أحمد محمد",
-                            style: AppTextStyles.styleSemiBold16(
-                              context,
-                            ).copyWith(color: Color(0xff555555)),
-                          ),
-                          SizedBox(height: 2),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.engineering_outlined,
-                                size: SizeConfig.w(14),
-                                color: Color(0xff999999),
-                              ),
-                              SizedBox(width: SizeConfig.w(4)),
-                              Text(
-                                "فني",
-                                style: AppTextStyles.styleRegular13(
-                                  context,
-                                ).copyWith(color: Color(0xff999999)),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
+                  Expanded(
+                    child: Text(
+                      service.name,
+                      style: AppTextStyles.styleSemiBold13(
+                        context,
+                      ).copyWith(color: const Color(0xff777777)),
+                    ),
                   ),
                 ],
               ),
+
+              SizedBox(height: SizeConfig.h(8)),
+
+              /// التاريخ
+              Row(
+                children: [
+                  Icon(
+                    Icons.calendar_today_outlined,
+                    size: SizeConfig.w(14),
+                    color: const Color(0xff555555),
+                  ),
+                  SizedBox(width: SizeConfig.w(4)),
+                  Text(
+                    "تاريخ الخدمة : ",
+                    style: AppTextStyles.styleSemiBold13(
+                      context,
+                    ).copyWith(color: const Color(0xff555555)),
+                  ),
+                  Text(
+                    formatArabicDateOnly(service.bookingDate ?? ""),
+                    style: AppTextStyles.styleSemiBold13(
+                      context,
+                    ).copyWith(color: const Color(0xff777777)),
+                  ),
+                ],
+              ),
+              if (service.technicians.isNotEmpty) ...[
+                SizedBox(height: SizeConfig.h(8)),
+                const Divider(),
+                SizedBox(height: SizeConfig.h(8)),
+
+                /// الفنيين (كل اتنين في سطر)
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: service.technicians.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 12,
+                    childAspectRatio: 3.2,
+                  ),
+                  itemBuilder: (context, index) {
+                    final technician = service.technicians[index];
+
+                    return Row(
+                      children: [
+                        CustomerAvatar(
+                          imageUrl:
+                              (technician.profileImage?.isNotEmpty ?? false)
+                              ? technician.profileImage!
+                              : null,
+                        ),
+                        SizedBox(width: SizeConfig.w(8)),
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                technician.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: AppTextStyles.styleSemiBold16(
+                                  context,
+                                ).copyWith(color: const Color(0xff555555)),
+                              ),
+                              SizedBox(height: SizeConfig.h(2)),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.phone_outlined,
+                                    size: SizeConfig.w(13),
+                                    color: const Color(0xff999999),
+                                  ),
+                                  SizedBox(width: SizeConfig.w(4)),
+                                  Expanded(
+                                    child: Text(
+                                      technician.phone,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style:
+                                          AppTextStyles.styleRegular13(
+                                            context,
+                                          ).copyWith(
+                                            color: const Color(0xff999999),
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ],
             ],
           ),
         ),

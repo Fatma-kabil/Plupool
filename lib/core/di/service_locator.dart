@@ -185,15 +185,21 @@ import 'package:plupool/features/search/data/repositories_impl/product_search_re
 import 'package:plupool/features/search/domain/repositories/product_search_repo.dart';
 import 'package:plupool/features/search/domain/usecases/search_products_usecase.dart';
 import 'package:plupool/features/search/presentation/manager/cubits/product_search_cubit/product_search_cubit.dart';
+import 'package:plupool/features/services/data/remote_data_source/company_service_remote_data_source.dart';
 import 'package:plupool/features/services/data/remote_data_source/requested_services_remote_ds.dart';
+import 'package:plupool/features/services/data/repos_impl/company_service_repository_impl.dart';
 import 'package:plupool/features/services/data/repos_impl/requested_services_repo_impl.dart';
+import 'package:plupool/features/services/domain/repos/company_service_repository.dart';
 import 'package:plupool/features/services/domain/repos/requested_services_repository.dart';
 import 'package:plupool/features/services/domain/usecases/add_booking)usecae.dart';
 import 'package:plupool/features/services/domain/usecases/delete_request_usecase.dart';
+import 'package:plupool/features/services/domain/usecases/get_maintenance_services_use_case.dart';
 import 'package:plupool/features/services/domain/usecases/get_request_details.dart';
 import 'package:plupool/features/services/domain/usecases/get_requests_usecase.dart';
+import 'package:plupool/features/services/domain/usecases/get_services_packages_use_case.dart';
 import 'package:plupool/features/services/domain/usecases/get_user_booking_usecase.dart';
 import 'package:plupool/features/services/domain/usecases/update_request_statue.dart';
+import 'package:plupool/features/services/presentation/manager/company_service_cubit/company_service_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/user_booking_cubit/user_booking_cubit.dart';
 import 'package:plupool/features/store/data/data_sources/cart_remote_data_source.dart';
@@ -1325,6 +1331,33 @@ Future<void> initServiceLocator() async {
   sl.registerFactory(
     () => CompanyResProjectsCubit(
       getCompanyProjectsUseCase: sl<GetCompanyResProjectsUseCase>(),
+    ),
+  );
+
+  // ==================== // ====================  get company res srvices  ====================
+  // Remote Data Source
+  sl.registerLazySingleton<CompanyServiceRemoteDataSource>(
+    () => CompanyServiceRemoteDataSourceImpl(sl<ApiService>()),
+  );
+  // Repository
+  sl.registerLazySingleton<CompanyServiceRepository>(
+    () => CompanyServiceRepositoryImpl(sl<CompanyServiceRemoteDataSource>()),
+  );
+
+  // UseCase
+  sl.registerLazySingleton(
+    () => GetServicesPackagesUseCase(sl<CompanyServiceRepository>()),
+  );
+  // UseCase
+  sl.registerLazySingleton(
+    () => GetMaintenanceServicesUseCase(sl<CompanyServiceRepository>()),
+  );
+
+  // Cubit
+  sl.registerFactory(
+    () => CompanyServiceCubit(
+      sl<GetMaintenanceServicesUseCase>(),
+      sl<GetServicesPackagesUseCase>(),
     ),
   );
 }
