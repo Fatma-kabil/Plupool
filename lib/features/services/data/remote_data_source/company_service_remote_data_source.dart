@@ -66,32 +66,44 @@ class CompanyServiceRemoteDataSourceImpl
         .map((e) => CompanyServiceModel.fromJson(e))
         .toList();
   }
+@override
+Future<List<CompanyServiceModel>> getServicesPackages({
+  String? status,
+  String? search,
+  int? skip,
+  int? limit,
+}) async {
+  final queryParams = <String, dynamic>{};
 
-  @override
-  Future<List<CompanyServiceModel>> getServicesPackages({
-    String? status,
-    String? search,
-    int? skip,
-    int? limit,
-  }) async {
-    final response = await apiService.get(
-      "${Endpoints.baseUrl}/company/services-packages",
-      queryParams: {
-        "status": status,
-        "search": search,
-        "skip": skip,
-        "limit": limit,
-      },
-      options: Options(
-        headers: {
-          'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOCIsInJvbGUiOiJjb21wYW55IiwiZXhwIjoxNzg1Njc4Njc5fQ.ko2V_WPMshnbRo6dZeLdlXH-RRSiaMBq7SgsRu9InJw',
-        },
-      ),
-    );
-
-    return (response.data["items"] as List)
-        .map((e) => CompanyServiceModel.fromJson(e))
-        .toList();
+  if (status != null && status.isNotEmpty) {
+    queryParams["status"] = status;
   }
+
+  if (search != null && search.isNotEmpty) {
+    queryParams["search"] = search;
+  }
+
+  if (skip != null) {
+    queryParams["skip"] = skip;
+  }
+
+  if (limit != null) {
+    queryParams["limit"] = limit;
+  }
+
+  final response = await apiService.get(
+    "${Endpoints.baseUrl}/company/services-packages",
+    queryParams: queryParams,
+    options: Options(
+      headers: {
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOCIsInJvbGUiOiJjb21wYW55IiwiZXhwIjoxNzg1Njc4Njc5fQ.ko2V_WPMshnbRo6dZeLdlXH-RRSiaMBq7SgsRu9InJw',
+      },
+    ),
+  );
+
+  return (response.data["items"] as List)
+      .map((e) => CompanyServiceModel.fromJson(e))
+      .toList();
+}
 }

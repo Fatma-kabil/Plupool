@@ -21,9 +21,9 @@ class _CompayResCustmerServiceViewState
     return Directionality(
       textDirection: TextDirection.rtl,
       child: BlocProvider(
-        create: (_) => sl<CompanyServiceCubit>()..getMaintenanceServices(
-           status:"scheduled"
-        ),
+        create: (_) => sl<CompanyServiceCubit>()
+          ..getMaintenanceServices(status: "scheduled")
+          ..getServicesPackages(status: "scheduled"),
         child: Scaffold(
           body: SafeArea(
             child: Padding(
