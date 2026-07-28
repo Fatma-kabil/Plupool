@@ -73,18 +73,23 @@ import 'package:plupool/features/maintenance/domain/usecases/get_maintenancr_ser
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_cubit/maintenance_cubit.dart';
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_package_cubit/maintenance_package_cubit.dart';
 import 'package:plupool/features/myPool/data/remote_data_source/company_client_remote_data_source.dart';
+import 'package:plupool/features/myPool/data/remote_data_source/company_pool_remote_data_source.dart';
 import 'package:plupool/features/myPool/data/remote_data_source/pool_remote_data_source.dart';
 import 'package:plupool/features/myPool/data/remote_data_source/user_service_remote_data_source.dart';
 import 'package:plupool/features/myPool/data/repos_impl/company_clients_repo_impl.dart';
+import 'package:plupool/features/myPool/data/repos_impl/company_pool_repository_impl.dart';
 import 'package:plupool/features/myPool/data/repos_impl/pool_repo_impl.dart';
 import 'package:plupool/features/myPool/data/repos_impl/user_services_repo_impl.dart';
 import 'package:plupool/features/myPool/domain/repos/company_client_repo.dart';
+import 'package:plupool/features/myPool/domain/repos/company_pool_repository.dart';
 import 'package:plupool/features/myPool/domain/repos/pool_reposistory.dart';
 import 'package:plupool/features/myPool/domain/repos/user_services_repoditory.dart';
 import 'package:plupool/features/myPool/domain/usecases/get_company_clients_usecase.dart';
+import 'package:plupool/features/myPool/domain/usecases/get_company_pools_use_case.dart';
 import 'package:plupool/features/myPool/domain/usecases/get_pool_info_usecse.dart';
 import 'package:plupool/features/myPool/domain/usecases/get_user_services_usecase.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/company_clients_cubit/company_clients_cubit.dart';
+import 'package:plupool/features/myPool/presentation/views/manager/company_pool_cubit/comapny_pool_cubit.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/pool_info_cubit/pool_info_cubit.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
 import 'package:plupool/features/notes/data/data_sources/notes_remote_data_source.dart';
@@ -1360,4 +1365,32 @@ Future<void> initServiceLocator() async {
       sl<GetServicesPackagesUseCase>(),
     ),
   );
+
+  // ==================== Get Company Pools ====================
+
+// Remote Data Source
+sl.registerLazySingleton<CompanyPoolRemoteDataSource>(
+  () => CompanyPoolRemoteDataSourceImpl(sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<CompanyPoolRepository>(
+  () => CompanyPoolRepositoryImpl(
+    remoteDataSource: sl<CompanyPoolRemoteDataSource>(),
+  ),
+);
+
+// UseCase
+sl.registerLazySingleton(
+  () => GetCompanyPoolsUseCase(
+    sl<CompanyPoolRepository>(),
+  ),
+);
+
+// Cubit
+sl.registerFactory(
+  () => CompanyPoolCubit(
+    sl<GetCompanyPoolsUseCase>(),
+  ),
+);
 }

@@ -43,19 +43,28 @@ String formatTimeArabic(TimeOfDay time) {
 String formatTimeArabic2(DateTime time) {
   return DateFormat('h:mm a', 'ar').format(time);
 }
-
 String formatTimeArabic3(String? value) {
-  if (value == null || value.isEmpty) return "";
+  if (value == null || value.trim().isEmpty) return "";
 
-  DateTime parsed;
+  try {
+    DateTime parsed;
 
-  if (value.contains('T')) {
-    parsed = DateTime.parse(value);
-  } else {
-    parsed = DateFormat("HH:mm:ss").parse(value);
+    if (value.contains('T')) {
+      parsed = DateTime.parse(value);
+    } else if (value.length == 5) {
+      // 09:00
+      parsed = DateFormat("HH:mm").parse(value);
+    } else if (value.length == 8) {
+      // 09:00:00
+      parsed = DateFormat("HH:mm:ss").parse(value);
+    } else {
+      return value;
+    }
+
+    return DateFormat('h:mm a', 'ar').format(parsed);
+  } catch (e) {
+    return value;
   }
-
-  return DateFormat('h:mm a', 'ar').format(parsed);
 }
 
 String formatArabicDate2(DateTime date) {

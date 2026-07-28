@@ -21,7 +21,7 @@ class CompanyCusPackCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.push('/companyrescuspoolview');
+        context.push('/companyrescuspoolview',extra: package.clientId);
       },
       child: Container(
         width: double.infinity,

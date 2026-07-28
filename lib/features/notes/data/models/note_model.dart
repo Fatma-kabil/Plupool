@@ -4,9 +4,8 @@ import 'package:dio/dio.dart';
 
 import '../../domain/entities/note_entity.dart';
 import 'note_file_model.dart';
-
 class NoteModel extends NoteEntity {
-   NoteModel({
+  NoteModel({
     required super.id,
     required super.userId,
     required super.note,
@@ -16,21 +15,30 @@ class NoteModel extends NoteEntity {
   });
 
   factory NoteModel.fromJson(Map<String, dynamic> json) {
+     print("NOTE JSON => $json");
     return NoteModel(
-      id: json['id'],
-      userId: json['user_id'],
-      note: json['note'],
-     createdAt: DateTime.parse(json['created_at']),
+      
+      id: json['id'] ?? 0,
+
+      // API مش راجع user_id
+      userId: json['user_id'] ?? 0,
+
+      note: json['note'] ?? '',
+
+      createdAt: DateTime.parse(
+        json['created_at'] ?? DateTime.now().toIso8601String(),
+      ),
+
       updatedAt: json['updated_at'] != null
           ? DateTime.parse(json['updated_at'])
           : null,
-      files: (json['files'] as List)
+
+      files: (json['files'] as List<dynamic>? ?? [])
           .map((e) => NoteFileModel.fromJson(e))
           .toList(),
     );
   }
 }
-
 
 class AddNoteModel {
   final String note;

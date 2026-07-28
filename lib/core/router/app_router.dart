@@ -230,13 +230,13 @@ final GoRouter appRouter = GoRouter(
       path: '/maintenanceupdateview',
       name: 'maintenanceupdateview',
       builder: (context, state) {
-    final args = state.extra as Map<String, dynamic>;
+        final args = state.extra as Map<String, dynamic>;
 
-    return MaintenanceUpdateView(
-      taskId: args["taskId"] as int,
-      data: args["data"] as WaterQualityEntity,
-    );
-  },
+        return MaintenanceUpdateView(
+          taskId: args["taskId"] as int,
+          data: args["data"] as WaterQualityEntity,
+        );
+      },
     ),
     GoRoute(
       path: '/technotifications',
@@ -752,8 +752,11 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/companyrescuspoolview',
       name: 'companyrescuspoolview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(CompanyResCusPoolView()),
+      pageBuilder: (context, state) {
+        final clientId = state.extra as int;
+
+        return buildTransitionPage(CompanyResCusPoolView(clientId: clientId));
+      },
     ),
     GoRoute(
       path: '/editourprojectview',
