@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/company_clients_cubit/company_clients_cubit.dart';
@@ -20,7 +21,7 @@ class CompanyResPoolsViewBody extends StatelessWidget {
     return BlocBuilder<CompanyClientsCubit, CompanyClientsState>(
       builder: (context, state) {
         if (state is GetClientsLoading) {
-         return const CompanyResPoolsShimmer();
+          return const CompanyResPoolsShimmer();
         }
 
         if (state is GetClientsFailure) {
@@ -60,7 +61,7 @@ class CompanyResPoolsViewBody extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "قائمة المسابح (${response.total})",
+                    "قائمة المسابح (${toArabicNumbers(response.total.toString())})",
                     style: AppTextStyles.styleBold18(
                       context,
                     ).copyWith(color: AppColors.ktextcolor),

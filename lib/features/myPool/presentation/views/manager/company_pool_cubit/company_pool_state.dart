@@ -17,3 +17,8 @@ class CompanyPoolFailure extends CompanyPoolState {
 
   CompanyPoolFailure(this.message);
 }
+class CompanyPoolRefreshing extends CompanyPoolState {
+  final CompanyPoolEntity data;
+
+  CompanyPoolRefreshing(this.data);
+}

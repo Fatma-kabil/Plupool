@@ -33,7 +33,7 @@ class CompanyResCustomerCard extends StatelessWidget {
           Row(
             children: [
               CustomerAvatar(
-                imageUrl: client.profileImage ?? "assets/images/user1.png",
+                imageUrl: client.profileImage ,
               ),
               SizedBox(width: SizeConfig.w(7)),
               Expanded(

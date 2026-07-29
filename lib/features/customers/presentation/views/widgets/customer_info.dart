@@ -23,7 +23,7 @@ class CustomerInfo extends StatelessWidget {
               style: AppTextStyles.styleMedium16(
                 context,
               ).copyWith(color: AppColors.kprimarycolor),
-            ),
+            ), 
             SizedBox(width: SizeConfig.w(2)),
             Icon(
               Icons.phone,

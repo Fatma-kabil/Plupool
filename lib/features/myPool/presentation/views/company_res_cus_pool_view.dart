@@ -6,10 +6,7 @@ import 'package:plupool/features/myPool/presentation/views/manager/company_pool_
 import 'package:plupool/features/myPool/presentation/views/widgets/company_rs_cus_pool_viw_body.dart';
 
 class CompanyResCusPoolView extends StatelessWidget {
-  const CompanyResCusPoolView({
-    super.key,
-    required this.clientId,
-  });
+  const CompanyResCusPoolView({super.key, required this.clientId});
 
   final int clientId;
 
@@ -19,16 +16,15 @@ class CompanyResCusPoolView extends StatelessWidget {
 
     return BlocProvider(
       create: (_) => sl<CompanyPoolCubit>()
-        ..getCompanyPools(clientId: 1, tab: "services",
-    status: "scheduled",
-    limit: 100,),
+        ..getCompanyPools(
+          clientId: 1,
+          tab: "services",
+          status: "scheduled",
+          limit: 100,
+        ),
       child: const Directionality(
         textDirection: TextDirection.rtl,
-        child: Scaffold(
-          body: SafeArea(
-            child: CompanyRsCusPoolViwBody(),
-          ),
-        ),
+        child: Scaffold(body: SafeArea(child: CompanyRsCusPoolViwBody())),
       ),
     );
   }

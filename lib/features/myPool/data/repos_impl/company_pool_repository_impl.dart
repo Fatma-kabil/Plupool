@@ -11,21 +11,28 @@ class CompanyPoolRepositoryImpl implements CompanyPoolRepository {
   CompanyPoolRepositoryImpl({
     required this.remoteDataSource,
   });
+@override
+Future<Either<Failure, CompanyPoolEntity>> getCompanyPools({
+  required int clientId,
+  String? tab,
+  String? bookingType,
+  String? status,
+  int limit = 100,
+}) async {
+  try {
+    final result = await remoteDataSource.getCompanyPools(
+      clientId: clientId,
+      tab: tab,
+      bookingType: bookingType,
+      status: status,
+      limit: limit,
+    );
 
-  @override
-  Future<Either<Failure, CompanyPoolEntity>> getCompanyPools({
-    required int clientId,
-  }) async {
-    try {
-      final result = await remoteDataSource.getCompanyPools(
-        clientId: clientId,
-      );
-
-      return Right(result);
-    } on DioException catch (e) {
-      return Left(mapDioError(e));
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
-    }
+    return Right(result);
+  } on DioException catch (e) {
+    return Left(mapDioError(e));
+  } catch (e) {
+    return Left(ServerFailure(e.toString()));
   }
+}
 }

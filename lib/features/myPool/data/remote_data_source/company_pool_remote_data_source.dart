@@ -27,7 +27,13 @@ class CompanyPoolRemoteDataSourceImpl
     String? status,
     int limit = 50,
   }) async {
-
+print({
+  'client_id': clientId,
+  'tab': tab,
+  'booking_type': bookingType,
+  'status': status,
+  'limit': limit,
+});
     final response = await api.get(
       "${Endpoints.baseUrl}/company/pools",
       queryParams: {

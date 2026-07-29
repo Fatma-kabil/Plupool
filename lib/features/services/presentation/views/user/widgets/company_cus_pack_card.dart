@@ -21,7 +21,7 @@ class CompanyCusPackCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.push('/companyrescuspoolview',extra: package.clientId);
+        context.push('/companyrescuspoolview', extra: package.clientId);
       },
       child: Container(
         width: double.infinity,
@@ -177,9 +177,9 @@ class CompanyCusPackCard extends StatelessWidget {
                       ).copyWith(color: const Color(0xff555555)),
                     ),
                     Text(
-                          toArabicNumbers(
-                            "${package.visitsCount}/${package.completedVisits}",
-                          ),
+                      toArabicNumbers(
+                        "${package.visitsCount}/${package.completedVisits}",
+                      ),
                       style: AppTextStyles.styleSemiBold13(
                         context,
                       ).copyWith(color: const Color(0xff777777)),
@@ -206,7 +206,9 @@ class CompanyCusPackCard extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                 toArabicNumbers(   "${package.progressPercentage!.toStringAsFixed(0)}%"),
+                    toArabicNumbers(
+                      "${package.progressPercentage!.toStringAsFixed(0)}%",
+                    ),
                     style: AppTextStyles.styleRegular13(context),
                   ),
                 ),
@@ -256,24 +258,22 @@ class CompanyCusPackCard extends StatelessWidget {
                               SizedBox(height: SizeConfig.h(2)),
                               Row(
                                 children: [
+                                  Text(
+                                    formatPhoneNumber(
+                                      toArabicNumbers(technician.phone),
+                                    ),
+                                    textDirection: TextDirection.ltr,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: AppTextStyles.styleRegular13(
+                                      context,
+                                    ).copyWith(color: const Color(0xff999999)),
+                                  ),
+                                  SizedBox(width: SizeConfig.w(4)),
                                   Icon(
                                     Icons.phone_outlined,
                                     size: SizeConfig.w(13),
                                     color: const Color(0xff999999),
-                                  ),
-                                  SizedBox(width: SizeConfig.w(4)),
-                                  Expanded(
-                                    child: Text(
-                                      technician.phone,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          AppTextStyles.styleRegular13(
-                                            context,
-                                          ).copyWith(
-                                            color: const Color(0xff999999),
-                                          ),
-                                    ),
                                   ),
                                 ],
                               ),

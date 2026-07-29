@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/build_statue_label.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
@@ -20,7 +21,7 @@ class CompanyCusServicesCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.push('/companyrescuspoolview',extra: service.clientId);
+        context.push('/companyrescuspoolview', extra: service.clientId);
       },
       child: Container(
         width: double.infinity,
@@ -180,24 +181,22 @@ class CompanyCusServicesCard extends StatelessWidget {
                               SizedBox(height: SizeConfig.h(2)),
                               Row(
                                 children: [
+                                  Text(
+                                    formatPhoneNumber(
+                                      toArabicNumbers(technician.phone),
+                                    ),
+                                    textDirection: TextDirection.ltr,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: AppTextStyles.styleRegular13(
+                                      context,
+                                    ).copyWith(color: const Color(0xff999999)),
+                                  ),
+                                  SizedBox(width: SizeConfig.w(4)),
                                   Icon(
                                     Icons.phone_outlined,
                                     size: SizeConfig.w(13),
                                     color: const Color(0xff999999),
-                                  ),
-                                  SizedBox(width: SizeConfig.w(4)),
-                                  Expanded(
-                                    child: Text(
-                                      technician.phone,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          AppTextStyles.styleRegular13(
-                                            context,
-                                          ).copyWith(
-                                            color: const Color(0xff999999),
-                                          ),
-                                    ),
                                   ),
                                 ],
                               ),

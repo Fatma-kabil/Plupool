@@ -18,522 +18,230 @@ import 'package:plupool/features/myPool/presentation/views/widgets/visit_card.da
 
 import 'package:plupool/features/support/presentation/views/widgets/attachment_chip.dart';
 
-
 class CompanyCusVisits extends StatefulWidget {
-  const CompanyCusVisits({
-    super.key,
-  });
+  const CompanyCusVisits({super.key});
 
   @override
-  State<CompanyCusVisits> createState() =>
-      _CompanyCusVisitsState();
+  State<CompanyCusVisits> createState() => _CompanyCusVisitsState();
 }
 
-
 class _CompanyCusVisitsState extends State<CompanyCusVisits> {
-
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<CompanyPoolCubit, CompanyPoolState>(
       builder: (context, state) {
-
-
         if (state is CompanyPoolLoading) {
-
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: 3,
-            itemBuilder: (_, __) =>
-                const MyPoolTaskCardShimmer(),
+            itemBuilder: (_, __) => const MyPoolTaskCardShimmer(),
           );
-
         }
-
-
 
         if (state is CompanyPoolFailure) {
-
           return Center(
-            child: ErrorText(
-              message: "حدث خطأ أثناء تحميل البيانات",
-            ),
+            child: ErrorText(message: "حدث خطأ أثناء تحميل البيانات"),
           );
-
         }
-
-
 
         if (state is! CompanyPoolSuccess) {
-
           return const SizedBox();
-
         }
 
-
-
         final packages = state.data.items
-            .where(
-              (e) => e.tab == "packages",
-            )
+            .where((e) => e.tab == "packages")
             .toList();
 
-
-
         return Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-
-
             ListView.builder(
               shrinkWrap: true,
-              physics:
-                  const NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
 
               itemCount: packages.length,
 
-
               itemBuilder: (context, index) {
-
                 final request = packages[index];
-
 
                 final List<Widget> visitCards = [];
 
-
-
                 if (request.nextVisit != null) {
-
                   visitCards.add(
-
                     VisitCard(
-
                       progress: 1,
 
-                      visits:
-                          request.visitsCount ?? 1,
+                      visits: request.visitsCount ?? 1,
 
+                      status: RequestStatus.scheduled,
 
-                      status:
-                          RequestStatus.scheduled,
+                      date: request.nextVisit!.date,
 
+                      bookingId: request.bookingId,
 
-                      date:
-                          request.nextVisit!.date,
+                      technicianNames: request.technicians
+                          .map((e) => e.name)
+                          .toList(),
 
-
-                      bookingId:
-                          request.bookingId,
-
-
-                      technicianNames:
-                          request.technicians
-                              .map(
-                                (e) => e.name,
-                              )
-                              .toList(),
-
-
-                      technicianImages:
-                          request.technicians
-                              .map(
-                                (e) =>
-                                    e.profileImage,
-                              )
-                              .toList(),
-
+                      technicianImages: request.technicians
+                          .map((e) => e.profileImage)
+                          .toList(),
                     ),
-
                   );
-
                 }
 
-
-
                 return Column(
-
-                  crossAxisAlignment:
-                      CrossAxisAlignment.stretch,
-
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
 
                   children: [
+                    CompanyVisitsCard(service: request),
 
-
-                    CompanyVisitsCard(
-                      service: request,
-                    ),
-
-
-
-                    SizedBox(
-                      height:
-                          SizeConfig.h(12),
-                    ),
-
-
+                    SizedBox(height: SizeConfig.h(12)),
 
                     Text(
                       "الزيارات",
 
-                      style:
-                          AppTextStyles.styleBold16(
-                            context,
-                          ).copyWith(
-                            color:
-                                AppColors.ktextcolor,
-                          ),
+                      style: AppTextStyles.styleBold16(
+                        context,
+                      ).copyWith(color: AppColors.ktextcolor),
                     ),
 
-
-
-                    SizedBox(
-                      height:
-                          SizeConfig.h(12),
-                    ),
-
-
+                    SizedBox(height: SizeConfig.h(12)),
 
                     ...visitCards,
 
-
-
-                    SizedBox(
-                      height:
-                          SizeConfig.h(20),
-                    ),
-
-
+                    SizedBox(height: SizeConfig.h(20)),
                   ],
-
                 );
-
               },
-
             ),
-
-
-
 
             const AddNote(),
 
-
-
-            SizedBox(
-              height:
-                  SizeConfig.h(20),
-            ),
-
-
-
+            SizedBox(height: SizeConfig.h(20)),
 
             Text(
               "الملاحظات",
 
-              style:
-                  AppTextStyles.styleBold16(
-                    context,
-                  ).copyWith(
-                    color:
-                        AppColors.ktextcolor,
-                  ),
+              style: AppTextStyles.styleBold16(
+                context,
+              ).copyWith(color: AppColors.ktextcolor),
             ),
 
-
-
-            SizedBox(
-              height:
-                  SizeConfig.h(12),
-            ),
-
-
-
+            SizedBox(height: SizeConfig.h(12)),
 
             ListView.separated(
-
               shrinkWrap: true,
 
-              physics:
-                  const NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
 
+              itemCount: state.data.notes.length,
 
-              itemCount:
-                  state.data.notes.length,
+              separatorBuilder: (_, __) => SizedBox(height: SizeConfig.h(12)),
 
-
-              separatorBuilder: (_, __) =>
-                  SizedBox(
-                    height:
-                        SizeConfig.h(12),
-                  ),
-
-
-
-              itemBuilder:
-                  (context, index) {
-
-
-                final note =
-                    state.data.notes[index];
-
-
+              itemBuilder: (context, index) {
+                final note = state.data.notes[index];
 
                 return Container(
+                  width: double.infinity,
 
-                  width:
-                      double.infinity,
+                  padding: EdgeInsets.all(SizeConfig.w(12)),
 
+                  decoration: BoxDecoration(
+                    border: Border.all(color: const Color(0xff777777)),
 
-                  padding:
-                      EdgeInsets.all(
-                        SizeConfig.w(12),
-                      ),
-
-
-
-                  decoration:
-                      BoxDecoration(
-
-                    border:
-                        Border.all(
-                          color:
-                              const Color(
-                                0xff777777,
-                              ),
-                        ),
-
-
-                    borderRadius:
-                        BorderRadius.circular(
-                          SizeConfig.w(10),
-                        ),
-
+                    borderRadius: BorderRadius.circular(SizeConfig.w(10)),
                   ),
 
-
-
-                  child:
-                      Column(
-
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
 
                     children: [
-
-
-
                       Row(
+                        textDirection: TextDirection.rtl,
 
-                        textDirection:
-                            TextDirection.rtl,
-
-
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                         children: [
-
-
                           Text(
+                            formatMonthDate(note.createdAt),
 
-                            formatMonthDate(
-                              note.createdAt,
-                            ),
-
-                            style:
-                                AppTextStyles.styleRegular14(
-                                  context,
-                                ).copyWith(
-                                  color:
-                                      const Color(
-                                        0xff777777,
-                                      ),
-                                ),
-
+                            style: AppTextStyles.styleRegular14(
+                              context,
+                            ).copyWith(color: const Color(0xff777777)),
                           ),
 
-
-
                           Text(
+                            formatTimeArabic2(note.createdAt),
 
-                            formatTimeArabic2(
-                              note.createdAt,
-                            ),
-
-
-                            style:
-                                AppTextStyles.styleRegular14(
-                                  context,
-                                ).copyWith(
-                                  color:
-                                      const Color(
-                                        0xff777777,
-                                      ),
-                                ),
-
+                            style: AppTextStyles.styleRegular14(
+                              context,
+                            ).copyWith(color: const Color(0xff777777)),
                           ),
-
-
                         ],
-
                       ),
 
-
-
-
                       if (note.note.trim().isNotEmpty) ...[
-
-                        SizedBox(
-                          height:
-                              SizeConfig.h(10),
-                        ),
-
-
+                        SizedBox(height: SizeConfig.h(10)),
 
                         Row(
-
-                          textDirection:
-                              TextDirection.rtl,
-
+                          textDirection: TextDirection.rtl,
 
                           children: [
-
-
                             Icon(
                               Icons.notes,
 
-                              size:
-                                  SizeConfig.w(20),
+                              size: SizeConfig.w(20),
 
-                              color:
-                                  const Color(
-                                    0xff999999,
-                                  ),
+                              color: const Color(0xff999999),
                             ),
 
-
-
-                            SizedBox(
-                              width:
-                                  SizeConfig.w(6),
-                            ),
-
-
+                            SizedBox(width: SizeConfig.w(6)),
 
                             Expanded(
-
-                              child:
-                                  Text(
-
+                              child: Text(
                                 note.note,
 
+                                textDirection: TextDirection.rtl,
 
-                                textDirection:
-                                    TextDirection.rtl,
-
-
-                                style:
-                                    AppTextStyles.styleRegular14(
-                                      context,
-                                    ).copyWith(
-                                      color:
-                                          const Color(
-                                            0xff777777,
-                                          ),
-                                    ),
-
+                                style: AppTextStyles.styleRegular14(
+                                  context,
+                                ).copyWith(color: const Color(0xff777777)),
                               ),
-
                             ),
-
                           ],
-
                         ),
-
                       ],
-
-
-
 
                       if (note.files.isNotEmpty) ...[
-
-
-                        SizedBox(
-                          height:
-                              SizeConfig.h(10),
-                        ),
-
-
+                        SizedBox(height: SizeConfig.h(10)),
 
                         Wrap(
+                          spacing: SizeConfig.w(8),
 
-                          spacing:
-                              SizeConfig.w(8),
+                          runSpacing: SizeConfig.h(8),
 
+                          children: note.files.map((file) {
+                            return AttachmentChip(
+                              fileName: file.originalName,
 
-                          runSpacing:
-                              SizeConfig.h(8),
-
-
-
-                          children:
-                              note.files.map(
-                            (file) {
-
-
-                              return AttachmentChip(
-
-                                fileName:
-                                    file.originalName,
-
-
-                                fileUrl:
-                                    file.fileUrl,
-
-                              );
-
-                            },
-
-                          ).toList(),
-
+                              fileUrl: file.fileUrl,
+                            );
+                          }).toList(),
                         ),
-
-
                       ],
-
-
                     ],
-
                   ),
-
                 );
-
-
               },
-
             ),
 
-
-
-            SizedBox(
-              height:
-                  SizeConfig.h(20),
-            ),
-
-
-
+            SizedBox(height: SizeConfig.h(20)),
           ],
-
         );
-
       },
-
     );
-
   }
-
 }

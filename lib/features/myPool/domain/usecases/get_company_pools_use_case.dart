@@ -2,9 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/myPool/domain/entities/company_pool_entity.dart';
 import 'package:plupool/features/myPool/domain/repos/company_pool_repository.dart';
-
-class GetCompanyPoolsUseCase
-   {
+class GetCompanyPoolsUseCase {
   final CompanyPoolRepository repository;
 
   GetCompanyPoolsUseCase(this.repository);
@@ -14,9 +12,15 @@ class GetCompanyPoolsUseCase
   ) {
     return repository.getCompanyPools(
       clientId: params.clientId,
+      tab: params.tab,
+      bookingType: params.bookingType,
+      status: params.status,
+      limit: params.limit,
     );
   }
-}class GetCompanyPoolsParams {
+}
+
+class GetCompanyPoolsParams {
   final int clientId;
   final String? tab;
   final String? bookingType;

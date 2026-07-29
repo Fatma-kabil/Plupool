@@ -44,6 +44,7 @@ class _AddNoteCardState extends State<AddNoteCard> {
               message: "تم حفظ الملاحظة بنجاح",
               isSuccess: true,
             );
+            
           }
 
           if (state is UserNotesOperationFailure) {
