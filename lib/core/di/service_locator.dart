@@ -47,20 +47,16 @@ import 'package:plupool/features/customers/domain/usecases/update_user_usecase.d
 import 'package:plupool/features/customers/presentation/manager/user_pool_cubit/user_pool_cubit.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 import 'package:plupool/features/home/data/remote_data_sources/add_rating_remote_data_source.dart';
-import 'package:plupool/features/home/data/remote_data_sources/notification_remote_data_source.dart';
 import 'package:plupool/features/home/data/remote_data_sources/support_remote_data_source.dart';
 import 'package:plupool/features/home/data/repos_impl/add_rating_repo_impl.dart';
-import 'package:plupool/features/home/data/repos_impl/notification_repo_impl.dart';
 import 'package:plupool/features/home/data/repos_impl/support_repo_impl.dart';
 import 'package:plupool/features/home/domain/repos/add_rating_repo.dart';
 
-import 'package:plupool/features/home/domain/repos/notification_repo.dart';
 import 'package:plupool/features/home/domain/repos/support_repo.dart';
 import 'package:plupool/features/home/domain/usecases/add_rating_usecase.dart';
 import 'package:plupool/features/home/domain/usecases/add_support_message_uscase.dart';
 import 'package:plupool/features/home/presentaation/manager/Add_support_message_cubit/add_support_message_cubit.dart';
 import 'package:plupool/features/home/presentaation/manager/add_rating_cubit/add_rating_cubit.dart';
-import 'package:plupool/features/home/presentaation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/maintenance/data/remote_data_source.dart/maintenance_remote_data_souce.dart';
 import 'package:plupool/features/maintenance/data/remote_data_source.dart/maintenance_remote_data_source.dart';
 import 'package:plupool/features/maintenance/data/repo_impl.dart/maintenance_package_repo_impl.dart';
@@ -102,6 +98,11 @@ import 'package:plupool/features/notes/domain/usecases/delete_note_usecase.dart'
 import 'package:plupool/features/notes/domain/usecases/get_notes_usecase.dart';
 import 'package:plupool/features/notes/domain/usecases/update_note_usecase.dart';
 import 'package:plupool/features/notes/presentation/manager/notes_cubit/notes_cubit.dart';
+import 'package:plupool/features/notifications/data/datasources/notification_remote_data_source.dart';
+import 'package:plupool/features/notifications/data/repo_impl/notification_repository_impl.dart';
+import 'package:plupool/features/notifications/domain/repositories/notification_repository.dart';
+import 'package:plupool/features/notifications/domain/usecases/register_device_use_case.dart';
+import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/offer_remote_data_source.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/product_offer_remote_data_source.dart';
 import 'package:plupool/features/offers/data/repos_impl/offer_repo_impl.dart';
@@ -400,24 +401,6 @@ Future<void> initServiceLocator() async {
 
   // تسجيل UpdateUserCubit
 
-  // Notification Feature
-  // ----------------------------
-
-  // Remote Data Source
-  sl.registerLazySingleton<NotificationRemoteDataSource>(
-    () => NotificationRemoteDataSourceImpl(sl<ApiService>()),
-  );
-
-  // Repository
-  sl.registerLazySingleton<NotificationRepository>(
-    () => NotificationRepositoryImpl(sl<NotificationRemoteDataSource>()),
-  );
-
-  // Cubit
-  sl.registerLazySingleton(
-    () => NotificationCubit(sl<NotificationRepository>()),
-  );
-  // ----------------------------
   // 🛒 Product Feature
   // ----------------------------
 
@@ -1393,4 +1376,34 @@ sl.registerFactory(
     sl<GetCompanyPoolsUseCase>(),
   ),
 );
+
+  // ==================== Get Company Pools ====================
+
+// Remote Data Source
+sl.registerLazySingleton<NotificationRemoteDataSource>(
+  () => NotificationRemoteDataSourceImpl(sl<ApiService>()),
+);
+
+// Repository
+sl.registerLazySingleton<NotificationRepository>(
+  () => NotificationRepositoryImpl(
+     sl<NotificationRemoteDataSource>(),
+  ),
+);
+
+// UseCase
+sl.registerLazySingleton(
+  () => RegisterDeviceUseCase(
+    sl<NotificationRepository>()
+  ),
+);
+
+// Cubit
+sl.registerFactory(
+  () => NotificationCubit(
+    sl<RegisterDeviceUseCase>(),
+  ),
+);
 }
+
+

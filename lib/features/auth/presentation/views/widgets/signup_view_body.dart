@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
@@ -21,6 +22,7 @@ import 'package:plupool/features/auth/presentation/views/widgets/verification_bo
 import 'package:plupool/features/auth/presentation/views/widgets/whatsapp_verification_note.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
+import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
 class SignupViewBody extends StatefulWidget {
@@ -66,6 +68,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             message: 'تم إنشاء الحساب بنجاح 🎉',
             isSuccess: true,
           );
+          await sl<NotificationCubit>().registerCurrentDevice();
           await Future.delayed(const Duration(seconds: 2));
           // ignore: use_build_context_synchronously
           final role = context.read<SelectRoleCubit>().state;

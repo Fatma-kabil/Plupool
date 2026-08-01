@@ -1,4 +1,3 @@
-
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,27 +6,43 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:plupool/app_view.dart';
 import 'package:plupool/core/di/service_locator.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:plupool/core/services/notification_service.dart';
 
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initialize Firebase
+  await Firebase.initializeApp();
 
-  await initServiceLocator(); 
-   await initializeDateFormatting('ar', null); // ✅ مهم جدًا // ✅ تهيئة اللغة العربية// ✅ مهم جدًا قبل runApp
- 
-   // ✅ لو عايز تمسح التوكن (للتجربة أو reset)
+  // Background Notifications
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  await NotificationService.instance.initialize();
+
+  await initServiceLocator();
+  await initializeDateFormatting(
+    'ar',
+    null,
+  ); // ✅ مهم جدًا // ✅ تهيئة اللغة العربية// ✅ مهم جدًا قبل runApp
+
+  // ✅ لو عايز تمسح التوكن (للتجربة أو reset)
   const storage = FlutterSecureStorage();
   await storage.delete(key: 'token');
- 
- 
+
   runApp(
-  //   DevicePreview(
-   // enabled: !kReleaseMode, // ✅ يشتغل فقط في debug
-    //builder: (context) 
-   // => 
-     const PlupoolApp(),
-     
-//),
+    //   DevicePreview(
+    // enabled: !kReleaseMode, // ✅ يشتغل فقط في debug
+    //builder: (context)
+    // =>
+    const PlupoolApp(),
+
+    //),
   );
 
   // تشيل السبلاتش بعد ما الاب يفتح

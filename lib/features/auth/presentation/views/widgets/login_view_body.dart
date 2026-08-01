@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -13,6 +14,8 @@ import 'package:plupool/features/auth/presentation/views/widgets/verification_bo
 import 'package:plupool/features/auth/presentation/views/widgets/whatsapp_verification_note.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
+
+import '../../../../notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -56,7 +59,11 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             ),
             SizedBox(height: SizeConfig.h(40)),
 
-            LoginForm(formKey: _formKey, phoneController: phoneController, phoneFieldKey: _phoneInputFieldKey,),
+            LoginForm(
+              formKey: _formKey,
+              phoneController: phoneController,
+              phoneFieldKey: _phoneInputFieldKey,
+            ),
             SizedBox(height: SizeConfig.h(15)),
 
             const WhatsappVerificationNote(),
@@ -76,7 +83,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     message: '🎉 تم تسجيل الدخول بنجاح',
                     isSuccess: true,
                   );
-
+                 await sl<NotificationCubit>().registerCurrentDevice();
                   await Future.delayed(const Duration(seconds: 2));
 
                   if (!mounted) return;
