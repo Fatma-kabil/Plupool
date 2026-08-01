@@ -101,6 +101,7 @@ import 'package:plupool/features/notes/presentation/manager/notes_cubit/notes_cu
 import 'package:plupool/features/notifications/data/datasources/notification_remote_data_source.dart';
 import 'package:plupool/features/notifications/data/repo_impl/notification_repository_impl.dart';
 import 'package:plupool/features/notifications/domain/repositories/notification_repository.dart';
+import 'package:plupool/features/notifications/domain/usecases/get_notification_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/register_device_use_case.dart';
 import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/offer_remote_data_source.dart';
@@ -1351,59 +1352,46 @@ Future<void> initServiceLocator() async {
 
   // ==================== Get Company Pools ====================
 
-// Remote Data Source
-sl.registerLazySingleton<CompanyPoolRemoteDataSource>(
-  () => CompanyPoolRemoteDataSourceImpl(sl<ApiService>()),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<CompanyPoolRemoteDataSource>(
+    () => CompanyPoolRemoteDataSourceImpl(sl<ApiService>()),
+  );
 
-// Repository
-sl.registerLazySingleton<CompanyPoolRepository>(
-  () => CompanyPoolRepositoryImpl(
-    remoteDataSource: sl<CompanyPoolRemoteDataSource>(),
-  ),
-);
+  // Repository
+  sl.registerLazySingleton<CompanyPoolRepository>(
+    () => CompanyPoolRepositoryImpl(
+      remoteDataSource: sl<CompanyPoolRemoteDataSource>(),
+    ),
+  );
 
-// UseCase
-sl.registerLazySingleton(
-  () => GetCompanyPoolsUseCase(
-    sl<CompanyPoolRepository>(),
-  ),
-);
+  // UseCase
+  sl.registerLazySingleton(
+    () => GetCompanyPoolsUseCase(sl<CompanyPoolRepository>()),
+  );
 
-// Cubit
-sl.registerFactory(
-  () => CompanyPoolCubit(
-    sl<GetCompanyPoolsUseCase>(),
-  ),
-);
+  // Cubit
+  sl.registerFactory(() => CompanyPoolCubit(sl<GetCompanyPoolsUseCase>()));
 
   // ==================== Get Company Pools ====================
 
-// Remote Data Source
-sl.registerLazySingleton<NotificationRemoteDataSource>(
-  () => NotificationRemoteDataSourceImpl(sl<ApiService>()),
-);
+  // Remote Data Source
+  sl.registerLazySingleton<NotificationRemoteDataSource>(
+    () => NotificationRemoteDataSourceImpl(sl<ApiService>()),
+  );
 
-// Repository
-sl.registerLazySingleton<NotificationRepository>(
-  () => NotificationRepositoryImpl(
-     sl<NotificationRemoteDataSource>(),
-  ),
-);
+  // Repository
+  sl.registerLazySingleton<NotificationRepository>(
+    () => NotificationRepositoryImpl(sl<NotificationRemoteDataSource>()),
+  );
 
-// UseCase
-sl.registerLazySingleton(
-  () => RegisterDeviceUseCase(
-    sl<NotificationRepository>()
-  ),
-);
+  // UseCase
+  sl.registerLazySingleton(
+    () => RegisterDeviceUseCase(sl<NotificationRepository>()),
+  );
+  sl.registerLazySingleton(
+    () => GetNotificationsUseCase(sl<NotificationRepository>()),
+  );
 
-// Cubit
-sl.registerFactory(
-  () => NotificationCubit(
-    sl<RegisterDeviceUseCase>(),
-  ),
-);
+  // Cubit
+  sl.registerFactory(() => NotificationCubit(sl<RegisterDeviceUseCase>(), sl<GetNotificationsUseCase>()));
 }
-
-

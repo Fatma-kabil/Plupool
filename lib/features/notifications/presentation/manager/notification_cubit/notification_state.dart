@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:plupool/features/notifications/domain/entities/device_registration_entity.dart';
+import 'package:plupool/features/notifications/domain/entities/notification_entity.dart';
 
 abstract class NotificationState extends Equatable {
   const NotificationState();
@@ -9,6 +10,8 @@ abstract class NotificationState extends Equatable {
 }
 
 class NotificationInitial extends NotificationState {}
+
+/// ================= Register Device =================
 
 class RegisterDeviceLoading extends NotificationState {}
 
@@ -25,6 +28,28 @@ class RegisterDeviceFailure extends NotificationState {
   final String message;
 
   const RegisterDeviceFailure(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+/// ================= Get Notifications =================
+
+class GetNotificationsLoading extends NotificationState {}
+
+class GetNotificationsSuccess extends NotificationState {
+  final List<NotificationEntity> notifications;
+
+  const GetNotificationsSuccess(this.notifications);
+
+  @override
+  List<Object?> get props => [notifications];
+}
+
+class GetNotificationsFailure extends NotificationState {
+  final String message;
+
+  const GetNotificationsFailure(this.message);
 
   @override
   List<Object?> get props => [message];

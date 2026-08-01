@@ -16,6 +16,7 @@ import 'package:plupool/features/home/presentaation/manager/drawer_cubit/drawer_
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_cubit/maintenance_cubit.dart';
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_package_cubit/maintenance_package_cubit.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
+import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/offer_cubit/offer_cubit.dart';
 import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/order_cubit.dart';
@@ -53,6 +54,7 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<AuthCubit>()),
         BlocProvider(create: (_) => sl<UserCubit>()),
         BlocProvider(create: (_) => DrawerCubit()),
+        BlocProvider(create: (_) => sl<NotificationCubit>()),
         BlocProvider(create: (_) => sl<ProductCubit>()),
         BlocProvider(create: (_) => sl<ProductOfferCubit>()),
         BlocProvider(create: (_) => sl<CategoryCubit>()..getCategories()),
@@ -91,10 +93,7 @@ class PlupoolApp extends StatelessWidget {
         ),
         BlocProvider(create: (_) => sl<AddRatingCubit>()),
         BlocProvider(create: (_) => sl<AddSupportMessageCubit>()),
-        BlocProvider(
-          create: (_) => sl<TechnicianTasksCubit>()
-           
-        ),
+        BlocProvider(create: (_) => sl<TechnicianTasksCubit>()),
 
         BlocProvider(create: (_) => sl<WeekTasksCubit>()..getWeekTasks()),
       ],

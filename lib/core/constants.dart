@@ -869,14 +869,27 @@ final List<Map<String, dynamic>> adminNotification = [
   },
 ];
 const notificationFilters = {
-  "all": {"label": "الكل", "type": null},
-  "order": {"label": "طلبات", "type": "order"},
-
-  "support": {"label": "رسائل دعم", "type": "support"},
-  "reminder": {"label": "تنبيهات", "type": "reminder"},
-  "report": {"label": "بلاغات", "type": "report"},
+  "all": {
+    "label": "الكل",
+    "type": null,
+  },
+  "offers": {
+    "label": "العروض",
+    "type": "offers",
+  },
+  "reminders": {
+    "label": "التذكيرات",
+    "type": "visit_reminder",
+  },
+  "general": {
+    "label": "العامة",
+    "type": "general",
+  },
+  "reports": {
+    "label": "البلاغات",
+    "type": "report",
+  },
 };
-
 final List<Map> techFooter = [
   {
     'icon': Icons.task_outlined,

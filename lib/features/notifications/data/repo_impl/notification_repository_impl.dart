@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/notifications/data/datasources/notification_remote_data_source.dart';
 import 'package:plupool/features/notifications/domain/entities/device_registration_entity.dart';
+import 'package:plupool/features/notifications/domain/entities/notification_entity.dart';
 import 'package:plupool/features/notifications/domain/repositories/notification_repository.dart';
 
 class NotificationRepositoryImpl implements NotificationRepository {
@@ -27,4 +28,23 @@ class NotificationRepositoryImpl implements NotificationRepository {
       return Left(mapDioError(e));
     }
   }
+
+  @override
+Future<Either<Failure, List<NotificationEntity>>> getNotifications({
+  bool? unreadOnly,
+  int skip = 0,
+  int limit = 20,
+}) async {
+  try {
+    final result = await remoteDataSource.getNotifications(
+      unreadOnly: unreadOnly,
+      skip: skip,
+      limit: limit,
+    );
+
+    return Right(result);
+  } catch (e) {
+    return Left(mapDioError(e));
+  }
+}
 }

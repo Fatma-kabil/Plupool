@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
+import 'package:plupool/features/home/presentaation/views/guest_widgets/notification_card_shimmer.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/notification_card.dart';
+import 'package:plupool/features/notifications/domain/entities/notification_entity.dart';
+import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
+import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_state.dart';
 
 class NotificationsViewBody extends StatefulWidget {
   const NotificationsViewBody({super.key});
@@ -16,53 +22,43 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
   late TabController _tabController;
   int selectedIndex = 0;
 
-  final List<Map<String, dynamic>> allItems = [
-    {
-      "type": "reminder",
-      "title": "موعد زيارة العميل غدًا الساعة 9:00 صباحًا",
-      "subtitle": "مدينة نصر، فيلا 5",
-      "time": "منذ ساعتين",
-    },
-    {
-      "type": "offer",
-      "title": "عرض خاص",
-      "subtitle": "احصل على خصم 20% عند شراء قطع الغيار",
-      "time": "منذ يوم",
-    },
-    {
-      "type": "offer",
-      "title": "عرض خاص",
-      "subtitle": "احصل على خصم 20% عند شراء قطع الغيار",
-      "time": "منذ يومين",
-    },
-    {
-      "type": "reminder",
-      "title": "موعد الصيانة الأسبوعية",
-      "subtitle": "فرع الشيخ زايد",
-      "time": "منذ ٣ ساعات",
-    },
-  ];
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+
+    _tabController = TabController(length: 3, vsync: this);
+
+    context.read<NotificationCubit>().getNotifications();
+
+    _tabController.addListener(() {
+      if (!_tabController.indexIsChanging) {
+        setState(() {
+          selectedIndex = _tabController.index;
+        });
+      }
+    });
   }
 
-  List<Map<String, dynamic>> _filterItems(String tab) {
-    if (tab == "الكل") return allItems;
-    if (tab == "العروض") {
-      return allItems.where((i) => i["type"] == "offer").toList();
+  List<NotificationEntity> _filterItems({
+    required String tab,
+    required List<NotificationEntity> notifications,
+  }) {
+    switch (tab) {
+      case "التذكيرات":
+        return notifications.where((e) => e.type == "visit_reminder").toList();
+
+      case "العروض":
+        return notifications.where((e) => e.type == "product_offer").toList();
+
+      case "الكل":
+      default:
+        return notifications;
     }
-    if (tab == "التذكيرات") {
-      return allItems.where((i) => i["type"] == "reminder").toList();
-    }
-    return [];
   }
 
   @override
   Widget build(BuildContext context) {
-     final tabs = ["الكل", "التذكيرات", "العروض"];
+    final tabs = ["الكل", "التذكيرات", "العروض"];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,31 +66,30 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
       children: [
         SizedBox(height: SizeConfig.h(12)),
 
-        /// ---------------------- CUSTOM TAB BAR ----------------------
+        /// ---------------------- Tabs ----------------------
         AnimatedBuilder(
           animation: _tabController.animation!,
           builder: (context, child) {
-            double animationValue = _tabController.animation!.value;
+            final animationValue = _tabController.animation!.value;
 
             return SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
               reverse: true,
+              scrollDirection: Axis.horizontal,
               child: Row(
-                //  mainAxisAlignment: MainAxisAlignment.end,
                 children: tabs.asMap().entries.map((entry) {
-                  int idx = entry.key;
-                  String t = entry.value;
+                  final idx = entry.key;
+                  final title = entry.value;
 
-                  double selectedness =
+                  final selectedness =
                       1.0 - (animationValue - idx).abs().clamp(0.0, 1.0);
 
-                  Color backgroundColor = Color.lerp(
-                    const Color(0xFFF7F7F7),
+                  final backgroundColor = Color.lerp(
+                    const Color(0xffF7F7F7),
                     AppColors.kprimarycolor,
                     selectedness,
                   )!;
 
-                  Color textColor = Color.lerp(
+                  final textColor = Color.lerp(
                     const Color(0xffBBBBBB),
                     Colors.white,
                     selectedness,
@@ -102,17 +97,14 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
 
                   return GestureDetector(
                     onTap: () {
-                      setState(() {
-                        selectedIndex = idx;
-                        _tabController.animateTo(idx);
-                      });
+                      _tabController.animateTo(idx);
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       margin: EdgeInsets.only(
                         left: SizeConfig.w(8),
                         right: SizeConfig.w(8),
-                        bottom: SizeConfig.h(4), // 👈 مهم جدًا
+                        bottom: SizeConfig.h(4),
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.w(10),
@@ -123,17 +115,17 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                         borderRadius: BorderRadius.circular(SizeConfig.w(15)),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
+                            color: Colors.black.withOpacity(.2),
+                            blurRadius: 2,
                             offset: const Offset(1, 2),
-                            blurRadius: 1,
                           ),
                         ],
                       ),
                       child: Text(
-                        t,
+                        title,
                         style: AppTextStyles.styleRegular16(
                           context,
-                        ).copyWith(fontFamily: 'Cairo', color: textColor),
+                        ).copyWith(color: textColor, fontFamily: "Cairo"),
                       ),
                     ),
                   );
@@ -143,31 +135,61 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
           },
         ),
 
-        /// ---------------------- TAB CONTENT -------------------------
+        /// ---------------------- Notifications ----------------------
         Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: tabs.map((tab) {
-              final filtered = _filterItems(tab);
+          child: BlocBuilder<NotificationCubit, NotificationState>(
+            builder: (context, state) {
+              if (state is GetNotificationsLoading) {
+                return ListView.builder(
+                  padding: EdgeInsets.only(
+                    top: SizeConfig.h(20),
+                    left: SizeConfig.w(4),
+                    right: SizeConfig.w(4),
+                  ),
+                  itemCount: 4,
+                  itemBuilder: (_, __) => const NotificationCardShimmer(),
+                );
+              }
 
-              return ListView.builder(
-                padding: EdgeInsets.only(
-                  top: SizeConfig.h(20),
-                  left: SizeConfig.w(4),
-                  right: SizeConfig.w(4),
-                ),
-                itemCount: filtered.length,
-                itemBuilder: (context, index) {
-                  final item = filtered[index];
-                  return NotificationCard(
-                    title: item["title"],
-                    subtitle: item["subtitle"],
-                    time: item["time"],
-                    type: item["type"],
+              if (state is GetNotificationsFailure) {
+                return Center(child: ErrorText(message: state.message));
+              }
+
+              if (state is GetNotificationsSuccess) {
+                final filtered = _filterItems(
+                  tab: tabs[selectedIndex],
+                  notifications: state.notifications,
+                );
+
+                if (filtered.isEmpty) {
+                  return const Center(
+                    child: ErrorText(message: "لا توجد إشعارات"),
                   );
-                },
-              );
-            }).toList(),
+                }
+
+                return ListView.builder(
+                  padding: EdgeInsets.only(
+                    top: SizeConfig.h(20),
+                    left: SizeConfig.w(4),
+                    right: SizeConfig.w(4),
+                  ),
+                  itemCount: filtered.length,
+                  itemBuilder: (context, index) {
+                    final item = filtered[index];
+
+                    return NotificationCard(
+                      title: item.title,
+                      subtitle: item.message,
+                      time: item.createdAt.toString(),
+                      type: item.type,
+                      isRead: item.isRead,
+                    );
+                  },
+                );
+              }
+
+              return const SizedBox();
+            },
           ),
         ),
       ],

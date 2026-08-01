@@ -17,11 +17,33 @@ class _NotificationInboxSectionState extends State<NotificationInboxSection> {
   String selectedKey = "all";
 
   List<Map<String, dynamic>> get filteredList {
-    final type = notificationFilters[selectedKey]!["type"];
+    switch (selectedKey) {
+      case "offers":
+        return adminNotification.where((item) {
+          return item["type"] == "product_offer" ||
+              item["type"] == "service_offer";
+        }).toList();
 
-    if (type == null) return adminNotification;
+      case "reports":
+        return adminNotification.where((item) {
+          return item["type"] == "report" ||
+              item["type"] == "support_report";
+        }).toList();
 
-    return adminNotification.where((item) => item["type"] == type).toList();
+      case "reminders":
+        return adminNotification.where((item) {
+          return item["type"] == "visit_reminder";
+        }).toList();
+
+      case "general":
+        return adminNotification.where((item) {
+          return item["type"] == "general";
+        }).toList();
+
+      case "all":
+      default:
+        return adminNotification;
+    }
   }
 
   @override
@@ -38,39 +60,50 @@ class _NotificationInboxSectionState extends State<NotificationInboxSection> {
               displayText: (key) => notificationFilters[key]!["label"]!,
               onChanged: (val) {
                 if (val != null) {
-                  setState(() => selectedKey = val);
+                  setState(() {
+                    selectedKey = val;
+                  });
                 }
               },
             ),
           ),
         ),
 
-        SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(20))),
+        SliverToBoxAdapter(
+          child: SizedBox(height: SizeConfig.h(20)),
+        ),
 
         /// -------- Empty State --------
         if (filteredList.isEmpty)
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
-              child: Text(
-                "لا توجد اشعارات",
-                style: AppTextStyles.styleRegular16(context),
+              child: Center(
+                child: Text(
+                  "لا توجد إشعارات",
+                  style: AppTextStyles.styleRegular16(context),
+                ),
               ),
             ),
           )
         else
+
           /// -------- List --------
           SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
-              final item = filteredList[index];
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                final item = filteredList[index];
 
-              return NotificationCard(
-                title: item["title"],
-                subtitle: item["subtitle"],
-                time: item["time"],
-                type: item["type"],
-              );
-            }, childCount: filteredList.length),
+                return NotificationCard(
+                  title: item["title"],
+                  subtitle: item["subtitle"],
+                  time: item["time"],
+                  type: item["type"],
+                  isRead: item["isRead"] ?? false,
+                );
+              },
+              childCount: filteredList.length,
+            ),
           ),
       ],
     );

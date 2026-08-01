@@ -6,7 +6,7 @@ class NotificationEntity {
   final bool isRead;
   final DateTime createdAt;
 
-  NotificationEntity({
+  const NotificationEntity({
     required this.id,
     required this.title,
     required this.message,

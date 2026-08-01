@@ -1,14 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/services/notification_service.dart';
+import 'package:plupool/features/notifications/domain/usecases/get_notification_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/register_device_use_case.dart';
 
 import 'notification_state.dart';
 
 class NotificationCubit extends Cubit<NotificationState> {
   final RegisterDeviceUseCase registerDeviceUseCase;
+  final GetNotificationsUseCase getNotificationsUseCase;
 
-  NotificationCubit(this.registerDeviceUseCase)
-      : super(NotificationInitial());
+  NotificationCubit(
+    this.registerDeviceUseCase,
+    this.getNotificationsUseCase,
+  ) : super(NotificationInitial());
+
+  /// ================= Register Device =================
 
   Future<void> registerDevice({
     required String token,
@@ -42,6 +48,27 @@ class NotificationCubit extends Cubit<NotificationState> {
       token: fcmToken,
       platform: notificationService.platform,
       deviceId: deviceId,
+    );
+  }
+
+  /// ================= Get Notifications =================
+
+  Future<void> getNotifications({
+    bool? unreadOnly,
+    int skip = 0,
+    int limit = 20,
+  }) async {
+    emit(GetNotificationsLoading());
+
+    final result = await getNotificationsUseCase(
+      unreadOnly: unreadOnly,
+      skip: skip,
+      limit: limit,
+    );
+
+    result.fold(
+      (failure) => emit(GetNotificationsFailure(failure.message)),
+      (notifications) => emit(GetNotificationsSuccess(notifications)),
     );
   }
 }
