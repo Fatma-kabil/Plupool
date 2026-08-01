@@ -102,6 +102,7 @@ import 'package:plupool/features/notifications/data/datasources/notification_rem
 import 'package:plupool/features/notifications/data/repo_impl/notification_repository_impl.dart';
 import 'package:plupool/features/notifications/domain/repositories/notification_repository.dart';
 import 'package:plupool/features/notifications/domain/usecases/get_notification_usecase.dart';
+import 'package:plupool/features/notifications/domain/usecases/mark_notification_as_read_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/register_device_use_case.dart';
 import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/offer_remote_data_source.dart';
@@ -1391,7 +1392,10 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => GetNotificationsUseCase(sl<NotificationRepository>()),
   );
+  sl.registerLazySingleton(
+    () => MarkNotificationAsReadUseCase(sl<NotificationRepository>()),
+  );
 
   // Cubit
-  sl.registerFactory(() => NotificationCubit(sl<RegisterDeviceUseCase>(), sl<GetNotificationsUseCase>()));
+  sl.registerFactory(() => NotificationCubit(sl<RegisterDeviceUseCase>(), sl<GetNotificationsUseCase>(), sl<MarkNotificationAsReadUseCase>()));
 }

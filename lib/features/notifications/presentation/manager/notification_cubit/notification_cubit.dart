@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/services/notification_service.dart';
 import 'package:plupool/features/notifications/domain/usecases/get_notification_usecase.dart';
+import 'package:plupool/features/notifications/domain/usecases/mark_notification_as_read_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/register_device_use_case.dart';
 
 import 'notification_state.dart';
@@ -8,10 +9,12 @@ import 'notification_state.dart';
 class NotificationCubit extends Cubit<NotificationState> {
   final RegisterDeviceUseCase registerDeviceUseCase;
   final GetNotificationsUseCase getNotificationsUseCase;
+  final MarkNotificationAsReadUseCase markNotificationAsReadUseCase;
 
   NotificationCubit(
     this.registerDeviceUseCase,
     this.getNotificationsUseCase,
+    this.markNotificationAsReadUseCase,
   ) : super(NotificationInitial());
 
   /// ================= Register Device =================
@@ -69,6 +72,24 @@ class NotificationCubit extends Cubit<NotificationState> {
     result.fold(
       (failure) => emit(GetNotificationsFailure(failure.message)),
       (notifications) => emit(GetNotificationsSuccess(notifications)),
+    );
+  }
+
+  /// ================= Mark Notification As Read =================
+
+  Future<void> markNotificationAsRead(int notificationId) async {
+    final result = await markNotificationAsReadUseCase(
+      notificationId: notificationId,
+    );
+
+    result.fold(
+      (failure) {
+        // ممكن تعملي state خاصة بالفشل لو حبيتي
+      },
+      (_) async {
+        // بعد النجاح هنعيد تحميل الليست
+        await getNotifications();
+      },
     );
   }
 }

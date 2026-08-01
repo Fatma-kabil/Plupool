@@ -14,6 +14,7 @@ abstract class NotificationRemoteDataSource {
     int skip = 0,
     int limit = 100,
   });
+  Future<void> markNotificationAsRead({required int notificationId});
 }
 
 class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
@@ -50,7 +51,7 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
       '${Endpoints.baseUrl}/notifications',
       queryParams: {
         if (unreadOnly != null) 'unread_only': unreadOnly,
-        
+
         'skip': skip,
         'limit': limit,
       },
@@ -64,5 +65,10 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
     return (response.data as List)
         .map((e) => NotificationModel.fromJson(e))
         .toList();
+  }
+
+  @override
+  Future<void> markNotificationAsRead({required int notificationId}) async {
+    await apiService.patch('${Endpoints.baseUrl}/notifications/$notificationId/read');
   }
 }

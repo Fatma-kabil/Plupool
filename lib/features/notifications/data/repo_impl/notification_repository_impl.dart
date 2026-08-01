@@ -47,4 +47,18 @@ Future<Either<Failure, List<NotificationEntity>>> getNotifications({
     return Left(mapDioError(e));
   }
 }
+@override
+Future<Either<Failure, Unit>> markNotificationAsRead({
+  required int notificationId,
+}) async {
+  try {
+    await remoteDataSource.markNotificationAsRead(
+      notificationId: notificationId,
+    );
+
+    return const Right(unit);
+  } catch (e) {
+    return Left(mapDioError(e));
+  }
+}
 }

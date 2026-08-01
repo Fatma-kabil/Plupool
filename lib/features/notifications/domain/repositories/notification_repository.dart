@@ -10,9 +10,12 @@ abstract class NotificationRepository {
     required String deviceId,
   });
 
-   Future<Either<Failure, List<NotificationEntity>>> getNotifications({
+  Future<Either<Failure, List<NotificationEntity>>> getNotifications({
     bool? unreadOnly,
     int skip = 0,
     int limit = 100,
+  });
+  Future<Either<Failure, Unit>> markNotificationAsRead({
+    required int notificationId,
   });
 }

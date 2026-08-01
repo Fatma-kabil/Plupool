@@ -187,6 +187,19 @@ class _CustomerNotificationViewBodyState
                       time: item.createdAt.toString(),
                       type: item.type,
                       isRead: item.isRead,
+                      onTap: () async {
+                        if (!item.isRead) {
+                          await context
+                              .read<NotificationCubit>()
+                              .markNotificationAsRead(item.id);
+
+                          await context
+                              .read<NotificationCubit>()
+                              .getNotifications();
+                        }
+
+                        // TODO: Navigation
+                      },
                     );
                   },
                 );

@@ -54,3 +54,24 @@ class GetNotificationsFailure extends NotificationState {
   @override
   List<Object?> get props => [message];
 }
+
+
+class MarkNotificationAsReadLoading extends NotificationState {}
+
+class MarkNotificationAsReadSuccess extends NotificationState {
+  final int notificationId;
+
+  const MarkNotificationAsReadSuccess(this.notificationId);
+
+  @override
+  List<Object?> get props => [notificationId];
+}
+
+class MarkNotificationAsReadFailure extends NotificationState {
+  final String message;
+
+  const MarkNotificationAsReadFailure(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
