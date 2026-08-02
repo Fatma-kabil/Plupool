@@ -2,6 +2,7 @@ import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/notifications/data/models/device_registration_model.dart';
 import 'package:plupool/features/notifications/data/models/notification_model.dart';
+import 'package:plupool/features/notifications/data/models/unread_count_model.dart';
 
 abstract class NotificationRemoteDataSource {
   Future<DeviceRegistrationModel> registerDevice({
@@ -16,6 +17,7 @@ abstract class NotificationRemoteDataSource {
   });
   Future<void> markNotificationAsRead({required int notificationId});
   Future<void> unregisterDevice({required int registrationId});
+  Future<UnreadCountModel> getUnreadCount();
 }
 
 class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
@@ -81,4 +83,12 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
       '${Endpoints.baseUrl}/notifications/devices/$registrationId',
     );
   }
+  @override
+Future<UnreadCountModel> getUnreadCount() async {
+  final response = await apiService.get(
+   '${Endpoints.baseUrl}/notifications/unread-count',
+  );
+
+  return UnreadCountModel.fromJson(response.data);
+}
 }

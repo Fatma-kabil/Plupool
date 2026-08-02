@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:plupool/features/notifications/domain/entities/device_registration_entity.dart';
 import 'package:plupool/features/notifications/domain/entities/notification_entity.dart';
+import 'package:plupool/features/notifications/domain/entities/unread_count_entity.dart';
 
 abstract class NotificationState extends Equatable {
   const NotificationState();
@@ -87,4 +88,18 @@ class UnregisterDeviceFailure extends NotificationState {
 
   @override
   List<Object?> get props => [message];
+}
+
+class GetUnreadCountLoading extends NotificationState {}
+
+class GetUnreadCountSuccess extends NotificationState {
+  final UnreadCountEntity unreadCount;
+
+  const GetUnreadCountSuccess(this.unreadCount);
+}
+
+class GetUnreadCountFailure extends NotificationState {
+  final String message;
+
+  const GetUnreadCountFailure(this.message);
 }

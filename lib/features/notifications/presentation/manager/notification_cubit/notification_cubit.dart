@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/services/local_storage_service.dart';
 import 'package:plupool/core/services/notification_service.dart';
 import 'package:plupool/features/notifications/domain/usecases/get_notification_usecase.dart';
+import 'package:plupool/features/notifications/domain/usecases/get_unread_count_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/mark_notification_as_read_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/register_device_use_case.dart';
 import 'package:plupool/features/notifications/domain/usecases/unregister_device_usecae.dart';
@@ -13,12 +14,14 @@ class NotificationCubit extends Cubit<NotificationState> {
   final GetNotificationsUseCase getNotificationsUseCase;
   final MarkNotificationAsReadUseCase markNotificationAsReadUseCase;
   final UnregisterDeviceUseCase unregisterDeviceUseCase;
+  final GetUnreadCountUseCase getUnreadCountUseCase;
 
   NotificationCubit(
     this.registerDeviceUseCase,
     this.getNotificationsUseCase,
     this.markNotificationAsReadUseCase,
     this.unregisterDeviceUseCase,
+    this.getUnreadCountUseCase,
   ) : super(NotificationInitial());
 
   /// ================= Register Device =================
@@ -42,6 +45,8 @@ class NotificationCubit extends Cubit<NotificationState> {
       await LocalStorageService.saveNotificationRegistrationId(device.id);
 
       emit(RegisterDeviceSuccess(device));
+
+      await getUnreadCount();
     });
   }
 
@@ -82,6 +87,20 @@ class NotificationCubit extends Cubit<NotificationState> {
     );
   }
 
+  /// ================= Get Unread Count =================
+  int unreadCount = 0;
+
+  Future<void> getUnreadCount() async {
+    final result = await getUnreadCountUseCase();
+
+    result.fold((failure) => emit(GetUnreadCountFailure(failure.message)), (
+      count,
+    ) {
+      unreadCount = count.unreadCount;
+      emit(GetUnreadCountSuccess(count));
+    });
+  }
+
   /// ================= Mark Notification As Read =================
 
   Future<void> markNotificationAsRead(int notificationId) async {
@@ -89,14 +108,9 @@ class NotificationCubit extends Cubit<NotificationState> {
       notificationId: notificationId,
     );
 
-    result.fold(
-      (failure) {
-        // ممكن تعملي State خاصة بالفشل لو حبيتي
-      },
-      (_) async {
-        await getNotifications();
-      },
-    );
+    result.fold((failure) {}, (_) async {
+      await Future.wait([getNotifications(), getUnreadCount()]);
+    });
   }
 
   /// ================= Unregister Device =================
@@ -107,9 +121,12 @@ class NotificationCubit extends Cubit<NotificationState> {
     final result = await unregisterDeviceUseCase(
       registrationId: registrationId,
     );
-    result.fold(
-      (failure) => emit(UnregisterDeviceFailure(failure.message)),
-      (_) => emit(UnregisterDeviceSuccess()),
-    );
+
+    result.fold((failure) => emit(UnregisterDeviceFailure(failure.message)), (
+      _,
+    ) async {
+      await LocalStorageService.removeNotificationRegistrationId();
+      emit(UnregisterDeviceSuccess());
+    });
   }
 }

@@ -3,6 +3,7 @@ import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/notifications/data/datasources/notification_remote_data_source.dart';
 import 'package:plupool/features/notifications/domain/entities/device_registration_entity.dart';
 import 'package:plupool/features/notifications/domain/entities/notification_entity.dart';
+import 'package:plupool/features/notifications/domain/entities/unread_count_entity.dart';
 import 'package:plupool/features/notifications/domain/repositories/notification_repository.dart';
 
 class NotificationRepositoryImpl implements NotificationRepository {
@@ -71,6 +72,17 @@ class NotificationRepositoryImpl implements NotificationRepository {
       await remoteDataSource.unregisterDevice(registrationId: registrationId);
 
       return right(unit);
+    } catch (e) {
+      return left(mapDioError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UnreadCountEntity>> getUnreadCount() async {
+    try {
+      final unreadCount = await remoteDataSource.getUnreadCount();
+
+      return right(unreadCount);
     } catch (e) {
       return left(mapDioError(e));
     }
