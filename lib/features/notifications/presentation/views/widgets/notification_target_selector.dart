@@ -7,25 +7,37 @@ import 'package:plupool/features/offers/presentation/views/widgets/field_label.d
 class NotificationTargetSelector extends StatefulWidget {
   final void Function(Set<String>) onChanged;
 
-  const NotificationTargetSelector({super.key, required this.onChanged});
+  const NotificationTargetSelector({
+    super.key,
+    required this.onChanged,
+  });
 
   @override
   State<NotificationTargetSelector> createState() =>
-      _NotificationTargetSelectorState();
+      NotificationTargetSelectorState();
 }
 
-class _NotificationTargetSelectorState
+class NotificationTargetSelectorState
     extends State<NotificationTargetSelector> {
   final Set<String> _selected = {};
+
   bool _showError = false;
 
-  final List<String> _targets = const ["العملاء", "الفنيين", "ممثلي الشركة"];
+  final Map<String, String> _targets = const {
+    "العملاء": "pool_owner",
+    "الفنيين": "technician",
+    "ممثلي الشركة": "company",
+  };
 
-  void _toggle(String target) {
+  void _toggle(String label) {
+    final role = _targets[label]!;
+
     setState(() {
-      _selected.contains(target)
-          ? _selected.remove(target)
-          : _selected.add(target);
+      if (_selected.contains(role)) {
+        _selected.remove(role);
+      } else {
+        _selected.add(role);
+      }
 
       _showError = _selected.isEmpty;
     });
@@ -34,7 +46,10 @@ class _NotificationTargetSelectorState
   }
 
   bool validate() {
-    setState(() => _showError = _selected.isEmpty);
+    setState(() {
+      _showError = _selected.isEmpty;
+    });
+
     return _selected.isNotEmpty;
   }
 
@@ -47,42 +62,54 @@ class _NotificationTargetSelectorState
 
         Wrap(
           spacing: SizeConfig.w(20),
-          children: _targets.map((t) {
-            final isSelected = _selected.contains(t);
+          children: _targets.entries.map((entry) {
+            final label = entry.key;
+            final role = entry.value;
+
+            final isSelected = _selected.contains(role);
 
             return InkWell(
-              onTap: () => _toggle(t),
+              onTap: () => _toggle(label),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Transform.scale(
-                    scale:SizeConfig.w(0.82),
+                    scale: SizeConfig.w(0.82),
                     child: Padding(
-                      padding:  EdgeInsets.only(right:SizeConfig.isWideScreen? SizeConfig.w(4):0),
+                      padding: EdgeInsets.only(
+                        right: SizeConfig.isWideScreen
+                            ? SizeConfig.w(4)
+                            : 0,
+                      ),
                       child: Checkbox(
                         value: isSelected,
-                        onChanged: (_) => _toggle(t),
-                      
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        onChanged: (_) => _toggle(label),
+                        materialTapTargetSize:
+                            MaterialTapTargetSize.shrinkWrap,
                         visualDensity: VisualDensity.compact,
                         checkColor: AppColors.kprimarycolor,
                         activeColor: AppColors.kScaffoldColor,
-                      
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4),
-                          side: BorderSide(color: Color(0xff777777)),
+                          side: const BorderSide(
+                            color: Color(0xff777777),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                      SizedBox(width:SizeConfig.isWideScreen? SizeConfig.w(10):0,), // 👈 المسافة هنا
-
+                  SizedBox(
+                    width: SizeConfig.isWideScreen
+                        ? SizeConfig.w(10)
+                        : 0,
+                  ),
                   Text(
-                    t,
+                    label,
                     style: AppTextStyles.styleRegular16(
                       context,
-                    ).copyWith(color: Color(0xff777777)),
+                    ).copyWith(
+                      color: const Color(0xff777777),
+                    ),
                   ),
                 ],
               ),
@@ -100,7 +127,9 @@ class _NotificationTargetSelectorState
               "من فضلك اختر جهة واحدة على الأقل",
               style: AppTextStyles.styleRegular10(
                 context,
-              ).copyWith(color: Colors.red),
+              ).copyWith(
+                color: Colors.red,
+              ),
             ),
           ),
       ],

@@ -1,8 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/notifications/data/datasources/notification_remote_data_source.dart';
+import 'package:plupool/features/notifications/data/models/send_notification_request_model.dart';
 import 'package:plupool/features/notifications/domain/entities/device_registration_entity.dart';
 import 'package:plupool/features/notifications/domain/entities/notification_entity.dart';
+import 'package:plupool/features/notifications/domain/entities/send_notification_entity.dart';
 import 'package:plupool/features/notifications/domain/entities/unread_count_entity.dart';
 import 'package:plupool/features/notifications/domain/repositories/notification_repository.dart';
 
@@ -87,4 +89,29 @@ class NotificationRepositoryImpl implements NotificationRepository {
       return left(mapDioError(e));
     }
   }
+ @override
+Future<Either<Failure, SendNotificationEntity>>
+    sendBroadcastNotification({
+  required String title,
+  required String message,
+  required String type,
+  required List<String> roles,
+  required Map<String, dynamic> data,
+}) async {
+  try {
+    final response = await remoteDataSource.sendBroadcastNotification(
+      SendNotificationRequestModel(
+        title: title,
+        message: message,
+        type: type,
+        roles: roles,
+        data: data,
+      ),
+    );
+
+    return Right(response);
+  } catch (e) {
+    return Left(mapDioError(e));
+  }
+}
 }

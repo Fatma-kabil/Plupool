@@ -5,6 +5,7 @@ import 'package:plupool/features/notifications/domain/usecases/get_notification_
 import 'package:plupool/features/notifications/domain/usecases/get_unread_count_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/mark_notification_as_read_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/register_device_use_case.dart';
+import 'package:plupool/features/notifications/domain/usecases/send_broadcast_notification_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/unregister_device_usecae.dart';
 
 import 'notification_state.dart';
@@ -15,6 +16,7 @@ class NotificationCubit extends Cubit<NotificationState> {
   final MarkNotificationAsReadUseCase markNotificationAsReadUseCase;
   final UnregisterDeviceUseCase unregisterDeviceUseCase;
   final GetUnreadCountUseCase getUnreadCountUseCase;
+  final SendBroadcastNotificationUseCase sendBroadcastNotificationUseCase;
 
   NotificationCubit(
     this.registerDeviceUseCase,
@@ -22,6 +24,7 @@ class NotificationCubit extends Cubit<NotificationState> {
     this.markNotificationAsReadUseCase,
     this.unregisterDeviceUseCase,
     this.getUnreadCountUseCase,
+    this.sendBroadcastNotificationUseCase,
   ) : super(NotificationInitial());
 
   /// ================= Register Device =================
@@ -129,4 +132,31 @@ class NotificationCubit extends Cubit<NotificationState> {
       emit(UnregisterDeviceSuccess());
     });
   }
+
+  Future<void> sendBroadcastNotification({
+  required String title,
+  required String message,
+  required String type,
+  required List<String> roles,
+  required Map<String, dynamic> data,
+}) async {
+  emit(SendBroadcastNotificationLoading());
+
+  final result = await sendBroadcastNotificationUseCase(
+    title: title,
+    message: message,
+    type: type,
+    roles: roles,
+    data: data,
+  );
+
+  result.fold(
+    (failure) {
+      emit(SendBroadcastNotificationFailure(failure.message));
+    },
+    (response) {
+      emit(SendBroadcastNotificationSuccess(response));
+    },
+  );
+}
 }

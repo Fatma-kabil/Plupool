@@ -5,6 +5,8 @@ import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/manager/drawer_cubit/drawer_cubit.dart';
+import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
+import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_state.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requested_state.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
@@ -87,14 +89,25 @@ class AppDrawer extends StatelessWidget {
                           );
                         },
                       ),
-                      DrawerItem(
-                        icon: Icons.notifications_none,
-                        title: 'الإشعارات',
-                        badgeCount: "8",
-                        isSelected: selectedIndex == 5,
-                        onTap: () => onItemTap(5, () {
-                          context.go('/notificationinboxview');
-                        }),
+                      BlocBuilder<NotificationCubit, NotificationState>(
+                        buildWhen: (previous, current) =>
+                            current is GetUnreadCountSuccess ||
+                            current is GetUnreadCountFailure,
+                        builder: (context, state) {
+                          final cubit = context.read<NotificationCubit>();
+
+                          return DrawerItem(
+                            icon: Icons.notifications_none,
+                            title: 'الإشعارات',
+                            badgeCount: cubit.unreadCount > 0
+                                ? toArabicNumbers(cubit.unreadCount.toString())
+                                : null,
+                            isSelected: selectedIndex == 5,
+                            onTap: () => onItemTap(5, () {
+                              context.go('/notificationinboxview');
+                            }),
+                          );
+                        },
                       ),
                       DrawerItem(
                         icon: Icons.people_outline,

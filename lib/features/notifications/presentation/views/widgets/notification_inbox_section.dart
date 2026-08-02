@@ -27,36 +27,54 @@ class _NotificationInboxSectionState extends State<NotificationInboxSection> {
     super.initState();
     context.read<NotificationCubit>().getNotifications();
   }
+List<NotificationEntity> _filteredList(
+  List<NotificationEntity> notifications,
+) {
+  switch (selectedKey) {
+    case "requests":
+      return notifications.where((item) {
+        return item.type == "maintenance_request" ||
+            item.type == "construction_request" ||
+            item.type == "store_order";
+      }).toList();
 
-  List<NotificationEntity> _filteredList(
-    List<NotificationEntity> notifications,
-  ) {
-    switch (selectedKey) {
-      case "offers":
-        return notifications.where((item) {
-          return item.type == "product_offer" || item.type == "service_offer";
-        }).toList();
+    case "offers":
+      return notifications.where((item) {
+        return item.type == "product_offer" ||
+            item.type == "service_offer";
+      }).toList();
 
-      case "reports":
-        return notifications.where((item) {
-          return item.type == "report" || item.type == "support_report";
-        }).toList();
+    case "inventory":
+      return notifications.where((item) {
+        return item.type == "low_stock" ||
+            item.type == "out_of_stock";
+      }).toList();
 
-      case "reminders":
-        return notifications.where((item) {
-          return item.type == "visit_reminder";
-        }).toList();
+    case "reports":
+      return notifications.where((item) {
+        return item.type == "support_report";
+      }).toList();
 
-      case "general":
-        return notifications.where((item) {
-          return item.type == "general";
-        }).toList();
+    case "ratings":
+      return notifications.where((item) {
+        return item.type == "service_rating";
+      }).toList();
 
-      case "all":
-      default:
-        return notifications;
-    }
+    case "reminders":
+      return notifications.where((item) {
+        return item.type == "visit_reminder";
+      }).toList();
+
+    case "general":
+      return notifications.where((item) {
+        return item.type == "general";
+      }).toList();
+
+    case "all":
+    default:
+      return notifications;
   }
+}
 
   @override
   Widget build(BuildContext context) {

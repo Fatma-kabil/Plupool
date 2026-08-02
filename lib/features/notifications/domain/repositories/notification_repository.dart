@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/notifications/domain/entities/notification_entity.dart';
+import 'package:plupool/features/notifications/domain/entities/send_notification_entity.dart';
 import 'package:plupool/features/notifications/domain/entities/unread_count_entity.dart';
 import '../entities/device_registration_entity.dart';
 
@@ -21,4 +22,12 @@ abstract class NotificationRepository {
   });
   Future<Either<Failure, Unit>> unregisterDevice({required int registrationId});
   Future<Either<Failure, UnreadCountEntity>> getUnreadCount();
+ Future<Either<Failure, SendNotificationEntity>>
+    sendBroadcastNotification({
+  required String title,
+  required String message,
+  required String type,
+  required List<String> roles,
+  required Map<String, dynamic> data,
+});
 }

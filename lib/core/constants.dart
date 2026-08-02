@@ -680,15 +680,42 @@ final List<Map> companyresFooter = [
 ];
 
 final List<NotificationType> notificationTypes = [
-  NotificationType(title: 'موعد صيانة', icon: Icons.calendar_month),
-  NotificationType(title: 'عرض جديد', icon: Icons.local_offer),
-  NotificationType(title: 'استلام طلب حجز', icon: Icons.check_circle),
-  NotificationType(title: 'غياب الفني', icon: Icons.warning_amber),
-  NotificationType(title: 'إنتهاء الباقة', icon: Icons.timer_off),
-  NotificationType(title: 'تغيير يوم الصيانة', icon: Icons.autorenew),
-  NotificationType(title: 'أخرى', icon: Icons.notifications),
+  NotificationType(
+    title: 'إشعار عام',
+    type: 'general',
+    icon: Icons.notifications_active_outlined,
+  ),
+  NotificationType(
+    title: 'انتهاء الباقة',
+    type: 'package_expiry',
+    icon: Icons.workspace_premium_outlined,
+  ),
+  NotificationType(
+    title: 'غياب فني',
+    type: 'technician_absence',
+    icon: Icons.person_off_outlined,
+  ),
+  NotificationType(
+    title: 'رسالة جديدة',
+    type: 'new_message',
+    icon: Icons.mark_chat_unread_outlined,
+  ),
+  NotificationType(
+    title: 'طلب صيانة',
+    type: 'maintenance_request',
+    icon: Icons.build_outlined,
+  ),
+  NotificationType(
+    title: 'تقييم الخدمة',
+    type: 'service_rating',
+    icon: Icons.star_outline,
+  ),
+  NotificationType(
+    title: 'إنشاء حساب جديد',
+    type: 'new_account',
+    icon: Icons.person_add_alt_1_outlined,
+  ),
 ];
-
 
 final List<AdminProjectModel> adminProjects = [
   AdminProjectModel(
@@ -867,27 +894,30 @@ final List<Map<String, dynamic>> adminNotification = [
     "time": "منذ يوم ",
     "ordertype": "storeOreder",
   },
-];
-const notificationFilters = {
+];const notificationFilters = {
   "all": {
     "label": "الكل",
-    "type": null,
+  },
+  "requests": {
+    "label": "الطلبات",
   },
   "offers": {
     "label": "العروض",
-    "type": "offers",
   },
-  "reminders": {
-    "label": "التذكيرات",
-    "type": "visit_reminder",
-  },
-  "general": {
-    "label": "العامة",
-    "type": "general",
+  "inventory": {
+    "label": "المخزون",
   },
   "reports": {
     "label": "البلاغات",
-    "type": "report",
+  },
+  "ratings": {
+    "label": "التقييمات",
+  },
+  "reminders": {
+    "label": "التذكيرات",
+  },
+  "general": {
+    "label": "العامة",
   },
 };
 final List<Map> techFooter = [
