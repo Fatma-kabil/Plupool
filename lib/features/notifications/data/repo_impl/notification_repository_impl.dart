@@ -30,35 +30,49 @@ class NotificationRepositoryImpl implements NotificationRepository {
   }
 
   @override
-Future<Either<Failure, List<NotificationEntity>>> getNotifications({
-  bool? unreadOnly,
-  int skip = 0,
-  int limit = 20,
-}) async {
-  try {
-    final result = await remoteDataSource.getNotifications(
-      unreadOnly: unreadOnly,
-      skip: skip,
-      limit: limit,
-    );
+  Future<Either<Failure, List<NotificationEntity>>> getNotifications({
+    bool? unreadOnly,
+    int skip = 0,
+    int limit = 20,
+  }) async {
+    try {
+      final result = await remoteDataSource.getNotifications(
+        unreadOnly: unreadOnly,
+        skip: skip,
+        limit: limit,
+      );
 
-    return Right(result);
-  } catch (e) {
-    return Left(mapDioError(e));
+      return Right(result);
+    } catch (e) {
+      return Left(mapDioError(e));
+    }
   }
-}
-@override
-Future<Either<Failure, Unit>> markNotificationAsRead({
-  required int notificationId,
-}) async {
-  try {
-    await remoteDataSource.markNotificationAsRead(
-      notificationId: notificationId,
-    );
 
-    return const Right(unit);
-  } catch (e) {
-    return Left(mapDioError(e));
+  @override
+  Future<Either<Failure, Unit>> markNotificationAsRead({
+    required int notificationId,
+  }) async {
+    try {
+      await remoteDataSource.markNotificationAsRead(
+        notificationId: notificationId,
+      );
+
+      return const Right(unit);
+    } catch (e) {
+      return Left(mapDioError(e));
+    }
   }
-}
+
+  @override
+  Future<Either<Failure, Unit>> unregisterDevice({
+    required int registrationId,
+  }) async {
+    try {
+      await remoteDataSource.unregisterDevice(registrationId: registrationId);
+
+      return right(unit);
+    } catch (e) {
+      return left(mapDioError(e));
+    }
+  }
 }

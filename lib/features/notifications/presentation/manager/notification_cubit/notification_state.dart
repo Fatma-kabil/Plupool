@@ -75,3 +75,16 @@ class MarkNotificationAsReadFailure extends NotificationState {
   @override
   List<Object?> get props => [message];
 }
+
+class UnregisterDeviceLoading extends NotificationState {}
+
+class UnregisterDeviceSuccess extends NotificationState {}
+
+class UnregisterDeviceFailure extends NotificationState {
+  final String message;
+
+  const UnregisterDeviceFailure(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}

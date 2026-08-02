@@ -138,9 +138,7 @@ class _NotificationInboxSectionState extends State<NotificationInboxSection> {
                             .read<NotificationCubit>()
                             .markNotificationAsRead(item.id);
 
-                        await context
-                            .read<NotificationCubit>()
-                            .getNotifications();
+                     
                       }
 
                     },

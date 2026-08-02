@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
@@ -11,8 +12,11 @@ class NotificationService {
 
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
+  StreamSubscription<RemoteMessage>? _foregroundSubscription;
+  StreamSubscription<String>? _tokenRefreshSubscription;
+
   Future<void> initialize() async {
-    NotificationSettings settings = await _messaging.requestPermission(
+    final settings = await _messaging.requestPermission(
       alert: true,
       badge: true,
       sound: true,
@@ -28,21 +32,62 @@ class NotificationService {
   }
 
   Future<String?> getFcmToken() async {
-    return await _messaging.getToken();
+    return _messaging.getToken();
   }
+
   Future<String> getDeviceId() async {
-  final deviceInfo = DeviceInfoPlugin();
+    final deviceInfo = DeviceInfoPlugin();
+    final androidInfo = await deviceInfo.androidInfo;
 
-  final androidInfo = await deviceInfo.androidInfo;
-
-  return androidInfo.id; // أو androidInfo.serialNumber غير متاح في معظم الأجهزة
-}
-
-  Stream<String> get onTokenRefresh => _messaging.onTokenRefresh;
+    return androidInfo.id;
+  }
 
   String get platform {
     if (Platform.isAndroid) return "android";
     if (Platform.isIOS) return "ios";
     return "unknown";
+  }
+
+  /// ================= Foreground Notifications =================
+
+  void startForegroundListener({
+    required VoidCallback onNotificationReceived,
+  }) {
+    _foregroundSubscription?.cancel();
+
+    _foregroundSubscription = FirebaseMessaging.onMessage.listen(
+      (message) {
+        debugPrint("========== Foreground Notification ==========");
+        debugPrint("Title: ${message.notification?.title}");
+        debugPrint("Body : ${message.notification?.body}");
+        debugPrint("Data : ${message.data}");
+        debugPrint("=============================================");
+
+        onNotificationReceived();
+      },
+    );
+  }
+
+  Future<void> stopForegroundListener() async {
+    await _foregroundSubscription?.cancel();
+    _foregroundSubscription = null;
+  }
+
+  /// ================= Token Refresh =================
+
+  void startTokenRefreshListener({
+    required Future<void> Function(String token) onTokenRefresh,
+  }) {
+    _tokenRefreshSubscription?.cancel();
+
+    _tokenRefreshSubscription = _messaging.onTokenRefresh.listen((token) async {
+      debugPrint("New FCM Token: $token");
+      await onTokenRefresh(token);
+    });
+  }
+
+  Future<void> stopTokenRefreshListener() async {
+    await _tokenRefreshSubscription?.cancel();
+    _tokenRefreshSubscription = null;
   }
 }

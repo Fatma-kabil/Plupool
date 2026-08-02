@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/di/service_locator.dart';
+import 'package:plupool/core/services/notification_service.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -83,7 +84,26 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     message: '🎉 تم تسجيل الدخول بنجاح',
                     isSuccess: true,
                   );
-                 await sl<NotificationCubit>().registerCurrentDevice();
+                  await sl<NotificationCubit>().registerCurrentDevice();
+
+                  NotificationService.instance.startForegroundListener(
+                    onNotificationReceived: () {
+                      sl<NotificationCubit>().getNotifications();
+                    },
+                  );
+
+                  NotificationService.instance.startTokenRefreshListener(
+                    onTokenRefresh: (newToken) async {
+                      final deviceId = await NotificationService.instance
+                          .getDeviceId();
+
+                      await sl<NotificationCubit>().registerDevice(
+                        token: newToken,
+                        platform: NotificationService.instance.platform,
+                        deviceId: deviceId,
+                      );
+                    },
+                  );
                   await Future.delayed(const Duration(seconds: 2));
 
                   if (!mounted) return;

@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plupool/core/services/local_storage_service.dart';
 import 'package:plupool/core/services/notification_service.dart';
 import 'package:plupool/features/notifications/domain/usecases/get_notification_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/mark_notification_as_read_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/register_device_use_case.dart';
+import 'package:plupool/features/notifications/domain/usecases/unregister_device_usecae.dart';
 
 import 'notification_state.dart';
 
@@ -10,11 +12,13 @@ class NotificationCubit extends Cubit<NotificationState> {
   final RegisterDeviceUseCase registerDeviceUseCase;
   final GetNotificationsUseCase getNotificationsUseCase;
   final MarkNotificationAsReadUseCase markNotificationAsReadUseCase;
+  final UnregisterDeviceUseCase unregisterDeviceUseCase;
 
   NotificationCubit(
     this.registerDeviceUseCase,
     this.getNotificationsUseCase,
     this.markNotificationAsReadUseCase,
+    this.unregisterDeviceUseCase,
   ) : super(NotificationInitial());
 
   /// ================= Register Device =================
@@ -32,10 +36,13 @@ class NotificationCubit extends Cubit<NotificationState> {
       deviceId: deviceId,
     );
 
-    result.fold(
-      (failure) => emit(RegisterDeviceFailure(failure.message)),
-      (device) => emit(RegisterDeviceSuccess(device)),
-    );
+    result.fold((failure) => emit(RegisterDeviceFailure(failure.message)), (
+      device,
+    ) async {
+      await LocalStorageService.saveNotificationRegistrationId(device.id);
+
+      emit(RegisterDeviceSuccess(device));
+    });
   }
 
   Future<void> registerCurrentDevice() async {
@@ -84,12 +91,25 @@ class NotificationCubit extends Cubit<NotificationState> {
 
     result.fold(
       (failure) {
-        // ممكن تعملي state خاصة بالفشل لو حبيتي
+        // ممكن تعملي State خاصة بالفشل لو حبيتي
       },
       (_) async {
-        // بعد النجاح هنعيد تحميل الليست
         await getNotifications();
       },
+    );
+  }
+
+  /// ================= Unregister Device =================
+
+  Future<void> unregisterDevice({required int registrationId}) async {
+    emit(UnregisterDeviceLoading());
+
+    final result = await unregisterDeviceUseCase(
+      registrationId: registrationId,
+    );
+    result.fold(
+      (failure) => emit(UnregisterDeviceFailure(failure.message)),
+      (_) => emit(UnregisterDeviceSuccess()),
     );
   }
 }

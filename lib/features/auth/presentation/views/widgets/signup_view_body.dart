@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/di/service_locator.dart';
+import 'package:plupool/core/services/notification_service.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
@@ -46,7 +47,6 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey =
       GlobalKey<PhoneInputFieldState>();
   File? _profileImage;
- 
 
   @override
   void dispose() {
@@ -69,6 +69,24 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             isSuccess: true,
           );
           await sl<NotificationCubit>().registerCurrentDevice();
+
+          NotificationService.instance.startForegroundListener(
+            onNotificationReceived: () {
+              sl<NotificationCubit>().getNotifications();
+            },
+          );
+
+          NotificationService.instance.startTokenRefreshListener(
+            onTokenRefresh: (newToken) async {
+              final deviceId = await NotificationService.instance.getDeviceId();
+
+              await sl<NotificationCubit>().registerDevice(
+                token: newToken,
+                platform: NotificationService.instance.platform,
+                deviceId: deviceId,
+              );
+            },
+          );
           await Future.delayed(const Duration(seconds: 2));
           // ignore: use_build_context_synchronously
           final role = context.read<SelectRoleCubit>().state;
@@ -262,7 +280,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           fullName: _nameController.text.trim(),
           phone: fullPhone,
           address: _locationController.text.trim(),
-          profileImage: _profileImage?.path ,
+          profileImage: _profileImage?.path,
         ),
       );
     } else if (role.contains("فني")) {
@@ -280,7 +298,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           address: _locationController.text.trim(),
           skills: skillsList,
           yearsOfExperience: years,
-          profileImage: _profileImage?.path ,
+          profileImage: _profileImage?.path,
 
           otpCode: otpCode,
         ),
@@ -290,7 +308,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         CompanyEntity(
           fullName: _nameController.text.trim(),
           phone: fullPhone,
-          profileImage: _profileImage?.path ,
+          profileImage: _profileImage?.path,
 
           otpCode: otpCode,
         ),

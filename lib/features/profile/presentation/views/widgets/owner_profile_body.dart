@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plupool/core/services/local_storage_service.dart';
+import 'package:plupool/core/services/notification_service.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/profile_option.dart';
 
 class OwnerProfileBody extends StatelessWidget {
@@ -82,15 +85,29 @@ class OwnerProfileBody extends StatelessWidget {
             title: 'تسجيل الخروج',
             icon: Icons.logout,
             islogout: true,
-            onTap: () {
+            onTap: () async {
+              final registrationId =
+                  await LocalStorageService.getNotificationRegistrationId();
+
+              if (registrationId != null) {
+                await context.read<NotificationCubit>().unregisterDevice(
+                  registrationId: registrationId,
+                );
+
+                await LocalStorageService.removeNotificationRegistrationId();
+              }
+
+              await NotificationService.instance.stopForegroundListener();
+
               context.read<AuthCubit>().logout();
+
               showCustomSnackBar(
                 context: context,
                 message: 'تم تسجيل الخروج',
-                isSuccess: false,
+                isSuccess: true,
               );
 
-              Future.delayed(Duration(milliseconds: 500), () {
+              Future.delayed(const Duration(milliseconds: 500), () {
                 context.go('/selectrole');
               });
             },

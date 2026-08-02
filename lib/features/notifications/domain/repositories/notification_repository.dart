@@ -18,4 +18,5 @@ abstract class NotificationRepository {
   Future<Either<Failure, Unit>> markNotificationAsRead({
     required int notificationId,
   });
+  Future<Either<Failure, Unit>> unregisterDevice({required int registrationId});
 }

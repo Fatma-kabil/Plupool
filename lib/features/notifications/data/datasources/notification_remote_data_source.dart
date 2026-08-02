@@ -15,6 +15,7 @@ abstract class NotificationRemoteDataSource {
     int limit = 100,
   });
   Future<void> markNotificationAsRead({required int notificationId});
+  Future<void> unregisterDevice({required int registrationId});
 }
 
 class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
@@ -69,6 +70,15 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
 
   @override
   Future<void> markNotificationAsRead({required int notificationId}) async {
-    await apiService.patch('${Endpoints.baseUrl}/notifications/$notificationId/read');
+    await apiService.patch(
+      '${Endpoints.baseUrl}/notifications/$notificationId/read',
+    );
+  }
+
+  @override
+  Future<void> unregisterDevice({required int registrationId}) async {
+    await apiService.delete(
+      '${Endpoints.baseUrl}/notifications/devices/$registrationId',
+    );
   }
 }

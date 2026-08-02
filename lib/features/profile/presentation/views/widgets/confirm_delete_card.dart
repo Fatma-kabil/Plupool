@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plupool/core/services/local_storage_service.dart';
+import 'package:plupool/core/services/notification_service.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/header_text.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
 
@@ -68,11 +71,26 @@ class ConfirmDeleteCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       final authCubit = context.read<AuthCubit>();
                       final userCubit = context.read<UserCubit>();
 
-                      Navigator.pop(context); // يقفل confirm dialog
+                      Navigator.pop(context);
+
+                      final registrationId =
+                          await LocalStorageService.getNotificationRegistrationId();
+
+                      if (registrationId != null) {
+                        await context
+                            .read<NotificationCubit>()
+                            .unregisterDevice(registrationId: registrationId);
+
+                        await LocalStorageService.removeNotificationRegistrationId();
+                      }
+
+                      // وقف استقبال الإشعارات
+                      await NotificationService.instance
+                          .stopForegroundListener();
 
                       final state = userCubit.state;
                       if (state is UserLoaded) {

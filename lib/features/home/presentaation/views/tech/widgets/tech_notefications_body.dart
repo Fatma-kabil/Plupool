@@ -189,9 +189,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
                               .read<NotificationCubit>()
                               .markNotificationAsRead(item.id);
 
-                          await context
-                              .read<NotificationCubit>()
-                              .getNotifications();
+
                         }
 
                         // TODO: Navigation

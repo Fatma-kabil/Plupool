@@ -104,6 +104,7 @@ import 'package:plupool/features/notifications/domain/repositories/notification_
 import 'package:plupool/features/notifications/domain/usecases/get_notification_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/mark_notification_as_read_usecase.dart';
 import 'package:plupool/features/notifications/domain/usecases/register_device_use_case.dart';
+import 'package:plupool/features/notifications/domain/usecases/unregister_device_usecae.dart';
 import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/offer_remote_data_source.dart';
 import 'package:plupool/features/offers/data/remote_data_sources/product_offer_remote_data_source.dart';
@@ -1395,7 +1396,10 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => MarkNotificationAsReadUseCase(sl<NotificationRepository>()),
   );
+  sl.registerLazySingleton(
+    () => UnregisterDeviceUseCase(sl<NotificationRepository>()),
+  );
 
   // Cubit
-  sl.registerFactory(() => NotificationCubit(sl<RegisterDeviceUseCase>(), sl<GetNotificationsUseCase>(), sl<MarkNotificationAsReadUseCase>()));
+  sl.registerFactory(() => NotificationCubit(sl<RegisterDeviceUseCase>(), sl<GetNotificationsUseCase>(), sl<MarkNotificationAsReadUseCase>(), sl<UnregisterDeviceUseCase>()));
 }

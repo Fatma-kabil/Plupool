@@ -192,10 +192,6 @@ class _CustomerNotificationViewBodyState
                           await context
                               .read<NotificationCubit>()
                               .markNotificationAsRead(item.id);
-
-                          await context
-                              .read<NotificationCubit>()
-                              .getNotifications();
                         }
 
                         // TODO: Navigation
