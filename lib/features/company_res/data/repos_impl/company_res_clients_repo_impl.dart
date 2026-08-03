@@ -32,6 +32,7 @@ class CompanyResClientsRepositoryImpl implements CompanyResClientsRepository {
     }
   }
 
+  @override
   Future<void> deleteClient(int userId, int clientId) {
     return remote.deleteClient(userId, clientId);
   }
