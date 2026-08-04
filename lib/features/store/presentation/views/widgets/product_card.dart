@@ -12,7 +12,6 @@ import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state
 import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
 import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_cubit.dart';
-import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_state.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -198,24 +197,24 @@ class ProductCard extends StatelessWidget {
                
                      AddCartBtn(
                       onPressed: () {
-                     //   if (authState.status == AuthStatus.guest) {
-                     //     showDialog(
-                      //      context: context,
-                       //     builder: (context) {
-                         //     return ErrorCard(
-                           //     title: 'لم يتم تسجيل الدخول',
-                             //   subtitle:
-                               //     'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                              //  color: Colors.white,
-                            //  );
-                          //  },
-                        //  );
-                      //  } else {
+                        if (authState.status == AuthStatus.guest) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return ErrorCard(
+                                title: 'لم يتم تسجيل الدخول',
+                                subtitle:
+                                    'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                                color: Colors.white,
+                              );
+                            },
+                          );
+                        } else {
                           context.read<CartCubit>().addToCart(
                             productId: product.id!,
                           );
                         }
-                   //   },
+                      },
                     ),
                  
               

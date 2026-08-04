@@ -37,10 +37,10 @@ class ProductGridBlocBuilder extends StatelessWidget {
         }
 
         if (state is ProductError) {
-          return SliverToBoxAdapter(child: ErrorText(message: state.message));
+          return ErrorText(message: state.message);
         }
 
-        return const SliverToBoxAdapter(child: SizedBox());
+        return SizedBox();
       },
     );
   }

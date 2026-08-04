@@ -141,20 +141,18 @@ class _CartViewState extends State<CartView>
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
                           /// السلة
-                          //     isGuest
-                          //        ? EmptyCartSection(
-                          //           icon: Icons.remove_shopping_cart_outlined,
-                          //         tittle: "السله فارغه",
-                          //     )
-                          // :
-                          CartFilledSection(),
-                          //  isGuest
-                          //     ? EmptyCartSection(
-                          //       icon: Icons.shopping_bag_outlined,
-                          //     tittle: "لا توجد مشتريات بعد",
-                          //   )
-                          // :
-                          MyPurchasesSection(),
+                          isGuest
+                              ? EmptyCartSection(
+                                  icon: Icons.remove_shopping_cart_outlined,
+                                  tittle: "السله فارغه",
+                                )
+                              : CartFilledSection(),
+                          isGuest
+                              ? EmptyCartSection(
+                                  icon: Icons.shopping_bag_outlined,
+                                  tittle: "لا توجد مشتريات بعد",
+                                )
+                              : MyPurchasesSection(),
                         ],
                       ),
                     ),

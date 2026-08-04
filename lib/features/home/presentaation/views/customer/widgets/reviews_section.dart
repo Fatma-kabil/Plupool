@@ -25,22 +25,22 @@ class ReviewSection extends StatelessWidget {
         const SizedBox(height: 12),
 
         /// هنا نستخدم BlocBuilder للتحقق من حالة تسجيل الدخول
-        //  BlocBuilder<AuthCubit, AuthState>(
-        //  builder: (context, authState) {
-        //  if (authState.status == AuthStatus.loggedIn) {
+          BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, authState) {
+          if (authState.status == AuthStatus.loggedIn) {
         /// لو مسجل دخول → نعرض CommentInput
-        //   return
+           return
         Column(
           children: [
             CommentInput(imageUrl: imageUrl),
             const SizedBox(height: 17),
           ],
-          //   );
-          // }
+             );
+           }
 
           /// لو ضيف → نعرض فاصل فقط (أو يمكن تجاهله)
-          //     return SizedBox.shrink();
-          //   },
+             return SizedBox.shrink();
+             },
         ),
 
         /// شريط المراجعات موجود دائماً
