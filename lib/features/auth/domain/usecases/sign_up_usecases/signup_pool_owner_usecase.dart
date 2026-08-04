@@ -11,7 +11,7 @@ class SignupPoolOwnerUseCase {
 
   SignupPoolOwnerUseCase(this.repository);
 
-  Future<Either<Failure, Unit>> call(PoolOwnerEntity poolOwner) async {
+  Future<Either<Failure, String>> call(PoolOwnerEntity poolOwner) async {
     return await repository.signupPoolOwner(poolOwner);
   }
 }

@@ -11,7 +11,7 @@ class SignupTechnicianUseCase {
 
   SignupTechnicianUseCase(this.repository);
 
-   Future<Either<Failure, Unit>> call(TechnicianEntity technician) async {
+   Future<Either<Failure, String>> call(TechnicianEntity technician) async {
     return await repository.signupTechnician(technician);
   }
 }

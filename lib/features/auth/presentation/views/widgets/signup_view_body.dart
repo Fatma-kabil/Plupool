@@ -38,6 +38,8 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   bool showVerificationBody = false;
   String enteredOtpCode = '';
 
+  int _expiresIn = 30;
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _locationController = TextEditingController();
@@ -139,13 +141,29 @@ class _SignupViewBodyState extends State<SignupViewBody> {
 
                   BlocConsumer<OtpCubit, OtpState>(
                     listener: (context, state) {
+                      print("========== LISTENER ==========");
+                      print(state.runtimeType);
+                      print("🔥 Listener Fired: ${state.runtimeType}");
+                      print("🔥 Widget: ${identityHashCode(this)}");
+
                       if (state is OtpSentSuccess) {
+                        print("OTP SUCCESS");
                         showCustomSnackBar(
                           context: context,
                           message: '✅ تم إرسال الكود بنجاح عبر واتساب',
                           isSuccess: true,
                         );
-                        setState(() => showVerificationBody = true);
+                        setState(() {
+                          _expiresIn = state.response.expiresIn;
+
+                          showVerificationBody = true;
+                        });
+                      } else if (state is OtpResentSuccess) {
+                        showCustomSnackBar(
+                          context: context,
+                          message: '✅ تم إعادة إرسال رمز التحقق',
+                          isSuccess: true,
+                        );
                       } else if (state is OtpError) {
                         showCustomSnackBar(
                           context: context,
@@ -159,6 +177,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         return BlocBuilder<SignUpCubit, SignUpState>(
                           builder: (context, signUpState) {
                             return VerificationBody(
+                              expiresIn: _expiresIn,
                               phoneNumber:
                                   _phoneInputFieldKey.currentState
                                       ?.getFullPhoneNumber() ??
@@ -191,7 +210,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                   AuthSwitchRow(
                     leadingText: 'لدي حساب بالفعل',
                     actionText: 'تسجيل الدخول',
-                    onTap: () => context.push('/login'),
+                    onTap: () => context.go('/login'),
                   ),
                   SizedBox(height: SizeConfig.h(40)),
                 ],

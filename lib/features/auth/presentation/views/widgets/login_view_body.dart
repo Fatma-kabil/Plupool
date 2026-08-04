@@ -33,6 +33,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   bool showVerificationBody = false;
   String? phoneNumber; // هنا خزني رقم الهاتف
 
+  int _expiresIn = 30;
   @override
   void dispose() {
     phoneController.dispose();
@@ -77,7 +78,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     message: '✅ تم إرسال الكود بنجاح عبر واتساب',
                     isSuccess: true,
                   );
-                  setState(() => showVerificationBody = true);
+                  setState(() {
+                    _expiresIn = state.response.expiresIn;
+                    showVerificationBody = true;
+                  });
                 } else if (state is OtpVerifiedSuccess) {
                   showCustomSnackBar(
                     context: context,
@@ -167,6 +171,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     children: [
                       SizedBox(height: SizeConfig.h(40)),
                       VerificationBody(
+                        expiresIn: _expiresIn,
                         phoneNumber: phoneNumber ?? '',
                         btntext: state is OtpLoading
                             ? 'جارٍ التحقق...'
@@ -189,7 +194,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               leadingText: 'ليس لدي حساب',
               actionText: 'إنشاء حساب',
               onTap: () {
-                context.push('/signup');
+                context.go('/signup');
               },
             ),
           ],

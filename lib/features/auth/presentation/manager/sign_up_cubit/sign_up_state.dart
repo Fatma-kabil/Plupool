@@ -12,15 +12,17 @@ class SignUpInitial extends SignUpState {}
 class SignUpLoading extends SignUpState {}
 
 class SignUpSuccess extends SignUpState {
-  final String message; // ممكن تستقبلي msg من الـ backend
-  const SignUpSuccess(this.message);
+  final String token;
+
+  const SignUpSuccess(this.token);
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [token];
 }
 
 class SignUpFailure extends SignUpState {
   final String error;
+
   const SignUpFailure(this.error);
 
   @override

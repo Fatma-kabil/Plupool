@@ -17,33 +17,33 @@ class SignUpRepoImpl implements SignUpRepo {
   SignUpRepoImpl(this.remoteDataSource);
 
   @override
-  Future<Either<Failure, Unit>> signupTechnician(TechnicianEntity entity) async {
+  Future<Either<Failure, String>> signupTechnician(TechnicianEntity entity) async {
     try {
       final model = TechnicianModel.fromEntity(entity);
-      await remoteDataSource.signupTechnician(model);
-      return const Right(unit);
+      final token = await remoteDataSource.signupTechnician(model);
+      return Right(token);
     } catch (error) {
       return Left(mapDioError(error));
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> signupPoolOwner(PoolOwnerEntity entity) async {
+  Future<Either<Failure, String>> signupPoolOwner(PoolOwnerEntity entity) async {
     try {
       final model = PoolOwnerModel.fromEntity(entity);
-      await remoteDataSource.signupPoolOwner(model);
-      return const Right(unit);
+      final token = await remoteDataSource.signupPoolOwner(model);
+      return Right(token);
     } catch (error) {
       return Left(mapDioError(error));
     }
   }
 
   @override
-  Future<Either<Failure, Unit>> signupCompany(CompanyEntity entity) async {
+  Future<Either<Failure, String>> signupCompany(CompanyEntity entity) async {
     try {
       final model = CompanyModel.fromEntity(entity);
-      await remoteDataSource.signupCompany(model);
-      return const Right(unit);
+      final token = await remoteDataSource.signupCompany(model);
+      return Right(token);
     } catch (error) {
       return Left(mapDioError(error));
     }

@@ -6,8 +6,16 @@ class OtpInitial extends OtpState {}
 
 class OtpLoading extends OtpState {}
 
-class OtpSentSuccess extends OtpState {}
+class OtpSentSuccess extends OtpState {
+  final SendOtpResponseModel response;
 
+  OtpSentSuccess(this.response);
+}
+class OtpResentSuccess extends OtpState {
+  final  SendOtpResponseModel response;
+
+  OtpResentSuccess(this.response);
+}
 class OtpVerifiedSuccess extends OtpState {
   final String token;
   OtpVerifiedSuccess(this.token);

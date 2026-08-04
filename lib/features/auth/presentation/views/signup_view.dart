@@ -9,13 +9,12 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => sl<SignUpCubit>(),
-      child: const Scaffold(
-        body: SafeArea(
-          child: SignupViewBody(),
-        ),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => sl<SignUpCubit>()),
+      //  BlocProvider(create: (_) => sl<OtpCubit>()),
+      ],
+      child: const Scaffold(body: SafeArea(child: SignupViewBody())),
     );
   }
 }

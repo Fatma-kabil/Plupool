@@ -356,7 +356,7 @@ Future<void> initServiceLocator() async {
 
   // Remote Data Source
   sl.registerLazySingleton<SignUpRemoteDataSource>(
-    () => SignUpRemoteDataSourceImpl(sl<ApiService>(), sl<AuthCubit>()),
+    () => SignUpRemoteDataSourceImpl(sl<ApiService>(), ),
   );
 
   // Repositories
@@ -386,6 +386,7 @@ Future<void> initServiceLocator() async {
       signupTechnicianUseCase: sl<SignupTechnicianUseCase>(),
       signupPoolOwnerUseCase: sl<SignupPoolOwnerUseCase>(),
       signupCompanyUseCase: sl<SignupCompanyUseCase>(),
+      authCubit: sl<AuthCubit>()
     ),
   );
 

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/auth/data/datasources/otp_remote_data_source.dart';
+import 'package:plupool/features/auth/data/models/send_otp_respnse_model.dart';
 import 'package:plupool/features/auth/domain/repos/otp_repo.dart';
 
 class OtpRepoImpl implements OtpRepository {
@@ -10,12 +11,12 @@ class OtpRepoImpl implements OtpRepository {
 
   @override
    @override
-  Future<Either<Failure, void>> sendOtp(String phone) async {
+  Future<Either<Failure, SendOtpResponseModel>> sendOtp(String phone) async {
     try {
       print('📡 [Repo] Sending OTP to $phone');
-      await remoteDataSource.sendOtp(phone);
+      final response = await remoteDataSource.sendOtp(phone);
       print('✅ [Repo] OTP sent successfully');
-      return const Right(null);
+      return Right(response);
     } catch (e) {
       print('❌ [Repo] Error while sending OTP: $e');
       return Left(mapDioError(e));

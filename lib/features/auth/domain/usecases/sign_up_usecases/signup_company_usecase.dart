@@ -11,7 +11,7 @@ class SignupCompanyUseCase {
 
   SignupCompanyUseCase(this.repository);
 
- Future<Either<Failure, Unit>> call(CompanyEntity company) async {
+ Future<Either<Failure, String>> call(CompanyEntity company) async {
     return await repository.signupCompany(company);
   }
 }

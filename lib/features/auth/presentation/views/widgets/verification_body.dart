@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
@@ -13,10 +14,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class VerificationBody extends StatefulWidget {
   final String phoneNumber;
   final String btntext;
+  final int expiresIn;
   final void Function(String otpCode) onVerify;
 
   const VerificationBody({
     super.key,
+    required this.expiresIn,
     required this.phoneNumber,
     required this.btntext,
     required this.onVerify,
@@ -27,7 +30,7 @@ class VerificationBody extends StatefulWidget {
 }
 
 class _VerificationBodyState extends State<VerificationBody> {
-  int secondsRemaining = 30;
+  int secondsRemaining = 0;
   bool canResend = false;
   Timer? timer;
   String otpCode = '';
@@ -41,7 +44,7 @@ class _VerificationBodyState extends State<VerificationBody> {
   void _startCountdown() {
     setState(() {
       canResend = false;
-      secondsRemaining = 30;
+     secondsRemaining = widget.expiresIn;
     });
 
     timer?.cancel();
@@ -57,16 +60,12 @@ class _VerificationBodyState extends State<VerificationBody> {
 
   void _resendOtp() {
     // 🟢 هنا بنبعت الكود الجديد فعلاً
-    context.read<OtpCubit>().sendOtp(widget.phoneNumber);
+    context.read<OtpCubit>().resendOtp(widget.phoneNumber);
 
     // 🟠 نعيد العداد من الأول
     _startCountdown();
 
-    // 🔔 نعرض رسالة تأكيد
-    showCustomSnackBar(
-      context: context,
-      message: 'تم إرسال رمز تحقق جديد إلى واتساب',
-    );
+  
   }
 
   @override
@@ -116,7 +115,7 @@ class _VerificationBodyState extends State<VerificationBody> {
           leadingText: 'ما استلمتش الرمز؟ ',
           actionText: canResend
               ? 'إعادة الإرسال'
-              : 'خلال ${secondsRemaining.toString().padLeft(2, '0')} ثانية',
+              : 'خلال ${toArabicNumbers(secondsRemaining.toString().padLeft(2, '0'))} ثانية',
           onTap: canResend ? _resendOtp : null, // ✅ هنا التعديل المهم
         ),
         SizedBox(height: SizeConfig.h(36)),
