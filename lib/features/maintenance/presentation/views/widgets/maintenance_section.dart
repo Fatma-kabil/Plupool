@@ -64,49 +64,48 @@ class MaintenanceSection extends StatelessWidget {
                   color: Colors.white,
                   child: Padding(
                     padding: EdgeInsets.only(top: SizeConfig.h(8)),
-                    child:
-                        // BlocBuilder<AuthCubit, AuthState>(
-                        // builder: (context, authState) {
-                        // return
-                        CustomTextBtn(
+                    child: BlocBuilder<AuthCubit, AuthState>(
+                      builder: (context, authState) {
+                        return CustomTextBtn(
                           text: 'احجز الآن',
                           width: double.infinity,
                           onPressed: () {
-                            // if (authState.status == AuthStatus.guest) {
-                            //   showDialog(
-                            //     context: context,
-                            //     builder: (_) => ErrorCard(
-                            //       title: 'لم يتم تسجيل الدخول',
-                            //       subtitle:
-                            //           'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                            //       color: Colors.white,
-                            //     ),
-                            //   );
-                            // } else {
-                            showDialog(
-                              context: context,
-                              builder: (_) => BookingCard(
-                                onConfirm: (date, time) {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false,
-                                    builder: (_) => Dialog(
-                                      backgroundColor: Colors.transparent,
-                                      insetPadding: const EdgeInsets.all(16),
-                                      child: ConfirmMaintenanceBookingCard(
-                                        date: date,
-                                        time: time,
-                                        bookingtype: service.bookingType,
+                            if (authState.status == AuthStatus.guest) {
+                              showDialog(
+                                context: context,
+                                builder: (_) => ErrorCard(
+                                  title: 'لم يتم تسجيل الدخول',
+                                  subtitle:
+                                      'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                                  color: Colors.white,
+                                ),
+                              );
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (_) => BookingCard(
+                                  onConfirm: (date, time) {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (_) => Dialog(
+                                        backgroundColor: Colors.transparent,
+                                        insetPadding: const EdgeInsets.all(16),
+                                        child: ConfirmMaintenanceBookingCard(
+                                          date: date,
+                                          time: time,
+                                          bookingtype: service.bookingType,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                            // }
+                                    );
+                                  },
+                                ),
+                              );
+                            }
                           },
-                        ),
-                    // },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

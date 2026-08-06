@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
@@ -77,32 +76,32 @@ class PackageCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 40),
-       //   BlocBuilder<AuthCubit, AuthState>(
-         //   builder: (context, state) {
-            //  return
+         BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              return
                CustomTextBtn(
                 text: "اختيار الباقة",
                 width: double.infinity,
                 onPressed: () {
-              //    if (state.status == AuthStatus.guest) {
+                  if (state.status == AuthStatus.guest) {
                     // لو ضيف — نعرض رسالة الخطأ
-                //    showDialog(
-                  //    context: context,
-                    //  builder: (context) {
-                      //  return ErrorCard(
-                        //  title: 'لم يتم تسجيل الدخول',
-                          //subtitle:
-                            //  'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                       //   color: Colors.white,
-                      //  );
-                    //  },
-                  //  );
-                //  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ErrorCard(
+                         title: 'لم يتم تسجيل الدخول',
+                          subtitle:
+                              'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                          color: Colors.white,
+                        );
+                      },
+                  );
+                  } else {
                     onSelect();
                   }
-              //  },
-            //  );
-           //00 },
+                },
+              );
+            },
           ),
         ],
       ),

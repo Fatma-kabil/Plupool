@@ -14,6 +14,8 @@ import 'package:plupool/features/consruction_service/presentation/views/widgets/
 import 'package:plupool/features/consruction_service/presentation/views/widgets/reservation_details_dialog.dart';
 
 import 'package:plupool/features/consruction_service/domain/entities/construction_booking_entity.dart';
+import 'package:plupool/features/home/presentaation/views/guest_widgets/error_card.dart';
+
 class PoolReservationForm extends StatefulWidget {
   final String poolTitle;
   final int poolId;
@@ -185,20 +187,21 @@ class _PoolReservationFormState extends State<PoolReservationForm> {
                 text: "تأكيد الحجز",
                 width: double.infinity,
                 onPressed: () {
-                  //  if (authState.status == AuthStatus.guest) {
-                  //  showDialog(
-                  //  context: context,
-                  //  builder: (_) => ErrorCard(
-                  //   title: 'لم يتم تسجيل الدخول',
-                  //   subtitle:
-                  //     'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
-                  //   color: Colors.white,
-                  // ),
-                  // );
-                  // } else {
-                  onConfirmPressed();
+                  if (authState.status == AuthStatus.guest) {
+                    showDialog(
+                      context: context,
+                      builder: (_) => ErrorCard(
+                        title: 'لم يتم تسجيل الدخول',
+                        subtitle:
+                            'لتستمتع بتجربتك وتتابع خدماتك، قم بتسجيل الدخول أولاً.',
+                        color: Colors.white,
+                      ),
+                    );
+                  } else {
+                    onConfirmPressed();
+                  }
+                  
                 },
-                //  },
               );
             },
           ),
