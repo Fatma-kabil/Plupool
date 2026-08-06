@@ -22,7 +22,7 @@ class MyTaskViewCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
-        await context.push("/customerdetailsView", extra: task.id);
+        await context.push("/customerdetailsView", extra: task.id,);
 
         if (onReturn != null) {
           await onReturn!();

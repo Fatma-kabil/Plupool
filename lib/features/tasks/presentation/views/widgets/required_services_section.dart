@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/parse_time_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/data/models/service_request_model.dart';
-import 'package:plupool/core/utils/functions/request_status.dart';
-import 'package:plupool/features/tasks/presentation/views/widgets/service_tab_bar.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
+import 'package:plupool/features/tasks/presentation/views/manager/technician_services_cubit/tech_services_cubit.dart';
+import 'package:plupool/features/tasks/presentation/views/manager/technician_services_cubit/technician_services_state.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/service_card.dart';
-import 'package:plupool/core/constants.dart';
+import 'package:plupool/features/tasks/presentation/views/widgets/service_card_shimmer.dart';
+import 'package:plupool/features/tasks/presentation/views/widgets/service_tab_bar.dart';
 
 class RequiredServicesSection extends StatefulWidget {
-  const RequiredServicesSection({super.key});
+  const RequiredServicesSection({super.key, required this.clientId});
+
+  final int clientId;
 
   @override
   State<RequiredServicesSection> createState() =>
@@ -21,37 +25,19 @@ class _RequiredServicesSectionState extends State<RequiredServicesSection> {
   String selectedTab = "قيد التنفيذ";
 
   @override
-  Widget build(BuildContext context) {
-    // ✅ نبدأ من القائمة الأصلية
-    final List<ServiceRequest> allRequests = requests;
+  void initState() {
+    super.initState();
 
-    // ✅ فلترة حسب التبويب
-    final filteredRequests = allRequests
-        .where(
-          (r) =>
-              r.status ==
-              (selectedTab == "قيد التنفيذ"
-                  ? RequestStatus.inProgress
-                  : RequestStatus.scheduled),
-        )
-        .toList();
-
-    // ✅ ترتيب حسب التاريخ والوقت (الأقدم أولًا)
-    filteredRequests.sort((a, b) {
-      final dateA = DateTime.parse(a.date);
-      final dateB = DateTime.parse(b.date);
-
-      // لو التاريخين متساويين، نرتب حسب الوقت
-      if (dateA == dateB) {
-        final timeA = parseTime(a.time);
-        final timeB = parseTime(b.time);
-        return timeA.compareTo(timeB);
-      }
-
-      // غير كده نرتب حسب التاريخ
-      return dateA.compareTo(dateB);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<TechnicianServicesCubit>().getTechnicianServices(
+        clientId: widget.clientId,
+        status: "in_progress",
+      );
     });
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(SizeConfig.w(12)),
@@ -63,7 +49,6 @@ class _RequiredServicesSectionState extends State<RequiredServicesSection> {
         crossAxisAlignment: CrossAxisAlignment.end,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // 🧾 العنوان
           Text(
             "الخدمات المطلوبة",
             style: AppTextStyles.styleSemiBold16(
@@ -72,32 +57,98 @@ class _RequiredServicesSectionState extends State<RequiredServicesSection> {
           ),
           SizedBox(height: SizeConfig.h(15)),
 
-          // 🔖 التبويبات
-          ServiceTabBar(
-            selectedTab: selectedTab,
-            onTabSelected: (tab) => setState(() => selectedTab = tab),
-            counts: {
-              "قيد التنفيذ": allRequests
-                  .where((r) => r.status == RequestStatus.inProgress)
-                  .length,
-              "مجدولة": allRequests
-                  .where((r) => r.status == RequestStatus.scheduled)
-                  .length,
+          BlocBuilder<TechnicianServicesCubit, TechnicianServicesState>(
+            builder: (context, state) {
+              final allRequests = state is GetTechnicianServicesSuccess
+                  ? state.services.items
+                  : [];
+
+              return ServiceTabBar(
+                selectedTab: selectedTab,
+                onTabSelected: (tab) {
+                  setState(() {
+                    selectedTab = tab;
+                  });
+                },
+                counts: {
+                  "قيد التنفيذ": allRequests
+                      .where(
+                        (e) =>
+                            e.status == "inProgress" ||
+                            e.status == "in_progress",
+                      )
+                      .length,
+                  "مجدولة": allRequests
+                      .where((e) => e.status == "scheduled")
+                      .length,
+                },
+              );
             },
           ),
 
           SizedBox(height: SizeConfig.h(16)),
 
-          // 🧱 عرض الريكوستات المرتبة
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: filteredRequests.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
-                child: ServiceCard(request: filteredRequests[index]),
-              );
+          BlocBuilder<TechnicianServicesCubit, TechnicianServicesState>(
+            builder: (context, state) {
+              if (state is GetTechnicianServicesLoading) {
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 3,
+                  separatorBuilder: (_, __) =>
+                      SizedBox(height: SizeConfig.h(12)),
+                  itemBuilder: (_, __) => const ServiceCardShimmer(),
+                );
+              }
+
+              if (state is GetTechnicianServicesFailure) {
+                return Center(child: ErrorText(message: state.message));
+              }
+
+              if (state is GetTechnicianServicesSuccess) {
+                final filteredRequests = state.services.items.where((service) {
+                  if (selectedTab == "قيد التنفيذ") {
+                    return service.status == "inProgress" ||
+                        service.status == "in_progress";
+                  }
+
+                  return service.status == "scheduled";
+                }).toList();
+
+                filteredRequests.sort((a, b) {
+                  final dateA = DateTime.parse(a.scheduledDate);
+                  final dateB = DateTime.parse(b.scheduledDate);
+
+                  if (dateA == dateB) {
+                    final timeA = parseTime(a.scheduledTime);
+                    final timeB = parseTime(b.scheduledTime);
+                    return timeA.compareTo(timeB);
+                  }
+
+                  return dateA.compareTo(dateB);
+                });
+
+                if (filteredRequests.isEmpty) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: SizeConfig.h(24)),
+                    child: Center(child: ErrorText(message: "لا توجد خدمات")),
+                  );
+                }
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: filteredRequests.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
+                      child: ServiceCard(request: filteredRequests[index]),
+                    );
+                  },
+                );
+              }
+
+              return const SizedBox();
             },
           ),
         ],

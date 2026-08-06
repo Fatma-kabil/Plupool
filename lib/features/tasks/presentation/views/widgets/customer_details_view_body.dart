@@ -63,11 +63,11 @@ class _CustomerDetailsViewBodyState extends State<CustomerDetailsViewBody> {
 
               SizedBox(height: SizeConfig.h(24)),
 
-              // RequiredServicesSection(
-              //  task: data.task,
-              // ),
+               RequiredServicesSection(
+                clientId: 1,
+              ),
 
-              //SizedBox(height: SizeConfig.h(24)),
+              SizedBox(height: SizeConfig.h(24)),
               MaintenanceHistorySection(history: data.waterQuality.history),
             ],
           );

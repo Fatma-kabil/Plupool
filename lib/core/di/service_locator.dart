@@ -283,15 +283,20 @@ import 'package:plupool/features/support/data/remote_data_sources/contact_remote
 import 'package:plupool/features/support/data/repos_impl.dart/contact_repo_impl.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
 import 'package:plupool/features/support/domain/repos/contact_repo.dart';
+import 'package:plupool/features/tasks/data/remote_data_sources/technician_services_remote_datasource.dart';
 import 'package:plupool/features/tasks/data/remote_data_sources/technician_tasks_remote_data_source.dart';
+import 'package:plupool/features/tasks/data/repo_impl/technician_services_repo_impl.dart';
 import 'package:plupool/features/tasks/data/repo_impl/technician_tasks_repo_impl.dart';
+import 'package:plupool/features/tasks/domain/repos/technician_services_repo.dart';
 import 'package:plupool/features/tasks/domain/repos/technician_tasks_repo.dart';
 import 'package:plupool/features/tasks/domain/usecases/complete_task_with_reading_use_case.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_task_details_use_case.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_tasks_use_case.dart';
+import 'package:plupool/features/tasks/domain/usecases/get_technician_services_usecase.dart';
 import 'package:plupool/features/tasks/domain/usecases/get_week_tasks_use_case.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/week_tasks_cubit.dart';
+import 'package:plupool/features/tasks/presentation/views/manager/technician_services_cubit/tech_services_cubit.dart';
 import 'package:plupool/features/technicains/data/data_sources/ratings_remote_data_source.dart';
 import 'package:plupool/features/technicains/data/repos_impl/update_tech_rating_repo_impl.dart';
 import 'package:plupool/features/technicains/domain/repos/update_tech_rating_repo.dart';
@@ -1421,6 +1426,31 @@ Future<void> initServiceLocator() async {
       sl<UnregisterDeviceUseCase>(),
       sl<GetUnreadCountUseCase>(),
       sl<SendBroadcastNotificationUseCase>()
+    ),
+  );
+
+  
+  // ==================== // ====================  get tech  srvices  ====================
+  // Remote Data Source
+  sl.registerLazySingleton<TechnicianServicesRemoteDataSource>(
+    () => TechnicianServicesRemoteDataSourceImpl(sl<ApiService>()),
+  );
+  // Repository
+  sl.registerLazySingleton<TechnicianServicesRepo>(
+    () => TechnicianServicesRepoImpl(sl<TechnicianServicesRemoteDataSource>()),
+  );
+
+  // UseCase
+  sl.registerLazySingleton(
+    () => GetTechnicianServicesUseCase(sl<TechnicianServicesRepo>()),
+  );
+ 
+
+  // Cubit
+  sl.registerFactory(
+    () => TechnicianServicesCubit(
+      sl<GetTechnicianServicesUseCase>(),
+     
     ),
   );
 }

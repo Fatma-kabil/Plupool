@@ -12,7 +12,7 @@ class ProgressSection extends StatelessWidget {
     required this.status,
     required this.progressRatio,
   });
-  final int progressRatio;
+  final num progressRatio;
   final int progress; // عدد الزيارات المنفذة
   final int visits; // إجمالي الزيارات المطلوبة
   final RequestStatus status;
