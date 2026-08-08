@@ -5,25 +5,33 @@ import 'package:plupool/features/consruction_service/domain/usecases/get_user_no
 import 'package:plupool/features/consruction_service/presentation/views/manager/user_notes_cubit/user_notes_state.dart';
 
 class UserNotesCubit extends Cubit<UserNotesState> {
-  UserNotesCubit(
-    this.getUserNotesUseCase,
-    this.addUserNoteUseCase,
-  ) : super(UserNotesInitial());
+  UserNotesCubit(this.getUserNotesUseCase, this.addUserNoteUseCase)
+    : super(UserNotesInitial());
 
   final GetUserNotesUsecase getUserNotesUseCase;
   final AddUserNoteUseCase addUserNoteUseCase;
 
   Future<void> getUserNotes() async {
+    print("🟡 getUserNotes START");
     emit(UserNotesLoading());
     await _refreshNotes();
+    print("🟢 getUserNotes END");
   }
 
   Future<void> _refreshNotes() async {
+    print("🟡 calling getUserNotesUseCase");
     final result = await getUserNotesUseCase();
+    print("🟢 getUserNotesUseCase RETURNED");
 
     result.fold(
-      (failure) => emit(UserNotesFailure(failure.message)),
-      (userNotes) => emit(UserNotesSuccess(userNotes)),
+      (failure) {
+        print("🔴 FAILURE: ${failure.message}");
+        emit(UserNotesFailure(failure.message));
+      },
+      (userNotes) {
+        print("🟢 SUCCESS: ${userNotes.length}");
+        emit(UserNotesSuccess(userNotes));
+      },
     );
   }
 

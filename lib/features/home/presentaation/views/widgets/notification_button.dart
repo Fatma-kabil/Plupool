@@ -32,13 +32,13 @@ class NotificationButton extends StatelessWidget {
               ],
             ),
             padding: EdgeInsets.symmetric(
-              horizontal: SizeConfig.w(8),
-              vertical: SizeConfig.h(8),
+              horizontal: SizeConfig.w(6),
+              vertical: SizeConfig.h(6),
             ),
             child: Badge(
               isLabelVisible: cubit.unreadCount > 0,
               label: Text(toArabicNumbers(cubit.unreadCount.toString())),
-              child: Icon(Icons.notifications_outlined, size: SizeConfig.w(22)),
+              child: Icon(Icons.notifications_outlined, size: SizeConfig.w(20)),
             ),
           ),
         );

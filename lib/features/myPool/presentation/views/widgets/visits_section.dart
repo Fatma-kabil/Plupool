@@ -42,7 +42,11 @@ class _VisitsSectionState extends State<VisitsSection> {
                 child: ErrorText(message: "حدث خطأ أتناء تحميل البيانات"),
               );
             }
-
+            if (state.services.isEmpty) {
+              return Center(
+                child: ErrorText(message: "لا توجد باقات نشطه في الوقت الحالي"),
+              );
+            }
             return ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -81,7 +85,7 @@ class _VisitsSectionState extends State<VisitsSection> {
                       status: RequestStatus.completed,
                       date: visit.scheduledDate,
                       reportTechnicianAbsence: i == request.visits.length - 1,
-                       bookingId: request.id,
+                      bookingId: request.id,
                       technicianNames: request.technicians
                           .map((e) => e.name)
                           .toList(),

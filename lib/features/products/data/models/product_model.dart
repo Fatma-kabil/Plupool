@@ -121,7 +121,6 @@ class ProductModel {
     );
   }
 
-  /// From JSON
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       nameAr: json["name_ar"] ?? "",
@@ -142,7 +141,10 @@ class ProductModel {
           ? DateTime.parse(json["offer_end_date"])
           : null,
       imageUrl: json["image_url"],
-      images: json["images"] != null ? List<String>.from(json["images"]) : null,
+
+      // ✅ images
+      images: json["images"] is List ? List.from(json["images"]) : null,
+
       stockQuantity: json["stock_quantity"] ?? 0,
       deliveryTime: json["delivery_time"],
       freeDelivery: json["free_delivery"] ?? false,
@@ -152,26 +154,34 @@ class ProductModel {
       isFeatured: json["is_featured"] ?? false,
       sortOrder: json["sort_order"] ?? 0,
       id: json["id"] ?? 0,
+
       finalPrice: (json["final_price"] != null)
           ? (json["final_price"] as num).toDouble()
           : 0,
+
       viewsCount: json["views_count"] ?? 0,
       stockStatus: json["stock_status"],
       hasOffer: json["has_offer"] ?? false,
+
       discountPercentage: (json["discount_percentage"] != null)
           ? (json["discount_percentage"] as num).toDouble()
           : 0,
+
       isOfferActive: json["is_offer_active"] ?? false,
+
       createdAt: json["created_at"] != null
           ? DateTime.parse(json["created_at"])
           : null,
+
       updatedAt: json["updated_at"] != null
           ? DateTime.parse(json["updated_at"])
           : null,
-      badges: json["badges"] != null
-          ? List<BadgeModel>.from(
-              json["badges"].map((x) => BadgeModel.fromJson(x)),
-            )
+
+      // ✅ badges
+      badges: json["badges"] is List
+          ? (json["badges"] as List)
+                .map((x) => BadgeModel.fromJson(Map<String, dynamic>.from(x)))
+                .toList()
           : null,
     );
   }

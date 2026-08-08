@@ -20,8 +20,6 @@ class ServiceSection extends StatefulWidget {
 class _ServiceSectionState extends State<ServiceSection> {
   String selected = "مجدولة";
 
- 
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserServicesCubit, UserServicesState>(
@@ -78,6 +76,12 @@ class _ServiceSectionState extends State<ServiceSection> {
               )
             else if (state.errorMessage != null)
               Center(child: ErrorText(message: "حدث خطأ أتناء تحميل البيانات"))
+            else if (state.services.isEmpty)
+              Center(
+                child: ErrorText(message: 
+                  "لا توجد خدمات بعد",
+                ),
+              )
             else
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),

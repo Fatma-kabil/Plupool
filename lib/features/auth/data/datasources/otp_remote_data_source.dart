@@ -51,7 +51,8 @@ class OtpRemoteDataSourceImpl implements OtpRemoteDataSource {
   @override
   Future<String> verifyOtp(String phone, String otpCode) async {
     print(
-      '📤 Sending verify OTP request: data=${{'phone': phone, 'otp_code': otpCode}}',
+      '📤 Sending verify OTP request: '
+      'data=${{'phone': phone, 'otp_code': otpCode}}',
     );
 
     final response = await apiService.post(
@@ -59,16 +60,23 @@ class OtpRemoteDataSourceImpl implements OtpRemoteDataSource {
       data: {'phone': phone, 'otp_code': otpCode},
     );
 
-    print('📥 Server response: ${response.data}');
-    print('📥 Server response status code: ${response.statusCode}');
+    print('📥 Server response status: ${response.statusCode}');
 
     final accessToken = response.data['access_token'];
+    final refreshToken = response.data['refresh_token'];
 
-    // ✅ خزّن التوكن هنا
+    if (accessToken == null || refreshToken == null) {
+      throw Exception('Access token or refresh token is missing');
+    }
+
+    // حفظ Access Token
     await storage.write(key: 'token', value: accessToken);
 
-    // 🔹 حدث AuthCubit لو موجود
-    authCubit.login(accessToken); // authCubit يتم تمريره من مكانه أو Injected
+    // حفظ Refresh Token
+    await storage.write(key: 'refresh_token', value: refreshToken);
+
+    // تحديث AuthCubit
+    authCubit.login(accessToken);
 
     return accessToken;
   }

@@ -1,12 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_service_state.dart';
 import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/active_card_task.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/end_card_task.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/soon_card_tesk.dart';
+import 'package:plupool/features/myPool/presentation/views/widgets/my_pool_task_card_shimmer.dart';
 
 class MyPackagesViewBody extends StatefulWidget {
   const MyPackagesViewBody({super.key});
@@ -33,6 +36,45 @@ class _MyPackagesViewBodyState extends State<MyPackagesViewBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<UserServicesCubit, UserServicesState>(
       builder: (context, state) {
+        // =========================
+        // LOADING
+        // =========================
+        if (state.isLoading) {
+          return ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: 3,
+            itemBuilder: (_, __) =>
+                const MyPoolTaskCardShimmer(),
+          );
+        }
+
+        // =========================
+        // ERROR
+        // =========================
+        if (state.errorMessage != null) {
+          return Center(
+            child: ErrorText(
+              message: "حدث خطأ أثناء تحميل الباقات",
+            ),
+          );
+        }
+
+        // =========================
+        // EMPTY
+        // =========================
+        if (state.services.isEmpty) {
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                "لا توجد باقات متاحة حالياً 📦",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
+
         /// ----------------------------
         /// نرتب الليست ترتيب مخصص
         /// ----------------------------

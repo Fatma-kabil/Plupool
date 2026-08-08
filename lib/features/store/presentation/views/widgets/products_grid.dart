@@ -1,40 +1,53 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
-import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_cubit.dart';
 import 'package:plupool/features/store/presentation/cubits/cart_cubit.dart/cart_state.dart';
 import 'package:plupool/features/store/presentation/views/widgets/product_card.dart';
 
 class ProductsGrid extends StatelessWidget {
-  final List<Product> products;
+  final List products;
 
-  const ProductsGrid({super.key, required this.products});
+  const ProductsGrid({
+    super.key,
+    required this.products,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartCubit, CartState>(
       listenWhen: (previous, current) {
-        return previous.isSuccess != current.isSuccess;
+        return previous.isSuccess != current.isSuccess ||
+            previous.errorMessage != current.errorMessage;
       },
-
       listener: (context, state) {
+        // ================= SUCCESS =================
         if (state.isSuccess) {
           print("✅ Add To Cart Success");
+
           showCustomSnackBar(
             context: context,
             message: "تمت إضافة المنتج إلى السلة بنجاح 🛒",
             isSuccess: true,
           );
+
+          return;
         }
 
-        if (state.errorMessage != null) {
-          print("❌ ${state.errorMessage}");
+        // ================= ERROR =================
+        if (state.errorMessage != null &&
+            state.errorMessage!.isNotEmpty) {
+          print("❌ Cart Error: ${state.errorMessage}");
+
           showCustomSnackBar(
             context: context,
-            message: "فشل إضافة المنتج إلى السلة  🛒",
+            message: state.errorMessage!,
+            isSuccess: false,
           );
+
+          context.read<CartCubit>().clearError();
         }
       },
       child: Directionality(
@@ -47,16 +60,18 @@ class ProductsGrid extends StatelessWidget {
             crossAxisCount: 2,
             childAspectRatio:
                 SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
-                ? 0.62
-                : SizeConfig.screenWidth == 800
-                ? .82
-                : SizeConfig.screenWidth > 800
-                ? 0.91
-                : 0.71,
+                    ? 0.62
+                    : SizeConfig.screenWidth == 800
+                        ? .82
+                        : SizeConfig.screenWidth > 800
+                            ? 0.91
+                            : 0.71,
             crossAxisSpacing: SizeConfig.w(12),
             mainAxisSpacing: SizeConfig.w(12),
           ),
-          itemBuilder: (_, i) => ProductCard(product: products[i]),
+          itemBuilder: (_, i) => ProductCard(
+            product: products[i],
+          ),
         ),
       ),
     );

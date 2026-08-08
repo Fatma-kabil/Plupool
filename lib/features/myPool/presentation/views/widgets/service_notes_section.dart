@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/consruction_service/presentation/views/manager/user_notes_cubit/user_notes_cubit.dart';
 import 'package:plupool/features/consruction_service/presentation/views/manager/user_notes_cubit/user_notes_state.dart';
 import 'package:plupool/features/notes/presentation/views/widgets/notes_shimmer_list.dart';
@@ -10,8 +11,6 @@ import 'package:plupool/features/support/presentation/views/widgets/attachment_c
 
 class ServiceNotesSection extends StatelessWidget {
   const ServiceNotesSection({super.key});
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +22,16 @@ class ServiceNotesSection extends StatelessWidget {
 
         if (state is UserNotesFailure) {
           return Center(
-            child: Text(state.message),
+            child: ErrorText(message: state.message),
           );
         }
 
         if (state is UserNotesSuccess) {
           if (state.userNotes.isEmpty) {
-            return const SizedBox();
+            return Center(
+              child: ErrorText(message: "لا توجد ملاحظات بعد"),
+              
+            );
           }
 
           return ListView.separated(
