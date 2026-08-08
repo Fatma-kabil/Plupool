@@ -44,7 +44,7 @@ class _VerificationBodyState extends State<VerificationBody> {
   void _startCountdown() {
     setState(() {
       canResend = false;
-     secondsRemaining = widget.expiresIn;
+      secondsRemaining = widget.expiresIn;
     });
 
     timer?.cancel();
@@ -64,8 +64,6 @@ class _VerificationBodyState extends State<VerificationBody> {
 
     // 🟠 نعيد العداد من الأول
     _startCountdown();
-
-  
   }
 
   @override
@@ -90,14 +88,16 @@ class _VerificationBodyState extends State<VerificationBody> {
       children: [
         Text(
           'تحقق من رقمك',
-          style: AppTextStyles.styleSemiBold16(context)
-              .copyWith(color: AppColors.ktextcolor),
+          style: AppTextStyles.styleSemiBold16(
+            context,
+          ).copyWith(color: AppColors.ktextcolor),
         ),
         const SizedBox(height: 8),
         Text(
           'بعتنالك رمز مكون من 5 أرقام على رقمك المنتهي بـ $maskedNumber',
-          style: AppTextStyles.styleRegular14(context)
-              .copyWith(color: const Color(0xff808080)),
+          style: AppTextStyles.styleRegular14(
+            context,
+          ).copyWith(color: const Color(0xff808080)),
         ),
         SizedBox(height: SizeConfig.h(37)),
 

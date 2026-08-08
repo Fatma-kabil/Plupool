@@ -300,6 +300,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           phone: fullPhone,
           address: _locationController.text.trim(),
           profileImage: _profileImage?.path,
+          // Replace with actual longitude if available
         ),
       );
     } else if (role.contains("فني")) {

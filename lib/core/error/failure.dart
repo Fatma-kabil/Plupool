@@ -67,17 +67,21 @@ Failure mapDioError(Object error) {
 
         String message = FailureMessages.server;
 
-        if (data is Map<String, dynamic>) {
-          if (data["detail"] != null) {
-            message = data["detail"].toString();
-          } else if (data["message"] != null) {
-            message = data["message"].toString();
-          } else if (data["error"] != null) {
-            message = data["error"].toString();
-          } else if (data["errors"] != null) {
-            message = data["errors"].toString();
-          }
-        }
+       if (data is Map<String, dynamic>) {
+  final detail = data["detail"];
+
+  if (detail is String) {
+    message = detail;
+  } else if (detail is List && detail.isNotEmpty) {
+    message = detail.first["msg"]?.toString() ?? FailureMessages.server;
+  } else if (data["message"] != null) {
+    message = data["message"].toString();
+  } else if (data["error"] != null) {
+    message = data["error"].toString();
+  } else if (data["errors"] != null) {
+    message = data["errors"].toString();
+  }
+}
 
         if (status == 401 || status == 403) {
           return AuthFailure(message, status);

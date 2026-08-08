@@ -44,7 +44,7 @@ class CustomerAppbar extends StatelessWidget {
             children: [
               AppBarDetails(
                 model: user,
-                role: role,
+                role:  role,
               ),
               const Spacer(),
 

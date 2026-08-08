@@ -64,7 +64,7 @@ class _CustomerDetailsViewBodyState extends State<CustomerDetailsViewBody> {
               SizedBox(height: SizeConfig.h(24)),
 
                RequiredServicesSection(
-                clientId: 1,
+                clientId: data.client.clientId,
               ),
 
               SizedBox(height: SizeConfig.h(24)),

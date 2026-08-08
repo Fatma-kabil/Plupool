@@ -23,15 +23,24 @@ class Validators {
     return null;
   }
 
-  // ✅ رقم الموبايل (يدعم أرقام فقط بطول 8-15)
   static String? phone(String? v, {int min = 8, int max = 15}) {
-    if (_isNullOrEmpty(v)) return  ' رقم الموبايل مطلوب';
-    final digits = v!.replaceAll(RegExp(r'\D'), '');
-    if (digits.length < min || digits.length > max) {
-      return 'رقم الموبايل غير صحيح (يجب أن يكون بين $min و $max رقم)';
-    }
-    return null;
+  if (_isNullOrEmpty(v)) {
+    return 'رقم الموبايل مطلوب';
   }
+
+  final value = v!.trim();
+
+  // يقبل أرقام فقط
+  if (!RegExp(r'^\d+$').hasMatch(value)) {
+    return 'رقم الموبايل يجب أن يحتوي على أرقام فقط';
+  }
+
+  if (value.length < min || value.length > max) {
+    return 'رقم الموبايل غير صحيح';
+  }
+
+  return null;
+}
 
   // ✅ البريد الإلكتروني
   static String? email(String? v) {

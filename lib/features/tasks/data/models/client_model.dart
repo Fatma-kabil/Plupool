@@ -2,6 +2,7 @@ import '../../domain/entities/client_entity.dart';
 
 class ClientModel extends ClientEntity {
   const ClientModel({
+    required super.clientId,
     required super.fullName,
     required super.phone,
     required super.avatar,
@@ -18,6 +19,7 @@ class ClientModel extends ClientEntity {
 
   factory ClientModel.fromJson(Map<String, dynamic> json) {
     return ClientModel(
+      clientId: json['client_id'] ?? 0,
       fullName: json['full_name'] ?? '',
       phone: json['phone'] ?? '',
       avatar: json['avatar'] ?? '',

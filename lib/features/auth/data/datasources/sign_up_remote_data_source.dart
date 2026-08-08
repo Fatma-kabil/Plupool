@@ -27,8 +27,10 @@ class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
         'address': entity.address,
         'skills': entity.skills.join(','),
         'years_of_experience': entity.yearsOfExperience,
-        'latitude': entity.latitude,
-        'longitude': entity.longitude,
+
+        if (entity.latitude != null) 'latitude': entity.latitude,
+
+        if (entity.longitude != null) 'longitude': entity.longitude,
 
         if (entity.profileImage != null)
           'profile_image': await MultipartFile.fromFile(
@@ -40,9 +42,7 @@ class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
       final response = await api.post(
         Endpoints.signupTechnician,
         data: formData,
-        options: Options(
-          contentType: 'multipart/form-data',
-        ),
+        options: Options(contentType: 'multipart/form-data'),
       );
 
       return response.data['access_token'];
@@ -50,7 +50,6 @@ class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
       throw mapDioError(error);
     }
   }
-
 
   @override
   Future<String> signupPoolOwner(PoolOwnerEntity entity) async {
@@ -60,8 +59,10 @@ class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
         'otp_code': entity.otpCode,
         'full_name': entity.fullName,
         'address': entity.address,
-        'latitude': entity.latitude,
-        'longitude': entity.longitude,
+
+        if (entity.latitude != null) 'latitude': entity.latitude,
+
+        if (entity.longitude != null) 'longitude': entity.longitude,
 
         if (entity.profileImage != null)
           'profile_image': await MultipartFile.fromFile(
@@ -70,54 +71,41 @@ class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
           ),
       });
 
-
       final response = await api.post(
         Endpoints.signupPoolOwner,
         data: formData,
-        options: Options(
-          contentType: 'multipart/form-data',
-        ),
+        options: Options(contentType: 'multipart/form-data'),
       );
 
-
       return response.data['access_token'];
-
-    } catch(error){
+    } catch (error) {
       throw mapDioError(error);
     }
   }
 
-
-
   @override
   Future<String> signupCompany(CompanyEntity entity) async {
     try {
-
       final formData = FormData.fromMap({
         'phone': entity.phone,
         'otp_code': entity.otpCode,
         'full_name': entity.fullName,
 
-        if(entity.profileImage != null)
+        if (entity.profileImage != null)
           'profile_image': await MultipartFile.fromFile(
             entity.profileImage!,
             filename: entity.profileImage!.split('/').last,
           ),
       });
 
-
       final response = await api.post(
         Endpoints.signupCompany,
         data: formData,
-        options: Options(
-          contentType: 'multipart/form-data',
-        ),
+        options: Options(contentType: 'multipart/form-data'),
       );
 
-
       return response.data['access_token'];
-
-    } catch(error){
+    } catch (error) {
       throw mapDioError(error);
     }
   }
