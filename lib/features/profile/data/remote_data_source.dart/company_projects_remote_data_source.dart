@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart'; import 'package:plupool/core/di/service_locator.dart';
 import '../models/company_project_model.dart';
 
 abstract class CompanyResProjectsRemoteDataSource {
@@ -26,6 +26,8 @@ class CompanyResProjectsRemoteDataSourceImpl implements CompanyResProjectsRemote
     int skip = 0,
     int limit = 20,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final response = await apiService.get(
        '${Endpoints.baseUrl}/company/projects',
       queryParams: {
@@ -37,7 +39,7 @@ class CompanyResProjectsRemoteDataSourceImpl implements CompanyResProjectsRemote
       options: Options(
          headers: {
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOCIsInJvbGUiOiJjb21wYW55IiwiZXhwIjoxNzg1MDU0NjkxfQ.I2NxvyNr2oO5jUYoHcIVl5bXt_ez3RDxerlMY2u4MU8',
+              'Bearer $token',
         },
       )
     );

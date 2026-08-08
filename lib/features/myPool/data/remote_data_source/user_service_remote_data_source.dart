@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/myPool/data/models/user_services_model.dart';
@@ -15,6 +17,8 @@ class UserServiceRemoteDataSource {
     int? skip,
     int? limit,
   }) async {
+     final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final response = await apiService.get(
       '${Endpoints.baseUrl}/pool-owner/services',
       queryParams: {
@@ -26,10 +30,10 @@ class UserServiceRemoteDataSource {
       },
        options: Options(
         headers: {
-          'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+          'Authorization': 'Bearer $token',
         },
       ),
+    
     );
 
     return (response.data['items'] as List)

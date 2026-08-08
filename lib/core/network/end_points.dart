@@ -20,7 +20,7 @@ class Endpoints {
   static const String categoriesAll = '$baseUrl/products/categories/all';
   static const String productSearch = '$baseUrl/products/search';
   static const String productOffers = '$baseUrl/admin/products/active-offers';
-  static const String offers = '$baseUrl/admin/offers/';
+  static const String offers = '$baseUrl/offers/';
   static const String faq = '$baseUrl/admin/content/faqs';
   static const String servicesBookings = '$baseUrl/admin/service-bookings';
   static const String contactMessages = '$baseUrl/admin/contact/messages';

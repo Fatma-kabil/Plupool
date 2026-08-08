@@ -1,6 +1,9 @@
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/orders/data/models/order_model.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 
 class OrdersRemoteDataSource {
   final ApiService api;
@@ -12,35 +15,49 @@ class OrdersRemoteDataSource {
   /// ==============================
 
   Future<List<OrderModel>> getOrders(Map<String, dynamic> query) async {
-    final response = await api.get(Endpoints.orders, queryParams: query);
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+    final response = await api.get(
+      Endpoints.orders,
+      queryParams: query,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
 
     return (response.data as List).map((e) => OrderModel.fromJson(e)).toList();
   }
-Future<Map<String, dynamic>> getUserOrders({
-  required int userId,
-  String? status,
-  String? paymentMethod,
-  int page = 1,
-  int pageSize = 10,
-}) async {
-  final response = await api.get(
-    '${Endpoints.users}/$userId/orders',
-    queryParams: {
-      "status": status,
-      "payment_method": paymentMethod,
-      "page": page,
-      "page_size": pageSize,
-    }..removeWhere((key, value) => value == null),
-  );
 
-  return response.data;
-}
+  Future<Map<String, dynamic>> getUserOrders({
+    required int userId,
+    String? status,
+    String? paymentMethod,
+    int page = 1,
+    int pageSize = 10,
+  }) async {
+    final token = await sl<FlutterSecureStorage>().read(key: 'token');
+    final response = await api.get(
+      '${Endpoints.users}/$userId/orders',
+      queryParams: {
+        "status": status,
+        "payment_method": paymentMethod,
+        "page": page,
+        "page_size": pageSize,
+      }..removeWhere((key, value) => value == null),
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+
+    return response.data;
+  }
+
   /// ==============================
   /// GET ORDER DETAILS
   /// ==============================
 
   Future<OrderModel> getOrder(int id) async {
-    final response = await api.get('${Endpoints.orders}/$id');
+    final token = await sl<FlutterSecureStorage>().read(key: 'token');
+    final response = await api.get(
+      '${Endpoints.orders}/$id',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
     return OrderModel.fromJson(response.data);
   }
 
@@ -53,12 +70,14 @@ Future<Map<String, dynamic>> getUserOrders({
     String? status,
     String? notes,
   }) async {
+    final token = await sl<FlutterSecureStorage>().read(key: 'token');
     await api.put(
       '${Endpoints.orders}/$id',
       data: {
         if (status != null) "status": status,
         if (notes != null) "admin_notes": notes,
       },
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
 
@@ -67,7 +86,11 @@ Future<Map<String, dynamic>> getUserOrders({
   /// ==============================
 
   Future<void> deleteOrder(int id) async {
-    await api.delete('${Endpoints.orders}/$id');
+    final token = await sl<FlutterSecureStorage>().read(key: 'token');
+    await api.delete(
+      '${Endpoints.orders}/$id',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
 
   /// ==============================
@@ -75,9 +98,12 @@ Future<Map<String, dynamic>> getUserOrders({
   /// ==============================
 
   Future<void> updateStatus(int id, String status) async {
+    final token = await sl<FlutterSecureStorage>().read(key: 'token');
     await api.put(
       '${Endpoints.orders}/$id/status',
       data: {"new_status": status},
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    
     );
   }
 
@@ -90,9 +116,10 @@ Future<Map<String, dynamic>> getUserOrders({
     required int productId,
     required int quantity,
   }) async {
+    final token = await sl<FlutterSecureStorage>().read(key: 'token');
     await api.post(
       '${Endpoints.orders}/$orderId/items',
-
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
       queryParams: {"product_id": productId, "quantity": quantity},
     );
   }
@@ -107,6 +134,7 @@ Future<Map<String, dynamic>> getUserOrders({
     int? quantity,
     double? unitPrice,
   }) async {
+    final token = await sl<FlutterSecureStorage>().read(key: 'token');
     await api.put(
       '${Endpoints.orders}/$orderId/items/$itemId',
       queryParams: {
@@ -117,6 +145,7 @@ Future<Map<String, dynamic>> getUserOrders({
         if (quantity != null) "quantity": quantity,
         if (unitPrice != null) "unit_price": unitPrice,
       },
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
 
@@ -129,9 +158,11 @@ Future<Map<String, dynamic>> getUserOrders({
     required int itemId,
     bool restoreStock = true,
   }) async {
+    final token = await sl<FlutterSecureStorage>().read(key: 'token');
     await api.delete(
       '${Endpoints.orders}/$orderId/items/$itemId',
       data: {"restore_stock": restoreStock},
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
 
@@ -145,12 +176,14 @@ Future<Map<String, dynamic>> getUserOrders({
     required int newProductId,
     int? quantity,
   }) async {
+    final token = await sl<FlutterSecureStorage>().read(key: 'token');
     await api.patch(
       '${Endpoints.orders}/$orderId/items/$itemId/replace',
       data: {
         "new_product_id": newProductId,
         if (quantity != null) "quantity": quantity,
       },
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
 }

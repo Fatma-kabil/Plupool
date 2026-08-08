@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/store/data/models/add_to_cart_rquest_model.dart';
@@ -29,12 +31,14 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
 
   @override
   Future<void> addToCart({required AddToCartRequestModel request}) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     await apiService.post(
       '${Endpoints.baseUrl}/pool-owner/store/cart/items',
       options: Options(
         headers: {
-          'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+          'Authorization': 'Bearer $token',
         },
       ),
       data: request.toJson(),
@@ -43,12 +47,15 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
 
   @override
   Future<CartCountModel> getCartCount() async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     final data = await apiService.get(
       '${Endpoints.baseUrl}/pool-owner/store/cart/count',
       options: Options(
         headers: {
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+              'Bearer $token',
         },
       ),
     );
@@ -58,12 +65,14 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
 
   @override
   Future<CartModel> getCart() async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final response = await apiService.get(
       '${Endpoints.baseUrl}/pool-owner/store/cart',
       options: Options(
         headers: {
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+              'Bearer $token',
         },
       ),
     );
@@ -73,12 +82,15 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
 
   @override
   Future<void> deleteCartItem({required int cartItemId}) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     await apiService.delete(
       '${Endpoints.baseUrl}/pool-owner/store/cart/items/$cartItemId',
       options: Options(
         headers: {
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+              'Bearer $token',
         },
       ),
     );
@@ -89,12 +101,15 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
     required int cartItemId,
     required UpdateCartItemRequest request,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     await apiService.patch(
       '${Endpoints.baseUrl}/pool-owner/store/cart/items/$cartItemId',
       options: Options(
         headers: {
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+              'Bearer $token',
         },
       ),
       data: request.toJson(),
@@ -105,12 +120,15 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   Future<StoreOrderModel> confirmOrder({
     required ConfirmOrderRequestModel request,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     final response = await apiService.post(
       '${Endpoints.baseUrl}/pool-owner/store/orders',
        options: Options(
         headers: {
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+              'Bearer $token',
         },
       ),
       data: request.toJson(),

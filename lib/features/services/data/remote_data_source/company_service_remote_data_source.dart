@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/services/data/models/company_service_model.dart';
@@ -33,6 +35,8 @@ class CompanyServiceRemoteDataSourceImpl
     int? skip,
     int? limit,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final queryParams = <String, dynamic>{};
 
     if (status != null && status.isNotEmpty) {
@@ -57,7 +61,7 @@ class CompanyServiceRemoteDataSourceImpl
       options: Options(
         headers: {
           'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOCIsInJvbGUiOiJjb21wYW55IiwiZXhwIjoxNzg1Njc4Njc5fQ.ko2V_WPMshnbRo6dZeLdlXH-RRSiaMBq7SgsRu9InJw',
+              'Bearer $token',
         },
       ),
     );
@@ -73,6 +77,8 @@ Future<List<CompanyServiceModel>> getServicesPackages({
   int? skip,
   int? limit,
 }) async {
+  final storage = sl<FlutterSecureStorage>();
+  final token = await storage.read(key: 'token');
   final queryParams = <String, dynamic>{};
 
   if (status != null && status.isNotEmpty) {
@@ -97,7 +103,7 @@ Future<List<CompanyServiceModel>> getServicesPackages({
     options: Options(
       headers: {
         'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOCIsInJvbGUiOiJjb21wYW55IiwiZXhwIjoxNzg1Njc4Njc5fQ.ko2V_WPMshnbRo6dZeLdlXH-RRSiaMBq7SgsRu9InJw',
+            'Bearer $token',
       },
     ),
   );

@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/offers/data/models/offer_model.dart';
-
 import 'package:plupool/features/products/data/models/product_params_model.dart';
 
 class OfferRemoteDataSource {
@@ -11,6 +13,7 @@ class OfferRemoteDataSource {
   OfferRemoteDataSource(this.api);
 
   /// ================= GET ALL =================
+  /// ❌ بدون توكن
   Future<List<OfferModel>> getAllOffers(ProductParams params) async {
     try {
       final response = await api.get(
@@ -28,19 +31,27 @@ class OfferRemoteDataSource {
   }
 
   /// ================= GET BY ID =================
-  Future<OfferModel> getOffer(int id) async {
-    try {
-      final response = await api.get('${Endpoints.offers}$id');
+  /// 🔐 بالتوكن
+  Future getOffer(int id) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
 
-      return OfferModel.fromJson(response.data);
-    } catch (e) {
-      throw mapDioError(e); // 🔥 هنا السحر
-    }
+    final response = await api.get(
+      '${Endpoints.offers}$id',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+
+    return OfferModel.fromJson(response.data);
   }
 
-  Future<void> addOffer(OfferModel offer) async {
-    final formData = await offer.toFormData(); // FormData + الصور
-    /// 🔥 حطي الـ debug هنا
+  /// ================= ADD =================
+  /// 🔐 بالتوكن
+  Future addOffer(OfferModel offer) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
+    final formData = await offer.toFormData();
+
     print("FIELDS:");
     for (var field in formData.fields) {
       print(field);
@@ -51,18 +62,38 @@ class OfferRemoteDataSource {
       print(file.key);
       print(file.value.filename);
     }
-    await api.post(Endpoints.offers, data: formData);
+
+    await api.post(
+      Endpoints.offers,
+      data: formData,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
 
   /// ================= UPDATE =================
-  Future<void> updateOffer(OfferModel offer) async {
-    final formData = await offer.toFormData(); // FormData + الصور
-    //  print("UPDATE RESPONSE: ${response.data}");
-    await api.put('${Endpoints.offers}${offer.id}', data: formData);
+  /// 🔐 بالتوكن
+  Future updateOffer(OfferModel offer) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
+    final formData = await offer.toFormData();
+
+    await api.put(
+      '${Endpoints.offers}${offer.id}',
+      data: formData,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
 
   /// ================= DELETE =================
-  Future<void> deleteOffer(int id) async {
-    await api.delete('${Endpoints.offers}$id');
+  /// 🔐 بالتوكن
+  Future deleteOffer(int id) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
+    await api.delete(
+      '${Endpoints.offers}$id',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
 }

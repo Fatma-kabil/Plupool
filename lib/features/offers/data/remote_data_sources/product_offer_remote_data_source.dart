@@ -1,14 +1,16 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/features/offers/data/models/product_offer_model.dart';
 import 'package:plupool/features/products/data/models/product_model.dart';
-
 import '../../../../core/network/end_points.dart';
 
 class ProductOfferRemoteDataSource {
   final ApiService api;
 
   ProductOfferRemoteDataSource({required this.api});
-   Future<List<ProductModel>> getActiveOffers({
+  Future<List<ProductModel>> getActiveOffers({
     int skip = 0,
     int limit = 100,
     List<int>? categoryIds, // ✅ بدل int
@@ -36,24 +38,35 @@ class ProductOfferRemoteDataSource {
   }
 
   Future<void> addProductOffer(ProductOfferModel product) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final body = product.toJson();
     print("SEND OFFER => $body");
     await api.post(
       '${Endpoints.products}${product.id}/offer',
       data: product.toJson(),
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
 
   /// ================= UPDATE =================
   Future<void> updateProductOffer(ProductOfferModel product) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     await api.put(
       '${Endpoints.products}${product.id}/offer',
       data: product.toJson(),
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
 
   /// ================= DELETE =================
   Future<void> deleteProductOffer(int id) async {
-    await api.delete('${Endpoints.products}$id/offer');
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+    await api.delete(
+      '${Endpoints.products}$id/offer',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
 }

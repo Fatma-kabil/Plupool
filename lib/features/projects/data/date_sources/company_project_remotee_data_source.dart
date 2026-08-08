@@ -1,3 +1,6 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/features/projects/data/models/projects_statistics_model.dart';
 import 'package:plupool/features/projects/domain/params/client_project_params.dart';
@@ -15,6 +18,9 @@ class CompanyProjectsRemoteDataSourceImpl {
     int limit = 50,
     String? status,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     final response = await api.get(
       '${Endpoints.projects}/company-projects',
       queryParams: {
@@ -22,6 +28,7 @@ class CompanyProjectsRemoteDataSourceImpl {
         'limit': limit,
         if (status != null) 'status': status,
       },
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
 
     final List list = response.data['projects'];
@@ -30,7 +37,9 @@ class CompanyProjectsRemoteDataSourceImpl {
   }
 
   Future<ProjectStatisticsModel> getProjectStatistics() async {
-    final response = await api.get('${Endpoints.projects}/statistics');
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+    final response = await api.get('${Endpoints.projects}/statistics', options: Options(headers: {'Authorization': 'Bearer $token'}));
 
     return ProjectStatisticsModel.fromJson(response.data);
   }
@@ -38,9 +47,12 @@ class CompanyProjectsRemoteDataSourceImpl {
   Future<List<CompanyProjectModel>> getClientProjects({
     required ClientProjectsParams params,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final response = await api.get(
       '${Endpoints.projects}/clients/${params.clientId}/projects',
       queryParams: params.toQuery(),
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
 
     final raw = response.data['projects'];
@@ -51,10 +63,14 @@ class CompanyProjectsRemoteDataSourceImpl {
   }
 
   Future<void> deleteProject(int projectId) async {
-    await api.delete('${Endpoints.projects}/$projectId');
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+    await api.delete('${Endpoints.projects}/$projectId', options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
 
   Future<void> updateProjectProgress(UpdateProjectProgressParams params) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     await api.patch(
       '${Endpoints.projects}/${params.projectId}/progress',
       queryParams: {
@@ -62,6 +78,7 @@ class CompanyProjectsRemoteDataSourceImpl {
         if (params.newStatus != null) 'new_status': params.newStatus,
         if (params.adminNotes != null) 'admin_notes': params.adminNotes,
       },
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
 }

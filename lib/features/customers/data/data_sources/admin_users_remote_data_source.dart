@@ -1,3 +1,6 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 
@@ -16,6 +19,9 @@ class AdminUsersRemoteDataSource {
     String sortBy = "created_at",
     String sortOrder = "desc",
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     final response = await api.get(
       Endpoints.users,
       queryParams: {
@@ -28,22 +34,48 @@ class AdminUsersRemoteDataSource {
         "sort_by": sortBy,
         "sort_order": sortOrder,
       }..removeWhere((key, value) => value == null),
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
     );
 
     return response.data;
   }
 
   Future<Map<String, dynamic>> getUserDetails(int id) async {
-    final response = await api.get('${Endpoints.users}/$id');
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
+    final response = await api.get(
+      '${Endpoints.users}/$id',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
 
     return response.data;
   }
 
   Future<Map<String, dynamic>> addUser(
-
     Map<String, dynamic> body,
   ) async {
-    final response = await api.post('${Endpoints.users}/', data: body);
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
+    final response = await api.post(
+      '${Endpoints.users}/',
+      data: body,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
 
     return response.data;
   }
@@ -52,13 +84,36 @@ class AdminUsersRemoteDataSource {
     int id,
     Map<String, dynamic> body,
   ) async {
-      body.removeWhere((key, value) => value == null);
-    final response = await api.put('${Endpoints.users}/$id', data: body);
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
+    body.removeWhere((key, value) => value == null);
+
+    final response = await api.put(
+      '${Endpoints.users}/$id',
+      data: body,
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
 
     return response.data;
   }
 
   Future<void> deleteUser(int id) async {
-    await api.delete('${Endpoints.users}$id');
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
+    await api.delete(
+      '${Endpoints.users}$id',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
   }
 }

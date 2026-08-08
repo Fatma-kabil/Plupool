@@ -1,3 +1,6 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/projects/data/models/our_project_moddel.dart';
@@ -32,23 +35,32 @@ class OurProjectsRemoteDataSource {
   }
 
   Future<void> updateProject(UpdateProjectRequest request) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final formData = await request.toFormData();
 
     await apiService.patch(
       "${Endpoints.projects}/${request.projectId}/update-with-image",
       data: formData,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
 
   Future<void> addProject(UpdateProjectRequest request) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final formData = await request.toFormData();
 
-    await apiService.post("${Endpoints.projects}/", data: formData);
+    await apiService.post("${Endpoints.projects}/", data: formData, options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
 
   Future<String> toggleProjectActive(int projectId) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     final response = await apiService.patch(
       '${Endpoints.projects}/$projectId/toggle-active',
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
 
     return response.data.toString();

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/home/data/models/add_support_message_model.dart';
@@ -9,7 +11,12 @@ class SupportRemoteDataSource {
 
   SupportRemoteDataSource(this.api);
 
-  Future<void> addSupportMessage(AddSupportMessageParams params) async {
+  Future<void> addSupportMessage(
+    AddSupportMessageParams params,
+  ) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     final model = AddSupportMessageModel.fromParams(params);
 
     await api.post(
@@ -17,8 +24,7 @@ class SupportRemoteDataSource {
       data: await model.toFormData(),
       options: Options(
         headers: {
-          'Authorization':
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6InBvb2xfb3duZXIiLCJleHAiOjE3ODU1OTgzNTh9.mlzkmAfen0LawV5hQKEL7fxAeHJV7juTOf-G2LGHsDo',
+          'Authorization': 'Bearer $token',
         },
       ),
     );

@@ -4,6 +4,9 @@ import 'package:plupool/features/packages/data/models/create_package_request.dar
 import '../models/packages_response_model.dart';
 import '../models/package_model.dart';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
+
 class PackagesRemoteDataSource {
   final Dio dio;
 
@@ -15,6 +18,8 @@ class PackagesRemoteDataSource {
     String? search,
     int limit = 200,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final res = await dio.get(
       Endpoints.packages,
       queryParameters: {
@@ -23,44 +28,52 @@ class PackagesRemoteDataSource {
         "search": search,
         "limit": limit,
       },
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
 
     return PackagesResponseModel.fromJson(res.data);
   }
 
   Future<PackageModel> getPackage(int id) async {
-    final res = await dio.get("${Endpoints.packages}/$id");
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+    final res = await dio.get(
+      "${Endpoints.packages}/$id",
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
     return PackageModel.fromJson(res.data);
   }
-Future<void> updateProgress({
-  required int packageId,
-  required int bookingId,
-  String? status,
-  DateTime? nextDate,
-  String? notes,
-}) async {
-  final Map<String, dynamic> queryParameters = {
-    "booking_id": bookingId,
-  };
 
-  if (status != null) {
-    queryParameters["status"] = status;
+  Future<void> updateProgress({
+    required int packageId,
+    required int bookingId,
+    String? status,
+    DateTime? nextDate,
+    String? notes,
+  }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+    final Map<String, dynamic> queryParameters = {"booking_id": bookingId};
+
+    if (status != null) {
+      queryParameters["status"] = status;
+    }
+
+    if (nextDate != null) {
+      queryParameters["next_maintenance_date"] = nextDate.toIso8601String();
+    }
+
+    if (notes != null && notes.isNotEmpty) {
+      queryParameters["admin_notes"] = notes;
+    }
+
+    await dio.patch(
+      "${Endpoints.packages}/$packageId/progress",
+      queryParameters: queryParameters,
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
   }
 
-  if (nextDate != null) {
-    queryParameters["next_maintenance_date"] =
-        nextDate.toIso8601String();
-  }
-
-  if (notes != null && notes.isNotEmpty) {
-    queryParameters["admin_notes"] = notes;
-  }
-
-  await dio.patch(
-    "${Endpoints.packages}/$packageId/progress",
-    queryParameters: queryParameters,
-  );
-}
   Future<void> addVisit({
     required int packageId,
     required int userId,
@@ -68,6 +81,8 @@ Future<void> updateProgress({
     required String time,
     String? notes,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     await dio.post(
       "${Endpoints.packages}/$packageId/visits",
       queryParameters: {
@@ -76,12 +91,17 @@ Future<void> updateProgress({
         "booking_time": time,
         "admin_notes": notes,
       },
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
+
   Future<void> createPackage(CreatePackageRequest request) async {
-  await dio.post(
-    Endpoints.packages,
-    data: request.toJson(),
-  );
-}
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+    await dio.post(
+      Endpoints.packages,
+      data: request.toJson(),
+      options: Options(headers: {'Authorization': 'Bearer $token'}),
+    );
+  }
 }

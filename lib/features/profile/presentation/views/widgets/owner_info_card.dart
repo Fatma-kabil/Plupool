@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:plupool/core/utils/functions/split_phone.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/build_info_row.dart';
 
@@ -7,16 +7,19 @@ import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class OwnerInfoCard extends StatelessWidget {
   const OwnerInfoCard({super.key, required this.model});
- final UserEntity model;
+  final UserEntity model;
   @override
   Widget build(BuildContext context) {
-    final phoneData = splitPhone(model.phone);
 
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.only(top: SizeConfig.h(20),bottom:SizeConfig.h(20),right: SizeConfig.w(8) ),
+      padding: EdgeInsets.only(
+        top: SizeConfig.h(20),
+        bottom: SizeConfig.h(20),
+        right: SizeConfig.w(8),
+      ),
       decoration: BoxDecoration(
-       color:  Colors.white,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
@@ -28,25 +31,25 @@ class OwnerInfoCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BuildInfoRow(
             icon: Icons.person_outline,
             title: 'الاسم',
             value: model.fullName,
           ),
-          SizedBox(height:SizeConfig.h(15) ),
+          SizedBox(height: SizeConfig.h(15)),
           BuildInfoRow(
             icon: Icons.location_on_outlined,
             title: 'مكان الإقامة',
             value: model.address,
           ),
-         
-         SizedBox(height:SizeConfig.h(15) ),
+
+          SizedBox(height: SizeConfig.h(15)),
           BuildInfoRow(
             icon: Icons.phone_outlined,
             title: 'رقم الهاتف',
-            value: phoneData.number,
+            value: toArabicNumbers(model.phone),
           ),
         ],
       ),

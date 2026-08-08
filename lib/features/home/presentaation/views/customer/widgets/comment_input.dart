@@ -152,7 +152,9 @@ class CommentInput extends StatelessWidget {
                   onTap: state is RatingLoading
                       ? null
                       : () {
-                          cubit.addRating();
+                          cubit.addRating(
+                            
+                          );
                         },
                   child: Container(
                     width: SizeConfig.w(32),

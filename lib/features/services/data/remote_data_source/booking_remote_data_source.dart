@@ -1,3 +1,6 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/services/data/models/booking_model.dart';
@@ -15,6 +18,9 @@ class BookingRemoteDataSource {
     String? type,
     String? search,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+
     final params = {
       'status_filter': status,
       'booking_type': type,
@@ -26,13 +32,15 @@ class BookingRemoteDataSource {
     /// 🔥 أهم خطوة
     params.removeWhere((key, value) => value == null);
 
-    final res = await api.get(Endpoints.servicesBookings, queryParams: params);
+    final res = await api.get(Endpoints.servicesBookings, queryParams: params, options: Options(headers: {'Authorization': 'Bearer $token'}));
 
     return BookingResponseModel.fromJson(res.data);
   }
 
   Future<BookingModel> getBookingDetails(int id) async {
-    final res = await api.get('${Endpoints.servicesBookings}/$id');
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+    final res = await api.get('${Endpoints.servicesBookings}/$id', options: Options(headers: {'Authorization': 'Bearer $token'}));
 
     return BookingModel.fromJson(res.data);
   }
@@ -41,12 +49,14 @@ class BookingRemoteDataSource {
     required int id,
     required BookingModel booking,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final body = booking.toJson();
 
     print("============== UPDATE BODY ==============");
     print(body);
 
-    final res = await api.put('${Endpoints.servicesBookings}/$id', data: body);
+    final res = await api.put('${Endpoints.servicesBookings}/$id', data: body, options: Options(headers: {'Authorization': 'Bearer $token'}));
 
     print("============== RESPONSE ==============");
     print(res.data);
@@ -60,12 +70,14 @@ class BookingRemoteDataSource {
   
     required BookingModel booking,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
     final body = booking.toJson();
 
     print("============== UPDATE BODY ==============");
     print(body);
 
-    final res = await api.post(Endpoints.servicesBookings, data: body);
+    final res = await api.post(Endpoints.servicesBookings, data: body, options: Options(headers: {'Authorization': 'Bearer $token'}));
 
     print("============== RESPONSE ==============");
     print(res.data);
@@ -76,7 +88,9 @@ class BookingRemoteDataSource {
 
 
   Future<void> deleteBooking(int id) async {
-    await api.delete('${Endpoints.servicesBookings}/$id');
+    final storage = sl<FlutterSecureStorage>();
+    final token = await storage.read(key: 'token');
+    await api.delete('${Endpoints.servicesBookings}/$id', options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
 
 

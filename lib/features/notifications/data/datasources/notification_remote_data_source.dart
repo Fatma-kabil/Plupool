@@ -1,3 +1,6 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/network/api_service.dart';
 import 'package:plupool/core/network/end_points.dart';
 import 'package:plupool/features/notifications/data/models/device_registration_model.dart';
@@ -7,38 +10,54 @@ import 'package:plupool/features/notifications/data/models/send_notification_res
 import 'package:plupool/features/notifications/data/models/unread_count_model.dart';
 
 abstract class NotificationRemoteDataSource {
-  Future<DeviceRegistrationModel> registerDevice({
+  Future registerDevice({
     required String token,
     required String platform,
     required String deviceId,
   });
+
   Future<List<NotificationModel>> getNotifications({
     bool? unreadOnly,
     int skip = 0,
     int limit = 100,
   });
-  Future<void> markNotificationAsRead({required int notificationId});
-  Future<void> unregisterDevice({required int registrationId});
-  Future<UnreadCountModel> getUnreadCount();
-  Future<SendNotificationResponseModel> sendBroadcastNotification(
+
+  Future markNotificationAsRead({required int notificationId});
+  Future unregisterDevice({required int registrationId});
+  Future getUnreadCount();
+
+  Future sendBroadcastNotification(
     SendNotificationRequestModel request,
   );
 }
 
-class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
+class NotificationRemoteDataSourceImpl
+    implements NotificationRemoteDataSource {
   final ApiService apiService;
 
   NotificationRemoteDataSourceImpl(this.apiService);
 
   @override
-  Future<DeviceRegistrationModel> registerDevice({
+  Future registerDevice({
     required String token,
     required String platform,
     required String deviceId,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final authToken = await storage.read(key: 'token');
+
     final response = await apiService.post(
       '${Endpoints.baseUrl}/notifications/devices',
-      data: {"token": token, "platform": platform, "device_id": deviceId},
+      data: {
+        "token": token,
+        "platform": platform,
+        "device_id": deviceId,
+      },
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $authToken',
+        },
+      ),
     );
 
     print("========== REGISTER DEVICE ==========");
@@ -55,14 +74,21 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
     int skip = 0,
     int limit = 100,
   }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final authToken = await storage.read(key: 'token');
+
     final response = await apiService.get(
       '${Endpoints.baseUrl}/notifications',
       queryParams: {
         if (unreadOnly != null) 'unread_only': unreadOnly,
-
         'skip': skip,
         'limit': limit,
       },
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $authToken',
+        },
+      ),
     );
 
     print("========== GET NOTIFICATIONS ==========");
@@ -76,35 +102,71 @@ class NotificationRemoteDataSourceImpl implements NotificationRemoteDataSource {
   }
 
   @override
-  Future<void> markNotificationAsRead({required int notificationId}) async {
+  Future markNotificationAsRead({
+    required int notificationId,
+  }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final authToken = await storage.read(key: 'token');
+
     await apiService.patch(
       '${Endpoints.baseUrl}/notifications/$notificationId/read',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $authToken',
+        },
+      ),
     );
   }
 
   @override
-  Future<void> unregisterDevice({required int registrationId}) async {
+  Future unregisterDevice({
+    required int registrationId,
+  }) async {
+    final storage = sl<FlutterSecureStorage>();
+    final authToken = await storage.read(key: 'token');
+
     await apiService.delete(
       '${Endpoints.baseUrl}/notifications/devices/$registrationId',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $authToken',
+        },
+      ),
     );
   }
 
   @override
-  Future<UnreadCountModel> getUnreadCount() async {
+  Future getUnreadCount() async {
+    final storage = sl<FlutterSecureStorage>();
+    final authToken = await storage.read(key: 'token');
+
     final response = await apiService.get(
       '${Endpoints.baseUrl}/notifications/unread-count',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $authToken',
+        },
+      ),
     );
 
     return UnreadCountModel.fromJson(response.data);
   }
 
   @override
-  Future<SendNotificationResponseModel> sendBroadcastNotification(
+  Future sendBroadcastNotification(
     SendNotificationRequestModel request,
   ) async {
+    final storage = sl<FlutterSecureStorage>();
+    final authToken = await storage.read(key: 'token');
+
     final response = await apiService.post(
       '${Endpoints.baseUrl}/admin/notifications/broadcast',
       data: request.toJson(),
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $authToken',
+        },
+      ),
     );
 
     print("========== SEND BROADCAST ==========");

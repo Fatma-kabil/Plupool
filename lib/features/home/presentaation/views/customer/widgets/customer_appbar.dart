@@ -49,47 +49,9 @@ class CustomerAppbar extends StatelessWidget {
               const Spacer(),
 
               // 📞 تواصل معنا
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => const Dialog(
-                      backgroundColor: Colors.white,
-                      insetPadding: EdgeInsets.all(20),
-                      child: ContactUsCard(),
-                    ),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.kprimarycolor),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.w(5),
-                      vertical: SizeConfig.h(5),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.phone,
-                          color: AppColors.kprimarycolor,
-                          size: SizeConfig.w(14),
-                        ),
-                        SizedBox(width: SizeConfig.w(2)),
-                        Text(
-                          'تواصل معنا',
-                          style: AppTextStyles.styleBold13(context)
-                              .copyWith(color: AppColors.kprimarycolor),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+             
 
-              SizedBox(width: SizeConfig.w(10)),
+            
 
               NotificationButton(
                 onTap: () {
