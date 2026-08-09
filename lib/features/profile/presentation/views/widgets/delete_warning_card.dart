@@ -4,8 +4,12 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class DeleteWarningCard extends StatelessWidget {
-  const DeleteWarningCard({super.key, required this.value, required this.onChanged});
-   final bool value;
+  const DeleteWarningCard({
+    super.key,
+    required this.value,
+    required this.onChanged,
+  });
+  final bool value;
   final ValueChanged<bool> onChanged;
 
   @override
@@ -20,10 +24,10 @@ class DeleteWarningCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     "تنبيه هام",
@@ -31,48 +35,42 @@ class DeleteWarningCard extends StatelessWidget {
                       context,
                     ).copyWith(color: Color(0xffE63946)),
                   ),
-                  SizedBox(width:SizeConfig.w(4) ),
-                  Icon(Icons.warning_amber_rounded, color: Color(0xffE63946),size: SizeConfig.w(18),),
+                  SizedBox(width: SizeConfig.w(4)),
+                  Icon(
+                    Icons.warning_amber_rounded,
+                    color: Color(0xffE63946),
+                    size: SizeConfig.w(18),
+                  ),
                 ],
               ),
-               SizedBox(height: SizeConfig.h(8)),
-               Text(
+              SizedBox(height: SizeConfig.h(8)),
+              Text(
                 "سيتم حذف حسابك وكل بياناتك بشكل نهائي، ولن يمكنك استعادتها لاحقًا.",
                 textAlign: TextAlign.right,
                 textDirection: TextDirection.rtl,
-                style:AppTextStyles.styleSemiBold16(context).copyWith(color: AppColors.ktextcolor)
+                style: AppTextStyles.styleSemiBold16(
+                  context,
+                ).copyWith(color: AppColors.ktextcolor),
               ),
               SizedBox(height: SizeConfig.h(8)),
-               Text(
+              Text(
                 textDirection: TextDirection.rtl,
                 "• سيتم حذف معلوماتك الشخصية.\n• سيتم حذف طلباتك وسجل مشترياتك.\n• لن تتمكن من تسجيل الدخول باستخدام هذا الحساب مرة أخرى.",
                 textAlign: TextAlign.right,
-                style: AppTextStyles.styleRegular14(context).copyWith(color: Color(0xff555555),height: 1.9)
+                style: AppTextStyles.styleRegular14(
+                  context,
+                ).copyWith(color: Color(0xff555555), height: 1.9),
               ),
-              
-             
             ],
           ),
         ),
-         SizedBox(height: SizeConfig.h( 35)),
-                Row(
+        SizedBox(height: SizeConfig.h(35)),
+        Row(
           //   textDirection: TextDirection.rtl,
           //   mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
             // النص على الشمال
-           
-            Expanded(
-              child: Padding(
-                padding:  EdgeInsets.only(right:SizeConfig.w(6) ),
-                child: Text(
-                  textDirection: TextDirection.rtl,
-                  'أقر بأنني أفهم أن عملية الحذف نهائية ولا يمكن التراجع عنها.',
-                  style: AppTextStyles.styleRegular14(context).copyWith(color: Color(0xff777777)),
-                ),
-              ),
-            ),
-        
             InkWell(
               onTap: () => onChanged(!value),
               child:
@@ -101,8 +99,20 @@ class DeleteWarningCard extends StatelessWidget {
                         : null,
                   ),
             ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: SizeConfig.w(6)),
+                child: Text(
+                  textDirection: TextDirection.rtl,
+                  'أقر بأنني أفهم أن عملية الحذف نهائية ولا يمكن التراجع عنها.',
+                  style: AppTextStyles.styleRegular14(
+                    context,
+                  ).copyWith(color: Color(0xff777777)),
+                ),
+              ),
+            ),
           ],
-        )
+        ),
       ],
     );
   }

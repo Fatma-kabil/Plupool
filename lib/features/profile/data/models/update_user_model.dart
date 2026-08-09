@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
+
 class UpdateUserModel {
   final String? email;
   final String? phone;
   final String? fullName;
-  final String? profileImage; // هنا بتخزن مسار الصورة لو متوفرة
+  final String? profileImage;
   final String? role;
   final double? latitude;
   final double? longitude;
@@ -45,22 +47,85 @@ class UpdateUserModel {
       longitude: longitude ?? this.longitude,
       address: address ?? this.address,
       skills: skills ?? this.skills,
-      yearsOfExperience: yearsOfExperience ?? this.yearsOfExperience,
+      yearsOfExperience:
+          yearsOfExperience ?? this.yearsOfExperience,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      "email": email,
-      "phone": phone,
-      "full_name": fullName,
-      "profile_image": profileImage,
-      "role": role,
-      "latitude": latitude,
-      "longitude": longitude,
-      "address": address,
-      "skills": skills,
-      "years_of_experience": yearsOfExperience,
-    };
+  Future<FormData> toFormData() async {
+    final formData = FormData();
+
+    if (email != null) {
+      formData.fields.add(
+        MapEntry('email', email!),
+      );
+    }
+
+    if (phone != null) {
+      formData.fields.add(
+        MapEntry('phone', phone!),
+      );
+    }
+
+    if (fullName != null) {
+      formData.fields.add(
+        MapEntry('full_name', fullName!),
+      );
+    }
+
+    if (role != null) {
+      formData.fields.add(
+        MapEntry('role', role!),
+      );
+    }
+
+    if (latitude != null) {
+      formData.fields.add(
+        MapEntry('latitude', latitude.toString()),
+      );
+    }
+
+    if (longitude != null) {
+      formData.fields.add(
+        MapEntry('longitude', longitude.toString()),
+      );
+    }
+
+    if (address != null) {
+      formData.fields.add(
+        MapEntry('address', address!),
+      );
+    }
+
+    if (skills != null) {
+      formData.fields.add(
+        MapEntry('skills', skills!),
+      );
+    }
+
+    if (yearsOfExperience != null) {
+      formData.fields.add(
+        MapEntry(
+          'years_of_experience',
+          yearsOfExperience.toString(),
+        ),
+      );
+    }
+
+    // الصورة
+    if (profileImage != null && profileImage!.isNotEmpty) {
+      formData.files.add(
+        MapEntry(
+          'profile_image',
+          await MultipartFile.fromFile(
+            profileImage!,
+            filename: profileImage!.split('/').last,
+          ),
+        ),
+      );
+    }
+
+    return formData;
   }
 }
+

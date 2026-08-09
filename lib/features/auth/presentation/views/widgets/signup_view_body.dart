@@ -89,7 +89,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
               );
             },
           );
-          await Future.delayed(const Duration(seconds: 2));
+          await Future.delayed(const Duration(seconds: 1));
           // ignore: use_build_context_synchronously
           final role = context.read<SelectRoleCubit>().state;
           if (role is GetRoleSuccess && role.roleName.contains("فني")) {

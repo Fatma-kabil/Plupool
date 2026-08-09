@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
+import 'package:plupool/core/utils/functions/split_phone.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/build_info_row.dart';
-
 import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class OwnerInfoCard extends StatelessWidget {
   const OwnerInfoCard({super.key, required this.model});
+
   final UserEntity model;
+
   @override
   Widget build(BuildContext context) {
+    // فصل كود الدولة عن رقم الهاتف
+    final phoneData = splitPhone2(model.phone);
 
     return Container(
       width: double.infinity,
@@ -38,7 +43,9 @@ class OwnerInfoCard extends StatelessWidget {
             title: 'الاسم',
             value: model.fullName,
           ),
+
           SizedBox(height: SizeConfig.h(15)),
+
           BuildInfoRow(
             icon: Icons.location_on_outlined,
             title: 'مكان الإقامة',
@@ -46,10 +53,64 @@ class OwnerInfoCard extends StatelessWidget {
           ),
 
           SizedBox(height: SizeConfig.h(15)),
-          BuildInfoRow(
-            icon: Icons.phone_outlined,
-            title: 'رقم الهاتف',
-            value: toArabicNumbers(model.phone),
+          Text(
+            'رقم الهاتف',
+
+            style: AppTextStyles.styleMedium16(
+              context,
+            ).copyWith(color: Color(0xff555555)),
+          ),
+          SizedBox(height: SizeConfig.h(8)),
+          Row(
+            textDirection: TextDirection.rtl,
+            children: [
+              Icon(
+                Icons.phone_outlined,
+                color: Color(0xff777777),
+                size: SizeConfig.w(14),
+              ),
+
+              SizedBox(width: SizeConfig.w(6)),
+
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: RichText(
+                      textDirection: TextDirection.rtl,
+                      text: TextSpan(
+                        style: AppTextStyles.styleRegular16(
+                          context,
+                        ).copyWith(color: const Color(0xff777777)),
+                        children: [
+                          const TextSpan(text: '+'),
+                          const TextSpan(text: ' '),
+
+                          // كود الدولة
+                          TextSpan(
+                            text: reverseNumbers(
+                              toArabicNumbers(
+                                getCountryCodeDigits(phoneData.countryCode),
+                              ),
+                            ),
+                          ),
+
+                          const TextSpan(text: ' '),
+
+                          // رقم الهاتف
+                          TextSpan(
+                            text: reverseNumbers(
+                              toArabicNumbers(phoneData.number),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

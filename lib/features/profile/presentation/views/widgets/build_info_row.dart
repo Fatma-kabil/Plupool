@@ -37,7 +37,7 @@ class BuildInfoRow extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 value,
 
-                style: AppTextStyles.styleRegular13(
+                style: AppTextStyles.styleRegular16(
                   context,
                 ).copyWith(color: Color(0xff777777)),
               ),

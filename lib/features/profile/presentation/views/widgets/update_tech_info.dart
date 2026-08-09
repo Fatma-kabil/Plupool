@@ -10,7 +10,11 @@ import 'package:plupool/features/profile/data/models/update_user_model.dart';
 import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class UpdateTechInfo extends StatefulWidget {
-  const UpdateTechInfo({super.key, required this.user});
+  const UpdateTechInfo({
+    super.key,
+    required this.user,
+  });
+
   final UserEntity user;
 
   @override
@@ -27,22 +31,42 @@ class UpdateTechInfoState extends State<UpdateTechInfo> {
   late TextEditingController expController;
   late TextEditingController phoneController;
 
-  String selectedCountryCode = '+20'; // القيمة الافتراضية
+  String selectedCountryCode = '+20';
 
   @override
   void initState() {
     super.initState();
 
-    nameController = TextEditingController(text: widget.user.fullName);
-    locationController = TextEditingController(text: widget.user.address);
-    skillsController = TextEditingController(text: widget.user.skills);
-    expController =
-        TextEditingController(text: widget.user.yearsOfExperience.toString());
+    // الاسم
+    nameController = TextEditingController(
+      text: widget.user.fullName,
+    );
 
+    // العنوان
+    locationController = TextEditingController(
+      text: widget.user.address,
+    );
+
+    // المهارات
+    skillsController = TextEditingController(
+      text: widget.user.skills,
+    );
+
+    // سنوات الخبرة
+    expController = TextEditingController(
+      text: widget.user.yearsOfExperience.toString(),
+    );
+
+    // تقسيم رقم الهاتف إلى Country Code + Number
     final phoneData = splitPhone(widget.user.phone);
-    selectedCountryCode =
-        phoneData.countryCode.isNotEmpty ? phoneData.countryCode : '+20';
-    phoneController = TextEditingController(text: phoneData.number);
+
+    selectedCountryCode = phoneData.countryCode.isNotEmpty
+        ? phoneData.countryCode
+        : '+20';
+
+    phoneController = TextEditingController(
+      text: phoneData.number,
+    );
   }
 
   @override
@@ -52,20 +76,30 @@ class UpdateTechInfoState extends State<UpdateTechInfo> {
     skillsController.dispose();
     expController.dispose();
     phoneController.dispose();
+
     super.dispose();
   }
 
+  /// تجهيز البيانات التي سيتم إرسالها للـ API
   UpdateUserModel getUpdateUserModel() {
     return UpdateUserModel(
-      fullName: nameController.text,
+      fullName: nameController.text.trim(),
+
       phone: mergePhone(
         countryCode: selectedCountryCode,
-        number: phoneController.text,
+        number: phoneController.text.trim(),
       ),
-      address: locationController.text,
-      skills: skillsController.text,
-      yearsOfExperience: int.tryParse(expController.text) ?? 0,
+
+      address: locationController.text.trim(),
+
+      skills: skillsController.text.trim(),
+
+      yearsOfExperience:
+          int.tryParse(expController.text.trim()) ?? 0,
+
       role: 'technician',
+
+      // الحقول دي مش مستخدمة هنا
       profileImage: null,
       latitude: null,
       longitude: null,
@@ -75,8 +109,11 @@ class UpdateTechInfoState extends State<UpdateTechInfo> {
 
   @override
   Widget build(BuildContext context) {
-    // تحويل كود الدولة لـ ISO لعرض العلم
-    final iso = countryCodeFromDialCode(selectedCountryCode) ?? 'EG';
+    // تحويل Country Code إلى ISO
+    final iso =
+        countryCodeFromDialCode(selectedCountryCode) ?? 'EG';
+
+    // الحصول على Flag
     final flag = flagEmojiFromIso(iso);
 
     return Container(
@@ -100,89 +137,139 @@ class UpdateTechInfoState extends State<UpdateTechInfo> {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // =========================
           // الاسم
+          // =========================
           Text(
             'الاسم',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           CustomTextFormField(
             controller: nameController,
             hintText: 'ادخل اسمك',
             icon: Icons.person_2_outlined,
             validator: (v) => Validators.name(v),
           ),
+
           SizedBox(height: SizeConfig.h(15)),
 
+          // =========================
           // مكان الإقامة
+          // =========================
           Text(
             'مكان الإقامة',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           CustomTextFormField(
             controller: locationController,
             hintText: 'ادخل مكان الإقامة',
             icon: Icons.location_on_outlined,
-            validator: (v) =>
-                Validators.required(v, fieldName: 'مكان الإقامة'),
+            validator: (v) => Validators.required(
+              v,
+              fieldName: 'مكان الإقامة',
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(15)),
 
+          // =========================
           // المهارات
+          // =========================
           Text(
             'المهارات',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           CustomTextFormField(
             controller: skillsController,
             hintText: 'أدخل مهاراتك مفصولة بفاصلة',
             icon: Icons.build_outlined,
-            validator: (v) => Validators.required(v),
+            validator: (v) => Validators.required(
+              v,
+              fieldName: 'المهارات',
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(15)),
 
+          // =========================
           // سنوات الخبرة
+          // =========================
           Text(
             'عدد سنين الخبرة',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           CustomTextFormField(
             controller: expController,
             hintText: 'أدخل عدد سنين خبرتك',
             icon: Icons.work_history_outlined,
             keyboardType: TextInputType.number,
-            validator: (v) => Validators.required(v),
+            validator: (v) => Validators.required(
+              v,
+              fieldName: 'عدد سنين الخبرة',
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(15)),
 
+          // =========================
           // رقم الهاتف
+          // =========================
           Text(
             'رقم الهاتف',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           PhoneInputField(
             key: _phoneFieldKey,
             controller: phoneController,
             validator: (v) => Validators.phone(v),
+
+            // Country Code
             initialCountryCode: selectedCountryCode,
+
+            // Flag
             initialCountryFlag: flag,
+
+            // تغيير الدولة
             onCountryChanged: (code, selectedFlag) {
               setState(() {
                 selectedCountryCode = code;
               });
             },
           ),
+
+          SizedBox(height: SizeConfig.h(10)),
         ],
       ),
     );

@@ -10,7 +10,11 @@ import 'package:plupool/features/profile/data/models/update_user_model.dart';
 import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class UpdateCompanyInfo extends StatefulWidget {
-  const UpdateCompanyInfo({super.key, required this.user});
+  const UpdateCompanyInfo({
+    super.key,
+    required this.user,
+  });
+
   final UserEntity user;
 
   @override
@@ -24,36 +28,57 @@ class UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
   late TextEditingController nameController;
   late TextEditingController phoneController;
 
-  String selectedCountryCode = '+20'; // القيمة الافتراضية
+  String selectedCountryCode = '+20';
 
   @override
   void initState() {
     super.initState();
 
-    nameController = TextEditingController(text: widget.user.fullName);
+    // =========================
+    // الاسم
+    // =========================
+    nameController = TextEditingController(
+      text: widget.user.fullName,
+    );
 
+    // =========================
+    // رقم الهاتف
+    // =========================
     final phoneData = splitPhone(widget.user.phone);
+
     selectedCountryCode = phoneData.countryCode.isNotEmpty
         ? phoneData.countryCode
         : '+20';
-    phoneController = TextEditingController(text: phoneData.number);
+
+    phoneController = TextEditingController(
+      text: phoneData.number,
+    );
   }
 
   @override
   void dispose() {
     nameController.dispose();
     phoneController.dispose();
+
     super.dispose();
   }
 
+  /// تجهيز البيانات التي سيتم إرسالها للـ API
   UpdateUserModel getUpdateUserModel() {
     return UpdateUserModel(
-      fullName: nameController.text,
+      // الاسم
+      fullName: nameController.text.trim(),
+
+      // رقم الهاتف كامل مع Country Code
       phone: mergePhone(
         countryCode: selectedCountryCode,
-        number: phoneController.text,
+        number: phoneController.text.trim(),
       ),
+
+      // Role
       role: 'company',
+
+      // الحقول غير المستخدمة للشركة
       profileImage: null,
       latitude: null,
       longitude: null,
@@ -66,8 +91,15 @@ class UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
 
   @override
   Widget build(BuildContext context) {
-    // تحويل كود الدولة لـ ISO لعرض العلم
-    final iso = countryCodeFromDialCode(selectedCountryCode) ?? 'EG';
+    // =========================
+    // Country Code → ISO
+    // =========================
+    final iso =
+        countryCodeFromDialCode(selectedCountryCode) ?? 'EG';
+
+    // =========================
+    // Flag
+    // =========================
     final flag = flagEmojiFromIso(iso);
 
     return Container(
@@ -91,42 +123,63 @@ class UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // =========================
           // الاسم
+          // =========================
           Text(
             'الاسم',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           CustomTextFormField(
             controller: nameController,
             hintText: 'ادخل اسمك',
             icon: Icons.person_2_outlined,
             validator: (v) => Validators.name(v),
           ),
+
           SizedBox(height: SizeConfig.h(15)),
 
+          // =========================
           // رقم الهاتف
+          // =========================
           Text(
             'رقم الهاتف',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           PhoneInputField(
             key: _phoneFieldKey,
             controller: phoneController,
             validator: (v) => Validators.phone(v),
+
+            // Country Code
             initialCountryCode: selectedCountryCode,
+
+            // Flag
             initialCountryFlag: flag,
+
+            // تغيير الدولة
             onCountryChanged: (code, selectedFlag) {
               setState(() {
                 selectedCountryCode = code;
               });
             },
           ),
+
+          SizedBox(height: SizeConfig.h(10)),
         ],
       ),
     );

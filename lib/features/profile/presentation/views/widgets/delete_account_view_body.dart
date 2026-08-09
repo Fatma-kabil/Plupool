@@ -32,28 +32,40 @@ class _DeleteAccountViewBodyState extends State<DeleteAccountViewBody> {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => const Center(
-              child: CustomLoadingIndecator(),
-            ),
+            builder: (_) => const Center(child: CustomLoadingIndecator()),
           );
         }
 
         /// ✅ Success → Logout + Navigate Login
-        if (state is DeleteUserSuccess) {
-          Navigator.of(context, rootNavigator: true).pop(); // يقفل loading
 
-          context.read<AuthCubit>().logout(); // Logout
-          context.go('/login');               // روح Login
+        /// ✅ Success → Logout + Navigate Login
+        if (state is DeleteUserSuccess) {
+          // اقفل Loading
+          Navigator.of(context, rootNavigator: true).pop();
+
+          // أظهر رسالة النجاح
+          showCustomSnackBar(
+            context: context,
+            message: 'تم حذف الحساب بنجاح',
+            isSuccess: true,
+          );
+
+          // Logout
+          context.read<AuthCubit>().logout();
+
+          // استنى لحظة قبل الانتقال
+          Future.delayed(const Duration(milliseconds: 300), () {
+            if (!mounted) return;
+
+            context.go('/selectrole');
+          });
         }
 
         /// ❌ Error
         if (state is DeleteUserError) {
           Navigator.of(context, rootNavigator: true).pop(); // يقفل loading
 
-          showCustomSnackBar(
-            context: context,
-            message: state.message,
-          );
+          showCustomSnackBar(context: context, message: state.message);
         }
       },
       child: Column(

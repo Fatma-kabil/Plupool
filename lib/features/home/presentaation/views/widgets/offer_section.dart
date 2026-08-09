@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
@@ -21,27 +22,43 @@ class _OfferSectionState extends State<OfferSection> {
   @override
   void initState() {
     super.initState();
-    context.read<ProductOfferCubit>().getOffers();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProductOfferCubit>().getOffers();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductOfferCubit, ProductOfferState>(
       builder: (context, state) {
+        // =========================
+        // Loading
+        // =========================
         if (state is ProductOfferLoading) {
-          return OwnerOfferSectionShimmer();
+          return const OwnerOfferSectionShimmer();
         }
 
+        // =========================
+        // Success
+        // =========================
         if (state is GetProductOfferSuccess) {
-          if (state.offers.isEmpty) {
-            return const SizedBox();
-          }
+          // نجيب الـ Featured Offers فقط
           final upOffers = state.offers
               .where((offer) => offer.isFeatured == true)
               .toList();
 
+          // لو مفيش Featured Offers
+          // السيكشن كله مش هيظهر
+          if (upOffers.isEmpty) {
+            return const SizedBox.shrink();
+          }
+
           return Column(
             children: [
+              // =========================
+              // Header
+              // =========================
               Row(
                 textDirection: TextDirection.rtl,
                 children: [
@@ -49,19 +66,27 @@ class _OfferSectionState extends State<OfferSection> {
                     'عروضنا الخاصة',
                     style: AppTextStyles.styleBold20(
                       context,
-                    ).copyWith(color: AppColors.ktextcolor),
+                    ).copyWith(
+                      color: AppColors.ktextcolor,
+                    ),
                   ),
-                  Spacer(),
+
+                  const Spacer(),
+
                   GestureDetector(
                     onTap: () {
-                      context.read<BottomNavCubit>().changeCurrentIndex(
-                        2,
-                        filter: StoreFilter.offers,
-                      );
+                      context
+                          .read<BottomNavCubit>()
+                          .changeCurrentIndex(
+                            2,
+                            filter: StoreFilter.offers,
+                          );
                     },
                     child: Text(
-                      ' عرض الكل',
-                      style: AppTextStyles.styleSemiBold16(context).copyWith(
+                      'عرض الكل',
+                      style: AppTextStyles.styleSemiBold16(
+                        context,
+                      ).copyWith(
                         color: AppColors.kprimarycolor,
                         decoration: TextDecoration.underline,
                       ),
@@ -69,18 +94,34 @@ class _OfferSectionState extends State<OfferSection> {
                   ),
                 ],
               ),
+
               SizedBox(height: SizeConfig.h(16)),
-              TechOffersCarousel(offers: upOffers),
+
+              // =========================
+              // Offers Carousel
+              // =========================
+              TechOffersCarousel(
+                offers: upOffers,
+              ),
+
               const SizedBox(height: 30),
             ],
           );
         }
 
+        // =========================
+        // Error
+        // =========================
         if (state is ProductOfferError) {
-          return ErrorText(message: state.message);
+          return ErrorText(
+            message: state.message,
+          );
         }
 
-        return const SizedBox();
+        // =========================
+        // Default
+        // =========================
+        return const SizedBox.shrink();
       },
     );
   }

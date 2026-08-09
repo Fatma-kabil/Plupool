@@ -73,6 +73,7 @@ class _ProfileEditViewBodyState extends State<ProfileEditViewBody> {
                 children: [
                   SingleChildScrollView(
                     child: Column(
+                    
                       children: [
                         SizedBox(height: SizeConfig.h(15)),
 

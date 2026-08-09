@@ -10,7 +10,11 @@ import 'package:plupool/features/profile/data/models/update_user_model.dart';
 import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class UpdateOwnerInfo extends StatefulWidget {
-  const UpdateOwnerInfo({super.key, required this.user});
+  const UpdateOwnerInfo({
+    super.key,
+    required this.user,
+  });
+
   final UserEntity user;
 
   @override
@@ -25,39 +29,58 @@ class UpdateOwnerInfoState extends State<UpdateOwnerInfo> {
   late TextEditingController locationController;
   late TextEditingController phoneController;
 
-  String selectedCountryCode = '+20'; // القيمة الافتراضية
+  String selectedCountryCode = '+20';
 
   @override
   void initState() {
     super.initState();
 
-    nameController = TextEditingController(text: widget.user.fullName);
-    locationController = TextEditingController(text: widget.user.address);
+    // الاسم
+    nameController = TextEditingController(
+      text: widget.user.fullName,
+    );
 
+    // العنوان
+    locationController = TextEditingController(
+      text: widget.user.address,
+    );
+
+    // تقسيم رقم الهاتف إلى Country Code + Number
     final phoneData = splitPhone(widget.user.phone);
 
     selectedCountryCode = phoneData.countryCode.isNotEmpty
         ? phoneData.countryCode
         : '+20';
-    phoneController = TextEditingController(text: phoneData.number);
+
+    phoneController = TextEditingController(
+      text: phoneData.number,
+    );
   }
 
   @override
   void dispose() {
     nameController.dispose();
+    locationController.dispose();
     phoneController.dispose();
+
     super.dispose();
   }
 
+  /// تجهيز البيانات التي سيتم إرسالها للـ API
   UpdateUserModel getUpdateUserModel() {
     return UpdateUserModel(
-      fullName: nameController.text,
+      fullName: nameController.text.trim(),
+
       phone: mergePhone(
         countryCode: selectedCountryCode,
-        number: phoneController.text,
+        number: phoneController.text.trim(),
       ),
-      address: locationController.text,
+
+      address: locationController.text.trim(),
+
       role: 'pool_owner',
+
+      // الحقول دي مش مستخدمة للـ Pool Owner
       profileImage: null,
       latitude: null,
       longitude: null,
@@ -69,8 +92,11 @@ class UpdateOwnerInfoState extends State<UpdateOwnerInfo> {
 
   @override
   Widget build(BuildContext context) {
-    // تحويل كود الدولة لـ ISO لعرض العلم
-    final iso = countryCodeFromDialCode(selectedCountryCode) ?? 'EG';
+    // تحويل Country Code إلى ISO
+    final iso =
+        countryCodeFromDialCode(selectedCountryCode) ?? 'EG';
+
+    // الحصول على Flag
     final flag = flagEmojiFromIso(iso);
 
     return Container(
@@ -94,58 +120,87 @@ class UpdateOwnerInfoState extends State<UpdateOwnerInfo> {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // =========================
           // الاسم
+          // =========================
           Text(
             'الاسم',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           CustomTextFormField(
             controller: nameController,
             hintText: 'ادخل اسمك',
             icon: Icons.person_2_outlined,
             validator: (v) => Validators.name(v),
           ),
+
           SizedBox(height: SizeConfig.h(15)),
 
+          // =========================
           // مكان الإقامة
+          // =========================
           Text(
             'مكان الإقامة',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           CustomTextFormField(
             controller: locationController,
             hintText: 'ادخل مكان الإقامة',
             icon: Icons.location_on_outlined,
-            validator: (v) =>
-                Validators.required(v, fieldName: 'مكان الإقامة'),
+            validator: (v) => Validators.required(
+              v,
+              fieldName: 'مكان الإقامة',
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(15)),
 
+          // =========================
           // رقم الهاتف
+          // =========================
           Text(
             'رقم الهاتف',
-            style: AppTextStyles.styleMedium16(context)
-                .copyWith(color: const Color(0xff555555)),
+            textDirection: TextDirection.rtl,
+            style: AppTextStyles.styleMedium16(context).copyWith(
+              color: const Color(0xff555555),
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           PhoneInputField(
             key: _phoneFieldKey,
             controller: phoneController,
             validator: (v) => Validators.phone(v),
+
+            // Country Code
             initialCountryCode: selectedCountryCode,
+
+            // Flag
             initialCountryFlag: flag,
+
+            // لما المستخدم يغير الدولة
             onCountryChanged: (code, selectedFlag) {
               setState(() {
                 selectedCountryCode = code;
               });
             },
           ),
+
           SizedBox(height: SizeConfig.h(10)),
         ],
       ),

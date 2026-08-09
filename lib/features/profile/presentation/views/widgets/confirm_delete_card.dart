@@ -44,26 +44,6 @@ class ConfirmDeleteCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Color(0xffE63946)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    onPressed: () {
-                      context.pop();
-                    },
-                    child: Text(
-                      "لا",
-                      style: AppTextStyles.styleMedium16(
-                        context,
-                      ).copyWith(color: const Color(0xffE63946)),
-                    ),
-                  ),
-                ),
-                SizedBox(width: SizeConfig.w(18)),
-                Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffE63946),
@@ -106,6 +86,27 @@ class ConfirmDeleteCard extends StatelessWidget {
                       style: AppTextStyles.styleMedium16(
                         context,
                       ).copyWith(color: Colors.white),
+                    ),
+                  ),
+                ),
+
+                SizedBox(width: SizeConfig.w(18)),
+                Expanded(
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Color(0xffE63946)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    onPressed: () {
+                      context.pop();
+                    },
+                    child: Text(
+                      "لا",
+                      style: AppTextStyles.styleMedium16(
+                        context,
+                      ).copyWith(color: const Color(0xffE63946)),
                     ),
                   ),
                 ),

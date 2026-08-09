@@ -93,7 +93,7 @@ class ProjectCard extends StatelessWidget {
                 /// قبل
                 Positioned(
                   top: 14,
-                  left: 14,
+                  right: 14,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 14,
@@ -115,7 +115,7 @@ class ProjectCard extends StatelessWidget {
                 /// بعد
                 Positioned(
                   top: 14,
-                  right: 14,
+                  left: 14,
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 14,

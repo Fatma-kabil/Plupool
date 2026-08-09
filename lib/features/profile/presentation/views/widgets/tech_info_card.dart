@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/functions/split_phone.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/build_info_row.dart';
-
 import 'package:plupool/features/profile/domain/entities/user_entity.dart';
 
 class TechInfoCard extends StatelessWidget {
-  const TechInfoCard({super.key, required this.model});
+  const TechInfoCard({
+    super.key,
+    required this.model,
+  });
+
   final UserEntity model;
+
   @override
-  
   Widget build(BuildContext context) {
- final phoneData = splitPhone(model.phone);
+    // فصل كود الدولة عن رقم الهاتف
+    final phoneData = splitPhone2(model.phone);
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.only(
@@ -32,37 +39,126 @@ class TechInfoCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // =========================
+          // الاسم
+          // =========================
           BuildInfoRow(
             icon: Icons.person_outline,
             title: 'الاسم',
             value: model.fullName,
           ),
+
           SizedBox(height: SizeConfig.h(15)),
+
+          // =========================
+          // مكان الإقامة
+          // =========================
           BuildInfoRow(
             icon: Icons.location_on_outlined,
             title: 'مكان الإقامة',
             value: model.address,
           ),
+
           SizedBox(height: SizeConfig.h(15)),
+
+          // =========================
+          // المهارات
+          // =========================
           BuildInfoRow(
             icon: Icons.build_outlined,
             title: 'المهارات',
             value: model.skills,
           ),
+
           SizedBox(height: SizeConfig.h(15)),
+
+          // =========================
+          // سنوات الخبرة
+          // =========================
           BuildInfoRow(
             icon: Icons.calendar_month_outlined,
             title: 'عدد سنين الخبرة',
             value: model.yearsOfExperience.toString(),
           ),
+
           SizedBox(height: SizeConfig.h(15)),
-          BuildInfoRow(
-            icon: Icons.phone_outlined,
-            title: 'رقم الهاتف',
-            value:phoneData.number
-            ,
+
+          // =========================
+          // رقم الهاتف
+          // =========================
+          Text(
+            'رقم الهاتف',
+            style: AppTextStyles.styleMedium16(
+              context,
+            ).copyWith(
+              color: const Color(0xff555555),
+            ),
+          ),
+
+          SizedBox(height: SizeConfig.h(8)),
+
+          Row(
+            textDirection: TextDirection.rtl,
+            children: [
+              Icon(
+                Icons.phone_outlined,
+                color: const Color(0xff777777),
+                size: SizeConfig.w(14),
+              ),
+
+              SizedBox(width: SizeConfig.w(6)),
+
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: RichText(
+                      textDirection: TextDirection.rtl,
+                      text: TextSpan(
+                        style: AppTextStyles.styleRegular16(
+                          context,
+                        ).copyWith(
+                          color: const Color(0xff777777),
+                        ),
+                        children: [
+                          const TextSpan(text: '+'),
+                          const TextSpan(text: ' '),
+
+                          // =========================
+                          // كود الدولة
+                          // =========================
+                          TextSpan(
+                            text: reverseNumbers(
+                              toArabicNumbers(
+                                getCountryCodeDigits(
+                                  phoneData.countryCode,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          const TextSpan(text: ' '),
+
+                          // =========================
+                          // رقم الهاتف
+                          // =========================
+                          TextSpan(
+                            text: reverseNumbers(
+                              toArabicNumbers(
+                                phoneData.number,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

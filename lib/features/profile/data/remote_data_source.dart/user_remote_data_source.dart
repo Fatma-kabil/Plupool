@@ -31,25 +31,29 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     return userModel;
   }
 
-  @override
-  Future<UserModel> updateUser(
-    int id,
-    String token,
-    UpdateUserModel data,
-  ) async {
-    final response = await apiService.put(
-      '${Endpoints.updateUser}/$id',
-      data: data.toJson(),
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-          'Content-Type': 'application/json',
-        },
-      ),
-    );
 
-    return UserModel.fromJson(response.data);
-  }
+@override
+Future <UserModel>updateUser(
+  int id,
+  String token,
+  UpdateUserModel data,
+) async {
+  final formData = await data.toFormData();
+
+  final response = await apiService.put(
+    '${Endpoints.updateUser}/$id',
+    data: formData,
+    options: Options(
+      headers: {
+        'Authorization': 'Bearer $token',
+        // ❌ متحطيش Content-Type بنفسك
+        // Dio هيحدد multipart/form-data والـ boundary تلقائيًا
+      },
+    ),
+  );
+
+  return UserModel.fromJson(response.data);
+}
 
   @override
   Future<void> deleteUser(int id, String token) async {
