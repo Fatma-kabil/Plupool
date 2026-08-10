@@ -1,3 +1,4 @@
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/maintenance/domain/entities/maintenance_booking_params.dart';
@@ -5,7 +6,8 @@ import 'package:plupool/features/maintenance/domain/usecases/book_maintenance_us
 import 'package:plupool/features/maintenance/domain/usecases/get_maintenance_package_usecase.dart';
 import 'package:plupool/features/maintenance/presentation/manager/cubits/maintenance_package_cubit/maintenance_packag_state.dart';
 
-class MaintenancePackagesCubit extends Cubit<MaintenancePackagesState> {
+class MaintenancePackagesCubit
+    extends Cubit<MaintenancePackagesState> {
   final GetMaintenancePackagesUseCase getMaintenancePackagesUseCase;
   final BookMaintenanceUseCase bookMaintenanceUseCase;
 
@@ -14,23 +16,65 @@ class MaintenancePackagesCubit extends Cubit<MaintenancePackagesState> {
     this.bookMaintenanceUseCase,
   ) : super(MaintenancePackagesInitial());
 
+  // آخر duration مستخدم في جلب الباقات
+  String? _lastDuration;
+
+  // =========================
+  // Get Packages
+  // =========================
   Future<void> getPackages({String? duration}) async {
+    // نحفظ الـ duration
+    _lastDuration = duration;
+
     emit(MaintenancePackagesLoading());
 
     try {
-      final result = await getMaintenancePackagesUseCase(duration: duration);
+      final result = await getMaintenancePackagesUseCase(
+        duration: duration,
+      );
 
       emit(MaintenancePackagesLoaded(result));
     } catch (e) {
       if (e is Failure) {
         emit(MaintenancePackagesError(e.message));
       } else {
-        emit(MaintenancePackagesError("حدث خطأ أثناء تحميل الباقات"));
+        emit(
+          MaintenancePackagesError(
+            "حدث خطأ أثناء تحميل الباقات",
+          ),
+        );
       }
+
       print(e);
     }
   }
 
+  // =========================
+  // Refresh Packages
+  // =========================
+  Future<void> refreshPackages() async {
+    try {
+      final packages = await getMaintenancePackagesUseCase(
+        duration: _lastDuration,
+      );
+
+      emit(MaintenancePackagesLoaded(packages));
+    } catch (e) {
+      if (e is Failure) {
+        emit(MaintenancePackagesError(e.message));
+      } else {
+        emit(
+          MaintenancePackagesError(
+            "حدث خطأ أثناء تحديث الباقات",
+          ),
+        );
+      }
+    }
+  }
+
+  // =========================
+  // Book Package
+  // =========================
   Future<void> bookPackage({
     required String bookingType,
     required int packageId,
@@ -40,6 +84,7 @@ class MaintenancePackagesCubit extends Cubit<MaintenancePackagesState> {
     emit(MaintenancePackageBookingLoading());
 
     try {
+      // تنفيذ الحجز
       await bookMaintenanceUseCase(
         MaintenanceBookingEntity(
           bookingType: bookingType,
@@ -49,17 +94,27 @@ class MaintenancePackagesCubit extends Cubit<MaintenancePackagesState> {
         ),
       );
 
+      // الحجز نجح
       emit(MaintenancePackageBookingSuccess());
 
-      final packages = await getMaintenancePackagesUseCase();
-
-      emit(MaintenancePackagesLoaded(packages));
+      // Refresh بنفس duration اللي كانت مفتوحة
+      await refreshPackages();
     } catch (e) {
+      String errorMessage;
+
       if (e is Failure) {
-        emit(MaintenancePackageBookingError(e.message));
+        errorMessage = e.message;
       } else {
-        emit(MaintenancePackageBookingError("حدث خطأ أثناء الحجز"));
+        errorMessage = "حدث خطأ أثناء الحجز";
       }
+
+      // الحجز فشل → نعمل Refresh برضه
+      await refreshPackages();
+
+      // نبلغ الـ UI إن الحجز فشل
+      emit(
+        MaintenancePackageBookingError(errorMessage),
+      );
     }
   }
 }

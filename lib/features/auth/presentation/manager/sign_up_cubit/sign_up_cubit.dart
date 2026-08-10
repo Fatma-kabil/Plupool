@@ -10,18 +10,14 @@ import 'package:plupool/features/auth/domain/usecases/sign_up_usecases/signup_te
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'sign_up_state.dart';
 
-
 class SignUpCubit extends Cubit<SignUpState> {
-
   final SignupTechnicianUseCase signupTechnicianUseCase;
   final SignupPoolOwnerUseCase signupPoolOwnerUseCase;
   final SignupCompanyUseCase signupCompanyUseCase;
 
   final AuthCubit authCubit;
 
-  final FlutterSecureStorage storage =
-      const FlutterSecureStorage();
-
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
 
   SignUpCubit({
     required this.signupTechnicianUseCase,
@@ -30,112 +26,52 @@ class SignUpCubit extends Cubit<SignUpState> {
     required this.authCubit,
   }) : super(SignUpInitial());
 
-
   Future<void> _saveToken(String token) async {
-
-    await storage.write(
-      key: 'token',
-      value: token,
-    );
+    await storage.write(key: 'token', value: token);
 
     authCubit.login(token);
   }
 
-
-
-  Future<void> signupTechnician(
-      TechnicianEntity technician) async {
-
+  Future<void> signupTechnician(TechnicianEntity technician) async {
     emit(SignUpLoading());
 
-    final result =
-        await signupTechnicianUseCase(technician);
+    final result = await signupTechnicianUseCase(technician);
 
+    result.fold((Failure failure) => emit(SignUpFailure(failure.message)), (
+      token,
+    ) async {
+      await _saveToken(token);
 
-    result.fold(
-
-      (Failure failure) =>
-          emit(SignUpFailure(failure.message)),
-
-
-      (token) async {
-
-        await _saveToken(token);
-
-        emit(
-          const SignUpSuccess(
-            "تم إنشاء الحساب بنجاح 👏",
-          ),
-        );
-
-      },
-
-    );
+      emit(const SignUpSuccess("تم إنشاء الحساب بنجاح 👏"));
+    });
   }
 
-
-
-  Future<void> signupPoolOwner(
-      PoolOwnerEntity owner) async {
-
+  Future<void> signupPoolOwner(PoolOwnerEntity owner) async {
     emit(SignUpLoading());
 
-    final result =
-        await signupPoolOwnerUseCase(owner);
+    final result = await signupPoolOwnerUseCase(owner);
 
+    result.fold((Failure failure) => emit(SignUpFailure(failure.message)), (
+      token,
+    ) async {
+      await _saveToken(token);
 
-    result.fold(
-
-      (Failure failure) =>
-          emit(SignUpFailure(failure.message)),
-
-
-      (token) async {
-
-        await _saveToken(token);
-
-        emit(
-          const SignUpSuccess(
-            "تم إنشاء الحساب بنجاح 👏",
-          ),
-        );
-
-      },
-
-    );
+      emit(const SignUpSuccess("تم إنشاء الحساب بنجاح 👏"));
+    });
   }
 
-
-
-
-  Future<void> signupCompany(
-      CompanyEntity company) async {
-
+  Future<void> signupCompany(CompanyEntity company) async {
     emit(SignUpLoading());
 
-    final result =
-        await signupCompanyUseCase(company);
+    final result = await signupCompanyUseCase(company);
 
+    result.fold((Failure failure) => emit(SignUpFailure(failure.message)), (
+      token,
+    ) async {
+      print('🔥 COMPANY SIGNUP TOKEN: $token');
+      await _saveToken(token);
 
-    result.fold(
-
-      (Failure failure) =>
-          emit(SignUpFailure(failure.message)),
-
-
-      (token) async {
-
-        await _saveToken(token);
-
-        emit(
-          const SignUpSuccess(
-            "تم إنشاء الحساب بنجاح 👏",
-          ),
-        );
-
-      },
-
-    );
+      emit(const SignUpSuccess("تم إنشاء الحساب بنجاح 👏"));
+    });
   }
-
 }

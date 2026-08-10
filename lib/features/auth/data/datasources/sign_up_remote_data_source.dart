@@ -13,8 +13,7 @@ abstract class SignUpRemoteDataSource {
   Future signupCompany(CompanyEntity entity);
 }
 
-class SignUpRemoteDataSourceImpl
-    implements SignUpRemoteDataSource {
+class SignUpRemoteDataSourceImpl implements SignUpRemoteDataSource {
   final ApiService api;
 
   final storage = const FlutterSecureStorage();
@@ -22,9 +21,7 @@ class SignUpRemoteDataSourceImpl
   SignUpRemoteDataSourceImpl(this.api);
 
   @override
-  Future signupTechnician(
-    TechnicianEntity entity,
-  ) async {
+  Future signupTechnician(TechnicianEntity entity) async {
     try {
       final formData = FormData.fromMap({
         'phone': entity.phone,
@@ -32,47 +29,32 @@ class SignUpRemoteDataSourceImpl
         'full_name': entity.fullName,
         'address': entity.address,
         'skills': entity.skills.join(','),
-        'years_of_experience':
-            entity.yearsOfExperience,
+        'years_of_experience': entity.yearsOfExperience,
 
-        if (entity.latitude != null)
-          'latitude': entity.latitude,
+        if (entity.latitude != null) 'latitude': entity.latitude,
 
-        if (entity.longitude != null)
-          'longitude': entity.longitude,
+        if (entity.longitude != null) 'longitude': entity.longitude,
 
         if (entity.profileImage != null)
-          'profile_image':
-              await MultipartFile.fromFile(
+          'profile_image': await MultipartFile.fromFile(
             entity.profileImage!,
-            filename:
-                entity.profileImage!.split('/').last,
+            filename: entity.profileImage!.split('/').last,
           ),
       });
 
       final response = await api.post(
         Endpoints.signupTechnician,
         data: formData,
-        options: Options(
-          contentType: 'multipart/form-data',
-        ),
+        options: Options(contentType: 'multipart/form-data'),
       );
 
-      final accessToken =
-          response.data['access_token'];
+      final accessToken = response.data['access_token'];
 
-      final refreshToken =
-          response.data['refresh_token'];
+      final refreshToken = response.data['refresh_token'];
 
-      await storage.write(
-        key: 'token',
-        value: accessToken,
-      );
+      await storage.write(key: 'token', value: accessToken);
 
-      await storage.write(
-        key: 'refresh_token',
-        value: refreshToken,
-      );
+      await storage.write(key: 'refresh_token', value: refreshToken);
 
       return accessToken;
     } catch (error) {
@@ -81,9 +63,7 @@ class SignUpRemoteDataSourceImpl
   }
 
   @override
-  Future signupPoolOwner(
-    PoolOwnerEntity entity,
-  ) async {
+  Future signupPoolOwner(PoolOwnerEntity entity) async {
     try {
       final formData = FormData.fromMap({
         'phone': entity.phone,
@@ -91,44 +71,30 @@ class SignUpRemoteDataSourceImpl
         'full_name': entity.fullName,
         'address': entity.address,
 
-        if (entity.latitude != null)
-          'latitude': entity.latitude,
+        if (entity.latitude != null) 'latitude': entity.latitude,
 
-        if (entity.longitude != null)
-          'longitude': entity.longitude,
+        if (entity.longitude != null) 'longitude': entity.longitude,
 
         if (entity.profileImage != null)
-          'profile_image':
-              await MultipartFile.fromFile(
+          'profile_image': await MultipartFile.fromFile(
             entity.profileImage!,
-            filename:
-                entity.profileImage!.split('/').last,
+            filename: entity.profileImage!.split('/').last,
           ),
       });
 
       final response = await api.post(
         Endpoints.signupPoolOwner,
         data: formData,
-        options: Options(
-          contentType: 'multipart/form-data',
-        ),
+        options: Options(contentType: 'multipart/form-data'),
       );
 
-      final accessToken =
-          response.data['access_token'];
+      final accessToken = response.data['access_token'];
 
-      final refreshToken =
-          response.data['refresh_token'];
+      final refreshToken = response.data['refresh_token'];
 
-      await storage.write(
-        key: 'token',
-        value: accessToken,
-      );
+      await storage.write(key: 'token', value: accessToken);
 
-      await storage.write(
-        key: 'refresh_token',
-        value: refreshToken,
-      );
+      await storage.write(key: 'refresh_token', value: refreshToken);
 
       return accessToken;
     } catch (error) {
@@ -137,9 +103,7 @@ class SignUpRemoteDataSourceImpl
   }
 
   @override
-  Future signupCompany(
-    CompanyEntity entity,
-  ) async {
+  Future signupCompany(CompanyEntity entity) async {
     try {
       final formData = FormData.fromMap({
         'phone': entity.phone,
@@ -147,37 +111,27 @@ class SignUpRemoteDataSourceImpl
         'full_name': entity.fullName,
 
         if (entity.profileImage != null)
-          'profile_image':
-              await MultipartFile.fromFile(
+          'profile_image': await MultipartFile.fromFile(
             entity.profileImage!,
-            filename:
-                entity.profileImage!.split('/').last,
+            filename: entity.profileImage!.split('/').last,
           ),
       });
 
       final response = await api.post(
         Endpoints.signupCompany,
         data: formData,
-        options: Options(
-          contentType: 'multipart/form-data',
-        ),
+        options: Options(contentType: 'multipart/form-data'),
       );
+      print('🔥 COMPANY SIGNUP ENDPOINT: ${Endpoints.signupCompany}');
+      print('🔥 COMPANY SIGNUP RESPONSE: ${response.data}');
 
-      final accessToken =
-          response.data['access_token'];
+      final accessToken = response.data['access_token'];
+      print('🔥 COMPANY TOKEN: $accessToken');
+      final refreshToken = response.data['refresh_token'];
 
-      final refreshToken =
-          response.data['refresh_token'];
+      await storage.write(key: 'token', value: accessToken);
 
-      await storage.write(
-        key: 'token',
-        value: accessToken,
-      );
-
-      await storage.write(
-        key: 'refresh_token',
-        value: refreshToken,
-      );
+      await storage.write(key: 'refresh_token', value: refreshToken);
 
       return accessToken;
     } catch (error) {

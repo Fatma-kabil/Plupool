@@ -44,7 +44,7 @@ class UpdateCompanyInfoState extends State<UpdateCompanyInfo> {
     // =========================
     // رقم الهاتف
     // =========================
-    final phoneData = splitPhone(widget.user.phone);
+    final phoneData = splitPhone2(widget.user.phone);
 
     selectedCountryCode = phoneData.countryCode.isNotEmpty
         ? phoneData.countryCode

@@ -91,13 +91,18 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           );
           await Future.delayed(const Duration(seconds: 1));
           // ignore: use_build_context_synchronously
-          final role = context.read<SelectRoleCubit>().state;
-          if (role is GetRoleSuccess && role.roleName.contains("فني")) {
-            // ignore: use_build_context_synchronously
-            context.go('/MainHomeTechView');
-          } else {
-            // ignore: use_build_context_synchronously
-            context.go('/MainHomeCustomerView');
+          final roleState = context.read<SelectRoleCubit>().state;
+
+          if (roleState is GetRoleSuccess) {
+            final role = roleState.roleName;
+
+            if (role.contains("فني")) {
+              context.go('/MainHomeTechView');
+            } else if (role.contains("شركة") || role.contains("مطور")) {
+              context.go('/MainHomecompanyview');
+            } else if (role.contains("حمام")) {
+              context.go('/MainHomeCustomerView');
+            }
           }
         } else if (state is SignUpFailure) {
           showCustomSnackBar(

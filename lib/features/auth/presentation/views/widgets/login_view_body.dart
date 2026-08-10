@@ -123,7 +123,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
                   if (roleName.contains("فني")) {
                     context.go('/MainHomeTechView');
-                  } else {
+                  } else if (roleName.contains("شركة") ||
+                      roleName.contains("مطور")) {
+                    context.go('/MainHomecompanyview');
+                  } else if (roleName.contains("حمام")) {
                     context.go('/MainHomeCustomerView');
                   }
                 } else if (state is OtpError) {

@@ -58,7 +58,7 @@ class UpdateTechInfoState extends State<UpdateTechInfo> {
     );
 
     // تقسيم رقم الهاتف إلى Country Code + Number
-    final phoneData = splitPhone(widget.user.phone);
+    final phoneData = splitPhone2(widget.user.phone);
 
     selectedCountryCode = phoneData.countryCode.isNotEmpty
         ? phoneData.countryCode
