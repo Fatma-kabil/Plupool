@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
-import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/home/presentaation/views/customer/widgets/contact_us_card.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/app_bar_details.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/app_bar_shimmer.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/notification_button.dart';

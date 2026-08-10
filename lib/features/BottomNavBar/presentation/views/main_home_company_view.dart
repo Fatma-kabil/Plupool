@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -10,7 +9,6 @@ import 'package:plupool/features/BottomNavBar/presentation/views/widgets/build_n
 import 'package:plupool/features/BottomNavBar/presentation/views/widgets/custom_floating_action_btn.dart';
 import 'package:plupool/features/home/presentaation/views/customer/customer_home_view.dart';
 import 'package:plupool/features/myPool/presentation/views/company_res_pools_view.dart';
-import 'package:plupool/features/myPool/presentation/views/manager/user_services_cubit/user_services_cubit.dart';
 import 'package:plupool/features/profile/presentation/views/profile_view.dart';
 import 'package:plupool/features/store/presentation/views/store_view.dart';
 import 'package:plupool/features/services/presentation/views/user/services_view.dart';

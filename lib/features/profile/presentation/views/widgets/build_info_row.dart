@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 
 class BuildInfoRow extends StatelessWidget {
@@ -35,7 +36,7 @@ class BuildInfoRow extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 textDirection: TextDirection.rtl,
-                value,
+                toArabicNumbers(value),
 
                 style: AppTextStyles.styleRegular16(
                   context,

@@ -17,7 +17,7 @@ class CompanyResCusPoolView extends StatelessWidget {
     return BlocProvider(
       create: (_) => sl<CompanyPoolCubit>()
         ..getCompanyPools(
-          clientId: 1,
+          clientId: clientId,
           tab: "services",
           status: "scheduled",
           limit: 100,

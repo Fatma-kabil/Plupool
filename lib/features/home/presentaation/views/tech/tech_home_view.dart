@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
@@ -49,44 +50,73 @@ class _TechHomeViewState extends State<TechHomeView> {
     return BlocBuilder<SelectRoleCubit, SelectRoleState>(
       builder: (context, roleState) {
         if (roleState is! GetRoleSuccess) {
-          return const Center(child: CustomLoadingIndecator());
+          return const Center(
+            child: CustomLoadingIndecator(),
+          );
         }
 
         final token = context.watch<AuthCubit>().state.token;
 
-        // 🟡 Guest UI بدون UserCubit
+        // =========================
+        // Guest
+        // =========================
         if (token == null || token.isEmpty) {
           return buildHomeLayout(
-            appbar: GuestAppbar(role: roleState.roleName),
+            appbar: GuestAppbar(
+              role: roleState.roleName,
+            ),
             showWeekly: false,
           );
         }
 
-        // 🟢 LoggedIn → UserCubit
+        // =========================
+        // Logged In
+        // =========================
         return BlocBuilder<UserCubit, UserState>(
           builder: (context, userState) {
             if (userState is UserLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: CustomLoadingIndecator(),
+              );
             }
+
             if (userState is UserError) {
-              return Center(child: Text("خطأ: ${userState.message}"));
+              return Center(
+                child: Text(
+                  "خطأ: ${userState.message}",
+                ),
+              );
             }
+
             if (userState is UserLoaded) {
+              final user = userState.user;
+
               return buildHomeLayout(
-                appbar: TechAppbar(model: userState.user),
+                appbar: TechAppbar(
+                  model: user,
+                ),
+                userId: user.id,
                 showWeekly: true,
               );
             }
 
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CustomLoadingIndecator(),
+            );
           },
         );
       },
     );
   }
 
-  // ⬇️⬇️ UI مشتركة بين Guest / Logged
-  Widget buildHomeLayout({required Widget appbar, required bool showWeekly}) {
+  // =========================
+  // UI مشتركة بين Guest / Logged
+  // =========================
+  Widget buildHomeLayout({
+    required Widget appbar,
+    required bool showWeekly,
+    int? userId,
+  }) {
     return Padding(
       padding: EdgeInsets.only(
         top: SizeConfig.h(12),
@@ -96,10 +126,15 @@ class _TechHomeViewState extends State<TechHomeView> {
       child: ListView(
         children: [
           appbar,
+
           const SizedBox(height: 30),
 
-         if (showWeekly) ...[
-            TechInfoCardRow(userId: 6),
+          if (showWeekly && userId != null) ...[
+            // هنا الـ ID جاي من الـ UserLoaded
+            TechInfoCardRow(
+              userId: userId,
+            ),
+
             const SizedBox(height: 30),
 
             Row(
@@ -109,14 +144,20 @@ class _TechHomeViewState extends State<TechHomeView> {
                   "مهام الأسبوع",
                   style: AppTextStyles.styleBold20(
                     context,
-                  ).copyWith(color: AppColors.ktextcolor),
+                  ).copyWith(
+                    color: AppColors.ktextcolor,
+                  ),
                 ),
+
                 const Spacer(),
+
                 GestureDetector(
                   onTap: () => context.push('/weeklytasksview'),
                   child: Text(
                     "عرض المزيد",
-                    style: AppTextStyles.styleSemiBold16(context).copyWith(
+                    style: AppTextStyles.styleSemiBold16(
+                      context,
+                    ).copyWith(
                       color: AppColors.kprimarycolor,
                       decoration: TextDecoration.underline,
                     ),
@@ -124,16 +165,19 @@ class _TechHomeViewState extends State<TechHomeView> {
                 ),
               ],
             ),
+
             const SizedBox(height: 20),
+
             const WeeklyRequestsList(),
+
             const SizedBox(height: 30),
           ],
 
-          OfferSection(),
-         
+          const OfferSection(),
+
           const ProjectsSection(),
-         // const SizedBox(height: 30),
-          ReviewsList(),
+
+          const ReviewsList(),
         ],
       ),
     );

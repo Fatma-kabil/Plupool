@@ -27,8 +27,8 @@ class _CustomerDetailsViewBodyState extends State<CustomerDetailsViewBody> {
     super.initState();
 
     context.read<TechnicianTasksCubit>().getTaskDetails(
-      //   taskId: widget.taskId,
-      taskId: 58,
+         taskId: widget.taskId,
+    
     );
   }
 

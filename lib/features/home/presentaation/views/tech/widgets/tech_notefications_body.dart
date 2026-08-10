@@ -58,7 +58,7 @@ class _NotificationsViewBodyState extends State<NotificationsViewBody>
 
   @override
   Widget build(BuildContext context) {
-    final tabs = ["الكل", "التذكيرات", "العروض"];
+    final tabs = ["التذكيرات", "العروض","الكل"];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
