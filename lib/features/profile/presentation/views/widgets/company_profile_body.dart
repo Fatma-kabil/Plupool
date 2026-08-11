@@ -7,6 +7,7 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
+import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/profile_option.dart';
 
 class CompanyProfileBody extends StatelessWidget {
@@ -98,17 +99,17 @@ class CompanyProfileBody extends StatelessWidget {
 
               await NotificationService.instance.stopForegroundListener();
 
-              context.read<AuthCubit>().logout();
-
+              await context.read<AuthCubit>().logout();
+              context.read<UserCubit>().clearUser();
               showCustomSnackBar(
                 context: context,
                 message: 'تم تسجيل الخروج',
                 isSuccess: true,
               );
 
-              Future.delayed(const Duration(milliseconds: 500), () {
-                context.go('/selectrole');
-              });
+              if (!context.mounted) return;
+
+              context.go('/selectrole');
             },
           ),
         ],

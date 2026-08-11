@@ -18,4 +18,8 @@ class RoleRepositoryImpl implements RoleRepository {
     if (name == null) return null;
     return RoleEntity(name);
   }
+   @override
+  Future<void> deleteSavedRole() async {
+    await localDataSource.deleteSavedRole();
+  }
 }

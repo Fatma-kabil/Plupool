@@ -1,8 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/customer_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/customer/widgets/owner_offer_carusal_bloc.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_appbar.dart';
@@ -22,7 +24,10 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
   @override
   void initState() {
     super.initState();
-    context.read<SelectRoleCubit>().getSavedRole();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SelectRoleCubit>().getSavedRole();
+    });
   }
 
   @override
@@ -31,34 +36,70 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
 
     return BlocBuilder<SelectRoleCubit, SelectRoleState>(
       builder: (context, roleState) {
-        // 🔄 Loading role
+        // =========================
+        // Loading Role
+        // =========================
         if (roleState is GetRoleLoading) {
-          return const Center(child: CustomLoadingIndecator());
+          return const Center(
+            child: CustomLoadingIndecator(),
+          );
         }
 
-        // ❌ Error (اختياري)
+        // =========================
+        // Error Role
+        // =========================
         if (roleState is GetRoleError) {
-          return const Center(child: Text('حدث خطأ أثناء تحميل الدور'));
+          return const Center(
+            child: Text('حدث خطأ أثناء تحميل الدور'),
+          );
         }
 
         final roleName = roleState is GetRoleSuccess
             ? roleState.roleName
             : 'ضيف';
 
-        final token = context.watch<AuthCubit>().state.token ?? '';
+        // =========================
+        // Auth State
+        // =========================
+        return BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, authState) {
+            debugPrint(
+              'CustomerHomeView => status: ${authState.status}',
+            );
+            debugPrint(
+              'CustomerHomeView => token: ${authState.token}',
+            );
 
-        // 🟡 Guest
-        if (token.isEmpty) {
-          return _buildHomeLayout(appbar: GuestAppbar(role: roleName));
-        }
+            // =========================
+            // GUEST
+            // =========================
+            if (authState.status == AuthStatus.guest ||
+                authState.token == null ||
+                authState.token!.isEmpty) {
+              return _buildHomeLayout(
+                appbar: GuestAppbar(
+                  role: roleName,
+                ),
+              );
+            }
 
-        // 🟢 Logged In
-        return _buildHomeLayout(appbar: CustomerAppbar(role: roleName));
+            // =========================
+            // LOGGED IN
+            // =========================
+            return _buildHomeLayout(
+              appbar: CustomerAppbar(
+                role: roleName,
+              ),
+            );
+          },
+        );
       },
     );
   }
 
-  Widget _buildHomeLayout({required Widget appbar}) {
+  Widget _buildHomeLayout({
+    required Widget appbar,
+  }) {
     return Padding(
       padding: EdgeInsets.only(
         top: SizeConfig.h(12),
@@ -68,16 +109,16 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
       child: ListView(
         children: [
           appbar,
+
           const SizedBox(height: 35),
 
           const PromoCarousel(),
+
           const SizedBox(height: 29),
 
           OwnerOfferCarusalBloc(),
-         
 
           const ProjectsSection(),
-       //   const SizedBox(height: 42),
 
           const ReviewSection(),
         ],

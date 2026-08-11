@@ -51,6 +51,7 @@ class SelectRoleViewBody extends StatelessWidget {
                       await  context.read<SelectRoleCubit>().saveSelectedRole(selectedRole);
 
                         if (selectedRole == "فني") {
+                          // ignore: use_build_context_synchronously
                           context.push("/MainHomeTechView");
                         } else if (selectedRole == "صاحب حمام سباحة") {
                           context.push("/MainHomeCustomerView");

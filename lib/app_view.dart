@@ -51,7 +51,7 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => BottomNavCubit()),
         BlocProvider(create: (_) => sl<SelectRoleCubit>()),
         BlocProvider(create: (_) => sl<OtpCubit>()),
-        BlocProvider(create: (_) => sl<AuthCubit>()..checkAuth(),),
+        BlocProvider(create: (_) => sl<AuthCubit>()..checkAuth()),
         BlocProvider(create: (_) => sl<UserCubit>()),
         BlocProvider(create: (_) => DrawerCubit()),
         BlocProvider(create: (_) => sl<NotificationCubit>()),
@@ -103,6 +103,9 @@ class PlupoolApp extends StatelessWidget {
           final token = state.token;
           if (token != null && token.isNotEmpty) {
             context.read<UserCubit>().fetchCurrentUser(token);
+          } else {
+            // Logout
+            context.read<UserCubit>().clearUser();
           }
         },
         child: MaterialApp.router(

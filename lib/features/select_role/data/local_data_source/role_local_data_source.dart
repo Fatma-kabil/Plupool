@@ -12,4 +12,8 @@ class RoleLocalDataSource {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(_roleKey);
   }
+  Future<void> deleteSavedRole() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_roleKey);
+  }
 }

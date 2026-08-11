@@ -36,4 +36,7 @@ class UserCubit extends Cubit<UserState> {
       (_) => emit(DeleteUserSuccess()),
     );
   }
+   void clearUser() {
+    emit(UserInitial());
+  }
 }

@@ -1,11 +1,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
+
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
+import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
+
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_list.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_appbar.dart';
 import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_appbar.dart';
@@ -13,10 +18,11 @@ import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info
 import 'package:plupool/features/home/presentaation/views/tech/widgets/weekly_request_test.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
+
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
+
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
-import 'package:go_router/go_router.dart';
 
 class TechHomeView extends StatefulWidget {
   const TechHomeView({super.key});
@@ -26,92 +32,131 @@ class TechHomeView extends StatefulWidget {
 }
 
 class _TechHomeViewState extends State<TechHomeView> {
-  bool _isFetchingUser = false;
+  String? _lastFetchedToken;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
 
-    if (_isFetchingUser) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
 
-    final token = context.read<AuthCubit>().state.token;
+      context.read<SelectRoleCubit>().getSavedRole();
 
-    context.read<SelectRoleCubit>().getSavedRole();
+      _handleAuthState(
+        context.read<AuthCubit>().state,
+      );
+    });
+  }
 
-    if (token != null && token.isNotEmpty) {
-      context.read<UserCubit>().fetchCurrentUser(token);
+  void _handleAuthState(AuthState authState) {
+    final token = authState.token;
+
+    // ==========================
+    // Guest
+    // ==========================
+
+    if (authState.status != AuthStatus.loggedIn ||
+        token == null ||
+        token.isEmpty) {
+      // مهم جدًا:
+      // نمسح بيانات المستخدم القديمة
+      context.read<UserCubit>().clearUser();
+
+      _lastFetchedToken = null;
+
+      return;
     }
 
-    _isFetchingUser = true;
+    // ==========================
+    // Logged In
+    // ==========================
+
+    // منع طلب الـ API أكثر من مرة بنفس التوكن
+    if (_lastFetchedToken == token) {
+      return;
+    }
+
+    _lastFetchedToken = token;
+
+    context.read<UserCubit>().fetchCurrentUser(token);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SelectRoleCubit, SelectRoleState>(
-      builder: (context, roleState) {
-        if (roleState is! GetRoleSuccess) {
-          return const Center(
-            child: CustomLoadingIndecator(),
-          );
-        }
-
-        final token = context.watch<AuthCubit>().state.token;
-
-        // =========================
-        // Guest
-        // =========================
-        if (token == null || token.isEmpty) {
-          return buildHomeLayout(
-            appbar: GuestAppbar(
-              role: roleState.roleName,
-            ),
-            showWeekly: false,
-          );
-        }
-
-        // =========================
-        // Logged In
-        // =========================
-        return BlocBuilder<UserCubit, UserState>(
-          builder: (context, userState) {
-            if (userState is UserLoading) {
-              return const Center(
-                child: CustomLoadingIndecator(),
-              );
-            }
-
-            if (userState is UserError) {
-              return Center(
-                child: Text(
-                  "خطأ: ${userState.message}",
-                ),
-              );
-            }
-
-            if (userState is UserLoaded) {
-              final user = userState.user;
-
-              return buildHomeLayout(
-                appbar: TechAppbar(
-                  model: user,
-                ),
-                userId: user.id,
-                showWeekly: true,
-              );
-            }
-
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, authState) {
+        _handleAuthState(authState);
+      },
+      child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
+        builder: (context, roleState) {
+          if (roleState is! GetRoleSuccess) {
             return const Center(
               child: CustomLoadingIndecator(),
             );
-          },
-        );
-      },
+          }
+
+          return BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, authState) {
+              // ==========================================
+              // GUEST
+              // ==========================================
+
+              if (authState.status != AuthStatus.loggedIn ||
+                  authState.token == null ||
+                  authState.token!.isEmpty) {
+                return buildHomeLayout(
+                  appbar: GuestAppbar(
+                    role: roleState.roleName,
+                  ),
+                  showWeekly: false,
+                );
+              }
+
+              // ==========================================
+              // LOGGED IN
+              // ==========================================
+
+              return BlocBuilder<UserCubit, UserState>(
+                builder: (context, userState) {
+                  if (userState is UserLoading) {
+                    return const Center(
+                      child: CustomLoadingIndecator(),
+                    );
+                  }
+
+                  if (userState is UserError) {
+                    return Center(
+                      child: Text(
+                        "خطأ: ${userState.message}",
+                      ),
+                    );
+                  }
+
+                  if (userState is UserLoaded) {
+                    final user = userState.user;
+
+                    return buildHomeLayout(
+                      appbar: TechAppbar(
+                        model: user,
+                      ),
+                      userId: user.id,
+                      showWeekly: true,
+                    );
+                  }
+
+                  return const Center(
+                    child: CustomLoadingIndecator(),
+                  );
+                },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
-  // =========================
-  // UI مشتركة بين Guest / Logged
-  // =========================
   Widget buildHomeLayout({
     required Widget appbar,
     required bool showWeekly,
@@ -129,8 +174,11 @@ class _TechHomeViewState extends State<TechHomeView> {
 
           const SizedBox(height: 30),
 
+          // ==========================================
+          // Logged In فقط
+          // ==========================================
+
           if (showWeekly && userId != null) ...[
-            // هنا الـ ID جاي من الـ UserLoaded
             TechInfoCardRow(
               userId: userId,
             ),
@@ -152,7 +200,9 @@ class _TechHomeViewState extends State<TechHomeView> {
                 const Spacer(),
 
                 GestureDetector(
-                  onTap: () => context.push('/weeklytasksview'),
+                  onTap: () {
+                    context.push('/weeklytasksview');
+                  },
                   child: Text(
                     "عرض المزيد",
                     style: AppTextStyles.styleSemiBold16(
@@ -172,6 +222,10 @@ class _TechHomeViewState extends State<TechHomeView> {
 
             const SizedBox(height: 30),
           ],
+
+          // ==========================================
+          // Guest + Logged In
+          // ==========================================
 
           const OfferSection(),
 

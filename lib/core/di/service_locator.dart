@@ -196,6 +196,7 @@ import 'package:plupool/features/search/data/repositories_impl/product_search_re
 import 'package:plupool/features/search/domain/repositories/product_search_repo.dart';
 import 'package:plupool/features/search/domain/usecases/search_products_usecase.dart';
 import 'package:plupool/features/search/presentation/manager/cubits/product_search_cubit/product_search_cubit.dart';
+import 'package:plupool/features/select_role/domain/usecases/delete_saved_role_usecase.dart';
 import 'package:plupool/features/services/data/remote_data_source/company_service_remote_data_source.dart';
 import 'package:plupool/features/services/data/remote_data_source/requested_services_remote_ds.dart';
 import 'package:plupool/features/services/data/repos_impl/company_service_repository_impl.dart';
@@ -343,11 +344,13 @@ Future<void> initServiceLocator() async {
 
   sl.registerLazySingleton(() => SaveRoleUseCase(sl<RoleRepository>()));
   sl.registerLazySingleton(() => GetSavedRoleUseCase(sl<RoleRepository>()));
+  sl.registerLazySingleton(() => DeleteSavedRoleUseCase(sl<RoleRepository>()));
 
   sl.registerLazySingleton(
     () => SelectRoleCubit(
       saveRoleUseCase: sl<SaveRoleUseCase>(),
       getSavedRoleUseCase: sl<GetSavedRoleUseCase>(),
+      deleteSavedRoleUseCase: sl<DeleteSavedRoleUseCase>(),
     ),
   );
 

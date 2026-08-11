@@ -12,16 +12,50 @@ import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cu
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/confirm_delete_card.dart';
 import 'package:plupool/features/profile/presentation/views/widgets/delete_warning_card.dart';
+import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
 class DeleteAccountViewBody extends StatefulWidget {
   const DeleteAccountViewBody({super.key});
 
   @override
-  State<DeleteAccountViewBody> createState() => _DeleteAccountViewBodyState();
+  State<DeleteAccountViewBody> createState() =>
+      _DeleteAccountViewBodyState();
 }
 
 class _DeleteAccountViewBodyState extends State<DeleteAccountViewBody> {
   bool acceptedTerms = false;
+
+  /// التعامل مع نجاح حذف الحساب
+  Future<void> _handleDeleteSuccess() async {
+    // اقفل Loading
+    if (mounted) {
+      Navigator.of(context, rootNavigator: true).pop();
+    }
+
+    // 🗑️ حذف الـ Role المحفوظ محليًا
+    await context.read<SelectRoleCubit>().deleteSavedRole();
+
+    if (!mounted) return;
+
+    // رسالة النجاح
+    showCustomSnackBar(
+      context: context,
+      message: 'تم حذف الحساب بنجاح',
+      isSuccess: true,
+    );
+
+    // Logout
+    context.read<AuthCubit>().logout();
+
+    // الانتقال لاختيار Role جديد
+    await Future.delayed(
+      const Duration(milliseconds: 300),
+    );
+
+    if (!mounted) return;
+
+    context.go('/selectrole');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,40 +66,28 @@ class _DeleteAccountViewBodyState extends State<DeleteAccountViewBody> {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => const Center(child: CustomLoadingIndecator()),
+            builder: (_) => const Center(
+              child: CustomLoadingIndecator(),
+            ),
           );
         }
 
-        /// ✅ Success → Logout + Navigate Login
-
-        /// ✅ Success → Logout + Navigate Login
+        /// ✅ Success
         if (state is DeleteUserSuccess) {
-          // اقفل Loading
-          Navigator.of(context, rootNavigator: true).pop();
-
-          // أظهر رسالة النجاح
-          showCustomSnackBar(
-            context: context,
-            message: 'تم حذف الحساب بنجاح',
-            isSuccess: true,
-          );
-
-          // Logout
-          context.read<AuthCubit>().logout();
-
-          // استنى لحظة قبل الانتقال
-          Future.delayed(const Duration(milliseconds: 300), () {
-            if (!mounted) return;
-
-            context.go('/selectrole');
-          });
+          _handleDeleteSuccess();
         }
 
         /// ❌ Error
         if (state is DeleteUserError) {
-          Navigator.of(context, rootNavigator: true).pop(); // يقفل loading
+          Navigator.of(
+            context,
+            rootNavigator: true,
+          ).pop();
 
-          showCustomSnackBar(context: context, message: state.message);
+          showCustomSnackBar(
+            context: context,
+            message: state.message,
+          );
         }
       },
       child: Column(
@@ -76,22 +98,31 @@ class _DeleteAccountViewBodyState extends State<DeleteAccountViewBody> {
             "حذف الحساب",
             style: AppTextStyles.styleSemiBold20(
               context,
-            ).copyWith(color: AppColors.ktextcolor),
+            ).copyWith(
+              color: AppColors.ktextcolor,
+            ),
           ),
+
           SizedBox(height: SizeConfig.h(4)),
+
           Text(
             "قبل المتابعة، يرجى تأكيد رغبتك في حذف الحساب بشكل نهائي.",
             style: AppTextStyles.styleRegular16(
               context,
-            ).copyWith(color: const Color(0xff555555)),
+            ).copyWith(
+              color: const Color(0xff555555),
+            ),
             textDirection: TextDirection.rtl,
           ),
+
           SizedBox(height: SizeConfig.h(20)),
 
           DeleteWarningCard(
             value: acceptedTerms,
             onChanged: (val) {
-              setState(() => acceptedTerms = val);
+              setState(() {
+                acceptedTerms = val;
+              });
             },
           ),
 
@@ -105,7 +136,8 @@ class _DeleteAccountViewBodyState extends State<DeleteAccountViewBody> {
               if (!acceptedTerms) {
                 showCustomSnackBar(
                   context: context,
-                  message: 'يجب الموافقة أولاً قبل متابعة حذف الحساب',
+                  message:
+                      'يجب الموافقة أولاً قبل متابعة حذف الحساب',
                 );
                 return;
               }
