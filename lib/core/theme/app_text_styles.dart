@@ -261,6 +261,17 @@ class AppTextStyles {
       height: 1.8,
     );
   }
+  static TextStyle styleRegular15(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(
+        context,
+        fontSize: SizeConfig.isWideScreen ? 19 : 15,
+      ),
+      fontWeight: FontWeight.w400,
+      color: Color(0xff808080),
+      height: 1.8,
+    );
+  }
    static TextStyle styleRegular12(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(

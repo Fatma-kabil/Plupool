@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:plupool/core/router/page_transitions.dart'; // ✅ استيراد الـ helper
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_company_view.dart';
 import 'package:plupool/features/BottomNavBar/presentation/views/main_home_tech_view.dart';
+import 'package:plupool/features/auth/presentation/views/admin_login_view.dart';
 import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dart';
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
@@ -156,7 +157,11 @@ final GoRouter appRouter = GoRouter(
       name: 'login',
       pageBuilder: (context, state) => buildTransitionPage(const LoginView()),
     ),
-
+    GoRoute(
+      path: '/adminlogin',
+      name: 'adminlogin',
+      pageBuilder: (context, state) => buildTransitionPage(const AdminLoginView()),
+    ),
     GoRoute(
       path: '/MainHomeCustomerView',
       name: 'MainHomeCustomerView',

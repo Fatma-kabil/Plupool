@@ -21,7 +21,7 @@ class PrivacyContactSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             textDirection: TextDirection.rtl,
@@ -35,7 +35,7 @@ class PrivacyContactSection extends StatelessWidget {
             textDirection: TextDirection.rtl,
             "للاستفسارات أو الشكاوى المتعلقة بسياسة الخصوصية أو شروط الاستخدام، يرجى التواصل معنا عبر:",
             textAlign: TextAlign.right,
-            style: AppTextStyles.styleRegular13(
+            style: AppTextStyles.styleRegular15(
               context,
             ).copyWith(color: Colors.grey[700]),
           ),
@@ -44,45 +44,45 @@ class PrivacyContactSection extends StatelessWidget {
             textDirection: TextDirection.rtl,
             textAlign: TextAlign.right,
             text: TextSpan(
-              style: AppTextStyles.styleRegular13(context).copyWith(
+              style: AppTextStyles.styleRegular15(context).copyWith(
                 color: Colors.grey[700],
                 fontFamily: 'Cairo', // 👈 ثبّت الخط هنا
               ),
               children: [
                 TextSpan(
                   text: "البريد الإلكتروني: ",
-                  style: AppTextStyles.styleBold13(context).copyWith(
+                  style: AppTextStyles.styleBold14(context).copyWith(
                     color: Colors.black, // 👈 بولد أسود
                     fontFamily: 'Cairo',
                   ),
                 ),
                 TextSpan(
-                  text: "support@plupool.com\n",
-                  style: AppTextStyles.styleRegular13(
+                  text: "plupoolteam@gmail.com\n",
+                  style: AppTextStyles.styleRegular16(
                     context,
                   ).copyWith(color: Colors.grey[800], fontFamily: 'Cairo'),
                 ),
                 TextSpan(
                   text: "الهاتف: ",
-                  style: AppTextStyles.styleBold13(
+                  style: AppTextStyles.styleBold14(
                     context,
                   ).copyWith(color: Colors.black, fontFamily: 'Cairo'),
                 ),
                 TextSpan(
                   text: "\u202A+20 123 456 7890\u202C\n", // رقم من الشمال
-                  style: AppTextStyles.styleRegular13(
+                  style: AppTextStyles.styleRegular15(
                     context,
                   ).copyWith(color: Colors.grey[800], fontFamily: 'Cairo'),
                 ),
                 TextSpan(
                   text: "العنوان: ",
-                  style: AppTextStyles.styleBold13(
+                  style: AppTextStyles.styleBold14(
                     context,
                   ).copyWith(color: Colors.black, fontFamily: 'Cairo'),
                 ),
                 TextSpan(
                   text: "القاهرة، مصر\n",
-                  style: AppTextStyles.styleRegular13(
+                  style: AppTextStyles.styleRegular15(
                     context,
                   ).copyWith(color: Colors.grey[800], fontFamily: 'Cairo'),
                 ),
@@ -90,7 +90,7 @@ class PrivacyContactSection extends StatelessWidget {
                 TextSpan(
                   text:
                       "نحن نعمل على الرد على جميع الاستفسارات خلال 48 ساعة عمل.",
-                  style: AppTextStyles.styleRegular13(
+                  style: AppTextStyles.styleRegular15(
                     context,
                   ).copyWith(color: Colors.grey[700], fontFamily: 'Cairo'),
                 ),

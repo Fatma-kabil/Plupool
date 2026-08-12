@@ -5,9 +5,10 @@ class PromoCardModel {
   final String title;
   final List<String> features;
   final Color textcolor;
-   final Color titlecolor;
+  final Color titlecolor;
   final Color cardcolor;
-  
+  final String path;
+
   final String imagePath; // صورة الموبايل
 
   PromoCardModel({
@@ -18,5 +19,6 @@ class PromoCardModel {
     required this.textcolor,
     required this.titlecolor,
     required this.imagePath,
+    required this.path,
   });
 }

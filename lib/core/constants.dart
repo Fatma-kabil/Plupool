@@ -24,18 +24,23 @@ import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
 final List<RoleCardItemModel> roles = [
   RoleCardItemModel(
     title: "صاحب حمام سباحة",
-    subtitle: "احجز خدمات الإنشاء أو الصيانة و تابع حمامك \nبخدمات ذكية",
+    subtitle: "احجز خدمات الإنشاء أو الصيانة و تابع حمامك بخدمات ذكية",
     image: Icons.pool,
   ),
   RoleCardItemModel(
     title: "فني",
-    subtitle: "احصل على فرص عمل، تقييمات، وزود دخلك \nبسهولة",
+    subtitle: "احصل على فرص عمل، تقييمات، وزود دخلك بسهولة",
     image: Icons.handyman_outlined,
   ),
   RoleCardItemModel(
-    title: "أمثل شركة أو مطور عقاري",
-    subtitle: "تعاون معنا في تنفيذ حمامات سباحة ذكية \nوخدمات المشاريع الكبرى",
+    title: "ممثل شركة أو مطور عقاري",
+    subtitle: "تعاون معنا في تنفيذ حمامات سباحة ذكية وخدمات المشاريع الكبرى",
     image: Icons.business,
+  ),
+  RoleCardItemModel(
+    title: "ادمن",
+    subtitle: " إدارة النظام والمستخدمين والخدمات",
+    image: Icons.admin_panel_settings_outlined,
   ),
 ];
 
@@ -52,6 +57,7 @@ final List<PromoCardModel> items = [
     cardcolor: Color(0xffCCE4F0),
     textcolor: AppColors.kprimarycolor,
     titlecolor: Color(0xff006398),
+    path: "/constructionservicesview",
   ),
  
   PromoCardModel(
@@ -59,11 +65,12 @@ final List<PromoCardModel> items = [
     iconPath: "assets/icons/services.svg",
     imagePath: "assets/images/promocard2.png",
     features: [
-      "تُعد صيانة حمامات السباحة مهمة جداً لضمان السلامة\nونظافه الحمام وموازنة كيماويات المياه. تشمل تنظيف \nالحمام، فحص الكلور والحمض، تنظيف الفلاتر، وصيانة \nالطلمبات.",
+      "تُعد صيانة حمامات السباحة مهمة جداً لضمان السلامةونظافه الحمام وموازنة كيماويات المياه. تشمل تنظيف الحمام، فحص الكلور والحمض، تنظيف الفلاتر، وصيانة الطلمبات.",
     ],
     cardcolor: Color(0xffCDF7EC),
     textcolor: AppColors.kScenderycolor,
     titlecolor: AppColors.kScenderycolor,
+    path: "/maintenanceserviceview",
   ),
   // تقدر تكرري كروت تانية هنا
 ];

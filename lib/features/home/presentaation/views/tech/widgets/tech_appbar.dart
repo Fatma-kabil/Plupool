@@ -13,7 +13,7 @@ class TechAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        AppBarDetails(model: model, role: 'فني'),
+        AppBarDetails(model: model),
         Spacer(),
         NotificationButton(onTap: () => context.push('/technotifications')),
         SizedBox(width: SizeConfig.w(10)),

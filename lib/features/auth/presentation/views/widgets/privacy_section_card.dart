@@ -24,7 +24,7 @@ class PrivacySectionCard extends StatelessWidget {
       ),
       child: Column(
 
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(title, style: AppTextStyles.styleSemiBold16(context).copyWith(color: AppColors.kprimarycolor)),
             SizedBox(height: 8),
@@ -32,7 +32,7 @@ class PrivacySectionCard extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     "نحن نجمع معلوماتك الشخصية مثل الاسم والعنوان ورقم الهاتف لتقديم الخدمات المطلوبة وتحسين تجربتك.",
                     textAlign: TextAlign.right,
-                    style: AppTextStyles.styleRegular13(context).copyWith(color: Colors.grey[700]),
+                    style: AppTextStyles.styleRegular15(context).copyWith(color: Colors.grey[700]),
                   ),
           SizedBox(height: 8),
           Container(
@@ -49,7 +49,7 @@ class PrivacySectionCard extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(10),vertical:SizeConfig.h(8) ),
             child: Text(
               textDirection:TextDirection.rtl,
-              'نحن لا نبيع أو نؤجر معلوماتك الشخصية لأطراف ثالثة لأغراض التسويق.',style: AppTextStyles.styleRegular13(context).copyWith(color: Color(0xff555555)),),
+              'نحن لا نبيع أو نؤجر معلوماتك الشخصية لأطراف ثالثة لأغراض التسويق.',style: AppTextStyles.styleRegular15(context).copyWith(color: Color(0xff555555)),),
           ),
             SizedBox(height: 8),
           ...items.map(
@@ -58,7 +58,7 @@ class PrivacySectionCard extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     e,
                     textAlign: TextAlign.right,
-                    style: AppTextStyles.styleRegular13(context).copyWith(color: Colors.grey[700]),
+                    style: AppTextStyles.styleRegular15(context).copyWith(color: Colors.grey[700]),
                   ),
                 
               

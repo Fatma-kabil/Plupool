@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cubit/bottom_nav_cubit.dart';
 import 'package:plupool/features/home/data/models/promo_card_model.dart';
-
 
 class PromoCard extends StatelessWidget {
   final PromoCardModel model;
@@ -15,7 +13,7 @@ class PromoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:  EdgeInsets.only(left: SizeConfig.w(11) ),
+      margin: EdgeInsets.only(left: SizeConfig.w(11)),
       decoration: BoxDecoration(
         color: model.cardcolor,
         borderRadius: BorderRadius.circular(10),
@@ -24,9 +22,10 @@ class PromoCard extends StatelessWidget {
         children: [
           /// النصوص فوق
           Padding(
-            padding:  EdgeInsets.symmetric
-            (horizontal:  SizeConfig.w(10),vertical:  SizeConfig.h(10)
-              ),
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.w(10),
+              vertical: SizeConfig.h(10),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -34,13 +33,13 @@ class PromoCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                     SvgPicture.asset(
+                    SvgPicture.asset(
                       model.iconPath,
                       width: SizeConfig.w(20),
                       height: SizeConfig.w(20),
                       color: model.textcolor,
                     ),
-                      SizedBox(width: SizeConfig.w(4) ),
+                    SizedBox(width: SizeConfig.w(4)),
                     Text(
                       model.title,
                       textDirection: TextDirection.rtl,
@@ -48,8 +47,6 @@ class PromoCard extends StatelessWidget {
                         context,
                       ).copyWith(color: model.titlecolor),
                     ),
-                   
-                   
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -57,7 +54,7 @@ class PromoCard extends StatelessWidget {
                 // قائمة المميزات
                 ...model.features.map(
                   (feature) => Padding(
-                    padding:  EdgeInsets.only(bottom: SizeConfig.h(8) ),
+                    padding: EdgeInsets.only(bottom: SizeConfig.h(8)),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       textDirection: TextDirection.rtl,
@@ -68,11 +65,11 @@ class PromoCard extends StatelessWidget {
                             context,
                           ).copyWith(color: model.textcolor),
                         ),
-                         SizedBox(width:  SizeConfig.w(6)),
+                        SizedBox(width: SizeConfig.w(6)),
                         Expanded(
                           child: Text(
                             feature,
-                            style: AppTextStyles.styleRegular13(
+                            style: AppTextStyles.styleRegular14(
                               context,
                             ).copyWith(color: model.textcolor),
                             textAlign: TextAlign.right,
@@ -92,7 +89,7 @@ class PromoCard extends StatelessWidget {
           /// الصورة ملزوقة في آخر الكارد
           Positioned(
             bottom: 0,
-            left:SizeConfig.h(20) ,
+            left: SizeConfig.h(20),
             child: Image.asset(
               model.imagePath,
               width: SizeConfig.w(90),
@@ -104,22 +101,20 @@ class PromoCard extends StatelessWidget {
           /// الزرار يمين تحت
           Positioned(
             bottom: SizeConfig.h(25),
-            right:SizeConfig.w(30) ,
+            right: SizeConfig.w(30),
             child: OutlinedButton(
               style: OutlinedButton.styleFrom(
                 side: BorderSide(color: model.textcolor, width: 1),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                padding:  EdgeInsets.symmetric(
-                  vertical:  SizeConfig.h(6),
-                  horizontal:  SizeConfig.w(25),
+                padding: EdgeInsets.symmetric(
+                  vertical: SizeConfig.h(6),
+                  horizontal: SizeConfig.w(25),
                 ),
               ),
               onPressed: () {
-                context.read<BottomNavCubit>().changeCurrentIndex(
-                  1,
-                ); // 1 = صفحة الخدمات
+                context.push(model.path); // 1 = صفحة الخدمات
               },
               child: Text(
                 "ابدأ الان",

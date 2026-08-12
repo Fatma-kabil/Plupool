@@ -9,12 +9,7 @@ import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cu
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
 
 class CustomerAppbar extends StatelessWidget {
-  final String role;
-
-  const CustomerAppbar({
-    super.key,
-    required this.role,
-  });
+  const CustomerAppbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +34,10 @@ class CustomerAppbar extends StatelessWidget {
 
           return Row(
             children: [
-              AppBarDetails(
-                model: user,
-                role:  role,
-              ),
+              AppBarDetails(model: user),
               const Spacer(),
 
               // 📞 تواصل معنا
-             
-
-            
-
               NotificationButton(
                 onTap: () {
                   context.push('/customernotificationview');

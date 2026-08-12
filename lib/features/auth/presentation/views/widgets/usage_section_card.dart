@@ -28,7 +28,7 @@ class UsageSectionCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
@@ -46,14 +46,14 @@ class UsageSectionCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding:  EdgeInsets.only(right: SizeConfig.w(18)),
-                    child: Text(" •", style: TextStyle(fontSize: SizeConfig.w(10))),
+                    child: Text(" •  ", style: TextStyle(fontSize: SizeConfig.w(10))),
                   ),
                   Expanded(
                     child: Text(
                       textDirection: TextDirection.rtl,
                       e,
                       textAlign: TextAlign.right,
-                      style: AppTextStyles.styleRegular13(
+                      style: AppTextStyles.styleRegular15(
                         context,
                       ).copyWith(color: Colors.grey[700]),
                     ),

@@ -83,7 +83,7 @@ class RoleCard extends StatelessWidget {
                     Text(
                       role.subtitle,
                       textAlign: TextAlign.right,
-                      style: AppTextStyles.stylelight14(context),
+                      style: AppTextStyles.styleRegular16(context).copyWith(color: Color(0xFF7B7B7B)),  
                     ),
                   ],
                 ),

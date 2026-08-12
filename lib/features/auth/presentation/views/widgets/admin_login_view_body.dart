@@ -8,25 +8,22 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
-import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/login_form.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/verification_body.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/whatsapp_verification_note.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
-import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
-import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
 
 import '../../../../notifications/presentation/manager/notification_cubit/notification_cubit.dart';
 
-class LoginViewBody extends StatefulWidget {
-  const LoginViewBody({super.key});
+class AdminLoginViewBody extends StatefulWidget {
+  const AdminLoginViewBody({super.key});
 
   @override
-  State<LoginViewBody> createState() => _LoginViewBodyState();
+  State<AdminLoginViewBody> createState() => _AdminLoginViewBodyState();
 }
 
-class _LoginViewBodyState extends State<LoginViewBody> {
+class _AdminLoginViewBodyState extends State<AdminLoginViewBody> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController phoneController = TextEditingController();
   final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey =
@@ -112,24 +109,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   await Future.delayed(const Duration(seconds: 1));
 
                   if (!mounted) return;
-
-                  await context.read<UserCubit>().fetchCurrentUser(state.token);
-
-                  if (!mounted) return;
-
-                  final userState = context.read<UserCubit>().state;
-
-                  if (userState is UserLoaded) {
-                    final role = userState.user.role;
-
-                    if (role == 'technician') {
-                      context.go('/MainHomeTechView');
-                    } else if (role == 'company' || role == 'developer') {
-                      context.go('/MainHomecompanyview');
-                    } else if (role == 'pool_owner') {
-                      context.go('/MainHomeCustomerView');
-                    }
-                  }
+                  // ignore: use_build_context_synchronously
+                  context.go('/adminhomeview');
                 } else if (state is OtpError) {
                   showCustomSnackBar(
                     context: context,
@@ -191,14 +172,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     ],
                   );
                 }
-              },
-            ),
-
-            AuthSwitchRow(
-              leadingText: 'ليس لدي حساب',
-              actionText: 'إنشاء حساب',
-              onTap: () {
-                context.go('/signup');
               },
             ),
           ],

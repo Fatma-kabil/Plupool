@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
@@ -9,12 +10,39 @@ import 'package:plupool/features/home/presentaation/manager/add_rating_cubit/add
 import 'package:plupool/features/home/presentaation/manager/add_rating_cubit/add_rating_state.dart';
 
 class CommentInput extends StatelessWidget {
-  const CommentInput({super.key, required this.imageUrl});
+  const CommentInput({
+    super.key,
+    required this.imageUrl,
+  });
 
   final String imageUrl;
 
   bool _isValidImage(String image) {
-    return image.isNotEmpty && image != 'string' && image.startsWith('http');
+    return image.isNotEmpty &&
+        image != 'string' &&
+        image.startsWith('http');
+  }
+
+  /// الصورة الافتراضية لو مفيش صورة
+  Widget _buildDefaultAvatar() {
+    return Container(
+      width: SizeConfig.w(36),
+      height: SizeConfig.w(36),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: AppColors.kprimarycolor,
+        ),
+      ),
+      child: Center(
+        child: SvgPicture.asset(
+          "assets/icons/user.svg",
+          width: SizeConfig.w(20),
+          height: SizeConfig.w(20),
+        ),
+      ),
+    );
   }
 
   @override
@@ -30,7 +58,10 @@ class CommentInput extends StatelessWidget {
         }
 
         if (state is RatingError) {
-          showCustomSnackBar(context: context, message: state.message);
+          showCustomSnackBar(
+            context: context,
+            message: state.message,
+          );
         }
       },
       builder: (context, state) {
@@ -45,8 +76,11 @@ class CommentInput extends StatelessWidget {
                   "قيّم تجربتك معنا",
                   style: AppTextStyles.styleSemiBold16(
                     context,
-                  ).copyWith(color: const Color(0xff555555)),
+                  ).copyWith(
+                    color: const Color(0xff555555),
+                  ),
                 ),
+
                 SizedBox(width: SizeConfig.w(24)),
 
                 ...List.generate(
@@ -76,44 +110,40 @@ class CommentInput extends StatelessWidget {
 
             Row(
               children: [
-                CircleAvatar(
-                  radius: SizeConfig.w(18),
-                  backgroundColor: Colors.grey[200],
-                  child: ClipOval(
-                    child: _isValidImage(imageUrl)
-                        ? CachedNetworkImage(
-                            imageUrl: imageUrl,
-                            fit: BoxFit.cover,
-                            width: SizeConfig.w(34),
-                            height: SizeConfig.w(34),
-                            placeholder: (_, __) => Icon(
-                              Icons.person,
-                              size: SizeConfig.w(22),
-                              color: Colors.grey,
-                            ),
-                            errorWidget: (_, __, ___) => Icon(
-                              Icons.person,
-                              size: SizeConfig.w(22),
-                              color: AppColors.kprimarycolor,
-                            ),
-                          )
-                        : Icon(
-                            Icons.person,
-                            size: SizeConfig.w(22),
-                            color: Colors.grey,
-                          ),
-                  ),
+                /// Avatar
+                ClipOval(
+                  child: _isValidImage(imageUrl)
+                      ? CachedNetworkImage(
+                          imageUrl: imageUrl,
+                          fit: BoxFit.cover,
+                          width: SizeConfig.w(36),
+                          height: SizeConfig.w(36),
+
+                          /// أثناء تحميل الصورة
+                          placeholder: (context, url) {
+                            return _buildDefaultAvatar();
+                          },
+
+                          /// لو الصورة فشلت
+                          errorWidget: (context, url, error) {
+                            return _buildDefaultAvatar();
+                          },
+                        )
+                      : _buildDefaultAvatar(),
                 ),
 
                 SizedBox(width: SizeConfig.w(12)),
 
+                /// Comment
                 Expanded(
                   child: TextField(
                     controller: cubit.commentController,
                     cursorColor: AppColors.kprimarycolor,
                     style: AppTextStyles.styleSemiBold14(
                       context,
-                    ).copyWith(color: Colors.black),
+                    ).copyWith(
+                      color: Colors.black,
+                    ),
                     cursorHeight: SizeConfig.w(15),
                     textAlign: TextAlign.right,
                     decoration: InputDecoration(
@@ -121,18 +151,24 @@ class CommentInput extends StatelessWidget {
                       hintText: "اكتب تعليقك هنا...",
                       hintStyle: AppTextStyles.styleRegular13(
                         context,
-                      ).copyWith(color: const Color(0xffBBBBBB)),
+                      ).copyWith(
+                        color: const Color(0xffBBBBBB),
+                      ),
                       contentPadding: EdgeInsets.symmetric(
                         horizontal: SizeConfig.w(12),
                         vertical: SizeConfig.h(12),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(color: Color(0xffD6D6D6)),
+                        borderSide: const BorderSide(
+                          color: Color(0xffD6D6D6),
+                        ),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
-                        borderSide: const BorderSide(color: Color(0xffD6D6D6)),
+                        borderSide: const BorderSide(
+                          color: Color(0xffD6D6D6),
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -147,14 +183,13 @@ class CommentInput extends StatelessWidget {
 
                 SizedBox(width: SizeConfig.w(12)),
 
+                /// Send button
                 InkWell(
                   borderRadius: BorderRadius.circular(100),
                   onTap: state is RatingLoading
                       ? null
                       : () {
-                          cubit.addRating(
-                            
-                          );
+                          cubit.addRating();
                         },
                   child: Container(
                     width: SizeConfig.w(32),

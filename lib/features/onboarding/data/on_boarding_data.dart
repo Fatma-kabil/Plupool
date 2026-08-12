@@ -13,7 +13,7 @@ class OnboardingItem {
 final onboardingItems = [
   OnboardingItem(
     image: "assets/images/onboarding1.png",
-    title: "انشئ تصميمك بدقه مع محاكاه 3D قبل \nالتنفيذ  من المهندسين تتعدي \nخبرتهم عشرات السنين في السوق",
+    title: " حوّل مساحتك إلى تجربة لا تُنسى\nمن التصميم إلى التنفيذ، نبني حمام سباحة\n يناسبك",
     
   ),
   OnboardingItem(

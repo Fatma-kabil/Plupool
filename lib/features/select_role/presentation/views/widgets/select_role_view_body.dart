@@ -15,26 +15,27 @@ class SelectRoleViewBody extends StatelessWidget {
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(
-        //  vertical: SizeConfig.h(20.0),
+          //  vertical: SizeConfig.h(20.0),
           horizontal: SizeConfig.w(20),
         ),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center, // ✅ عشان كل حاجة تكون في النص
+            crossAxisAlignment:
+                CrossAxisAlignment.center, // ✅ عشان كل حاجة تكون في النص
             children: [
               Text(
                 "اختر دورك",
                 style: AppTextStyles.styleSemiBold32(context),
                 textAlign: TextAlign.center,
               ),
-               SizedBox(height:SizeConfig.h(8) ),
+              SizedBox(height: SizeConfig.h(8)),
               Text(
                 "حدد نوع حسابك للحصول على تجربة مخصصة",
                 textAlign: TextAlign.center,
                 style: AppTextStyles.styleMedium16(context),
               ),
-               SizedBox(height: SizeConfig.h(22)),
+              SizedBox(height: SizeConfig.h(22)),
 
               // ✅ خلي الكروت كولوم في النص بدل ListView
               Column(
@@ -42,21 +43,28 @@ class SelectRoleViewBody extends StatelessWidget {
                 children: List.generate(roles.length, (index) {
                   final role = roles[index];
                   return Padding(
-                    padding:  EdgeInsets.only(bottom: SizeConfig.h(16)),
+                    padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
                     child: RoleCard(
                       role: role,
-                      onTap: () async{
+                      onTap: () async {
                         final selectedRole = role.title;
 
-                      await  context.read<SelectRoleCubit>().saveSelectedRole(selectedRole);
+                        await context.read<SelectRoleCubit>().saveSelectedRole(
+                          selectedRole,
+                        );
 
                         if (selectedRole == "فني") {
                           // ignore: use_build_context_synchronously
                           context.push("/MainHomeTechView");
                         } else if (selectedRole == "صاحب حمام سباحة") {
+                          // ignore: use_build_context_synchronously
                           context.push("/MainHomeCustomerView");
-                        }else{
-                           context.push("/MainHomecompanyview");
+                        } else if (selectedRole == "ممثل شركةأومطور عقاري") {
+                          // ignore: use_build_context_synchronously
+                          context.push("/MainHomecompanyview");
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          context.push("/adminlogin");
                         }
                       },
                     ),

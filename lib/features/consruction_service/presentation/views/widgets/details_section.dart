@@ -27,7 +27,7 @@ class DetailsSection extends StatelessWidget {
 
           Text(
             pool.descriptionAr ?? "",
-            style: AppTextStyles.styleRegular13(
+            style: AppTextStyles.styleRegular15(
               context,
             ).copyWith(color: const Color(0xff777777)),
           ),
@@ -59,6 +59,11 @@ class DetailsSection extends StatelessWidget {
                       SizedBox(width: SizeConfig.w(6)),
                       Expanded(
                         child: Text.rich(
+                          style: feature.contains("مناسب لـ:")
+                              ? AppTextStyles.styleRegular15(context)
+                                  .copyWith(color: Colors.black)
+                              : AppTextStyles.styleRegular15(context)
+                                  .copyWith(color: const Color(0xff777777)),
                           TextSpan(
                             children: highlightWord(
                               context,

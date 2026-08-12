@@ -1,23 +1,63 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/profile/domain/entities/user_entity.dart';
+
 class AppBarDetails extends StatelessWidget {
   const AppBarDetails({
     super.key,
     required this.model,
-    required this.role,
   });
 
   final UserEntity model;
-  final String role;
 
   bool _isValidImage(String image) {
     return image.isNotEmpty &&
         image != 'string' &&
         image.startsWith('http');
+  }
+
+  String _getArabicRole(String role) {
+    switch (role.toLowerCase()) {
+      case 'technician':
+        return 'فني';
+
+      case 'company':
+        return 'ممثل شركة';
+
+      case 'developer':
+        return 'مطور';
+
+      case 'pool_owner':
+        return 'مالك حمام سباحة';
+
+      default:
+        return role;
+    }
+  }
+
+  Widget _buildDefaultAvatar() {
+    return Container(
+      width: SizeConfig.w(34),
+      height: SizeConfig.w(34),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: AppColors.kprimarycolor,
+        ),
+      ),
+      child: Center(
+        child: SvgPicture.asset(
+          "assets/icons/user.svg",
+          width: SizeConfig.w(20),
+          height: SizeConfig.w(20),
+        ),
+      ),
+    );
   }
 
   @override
@@ -37,30 +77,30 @@ class AppBarDetails extends StatelessWidget {
                         fit: BoxFit.cover,
                         width: SizeConfig.w(34),
                         height: SizeConfig.w(34),
-                        placeholder: (context, url) => Icon(
-                          Icons.person,
-                          size: SizeConfig.w(22),
-                          color: Colors.grey,
-                        ),
-                        errorWidget: (context, url, error) => Icon(
-                          Icons.person,
-                          size: SizeConfig.w(22),
-                          color: AppColors.kprimarycolor,
-                        ),
+
+                        // أثناء تحميل الصورة
+                        placeholder: (context, url) {
+                          return _buildDefaultAvatar();
+                        },
+
+                        // لو الصورة مش موجودة أو حصل Error
+                        errorWidget: (context, url, error) {
+                          return _buildDefaultAvatar();
+                        },
                       )
-                    : Icon(
-                        Icons.person,
-                        size: SizeConfig.w(22),
-                        color: Colors.grey,
-                      ),
+                    : _buildDefaultAvatar(),
               ),
             ),
+
             SizedBox(width: SizeConfig.w(5)),
+
             Text(
               "أهلاً ${model.fullName.split(" ").first}",
               style: AppTextStyles.styleSemiBold16(
                 context,
-              ).copyWith(color: AppColors.ktextcolor),
+              ).copyWith(
+                color: AppColors.ktextcolor,
+              ),
             ),
           ],
         ),
@@ -76,10 +116,12 @@ class AppBarDetails extends StatelessWidget {
             ),
             SizedBox(width: SizeConfig.w(2)),
             Text(
-              role,
+              _getArabicRole(model.role),
               style: AppTextStyles.styleRegular13(
                 context,
-              ).copyWith(color: AppColors.kprimarycolor),
+              ).copyWith(
+                color: AppColors.kprimarycolor,
+              ),
             ),
           ],
         ),

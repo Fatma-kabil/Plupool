@@ -88,7 +88,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
             // =========================
             return _buildHomeLayout(
               appbar: CustomerAppbar(
-                role: roleName,
+               
               ),
             );
           },
@@ -110,7 +110,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
         children: [
           appbar,
 
-          const SizedBox(height: 35),
+          const SizedBox(height: 20),
 
           const PromoCarousel(),
 

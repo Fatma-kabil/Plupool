@@ -21,7 +21,7 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
     // مهم:
     //  viewportFraction = 1.0
     //علشان الكارد ياخد العرض كله
-    _pageController = PageController(viewportFraction: 1.0);
+    _pageController = PageController(viewportFraction: 0.88);
   }
 
   void _goToPage(int index) {
@@ -42,16 +42,16 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
         SizedBox(
           width: double.infinity,
           height: SizeConfig.screenHeight > 2 * SizeConfig.screenWidth
-              ? SizeConfig.h(345)
+              ? SizeConfig.h(362)
               : SizeConfig.screenWidth == 800
-              ? SizeConfig.h(350)
+              ? SizeConfig.h(367)
               : SizeConfig.screenWidth > 1000
-              ? SizeConfig.w(255)
+              ? SizeConfig.w(272)
               : SizeConfig.screenWidth > 800
               ? SizeConfig.w(
-                  272,
+                  289,
                 ) // SizeConfig.screenHeight / SizeConfig.screenWidth * 0.60
-              : SizeConfig.h(363),
+              : SizeConfig.h(380),
 
           child: PageView.builder(
             padEnds: false,
@@ -62,7 +62,10 @@ class _ProjectsCarouselState extends State<ProjectsCarousel> {
             },
             itemBuilder: (context, index) {
               final project = widget.projects[index];
-              return ProjectCard(project: project);
+              return Padding(
+                padding:  EdgeInsets.only(left: 8.0, ),
+                child: ProjectCard(project: project),
+              );
             },
           ),
         ),

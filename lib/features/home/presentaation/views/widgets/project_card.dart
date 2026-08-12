@@ -214,7 +214,7 @@ class ProjectCard extends StatelessWidget {
                 Text(
                   project.descriptionAr ?? "",
                   maxLines: 2,
-                  style: AppTextStyles.styleRegular13(
+                  style: AppTextStyles.styleRegular14(
                     context,
                   ).copyWith(color: Color(0xff777777)),
                 ),
