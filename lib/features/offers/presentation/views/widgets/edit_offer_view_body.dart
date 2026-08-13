@@ -78,7 +78,7 @@ class _EditOfferViewBodyState extends State<EditOfferViewBody> {
 
   String formatDate(DateTime? date) {
     if (date == null) return '';
-    return "${date.day}/${date.month}/${date.year}";
+    return "${date.year}/${date.month}/${date.day}";
   }
 
   void submit(BuildContext context) {

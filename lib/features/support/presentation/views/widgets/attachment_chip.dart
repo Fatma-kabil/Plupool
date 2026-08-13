@@ -49,7 +49,7 @@ class AttachmentChip extends StatelessWidget {
               color: const Color(0xff777777),
             ),
             SizedBox(width: SizeConfig.w(4)),
-            Expanded(
+            Flexible(
               child: Text(
                 fileName,
                 maxLines: 1,

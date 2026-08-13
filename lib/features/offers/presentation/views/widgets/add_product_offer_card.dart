@@ -41,7 +41,7 @@ class _AddProductOfferCardState extends State<AddProductOfferCard> {
 
   String formatDate(DateTime? date) {
     if (date == null) return '';
-    return "${date.day}/${date.month}/${date.year}";
+    return "${date.year}/${date.month}/${date.day}";
   }
 
   @override

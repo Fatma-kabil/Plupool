@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/reports/domain/entities/attached_file_entity.dart';
 import 'package:plupool/features/support/presentation/views/widgets/attachment_chip.dart';
 
 class MessageDetailsSection extends StatelessWidget {
@@ -11,7 +12,7 @@ class MessageDetailsSection extends StatelessWidget {
     required this.attachments,
   });
   final String message;
-  final List attachments;
+  final List<AttachedFileEntity> attachments;
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +65,8 @@ class MessageDetailsSection extends StatelessWidget {
                     final file = attachments[index];
 
                     return AttachmentChip(
-                      fileName: file.toString().split('/').last,
-                      fileUrl: file,
+                        fileName: file.originalName,
+                      fileUrl: file.fileUrl,
                     );
                   },
                 ),
