@@ -10,24 +10,40 @@ class OtpRepoImpl implements OtpRepository {
   OtpRepoImpl(this.remoteDataSource);
 
   @override
-   @override
-  Future<Either<Failure, SendOtpResponseModel>> sendOtp(String phone) async {
+  Future<Either<Failure, SendOtpResponseModel>> sendOtp({
+    required String phone,
+    required String purpose,
+  }) async {
     try {
       print('📡 [Repo] Sending OTP to $phone');
-      final response = await remoteDataSource.sendOtp(phone);
+      print('🎯 Purpose: $purpose');
+
+      final response = await remoteDataSource.sendOtp(
+        phone: phone,
+        purpose: purpose,
+      );
+
       print('✅ [Repo] OTP sent successfully');
+
       return Right(response);
     } catch (e) {
       print('❌ [Repo] Error while sending OTP: $e');
+
       return Left(mapDioError(e));
     }
   }
 
-
   @override
-  Future<Either<Failure, String>> verifyOtp(String phone, String otpCode) async {
+  Future<Either<Failure, String>> verifyOtp(
+    String phone,
+    String otpCode,
+  ) async {
     try {
-      final token = await remoteDataSource.verifyOtp(phone, otpCode);
+      final token = await remoteDataSource.verifyOtp(
+        phone,
+        otpCode,
+      );
+
       return Right(token);
     } catch (e) {
       return Left(mapDioError(e));

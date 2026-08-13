@@ -59,7 +59,7 @@ class SelectRoleViewBody extends StatelessWidget {
                         } else if (selectedRole == "صاحب حمام سباحة") {
                           // ignore: use_build_context_synchronously
                           context.push("/MainHomeCustomerView");
-                        } else if (selectedRole == "ممثل شركةأومطور عقاري") {
+                        } else if (selectedRole ==  "ممثل شركة أو مطور عقاري") {
                           // ignore: use_build_context_synchronously
                           context.push("/MainHomecompanyview");
                         } else {

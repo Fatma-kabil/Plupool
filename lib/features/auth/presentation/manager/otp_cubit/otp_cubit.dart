@@ -8,11 +8,11 @@ class OtpCubit extends Cubit<OtpState> {
   final OtpRepository otpRepository;
 
   OtpCubit(this.otpRepository) : super(OtpInitial());
-  Future<void> sendOtp(String phone) async {
+  Future<void> sendOtp(String phone, String purpose) async {
     emit(OtpLoading());
     print("🟡 [Cubit] OtpLoading emitted");
 
-    final result = await otpRepository.sendOtp(phone);
+    final result = await otpRepository.sendOtp( phone: phone, purpose: purpose);
 
     result.fold(
       (failure) {
@@ -28,10 +28,10 @@ class OtpCubit extends Cubit<OtpState> {
       },
     );
   }
-  Future<void> resendOtp(String phone) async {
+  Future<void> resendOtp(String phone, String purpose) async {
   emit(OtpLoading());
 
-  final result = await otpRepository.sendOtp(phone);
+  final result = await otpRepository.sendOtp(phone: phone, purpose: purpose);
 
   result.fold(
     (failure) {

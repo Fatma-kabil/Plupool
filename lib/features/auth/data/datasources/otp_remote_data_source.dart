@@ -7,7 +7,11 @@ import 'package:plupool/features/auth/data/models/send_otp_respnse_model.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 
 abstract class OtpRemoteDataSource {
-  Future<SendOtpResponseModel> sendOtp(String phone);
+  Future<SendOtpResponseModel> sendOtp({
+    required String phone,
+    required String purpose,
+  });
+
   Future<String> verifyOtp(String phone, String otpCode);
 }
 
@@ -19,7 +23,10 @@ class OtpRemoteDataSourceImpl implements OtpRemoteDataSource {
   OtpRemoteDataSourceImpl(this.apiService, this.authCubit);
 
   @override
-  Future<SendOtpResponseModel> sendOtp(String phone) async {
+  Future<SendOtpResponseModel> sendOtp({
+    required String phone,
+    required String purpose,
+  }) async {
     // 1. اطلب الـ Challenge
     final response = await apiService.get(Endpoints.otpChallenge);
 
@@ -38,6 +45,9 @@ class OtpRemoteDataSourceImpl implements OtpRemoteDataSource {
       Endpoints.sendOtp,
       data: {
         'phone': phone,
+
+        // 👈 الجديد
+        'purpose': purpose,
         'powSolution': {
           'challengeToken': challengeData.challengeToken,
           'nonce': nonce,

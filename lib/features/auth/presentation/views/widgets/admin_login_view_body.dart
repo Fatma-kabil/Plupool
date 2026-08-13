@@ -144,7 +144,7 @@ class _AdminLoginViewBodyState extends State<AdminLoginViewBody> {
                             }
 
                             phoneNumber = number; // خزنه بس لما يكون صحيح
-                            context.read<OtpCubit>().sendOtp(phoneNumber!);
+                            context.read<OtpCubit>().sendOtp(phoneNumber!, 'login');
                           }
                         },
                       ),
@@ -156,6 +156,7 @@ class _AdminLoginViewBodyState extends State<AdminLoginViewBody> {
                     children: [
                       SizedBox(height: SizeConfig.h(40)),
                       VerificationBody(
+                        purpose: 'login',
                         expiresIn: _expiresIn,
                         phoneNumber: phoneNumber ?? '',
                         btntext: state is OtpLoading

@@ -182,6 +182,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         return BlocBuilder<SignUpCubit, SignUpState>(
                           builder: (context, signUpState) {
                             return VerificationBody(
+                              purpose: 'signup',
                               expiresIn: _expiresIn,
                               phoneNumber:
                                   _phoneInputFieldKey.currentState
@@ -282,7 +283,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     }
 
     final fullPhone = phoneState.getFullPhoneNumber();
-    context.read<OtpCubit>().sendOtp(fullPhone);
+    context.read<OtpCubit>().sendOtp(fullPhone, 'signup');
   }
 
   void _onSignupPressed(String otpCode) {

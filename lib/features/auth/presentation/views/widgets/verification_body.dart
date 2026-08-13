@@ -16,6 +16,7 @@ class VerificationBody extends StatefulWidget {
   final String btntext;
   final int expiresIn;
   final void Function(String otpCode) onVerify;
+  final String purpose; // ✅ الجديد: لتحديد الغرض من إرسال OTP
 
   const VerificationBody({
     super.key,
@@ -23,6 +24,7 @@ class VerificationBody extends StatefulWidget {
     required this.phoneNumber,
     required this.btntext,
     required this.onVerify,
+    required this.purpose,
   });
 
   @override
@@ -60,7 +62,7 @@ class _VerificationBodyState extends State<VerificationBody> {
 
   void _resendOtp() {
     // 🟢 هنا بنبعت الكود الجديد فعلاً
-    context.read<OtpCubit>().resendOtp(widget.phoneNumber);
+    context.read<OtpCubit>().resendOtp(widget.phoneNumber, widget.purpose);
 
     // 🟠 نعيد العداد من الأول
     _startCountdown();

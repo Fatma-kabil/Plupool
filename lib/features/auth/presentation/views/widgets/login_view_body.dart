@@ -129,6 +129,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     } else if (role == 'pool_owner') {
                       context.go('/MainHomeCustomerView');
                     }
+                    else if (role == 'admin') {
+                      context.go('/adminhomeview');
+                    }
+
                   }
                 } else if (state is OtpError) {
                   showCustomSnackBar(
@@ -163,7 +167,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                             }
 
                             phoneNumber = number; // خزنه بس لما يكون صحيح
-                            context.read<OtpCubit>().sendOtp(phoneNumber!);
+                            context.read<OtpCubit>().sendOtp(phoneNumber!, 'login');
                           }
                         },
                       ),
@@ -175,6 +179,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     children: [
                       SizedBox(height: SizeConfig.h(40)),
                       VerificationBody(
+                        purpose: 'login',
                         expiresIn: _expiresIn,
                         phoneNumber: phoneNumber ?? '',
                         btntext: state is OtpLoading
