@@ -15,9 +15,10 @@ class AddCompanyForm extends StatelessWidget {
     required this.companyController,
     required this.initialCountryCode,
     required this.initialCountryFlag,
-    this.onCountryChanged, required this.isActive,
+    this.onCountryChanged,
+    required this.isActive,
     this.onActiveChanged,
-      required this.formKey,
+    required this.formKey,
   });
 
   final TextEditingController nameController;
@@ -27,7 +28,7 @@ class AddCompanyForm extends StatelessWidget {
 
   final String initialCountryCode;
   final String initialCountryFlag;
-   final   bool isActive;
+  final bool isActive;
   final ValueChanged<bool>? onActiveChanged;
   final void Function(String code, String flag)? onCountryChanged;
   final GlobalKey<FormState> formKey;
@@ -58,14 +59,19 @@ class AddCompanyForm extends StatelessWidget {
 
               CustomTextFormField(
                 controller: companyController,
-
-                hintText: 'ادخل اسم الشركه ',
-
+                hintText: 'ادخل اسم الشركه',
                 icon: Icons.business_outlined,
 
-                validator: (v) => Validators.name(v),
-              ),
+                validator: (v) {
+                  // اختياري: لو فاضي عادي
+                  if (v == null || v.trim().isEmpty) {
+                    return null;
+                  }
 
+                  // لو المستخدم كتبه، طبقي عليه الـ validation
+                  return Validators.name(v);
+                },
+              ),
               SizedBox(height: SizeConfig.h(30)),
 
               FieldLabel('رقم الهاتف'),
@@ -81,15 +87,11 @@ class AddCompanyForm extends StatelessWidget {
                 initialCountryFlag: initialCountryFlag,
 
                 onCountryChanged: onCountryChanged,
-                
               ),
 
               SizedBox(height: SizeConfig.h(15)),
 
-              StatusRow(
-                isActive: isActive,
-                onChanged: onActiveChanged!,
-              ),
+              StatusRow(isActive: isActive, onChanged: onActiveChanged!),
             ],
           ),
         ),

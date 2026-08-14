@@ -5,7 +5,10 @@ import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_a
 import 'package:plupool/features/notifications/presentation/views/widgets/add_notification_view_body.dart';
 
 class AddNotificationsView extends StatefulWidget {
-  const AddNotificationsView({super.key});
+  const AddNotificationsView({super.key,
+    required this.userId, // إذا كان null، سيتم إرسال الإشعار لجميع المستخدمين، وإذا كان يحتوي على قيمة، سيتم إرسال الإشعار للمستخدم المحدد فقط.
+  });
+  final int userId; // إذا كان null، سيتم إرسال الإشعار لجميع المستخدمين، وإذا كان يحتوي على قيمة، سيتم إرسال الإشعار للمستخدم المحدد فقط.
 
   @override
   State<AddNotificationsView> createState() => _AddNotificationsViewState();
@@ -33,7 +36,9 @@ class _AddNotificationsViewState extends State<AddNotificationsView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: AddNotificationViewBody(),
+            child: AddNotificationViewBody(
+              userId: widget.userId, // إذا كان null، سيتم إرسال الإشعار لجميع المستخدمين، وإذا كان يحتوي على قيمة، سيتم إرسال الإشعار للمستخدم المحدد فقط.
+            ),
           ),
         ),
       ),

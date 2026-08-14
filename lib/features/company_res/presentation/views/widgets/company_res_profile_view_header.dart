@@ -77,7 +77,7 @@ class CompanyResProfileViewHeader extends StatelessWidget {
                   context,
                 ).copyWith(color: AppColors.kprimarycolor),
                 onTap: () {
-                  context.push('/addnotificationsview');
+                  context.push('/addnotificationsview',extra: user.id);
                 },
               ),
             ],

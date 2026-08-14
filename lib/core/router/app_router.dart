@@ -160,7 +160,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/adminlogin',
       name: 'adminlogin',
-      pageBuilder: (context, state) => buildTransitionPage(const AdminLoginView()),
+      pageBuilder: (context, state) =>
+          buildTransitionPage(const AdminLoginView()),
     ),
     GoRoute(
       path: '/MainHomeCustomerView',
@@ -510,8 +511,12 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/addnotificationsview',
       name: 'addnotificationsview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const AddNotificationsView()),
+      pageBuilder: (context, state) {
+        final userId =
+            state.extra
+                as int; // إذا كان null، سيتم إرسال الإشعار لجميع المستخدمين، وإذا كان يحتوي على قيمة، سيتم إرسال الإشعار للمستخدم المحدد فقط.
+        return buildTransitionPage(AddNotificationsView(userId: userId));
+      },
     ),
     GoRoute(
       path: '/addcustomerserviceview',

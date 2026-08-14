@@ -7,6 +7,8 @@ import 'package:plupool/features/notifications/data/models/device_registration_m
 import 'package:plupool/features/notifications/data/models/notification_model.dart';
 import 'package:plupool/features/notifications/data/models/send_notification_request_model.dart';
 import 'package:plupool/features/notifications/data/models/send_notification_response_model.dart';
+import 'package:plupool/features/notifications/data/models/send_user_notification_request_model.dart';
+import 'package:plupool/features/notifications/data/models/send_user_notification_response_model.dart';
 import 'package:plupool/features/notifications/data/models/unread_count_model.dart';
 
 abstract class NotificationRemoteDataSource {
@@ -29,6 +31,9 @@ abstract class NotificationRemoteDataSource {
   Future sendBroadcastNotification(
     SendNotificationRequestModel request,
   );
+  Future sendNotificationToUser(
+  SendUserNotificationRequestModel request,
+);
 }
 
 class NotificationRemoteDataSourceImpl
@@ -176,4 +181,31 @@ class NotificationRemoteDataSourceImpl
 
     return SendNotificationResponseModel.fromJson(response.data);
   }
+
+  @override
+Future sendNotificationToUser(
+  SendUserNotificationRequestModel request,
+) async {
+  final storage = sl<FlutterSecureStorage>();
+  final authToken = await storage.read(key: 'token');
+
+  final response = await apiService.post(
+    '${Endpoints.baseUrl}/admin/notifications/send',
+    data: request.toJson(),
+    options: Options(
+      headers: {
+        'Authorization': 'Bearer $authToken',
+      },
+    ),
+  );
+
+  print("========== SEND NOTIFICATION TO USER ==========");
+  print(response.statusCode);
+  print(response.data);
+  print("===============================================");
+
+  return SendUserNotificationResponseModel.fromJson(
+    response.data,
+  );
+}
 }
