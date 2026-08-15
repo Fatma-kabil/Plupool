@@ -79,7 +79,7 @@ class TechProfileViewHeader extends StatelessWidget {
               ),
               AddOfferBtn(
                 onTap: () {
-                  context.push('/addnotificationsview');
+                  context.push('/addnotificationsview',extra: user.id);
                 },
                 padding: 8,
                 text: "إرسال إشعار",

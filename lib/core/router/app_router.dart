@@ -7,6 +7,7 @@ import 'package:plupool/features/auth/presentation/views/admin_login_view.dart';
 import 'package:plupool/features/auth/presentation/views/privacy_policy_view.dart';
 import 'package:plupool/features/auth/presentation/views/signup_view.dart';
 import 'package:plupool/features/auth/presentation/views/login_view.dart';
+import 'package:plupool/features/company_res/presentation/views/add_company_res_client_view.dart';
 import 'package:plupool/features/company_res/presentation/views/add_company_res_view.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_clients_view.dart';
 import 'package:plupool/features/company_res/presentation/views/company_res_profile.dart';
@@ -799,6 +800,14 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) {
         final order = state.extra as StoreOrderEntity;
         return buildTransitionPage(UserOrdrDetailsView(order: order));
+      },
+    ),
+    GoRoute(
+      path: '/addcompanyresclientview',
+      name: 'addcompanyresclientview',
+      pageBuilder: (context, state) {
+        final id = state.extra as int;
+        return buildTransitionPage(AddCompanyResClientView(companyRepId: id));
       },
     ),
   ],

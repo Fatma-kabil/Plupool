@@ -40,11 +40,14 @@ class _TechsViewBodyState extends State<TechsViewBody> {
   }
 
   void onSearchChanged(String value) {
-    setState(() => _search = value);
+    final search = value.trim();
+
+    setState(() => _search = search);
 
     context.read<UsersCubit>().getUsers(
       role: "technician",
-      search: value.isEmpty ? "" : value,
+      isActive: search.isEmpty ? selected == "نشط" : null,
+      search: search.isEmpty ? null : search,
     );
   }
 
@@ -77,7 +80,7 @@ class _TechsViewBodyState extends State<TechsViewBody> {
       builder: (context, state) {
         /// ✅ نخزن الهيدر أول نجاح فقط
         if (state is UsersSuccess) {
-          _headerData ??= state;
+          _headerData = state;
         }
 
         /// 🔥 أول تحميل شاشة كاملة
@@ -110,8 +113,12 @@ class _TechsViewBodyState extends State<TechsViewBody> {
                       ),
                       AddOfferBtn(
                         text: "إضافة فني",
-                        onTap: () {
-                          context.push('/addtechview');
+                        onTap: () async {
+                          await context.push('/addtechview');
+
+                          if (!mounted) return;
+
+                          context.read<UsersCubit>().refresh();
                         },
                       ),
                     ],

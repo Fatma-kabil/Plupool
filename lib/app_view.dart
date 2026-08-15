@@ -7,6 +7,7 @@ import 'package:plupool/features/BottomNavBar/presentation/manager/bottom_nav_cu
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
+import 'package:plupool/features/company_res/presentation/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
 import 'package:plupool/features/consruction_service/presentation/views/manager/construction_booking_cubit/construction_booking_cubit.dart';
 import 'package:plupool/features/consruction_service/presentation/views/manager/user_notes_cubit/user_notes_cubit.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
@@ -96,6 +97,7 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<TechnicianTasksCubit>()),
 
         BlocProvider(create: (_) => sl<WeekTasksCubit>()..getWeekTasks()),
+        BlocProvider(create: (context) => sl<CompanyResClientsCubit>()),
       ],
       child: BlocListener<AuthCubit, AuthState>(
         listenWhen: (prev, curr) => prev.token != curr.token,

@@ -13,8 +13,9 @@ import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up
 import 'package:plupool/features/company_res/data/remote_data_sources/company_res_clients_remote_data_source.dart';
 import 'package:plupool/features/company_res/data/repos_impl/company_res_clients_repo_impl.dart';
 import 'package:plupool/features/company_res/domain/repos/company_res_clients_repos.dart';
+import 'package:plupool/features/company_res/domain/usecases/create_client_usecase.dart';
 import 'package:plupool/features/company_res/domain/usecases/get_company_res_usecase.dart';
-import 'package:plupool/features/company_res/presentation/views/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
+import 'package:plupool/features/company_res/presentation/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
 import 'package:plupool/features/consruction_service/data/remote_data_source/construction_remote_data_source.dart';
 import 'package:plupool/features/consruction_service/data/remote_data_source/pool_type_remote_data_source.dart';
 import 'package:plupool/features/consruction_service/data/remote_data_source/user_notes_remote_data_source.dart';
@@ -365,7 +366,7 @@ Future<void> initServiceLocator() async {
 
   // Remote Data Source
   sl.registerLazySingleton<SignUpRemoteDataSource>(
-    () => SignUpRemoteDataSourceImpl(sl<ApiService>(), ),
+    () => SignUpRemoteDataSourceImpl(sl<ApiService>()),
   );
 
   // Repositories
@@ -395,7 +396,7 @@ Future<void> initServiceLocator() async {
       signupTechnicianUseCase: sl<SignupTechnicianUseCase>(),
       signupPoolOwnerUseCase: sl<SignupPoolOwnerUseCase>(),
       signupCompanyUseCase: sl<SignupCompanyUseCase>(),
-      authCubit: sl<AuthCubit>()
+      authCubit: sl<AuthCubit>(),
     ),
   );
 
@@ -1020,8 +1021,14 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => GetCompanyResClientsUseCase(sl<CompanyResClientsRepository>()),
   );
+  sl.registerLazySingleton(
+    () => CreateClientUseCase(sl<CompanyResClientsRepository>()),
+  );
   sl.registerFactory(
-    () => CompanyResClientsCubit(sl<GetCompanyResClientsUseCase>()),
+    () => CompanyResClientsCubit(
+      sl<GetCompanyResClientsUseCase>(),
+      sl<CreateClientUseCase>(),
+    ),
   );
 
   sl.registerLazySingleton<PoolRemoteDataSource>(
@@ -1416,7 +1423,6 @@ Future<void> initServiceLocator() async {
     () => GetUnreadCountUseCase(sl<NotificationRepository>()),
   );
 
-  
   sl.registerLazySingleton(
     () => SendBroadcastNotificationUseCase(sl<NotificationRepository>()),
   );
@@ -1437,7 +1443,6 @@ Future<void> initServiceLocator() async {
     ),
   );
 
-  
   // ==================== // ====================  get tech  srvices  ====================
   // Remote Data Source
   sl.registerLazySingleton<TechnicianServicesRemoteDataSource>(
@@ -1452,13 +1457,9 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => GetTechnicianServicesUseCase(sl<TechnicianServicesRepo>()),
   );
- 
 
   // Cubit
   sl.registerFactory(
-    () => TechnicianServicesCubit(
-      sl<GetTechnicianServicesUseCase>(),
-     
-    ),
+    () => TechnicianServicesCubit(sl<GetTechnicianServicesUseCase>()),
   );
 }

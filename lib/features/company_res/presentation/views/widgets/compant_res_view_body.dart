@@ -16,12 +16,10 @@ class CompantResViewBody extends StatefulWidget {
   const CompantResViewBody({super.key});
 
   @override
-  State<CompantResViewBody> createState() =>
-      _CompantResViewBodyState();
+  State<CompantResViewBody> createState() => _CompantResViewBodyState();
 }
 
-class _CompantResViewBodyState
-    extends State<CompantResViewBody> {
+class _CompantResViewBodyState extends State<CompantResViewBody> {
   String selected = "نشط";
   String _search = "";
 
@@ -32,29 +30,29 @@ class _CompantResViewBodyState
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<UsersCubit>().getUsers(
-            role: "company",
-            isActive: true,
-          );
+      context.read<UsersCubit>().getUsers(role: "company", isActive: true);
     });
   }
 
   void onSearchChanged(String value) {
-    setState(() => _search = value);
+    final search = value.trim();
+
+    setState(() => _search = search);
 
     context.read<UsersCubit>().getUsers(
-          role: "company",
-          search: value.isEmpty ? null : value,
-        );
+      role: "company",
+      isActive: search.isEmpty ? selected == "نشط" : null,
+      search: search.isEmpty ? null : search,
+    );
   }
 
   void onFilterChanged(String val) {
     setState(() => selected = val);
 
     context.read<UsersCubit>().getUsers(
-          role: "company",
-          isActive: val == "نشط",
-        );
+      role: "company",
+      isActive: val == "نشط",
+    );
   }
 
   @override
@@ -67,15 +65,11 @@ class _CompantResViewBodyState
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "ابحث عن ممثل الشركة:",
-                        style:
-                            AppTextStyles.styleSemiBold16(
-                          context,
-                        ),
+                        style: AppTextStyles.styleSemiBold16(context),
                       ),
                       AddOfferBtn(
                         text: "إضافة ممثل شركه",
@@ -92,8 +86,7 @@ class _CompantResViewBodyState
                       vertical: SizeConfig.h(20),
                     ),
                     child: CustomSearchPerson(
-                      hintText:
-                          "ابحث باسم ممثل الشركه او رقم الهاتف",
+                      hintText: "ابحث باسم ممثل الشركه او رقم الهاتف",
                       onChanged: onSearchChanged,
                     ),
                   ),
@@ -102,10 +95,7 @@ class _CompantResViewBodyState
                   if (!isSearching)
                     FilterOption(
                       value: selected,
-                      items: const [
-                        "نشط",
-                        "غير نشط",
-                      ],
+                      items: const ["نشط", "غير نشط"],
                       onChanged: (val) {
                         if (val != null) {
                           onFilterChanged(val);
@@ -121,54 +111,31 @@ class _CompantResViewBodyState
             /// 🔄 LOADING
             if (state is UsersLoading)
               const UserShimmerList()
-
             /// ❌ ERROR
             else if (state is UsersError)
               SliverFillRemaining(
-                child: Center(
-                  child: ErrorText(
-                    message: state.message,
-                  ),
-                ),
+                child: Center(child: ErrorText(message: state.message)),
               )
-
             /// ✅ SUCCESS
             else if (state is UsersSuccess)
               state.users.isEmpty
                   ? const SliverFillRemaining(
                       child: Center(
-                        child: ErrorText(
-                          message:
-                              "لا يوجد ممثلين شركات",
-                        ),
+                        child: ErrorText(message: "لا يوجد ممثلين شركات"),
                       ),
                     )
                   : SliverList(
-                      delegate:
-                          SliverChildBuilderDelegate(
-                        (context, index) {
-                          final user =
-                              state.users[index];
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final user = state.users[index];
 
-                          return Padding(
-                            padding: EdgeInsets.only(
-                              bottom:
-                                  SizeConfig.h(12),
-                            ),
-                            child: CompanyResCard(
-                              user: user,
-                            ),
-                          );
-                        },
-                        childCount:
-                            state.users.length,
-                      ),
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: SizeConfig.h(12)),
+                          child: CompanyResCard(user: user),
+                        );
+                      }, childCount: state.users.length),
                     )
-
             else
-              const SliverToBoxAdapter(
-                child: SizedBox(),
-              ),
+              const SliverToBoxAdapter(child: SizedBox()),
           ],
         );
       },

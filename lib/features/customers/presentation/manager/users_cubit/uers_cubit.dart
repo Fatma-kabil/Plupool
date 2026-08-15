@@ -16,21 +16,26 @@ class UsersCubit extends Cubit<UsersState> {
   final AddUserUsecase addUserUseCase;
 
   UsersCubit(
-    this.getUsersUseCase, this.addUserUseCase, {
+    this.getUsersUseCase,
+    this.addUserUseCase, {
     required this.getUserDetailsUseCase,
     required this.updateUserUseCase,
     required this.deleteUserUseCase,
   }) : super(UsersInitial());
 
-  /// =========================
-  /// CACHE
-  /// =========================
+  // =========================================================
+  // CACHE
+  // =========================================================
 
   UsersResponseEntity? _cachedUsers;
 
-  /// =========================
-  /// FILTERS
-  /// =========================
+  /// الداتا الخاصة بالـ technicians بدون Search أو Filter
+  /// دي اللي هنستخدمها للهيدر
+  UsersResponseEntity? _cachedTechnicians;
+
+  // =========================================================
+  // CURRENT FILTERS
+  // =========================================================
 
   String? _search;
   String? _role;
@@ -39,9 +44,9 @@ class UsersCubit extends Cubit<UsersState> {
   String? _sortBy;
   String? _sortOrder;
 
-  /// =========================
-  /// GET USERS
-  /// =========================
+  // =========================================================
+  // GET USERS
+  // =========================================================
 
   Future<void> getUsers({
     int page = 1,
@@ -56,12 +61,17 @@ class UsersCubit extends Cubit<UsersState> {
     emit(UsersLoading());
 
     try {
+      // حفظ الفلاتر الحالية
       _search = search;
       _role = role;
       _isActive = isActive;
       _isVerified = isVerified;
       _sortBy = sortBy;
       _sortOrder = sortOrder;
+
+      // =====================================================
+      // الداتا الخاصة بالليست
+      // =====================================================
 
       final response = await getUsersUseCase(
         page: page,
@@ -76,25 +86,55 @@ class UsersCubit extends Cubit<UsersState> {
 
       _cachedUsers = response;
 
+      // =====================================================
+      // لو Technicians
+      // هات الداتا بدون Search وبدون Filter للهيدر
+      // =====================================================
+
+      if (role == "technician") {
+        final headerResponse = await getUsersUseCase(
+          role: "technician",
+          sortBy: "created_at",
+          sortOrder: "desc",
+        );
+
+        _cachedTechnicians = headerResponse;
+      }
+
+      // =====================================================
+      // SUCCESS
+      // =====================================================
+
       emit(
         UsersSuccess(
           response.users,
-          activeTech: response.activeTech,
-          inActiveTech: response.inactiveTeck,
+
+          // الهيدر ياخد الإجمالي الحقيقي
+          activeTech: role == "technician"
+              ? _cachedTechnicians?.activeTech ?? 0
+              : response.activeTech,
+
+          inActiveTech: role == "technician"
+              ? _cachedTechnicians?.inactiveTeck ?? 0
+              : response.inactiveTeck,
         ),
       );
     } catch (e) {
       emit(
-        UsersError(e is Failure ? e.message : "حدث خطأ أثناء جلب المستخدمين"),
+        UsersError(
+          e is Failure
+              ? e.message
+              : "حدث خطأ أثناء جلب المستخدمين",
+        ),
       );
 
       print(e);
     }
   }
 
-  /// =========================
-  /// GET USER DETAILS
-  /// =========================
+  // =========================================================
+  // GET USER DETAILS
+  // =========================================================
 
   Future<void> getUserDetails(int id) async {
     try {
@@ -106,7 +146,9 @@ class UsersCubit extends Cubit<UsersState> {
     } catch (e) {
       emit(
         UserDetailsError(
-          e is Failure ? e.message : "حدث خطأ أثناء جلب تفاصيل المستخدم",
+          e is Failure
+              ? e.message
+              : "حدث خطأ أثناء جلب تفاصيل المستخدم",
         ),
       );
 
@@ -114,14 +156,23 @@ class UsersCubit extends Cubit<UsersState> {
         emit(
           UsersSuccess(
             _cachedUsers!.users,
-            activeTech: _cachedUsers!.activeTech,
-            inActiveTech: _cachedUsers!.inactiveTeck,
+            activeTech: _role == "technician"
+                ? _cachedTechnicians?.activeTech ?? 0
+                : _cachedUsers!.activeTech,
+            inActiveTech: _role == "technician"
+                ? _cachedTechnicians?.inactiveTeck ?? 0
+                : _cachedUsers!.inactiveTeck,
           ),
         );
       }
     }
   }
- Future<void> addUser({
+
+  // =========================================================
+  // ADD USER
+  // =========================================================
+
+  Future<void> addUser({
     String? fullName,
     String? phone,
     String? countryCode,
@@ -139,8 +190,8 @@ class UsersCubit extends Cubit<UsersState> {
     try {
       emit(UsersActionLoading());
 
+      // إضافة المستخدم
       await addUserUseCase(
-
         fullName: fullName,
         companyName: companyName,
         phone: phone,
@@ -156,6 +207,10 @@ class UsersCubit extends Cubit<UsersState> {
         isPhoneVerified: isPhoneVerified,
       );
 
+      // =====================================================
+      // تحديث الليست بنفس الـ Search / Filter الحالي
+      // =====================================================
+
       final response = await getUsersUseCase(
         search: _search,
         role: _role,
@@ -167,40 +222,66 @@ class UsersCubit extends Cubit<UsersState> {
 
       _cachedUsers = response;
 
+      // =====================================================
+      // تحديث بيانات الهيدر بشكل مستقل
+      // بدون Search / Filter
+      // =====================================================
+
+      if (_role == "technician") {
+        final headerResponse = await getUsersUseCase(
+          role: "technician",
+          sortBy: "created_at",
+          sortOrder: "desc",
+        );
+
+        _cachedTechnicians = headerResponse;
+      }
+
+      // نجاح الإضافة
       emit(UsersActionSuccess());
 
+      // رجع الليست + الهيدر الجديد
       emit(
         UsersSuccess(
           response.users,
-          activeTech: response.activeTech,
-          inActiveTech: response.inactiveTeck,
+          activeTech: _role == "technician"
+              ? _cachedTechnicians?.activeTech ?? 0
+              : response.activeTech,
+          inActiveTech: _role == "technician"
+              ? _cachedTechnicians?.inactiveTeck ?? 0
+              : response.inactiveTeck,
         ),
       );
     } catch (e) {
       emit(
         UsersActionError(
-          e is Failure ? e.message : "حدث خطأ أثناء إضافة المستخدم",
+          e is Failure
+              ? e.message
+              : "حدث خطأ أثناء إضافة المستخدم",
         ),
       );
+
       print(e);
 
       if (_cachedUsers != null) {
         emit(
           UsersSuccess(
             _cachedUsers!.users,
-            activeTech: _cachedUsers!.activeTech,
-            inActiveTech: _cachedUsers!.inactiveTeck,
+            activeTech: _role == "technician"
+                ? _cachedTechnicians?.activeTech ?? 0
+                : _cachedUsers!.activeTech,
+            inActiveTech: _role == "technician"
+                ? _cachedTechnicians?.inactiveTeck ?? 0
+                : _cachedUsers!.inactiveTeck,
           ),
         );
       }
     }
   }
 
-
-
-  /// =========================
-  /// UPDATE USER
-  /// =========================
+  // =========================================================
+  // UPDATE USER
+  // =========================================================
 
   Future<void> updateUser({
     required int userId,
@@ -238,6 +319,7 @@ class UsersCubit extends Cubit<UsersState> {
         isPhoneVerified: isPhoneVerified,
       );
 
+      // تحديث الليست
       final response = await getUsersUseCase(
         search: _search,
         role: _role,
@@ -249,38 +331,60 @@ class UsersCubit extends Cubit<UsersState> {
 
       _cachedUsers = response;
 
+      // تحديث الهيدر
+      if (_role == "technician") {
+        final headerResponse = await getUsersUseCase(
+          role: "technician",
+          sortBy: "created_at",
+          sortOrder: "desc",
+        );
+
+        _cachedTechnicians = headerResponse;
+      }
+
       emit(UsersActionSuccess());
 
       emit(
         UsersSuccess(
           response.users,
-          activeTech: response.activeTech,
-          inActiveTech: response.inactiveTeck,
+          activeTech: _role == "technician"
+              ? _cachedTechnicians?.activeTech ?? 0
+              : response.activeTech,
+          inActiveTech: _role == "technician"
+              ? _cachedTechnicians?.inactiveTeck ?? 0
+              : response.inactiveTeck,
         ),
       );
     } catch (e) {
       emit(
         UsersActionError(
-          e is Failure ? e.message : "حدث خطأ أثناء تحديث المستخدم",
+          e is Failure
+              ? e.message
+              : "حدث خطأ أثناء تحديث المستخدم",
         ),
       );
+
       print(e);
 
       if (_cachedUsers != null) {
         emit(
           UsersSuccess(
             _cachedUsers!.users,
-            activeTech: _cachedUsers!.activeTech,
-            inActiveTech: _cachedUsers!.inactiveTeck,
+            activeTech: _role == "technician"
+                ? _cachedTechnicians?.activeTech ?? 0
+                : _cachedUsers!.activeTech,
+            inActiveTech: _role == "technician"
+                ? _cachedTechnicians?.inactiveTeck ?? 0
+                : _cachedUsers!.inactiveTeck,
           ),
         );
       }
     }
   }
 
-  /// =========================
-  /// DELETE USER
-  /// =========================
+  // =========================================================
+  // DELETE USER
+  // =========================================================
 
   Future<void> deleteUser(int id) async {
     try {
@@ -288,49 +392,76 @@ class UsersCubit extends Cubit<UsersState> {
 
       await deleteUserUseCase(id);
 
-      if (_cachedUsers != null) {
-        _cachedUsers = UsersResponseEntity(
-          users: _cachedUsers!.users.where((e) => e.id != id).toList(),
-          total: _cachedUsers!.total,
-          page: _cachedUsers!.page,
-          pageSize: _cachedUsers!.pageSize,
-          totalPages: _cachedUsers!.totalPages,
-          activeTech: _cachedUsers!.activeTech,
-          inactiveTeck: _cachedUsers!.inactiveTeck,
+      // =====================================================
+      // بعد الحذف هنعمل GET جديد
+      // عشان الليست والهيدر يتحدثوا صح
+      // =====================================================
+
+      final response = await getUsersUseCase(
+        search: _search,
+        role: _role,
+        isActive: _isActive,
+        isVerified: _isVerified,
+        sortBy: _sortBy ?? "created_at",
+        sortOrder: _sortOrder ?? "desc",
+      );
+
+      _cachedUsers = response;
+
+      // تحديث الهيدر بشكل مستقل
+      if (_role == "technician") {
+        final headerResponse = await getUsersUseCase(
+          role: "technician",
+          sortBy: "created_at",
+          sortOrder: "desc",
         );
 
-        emit(UsersDeleteSuccess());
-
-        emit(
-          UsersSuccess(
-            _cachedUsers!.users,
-            activeTech: _cachedUsers!.activeTech,
-            inActiveTech: _cachedUsers!.inactiveTeck,
-          ),
-        );
+        _cachedTechnicians = headerResponse;
       }
+
+      emit(UsersDeleteSuccess());
+
+      emit(
+        UsersSuccess(
+          response.users,
+          activeTech: _role == "technician"
+              ? _cachedTechnicians?.activeTech ?? 0
+              : response.activeTech,
+          inActiveTech: _role == "technician"
+              ? _cachedTechnicians?.inactiveTeck ?? 0
+              : response.inactiveTeck,
+        ),
+      );
     } catch (e) {
       emit(
         UsersDeleteError(
-          e is Failure ? e.message : "حدث خطأ أثناء حذف المستخدم",
+          e is Failure
+              ? e.message
+              : "حدث خطأ أثناء حذف المستخدم",
         ),
       );
+
+      print(e);
 
       if (_cachedUsers != null) {
         emit(
           UsersSuccess(
             _cachedUsers!.users,
-            activeTech: _cachedUsers!.activeTech,
-            inActiveTech: _cachedUsers!.inactiveTeck,
+            activeTech: _role == "technician"
+                ? _cachedTechnicians?.activeTech ?? 0
+                : _cachedUsers!.activeTech,
+            inActiveTech: _role == "technician"
+                ? _cachedTechnicians?.inactiveTeck ?? 0
+                : _cachedUsers!.inactiveTeck,
           ),
         );
       }
     }
   }
 
-  /// =========================
-  /// REFRESH
-  /// =========================
+  // =========================================================
+  // REFRESH
+  // =========================================================
 
   Future<void> refresh() async {
     await getUsers(

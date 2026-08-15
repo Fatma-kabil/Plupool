@@ -11,8 +11,10 @@ class AdminDrawerContactUsViewBody extends StatefulWidget {
   const AdminDrawerContactUsViewBody({super.key});
 
   @override
-  State<AdminDrawerContactUsViewBody> createState() => _AdminDrawerContactUsViewBodyState();
+  State<AdminDrawerContactUsViewBody> createState() =>
+      _AdminDrawerContactUsViewBodyState();
 }
+
 class _AdminDrawerContactUsViewBodyState
     extends State<AdminDrawerContactUsViewBody> {
   String selected = "جديد";
@@ -33,10 +35,7 @@ class _AdminDrawerContactUsViewBodyState
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<ContactCubit>().getMessages(
-        type: "contact",
-        status: status,
-      );
+      context.read<ContactCubit>().getMessages(type: "contact", status: status);
     });
   }
 
@@ -60,29 +59,27 @@ class _AdminDrawerContactUsViewBodyState
                 child: CustomSearchPerson(
                   hintText: "ابحث بأسم ممثل الشركه او رقم الهاتف",
                   onChanged: (value) {
+                    final search = value.trim();
+
                     context.read<ContactCubit>().getMessages(
-                          type: "contact",
-                          status: status,
-                          search: value,
-                        );
+                      type: "contact",
+                      status: search.isEmpty ? status : null,
+                      search: search.isEmpty ? null : search,
+                    );
                   },
                 ),
               ),
               FilterOption(
                 value: selected,
-                items: const [
-                  "تم الحل",
-                  "قيد المراجعه",
-                  "جديد",
-                ],
+                items: const ["تم الحل", "قيد المراجعه", "جديد"],
                 onChanged: (val) {
                   if (val != null) {
                     setState(() => selected = val);
 
                     context.read<ContactCubit>().getMessages(
-                          type: "contact",
-                          status: status,
-                        );
+                      type: "contact",
+                      status: status,
+                    );
                   }
                 },
               ),
@@ -94,8 +91,4 @@ class _AdminDrawerContactUsViewBodyState
       ],
     );
   }
-
-    
-    
-  }
-    
+}

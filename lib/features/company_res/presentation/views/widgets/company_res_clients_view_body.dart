@@ -5,8 +5,8 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
-import 'package:plupool/features/company_res/presentation/views/manager/cubits/company_res_clients_cubit/company_res_clients_state.dart';
-import 'package:plupool/features/company_res/presentation/views/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
+import 'package:plupool/features/company_res/presentation/manager/cubits/company_res_clients_cubit/company_res_clients_state.dart';
+import 'package:plupool/features/company_res/presentation/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
 import 'package:plupool/features/company_res/presentation/views/widgets/company_res_clients_card.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/user_shimmer_list.dart';
@@ -77,7 +77,12 @@ class _CompanyResClientsViewBodyState extends State<CompanyResClientsViewBody> {
                       AddOfferBtn(
                         text: "إضافة عميل",
                         onTap: () {
-                          context.push('/addcustomerview');
+                       
+
+                          context.push(
+                            '/addcompanyresclientview',
+                            extra: widget.userId,
+                          );
                         },
                       ),
                     ],

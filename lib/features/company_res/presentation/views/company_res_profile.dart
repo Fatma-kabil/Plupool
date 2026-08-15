@@ -18,7 +18,8 @@ class _CompanyResProfileState extends State<CompanyResProfile> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return PopScope(
+    return
+   PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
         if (!didPop) {

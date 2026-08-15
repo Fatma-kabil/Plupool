@@ -2,6 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/company_res/data/remote_data_sources/company_res_clients_remote_data_source.dart';
 import 'package:plupool/features/company_res/domain/entities/client_entity.dart';
+import 'package:plupool/features/company_res/domain/entities/create_client_params.dart';
+import 'package:plupool/features/company_res/domain/entities/create_client_response_entity.dart'
+    hide ClientEntity;
 import 'package:plupool/features/company_res/domain/repos/company_res_clients_repos.dart';
 
 class CompanyResClientsRepositoryImpl implements CompanyResClientsRepository {
@@ -35,5 +38,18 @@ class CompanyResClientsRepositoryImpl implements CompanyResClientsRepository {
   @override
   Future<void> deleteClient(int userId, int clientId) {
     return remote.deleteClient(userId, clientId);
+  }
+
+  @override
+  Future<CreateClientResponseEntity> createClient({
+    required CreateClientParams params,
+  }) async {
+    try {
+      final response = await remote.createClient(params: params);
+
+      return response;
+    } catch (e) {
+      throw mapDioError(e);
+    }
   }
 }
