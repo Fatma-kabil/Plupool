@@ -6,6 +6,9 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
+import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
+import 'package:plupool/features/customers/presentation/manager/users_cubit/users_state.dart';
+import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info_card_row_shimmer.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/company_res_project_view_header.dart';
@@ -17,14 +20,10 @@ class CompanyResProjectViewBody extends StatefulWidget {
   const CompanyResProjectViewBody({
     super.key,
     required this.companyResId,
-    required this.completedProjects,
-    required this.activeProjects,
     required this.companyResName,
   });
 
   final int companyResId;
-  final int completedProjects;
-  final int activeProjects;
   final String companyResName;
 
   @override
@@ -39,6 +38,10 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
   void initState() {
     super.initState();
 
+    // جلب بيانات الشركة والإحصائيات
+    context.read<UsersCubit>().getUserDetails(widget.companyResId);
+
+    // جلب المشاريع
     context.read<CompanyProjectCubit>().getClientProjects(
       clientId: widget.companyResId,
       status: 'inProgress',
@@ -60,15 +63,37 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(12))),
 
-        SliverToBoxAdapter(
-          child: CompanyResProjectViewHeader(
-            activeProjects: widget.activeProjects,
-            completedProjects: widget.completedProjects,
-          ),
+        // ================= الإحصائيات =================
+        BlocBuilder<UsersCubit, UsersState>(
+          builder: (context, state) {
+            if (state is UserDetailsLoading) {
+              return const SliverToBoxAdapter(child: TechInfoCardRowShimmer());
+            }
+
+            if (state is UserDetailsError) {
+              return SliverToBoxAdapter(
+                child: ErrorText(message: state.message),
+              );
+            }
+
+            if (state is UserDetailsSuccess) {
+              return SliverToBoxAdapter(
+                child: CompanyResProjectViewHeader(
+                  activeProjects: state.user.statistics['active_projects'] ?? 0,
+                  completedProjects:
+                      state.user.statistics['completed_projects'] ?? 0,
+                  totalProjects: state.user.statistics['total_projects'] ?? 0,
+                ),
+              );
+            }
+
+            return const SliverToBoxAdapter(child: SizedBox());
+          },
         ),
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(22))),
 
+        // ================= الفلتر + إضافة مشروع =================
         SliverToBoxAdapter(
           child: RearragnmentRow(
             items: const ["مكتمله", "مجدولة", "قيد التنفيذ"],
@@ -78,30 +103,37 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
                 selected = value;
               });
 
-              final status = getApiStatusProj(value);
-
-              print('Selected: $value');
-              print('Status: $status');
-
               context.read<CompanyProjectCubit>().getClientProjects(
                 clientId: widget.companyResId,
-                status: status,
+                status: getApiStatusProj(value),
               );
             },
-            onTap: () {
-              context.push(
+
+            // إضافة مشروع
+            onTap: () async {
+              await context.push(
                 '/addprojectview',
                 extra: {
                   'id': widget.companyResId,
                   'name': widget.companyResName,
                 },
               );
+
+              if (mounted) {
+                context.read<UsersCubit>().getUserDetails(widget.companyResId);
+
+                context.read<CompanyProjectCubit>().getClientProjects(
+                  clientId: widget.companyResId,
+                  status: getApiStatusProj(selected),
+                );
+              }
             },
           ),
         ),
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(18))),
 
+        // ================= قائمة المشاريع =================
         BlocBuilder<CompanyProjectCubit, CompanyProjectState>(
           builder: (context, state) {
             if (state.isLoading) {
@@ -125,7 +157,21 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
               );
             }
 
-            return ProjectsList(projects: state.clientProjects);
+            return ProjectsList(
+              projects: state.clientProjects,
+              onChanged: () {
+                if (mounted) {
+                  context.read<UsersCubit>().getUserDetails(
+                    widget.companyResId,
+                  );
+
+                  context.read<CompanyProjectCubit>().getClientProjects(
+                    clientId: widget.companyResId,
+                    status: getApiStatusProj(selected),
+                  );
+                }
+              },
+            );
           },
         ),
       ],

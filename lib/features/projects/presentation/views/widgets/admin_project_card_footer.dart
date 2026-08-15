@@ -9,8 +9,17 @@ import 'package:plupool/features/projects/presentation/manager/company_project_c
 import 'package:plupool/features/projects/presentation/views/widgets/delete_project_btn.dart';
 
 class AdminProjectCardFooter extends StatelessWidget {
-  const AdminProjectCardFooter({super.key, required this.project});
+  const AdminProjectCardFooter({
+    super.key,
+    required this.project,
+    this.onChanged,
+  });
+
   final CompanyProjectEntity project;
+
+  // هيتنفذ بعد Edit أو Delete
+  final VoidCallback? onChanged;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -33,11 +42,16 @@ class AdminProjectCardFooter extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               color: AppColors.kprimarycolor,
             ),
-
-            child: Icon(Icons.add, color: Colors.white, size: SizeConfig.w(18)),
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+              size: SizeConfig.w(18),
+            ),
           ),
         ),
+
         SizedBox(width: SizeConfig.w(8)),
+
         Container(
           padding: EdgeInsets.symmetric(
             horizontal: SizeConfig.w(6),
@@ -47,14 +61,16 @@ class AdminProjectCardFooter extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: AppColors.kprimarycolor,
           ),
-
           child: Icon(
             Icons.remove,
             color: Color(0xffD4D4D4),
             size: SizeConfig.w(18),
           ),
         ),
-        Spacer(),
+
+        const Spacer(),
+
+        // ================= EDIT =================
         GestureDetector(
           onTap: () async {
             final result = await context.push(
@@ -62,8 +78,8 @@ class AdminProjectCardFooter extends StatelessWidget {
               extra: project,
             );
 
-            if (result == true) {
-              context.read<CompanyProjectCubit>().refreshClientProjects();
+            if (result == true && context.mounted) {
+              onChanged?.call();
             }
           },
           child: Container(
@@ -79,8 +95,14 @@ class AdminProjectCardFooter extends StatelessWidget {
             ),
           ),
         ),
+
         SizedBox(width: SizeConfig.w(12)),
-        DeleteProjectBtn(projectId: project.id),
+
+        // ================= DELETE =================
+        DeleteProjectBtn(
+          projectId: project.id,
+          onDeleted: onChanged,
+        ),
       ],
     );
   }

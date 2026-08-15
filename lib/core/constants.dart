@@ -16,7 +16,6 @@ import 'package:plupool/features/statistics/data/models/statistics_model.dart';
 import 'package:plupool/features/store/data/models/dashboard_shortcut_model.dart';
 import 'package:plupool/features/store/data/models/dashboard_statu_model.dart';
 
-
 final List<RoleCardItemModel> roles = [
   RoleCardItemModel(
     title: "صاحب حمام سباحة",
@@ -55,7 +54,7 @@ final List<PromoCardModel> items = [
     titlecolor: Color(0xff006398),
     path: "/constructionservicesview",
   ),
- 
+
   PromoCardModel(
     title: "  صيانة حمامات السباحة",
     iconPath: "assets/icons/services.svg",
@@ -70,8 +69,6 @@ final List<PromoCardModel> items = [
   ),
   // تقدر تكرري كروت تانية هنا
 ];
-
-
 
 final moods = [
   {"image": "assets/icons/relax.svg", "label": "Relax"},
@@ -113,70 +110,66 @@ final List<StatisticsModel> Statistics = [
   StatisticsModel(
     backColor: Color(0xffCCF0F7),
     iconColor: Color(0xff00B4D8),
-  
+
     icon: Icons.shopping_cart,
     title: "طلبات المتجر",
   ),
   StatisticsModel(
     backColor: Color(0xffFFECD2),
     iconColor: Color(0xffFF9F1C),
-  
+
     icon: Icons.layers_outlined,
     title: "الباقات النشطة",
   ),
   StatisticsModel(
     backColor: Color(0xffCDF7EC),
     iconColor: Color(0xff05B285),
-  
+
     icon: Icons.pending_actions,
     title: "الطلبات الجارية",
   ),
   StatisticsModel(
     backColor: Color(0xffFAD7DA),
     iconColor: Color(0xffEA5A65),
-  
+
     icon: Icons.flag_outlined,
     title: "البلاغات",
   ),
   StatisticsModel(
     backColor: Color(0xffB7FFC9),
     iconColor: Color(0xff75CD55),
-   
+
     icon: Icons.people_outline,
     title: "العملاء",
   ),
   StatisticsModel(
     backColor: Color(0xffDAF5FA),
     iconColor: Color(0xff60959F),
-   
+
     icon: Icons.engineering_outlined,
     title: "الفنيين",
   ),
 ];
 final dashboarditems = [
   DashboardItem(
-    
     title: 'العملاء النشطين',
     icon: Icons.person,
     iconBgColor: Color(0xffCDF7EC),
     iconColor: Color(0xff05B285),
   ),
   DashboardItem(
-   
     title: 'الباقات المتجددة',
     icon: Icons.sync_alt,
     iconBgColor: Color(0xffCDF7EC),
     iconColor: Color(0xff05B285),
   ),
   DashboardItem(
-    
     title: 'العملاء غير النشطين',
     icon: Icons.person_off,
     iconBgColor: Color(0xffFAD7DA),
     iconColor: Color(0xffEA5A65),
   ),
   DashboardItem(
-   
     title: 'الباقات غير المتجددة',
     icon: Icons.description,
     iconBgColor: Color(0xffFAD7DA),
@@ -265,28 +258,28 @@ final List<CustomerServiceCardModel> customerServices = [
 final List<DashboardStatModel> dashboardStats = [
   DashboardStatModel(
     title: "التقييم",
-  
+
     icon: Icons.star_outline,
     backgroundColor: Color(0xffFFECD2),
     iconColor: Color(0xffFF9F1C),
   ),
   DashboardStatModel(
     title: "عدد الطلبات",
-   
+
     icon: Icons.shopping_cart_outlined,
     backgroundColor: Color(0xffCCE4F0),
     iconColor: Color(0xff0077B6),
   ),
   DashboardStatModel(
     title: "عدد المنتجات",
-  
+
     icon: Icons.inventory_2_outlined,
     backgroundColor: Color(0xffCDF7EC),
     iconColor: Color(0xff05B285),
   ),
   DashboardStatModel(
     title: "عروض نشطة",
-  
+
     icon: Icons.trending_up,
     backgroundColor: Color(0xffFAD7DA),
     iconColor: Color(0xffEA5A65),
@@ -314,14 +307,7 @@ final List<DashboardShortcutModel> dashboardShortcuts = [
   ),
 ];
 
-
 final List<Map> companyresFooter = [
-  {
-    'icon': Icons.layers_outlined,
-    'title': "الباقات والخدمات",
-    'color': Color(0xff05B285),
-    'view': '/customerservicesview',
-  },
   {
     'icon': Icons.work_outline,
     'title': "المشاريع",
@@ -329,8 +315,8 @@ final List<Map> companyresFooter = [
     'view': '/companyresprojectview',
   },
   {
-     'icon': Icons.people_alt_rounded,
-     // Icons.groups_rounded
+    'icon': Icons.people_alt_rounded,
+    // Icons.groups_rounded
     'title': "العملاء",
     'color': Color(0xff0096B4),
     'view': '/companyresclientsview',
@@ -576,31 +562,16 @@ final List<Map<String, dynamic>> adminNotification = [
     "time": "منذ يوم ",
     "ordertype": "storeOreder",
   },
-];const notificationFilters = {
-  "all": {
-    "label": "الكل",
-  },
-  "requests": {
-    "label": "الطلبات",
-  },
-  "offers": {
-    "label": "العروض",
-  },
-  "inventory": {
-    "label": "المخزون",
-  },
-  "reports": {
-    "label": "البلاغات",
-  },
-  "ratings": {
-    "label": "التقييمات",
-  },
-  "reminders": {
-    "label": "التذكيرات",
-  },
-  "general": {
-    "label": "العامة",
-  },
+];
+const notificationFilters = {
+  "all": {"label": "الكل"},
+  "requests": {"label": "الطلبات"},
+  "offers": {"label": "العروض"},
+  "inventory": {"label": "المخزون"},
+  "reports": {"label": "البلاغات"},
+  "ratings": {"label": "التقييمات"},
+  "reminders": {"label": "التذكيرات"},
+  "general": {"label": "العامة"},
 };
 final List<Map> techFooter = [
   {
@@ -629,5 +600,3 @@ final List<Map> techFooter = [
     'view': '/companyresnotesview',
   },
 ];
-
-

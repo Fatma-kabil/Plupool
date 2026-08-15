@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 //import 'package:intl/intl.dart';
 import 'package:plupool/core/utils/functions/pick_date_fun.dart';
 import 'package:plupool/core/utils/functions/pick_time_fun.dart';
@@ -114,7 +113,7 @@ class _EditProjectViewBodyState extends State<EditProjectViewBody> {
             isSuccess: true,
           );
 
-          if (context.canPop()) context.pop(context);
+          Navigator.pop(context, true);
         }
 
         if (state.error != null) {

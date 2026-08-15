@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
@@ -12,9 +10,11 @@ class DeleteProjectBtn extends StatelessWidget {
   const DeleteProjectBtn({
     super.key,
     required this.projectId,
+    this.onDeleted,
   });
 
   final int projectId;
+  final VoidCallback? onDeleted;
 
   @override
   Widget build(BuildContext context) {
@@ -25,32 +25,50 @@ class DeleteProjectBtn extends StatelessWidget {
           barrierDismissible: true,
           builder: (dialogContext) {
             final cubit = context.read<CompanyProjectCubit>();
-    
+
+            bool deleteStarted = false;
+
             return BlocConsumer<CompanyProjectCubit, CompanyProjectState>(
               bloc: cubit,
-    
+
               listener: (context, state) {
-                if (!state.isDeleting && state.error == null) {
-                  Navigator.pop(dialogContext);
-    
+                // ================= SUCCESS =================
+                if (deleteStarted &&
+                    !state.isDeleting &&
+                    state.error == null) {
+                  deleteStarted = false;
+
+                  if (dialogContext.mounted) {
+                    Navigator.of(dialogContext).pop();
+                  }
+
                   showCustomSnackBar(
                     context: context,
                     message: "تم حذف المشروع بنجاح 🗑️",
                     isSuccess: true,
                   );
-                context.read<CompanyProjectCubit>().refreshClientProjects();
+
+                  // تحديث القائمة بعد الحذف
+                  onDeleted?.call();
                 }
-    
-                if (!state.isDeleting && state.error != null) {
-                  Navigator.pop(dialogContext);
-    
+
+                // ================= ERROR =================
+                if (deleteStarted &&
+                    !state.isDeleting &&
+                    state.error != null) {
+                  deleteStarted = false;
+
+                  if (dialogContext.mounted) {
+                    Navigator.of(dialogContext).pop();
+                  }
+
                   showCustomSnackBar(
                     context: context,
                     message: state.error!,
                   );
                 }
               },
-    
+
               builder: (context, state) {
                 return DeleteOrderCard(
                   text: "هل أنت متأكد من حذف هذا المشروع؟",
@@ -58,6 +76,8 @@ class DeleteProjectBtn extends StatelessWidget {
                   onPressed: state.isDeleting
                       ? null
                       : () {
+                          deleteStarted = true;
+
                           cubit.deleteProject(projectId);
                         },
                 );
@@ -66,6 +86,7 @@ class DeleteProjectBtn extends StatelessWidget {
           },
         );
       },
+
       child: Container(
         padding: EdgeInsets.all(SizeConfig.w(6)),
         decoration: const BoxDecoration(

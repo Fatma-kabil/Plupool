@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:plupool/core/di/service_locator.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/store/data/models/dashboard_shortcut_model.dart';
+import 'package:plupool/features/store/presentation/cubits/store_statistics_cubit/store_statistics_cubit.dart';
 
 class ShortcutButton extends StatelessWidget {
   final DashboardShortcutModel model;
@@ -13,9 +15,14 @@ class ShortcutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.push(model.onTap);
+      onTap: () async {
+        await context.push(model.onTap);
+
+        if (context.mounted) {
+          sl<StoreStatisticsCubit>().getStoreStatistics();
+        }
       },
+
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

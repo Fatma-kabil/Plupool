@@ -44,10 +44,7 @@ class _FaqPageState extends State<FaqPage> {
   }
 
   void _toggleVisibility(FaqEntity item) {
-    context.read<FaqCubit>().toggleFaq(
-          item.id!,
-          !item.isActive,
-        );
+    context.read<FaqCubit>().toggleFaq(item.id!, !item.isActive);
   }
 
   @override
@@ -67,8 +64,7 @@ class _FaqPageState extends State<FaqPage> {
                 onTap: () {
                   showDialog(
                     context: context,
-                    builder: (context) =>
-                        AddQuesCard(role: widget.role),
+                    builder: (context) => AddQuesCard(role: widget.role),
                   );
                 },
               ),
@@ -80,36 +76,31 @@ class _FaqPageState extends State<FaqPage> {
         if (isEmpty)
           SliverFillRemaining(
             hasScrollBody: false,
-            child: Center(
-              child: ErrorText(
-                message: "🤔 لا توجد أسئلة حالياً",
-              ),
-            ),
+            child: Center(child: ErrorText(message: "🤔 لا توجد أسئلة حالياً")),
           )
         else
+          /// 📋 List
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              childCount: widget.items.length,
+              (context, index) {
+                final item = widget.items[index];
 
-        /// 📋 List
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            childCount: widget.items.length,
-            (context, index) {
-              final item = widget.items[index];
+                return FaqCard(
+                  item: item,
+                  isExpanded: expanded[index],
 
-              return FaqCard(
-                item: item,
-                isExpanded: expanded[index],
+                  /// 👇 isHidden جاي من API مباشرة
+                  isHidden: !item.isActive,
 
-                /// 👇 isHidden جاي من API مباشرة
-                isHidden: !item.isActive,
+                  onToggle: () => toggle(index),
 
-                onToggle: () => toggle(index),
-
-                /// 👇 هنا بنستخدم الكيوبت
-                onToggleHide: () => _toggleVisibility(item),
-              );
-            },
+                  /// 👇 هنا بنستخدم الكيوبت
+                  onToggleHide: () => _toggleVisibility(item),
+                );
+              },
+            ),
           ),
-        ),
       ],
     );
   }

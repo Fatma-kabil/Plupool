@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/project_card.dart';
-
 class ProjectsList extends StatelessWidget {
   const ProjectsList({
     super.key,
     required this.projects,
+    this.onChanged,
   });
 
   final List<CompanyProjectEntity> projects;
+
+  final VoidCallback? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,7 @@ class ProjectsList extends StatelessWidget {
         (context, index) {
           return ProjectCard(
             project: projects[index],
+            onChanged: onChanged,
           );
         },
         childCount: projects.length,

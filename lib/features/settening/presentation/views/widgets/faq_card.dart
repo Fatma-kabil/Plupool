@@ -44,13 +44,16 @@ class FaqCard extends StatelessWidget {
           InkWell(
             onTap: onToggle,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  item.question,
-                  style: AppTextStyles.styleSemiBold16(
-                    context,
-                  ).copyWith(color: AppColors.ktextcolor),
+                Expanded(
+                  child: Text(
+                    item.question,
+                    style: AppTextStyles.styleSemiBold16(
+                      context,
+                    ).copyWith(color: AppColors.ktextcolor),
+                    softWrap: true,
+                  ),
                 ),
                 IconButton(
                   icon: Icon(
@@ -126,9 +129,9 @@ class FaqCard extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (dialogContext) {
-                       final cubit = context.read<FaqCubit>();
+                      final cubit = context.read<FaqCubit>();
                       return BlocConsumer<FaqCubit, FaqState>(
-                           bloc: cubit, 
+                        bloc: cubit,
                         listener: (context, state) {
                           if (state is FaqDeleted) {
                             Navigator.pop(context);
@@ -150,7 +153,6 @@ class FaqCard extends StatelessWidget {
                           }
                         },
                         builder: (context, state) {
-                        
                           final isLoading = state is FaqLoading;
 
                           return DeleteOrderCard(

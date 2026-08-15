@@ -8,11 +8,16 @@ import 'package:plupool/features/projects/presentation/views/widgets/admin_proje
 import 'package:plupool/features/projects/presentation/views/widgets/next_visit_and_pools.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/project_location_row.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/start_end_project.dart';
-
 class ProjectCard extends StatelessWidget {
-  const ProjectCard({super.key, required this.project});
+  const ProjectCard({
+    super.key,
+    required this.project,
+    this.onChanged,
+  });
 
   final CompanyProjectEntity project;
+
+  final VoidCallback? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -35,33 +40,41 @@ class ProjectCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // ---- العنوان و الحالة ----
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
-
               children: [
                 Text(
                   "ممثل الشركه : ${project.clientName}",
                   style: AppTextStyles.styleSemiBold16(
                     context,
-                  ).copyWith(color: Color(0xff333333)),
+                  ).copyWith(
+                    color: const Color(0xff333333),
+                  ),
                 ),
-
                 buildStatusLabel(colors, context, statu),
               ],
             ),
-            SizedBox(height: 4),
+
+            const SizedBox(height: 4),
+
             Text(
               project.nameAr ?? "غير متوفر",
               style: AppTextStyles.styleSemiBold16(
                 context,
-              ).copyWith(color: Color(0xff333333)),
+              ).copyWith(
+                color: const Color(0xff333333),
+              ),
             ),
-            SizedBox(height: 2),
-            ProjectLocationRow(location: project.locationAr ?? "لا يوجد"),
+
+            const SizedBox(height: 2),
+
+            ProjectLocationRow(
+              location: project.locationAr ?? "لا يوجد",
+            ),
 
             const SizedBox(height: 18),
+
             StartEndProject(
               startDate: project.startDate != null
                   ? DateTime.parse(project.startDate!)
@@ -76,12 +89,17 @@ class ProjectCard extends StatelessWidget {
                 horizontal: SizeConfig.w(10),
                 vertical: SizeConfig.h(12),
               ),
-              child: Divider(),
+              child: const Divider(),
             ),
+
             NextVisitAndPools(project: project),
+
             SizedBox(height: SizeConfig.h(12)),
-            AdminProjectCardFooter(project: project),
-            // ---- بيانات المستخدم + زرار الموقع ----
+
+            AdminProjectCardFooter(
+              project: project,
+              onChanged: onChanged,
+            ),
           ],
         ),
       ),

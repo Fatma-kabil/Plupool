@@ -16,13 +16,17 @@ class AddProjectViewBody extends StatefulWidget {
     required this.clientId,
     required this.clientName,
   });
+
   final int clientId;
   final String clientName;
+
   @override
   State<AddProjectViewBody> createState() => _AddProjectViewBodyState();
 }
 
 class _AddProjectViewBodyState extends State<AddProjectViewBody> {
+  bool _isPopping = false;
+
   final _formKey = GlobalKey<FormState>();
 
   final projectNameController = TextEditingController();
@@ -47,22 +51,31 @@ class _AddProjectViewBodyState extends State<AddProjectViewBody> {
 
   Future<void> onPickStartDate() async {
     final picked = await pickDateFun(context);
+
     if (picked != null) {
-      setState(() => startDate = picked);
+      setState(() {
+        startDate = picked;
+      });
     }
   }
 
   Future<void> onPickEndDate() async {
     final picked = await pickDateFun(context);
+
     if (picked != null) {
-      setState(() => endDate = picked);
+      setState(() {
+        endDate = picked;
+      });
     }
   }
 
   Future<void> onPickTime() async {
     final picked = await pickTimeFun(context);
+
     if (picked != null) {
-      setState(() => selectedTime = picked);
+      setState(() {
+        selectedTime = picked;
+      });
     }
   }
 
@@ -70,19 +83,21 @@ class _AddProjectViewBodyState extends State<AddProjectViewBody> {
   Widget build(BuildContext context) {
     return BlocListener<CompanyProjectCubit, CompanyProjectState>(
       listener: (context, state) {
-        if (state.addSuccess) {
+        // ================= SUCCESS =================
+        if (state.addSuccess && !_isPopping) {
+          _isPopping = true;
+
           showCustomSnackBar(
             context: context,
             message: "تم إضافة المشروع بنجاح",
             isSuccess: true,
           );
 
-          Future.delayed(
-            const Duration(milliseconds: 300),
-            () => Navigator.pop(context),
-          );
+          // رجوع مرة واحدة فقط
+          Navigator.pop(context);
         }
 
+        // ================= ERROR =================
         if (state.error != null) {
           showCustomSnackBar(
             context: context,
@@ -91,8 +106,10 @@ class _AddProjectViewBodyState extends State<AddProjectViewBody> {
           );
         }
       },
+
       child: Column(
         children: [
+          // ================= FORM =================
           Expanded(
             child: SingleChildScrollView(
               child: AddEditProjectForm(
@@ -116,19 +133,24 @@ class _AddProjectViewBodyState extends State<AddProjectViewBody> {
             ),
           ),
 
+          // ================= BUTTON =================
           AddEditOfferViewFooter(
             text: context.watch<CompanyProjectCubit>().state.isAdding
                 ? "جاري الإضافة..."
                 : "إضافة",
             onPressed: () {
-              if (!_formKey.currentState!.validate()) return;
+              if (!_formKey.currentState!.validate()) {
+                return;
+              }
 
               context.read<CompanyProjectCubit>().addProject(
                 UpdateProjectRequest(
                   projectType: "pool_construction",
                   nameAr: projectNameController.text,
                   locationAr: locatonController.text,
-                  poolCount: int.tryParse(noOfPoolsController.text),
+                  poolCount: int.tryParse(
+                    noOfPoolsController.text,
+                  ),
                   startDate: startDate,
                   expectedEndDate: endDate,
                   preferredTime: selectedTime?.format(context),

@@ -3,9 +3,10 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/project_view_header_card.dart';
 
 class CompanyResProjectViewHeader extends StatelessWidget {
-  const CompanyResProjectViewHeader({super.key, required this.completedProjects, required this.activeProjects});
+  const CompanyResProjectViewHeader({super.key, required this.completedProjects, required this.activeProjects, required this.totalProjects});
   final int completedProjects;
   final int activeProjects;
+  final int totalProjects;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -14,7 +15,7 @@ class CompanyResProjectViewHeader extends StatelessWidget {
         Expanded(
           child: ProjectViewHeaderCard(
             icon: Icons.folder_outlined,
-            value:(completedProjects+activeProjects).toString(),
+            value: totalProjects.toString(),
             label: 'إجمالي المشاريع',
             bkColor: const Color(0xffFFECD2),
             iconColor: const Color(0xffFF9F1C),
