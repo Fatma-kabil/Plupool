@@ -14,6 +14,7 @@ import 'package:plupool/features/company_res/data/remote_data_sources/company_re
 import 'package:plupool/features/company_res/data/repos_impl/company_res_clients_repo_impl.dart';
 import 'package:plupool/features/company_res/domain/repos/company_res_clients_repos.dart';
 import 'package:plupool/features/company_res/domain/usecases/create_client_usecase.dart';
+import 'package:plupool/features/company_res/domain/usecases/delete_client_usecase.dart';
 import 'package:plupool/features/company_res/domain/usecases/get_company_res_usecase.dart';
 import 'package:plupool/features/company_res/presentation/manager/cubits/company_res_clients_cubit/company_rs_clients_cubit.dart';
 import 'package:plupool/features/consruction_service/data/remote_data_source/construction_remote_data_source.dart';
@@ -1024,10 +1025,14 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => CreateClientUseCase(sl<CompanyResClientsRepository>()),
   );
+   sl.registerLazySingleton(
+    () => DeleteClientUseCase(sl<CompanyResClientsRepository>()),
+  );
   sl.registerFactory(
     () => CompanyResClientsCubit(
       sl<GetCompanyResClientsUseCase>(),
       sl<CreateClientUseCase>(),
+      sl<DeleteClientUseCase>()
     ),
   );
 

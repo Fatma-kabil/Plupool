@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:plupool/features/company_res/domain/entities/create_client_params.dart';
 import 'package:plupool/features/company_res/domain/usecases/create_client_usecase.dart';
+import 'package:plupool/features/company_res/domain/usecases/delete_client_usecase.dart';
 import 'package:plupool/features/company_res/domain/usecases/get_company_res_usecase.dart';
 
 import 'company_res_clients_state.dart';
@@ -9,10 +10,12 @@ import 'company_res_clients_state.dart';
 class CompanyResClientsCubit extends Cubit<CompanyResClientsState> {
   final GetCompanyResClientsUseCase getCompanyResClientsUseCase;
   final CreateClientUseCase createClientUseCase;
+  final DeleteClientUseCase deleteClientUseCase;
 
   CompanyResClientsCubit(
     this.getCompanyResClientsUseCase,
     this.createClientUseCase,
+    this.deleteClientUseCase,
   ) : super(CompanyResClientsState());
 
   // ============================================================
@@ -29,16 +32,16 @@ class CompanyResClientsCubit extends Cubit<CompanyResClientsState> {
     emit(
       state.copyWith(
         isLoading: true,
-
-        // نمسح أخطاء الـ GET القديمة
         clearError: true,
 
-        // مهم جدًا:
-        // لما نعمل GET جديد مش عايزين listener بتاع CREATE
-        // يشتغل مرة تانية
+        // نمسح حالات الـ CREATE القديمة
         createSuccess: false,
         clearCreatedClient: true,
         clearCreateError: true,
+
+        // نمسح حالات الـ DELETE القديمة
+        deleteSuccess: false,
+        clearDeleteError: true,
 
         search: search,
         isActive: isActive,
@@ -89,9 +92,7 @@ class CompanyResClientsCubit extends Cubit<CompanyResClientsState> {
     emit(
       state.copyWith(
         isCreating: true,
-
         createSuccess: false,
-
         clearCreateError: true,
         clearCreatedClient: true,
       ),
@@ -148,13 +149,78 @@ class CompanyResClientsCubit extends Cubit<CompanyResClientsState> {
         ),
       );
 
-      // ----------------------------------------------------------
       // حتى لو الـ CREATE فشل
-      // نعمل GET CLIENTS تاني
+      await getClients(
+        userId: companyRepId,
+        search: state.search,
+        isActive: state.isActive,
+      );
+    }
+  }
+
+  // ============================================================
+  // DELETE CLIENT
+  // ============================================================
+
+  Future<void> deleteClient({
+    required int userId,
+    required int clientId,
+  }) async {
+    emit(
+      state.copyWith(
+        isDeleting: true,
+        deleteSuccess: false,
+        clearDeleteError: true,
+      ),
+    );
+
+    try {
+      // ----------------------------------------------------------
+      // DELETE
+      // ----------------------------------------------------------
+
+      await deleteClientUseCase(
+        userId,
+        clientId,
+      );
+
+      // ----------------------------------------------------------
+      // DELETE SUCCESS
+      // ----------------------------------------------------------
+
+      emit(
+        state.copyWith(
+          isDeleting: false,
+          deleteSuccess: true,
+          clearDeleteError: true,
+        ),
+      );
+
+      // ----------------------------------------------------------
+      // REFRESH CLIENTS
       // ----------------------------------------------------------
 
       await getClients(
-        userId: companyRepId,
+        userId: userId,
+        search: state.search,
+        isActive: state.isActive,
+      );
+    } catch (e) {
+      // ----------------------------------------------------------
+      // DELETE ERROR
+      // ----------------------------------------------------------
+
+      emit(
+        state.copyWith(
+          isDeleting: false,
+          deleteSuccess: false,
+          deleteError: e.toString(),
+        ),
+      );
+
+      // حتى لو الـ DELETE فشل
+      await getClients(
+        userId: userId,
         search: state.search,
         isActive: state.isActive,
       );

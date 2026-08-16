@@ -6,12 +6,18 @@ import 'package:plupool/features/company_res/domain/entities/client_entity.dart'
 import 'package:plupool/features/customers/presentation/views/widgets/customer_avatar.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_info.dart';
 import 'package:plupool/features/customers/presentation/views/widgets/customer_info_item.dart';
-import 'package:plupool/features/customers/presentation/views/widgets/customer_status.dart';
 
 class CompanyResClientsCard extends StatelessWidget {
-  const CompanyResClientsCard({super.key, required this.client});
+  const CompanyResClientsCard({
+    super.key,
+    required this.client,
+    required this.onDelete,
+    this.isDeleting = false,
+  });
 
   final ClientEntity client;
+  final VoidCallback onDelete;
+  final bool isDeleting;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,30 @@ class CompanyResClientsCard extends StatelessWidget {
                 SizedBox(width: SizeConfig.w(7)),
                 CustomerInfo(name: client.fullName, phone: client.phone),
                 const Spacer(),
-                CustomerStatus(isActive: client.isActive),
+                GestureDetector(
+                  onTap: isDeleting ? null : onDelete,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(1000),
+                    ),
+                    padding: const EdgeInsets.all(4),
+                    child: isDeleting
+                        ? SizedBox(
+                            width: SizeConfig.w(15),
+                            height: SizeConfig.w(15),
+                            child:  CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: AppColors.kprimarycolor,
+                            ),
+                          )
+                        : Icon(
+                            Icons.close,
+                            size: SizeConfig.w(18),
+                            color: Colors.red[900],
+                          ),
+                  ),
+                ),
               ],
             ),
 
