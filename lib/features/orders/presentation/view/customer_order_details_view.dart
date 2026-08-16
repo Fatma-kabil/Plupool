@@ -26,7 +26,6 @@ class _CustomerOrderDetailsViewState extends State<CustomerOrderDetailsView> {
           context.pop(true);
         }
       },
-
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: SafeArea(

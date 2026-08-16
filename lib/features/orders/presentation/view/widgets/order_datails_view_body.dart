@@ -8,6 +8,7 @@ import 'package:plupool/features/orders/presentation/view/widgets/order_details_
 import 'package:plupool/features/orders/presentation/view/widgets/order_details_view_footer.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/status_and_note_section.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_datails_view_header.dart';
+
 class OrderDatailsViewBody extends StatefulWidget {
   const OrderDatailsViewBody({super.key, required this.model});
 
@@ -19,12 +20,14 @@ class OrderDatailsViewBody extends StatefulWidget {
 
 class _OrderDatailsViewBodyState extends State<OrderDatailsViewBody> {
   late String _status;
-  final TextEditingController _notesController = TextEditingController();
-
+  late TextEditingController _notesController;
   @override
   void initState() {
     super.initState();
     _status = widget.model.status;
+      _notesController = TextEditingController(
+    text: widget.model.adminNotes ?? '',
+  );
   }
 
   @override
@@ -59,11 +62,7 @@ class _OrderDatailsViewBodyState extends State<OrderDatailsViewBody> {
             state is OrderUpdateError ||
             state is OrdersDeleteError) {
           final msg = (state as dynamic).message;
-          showCustomSnackBar(
-            context: context,
-            message: msg,
-            isSuccess: false,
-          );
+          showCustomSnackBar(context: context, message: msg, isSuccess: false);
         }
       },
 
@@ -76,7 +75,6 @@ class _OrderDatailsViewBodyState extends State<OrderDatailsViewBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               MessageDatailsViewHeader(
                 name: widget.model.userName,
                 phone: widget.model.userPhone,
@@ -106,10 +104,10 @@ class _OrderDatailsViewBodyState extends State<OrderDatailsViewBody> {
               OrderDetailsViewFooter(
                 editfun: () {
                   context.read<OrdersCubit>().updateOrder(
-                        id: order.id,
-                        status: _status,
-                        notes: _notesController.text,
-                      );
+                    id: order.id,
+                    status: _status,
+                    notes: _notesController.text,
+                  );
                 },
                 deleteFun: () {
                   context.read<OrdersCubit>().deleteOrder(order.id);

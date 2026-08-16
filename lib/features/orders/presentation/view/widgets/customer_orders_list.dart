@@ -12,29 +12,37 @@ class CustomerOrdersList extends StatelessWidget {
     required this.userId,
     required this.selected,
   });
+
   final int userId;
   final String selected;
   final List orders;
+
   @override
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate((context, index) {
-        return CustomerOrderCard(
-          order: orders[index],
-          onTap: () async {
-            final cubit = context.read<OrdersCubit>();
+        final order = orders[index];
 
-            final result = await context.push(
+        return CustomerOrderCard(
+          order: order,
+          onTap: () async {
+            final navContext = Navigator.of(context).context;
+
+            await context.push(
               '/customerorderdetailsview',
               extra: orders[index]['id'],
             );
 
-            if (result == true) {
-              await cubit.getUserOrders(
-                userId: userId,
-                status: orderStatusToApi(selected),
-              );
-            }
+            if (!navContext.mounted) return;
+
+            print("🔥🔥 رجعت من التفاصيل");
+
+            await navContext.read<OrdersCubit>().refreshUserOrders(
+              userId: userId,
+              status: orderStatusToApi(selected),
+            );
+
+            print("🔥🔥 refresh خلص");
           },
         );
       }, childCount: orders.length),

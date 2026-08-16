@@ -21,14 +21,13 @@ class OrderList extends StatelessWidget {
           onTap: () async {
             final navContext = Navigator.of(context).context;
 
-            final result = await context.push(
+             await context.push(
               '/orderdetailsview',
               extra: order,
             );
+            if (!navContext.mounted) return;
 
-            if (result == true) {
-              navContext.read<OrdersCubit>().refresh();
-            }
+            await navContext.read<OrdersCubit>().refresh();
           },
         );
       }, childCount: orders.length),

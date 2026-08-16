@@ -8,11 +8,9 @@ import 'package:plupool/features/orders/presentation/view/widgets/customer_order
 import 'package:plupool/features/orders/presentation/view/widgets/order_details_view_body_middle_section.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/order_details_view_footer.dart';
 import 'package:plupool/features/orders/presentation/view/widgets/status_and_note_section.dart';
+
 class CustomerOrderDetailsViewBody extends StatefulWidget {
-  const CustomerOrderDetailsViewBody({
-    super.key,
-    required this.orderId,
-  });
+  const CustomerOrderDetailsViewBody({super.key, required this.orderId});
 
   final int orderId;
 
@@ -23,8 +21,7 @@ class CustomerOrderDetailsViewBody extends StatefulWidget {
 
 class _CustomerOrderDetailsViewBodyState
     extends State<CustomerOrderDetailsViewBody> {
-  final TextEditingController _notesController =
-      TextEditingController();
+  final TextEditingController _notesController = TextEditingController();
 
   String? _status;
 
@@ -33,9 +30,7 @@ class _CustomerOrderDetailsViewBodyState
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<OrdersCubit>().getOrderDetails(
-            widget.orderId,
-          );
+      context.read<OrdersCubit>().getOrderDetails(widget.orderId);
     });
   }
 
@@ -82,14 +77,12 @@ class _CustomerOrderDetailsViewBodyState
           _status ??= state.order.status;
 
           if (_notesController.text.isEmpty) {
-            _notesController.text =
-                state.order.adminNotes ?? '';
+            _notesController.text = state.order.adminNotes ?? '';
           }
         }
       },
 
       builder: (context, state) {
-
         /// LOADING
         if (state is OrderDetailsLoading) {
           return CustomerOrderDetailsShimmer();
@@ -97,9 +90,7 @@ class _CustomerOrderDetailsViewBodyState
 
         /// ERROR
         if (state is OrderDetailsError) {
-          return Center(
-            child: ErrorText(message: state.message),
-          );
+          return Center(child: ErrorText(message: state.message));
         }
 
         /// SUCCESS
@@ -108,12 +99,9 @@ class _CustomerOrderDetailsViewBodyState
 
           return SingleChildScrollView(
             child: Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                OrderDetailsViewBodyMiddleSection(
-                  model: order,
-                ),
+                OrderDetailsViewBodyMiddleSection(model: order),
 
                 const SizedBox(height: 25),
 
@@ -132,15 +120,13 @@ class _CustomerOrderDetailsViewBodyState
                 OrderDetailsViewFooter(
                   editfun: () {
                     context.read<OrdersCubit>().updateOrder(
-                          id: order.id,
-                          status: _status,
-                          notes: _notesController.text,
-                        );
+                      id: order.id,
+                      status: _status,
+                      notes: _notesController.text,
+                    );
                   },
                   deleteFun: () {
-                    context.read<OrdersCubit>().deleteOrder(
-                          order.id,
-                        );
+                    context.read<OrdersCubit>().deleteOrder(order.id);
                   },
                 ),
               ],

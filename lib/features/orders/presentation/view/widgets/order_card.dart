@@ -44,7 +44,7 @@ class OrderCard extends StatelessWidget {
           if ((model.adminNotes ?? '').trim().isNotEmpty)
             NoteAndTimeSection(
               text: model.adminNotes!,
-              date: model.adminNotesUpdated !,
+              date: model.adminNotesUpdated ??DateTime.now(),
             ),
         ],
       ),

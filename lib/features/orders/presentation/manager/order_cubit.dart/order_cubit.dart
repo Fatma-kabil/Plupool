@@ -45,9 +45,6 @@ class OrdersCubit extends Cubit<OrdersState> {
   String? _status;
   String? _search;
 
-
-
-
   /// ==============================
   /// 📋 GET ORDERS
   /// ==============================
@@ -136,15 +133,18 @@ class OrdersCubit extends Cubit<OrdersState> {
     String? notes,
   }) async {
     try {
+      print('🟡 UPDATE START');
       emit(OrderUpdateing());
 
       await updateOrderUseCase(id: id, status: status, notes: notes);
 
       // 👇 refresh علشان البيانات تتحدث
+      print('🟢 UPDATE USECASE FINISHED');
 
       emit(OrderUpdateSuccess());
-      await refresh();
+     await refresh();
     } catch (e) {
+      print('🔴 UPDATE ERROR: $e');
       emit(OrderUpdateError(e is Failure ? e.message : "فشل تعديل الطلب"));
 
       /// رجّع الليست
@@ -303,5 +303,23 @@ class OrdersCubit extends Cubit<OrdersState> {
   /// ==============================
   Future<void> refresh() async {
     await getOrders(status: _status, search: _search);
+  }
+
+  Future<void> refreshUserOrders({required int userId, String? status}) async {
+    try {
+      final res = await getUserOrdersUseCase(
+        userId: userId,
+        status: status,
+        page: 1,
+        pageSize: 10,
+      );
+
+      final orders = (res["orders"] as List? ?? [])
+          .cast<Map<String, dynamic>>();
+
+      emit(UserOrdersSuccess(orders));
+    } catch (e) {
+      emit(OrdersError(e.toString()));
+    }
   }
 }
