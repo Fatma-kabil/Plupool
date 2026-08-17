@@ -99,16 +99,7 @@ class NotificationCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      if (!isRead)
-                        Container(
-                          width: SizeConfig.w(8),
-                          height: SizeConfig.w(8),
-                          margin: EdgeInsets.only(left: SizeConfig.w(6)),
-                          decoration: const BoxDecoration(
-                            color: Colors.blue,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
+                     
                       Expanded(
                         child: Text(
                           title,
@@ -159,6 +150,16 @@ class NotificationCard extends StatelessWidget {
                 ],
               ),
             ),
+             if (!isRead)
+                        Container(
+                          width: SizeConfig.w(8),
+                          height: SizeConfig.w(8),
+                          margin: EdgeInsets.only(left: SizeConfig.w(6)),
+                          decoration: const BoxDecoration(
+                            color: Colors.blue,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
           ],
         ),
       ),

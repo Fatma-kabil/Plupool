@@ -11,10 +11,24 @@ import 'package:plupool/features/services/presentation/manager/requested_cubit/r
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requested_state.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_cubit.dart';
 import 'package:plupool/features/support/presentation/manager/cubits/message_cubit/contact_state.dart';
-import 'drawer_item.dart'; // استورد الـ Cubit
+import 'drawer_item.dart';
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends StatefulWidget {
   const AppDrawer({super.key});
+
+  @override
+  State<AppDrawer> createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<NotificationCubit>().getUnreadCount();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +36,15 @@ class AppDrawer extends StatelessWidget {
       backgroundColor: AppColors.kScaffoldColor,
       width: MediaQuery.of(context).size.width * 0.65,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
+        padding: EdgeInsets.symmetric(
+          vertical: SizeConfig.h(10),
+        ),
         child: BlocBuilder<DrawerCubit, int>(
           builder: (context, selectedIndex) {
             void onItemTap(int index, VoidCallback action) {
               context.read<DrawerCubit>().selectIndex(index);
               action();
-              Navigator.pop(context); // لإغلاق الدروار بعد اختيار عنصر
+              Navigator.pop(context);
             }
 
             return Column(
@@ -42,9 +58,10 @@ class AppDrawer extends StatelessWidget {
                         title: 'الرئيسية',
                         isSelected: selectedIndex == 0,
                         onTap: () => onItemTap(0, () {
-                          context.go('/');
+                          context.go('/adminhomeview');
                         }),
                       ),
+
                       DrawerItem(
                         icon: Icons.design_services,
                         title: 'الخدمات',
@@ -53,6 +70,7 @@ class AppDrawer extends StatelessWidget {
                           context.go('/admindrawerservice');
                         }),
                       ),
+
                       DrawerItem(
                         icon: Icons.layers_outlined,
                         title: 'الباقات',
@@ -61,6 +79,7 @@ class AppDrawer extends StatelessWidget {
                           context.go('/seeallpackagesview');
                         }),
                       ),
+
                       DrawerItem(
                         icon: Icons.work_outline,
                         title: 'المشاريع',
@@ -69,10 +88,10 @@ class AppDrawer extends StatelessWidget {
                           context.go('/admindrawerprojectview');
                         }),
                       ),
+
                       BlocBuilder<RequestsCubit, RequestsState>(
                         builder: (context, state) {
-                          final newCount =
-                              context
+                          final newCount = context
                                   .read<RequestsCubit>()
                                   .tabCounts
                                   ?.newCounts ??
@@ -81,7 +100,7 @@ class AppDrawer extends StatelessWidget {
                           return DrawerItem(
                             icon: Icons.list_alt_outlined,
                             title: 'الخدمات المطلوبة',
-                            badgeCount: "$newCount", // 👈 هنا
+                            badgeCount: "$newCount",
                             isSelected: selectedIndex == 4,
                             onTap: () => onItemTap(4, () {
                               context.go('/requestedserviceview');
@@ -89,26 +108,33 @@ class AppDrawer extends StatelessWidget {
                           );
                         },
                       ),
+
                       BlocBuilder<NotificationCubit, NotificationState>(
                         buildWhen: (previous, current) =>
                             current is GetUnreadCountSuccess ||
                             current is GetUnreadCountFailure,
                         builder: (context, state) {
-                          final cubit = context.read<NotificationCubit>();
+                          final cubit =
+                              context.read<NotificationCubit>();
 
                           return DrawerItem(
                             icon: Icons.notifications_none,
                             title: 'الإشعارات',
                             badgeCount: cubit.unreadCount > 0
-                                ? toArabicNumbers(cubit.unreadCount.toString())
+                                ? toArabicNumbers(
+                                    cubit.unreadCount.toString(),
+                                  )
                                 : null,
                             isSelected: selectedIndex == 5,
                             onTap: () => onItemTap(5, () {
-                              context.go('/notificationinboxview');
+                              context.go(
+                                '/notificationinboxview',
+                              );
                             }),
                           );
                         },
                       ),
+
                       DrawerItem(
                         icon: Icons.people_outline,
                         title: 'العملاء',
@@ -117,6 +143,7 @@ class AppDrawer extends StatelessWidget {
                           context.go('/customersview');
                         }),
                       ),
+
                       DrawerItem(
                         icon: Icons.engineering_outlined,
                         title: 'الفنيين',
@@ -125,9 +152,11 @@ class AppDrawer extends StatelessWidget {
                           context.go('/techsview');
                         }),
                       ),
+
                       BlocBuilder<ContactCubit, ContactState>(
                         builder: (context, state) {
-                          final cubit = context.read<ContactCubit>();
+                          final cubit =
+                              context.read<ContactCubit>();
 
                           return DrawerItem(
                             icon: Icons.flag_outlined,
@@ -137,14 +166,19 @@ class AppDrawer extends StatelessWidget {
                             ),
                             isSelected: selectedIndex == 8,
                             onTap: () => onItemTap(8, () {
-                              context.go('/admindrawerreportview');
+                              context.go(
+                                '/admindrawerreportview',
+                              );
                             }),
                           );
                         },
                       ),
+
                       BlocBuilder<ContactCubit, ContactState>(
                         builder: (context, state) {
-                          final cubit = context.read<ContactCubit>();
+                          final cubit =
+                              context.read<ContactCubit>();
+
                           return DrawerItem(
                             icon: Icons.chat_outlined,
                             title: 'رسائل تواصل معنا',
@@ -153,11 +187,14 @@ class AppDrawer extends StatelessWidget {
                             ),
                             isSelected: selectedIndex == 9,
                             onTap: () => onItemTap(9, () {
-                              context.go('/admindrawercontactusview');
+                              context.go(
+                                '/admindrawercontactusview',
+                              );
                             }),
                           );
                         },
                       ),
+
                       DrawerItem(
                         icon: Icons.settings_outlined,
                         title: 'الإعدادات',
