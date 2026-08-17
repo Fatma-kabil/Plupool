@@ -8,12 +8,12 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/users_state.dart';
-import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info_card_row_shimmer.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/compay_project_state.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/company_res_project_view_header.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/project_card_shimmer.dart';
 import 'package:plupool/features/projects/presentation/views/widgets/projects_list.dart';
+import 'package:plupool/features/projects/presentation/views/widgets/projects_view_header_shimmer.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/rearrangment_row.dart';
 
 class CompanyResProjectViewBody extends StatefulWidget {
@@ -67,7 +67,7 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
         BlocBuilder<UsersCubit, UsersState>(
           builder: (context, state) {
             if (state is UserDetailsLoading) {
-              return const SliverToBoxAdapter(child: TechInfoCardRowShimmer());
+              return const SliverToBoxAdapter(child: ProjectsViewHeaderShimmer());
             }
 
             if (state is UserDetailsError) {

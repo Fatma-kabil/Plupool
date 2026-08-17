@@ -78,8 +78,7 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
                 message: "تم تحديث نسبة الإنجاز بنجاح ✅",
                 isSuccess: true,
               );
-               context.read<CompanyProjectCubit>().refreshClientProjects();
-                
+              context.read<CompanyProjectCubit>().refreshClientProjects();
             }
 
             if (!state.isUpdatingProgress && state.error != null) {
@@ -110,7 +109,18 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
               );
             }
 
-            return ProjectsList(projects: state.projects);
+            return ProjectsList(
+              projects: state.projects,
+              onChanged: () {
+                if (!mounted) return;
+
+                final cubit = context.read<CompanyProjectCubit>();
+
+                cubit.getProjectStatistics();
+
+                cubit.getCompanyProjects(status: getApiStatusProj(selected));
+              },
+            );
           },
         ),
       ],

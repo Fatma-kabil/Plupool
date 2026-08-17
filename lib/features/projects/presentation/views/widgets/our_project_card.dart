@@ -11,7 +11,7 @@ import 'package:plupool/features/projects/presentation/views/widgets/our_project
 class OurProjectCard extends StatelessWidget {
   const OurProjectCard({super.key, required this.project});
   final OurProjectEntity project;
- 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,8 +25,8 @@ class OurProjectCard extends StatelessWidget {
           /// الصور
           SizedBox(
             height: SizeConfig.isWideScreen
-                ? SizeConfig.h(210)
-                : SizeConfig.h(180),
+                ? SizeConfig.h(150)
+                : SizeConfig.h(120),
             child: Stack(
               children: [
                 ClipRRect(
@@ -81,14 +81,14 @@ class OurProjectCard extends StatelessWidget {
                 /// قبل
                 Positioned(
                   top: 14,
-                  left: 14,
-                  child: _label("قبل", context, Colors.black87),
+                  right: 14,
+                  child: _label("قبل", context, Colors.black45),
                 ),
 
                 /// بعد
                 Positioned(
                   top: 14,
-                  right: 14,
+                  left: 14,
                   child: _label("بعد", context, AppColors.kprimarycolor),
                 ),
 
@@ -224,7 +224,7 @@ class OurProjectCard extends StatelessWidget {
                   alignment: Alignment.center,
                   child: OurProjectCardFooter(
                     projectId: project.id,
-                   isActive: project.isActive == 1,
+                    isActive: project.isActive == 1,
                     onEditPressed: () {
                       context.push('/editourprojectview', extra: project);
                     },
@@ -244,21 +244,27 @@ class OurProjectCard extends StatelessWidget {
       return Container(color: Colors.grey.shade300);
     }
 
-    return Image.network(
-      url,
-      fit: BoxFit.cover,
+    return Container(
       width: width,
       height: height,
-      errorBuilder: (_, __, ___) => Container(color: Colors.grey.shade300),
+      clipBehavior: Clip.hardEdge,
+      decoration: const BoxDecoration(),
+      child: Image.network(
+        url,
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => Container(color: Colors.grey.shade300),
+      ),
     );
   }
 
   Widget _label(String text, BuildContext context, Color color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Text(
         text,

@@ -11,7 +11,7 @@ class OurProjectCardFooter extends StatelessWidget {
   const OurProjectCardFooter({
     super.key,
     this.onEditPressed,
-   required this.isActive,
+    required this.isActive,
     required this.projectId,
   });
 
@@ -19,7 +19,10 @@ class OurProjectCardFooter extends StatelessWidget {
   final bool isActive;
   final int projectId;
 
-  Widget _iconWrap({required Widget child, required Color bg}) {
+  Widget _iconWrap({
+    required Widget child,
+    required Color bg,
+  }) {
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
@@ -35,6 +38,7 @@ class OurProjectCardFooter extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        // ================= Edit =================
         GestureDetector(
           onTap: onEditPressed,
           child: _iconWrap(
@@ -51,19 +55,20 @@ class OurProjectCardFooter extends StatelessWidget {
 
         SizedBox(width: SizeConfig.w(12)),
 
+        // ================= Active / Inactive =================
         GestureDetector(
           onTap: () {
-            context.read<OurProjectsCubit>().toggleProjectActive(projectId);
+            context
+                .read<OurProjectsCubit>()
+                .toggleProjectActive(projectId);
           },
           child: _iconWrap(
             bg: const Color(0xffFFECD2),
-
             child: Icon(
               isActive
                   ? Icons.visibility_off_outlined
                   : Icons.visibility_outlined,
               color: const Color(0xffD48417),
-
               size: SizeConfig.isWideScreen
                   ? SizeConfig.w(18)
                   : SizeConfig.w(24),
@@ -73,6 +78,7 @@ class OurProjectCardFooter extends StatelessWidget {
 
         SizedBox(width: SizeConfig.w(12)),
 
+        // ================= Delete =================
         GestureDetector(
           onTap: () {
             showDialog(
@@ -83,10 +89,22 @@ class OurProjectCardFooter extends StatelessWidget {
 
                 return BlocConsumer<OurProjectsCubit, OurProjectsState>(
                   bloc: cubit,
-                  listener: (context, state) {
-                    if (!state.isDeleting && state.error == null) {
-                      Navigator.pop(dialogContext);
 
+                  // مهم:
+                  // الـ listener يشتغل فقط لما الحذف يكون بدأ
+                  // وبعد كده انتهى.
+                  listenWhen: (previous, current) {
+                    return previous.isDeleting && !current.isDeleting;
+                  },
+
+                  listener: (context, state) {
+                    // قفل الـ Dialog فقط
+                    if (Navigator.of(dialogContext).canPop()) {
+                      Navigator.of(dialogContext).pop();
+                    }
+
+                    // ================= Success =================
+                    if (state.error == null) {
                       showCustomSnackBar(
                         context: context,
                         message: "تم حذف المشروع بنجاح 🗑️",
@@ -94,15 +112,15 @@ class OurProjectCardFooter extends StatelessWidget {
                       );
                     }
 
-                    if (!state.isDeleting && state.error != null) {
-                      Navigator.pop(dialogContext);
-
+                    // ================= Error =================
+                    else {
                       showCustomSnackBar(
                         context: context,
                         message: state.error!,
                       );
                     }
                   },
+
                   builder: (context, state) {
                     return DeleteOrderCard(
                       text: "هل أنت متأكد من حذف هذا المشروع؟",
