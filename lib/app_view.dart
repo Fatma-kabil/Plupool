@@ -68,7 +68,7 @@ class PlupoolApp extends StatelessWidget {
             ..loadComplaintCount()
             ..loadContactCount(),
         ),
-        BlocProvider(create: (_) => sl<RequestsCubit>()..getTabCounts()),
+        BlocProvider(create: (_) => sl<RequestsCubit>()),
         BlocProvider(create: (_) => sl<OrdersCubit>()),
         BlocProvider(create: (_) => sl<PackagesCubit>()..getPackages()),
         BlocProvider(create: (_) => sl<OurProjectsCubit>()..getProjects()),

@@ -42,3 +42,9 @@ String convertArabicToEnglish(String value) {
 
   return value;
 }
+String formatTimeArabic(String? value) {
+  if (value == null || value.trim().isEmpty) return '';
+
+  return toArabicNumbers(value);
+}
+

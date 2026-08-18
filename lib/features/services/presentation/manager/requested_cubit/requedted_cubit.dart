@@ -6,6 +6,7 @@ import 'package:plupool/features/services/domain/usecases/get_request_details.da
 import 'package:plupool/features/services/domain/usecases/get_requests_usecase.dart';
 import 'package:plupool/features/services/domain/usecases/update_request_statue.dart';
 import 'package:plupool/features/services/presentation/manager/requested_cubit/requested_state.dart';
+
 import '../../../domain/entities/service_request_entity.dart';
 import '../../../domain/usecases/delete_request_usecase.dart';
 
@@ -32,10 +33,13 @@ class RequestsCubit extends Cubit<RequestsState> {
   int _page = 1;
 
   TabCounts? _tabCounts;
-  bool _tabCountsLoaded = false;
+
   TabCounts? get tabCounts => _tabCounts;
 
-  /// 📋 GET REQUESTS
+  // ============================================================
+  // GET REQUESTS
+  // ============================================================
+
   Future<void> getRequests({
     int page = 1,
     int limit = 100,
@@ -45,7 +49,7 @@ class RequestsCubit extends Cubit<RequestsState> {
     String? status,
   }) async {
     if (state is! RequestsSuccess) {
-      emit(RequestsLoading()); // أول مرة بس
+      emit(RequestsLoading());
     }
 
     try {
@@ -66,23 +70,43 @@ class RequestsCubit extends Cubit<RequestsState> {
         ),
       );
 
+      // حفظ الطلبات
       _cachedRequests = response.requests;
+
+      // ========================================================
+      // ⭐ أهم تعديل
+      // ========================================================
+
+      _tabCounts = response.tabCounts;
+
+      print('========== CUBIT COUNTS ==========');
+      print('maintenance = ${_tabCounts?.maintenance}');
+      print('construction = ${_tabCounts?.construction}');
+      print('==================================');
 
       emit(
         RequestsSuccess(
           requests: response.requests,
-          tabCounts: _tabCounts, // 👈 ثابتة
+          tabCounts: _tabCounts,
         ),
       );
     } catch (e) {
       emit(
-        RequestsError(e is Failure ? e.message : "حدث خطأ أثناء جلب الطلبات"),
+        RequestsError(
+          e is Failure
+              ? e.message
+              : "حدث خطأ أثناء جلب الطلبات",
+        ),
       );
+
       print(e);
     }
   }
 
-  /// 📄 DETAILS
+  // ============================================================
+  // DETAILS
+  // ============================================================
+
   Future<void> getRequestDetails(int id) async {
     try {
       emit(RequestDetailsLoading());
@@ -93,24 +117,33 @@ class RequestsCubit extends Cubit<RequestsState> {
     } catch (e) {
       emit(
         RequestDetailsError(
-          e is Failure ? e.message : "حدث خطأ أثناء جلب التفاصيل",
+          e is Failure
+              ? e.message
+              : "حدث خطأ أثناء جلب التفاصيل",
         ),
       );
 
       if (_cachedRequests.isNotEmpty) {
-        emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
+        emit(
+          RequestsSuccess(
+            requests: _cachedRequests,
+            tabCounts: _tabCounts,
+          ),
+        );
       }
     }
   }
 
-  /// 🗑 DELETE
+  // ============================================================
+  // DELETE
+  // ============================================================
+
   Future<void> deleteRequest(int id) async {
     try {
       emit(RequestsActionLoading());
 
       await deleteUseCase(id);
 
-      /// 🔥 reset filters بعد الحذف
       _search = null;
       _status = "new";
       _page = 1;
@@ -118,32 +151,53 @@ class RequestsCubit extends Cubit<RequestsState> {
       final response = await getUseCase(
         GetRequestsParams(
           tab: _tab,
-          search: null, // 👈 مهم
+          search: null,
           sortBy: _sortBy,
-          status: "new", // 👈 يرجع للنيو
-          page: 1, // 👈 يرجع من أول الصفحات
+          status: "new",
+          page: 1,
+          limit: 100,
         ),
       );
 
       _cachedRequests = response.requests;
+
+      // بعد الحذف نحدث الأرقام
       _tabCounts = response.tabCounts;
 
       emit(RequestDeleteSuccess());
 
-      emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
+      emit(
+        RequestsSuccess(
+          requests: _cachedRequests,
+          tabCounts: _tabCounts,
+        ),
+      );
     } catch (e) {
       emit(
         RequestDeleteError(
-          e is Failure ? e.message : "حدث خطأ أثناء حذف الطلب",
+          e is Failure
+              ? e.message
+              : "حدث خطأ أثناء حذف الطلب",
         ),
       );
 
-      emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
+      emit(
+        RequestsSuccess(
+          requests: _cachedRequests,
+          tabCounts: _tabCounts,
+        ),
+      );
     }
   }
 
-  /// 🔄 UPDATE STATUS
-  Future<void> updateStatus(int id, String status) async {
+  // ============================================================
+  // UPDATE STATUS
+  // ============================================================
+
+  Future<void> updateStatus(
+    int id,
+    String status,
+  ) async {
     try {
       emit(RequestsActionLoading());
 
@@ -156,27 +210,76 @@ class RequestsCubit extends Cubit<RequestsState> {
           sortBy: _sortBy,
           status: _status,
           page: _page,
+          limit: 100,
         ),
       );
 
       _cachedRequests = response.requests;
 
+      // ❌ لا نغير tabCounts هنا
+
       emit(RequestActionSuccess());
 
-      emit(RequestsSuccess(requests: response.requests, tabCounts: _tabCounts));
+      emit(
+        RequestsSuccess(
+          requests: response.requests,
+          tabCounts: _tabCounts,
+        ),
+      );
     } catch (e) {
       emit(
         RequestActionError(
-          e is Failure ? e.message : "حدث خطأ أثناء تحديث الحالة",
+          e is Failure
+              ? e.message
+              : "حدث خطأ أثناء تحديث الحالة",
         ),
       );
 
-      emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
+      emit(
+        RequestsSuccess(
+          requests: _cachedRequests,
+          tabCounts: _tabCounts,
+        ),
+      );
     }
   }
 
- 
-  /// 🔄 REFRESH
+  // ============================================================
+// GET NEW REQUESTS COUNT FOR DRAWER
+// ============================================================
+
+Future<void> getNewRequestsCount() async {
+  try {
+    final response = await getUseCase(
+      GetRequestsParams(
+        page: 1,
+        limit: 100,
+        status: "new",
+      ),
+    );
+
+    _tabCounts = response.tabCounts;
+
+    print('========== DRAWER COUNTS ==========');
+    print('maintenance = ${_tabCounts?.maintenance}');
+    print('construction = ${_tabCounts?.construction}');
+    print('===================================');
+
+    emit(
+      RequestsSuccess(
+        requests: _cachedRequests,
+        tabCounts: _tabCounts,
+      ),
+    );
+  } catch (e) {
+    print('GET DRAWER COUNT ERROR: $e');
+  }
+}
+
+  // ============================================================
+  // REFRESH
+  // ============================================================
+
   Future<void> refresh() async {
     await getRequests(
       tab: _tab,
@@ -186,19 +289,4 @@ class RequestsCubit extends Cubit<RequestsState> {
       page: _page,
     );
   }
-
-  /// 📊 TAB COUNTS (مرة واحدة فقط)
-  Future<void> getTabCounts() async {
-    if (_tabCountsLoaded) return;
-
-    try {
-      final response = await getUseCase(GetRequestsParams(page: 1, limit: 100));
-
-      _tabCounts = response.tabCounts;
-      _tabCountsLoaded = true;
-
-      emit(RequestsSuccess(requests: _cachedRequests, tabCounts: _tabCounts));
-    } catch (_) {}
-  }
-
 }

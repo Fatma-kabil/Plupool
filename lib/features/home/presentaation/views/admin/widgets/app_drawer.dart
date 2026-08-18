@@ -27,6 +27,8 @@ class _AppDrawerState extends State<AppDrawer> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<NotificationCubit>().getUnreadCount();
+
+      context.read<RequestsCubit>().getNewRequestsCount();
     });
   }
 
@@ -36,9 +38,7 @@ class _AppDrawerState extends State<AppDrawer> {
       backgroundColor: AppColors.kScaffoldColor,
       width: MediaQuery.of(context).size.width * 0.65,
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: SizeConfig.h(10),
-        ),
+        padding: EdgeInsets.symmetric(vertical: SizeConfig.h(10)),
         child: BlocBuilder<DrawerCubit, int>(
           builder: (context, selectedIndex) {
             void onItemTap(int index, VoidCallback action) {
@@ -91,16 +91,22 @@ class _AppDrawerState extends State<AppDrawer> {
 
                       BlocBuilder<RequestsCubit, RequestsState>(
                         builder: (context, state) {
-                          final newCount = context
-                                  .read<RequestsCubit>()
-                                  .tabCounts
-                                  ?.newCounts ??
-                              0;
+                          final cubit = context.read<RequestsCubit>();
+
+                          final maintenanceCount =
+                              cubit.tabCounts?.maintenance ?? 0;
+
+                          final constructionCount =
+                              cubit.tabCounts?.construction ?? 0;
+
+                          final newCount = maintenanceCount + constructionCount;
 
                           return DrawerItem(
                             icon: Icons.list_alt_outlined,
                             title: 'الخدمات المطلوبة',
-                            badgeCount: "$newCount",
+                            badgeCount: newCount > 0
+                                ? toArabicNumbers(newCount.toString())
+                                : null,
                             isSelected: selectedIndex == 4,
                             onTap: () => onItemTap(4, () {
                               context.go('/requestedserviceview');
@@ -114,22 +120,17 @@ class _AppDrawerState extends State<AppDrawer> {
                             current is GetUnreadCountSuccess ||
                             current is GetUnreadCountFailure,
                         builder: (context, state) {
-                          final cubit =
-                              context.read<NotificationCubit>();
+                          final cubit = context.read<NotificationCubit>();
 
                           return DrawerItem(
                             icon: Icons.notifications_none,
                             title: 'الإشعارات',
                             badgeCount: cubit.unreadCount > 0
-                                ? toArabicNumbers(
-                                    cubit.unreadCount.toString(),
-                                  )
+                                ? toArabicNumbers(cubit.unreadCount.toString())
                                 : null,
                             isSelected: selectedIndex == 5,
                             onTap: () => onItemTap(5, () {
-                              context.go(
-                                '/notificationinboxview',
-                              );
+                              context.go('/notificationinboxview');
                             }),
                           );
                         },
@@ -155,8 +156,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
                       BlocBuilder<ContactCubit, ContactState>(
                         builder: (context, state) {
-                          final cubit =
-                              context.read<ContactCubit>();
+                          final cubit = context.read<ContactCubit>();
 
                           return DrawerItem(
                             icon: Icons.flag_outlined,
@@ -166,9 +166,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                             isSelected: selectedIndex == 8,
                             onTap: () => onItemTap(8, () {
-                              context.go(
-                                '/admindrawerreportview',
-                              );
+                              context.go('/admindrawerreportview');
                             }),
                           );
                         },
@@ -176,8 +174,7 @@ class _AppDrawerState extends State<AppDrawer> {
 
                       BlocBuilder<ContactCubit, ContactState>(
                         builder: (context, state) {
-                          final cubit =
-                              context.read<ContactCubit>();
+                          final cubit = context.read<ContactCubit>();
 
                           return DrawerItem(
                             icon: Icons.chat_outlined,
@@ -187,9 +184,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             ),
                             isSelected: selectedIndex == 9,
                             onTap: () => onItemTap(9, () {
-                              context.go(
-                                '/admindrawercontactusview',
-                              );
+                              context.go('/admindrawercontactusview');
                             }),
                           );
                         },

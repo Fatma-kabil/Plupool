@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 
 // 6/5/2020
 String formatDate(DateTime date) {
@@ -8,6 +9,36 @@ String formatDate(DateTime date) {
 
 String formatMonthDate(DateTime date) {
   return DateFormat('EEEE : yyyy/M/d', 'ar').format(date);
+}
+
+String formatMonthDate2(String? value) {
+  if (value == null || value.trim().isEmpty) return '';
+
+  // لو الـ API بيرجع:
+  // الخميس : 20/8/2026
+
+  final parts = value.split(':');
+
+  if (parts.length < 2) {
+    return toArabicNumbers(value);
+  }
+
+  final datePart = parts.sublist(1).join(':').trim();
+
+  // datePart = 20/8/2026
+  final dateParts = datePart.split('/');
+
+  if (dateParts.length != 3) {
+    return toArabicNumbers(value);
+  }
+
+  final day = dateParts[0];
+  final month = dateParts[1];
+  final year = dateParts[2];
+
+  final dayName = parts[0].trim();
+
+  return '$dayName : ${toArabicNumbers(year)}${toArabicNumbers(month)}/${toArabicNumbers(day)}';
 }
 
 String formatArabicDate(String date) {
@@ -43,6 +74,7 @@ String formatTimeArabic(TimeOfDay time) {
 String formatTimeArabic2(DateTime time) {
   return DateFormat('h:mm a', 'ar').format(time);
 }
+
 String formatTimeArabic3(String? value) {
   if (value == null || value.trim().isEmpty) return "";
 
@@ -65,6 +97,38 @@ String formatTimeArabic3(String? value) {
   } catch (e) {
     return value;
   }
+}
+
+String formatTimeArabic4(String? value) {
+  if (value == null || value.trim().isEmpty) return '';
+
+  value = value.trim();
+
+  // مثال: 01:47 AM
+  final parts = value.split(' ');
+
+  final timePart = parts[0];
+
+  String period = '';
+
+  if (parts.length > 1) {
+    final apiPeriod = parts[1].toUpperCase();
+
+    if (apiPeriod == 'AM') {
+      period = 'ص';
+    } else if (apiPeriod == 'PM') {
+      period = 'م';
+    }
+  }
+
+  // تحويل الأرقام فقط
+  final arabicTime = toArabicNumbers(timePart);
+
+  if (period.isEmpty) {
+    return arabicTime;
+  }
+
+  return '$arabicTime $period';
 }
 
 String formatArabicDate2(DateTime date) {

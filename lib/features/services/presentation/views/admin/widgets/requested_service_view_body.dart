@@ -19,7 +19,8 @@ class RequestedServiceViewBody extends StatefulWidget {
       _RequestedServiceViewBodyState();
 }
 
-class _RequestedServiceViewBodyState extends State<RequestedServiceViewBody>
+class _RequestedServiceViewBodyState
+    extends State<RequestedServiceViewBody>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -27,21 +28,39 @@ class _RequestedServiceViewBodyState extends State<RequestedServiceViewBody>
   void initState() {
     super.initState();
 
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
 
     final cubit = context.read<RequestsCubit>();
 
-  //  cubit.getTabCounts();
-
-    cubit.getRequests(tab: "maintenance", status: "new");
+    // أول طلب
+    cubit.getRequests(
+      tab: "maintenance",
+      status: "new",
+    );
 
     _tabController.addListener(() {
-      if (_tabController.indexIsChanging) return;
+      if (_tabController.indexIsChanging) {
+        return;
+      }
 
-      final tab = _tabController.index == 0 ? "maintenance" : "construction";
+      final tab = _tabController.index == 0
+          ? "maintenance"
+          : "construction";
 
-      cubit.getRequests(tab: tab, status: "new");
+      cubit.getRequests(
+        tab: tab,
+        status: "new",
+      );
     });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,24 +69,41 @@ class _RequestedServiceViewBodyState extends State<RequestedServiceViewBody>
       builder: (context, state) {
         final cubit = context.read<RequestsCubit>();
 
-        final maintenanceCount = cubit.tabCounts?.maintenance ?? 0;
+        final maintenanceCount =
+            cubit.tabCounts?.maintenance ?? 0;
 
-        final constructionCount = cubit.tabCounts?.construction ?? 0;
+        final constructionCount =
+            cubit.tabCounts?.construction ?? 0;
+
+        print(
+          'MAINTENANCE COUNT = $maintenanceCount',
+        );
+
+        print(
+          'CONSTRUCTION COUNT = $constructionCount',
+        );
 
         if (state is RequestsError) {
-          return Center(child: ErrorText(message: state.message));
+          return Center(
+            child: ErrorText(
+              message: state.message,
+            ),
+          );
         }
 
         if (state is RequestsLoading) {
-          return RequestedMaintenanceShimmer();
+          return const RequestedMaintenanceShimmer();
         }
 
         return Column(
           children: [
-            /// 🧭 TAB BAR
             Container(
-              height: SizeConfig.h(SizeConfig.isWideScreen ? 55 : 44),
-              margin: EdgeInsets.symmetric(horizontal: SizeConfig.w(6)),
+              height: SizeConfig.h(
+                SizeConfig.isWideScreen ? 55 : 44,
+              ),
+              margin: EdgeInsets.symmetric(
+                horizontal: SizeConfig.w(6),
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: const Color(0xffF1F1F1),
@@ -83,10 +119,15 @@ class _RequestedServiceViewBodyState extends State<RequestedServiceViewBody>
                 controller: _tabController,
                 labelStyle: AppTextStyles.styleRegular16(
                   context,
-                ).copyWith(fontFamily: 'Cairo'),
-                unselectedLabelStyle: AppTextStyles.styleRegular16(
+                ).copyWith(
+                  fontFamily: 'Cairo',
+                ),
+                unselectedLabelStyle:
+                    AppTextStyles.styleRegular16(
                   context,
-                ).copyWith(fontFamily: 'Cairo'),
+                ).copyWith(
+                  fontFamily: 'Cairo',
+                ),
                 indicatorPadding: EdgeInsets.symmetric(
                   vertical: SizeConfig.h(7),
                   horizontal: SizeConfig.w(7),
@@ -94,7 +135,8 @@ class _RequestedServiceViewBodyState extends State<RequestedServiceViewBody>
                 indicatorSize: TabBarIndicatorSize.tab,
                 dividerHeight: 0,
                 labelColor: AppColors.kprimarycolor,
-                unselectedLabelColor: const Color(0xff7B7B7B),
+                unselectedLabelColor:
+                    const Color(0xff7B7B7B),
                 indicator: BoxDecoration(
                   color: const Color(0xffCCE4F0),
                   borderRadius: BorderRadius.circular(10),
@@ -116,7 +158,6 @@ class _RequestedServiceViewBodyState extends State<RequestedServiceViewBody>
               ),
             ),
 
-            /// 📦 CONTENT
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(

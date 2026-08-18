@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
+import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/requested_crd_header.dart';
 import 'package:plupool/features/services/domain/entities/service_request_entity.dart';
@@ -20,19 +22,21 @@ class RequestedMaintenanceCard extends StatefulWidget {
 
 class _RequestedMaintenanceCardState extends State<RequestedMaintenanceCard> {
   late String selected;
+
   @override
   void initState() {
     super.initState();
-    selected = widget.model.status; // تهيئة القيمة هنا
+
+    // القيمة القادمة من الـ API
+    selected = widget.model.status;
   }
 
   @override
   void didUpdateWidget(covariant RequestedMaintenanceCard oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     if (oldWidget.model.status != widget.model.status) {
-      setState(() {
-        selected = widget.model.status;
-      });
+      selected = widget.model.status;
     }
   }
 
@@ -57,29 +61,34 @@ class _RequestedMaintenanceCardState extends State<RequestedMaintenanceCard> {
             RequestedCardHeader(model: widget.model),
 
             SizedBox(height: SizeConfig.h(8)),
+
             Divider(color: AppColors.textFieldBorderColor),
+
             SizedBox(height: SizeConfig.h(8)),
 
             ServiceCardRow(
               title: "نوع الخدمة:",
               value: widget.model.serviceTypeName,
             ),
+
             SizedBox(height: SizeConfig.h(5)),
 
             ServiceCardRow(
               title: "اليوم المقترح:",
-              value:widget.model.suggestedDate,
+              value: formatMonthDate2(widget.model.suggestedDate),
             ),
 
             SizedBox(height: SizeConfig.h(5)),
 
             ServiceCardRow(
               title: "الوقت المقترح:",
-              value: widget.model.suggestedTime,
+              value: formatTimeArabic4(widget.model.suggestedTime),
             ),
 
             SizedBox(height: SizeConfig.h(8)),
+
             Divider(color: AppColors.textFieldBorderColor),
+
             SizedBox(height: SizeConfig.h(8)),
 
             /// ---- Status Selector + Delete ----
@@ -92,24 +101,33 @@ class _RequestedMaintenanceCardState extends State<RequestedMaintenanceCard> {
                     context,
                   ).copyWith(color: AppColors.ktextcolor),
                 ),
-                SizedBox(height: 8),
+
+                SizedBox(height: SizeConfig.h(8)),
+
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: StatusSelector<String>(
-                        selected: selected,
-                        items: const ["جديد", 'تم التواصل'],
+                        selected: selected == "new" ? "جديد" : "تم التواصل",
+
+                        items: const ["جديد", "تم التواصل"],
+
                         displayText: (status) => status,
+
                         onChanged: (val) {
-                          setState(() => selected = val);
+                          setState(() {
+                            selected = val == "جديد" ? "new" : "contacted";
+                          });
+
+                          print("Selected API status: $selected");
                         },
                       ),
                     ),
 
                     SizedBox(width: SizeConfig.w(35)),
 
-                    DeleteRequestServiceBtn(id:  widget.model.id,),
+                    DeleteRequestServiceBtn(id: widget.model.id),
                   ],
                 ),
               ],
