@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/users_state.dart';
@@ -144,7 +145,9 @@ class _TechnicianMultiSelectFieldState
               builder: (context, state) {
                 if (state is UsersLoading) {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child:  Center(
+                  child: CustomLoadingIndecator(),
+                    )
                   );
                 }
 

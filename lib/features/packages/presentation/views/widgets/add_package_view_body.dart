@@ -23,15 +23,36 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
   final maintenanceDaysController = TextEditingController();
   final technicianController = TextEditingController();
   final customerNameController = TextEditingController();
+  final CompanyRewNameController = TextEditingController();
 
   int? selectedCustomerId;
+  int? companyResId;
   List<int> selectedTechnicianIds = [];
 
   DateTime? startDate;
   DateTime? endDate;
   TimeOfDay? selectedTime;
 
-  String selectedPackage = "الباقه الشهريه";
+  String selectedPackage = "الباقة الشهرية";
+
+  // =========================
+  // PACKAGE DURATION
+  // =========================
+  String getSelectedDuration() {
+    switch (selectedPackage) {
+      case "الباقة الشهرية":
+        return "MONTHLY";
+
+      case "الباقة (4 شهور)":
+        return "QUARTERLY";
+
+      case "الباقة السنوية":
+        return "YEARLY";
+
+      default:
+        return "MONTHLY";
+    }
+  }
 
   @override
   void dispose() {
@@ -44,6 +65,7 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
 
   Future<void> onPickStartDate() async {
     final picked = await pickDateFun(context);
+
     if (picked != null) {
       setState(() => startDate = picked);
     }
@@ -51,6 +73,7 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
 
   Future<void> onPickEndDate() async {
     final picked = await pickDateFun(context);
+
     if (picked != null) {
       setState(() => endDate = picked);
     }
@@ -58,6 +81,7 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
 
   Future<void> onPickTime() async {
     final picked = await pickTimeFun(context);
+
     if (picked != null) {
       setState(() => selectedTime = picked);
     }
@@ -67,60 +91,63 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
     if (!_formKey.currentState!.validate()) return;
 
     if (selectedCustomerId == null) {
-      showCustomSnackBar(
-        context: context,
-        message: "اختر العميل",
-      );
+      showCustomSnackBar(context: context, message: "اختر العميل");
       return;
     }
 
     if (selectedTechnicianIds.isEmpty) {
-      showCustomSnackBar(
-        context: context,
-        message: "اختر فني واحد على الأقل",
-      );
+      showCustomSnackBar(context: context, message: "اختر فني واحد على الأقل");
       return;
     }
 
-    if (startDate == null ||
-        endDate == null ||
-        selectedTime == null) {
-      showCustomSnackBar(
-        context: context,
-        message: "اختر التاريخ والوقت",
-      );
+    if (startDate == null || endDate == null || selectedTime == null) {
+      showCustomSnackBar(context: context, message: "اختر التاريخ والوقت");
       return;
     }
 
     context.read<PackagesCubit>().addPackage(
-          CreatePackageRequest(
-            nameAr: selectedPackage,
-            nameEn: selectedPackage,
-            descriptionAr: "",
-            price: 0,
-            duration: "MONTHLY",
-            visitsCount: int.parse(visitsNumberController.text),
-            reminderDaysBefore: 3,
-            isActive: true,
-            userId: selectedCustomerId!,
-            startDate: startDate!.toString(),
-            endDate: endDate.toString(),
-            maintenanceDays:
-                maintenanceDaysController.text.split(","),
-            bookingTime:
-                "${selectedTime!.hour.toString().padLeft(2, '0')}:${selectedTime!.minute.toString().padLeft(2, '0')}",
-            technicianIds: selectedTechnicianIds,
-            serviceStatus: "scheduled",
-            remindNextVisit: false,
-          ),
-        );
+      CreatePackageRequest(
+        nameAr: selectedPackage,
+        nameEn: selectedPackage,
+        descriptionAr: "",
+        price: 0,
+
+        // هنا بيتحدد حسب الباقة المختارة
+        duration: getSelectedDuration(),
+
+        visitsCount: int.parse(visitsNumberController.text),
+
+        reminderDaysBefore: 3,
+
+        isActive: true,
+
+        userId: selectedCustomerId!,
+        companyId: companyResId,
+
+        startDate: startDate!.toString(),
+
+        endDate: endDate.toString(),
+
+        maintenanceDays: maintenanceDaysController.text.split(","),
+
+        bookingTime:
+            "${selectedTime!.hour.toString().padLeft(2, '0')}:"
+            "${selectedTime!.minute.toString().padLeft(2, '0')}",
+
+        technicianIds: selectedTechnicianIds,
+
+        serviceStatus: "scheduled",
+
+        remindNextVisit: false,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<PackagesCubit, PackagesState>(
       listener: (context, state) {
-        if (state is PackagesActionSuccess) {
+        if (state is PackageAddSuccess) {
           showCustomSnackBar(
             context: context,
             message: "تم إضافة الباقة بنجاح",
@@ -130,48 +157,63 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
           Navigator.pop(context);
         }
 
-        if (state is PackagesActionError) {
-          showCustomSnackBar(
-            context: context,
-            message: state.message,
-          );
+        if (state is PackageAddError) {
+          showCustomSnackBar(context: context, message: state.message);
         }
       },
+
       child: Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
               child: AddPackageForm(
                 formKey: _formKey,
+
                 visitsNumberController: visitsNumberController,
-                maintenanceDaysController:
-                    maintenanceDaysController,
+
+                maintenanceDaysController: maintenanceDaysController,
+
                 technicianController: technicianController,
-                customerNameController:
-                    customerNameController,
+
+                customerNameController: customerNameController,
+                companyResNameController:CompanyRewNameController,
+
                 startDate: startDate,
+
                 endDate: endDate,
+
                 selectedTime: selectedTime,
+
                 selectedPackage: selectedPackage,
+
                 onPackageChanged: (value) {
                   setState(() {
                     selectedPackage = value!;
                   });
                 },
+
                 onPickStartDate: onPickStartDate,
+
                 onPickEndDate: onPickEndDate,
+
                 onPickTime: onPickTime,
 
                 /// العميل
                 onCustomerSelected: (id, name) {
                   selectedCustomerId = id;
+
                   customerNameController.text = name;
+                },
+
+                onCompanyResSelected: (id, name) {
+                  companyResId = id;
+
+                  CompanyRewNameController.text = name;
                 },
 
                 /// الفنيين
                 onTechniciansSelected: (techs) {
-                  selectedTechnicianIds =
-                      techs.map((e) => e.id).toList();
+                  selectedTechnicianIds = techs.map((e) => e.id).toList();
                 },
 
                 initialTechnicians: const [],
@@ -181,10 +223,11 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
 
           BlocBuilder<PackagesCubit, PackagesState>(
             builder: (context, state) {
-              final isLoading = state is PackagesActionLoading;
+              final isLoading = state is PackageAddLoading;
 
               return AddEditOfferViewFooter(
                 text: isLoading ? "جاري الإضافة..." : "إضافة",
+
                 onPressed: isLoading ? null : _submit,
               );
             },

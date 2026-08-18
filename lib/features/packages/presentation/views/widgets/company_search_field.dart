@@ -8,41 +8,53 @@ import 'package:plupool/features/customers/presentation/manager/users_cubit/uers
 import 'package:plupool/features/customers/presentation/manager/users_cubit/users_state.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
 
-class CustomerSearchField extends StatefulWidget {
-  const CustomerSearchField({
+class CompanySearchField extends StatefulWidget {
+  const CompanySearchField({
     super.key,
-    required this.controller,
-    required this.onSelected,
+    this.controller,
+    this.onSelected,
   });
 
-  final TextEditingController controller;
-  final Function(UserEntity user) onSelected;
+  final TextEditingController? controller;
+  final Function(UserEntity user)? onSelected;
 
   @override
-  State<CustomerSearchField> createState() => _CustomerSearchFieldState();
+  State<CompanySearchField> createState() => _CompanySearchFieldState();
 }
-
-class _CustomerSearchFieldState extends State<CustomerSearchField> {
+class _CompanySearchFieldState extends State<CompanySearchField> {
   bool isExpanded = false;
   String searchText = '';
+
+  late final TextEditingController _internalController;
+
+  TextEditingController get controller =>
+      widget.controller ?? _internalController;
 
   @override
   void initState() {
     super.initState();
+
+    _internalController = TextEditingController();
+
     context.read<UsersCubit>().getUsers();
   }
 
   @override
+  void dispose() {
+    _internalController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return
-     Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         /// ===== SEARCH FIELD =====
         TextFieldWithIcon(
-          hint: "اختار العميل",
+          hint: "اختار اسم ممثل الشركه",
           icon: Icons.person,
-          controller: widget.controller,
+          controller: controller,
           tailing: true,
           onTap: () {
             setState(() {
@@ -63,6 +75,7 @@ class _CustomerSearchFieldState extends State<CustomerSearchField> {
           crossFadeState: isExpanded
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
+
           firstChild: BlocBuilder<UsersCubit, UsersState>(
             builder: (context, state) {
               if (state is UsersLoading) {
@@ -78,10 +91,11 @@ class _CustomerSearchFieldState extends State<CustomerSearchField> {
                 );
               }
 
-              final users = state is UsersSuccess ? state.users : [];
+              final users =
+                  state is UsersSuccess ? state.users : [];
 
               final customers = users
-                  .where((e) => e.role == "pool_owner")
+                  .where((e) => e.role == "company")
                   .where(
                     (e) => e.fullName
                         .toLowerCase()
@@ -97,9 +111,12 @@ class _CustomerSearchFieldState extends State<CustomerSearchField> {
               }
 
               return Container(
-                constraints: const BoxConstraints(maxHeight: 200),
+                constraints:
+                    const BoxConstraints(maxHeight: 200),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(
+                    color: Colors.grey.shade300,
+                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: ListView.builder(
@@ -110,22 +127,26 @@ class _CustomerSearchFieldState extends State<CustomerSearchField> {
 
                     return ListTile(
                       dense: true,
-                      visualDensity: const VisualDensity(vertical: -4),
+                      visualDensity: const VisualDensity(
+                        vertical: -4,
+                      ),
                       title: Text(
                         user.fullName,
-                        style: AppTextStyles.styleMedium13(context).copyWith(
-                          color: AppColors.ktextcolor,
-                        ),
+                        style: AppTextStyles
+                            .styleMedium13(context)
+                            .copyWith(
+                              color: AppColors.ktextcolor,
+                            ),
                       ),
                       onTap: () {
-                        widget.controller.text = user.fullName;
+                        controller.text = user.fullName;
 
                         setState(() {
                           searchText = user.fullName;
                           isExpanded = false;
                         });
 
-                        widget.onSelected(user);
+                        widget.onSelected?.call(user);
                       },
                     );
                   },
@@ -133,6 +154,7 @@ class _CustomerSearchFieldState extends State<CustomerSearchField> {
               );
             },
           ),
+
           secondChild: const SizedBox(),
         ),
       ],

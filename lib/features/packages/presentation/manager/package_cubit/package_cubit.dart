@@ -22,7 +22,7 @@ class PackagesCubit extends Cubit<PackagesState> {
     required this.getPackageDetailsUseCase,
     required this.updateProgressUseCase,
     required this.addVisitUseCase,
-    required this.createPackageUseCase
+    required this.createPackageUseCase,
   }) : super(PackagesInitial());
 
   /// 🧠 cache
@@ -130,9 +130,8 @@ class PackagesCubit extends Cubit<PackagesState> {
         PackagesActionError(
           e is Failure ? e.message : "حدث خطأ أثناء تحديث حالة الباقة",
         ),
-       
       );
-       print(e);
+      print(e);
 
       /// rollback
       if (_cachedResponse != null) {
@@ -185,34 +184,44 @@ class PackagesCubit extends Cubit<PackagesState> {
       }
     }
   }
-  Future<void> addPackage(CreatePackageRequest request) async {
-  try {
-    emit(PackagesActionLoading());
+Future<void> addPackage(CreatePackageRequest request) async {
+  emit(PackageAddLoading());
 
-    await createPackageUseCase(request);
+  final result = await createPackageUseCase(request);
 
-    final response = await getPackagesUseCase(
-      status: _status,
-      duration: _duration,
-      search: _search,
-    );
+  result.fold(
+    (failure) {
+      print("❌❌ ADD PACKAGE ERROR");
+      print("ERROR TYPE: ${failure.runtimeType}");
+      print("ERROR: ${failure.message}");
 
-    _cachedResponse = response;
-    _cachedPackages = response.packages;
+      emit(
+        PackageAddError(failure.message),
+      );
+    },
+    (_) async {
+      print("🔥🔥 ADD PACKAGE SUCCESS");
 
-    emit(PackagesActionSuccess());
-    emit(PackagesSuccess(response));
-  } catch (e) {
-    emit(
-      PackagesActionError(
-        e is Failure ? e.message : "حدث خطأ أثناء إضافة الباقة",
-      ),
-    );
+      try {
+        final response = await getPackagesUseCase(
+          status: _status,
+          duration: _duration,
+          search: _search,
+        );
 
-    if (_cachedResponse != null) {
-      emit(PackagesSuccess(_cachedResponse!));
-    }
-  }
+        _cachedResponse = response;
+        _cachedPackages = response.packages;
+
+        emit(PackageAddSuccess());
+        emit(PackagesSuccess(response));
+      } catch (e) {
+        print("❌ ERROR WHILE REFRESHING PACKAGES: $e");
+
+        // الإضافة نفسها نجحت، لكن تحديث القائمة فشل
+        emit(PackageAddSuccess());
+      }
+    },
+  );
 }
 
   // =========================

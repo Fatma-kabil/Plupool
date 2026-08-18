@@ -5,6 +5,7 @@ import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
 import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
+import 'package:plupool/features/packages/presentation/views/widgets/company_search_field.dart';
 import 'package:plupool/features/packages/presentation/views/widgets/weekdays_multi_select_field.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/customer_serch_field.dart';
@@ -30,6 +31,8 @@ class AddPackageForm extends StatefulWidget {
     required this.onCustomerSelected,
     required this.onTechniciansSelected,
     required this.initialTechnicians,
+    this.companyResNameController,
+    this.onCompanyResSelected,
   });
 
   final GlobalKey<FormState> formKey;
@@ -38,6 +41,7 @@ class AddPackageForm extends StatefulWidget {
   final TextEditingController technicianController;
   final TextEditingController maintenanceDaysController;
   final TextEditingController customerNameController;
+  final TextEditingController? companyResNameController;
 
   final String selectedPackage;
 
@@ -53,6 +57,7 @@ class AddPackageForm extends StatefulWidget {
 
   /// العميل المختار
   final Function(int id, String name) onCustomerSelected;
+  final Function(int id, String name)? onCompanyResSelected;
 
   /// الفنيين المختارين
   final Function(List<TechnicianItem>) onTechniciansSelected;
@@ -77,6 +82,18 @@ class _AddPackageFormState extends State<AddPackageForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const FieldLabel("اسم ممثل الشركة"),
+
+          CompanySearchField(
+            controller: widget.companyResNameController,
+            onSelected: (UserEntity user) {
+              widget.companyResNameController?.text = user.fullName;
+
+              widget.onCompanyResSelected?.call(user.id, user.fullName);
+            },
+          ),
+
+          const SizedBox(height: 15),
           const FieldLabel("اسم العميل"),
 
           CustomerSearchField(
@@ -84,10 +101,7 @@ class _AddPackageFormState extends State<AddPackageForm> {
             onSelected: (UserEntity user) {
               widget.customerNameController.text = user.fullName;
 
-              widget.onCustomerSelected(
-                user.id,
-                user.fullName,
-              );
+              widget.onCustomerSelected(user.id, user.fullName);
             },
           ),
 
@@ -101,11 +115,7 @@ class _AddPackageFormState extends State<AddPackageForm> {
               horizontal: SizeConfig.w(12),
             ),
             selected: widget.selectedPackage,
-            items: const [
-              "الباقه السنويه",
-              "باقه 3 شهور",
-              "الباقه الشهريه",
-            ],
+            items: const ["الباقه السنويه", "باقه 3 شهور", "الباقه الشهريه"],
             displayText: (value) => value,
             onChanged: widget.onPackageChanged,
           ),

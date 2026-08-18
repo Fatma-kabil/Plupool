@@ -1,5 +1,3 @@
-
-
 import 'package:plupool/features/packages/domain/entities/package_entity.dart';
 import 'package:plupool/features/packages/domain/entities/packages_response_entity.dart';
 
@@ -21,7 +19,10 @@ class PackagesError extends PackagesState {
   PackagesError(this.message);
 }
 
-// details
+// =========================
+// 📄 DETAILS
+// =========================
+
 class PackageDetailsLoading extends PackagesState {}
 
 class PackageDetailsSuccess extends PackagesState {
@@ -36,7 +37,10 @@ class PackageDetailsError extends PackagesState {
   PackageDetailsError(this.message);
 }
 
-// actions
+// =========================
+// ⚡ ACTIONS - UPDATE / VISIT
+// =========================
+
 class PackagesActionLoading extends PackagesState {}
 
 class PackagesActionSuccess extends PackagesState {}
@@ -45,4 +49,18 @@ class PackagesActionError extends PackagesState {
   final String message;
 
   PackagesActionError(this.message);
+}
+
+// =========================
+// ➕ ADD PACKAGE
+// =========================
+
+class PackageAddLoading extends PackagesState {}
+
+class PackageAddSuccess extends PackagesState {}
+
+class PackageAddError extends PackagesState {
+  final String message;
+
+  PackageAddError(this.message);
 }

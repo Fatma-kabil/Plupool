@@ -15,6 +15,7 @@ class CreatePackageRequest {
   final List<int> technicianIds;
   final String serviceStatus;
   final bool remindNextVisit;
+  final int? companyId;
 
   CreatePackageRequest({
     required this.nameAr,
@@ -33,6 +34,7 @@ class CreatePackageRequest {
     required this.technicianIds,
     required this.serviceStatus,
     required this.remindNextVisit,
+    this.companyId
   });
 
   Map<String, dynamic> toJson() {
@@ -53,6 +55,7 @@ class CreatePackageRequest {
       "technician_ids": technicianIds,
       "service_status": serviceStatus,
       "remind_next_visit": remindNextVisit,
+      "comapny_id":companyId
     };
   }
 }

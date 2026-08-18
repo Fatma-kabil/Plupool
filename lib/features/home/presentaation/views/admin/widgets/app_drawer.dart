@@ -76,7 +76,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         title: 'الباقات',
                         isSelected: selectedIndex == 2,
                         onTap: () => onItemTap(2, () {
-                          context.go('/seeallpackagesview');
+                          context.go('/admindrawerpackages');
                         }),
                       ),
 

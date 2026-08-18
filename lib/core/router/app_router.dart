@@ -47,6 +47,7 @@ import 'package:plupool/features/orders/presentation/view/customer_store_order_v
 import 'package:plupool/features/orders/presentation/view/order_details_view.dart';
 import 'package:plupool/features/orders/presentation/view/store_order_view.dart';
 import 'package:plupool/features/packages/presentation/views/add_package_view.dart';
+import 'package:plupool/features/packages/presentation/views/admin_darwer_packages.dart';
 import 'package:plupool/features/packages/presentation/views/edit_package_view.dart';
 import 'package:plupool/features/products/domain/entities/product_entity.dart';
 import 'package:plupool/features/products/presentation/views/add_product_view.dart';
@@ -808,6 +809,13 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) {
         final id = state.extra as int;
         return buildTransitionPage(AddCompanyResClientView(companyRepId: id));
+      },
+    ),
+     GoRoute(
+      path: '/admindrawerpackages',
+      name: 'admindrawerpackages',
+      pageBuilder: (context, state) {
+        return buildTransitionPage(AdminDarwerPackages());
       },
     ),
   ],

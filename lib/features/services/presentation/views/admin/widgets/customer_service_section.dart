@@ -34,17 +34,14 @@ class _CustomerServiceSectionState extends State<CustomerServiceSection> {
         /// 🔹 الفلتر (ثابت)
         SliverToBoxAdapter(
           child: FilterOption(
-          value: selected,
-          items:  ["مكتمله", "مجدوله", "عاجله"],
-          onChanged: (val) {
+            value: selected,
+            items: ["مكتمله", "مجدوله", "عاجله"],
+            onChanged: (val) {
               setState(() {
                 selected = val!;
               });
             },
-        ),
-          
-          
-         
+          ),
         ),
 
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(15))),
@@ -110,10 +107,9 @@ class _CustomerServiceSectionState extends State<CustomerServiceSection> {
               time: booking.time,
               status: booking.status,
               bookingType: booking.bookingType,
-              techniciansNames: booking.technicians??[],
+              techniciansNames: booking.technicians ?? [],
               userId: booking.userId,
-              techniciansIds: booking.techniciansIds??[]
-              
+              techniciansIds: booking.techniciansIds ?? [],
             ),
           );
         }, childCount: filteredServices.length),

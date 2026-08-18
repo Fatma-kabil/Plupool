@@ -27,7 +27,7 @@ class Endpoints {
   static const String ratings = '$baseUrl/admin/ratings';
   static const String requestedServices = '$baseUrl/admin/requested-services';
   static const String orders = '$baseUrl/admin/store/orders';
-  static const String packages = '$baseUrl/admin/packages';
+  static const String packages = '$baseUrl/admin/packages/';
   static const String projects = '$baseUrl/admin/projects';
   static const String users = '$baseUrl/admin/users';
   static const otpChallenge = '$baseUrl/auth/otp-challenge';
