@@ -3,6 +3,7 @@ class BookingModel {
   final String bookingDate;
   final String bookingTime;
   final String? notes;
+  final int? companyRepId;
 
   final int? id;
   final int userId;
@@ -34,6 +35,7 @@ class BookingModel {
 
   final bool canBeRated;
   final bool isRated;
+  final String? companyRepName;
 
   BookingModel({
     required this.bookingType,
@@ -65,6 +67,8 @@ class BookingModel {
     this.techniciansDisplay,
     required this.canBeRated,
     required this.isRated,
+    this.companyRepId,
+    this.companyRepName,
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
@@ -104,6 +108,8 @@ class BookingModel {
 
       canBeRated: json['can_be_rated'] ?? false,
       isRated: json['is_rated'] ?? false,
+      companyRepId: json['company_rep_id'],
+      companyRepName: json['company_rep_name'],
     );
   }
   Map<String, dynamic> toJson() {
@@ -123,6 +129,8 @@ class BookingModel {
       "technician_names": technicianNames,
 
       "service_name": serviceName,
+      "company_rep_id": companyRepId,
+      "company_rep_name": companyRepName,
     };
   }
 }

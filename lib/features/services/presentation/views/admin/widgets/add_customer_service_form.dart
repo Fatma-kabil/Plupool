@@ -7,6 +7,7 @@ import 'package:plupool/core/utils/widgets/date_picker_field.dart';
 import 'package:plupool/core/utils/widgets/time_picer_filed.dart';
 import 'package:plupool/features/customers/domain/entities/user_entity.dart';
 import 'package:plupool/features/offers/presentation/views/widgets/field_label.dart';
+import 'package:plupool/features/packages/presentation/views/widgets/company_search_field.dart';
 import 'package:plupool/features/products/presentation/views/widgets/textfield_with_icon.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/customer_serch_field.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/tech_multi_selected_field.dart';
@@ -28,6 +29,8 @@ class AddCustomerServiceForm extends StatefulWidget {
     required this.onCustomerSelected,
     required this.onTechniciansSelected,
     required this.initialTechnicians,
+    this.companyResNameController,
+    this.onCompanyResSelected
   });
 
   final GlobalKey<FormState> formKey;
@@ -35,6 +38,7 @@ class AddCustomerServiceForm extends StatefulWidget {
   final TextEditingController serviceTitleController;
   final TextEditingController technicianController;
   final TextEditingController customerNameController;
+  final TextEditingController? companyResNameController;
 
   final DateTime? startDate;
   final TimeOfDay? selectedTime;
@@ -47,6 +51,7 @@ class AddCustomerServiceForm extends StatefulWidget {
 
   /// العميل
   final Function(int id, String name) onCustomerSelected;
+   final Function(int id, String name)? onCompanyResSelected;
 
   /// الفنيين
   final Function(List<TechnicianItem>) onTechniciansSelected;
@@ -72,6 +77,18 @@ class _AddCustomerServiceFormState extends State<AddCustomerServiceForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+           const FieldLabel("اسم ممثل الشركة"),
+
+          CompanySearchField(
+            controller: widget.companyResNameController,
+            onSelected: (UserEntity user) {
+              widget.companyResNameController?.text = user.fullName;
+
+              widget.onCompanyResSelected?.call(user.id, user.fullName);
+            },
+          ),
+
+          const SizedBox(height: 15),
           const FieldLabel("اسم العميل"),
 
           CustomerSearchField(

@@ -25,11 +25,12 @@ class _AddCustomerServiceViewBodyState
   final serviceTitleController = TextEditingController();
   final technicianController = TextEditingController();
   final customerNameController = TextEditingController();
-
+  final companyRewNameController = TextEditingController();
   int? selectedCustomerId;
 
   List<int> selectedTechnicianIds = [];
   List<String> selectedTechnicianNames = [];
+  int? companyResId;
 
   DateTime? startDate;
   TimeOfDay? selectedTime;
@@ -59,6 +60,9 @@ class _AddCustomerServiceViewBodyState
   }
 
   void _submit() {
+    print('================ SUBMIT ================');
+    print('companyResId BEFORE USECASE = $companyResId');
+    print('companyName BEFORE USECASE = ${companyRewNameController.text}');
     if (!_formKey.currentState!.validate()) return;
 
     if (selectedCustomerId == null) {
@@ -98,9 +102,10 @@ class _AddCustomerServiceViewBodyState
         time:
             "${selectedTime!.hour.toString().padLeft(2, '0')}:${selectedTime!.minute.toString().padLeft(2, '0')}",
         status: mapStatusToApi2(selectedStatus),
-
+        companyRepId: companyResId,
         techniciansIds: selectedTechnicianIds,
         techniciansNames: selectedTechnicianNames,
+        companyReName: companyRewNameController.text,
 
         userRole: '',
       ),
@@ -141,7 +146,7 @@ class _AddCustomerServiceViewBodyState
                 serviceTitleController: serviceTitleController,
                 technicianController: technicianController,
                 customerNameController: customerNameController,
-
+                companyResNameController: companyRewNameController,
                 startDate: startDate,
                 onPickDate: onPickDate,
                 selectedTime: selectedTime,
@@ -156,6 +161,14 @@ class _AddCustomerServiceViewBodyState
                 onCustomerSelected: (id, name) {
                   selectedCustomerId = id;
                   customerNameController.text = name;
+                },
+                onCompanyResSelected: (id, name) {
+                  print('🔥 COMPANY SELECTED');
+                  print('🔥 COMPANY ID: $id');
+                  print('🔥 COMPANY NAME: $name');
+                  companyResId = id;
+
+                  companyRewNameController.text = name;
                 },
 
                 onTechniciansSelected: (techs) {

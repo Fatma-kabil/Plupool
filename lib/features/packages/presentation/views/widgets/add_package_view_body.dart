@@ -23,7 +23,7 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
   final maintenanceDaysController = TextEditingController();
   final technicianController = TextEditingController();
   final customerNameController = TextEditingController();
-  final CompanyRewNameController = TextEditingController();
+  final companyRewNameController = TextEditingController();
 
   int? selectedCustomerId;
   int? companyResId;
@@ -176,7 +176,7 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
                 technicianController: technicianController,
 
                 customerNameController: customerNameController,
-                companyResNameController:CompanyRewNameController,
+                companyResNameController:companyRewNameController,
 
                 startDate: startDate,
 
@@ -208,7 +208,7 @@ class _AddPackageViewBodyState extends State<AddPackageViewBody> {
                 onCompanyResSelected: (id, name) {
                   companyResId = id;
 
-                  CompanyRewNameController.text = name;
+                  companyRewNameController.text = name;
                 },
 
                 /// الفنيين

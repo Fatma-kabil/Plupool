@@ -19,7 +19,9 @@ extension BookingMapper on BookingModel {
       userRole: userRole,
       serviceId: serviceId,
       techniciansIds: technicianIds,
-      userId: userId
+      userId: userId,
+      companyReName: companyRepName,
+      companyRepId: companyRepId,
     );
   }
 }
@@ -31,7 +33,6 @@ extension StatisticsMapper on BookingStatisticsModel {
       scheduled: scheduled,
       inProgress: inProgress,
       completed: completed,
-    
     );
   }
 }
@@ -45,6 +46,7 @@ extension ResponseMapper on BookingResponseModel {
     );
   }
 }
+
 extension BookingEntityMapper on BookingEntity {
   BookingModel toModel() {
     return BookingModel(
@@ -54,7 +56,8 @@ extension BookingEntityMapper on BookingEntity {
       notes: null,
 
       id: id,
-      userId: userId, // لو مش موجود في الـ entity خليه default أو خديه من مكان تاني
+      userId:
+          userId, // لو مش موجود في الـ entity خليه default أو خديه من مكان تاني
       serviceId: serviceId,
       poolTypeId: 0,
       packageId: null,
@@ -83,6 +86,8 @@ extension BookingEntityMapper on BookingEntity {
 
       canBeRated: false,
       isRated: false,
+      companyRepId: companyRepId,
+      companyRepName: companyReName,
     );
   }
 }

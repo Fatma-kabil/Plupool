@@ -11,10 +11,12 @@ class BookingEntity {
   final int? serviceId;
   final List<String> techniciansNames;
   final List<int> techniciansIds;
+  final int? companyRepId;
+  final String? companyReName;
 
   BookingEntity({
     this.serviceId,
-     this.id,
+    this.id,
     required this.userName,
     required this.userRole,
     required this.date,
@@ -25,5 +27,7 @@ class BookingEntity {
     required this.techniciansNames,
     required this.techniciansIds,
     required this.userId,
+    this.companyRepId,
+    this.companyReName,
   });
 }

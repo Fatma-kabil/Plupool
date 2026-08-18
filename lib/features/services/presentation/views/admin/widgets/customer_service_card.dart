@@ -24,7 +24,11 @@ class CustomerServiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final status = mapApiStatus(booking.status);
     final colors = RequestStatusColors.getColors(status);
-
+    print('======================');
+    print('BOOKING ID: ${booking.id}');
+    print('SERVICE ID: ${booking.serviceId}');
+    print('SERVICE NAME: "${booking.serviceName}"');
+    print('======================');
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: SizeConfig.h(12)),
@@ -71,6 +75,11 @@ class CustomerServiceCard extends StatelessWidget {
               value: booking.serviceName ?? "",
             ),
             const SizedBox(height: 5),
+            ServiceCardRow(
+              title: "ممثل الشركه:",
+              value: booking.companyReName ?? "لا يوجد",
+            ),
+            const SizedBox(height: 5),
             ServiceCardRow(title: " العميل:", value: booking.userName),
             const SizedBox(height: 5),
             ServiceCardRow(
@@ -96,7 +105,7 @@ class CustomerServiceCard extends StatelessWidget {
                             message: "تم حذف الطلب بنجاح 🗑️",
                             isSuccess: true,
                           );
-                            context.read<UserBookingCubit>().refresh();
+                          context.read<UserBookingCubit>().refresh();
                         }
 
                         if (state is BookingError) {

@@ -10,11 +10,12 @@ class UserBookingEntity {
   final String? serviceName;
   final int? serviceId;
   final List<String>? technicians;
-   final List<int>? techniciansIds;
+  final List<int>? techniciansIds;
   final int? visitCount;
   final int? completedVisits;
   final String? nextVisitDate;
   final String? nextVisitTime;
+  final String? companyRepName;
 
   UserBookingEntity({
     this.serviceId,
@@ -32,6 +33,7 @@ class UserBookingEntity {
     this.nextVisitDate,
     this.nextVisitTime,
     this.techniciansIds,
-    required this.userId
+    required this.userId,
+    this.companyRepName
   });
 }
