@@ -85,6 +85,7 @@ import 'package:plupool/features/onboarding/presentation/views/on_boarding_view.
 import 'package:plupool/features/consruction_service/presentation/views/construction_services_view.dart';
 import 'package:plupool/features/consruction_service/presentation/views/reserve_construction_view.dart';
 import 'package:plupool/features/services/domain/entities/booking_entity.dart';
+import 'package:plupool/features/services/domain/entities/user_booking_entity.dart';
 import 'package:plupool/features/services/presentation/views/admin/add_customer_service_view.dart';
 import 'package:plupool/features/services/presentation/views/admin/admin_drawer_service.dart';
 import 'package:plupool/features/services/presentation/views/admin/customer_services_view.dart';
@@ -544,8 +545,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/editpackageview',
       name: 'editpackageview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const EditPackageView()),
+      pageBuilder: (context, state) {
+        final model = state.extra as UserBookingEntity;
+        return buildTransitionPage(EditPackageView(model: model));
+      },
     ),
     GoRoute(
       path: '/adminprojectview',
@@ -811,7 +814,7 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(AddCompanyResClientView(companyRepId: id));
       },
     ),
-     GoRoute(
+    GoRoute(
       path: '/admindrawerpackages',
       name: 'admindrawerpackages',
       pageBuilder: (context, state) {

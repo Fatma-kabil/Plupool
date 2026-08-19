@@ -18,7 +18,7 @@ class SubscriberModel extends SubscriberEntity {
     required super.lastVisitDate,
     required super.nextVisitDate,
     required super.visits,
-
+    required super.bookingId,
     super.nextVisitTime,
     super.nextVisitId,
 
@@ -38,6 +38,9 @@ class SubscriberModel extends SubscriberEntity {
       subscriptionId: json['subscription_id'] ?? 0,
 
       userId: json['user_id'] ?? 0,
+
+      // مهم
+      bookingId: json['booking_id'] ?? 0,
 
       name: json['name'] ?? '',
 
@@ -64,6 +67,7 @@ class SubscriberModel extends SubscriberEntity {
       // ==============================
       // Next Visit
       // ==============================
+
       nextVisitDate: nextVisit?['booking_date'],
 
       nextVisitTime: nextVisit?['booking_time'],
@@ -73,6 +77,7 @@ class SubscriberModel extends SubscriberEntity {
       // ==============================
       // Company Representative
       // ==============================
+
       companyRepId: json['company_rep_id'],
 
       companyRepName: json['company_rep_name'],
@@ -80,21 +85,29 @@ class SubscriberModel extends SubscriberEntity {
       // ==============================
       // Technicians
       // ==============================
+
       technicianIds:
-          (json['technician_ids'] as List?)?.map((e) => e as int).toList() ??
-          [],
+          (json['technician_ids'] as List?)
+                  ?.map((e) => (e as num).toInt())
+                  .toList() ??
+              [],
 
       technicianNames:
           (json['technician_names'] as List?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          [],
+                  ?.map((e) => e.toString())
+                  .toList() ??
+              [],
 
       // ==============================
       // Visits
       // ==============================
+
       visits: (json['visits'] as List? ?? [])
-          .map((e) => VisitModel.fromJson(e as Map<String, dynamic>))
+          .map(
+            (e) => VisitModel.fromJson(
+              e as Map<String, dynamic>,
+            ),
+          )
           .toList(),
     );
   }

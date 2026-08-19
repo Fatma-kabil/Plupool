@@ -3,10 +3,11 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
 import 'package:plupool/features/packages/presentation/views/widgets/edit_package_view_body.dart';
+import 'package:plupool/features/services/domain/entities/user_booking_entity.dart';
 
 class EditPackageView extends StatefulWidget {
-  const EditPackageView({super.key});
-
+  const EditPackageView({super.key,required this.model});
+  final UserBookingEntity model;
   @override
   State<EditPackageView> createState() => _EditPackageViewState();
 }
@@ -33,7 +34,9 @@ class _EditPackageViewState extends State<EditPackageView> {
               horizontal: SizeConfig.w(13),
               vertical: SizeConfig.h(15),
             ),
-            child: EditPackageViewBody()
+            child: EditPackageViewBody(
+              model: widget.model,
+            )
           )
         ),
       ),

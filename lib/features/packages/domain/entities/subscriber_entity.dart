@@ -6,7 +6,6 @@ class SubscriberEntity {
 
   final String name;
   final String phone;
-
   final String status;
 
   final String startDate;
@@ -36,7 +35,7 @@ class SubscriberEntity {
 
   final List<int> technicianIds;
   final List<String> technicianNames;
-
+  final int bookingId;
   final List<VisitEntity> visits;
 
   const SubscriberEntity({
@@ -54,6 +53,7 @@ class SubscriberEntity {
     required this.scheduledVisits,
     required this.lastVisitDate,
     required this.nextVisitDate,
+    required this.bookingId,
     this.nextVisitTime,
     this.nextVisitId,
 

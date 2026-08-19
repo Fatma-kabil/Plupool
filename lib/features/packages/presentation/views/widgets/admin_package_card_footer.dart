@@ -2,47 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/services/domain/entities/user_booking_entity.dart';
 
 class AdminPackageCardFooter extends StatelessWidget {
-  const AdminPackageCardFooter({super.key});
-
+  const AdminPackageCardFooter({super.key,required this.model});
+  final UserBookingEntity model;
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(6),
-            vertical: SizeConfig.h(4),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: AppColors.kprimarycolor,
-          ),
-
-          child: Icon(Icons.add, color: Colors.white, size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(18),),
-        ),
-        SizedBox(width: SizeConfig.w(8)),
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(6),
-            vertical: SizeConfig.h(4),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: AppColors.kprimarycolor,
-          ),
-
-          child: Icon(
-            Icons.remove,
-            color: Color(0xffD4D4D4),
-            size:SizeConfig.isWideScreen ? SizeConfig.w(15) : SizeConfig.w(18),
-          ),
-        ),
-        Spacer(),
+       
         GestureDetector(
           onTap: () {
-            context.push('/editpackageview');
+            context.push('/editpackageview',extra: model);
           },
           child: Container(
             padding: EdgeInsets.all(SizeConfig.w(6)),

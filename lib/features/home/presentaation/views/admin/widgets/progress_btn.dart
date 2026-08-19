@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
+
 import 'package:plupool/features/packages/presentation/manager/package_cubit/package_cubit.dart';
 import 'package:plupool/features/packages/presentation/manager/package_cubit/package_state.dart';
+
 import 'package:plupool/features/store/presentation/views/widgets/Qty_Btn.dart';
+
 class ProgressBtn extends StatelessWidget {
   const ProgressBtn({
     super.key,
@@ -24,22 +28,42 @@ class ProgressBtn extends StatelessWidget {
     final isLoading =
         context.watch<PackagesCubit>().state is PackagesActionLoading;
 
+    // =========================
+    // ➕ INCREASE
+    // =========================
+
+    final bool canIncrease = !isLoading;
+
+    // =========================
+    // ➖ DECREASE
+    // =========================
+
+    final bool canDecrease = !isLoading;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        // =========================
+        // ➕ INCREASE
+        // =========================
+
         QtyBtn(
           icon: isLoading ? null : Icons.add,
-          backgroundcolor: status == RequestStatus.completed
-              ? const Color(0xffCDCDCD)
-              : const Color(0xff2B8EC2),
-          onTap: isLoading
-              ? null
-              : () {
-                  context.read<PackagesCubit>().updateProgress(
+          backgroundcolor: canIncrease
+              ? const Color(0xff2B8EC2)
+              : const Color(0xffCDCDCD),
+          onTap: canIncrease
+              ? () {
+                  print("🟢 INCREASE CLICKED");
+                  print("packageId = $packageId");
+                  print("bookingId = $bookingId");
+
+                  context.read<PackagesCubit>().increaseProgress(
                         packageId: packageId,
                         bookingId: bookingId,
                       );
-                },
+                }
+              : null,
           child: isLoading
               ? const SizedBox(
                   width: 18,
@@ -52,8 +76,14 @@ class ProgressBtn extends StatelessWidget {
               : null,
         ),
 
+        // =========================
+        // TEXT
+        // =========================
+
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(8)),
+          padding: EdgeInsets.symmetric(
+            horizontal: SizeConfig.w(8),
+          ),
           child: Text(
             "تحديث التقدم",
             style: AppTextStyles.styleRegular12(
@@ -64,12 +94,27 @@ class ProgressBtn extends StatelessWidget {
           ),
         ),
 
+        // =========================
+        // ➖ DECREASE
+        // =========================
+
         QtyBtn(
           icon: Icons.remove,
-          backgroundcolor: status == RequestStatus.completed
-              ? const Color(0xff06D6A0)
+          backgroundcolor: canDecrease
+              ? const Color(0xffCDCDCD)
               : const Color(0xffCDCDCD),
-          onTap: () {},
+          onTap: canDecrease
+              ? () {
+                  print("🔴 DECREASE CLICKED");
+                  print("packageId = $packageId");
+                  print("bookingId = $bookingId");
+
+                  context.read<PackagesCubit>().decreaseProgress(
+                        packageId: packageId,
+                        bookingId: bookingId,
+                      );
+                }
+              : null,
         ),
       ],
     );

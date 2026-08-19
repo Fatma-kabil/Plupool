@@ -144,11 +144,12 @@ import 'package:plupool/features/orders/presentation/manager/order_cubit.dart/or
 import 'package:plupool/features/packages/data/remote%20datasource/packages_remote_ds.dart';
 import 'package:plupool/features/packages/data/repos_impl/packages_repository_impl.dart';
 import 'package:plupool/features/packages/domain/repos/package_reposetriy.dart';
-import 'package:plupool/features/packages/domain/usecases/add_package_visit_usecase.dart';
+import 'package:plupool/features/packages/domain/usecases/increase_package_progress.dart';
 import 'package:plupool/features/packages/domain/usecases/create_package_usecase.dart';
 import 'package:plupool/features/packages/domain/usecases/get_package_details_usecase.dart';
 import 'package:plupool/features/packages/domain/usecases/get_packages_usecase.dart';
-import 'package:plupool/features/packages/domain/usecases/update_package_progress_usecase.dart';
+import 'package:plupool/features/packages/domain/usecases/decrease_package_progress.dart';
+import 'package:plupool/features/packages/domain/usecases/update_package_usecase.dart';
 import 'package:plupool/features/packages/presentation/manager/package_cubit/package_cubit.dart';
 import 'package:plupool/features/products/data/remote_data_sources/product_remote_data_source.dart';
 import 'package:plupool/features/products/data/repos_impl/product_repo_impl.dart';
@@ -810,15 +811,19 @@ Future<void> initServiceLocator() async {
   );
 
   sl.registerLazySingleton(
-    () => UpdatePackageProgressUseCase(sl<PackagesRepository>()),
+    () => IncreasePackageProgress(repository: sl<PackagesRepository>()),
   );
 
   sl.registerLazySingleton(
-    () => AddPackageVisitUseCase(sl<PackagesRepository>()),
+    () => DecreasePackageProgress(repository: sl<PackagesRepository>()),
   );
 
   sl.registerLazySingleton(
     () => CreatePackageUseCase(sl<PackagesRepository>()),
+  );
+  
+  sl.registerLazySingleton(
+    () => UpdatePackageUseCase(sl<PackagesRepository>()),
   );
 
   // Cubit
@@ -826,9 +831,10 @@ Future<void> initServiceLocator() async {
     () => PackagesCubit(
       sl<GetPackagesUseCase>(),
       getPackageDetailsUseCase: sl<GetPackageDetailsUseCase>(),
-      updateProgressUseCase: sl<UpdatePackageProgressUseCase>(),
-      addVisitUseCase: sl<AddPackageVisitUseCase>(),
+      increasePackageProgressUseCase: sl<IncreasePackageProgress>(),
+      decreasePackageProgressUseCase: sl<DecreasePackageProgress>(),
       createPackageUseCase: sl<CreatePackageUseCase>(),
+      updatePackageUseCase: sl<UpdatePackageUseCase>()
     ),
   );
 
@@ -1025,14 +1031,14 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => CreateClientUseCase(sl<CompanyResClientsRepository>()),
   );
-   sl.registerLazySingleton(
+  sl.registerLazySingleton(
     () => DeleteClientUseCase(sl<CompanyResClientsRepository>()),
   );
   sl.registerFactory(
     () => CompanyResClientsCubit(
       sl<GetCompanyResClientsUseCase>(),
       sl<CreateClientUseCase>(),
-      sl<DeleteClientUseCase>()
+      sl<DeleteClientUseCase>(),
     ),
   );
 

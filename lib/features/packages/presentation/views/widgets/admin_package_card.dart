@@ -86,7 +86,9 @@ class AdminPackageCard extends StatelessWidget {
               ),
               VisitsSection(model: model),
               SizedBox(height: SizeConfig.h(12)),
-              AdminPackageCardFooter(),
+              AdminPackageCardFooter(
+                model: model,
+              ),
               // ---- بيانات المستخدم + زرار الموقع ----
             ],
           ),

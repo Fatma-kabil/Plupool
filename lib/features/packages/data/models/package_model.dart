@@ -19,27 +19,36 @@ class PackageModel extends PackageEntity {
     required super.subscribers,
     required super.createdAt,
   });
+factory PackageModel.fromJson(Map<String, dynamic> json) {
+  print("========== PACKAGE JSON ==========");
+  print(json);
 
-  factory PackageModel.fromJson(Map<String, dynamic> json) {
-    return PackageModel(
-      id: json['id'] ?? 0,
-      nameAr: json['name_ar'] ?? '',
-      nameEn: json['name_en'],
-      descriptionAr: json['description_ar'],
-      descriptionEn: json['description_en'],
-      duration: json['duration'] ?? '',
-      price: json['price'] ?? 0,
-      visitsCount: json['visits_count'] ?? 0,
-      completedVisits: json['completed_visits'] ?? 0,
-      status: json['status'],
-      displayDate: json['display_date'],
-      progress:
-          (json['progress_percentage'] as num?)?.toDouble() ?? 0,
-      subscribersCount: json['subscribers_count'] ?? 0,
-      subscribers: (json['subscribers'] as List? ?? [])
-          .map((e) => SubscriberModel.fromJson(e))
-          .toList(),
-      createdAt: json['created_at'] ?? '',
-    );
+  final subscribersJson = json['subscribers'] as List? ?? [];
+
+  print("SUBSCRIBERS COUNT = ${subscribersJson.length}");
+
+  for (final subscriber in subscribersJson) {
+    print("SUBSCRIBER = $subscriber");
   }
+
+  return PackageModel(
+    id: json['id'] ?? 0,
+    nameAr: json['name_ar'] ?? '',
+    nameEn: json['name_en'],
+    descriptionAr: json['description_ar'],
+    descriptionEn: json['description_en'],
+    duration: json['duration'] ?? '',
+    price: json['price'] ?? 0,
+    visitsCount: json['visits_count'] ?? 0,
+    completedVisits: json['completed_visits'] ?? 0,
+    status: json['status'],
+    displayDate: json['display_date'],
+    progress: (json['progress_percentage'] as num?)?.toDouble() ?? 0,
+    subscribersCount: json['subscribers_count'] ?? 0,
+    subscribers: subscribersJson
+        .map((e) => SubscriberModel.fromJson(e))
+        .toList(),
+    createdAt: json['created_at'] ?? '',
+  );
+}
 }

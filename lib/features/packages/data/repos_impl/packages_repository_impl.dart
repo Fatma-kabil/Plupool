@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/packages/data/models/create_package_request.dart';
+import 'package:plupool/features/packages/data/models/update_package_request.dart';
 import 'package:plupool/features/packages/data/remote%20datasource/packages_remote_ds.dart';
+import 'package:plupool/features/packages/domain/entities/package_progress_entity.dart';
 import 'package:plupool/features/packages/domain/repos/package_reposetriy.dart';
 
 import '../../domain/entities/package_entity.dart';
@@ -45,45 +47,49 @@ class PackagesRepositoryImpl implements PackagesRepository {
     return remote.getPackage(id);
   }
 
-  @override
-  Future<void> updateProgress({
+  Future<PackageProgressEntity> increaseProgress({
     required int packageId,
     required int bookingId,
-    String? status,
-    DateTime? nextDate,
-    String? notes,
-  }) {
-    return remote.updateProgress(
+  }) async {
+    return await remote.increaseProgress(
       packageId: packageId,
       bookingId: bookingId,
-      status: status,
-      nextDate: nextDate,
-      notes: notes,
     );
   }
 
   @override
-  Future<void> addVisit({
+  Future<PackageProgressEntity> decreaseProgress({
     required int packageId,
-    required int userId,
-    required String date,
-    required String time,
-    String? notes,
-  }) {
-    return remote.addVisit(
+    required int bookingId,
+  }) async {
+    return await remote.decreaseProgress(
       packageId: packageId,
-      userId: userId,
-      date: date,
-      time: time,
-      notes: notes,
+      bookingId: bookingId,
     );
   }
+
   @override
-Future<Either<Failure, Unit>> createPackage(
-  CreatePackageRequest request,
-) async {
+  Future<Either<Failure, Unit>> createPackage(
+    CreatePackageRequest request,
+  ) async {
+    try {
+      await remote.createPackage(request);
+      return const Right(unit);
+    } catch (e) {
+      return Left(mapDioError(e));
+    }
+  }
+  @override
+Future<Either<Failure, Unit>> updatePackage({
+  required int packageId,
+  required UpdatePackageRequest request,
+}) async {
   try {
-    await remote.createPackage(request);
+    await remote.updatePackage(
+      packageId: packageId,
+      request: request,
+    );
+
     return const Right(unit);
   } catch (e) {
     return Left(mapDioError(e));

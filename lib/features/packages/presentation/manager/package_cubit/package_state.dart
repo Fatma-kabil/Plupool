@@ -1,5 +1,10 @@
 import 'package:plupool/features/packages/domain/entities/package_entity.dart';
 import 'package:plupool/features/packages/domain/entities/packages_response_entity.dart';
+import 'package:plupool/features/packages/domain/entities/package_progress_entity.dart';
+
+// =========================
+// 📦 INITIAL / LIST
+// =========================
 
 abstract class PackagesState {}
 
@@ -43,7 +48,13 @@ class PackageDetailsError extends PackagesState {
 
 class PackagesActionLoading extends PackagesState {}
 
-class PackagesActionSuccess extends PackagesState {}
+class PackagesActionSuccess extends PackagesState {
+  final PackageProgressEntity? progress;
+
+  PackagesActionSuccess({
+    this.progress,
+  });
+}
 
 class PackagesActionError extends PackagesState {
   final String message;
@@ -63,4 +74,13 @@ class PackageAddError extends PackagesState {
   final String message;
 
   PackageAddError(this.message);
+}
+class UpdatePackageLoading extends PackagesState {}
+
+class UpdatePackageSuccess extends PackagesState {}
+
+class UpdatePackageError extends PackagesState {
+  final String message;
+
+  UpdatePackageError(this.message);
 }
