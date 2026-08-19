@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/format_date.dart';
-import 'package:plupool/core/utils/functions/normalize_arabic_numbers_fun.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/requested_crd_header.dart';
 import 'package:plupool/features/services/domain/entities/service_request_entity.dart';
+import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/delete_request_service_btn.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_row.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
@@ -116,11 +117,12 @@ class _RequestedMaintenanceCardState extends State<RequestedMaintenanceCard> {
                         displayText: (status) => status,
 
                         onChanged: (val) {
-                          setState(() {
-                            selected = val == "جديد" ? "new" : "contacted";
-                          });
+                          final newStatus = val == "جديد" ? "new" : "contacted";
 
-                          print("Selected API status: $selected");
+                          context.read<RequestsCubit>().updateStatus(
+                            widget.model.id,
+                            newStatus,
+                          );
                         },
                       ),
                     ),

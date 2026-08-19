@@ -23,7 +23,15 @@ class RequestsCubit extends Cubit<RequestsState> {
     required this.updateStatusUseCase,
   }) : super(RequestsInitial());
 
+  // ============================================================
+  // CACHE
+  // ============================================================
+
   List<ServiceRequestEntity> _cachedRequests = [];
+
+  // ============================================================
+  // CURRENT FILTER DATA
+  // ============================================================
 
   String? _tab;
   String? _search;
@@ -31,6 +39,10 @@ class RequestsCubit extends Cubit<RequestsState> {
   String? _status;
 
   int _page = 1;
+
+  // ============================================================
+  // TAB COUNTS
+  // ============================================================
 
   TabCounts? _tabCounts;
 
@@ -53,6 +65,7 @@ class RequestsCubit extends Cubit<RequestsState> {
     }
 
     try {
+      // حفظ حالة الفلتر الحالية
       _tab = tab;
       _search = search;
       _sortBy = sortBy;
@@ -70,19 +83,21 @@ class RequestsCubit extends Cubit<RequestsState> {
         ),
       );
 
-      // حفظ الطلبات
+      // حفظ الداتا الحالية
       _cachedRequests = response.requests;
 
       // ========================================================
-      // ⭐ أهم تعديل
+      // مهم جدًا
+      //
+      // ❌ ممنوع نعمل:
+      //
+      // _tabCounts = response.tabCounts;
+      //
+      // لأن response هنا ممكن يكون نتيجة:
+      // search / filter / status
+      //
+      // والـ tabs لازم تعرض NEW فقط.
       // ========================================================
-
-      _tabCounts = response.tabCounts;
-
-      print('========== CUBIT COUNTS ==========');
-      print('maintenance = ${_tabCounts?.maintenance}');
-      print('construction = ${_tabCounts?.construction}');
-      print('==================================');
 
       emit(
         RequestsSuccess(
@@ -99,7 +114,52 @@ class RequestsCubit extends Cubit<RequestsState> {
         ),
       );
 
-      print(e);
+      print('GET REQUESTS ERROR: $e');
+    }
+  }
+
+  // ============================================================
+  // GET NEW REQUESTS COUNTS
+  //
+  // دي الوحيدة المسؤولة عن أرقام الـ Tabs
+  // والأرقام دائمًا خاصة بـ status = new
+  // ============================================================
+
+  Future<void> getNewRequestsCount({
+    bool emitState = true,
+  }) async {
+    try {
+      final response = await getUseCase(
+        GetRequestsParams(
+          page: 1,
+          limit: 100,
+          status: "new",
+        ),
+      );
+
+      _tabCounts = response.tabCounts;
+
+      print('========== NEW REQUEST COUNTS ==========');
+      print(
+        'maintenance = ${_tabCounts?.maintenance}',
+      );
+      print(
+        'construction = ${_tabCounts?.construction}',
+      );
+      print('=========================================');
+
+      if (emitState) {
+        emit(
+          RequestsSuccess(
+            requests: _cachedRequests,
+            tabCounts: _tabCounts,
+          ),
+        );
+      }
+    } catch (e) {
+      print(
+        'GET NEW REQUESTS COUNT ERROR: $e',
+      );
     }
   }
 
@@ -113,7 +173,9 @@ class RequestsCubit extends Cubit<RequestsState> {
 
       final request = await getDetailsUseCase(id);
 
-      emit(RequestDetailsSuccess(request));
+      emit(
+        RequestDetailsSuccess(request),
+      );
     } catch (e) {
       emit(
         RequestDetailsError(
@@ -137,58 +199,98 @@ class RequestsCubit extends Cubit<RequestsState> {
   // ============================================================
   // DELETE
   // ============================================================
+// ============================================================
+// DELETE
+// ============================================================
 
-  Future<void> deleteRequest(int id) async {
-    try {
-      emit(RequestsActionLoading());
+Future<void> deleteRequest(int id) async {
+  try {
+    emit(RequestsActionLoading());
 
-      await deleteUseCase(id);
+    // ========================================================
+    // 1. DELETE REQUEST
+    // ========================================================
 
-      _search = null;
-      _status = "new";
-      _page = 1;
+    await deleteUseCase(id);
 
-      final response = await getUseCase(
-        GetRequestsParams(
-          tab: _tab,
-          search: null,
-          sortBy: _sortBy,
-          status: "new",
-          page: 1,
-          limit: 100,
-        ),
-      );
+    // ========================================================
+    // 2. GET CURRENT LIST
+    //
+    // القائمة تظل حسب:
+    // tab + search + sortBy + status
+    // ========================================================
 
-      _cachedRequests = response.requests;
+    final response = await getUseCase(
+      GetRequestsParams(
+        tab: _tab,
+        search: _search,
+        sortBy: _sortBy,
+        status: _status,
+        page: _page,
+        limit: 100,
+      ),
+    );
 
-      // بعد الحذف نحدث الأرقام
-      _tabCounts = response.tabCounts;
+    _cachedRequests = response.requests;
 
-      emit(RequestDeleteSuccess());
+    // ========================================================
+    // 3. GET NEW COUNTS ONLY
+    //
+    // الأرقام فوق الـ Tabs دائمًا خاصة بـ NEW
+    // بغض النظر عن الفلتر أو الـ search الحالي
+    // ========================================================
 
-      emit(
-        RequestsSuccess(
-          requests: _cachedRequests,
-          tabCounts: _tabCounts,
-        ),
-      );
-    } catch (e) {
-      emit(
-        RequestDeleteError(
-          e is Failure
-              ? e.message
-              : "حدث خطأ أثناء حذف الطلب",
-        ),
-      );
+    await getNewRequestsCount(
+      emitState: false,
+    );
 
-      emit(
-        RequestsSuccess(
-          requests: _cachedRequests,
-          tabCounts: _tabCounts,
-        ),
-      );
-    }
+    // ========================================================
+    // 4. DELETE SUCCESS
+    // ========================================================
+
+    emit(
+      RequestDeleteSuccess(),
+    );
+
+    // ========================================================
+    // 5. RETURN UPDATED DATA + NEW COUNTS
+    // ========================================================
+
+    emit(
+      RequestsSuccess(
+        requests: _cachedRequests,
+        tabCounts: _tabCounts,
+      ),
+    );
+  } catch (e) {
+    // ========================================================
+    // DELETE FAILED
+    // ========================================================
+
+    emit(
+      RequestDeleteError(
+        e is Failure
+            ? e.message
+            : "حدث خطأ أثناء حذف الطلب",
+      ),
+    );
+
+    // ========================================================
+    // IMPORTANT:
+    // لا نغير الـ counts
+    // ونرجع الداتا الموجودة كما هي
+    // ========================================================
+
+    emit(
+      RequestsSuccess(
+        requests: _cachedRequests,
+        tabCounts: _tabCounts,
+      ),
+    );
+
+    print('DELETE REQUEST ERROR: $e');
   }
+}
 
   // ============================================================
   // UPDATE STATUS
@@ -201,7 +303,21 @@ class RequestsCubit extends Cubit<RequestsState> {
     try {
       emit(RequestsActionLoading());
 
-      await updateStatusUseCase(id, status);
+      // ========================================================
+      // 1. UPDATE STATUS
+      // ========================================================
+
+      await updateStatusUseCase(
+        id,
+        status,
+      );
+
+      // ========================================================
+      // 2. GET CURRENT LIST
+      //
+      // القائمة تظل حسب:
+      // search + filter + tab
+      // ========================================================
 
       final response = await getUseCase(
         GetRequestsParams(
@@ -216,17 +332,40 @@ class RequestsCubit extends Cubit<RequestsState> {
 
       _cachedRequests = response.requests;
 
-      // ❌ لا نغير tabCounts هنا
+      // ========================================================
+      // 3. GET NEW COUNTS ONLY
+      //
+      // مهما كان الـ filter أو search الحالي
+      // الأرقام فوق تعتمد على NEW فقط.
+      // ========================================================
 
-      emit(RequestActionSuccess());
+      await getNewRequestsCount(
+        emitState: false,
+      );
+
+      // ========================================================
+      // 4. UPDATE SUCCESS
+      // ========================================================
+
+      emit(
+        RequestActionSuccess(),
+      );
+
+      // ========================================================
+      // 5. RETURN UPDATED DATA + NEW COUNTS
+      // ========================================================
 
       emit(
         RequestsSuccess(
-          requests: response.requests,
+          requests: _cachedRequests,
           tabCounts: _tabCounts,
         ),
       );
     } catch (e) {
+      // ========================================================
+      // UPDATE FAILED
+      // ========================================================
+
       emit(
         RequestActionError(
           e is Failure
@@ -234,6 +373,12 @@ class RequestsCubit extends Cubit<RequestsState> {
               : "حدث خطأ أثناء تحديث الحالة",
         ),
       );
+
+      // ========================================================
+      // IMPORTANT:
+      // لو الـ update فشل، لا نغير الـ counts.
+      // ونرجع الداتا الموجودة كما هي.
+      // ========================================================
 
       emit(
         RequestsSuccess(
@@ -243,38 +388,6 @@ class RequestsCubit extends Cubit<RequestsState> {
       );
     }
   }
-
-  // ============================================================
-// GET NEW REQUESTS COUNT FOR DRAWER
-// ============================================================
-
-Future<void> getNewRequestsCount() async {
-  try {
-    final response = await getUseCase(
-      GetRequestsParams(
-        page: 1,
-        limit: 100,
-        status: "new",
-      ),
-    );
-
-    _tabCounts = response.tabCounts;
-
-    print('========== DRAWER COUNTS ==========');
-    print('maintenance = ${_tabCounts?.maintenance}');
-    print('construction = ${_tabCounts?.construction}');
-    print('===================================');
-
-    emit(
-      RequestsSuccess(
-        requests: _cachedRequests,
-        tabCounts: _tabCounts,
-      ),
-    );
-  } catch (e) {
-    print('GET DRAWER COUNT ERROR: $e');
-  }
-}
 
   // ============================================================
   // REFRESH

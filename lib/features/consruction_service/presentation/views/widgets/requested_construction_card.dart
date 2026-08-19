@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
+import 'package:plupool/core/utils/functions/format_date.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/pool_details_row.dart';
 import 'package:plupool/features/maintenance/presentation/views/widgets/requested_crd_header.dart';
 import 'package:plupool/features/services/domain/entities/service_request_entity.dart';
+import 'package:plupool/features/services/presentation/manager/requested_cubit/requedted_cubit.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/delete_request_service_btn.dart';
 import 'package:plupool/features/services/presentation/views/admin/widgets/service_card_row.dart';
 import 'package:plupool/features/support/presentation/views/widgets/message_status_selector.dart';
@@ -51,15 +54,16 @@ class _RequestedConstructionCardState extends State<RequestedConstructionCard> {
             Divider(color: AppColors.textFieldBorderColor),
             SizedBox(height: SizeConfig.h(8)),
 
-            ServiceCardRow(
+           ServiceCardRow(
               title: "اليوم المقترح:",
-              value: widget.model.suggestedDate,
+              value: formatMonthDate2(widget.model.suggestedDate),
             ),
+
             SizedBox(height: SizeConfig.h(5)),
 
             ServiceCardRow(
               title: "الوقت المقترح:",
-              value: widget.model.suggestedTime,
+              value: formatTimeArabic4(widget.model.suggestedTime),
             ),
             SizedBox(height: SizeConfig.h(12)),
             PoolDetailsRow(model: widget.model,),
@@ -82,13 +86,21 @@ class _RequestedConstructionCardState extends State<RequestedConstructionCard> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
+                     Expanded(
                       child: StatusSelector<String>(
-                        selected: selected,
+                        selected: selected == "new" ? "جديد" : "تم التواصل",
+
                         items: const ["جديد", "تم التواصل"],
+
                         displayText: (status) => status,
+
                         onChanged: (val) {
-                          setState(() => selected = val);
+                          final newStatus = val == "جديد" ? "new" : "contacted";
+
+                          context.read<RequestsCubit>().updateStatus(
+                            widget.model.id,
+                            newStatus,
+                          );
                         },
                       ),
                     ),

@@ -6,6 +6,7 @@ import 'package:plupool/core/utils/functions/map_request_sort.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 
 import 'package:plupool/features/customers/presentation/views/widgets/custom_search_person.dart';
 import 'package:plupool/features/consruction_service/presentation/views/widgets/requested_construction_card.dart';
@@ -35,7 +36,7 @@ class _RequestedConstructionSectionState
     context.read<RequestsCubit>().getRequests(
       tab: "construction",
       search: value.isEmpty ? null : value,
-      status: value.isEmpty ? mapSort(selected) : null, // 🔥 الحل هنا
+      status: value.isEmpty ? mapSort(selected) : null,
     );
   }
 
@@ -51,10 +52,32 @@ class _RequestedConstructionSectionState
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RequestsCubit, RequestsState>(
+    return BlocConsumer<RequestsCubit, RequestsState>(
+      listener: (context, state) {
+        if (state is RequestActionSuccess) {
+          showCustomSnackBar(
+            context: context,
+            message: "تم تحديث حالة الطلب بنجاح",
+            isSuccess: true,
+          );
+        }
+
+        if (state is RequestActionError) {
+          showCustomSnackBar(
+            context: context,
+            message: state.message,
+            isSuccess: false,
+          );
+        }
+      },
+
       builder: (context, state) {
         if (state is RequestsError) {
-          return Center(child: ErrorText(message: state.message));
+          return Center(
+            child: ErrorText(
+              message: state.message,
+            ),
+          );
         }
 
         if (state is RequestsSuccess) {
@@ -80,13 +103,18 @@ class _RequestedConstructionSectionState
                 ),
               ),
 
-              /// 🎛 filter (يختفي أثناء البحث)
+              /// 🎛 filter
               if (!isSearching)
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.w(4),
+                  ),
                   child: FilterOption(
                     value: selected,
-                    items: const ["جديد", 'تم التواصل'],
+                    items: const [
+                      "جديد",
+                      "تم التواصل",
+                    ],
                     onChanged: (val) {
                       if (val != null) {
                         setState(() => selected = val);
@@ -100,14 +128,20 @@ class _RequestedConstructionSectionState
                   ),
                 ),
 
-              SizedBox(height: SizeConfig.h(20)),
+              SizedBox(
+                height: SizeConfig.h(20),
+              ),
 
               /// 📦 list
               if (requests.isEmpty)
-                const ErrorText(message: "لا توجد طلبات")
+                const ErrorText(
+                  message: "لا توجد طلبات",
+                )
               else
                 ...requests.map(
-                  (item) => RequestedConstructionCard(model: item),
+                  (item) => RequestedConstructionCard(
+                    model: item,
+                  ),
                 ),
             ],
           );
