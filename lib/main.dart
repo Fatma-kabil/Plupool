@@ -11,45 +11,87 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:plupool/core/services/notification_service.dart';
 
 @pragma('vm:entry-point')
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+Future<void> firebaseMessagingBackgroundHandler(
+  RemoteMessage message,
+) async {
   await Firebase.initializeApp();
+
+  debugPrint(
+    '=========================================',
+  );
+
+  debugPrint(
+    '🔥 BACKGROUND NOTIFICATION RECEIVED',
+  );
+
+  debugPrint(
+    'Title: ${message.notification?.title}',
+  );
+
+  debugPrint(
+    'Body: ${message.notification?.body}',
+  );
+
+  debugPrint(
+    'Data: ${message.data}',
+  );
+
+  debugPrint(
+    'Message ID: ${message.messageId}',
+  );
+
+  debugPrint(
+    '=========================================',
+  );
 }
-
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Initialize Firebase
+
+  // ==========================================================
+  // FIREBASE
+  // ==========================================================
+
   await Firebase.initializeApp();
 
-  // Background Notifications
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  // ==========================================================
+  // BACKGROUND FCM
+  // ==========================================================
+
+  FirebaseMessaging.onBackgroundMessage(
+    firebaseMessagingBackgroundHandler,
+  );
+
+  // ==========================================================
+  // NOTIFICATION SERVICE
+  // ==========================================================
 
   await NotificationService.instance.initialize();
 
+  // ==========================================================
+  // SERVICE LOCATOR
+  // ==========================================================
+
   await initServiceLocator();
+
+  // ==========================================================
+  // DATE FORMATTING
+  // ==========================================================
+
   await initializeDateFormatting(
     'ar',
     null,
-  ); // ✅ مهم جدًا // ✅ تهيئة اللغة العربية// ✅ مهم جدًا قبل runApp
-
-  // ✅ لو عايز تمسح التوكن (للتجربة أو reset)
- // const storage = FlutterSecureStorage();
- // await storage.delete(key: 'token');
-
-  runApp(
-    //   DevicePreview(
-    // enabled: !kReleaseMode, // ✅ يشتغل فقط في debug
-    //builder: (context)
-    // =>
-    const PlupoolApp(),
-
-    //),
   );
 
-  // تشيل السبلاتش بعد ما الاب يفتح
+  // ==========================================================
+  // RUN APP
+  // ==========================================================
+
+  runApp(
+    const PlupoolApp(),
+  );
+
   FlutterNativeSplash.remove();
 }
-
-
 
 //python -m uvicorn app.main:app --reload
 // python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload

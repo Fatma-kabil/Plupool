@@ -1,19 +1,22 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:plupool/core/di/service_locator.dart';
-import 'package:plupool/core/services/notification_service.dart';
+
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 import 'package:plupool/core/utils/widgets/custom_text_btn.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
+
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/company_entity.dart';
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/pool_owner_entity.dart';
 import 'package:plupool/features/auth/domain/entities/Sign_up_entities/technician_entity.dart';
+
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/otp_cubit/otp_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/sign_up_cubit/sign_up_state.dart';
+
 import 'package:plupool/features/auth/presentation/views/widgets/auth_switch_row.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/company_responsitive_form.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/customer_signup_form.dart';
@@ -23,7 +26,7 @@ import 'package:plupool/features/auth/presentation/views/widgets/verification_bo
 import 'package:plupool/features/auth/presentation/views/widgets/whatsapp_verification_note.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/custom_check_box.dart';
 import 'package:plupool/features/auth/presentation/views/widgets/phone_input_field.dart';
-import 'package:plupool/features/notifications/presentation/manager/notification_cubit/notification_cubit.dart';
+
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
 
 class SignupViewBody extends StatefulWidget {
@@ -41,13 +44,25 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   int _expiresIn = 30;
 
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _locationController = TextEditingController();
-  final TextEditingController _buildController = TextEditingController();
-  final TextEditingController _workController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+
+  final TextEditingController _nameController =
+      TextEditingController();
+
+  final TextEditingController _locationController =
+      TextEditingController();
+
+  final TextEditingController _buildController =
+      TextEditingController();
+
+  final TextEditingController _workController =
+      TextEditingController();
+
+  final TextEditingController _phoneController =
+      TextEditingController();
+
   final GlobalKey<PhoneInputFieldState> _phoneInputFieldKey =
       GlobalKey<PhoneInputFieldState>();
+
   File? _profileImage;
 
   @override
@@ -57,6 +72,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     _buildController.dispose();
     _workController.dispose();
     _phoneController.dispose();
+
     super.dispose();
   }
 
@@ -64,47 +80,57 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   Widget build(BuildContext context) {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) async {
+        // ============================================================
+        // SIGN UP SUCCESS
+        // ============================================================
+
         if (state is SignUpSuccess) {
           showCustomSnackBar(
             context: context,
             message: 'تم إنشاء الحساب بنجاح 🎉',
             isSuccess: true,
           );
-          await sl<NotificationCubit>().registerCurrentDevice();
 
-          NotificationService.instance.startForegroundListener(
-            onNotificationReceived: () {
-              sl<NotificationCubit>().getNotifications();
-            },
+          // ========================================================
+          // ❌ هنا شلنا:
+          //
+          // registerCurrentDevice()
+          // startForegroundListener()
+          // startTokenRefreshListener()
+          //
+          // لأنهم مش المفروض يتكرروا مع كل Login / Signup.
+          //
+          // هنشغلهم من مكان مركزي بعد نجاح الـ Auth.
+          // ========================================================
+
+          await Future.delayed(
+            const Duration(milliseconds: 500),
           );
 
-          NotificationService.instance.startTokenRefreshListener(
-            onTokenRefresh: (newToken) async {
-              final deviceId = await NotificationService.instance.getDeviceId();
+          if (!mounted) return;
 
-              await sl<NotificationCubit>().registerDevice(
-                token: newToken,
-                platform: NotificationService.instance.platform,
-                deviceId: deviceId,
-              );
-            },
-          );
-          await Future.delayed(const Duration(seconds: 1));
-          // ignore: use_build_context_synchronously
-          final roleState = context.read<SelectRoleCubit>().state;
+          final roleState =
+              context.read<SelectRoleCubit>().state;
 
           if (roleState is GetRoleSuccess) {
             final role = roleState.roleName;
 
             if (role.contains("فني")) {
               context.go('/MainHomeTechView');
-            } else if (role.contains("شركة") || role.contains("مطور")) {
+            } else if (role.contains("شركة") ||
+                role.contains("مطور")) {
               context.go('/MainHomecompanyview');
             } else if (role.contains("حمام")) {
               context.go('/MainHomeCustomerView');
             }
           }
-        } else if (state is SignUpFailure) {
+        }
+
+        // ============================================================
+        // SIGN UP FAILURE
+        // ============================================================
+
+        else if (state is SignUpFailure) {
           showCustomSnackBar(
             context: context,
             message: state.error,
@@ -112,10 +138,13 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           );
         }
       },
+
       child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
         builder: (context, state) {
           if (state is! GetRoleSuccess) {
-            return Center(child: CustomLoadingIndecator());
+            return Center(
+              child: CustomLoadingIndecator(),
+            );
           }
 
           final role = state.roleName;
@@ -130,46 +159,95 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SignupHeader(),
-                  SizedBox(height: SizeConfig.h(15)),
+
+                  SizedBox(
+                    height: SizeConfig.h(15),
+                  ),
+
                   _buildSignupForm(role),
-                  SizedBox(height: SizeConfig.h(20)),
+
+                  SizedBox(
+                    height: SizeConfig.h(20),
+                  ),
+
                   const WhatsappVerificationNote(),
-                  SizedBox(height: SizeConfig.h(40)),
+
+                  SizedBox(
+                    height: SizeConfig.h(40),
+                  ),
+
+                  // ==================================================
+                  // TERMS
+                  // ==================================================
 
                   CustomCheckbox(
                     value: acceptedTerms,
-                    onChanged: (val) => setState(() => acceptedTerms = val),
+                    onChanged: (val) {
+                      setState(() {
+                        acceptedTerms = val;
+                      });
+                    },
                     label: 'الشروط وسياسة الاستخدام',
                   ),
 
-                  SizedBox(height: SizeConfig.h(35)),
+                  SizedBox(
+                    height: SizeConfig.h(35),
+                  ),
+
+                  // ==================================================
+                  // OTP
+                  // ==================================================
 
                   BlocConsumer<OtpCubit, OtpState>(
                     listener: (context, state) {
-                      print("========== LISTENER ==========");
-                      print(state.runtimeType);
-                      print("🔥 Listener Fired: ${state.runtimeType}");
-                      print("🔥 Widget: ${identityHashCode(this)}");
+                      print(
+                        "========== OTP LISTENER ==========",
+                      );
+
+                      print(
+                        "State: ${state.runtimeType}",
+                      );
+
+                      // ==================================================
+                      // OTP SENT
+                      // ==================================================
 
                       if (state is OtpSentSuccess) {
                         print("OTP SUCCESS");
+
                         showCustomSnackBar(
                           context: context,
-                          message: '✅ تم إرسال الكود بنجاح عبر واتساب',
+                          message:
+                              '✅ تم إرسال الكود بنجاح عبر واتساب',
                           isSuccess: true,
                         );
+
                         setState(() {
-                          _expiresIn = state.response.expiresIn;
+                          _expiresIn =
+                              state.response.expiresIn;
 
                           showVerificationBody = true;
                         });
-                      } else if (state is OtpResentSuccess) {
+                      }
+
+                      // ==================================================
+                      // OTP RESENT
+                      // ==================================================
+
+                      else if (state is OtpResentSuccess) {
                         showCustomSnackBar(
                           context: context,
-                          message: '✅ تم إعادة إرسال رمز التحقق',
+                          message:
+                              '✅ تم إعادة إرسال رمز التحقق',
                           isSuccess: true,
                         );
-                      } else if (state is OtpError) {
+                      }
+
+                      // ==================================================
+                      // OTP ERROR
+                      // ==================================================
+
+                      else if (state is OtpError) {
                         showCustomSnackBar(
                           context: context,
                           message: state.message,
@@ -177,33 +255,56 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                         );
                       }
                     },
+
                     builder: (context, state) {
+                      // ==================================================
+                      // VERIFICATION SCREEN
+                      // ==================================================
+
                       if (showVerificationBody) {
-                        return BlocBuilder<SignUpCubit, SignUpState>(
-                          builder: (context, signUpState) {
+                        return BlocBuilder<
+                            SignUpCubit,
+                            SignUpState>(
+                          builder:
+                              (context, signUpState) {
                             return VerificationBody(
                               purpose: 'signup',
+
                               expiresIn: _expiresIn,
+
                               phoneNumber:
-                                  _phoneInputFieldKey.currentState
+                                  _phoneInputFieldKey
+                                      .currentState
                                       ?.getFullPhoneNumber() ??
                                   '',
-                              btntext: signUpState is SignUpLoading
-                                  ? 'جاري إنشاء الحساب...'
-                                  : 'إنشاء الحساب',
-                              onVerify: signUpState is SignUpLoading?
-                                  ? (String _) {}
-                                  : _onSignupPressed,
+
+                              btntext:
+                                  signUpState
+                                      is SignUpLoading
+                                      ? 'جاري إنشاء الحساب...'
+                                      : 'إنشاء الحساب',
+
+                              onVerify:
+                                  signUpState
+                                      is SignUpLoading
+                                      ? (String _) {}
+                                      : _onSignupPressed,
                             );
                           },
                         );
                       }
 
+                      // ==================================================
+                      // SEND OTP BUTTON
+                      // ==================================================
+
                       return CustomTextBtn(
                         width: double.infinity,
+
                         text: state is OtpLoading
                             ? 'جاري الإرسال...'
                             : 'إرسال رمز التحقق',
+
                         onPressed: state is OtpLoading
                             ? null
                             : _onSendVerificationPressed,
@@ -211,14 +312,25 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                     },
                   ),
 
-                  SizedBox(height: SizeConfig.h(40)),
+                  SizedBox(
+                    height: SizeConfig.h(40),
+                  ),
+
+                  // ==================================================
+                  // LOGIN
+                  // ==================================================
 
                   AuthSwitchRow(
                     leadingText: 'لدي حساب بالفعل',
                     actionText: 'تسجيل الدخول',
-                    onTap: () => context.go('/login'),
+                    onTap: () {
+                      context.go('/login');
+                    },
                   ),
-                  SizedBox(height: SizeConfig.h(40)),
+
+                  SizedBox(
+                    height: SizeConfig.h(40),
+                  ),
                 ],
               ),
             ),
@@ -228,40 +340,96 @@ class _SignupViewBodyState extends State<SignupViewBody> {
     );
   }
 
+  // ================================================================
+  // BUILD SIGNUP FORM
+  // ================================================================
+
   Widget _buildSignupForm(String role) {
+    // ==============================================================
+    // CUSTOMER
+    // ==============================================================
+
     if (role.contains("حمام")) {
       return CustomerSignupForm(
         formKey: _formKey,
+
         nameController: _nameController,
+
         locationController: _locationController,
+
         phoneController: _phoneController,
+
         phoneFieldKey: _phoneInputFieldKey,
-        onImagePicked: (img) => _profileImage = img,
+
+        onImagePicked: (img) {
+          _profileImage = img;
+        },
       );
-    } else if (role.contains("فني")) {
+    }
+
+    // ==============================================================
+    // TECHNICIAN
+    // ==============================================================
+
+    else if (role.contains("فني")) {
       return TechSetupForm(
         formKey: _formKey,
+
         nameController: _nameController,
+
         locationController: _locationController,
+
         phoneController: _phoneController,
+
         phoneFieldKey: _phoneInputFieldKey,
+
         buildController: _buildController,
+
         workController: _workController,
-        onImagePicked: (img) => _profileImage = img,
+
+        onImagePicked: (img) {
+          _profileImage = img;
+        },
       );
-    } else {
+    }
+
+    // ==============================================================
+    // COMPANY / DEVELOPER
+    // ==============================================================
+
+    else {
       return CompanyRespositiveForm(
         formKey: _formKey,
+
         nameController: _nameController,
+
         phoneController: _phoneController,
+
         phoneFieldKey: _phoneInputFieldKey,
-        onImagePicked: (img) => _profileImage = img,
+
+        onImagePicked: (img) {
+          _profileImage = img;
+        },
       );
     }
   }
 
+  // ================================================================
+  // SEND VERIFICATION
+  // ================================================================
+
   void _onSendVerificationPressed() {
-    if (!_formKey.currentState!.validate()) return;
+    // ==============================================================
+    // FORM VALIDATION
+    // ==============================================================
+
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    // ==============================================================
+    // TERMS
+    // ==============================================================
 
     if (!acceptedTerms) {
       showCustomSnackBar(
@@ -269,72 +437,182 @@ class _SignupViewBodyState extends State<SignupViewBody> {
         message: 'يجب الموافقة على الشروط والأحكام',
         isSuccess: false,
       );
+
       return;
     }
 
-    final phoneState = _phoneInputFieldKey.currentState;
+    // ==============================================================
+    // PHONE
+    // ==============================================================
+
+    final phoneState =
+        _phoneInputFieldKey.currentState;
+
     if (phoneState == null) {
       showCustomSnackBar(
         context: context,
         message: 'يرجى إدخال رقم الهاتف أولاً',
         isSuccess: false,
       );
+
       return;
     }
 
-    final fullPhone = phoneState.getFullPhoneNumber();
-    context.read<OtpCubit>().sendOtp(fullPhone, 'signup');
+    final fullPhone =
+        phoneState.getFullPhoneNumber();
+
+    if (fullPhone.isEmpty) {
+      showCustomSnackBar(
+        context: context,
+        message: 'يرجى إدخال رقم هاتف صحيح',
+        isSuccess: false,
+      );
+
+      return;
+    }
+
+    // ==============================================================
+    // SEND OTP
+    // ==============================================================
+
+    context.read<OtpCubit>().sendOtp(
+      fullPhone,
+      'signup',
+    );
   }
 
+  // ================================================================
+  // SIGN UP
+  // ================================================================
+
   void _onSignupPressed(String otpCode) {
-    setState(() => enteredOtpCode = otpCode);
+    setState(() {
+      enteredOtpCode = otpCode;
+    });
 
-    final phoneState = _phoneInputFieldKey.currentState;
-    if (phoneState == null) return;
+    // ==============================================================
+    // PHONE
+    // ==============================================================
 
-    final fullPhone = phoneState.getFullPhoneNumber();
-    //   final cleanedPhone = fullPhone.replaceFirst('+2', '');
+    final phoneState =
+        _phoneInputFieldKey.currentState;
 
-    final role =
-        (context.read<SelectRoleCubit>().state as GetRoleSuccess).roleName;
+    if (phoneState == null) {
+      return;
+    }
+
+    final fullPhone =
+        phoneState.getFullPhoneNumber();
+
+    if (fullPhone.isEmpty) {
+      showCustomSnackBar(
+        context: context,
+        message: 'رقم الهاتف غير صحيح',
+        isSuccess: false,
+      );
+
+      return;
+    }
+
+    // ==============================================================
+    // ROLE
+    // ==============================================================
+
+    final roleState =
+        context.read<SelectRoleCubit>().state;
+
+    if (roleState is! GetRoleSuccess) {
+      showCustomSnackBar(
+        context: context,
+        message: 'لم يتم تحديد نوع الحساب',
+        isSuccess: false,
+      );
+
+      return;
+    }
+
+    final role = roleState.roleName;
+
+    // ==============================================================
+    // CUSTOMER
+    // ==============================================================
 
     if (role.contains("حمام")) {
       context.read<SignUpCubit>().signupPoolOwner(
         PoolOwnerEntity(
           otpCode: otpCode,
-          fullName: _nameController.text.trim(),
+
+          fullName:
+              _nameController.text.trim(),
+
           phone: fullPhone,
-          address: _locationController.text.trim(),
-          profileImage: _profileImage?.path,
-          // Replace with actual longitude if available
+
+          address:
+              _locationController.text.trim(),
+
+          profileImage:
+              _profileImage?.path,
         ),
       );
-    } else if (role.contains("فني")) {
-      final skillsList = _buildController.text
-          .split(',')
-          .map((e) => e.trim())
-          .where((e) => e.isNotEmpty)
-          .toList();
-      final years = int.tryParse(_workController.text.trim()) ?? 0;
+    }
+
+    // ==============================================================
+    // TECHNICIAN
+    // ==============================================================
+
+    else if (role.contains("فني")) {
+      final skillsList =
+          _buildController.text
+              .split(',')
+              .map((e) => e.trim())
+              .where(
+                (e) => e.isNotEmpty,
+              )
+              .toList();
+
+      final years =
+          int.tryParse(
+                _workController.text.trim(),
+              ) ??
+              0;
 
       context.read<SignUpCubit>().signupTechnician(
         TechnicianEntity(
-          fullName: _nameController.text.trim(),
+          fullName:
+              _nameController.text.trim(),
+
           phone: fullPhone,
-          address: _locationController.text.trim(),
+
+          address:
+              _locationController.text.trim(),
+
           skills: skillsList,
+
           yearsOfExperience: years,
-          profileImage: _profileImage?.path,
+
+          profileImage:
+              _profileImage?.path,
 
           otpCode: otpCode,
         ),
       );
-    } else if (role.contains("شركة") || role.contains("مطور")) {
+    }
+
+    // ==============================================================
+    // COMPANY / DEVELOPER
+    // ==============================================================
+
+    else if (role.contains("شركة") ||
+        role.contains("مطور")) {
       context.read<SignUpCubit>().signupCompany(
         CompanyEntity(
-          fullName: _nameController.text.trim(),
+          fullName:
+              _nameController.text.trim(),
+
           phone: fullPhone,
-          profileImage: _profileImage?.path,
+
+          profileImage:
+              _profileImage?.path,
 
           otpCode: otpCode,
         ),

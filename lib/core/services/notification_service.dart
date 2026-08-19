@@ -15,7 +15,12 @@ class NotificationService {
   StreamSubscription<RemoteMessage>? _foregroundSubscription;
   StreamSubscription<String>? _tokenRefreshSubscription;
 
+  // ============================================================
+  // INITIALIZE
+  // ============================================================
+
   Future<void> initialize() async {
+    // Android 13+
     final settings = await _messaging.requestPermission(
       alert: true,
       badge: true,
@@ -24,31 +29,97 @@ class NotificationService {
     );
 
     debugPrint(
+      '=========================================',
+    );
+    debugPrint(
       'Notification Permission: ${settings.authorizationStatus}',
     );
+    debugPrint(
+      '=========================================',
+    );
 
+    // مهم جدًا للتأكد إن الـ token موجود
     final token = await getFcmToken();
-    debugPrint("FCM Token: $token");
+
+    debugPrint(
+      '=========================================',
+    );
+    debugPrint('🔥 FCM TOKEN: $token');
+    debugPrint(
+      '=========================================',
+    );
+
+    // ==========================================================
+    // IMPORTANT
+    // ==========================================================
+
+    // لما التطبيق يكون مفتوحًا، Firebase افتراضيًا
+    // لا يعرض Notification في الـ status bar.
+    //
+    // لكن هنا إحنا فقط نستقبلها عن طريق onMessage.
+    //
+    // الـ background notification المفروض Android يعرضها
+    // تلقائيًا لو السيرفر بيرسل notification payload.
   }
+
+  // ============================================================
+  // GET FCM TOKEN
+  // ============================================================
 
   Future<String?> getFcmToken() async {
-    return _messaging.getToken();
+    try {
+      final token = await _messaging.getToken();
+
+      debugPrint('🔥 FCM TOKEN FROM getFcmToken: $token');
+
+      return token;
+    } catch (e) {
+      debugPrint('❌ GET FCM TOKEN ERROR: $e');
+      return null;
+    }
   }
+
+  // ============================================================
+  // DEVICE ID
+  // ============================================================
 
   Future<String> getDeviceId() async {
     final deviceInfo = DeviceInfoPlugin();
-    final androidInfo = await deviceInfo.androidInfo;
 
-    return androidInfo.id;
+    if (Platform.isAndroid) {
+      final androidInfo = await deviceInfo.androidInfo;
+
+      return androidInfo.id;
+    }
+
+    if (Platform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+
+      return iosInfo.identifierForVendor ?? 'unknown';
+    }
+
+    return 'unknown';
   }
+
+  // ============================================================
+  // PLATFORM
+  // ============================================================
 
   String get platform {
-    if (Platform.isAndroid) return "android";
-    if (Platform.isIOS) return "ios";
-    return "unknown";
+    if (Platform.isAndroid) {
+      return 'android';
+    }
+
+    if (Platform.isIOS) {
+      return 'ios';
+    }
+
+    return 'unknown';
   }
 
-  /// ================= Foreground Notifications =================
+  // ============================================================
+  // FOREGROUND NOTIFICATIONS
+  // ============================================================
 
   void startForegroundListener({
     required VoidCallback onNotificationReceived,
@@ -56,38 +127,98 @@ class NotificationService {
     _foregroundSubscription?.cancel();
 
     _foregroundSubscription = FirebaseMessaging.onMessage.listen(
-      (message) {
-        debugPrint("========== Foreground Notification ==========");
-        debugPrint("Title: ${message.notification?.title}");
-        debugPrint("Body : ${message.notification?.body}");
-        debugPrint("Data : ${message.data}");
-        debugPrint("=============================================");
+      (RemoteMessage message) {
+        debugPrint(
+          '=========================================',
+        );
+
+        debugPrint(
+          '🔥 FOREGROUND NOTIFICATION RECEIVED',
+        );
+
+        debugPrint(
+          'Title: ${message.notification?.title}',
+        );
+
+        debugPrint(
+          'Body: ${message.notification?.body}',
+        );
+
+        debugPrint(
+          'Data: ${message.data}',
+        );
+
+        debugPrint(
+          'Message ID: ${message.messageId}',
+        );
+
+        debugPrint(
+          '=========================================',
+        );
 
         onNotificationReceived();
+      },
+      onError: (error) {
+        debugPrint(
+          '❌ FOREGROUND NOTIFICATION ERROR: $error',
+        );
       },
     );
   }
 
+  // ============================================================
+  // STOP FOREGROUND
+  // ============================================================
+
   Future<void> stopForegroundListener() async {
     await _foregroundSubscription?.cancel();
+
     _foregroundSubscription = null;
   }
 
-  /// ================= Token Refresh =================
+  // ============================================================
+  // TOKEN REFRESH
+  // ============================================================
 
   void startTokenRefreshListener({
     required Future<void> Function(String token) onTokenRefresh,
   }) {
     _tokenRefreshSubscription?.cancel();
 
-    _tokenRefreshSubscription = _messaging.onTokenRefresh.listen((token) async {
-      debugPrint("New FCM Token: $token");
-      await onTokenRefresh(token);
-    });
+    _tokenRefreshSubscription =
+        _messaging.onTokenRefresh.listen(
+      (token) async {
+        debugPrint(
+          '=========================================',
+        );
+
+        debugPrint(
+          '🔥 NEW FCM TOKEN',
+        );
+
+        debugPrint(token);
+
+        debugPrint(
+          '=========================================',
+        );
+
+        await onTokenRefresh(token);
+      },
+      onError: (error) {
+        debugPrint(
+          '❌ TOKEN REFRESH ERROR: $error',
+        );
+      },
+    );
   }
+
+  // ============================================================
+  // STOP TOKEN REFRESH
+  // ============================================================
 
   Future<void> stopTokenRefreshListener() async {
     await _tokenRefreshSubscription?.cancel();
+
     _tokenRefreshSubscription = null;
   }
 }
