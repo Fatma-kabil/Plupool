@@ -12,53 +12,103 @@ class ProgressSection extends StatelessWidget {
     required this.status,
     required this.progressRatio,
   });
+
   final num progressRatio;
-  final int progress; // عدد الزيارات المنفذة
-  final int visits; // إجمالي الزيارات المطلوبة
+  final int progress; // عدد الزيارات المكتملة
+  final int visits; // إجمالي الزيارات
   final RequestStatus status;
+
   @override
   Widget build(BuildContext context) {
-    final progressPercent = progressRatio;
     final colors = RequestStatusColors.getColors(status);
+
+    // ==========================================
+    // حساب النسبة من عدد الزيارات
+    // ==========================================
+
+    final double progressValue = visits > 0
+        ? (progress / visits).clamp(0.0, 1.0)
+        : 0.0;
+
+    final int progressPercent =
+        (progressValue * 100).round();
 
     return Row(
       textDirection: TextDirection.rtl,
       children: [
+        // ==========================================
+        // PERCENTAGE
+        // ==========================================
+
         Text(
           toArabicNumbers("$progressPercent%"),
           style: AppTextStyles.styleBold14(
             context,
-          ).copyWith(color: colors['labelText']),
+          ).copyWith(
+            color: colors['labelText'],
+          ),
         ),
-        SizedBox(width: SizeConfig.w(4)),
+
+        SizedBox(
+          width: SizeConfig.w(4),
+        ),
+
+        // ==========================================
+        // VISITS
+        // ==========================================
+
         Text(
           textDirection: TextDirection.rtl,
-          toArabicNumbers("( $visits/$progress زيارات )"),
+          toArabicNumbers(
+            "( $visits/$progress زيارات )",
+          ),
           style: AppTextStyles.styleSemiBold12(
             context,
-          ).copyWith(color: colors['progbar']),
+          ).copyWith(
+            color: colors['progbar'],
+          ),
         ),
-        SizedBox(width: SizeConfig.w(8)),
+
+        SizedBox(
+          width: SizeConfig.w(8),
+        ),
+
+        // ==========================================
+        // PROGRESS BAR
+        // ==========================================
+
         Expanded(
           child: LayoutBuilder(
             builder: (context, constraints) {
               final barWidth =
-                  progressRatio * constraints.maxWidth; // العرض النسبي
+                  progressValue * constraints.maxWidth;
+
               return ClipRRect(
-                borderRadius: BorderRadius.circular(SizeConfig.w(10)),
+                borderRadius: BorderRadius.circular(
+                  SizeConfig.w(10),
+                ),
                 child: Stack(
                   children: [
-                    // الخلفية الرمادية
+                    // ==================================
+                    // BACKGROUND
+                    // ==================================
+
                     Container(
                       height: SizeConfig.h(8),
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: const Color(0xffD4D4D4),
-                        borderRadius: BorderRadius.circular(SizeConfig.w(10)),
+                        borderRadius: BorderRadius.circular(
+                          SizeConfig.w(10),
+                        ),
                       ),
                     ),
 
-                    // الجزء الملوّن يظهر فقط لو progress > 0
-                    if (progressRatio > 0)
+                    // ==================================
+                    // COLORED PROGRESS
+                    // ==================================
+
+                    if (progressValue > 0)
                       Align(
                         alignment: Alignment.centerRight,
                         child: Container(
@@ -73,10 +123,13 @@ class ProgressSection extends StatelessWidget {
                         ),
                       ),
 
-                    // الدايرة تظهر فقط لو progress == 0
+                    // ==================================
+                    // ZERO PROGRESS
+                    // ==================================
+
                     if (progress == 0)
                       Positioned(
-                        right: 0, // دايرة في بداية الخط
+                        right: 0,
                         top: 0,
                         bottom: 0,
                         child: Container(
@@ -95,7 +148,9 @@ class ProgressSection extends StatelessWidget {
           ),
         ),
 
-        SizedBox(width: SizeConfig.w(12)),
+        SizedBox(
+          width: SizeConfig.w(12),
+        ),
       ],
     );
   }
