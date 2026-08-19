@@ -8,12 +8,12 @@ import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
 import 'package:plupool/core/utils/widgets/filter_option.dart';
 import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
-import 'package:plupool/features/home/presentaation/views/admin/widgets/admin_packaes_card.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/packages_tab_bar.dart';
 import 'package:plupool/features/packages/domain/entities/package_entity.dart';
 import 'package:plupool/features/packages/domain/entities/subscriber_entity.dart';
 import 'package:plupool/features/packages/presentation/manager/package_cubit/package_cubit.dart';
 import 'package:plupool/features/packages/presentation/manager/package_cubit/package_state.dart';
+import 'package:plupool/features/packages/presentation/views/widgets/admin_drawer_package_card.dart';
 import 'package:plupool/features/packages/presentation/views/widgets/packages_shimmer_list.dart';
 
 class AdminDrawerPackagesBody extends StatefulWidget {
@@ -203,7 +203,7 @@ class _AdminDrawerPackagesBodyState extends State<AdminDrawerPackagesBody> {
 
                 return Padding(
                   padding: EdgeInsets.only(bottom: SizeConfig.h(15)),
-                  child: AdminPackaesCard(
+                  child: AdminDrawerPackageCard(
                     request: subscriber,
                     packageName: packageName,
                     status: status,

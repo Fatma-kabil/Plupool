@@ -66,6 +66,8 @@ class AdminPackageCard extends StatelessWidget {
               ),
 
               const SizedBox(height: 12),
+              ServiceCardRow(title: "ممثل الشركه:", value: model.companyRepName??"لا يوجد"),
+              const SizedBox(height: 5),
 
               ServiceCardRow(title: " العميل:", value: model.userName),
               const SizedBox(height: 5),

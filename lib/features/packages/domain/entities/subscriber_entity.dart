@@ -3,8 +3,10 @@ import 'package:plupool/features/packages/domain/entities/visit_entity.dart';
 class SubscriberEntity {
   final int subscriptionId;
   final int userId;
+
   final String name;
   final String phone;
+
   final String status;
 
   final String startDate;
@@ -19,7 +21,21 @@ class SubscriberEntity {
   final int? nextVisitId;
   final String? lastVisitDate;
   final String? nextVisitDate;
-  final String? nextVisitTime; // الجديد
+  final String? nextVisitTime;
+
+  // ==============================
+  // Company Representative
+  // ==============================
+
+  final int? companyRepId;
+  final String? companyRepName;
+
+  // ==============================
+  // Technicians
+  // ==============================
+
+  final List<int> technicianIds;
+  final List<String> technicianNames;
 
   final List<VisitEntity> visits;
 
@@ -38,8 +54,17 @@ class SubscriberEntity {
     required this.scheduledVisits,
     required this.lastVisitDate,
     required this.nextVisitDate,
-    this.nextVisitTime, // الجديد
+    this.nextVisitTime,
+    this.nextVisitId,
+
+    // Company Representative
+    this.companyRepId,
+    this.companyRepName,
+
+    // Technicians
+    this.technicianIds = const [],
+    this.technicianNames = const [],
+
     required this.visits,
-    this.nextVisitId
   });
 }

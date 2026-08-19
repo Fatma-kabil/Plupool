@@ -115,7 +115,7 @@ class _AddPackageFormState extends State<AddPackageForm> {
               horizontal: SizeConfig.w(12),
             ),
             selected: widget.selectedPackage,
-            items: const ["الباقه السنويه", "باقه 3 شهور", "الباقه الشهريه"],
+            items: const ["الباقة السنوية", "الباقة (4 شهور)", "الباقة الشهرية"],
             displayText: (value) => value,
             onChanged: widget.onPackageChanged,
           ),

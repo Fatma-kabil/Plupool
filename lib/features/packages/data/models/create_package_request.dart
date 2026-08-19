@@ -55,7 +55,7 @@ class CreatePackageRequest {
       "technician_ids": technicianIds,
       "service_status": serviceStatus,
       "remind_next_visit": remindNextVisit,
-      "comapny_id":companyId
+      "company_rep_id":companyId
     };
   }
 }
