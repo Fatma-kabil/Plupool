@@ -64,6 +64,7 @@ import 'package:plupool/features/support/presentation/manager/cubits/message_cub
 
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/week_tasks_cubit.dart';
+import 'package:plupool/features/visits/presentation/manager/booking_visits_cubit.dart';
 
 class PlupoolApp extends StatelessWidget {
   const PlupoolApp({super.key});
@@ -154,6 +155,7 @@ class PlupoolApp extends StatelessWidget {
         BlocProvider(create: (_) => sl<WeekTasksCubit>()..getWeekTasks()),
 
         BlocProvider(create: (context) => sl<CompanyResClientsCubit>()),
+         BlocProvider(create: (context) => sl<BookingVisitsCubit>()),
       ],
 
       child: BlocListener<AuthCubit, AuthState>(

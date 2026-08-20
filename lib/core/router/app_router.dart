@@ -606,7 +606,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/visitview',
       name: 'visitview',
-      pageBuilder: (context, state) => buildTransitionPage(const VisitView()),
+      pageBuilder: (context, state) {
+        final id = state.extra as int;
+        return buildTransitionPage(VisitView(bookingId: id));
+      },
     ),
 
     GoRoute(

@@ -1,36 +1,29 @@
 import 'package:flutter/material.dart';
+
 import 'package:plupool/core/theme/app_colors.dart';
 import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/size_config.dart';
-import 'package:plupool/features/tasks/data/models/water_quality_model.dart';
 
-import 'package:intl/intl.dart' as intl;
+import 'package:plupool/features/visits/domain/entities/booking_visits_entity.dart';
+
 import 'package:plupool/features/tasks/presentation/views/widgets/custom_divider.dart';
 import 'package:plupool/features/tasks/presentation/views/widgets/maintenance_item.dart';
+
 import 'package:plupool/features/visits/presentation/views/widgets/maintenance_card_footer.dart';
 import 'package:plupool/features/visits/presentation/views/widgets/maintenance_card_header.dart';
 
 class AdminMaintenanceCard extends StatelessWidget {
-  const AdminMaintenanceCard({super.key, required this.model});
-  final WaterQualityModel model;
+  const AdminMaintenanceCard({
+    super.key,
+    required this.visit,
+    required this.reading,
+  });
+
+  final PackageVisitEntity visit;
+  final ReadingEntity? reading;
 
   @override
   Widget build(BuildContext context) {
-  //  final formattedDate = intl.DateFormat(
- // 'EEEE yyyy/MM/d – hh:mm a',
-//  'ar',
-//)
-   // .format(model.lastUpdated)
-   // .replaceAll('ص', 'صباحاً')
-   // .replaceAll('م', 'مساءً');
-
-
-  // final parts = formattedDate.split('–');
-
-//final date = parts[0].trim(); // الخميس 16/01/2025
-//final time = parts.length > 1 ? parts[1].trim() : '';
-
-
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: SizeConfig.h(6),
@@ -46,57 +39,74 @@ class AdminMaintenanceCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // التاريخ والوقت
-       //   MaintenanceCardHeader(model: model, time: time,date: date,),
+          // ================= التاريخ والوقت =================
+          MaintenanceCardHeader(
+            visit: visit,
+            date: visit.bookingDate ?? '',
+            time: visit.bookingTime ?? '',
+          ),
+
           SizedBox(height: SizeConfig.h(15)),
 
-          // القيم
+          // ================= القيم =================
           Padding(
             padding: EdgeInsets.symmetric(horizontal: SizeConfig.w(4)),
             child: Row(
               textDirection: TextDirection.rtl,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                // Chlorine
                 MaintenanceItem(
                   label: "مستوى الكلور",
-                  value:"",
-                  // "${model.chlorineLevel.toString()} ppm",
+                  value: reading?.chlorinePpm != null
+                      ? "${reading!.chlorinePpm} ppm"
+                      : "-",
                   icon: Icons.science,
-                  iconcolor: Color(0xff00B4D8),
+                  iconcolor: const Color(0xff00B4D8),
                 ),
+
                 CustomDivider(),
+
+                // PH
                 MaintenanceItem(
                   label: "مستوى الحموضة",
-                  value:"",
-                  // model.phLevel.toString(),
+                  value: reading?.phLevel != null
+                      ? reading!.phLevel.toString()
+                      : "-",
                   icon: Icons.water_drop,
-                  iconcolor: Color(0xff0077B6),
+                  iconcolor: const Color(0xff0077B6),
                 ),
+
                 CustomDivider(),
+
+                // Temperature
                 MaintenanceItem(
                   label: "درجة الحرارة",
-                  value: "",
-                  //"${model.temperature.toString()}°C",
+                  value: reading?.temperatureC != null
+                      ? "${reading!.temperatureC}°C"
+                      : "-",
                   icon: Icons.thermostat,
-                  iconcolor: Color(0xffFF9F1C),
+                  iconcolor: const Color(0xffFF9F1C),
                 ),
               ],
             ),
           ),
+
           SizedBox(height: SizeConfig.h(20)),
 
-          // الملاحظات
-        //  if (model.note != null && model.note!.isNotEmpty)
+          // ================= الملاحظات =================
+          if (reading?.notes != null && reading!.notes!.isNotEmpty)
             Text(
-           "",
-           //   model.note!,
+              reading!.notes!,
               style: AppTextStyles.styleRegular14(
                 context,
               ).copyWith(color: const Color(0xff777777)),
               textAlign: TextAlign.right,
               textDirection: TextDirection.rtl,
             ),
+
           SizedBox(height: SizeConfig.h(6)),
+
           MaintenanceCardFooter(),
         ],
       ),

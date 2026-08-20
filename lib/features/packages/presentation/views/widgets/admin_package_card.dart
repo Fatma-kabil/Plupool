@@ -22,7 +22,7 @@ class AdminPackageCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.push('/visitview');
+        context.push('/visitview',extra: model.id);
       },
       child: Container(
         width: double.infinity,

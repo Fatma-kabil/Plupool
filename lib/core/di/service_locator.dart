@@ -307,6 +307,11 @@ import 'package:plupool/features/technicains/data/repos_impl/update_tech_rating_
 import 'package:plupool/features/technicains/domain/repos/update_tech_rating_repo.dart';
 import 'package:plupool/features/technicains/domain/usecases/update_tech_rating_use_case.dart';
 import 'package:plupool/features/technicains/presentation/manager/tech_rating_cubit/tech_rating_cubit.dart';
+import 'package:plupool/features/visits/data/remote_data_source/booking_visits_remote_data_source.dart';
+import 'package:plupool/features/visits/data/repos_impl/booking_visits_repository_impl.dart';
+import 'package:plupool/features/visits/domain/entities/booking_visits_repository.dart';
+import 'package:plupool/features/visits/domain/usecases/get_booking_visits_use_case.dart';
+import 'package:plupool/features/visits/presentation/manager/booking_visits_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -821,7 +826,7 @@ Future<void> initServiceLocator() async {
   sl.registerLazySingleton(
     () => CreatePackageUseCase(sl<PackagesRepository>()),
   );
-  
+
   sl.registerLazySingleton(
     () => UpdatePackageUseCase(sl<PackagesRepository>()),
   );
@@ -834,7 +839,7 @@ Future<void> initServiceLocator() async {
       increasePackageProgressUseCase: sl<IncreasePackageProgress>(),
       decreasePackageProgressUseCase: sl<DecreasePackageProgress>(),
       createPackageUseCase: sl<CreatePackageUseCase>(),
-      updatePackageUseCase: sl<UpdatePackageUseCase>()
+      updatePackageUseCase: sl<UpdatePackageUseCase>(),
     ),
   );
 
@@ -1472,5 +1477,37 @@ Future<void> initServiceLocator() async {
   // Cubit
   sl.registerFactory(
     () => TechnicianServicesCubit(sl<GetTechnicianServicesUseCase>()),
+  );
+
+  // ====================
+  // Get Package Visits
+  // ====================
+
+  // Remote Data Source
+
+  sl.registerLazySingleton<BookingVisitsRemoteDataSource>(
+    () => BookingVisitsRemoteDataSourceImpl(api: sl<ApiService>()),
+  );
+
+  // Repository
+
+  sl.registerLazySingleton<BookingVisitsRepository>(
+    () => BookingVisitsRepositoryImpl(
+      remoteDataSource: sl<BookingVisitsRemoteDataSource>(),
+    ),
+  );
+
+  // UseCase
+
+  sl.registerLazySingleton(
+    () => GetBookingVisitsUseCase(repository: sl<BookingVisitsRepository>()),
+  );
+
+  // Cubit
+
+  sl.registerFactory(
+    () => BookingVisitsCubit(
+      getBookingVisitsUseCase: sl<GetBookingVisitsUseCase>(),
+    ),
   );
 }
