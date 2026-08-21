@@ -100,15 +100,15 @@ class BookingVisitsCubit extends Cubit<BookingVisitsState> {
 
   Future<void> updateLatestReading({
     required int sourceBookingId,
-    required int latestCompletedVisitBookingId,
+    required int selectedVisitBookingId,
     required ReadingRequestEntity reading,
   }) async {
     emit(UpdateLatestReadingLoading());
 
     final result = await updateLatestReadingUseCase(
       sourceBookingId: sourceBookingId,
-      latestCompletedVisitBookingId:
-          latestCompletedVisitBookingId,
+      selectedVisitBookingId:
+          selectedVisitBookingId,
       reading: reading,
     );
 

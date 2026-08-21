@@ -13,13 +13,13 @@ class UpdateLatestReadingUseCase {
 
   Future<Either<Failure, void>> call({
     required int sourceBookingId,
-    required int latestCompletedVisitBookingId,
+    required int selectedVisitBookingId,
     required ReadingRequestEntity reading,
   }) async {
     return await repository.updateLatestReading(
       sourceBookingId: sourceBookingId,
-      latestCompletedVisitBookingId:
-          latestCompletedVisitBookingId,
+      selectedVisitBookingId:
+          selectedVisitBookingId,
       reading: reading,
     );
   }

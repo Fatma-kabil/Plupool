@@ -9,9 +9,9 @@ import 'package:plupool/features/visits/presentation/views/widgets/admin_mainten
 class MaintenanceSection extends StatefulWidget {
   const MaintenanceSection({
     super.key,
-    required this.visits,
+    required this.visits,required this.sourceBookingId
   });
-
+final int sourceBookingId;
   final List<PackageVisitEntity> visits;
 
   @override
@@ -118,7 +118,7 @@ class _MaintenanceSectionState extends State<MaintenanceSection> {
                     (visit) {
                       return AdminMaintenanceCard(
                         visit: visit,
-
+sourceBookingId: widget.sourceBookingId,
                         // لو فيه Reading استخدمه
                         // لو مفيش ابعت null
                         reading: visit.readings.isNotEmpty

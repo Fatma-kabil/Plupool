@@ -47,7 +47,7 @@ class VisitsViewBody extends StatelessWidget {
               SliverToBoxAdapter(child: SizedBox(height: 25)),
 
               SliverToBoxAdapter(
-                child: MaintenanceSection(visits: data.visits),
+                child: MaintenanceSection(visits: data.visits,sourceBookingId: data.sourceBookingId,),
               ),
             ],
           );

@@ -61,10 +61,10 @@ class _AddCompletedVisitViewBodyState extends State<AddCompletedVisitViewBody> {
     );
 
     await context.read<BookingVisitsCubit>().addReading(
-      sourceBookingId: 200,
-      // widget.sourceBookingId,
-      currentVisitBookingId:200,
-      // widget.currentVisitBookingId,
+      sourceBookingId: 
+       widget.sourceBookingId,
+      currentVisitBookingId: 
+       widget.currentVisitBookingId,
       reading: reading,
     );
   }
@@ -77,17 +77,17 @@ class _AddCompletedVisitViewBodyState extends State<AddCompletedVisitViewBody> {
           showCustomSnackBar(
             context: context,
             message: state.message,
-            isSuccess: true
+            isSuccess: true,
           );
-         
+
           Navigator.pop(context, true);
         }
 
         if (state is AddReadingError) {
-           showCustomSnackBar(
+          showCustomSnackBar(
             context: context,
             message: state.message,
-           // isSuccess: true
+            // isSuccess: true
           );
         }
       },

@@ -15,10 +15,12 @@ import 'package:plupool/features/visits/presentation/views/widgets/maintenance_c
 class AdminMaintenanceCard extends StatelessWidget {
   const AdminMaintenanceCard({
     super.key,
+    required this.sourceBookingId,
     required this.visit,
     required this.reading,
   });
 
+  final int sourceBookingId;
   final PackageVisitEntity visit;
   final ReadingEntity? reading;
 
@@ -107,7 +109,11 @@ class AdminMaintenanceCard extends StatelessWidget {
 
           SizedBox(height: SizeConfig.h(6)),
 
-          MaintenanceCardFooter(),
+          MaintenanceCardFooter(
+            sourceBookingId: sourceBookingId,
+            visit: visit,
+            reading: reading,
+          ),
         ],
       ),
     );

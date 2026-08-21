@@ -18,7 +18,7 @@ abstract class BookingVisitsRemoteDataSource {
 
   Future<void> updateLatestReading({
     required int sourceBookingId,
-    required int latestCompletedVisitBookingId,
+    required int selectedVisitBookingId,
     required ReadingRequestModel model,
   });
 }
@@ -74,14 +74,14 @@ class BookingVisitsRemoteDataSourceImpl
   @override
   Future<void> updateLatestReading({
     required int sourceBookingId,
-    required int latestCompletedVisitBookingId,
+    required int selectedVisitBookingId,
     required ReadingRequestModel model,
   }) async {
     
     final storage = sl<FlutterSecureStorage>();
     final token = await storage.read(key: 'token');
     await api.patch(
-      '${Endpoints.servicesBookings}$sourceBookingId/visits/$latestCompletedVisitBookingId/readings/latest',
+      '${Endpoints.servicesBookings}/$sourceBookingId/visits/$selectedVisitBookingId/readings/latest',
       data: model.toJson(),
        options: Options(
         headers: {

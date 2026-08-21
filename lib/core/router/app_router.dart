@@ -112,6 +112,7 @@ import 'package:plupool/features/technicains/presentation/views/add_tech_view.da
 import 'package:plupool/features/technicains/presentation/views/edit_tech_view.dart';
 import 'package:plupool/features/technicains/presentation/views/tech_profile_view.dart';
 import 'package:plupool/features/technicains/presentation/views/techs_view.dart';
+import 'package:plupool/features/visits/domain/entities/booking_visits_entity.dart';
 import 'package:plupool/features/visits/presentation/views/add_completed_visit_view.dart';
 import 'package:plupool/features/visits/presentation/views/edit_completed_visit_view.dart';
 import 'package:plupool/features/visits/presentation/views/visit_view.dart';
@@ -625,12 +626,30 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
-    GoRoute(
-      path: '/editcompletedvisitview',
-      name: 'editcompletedvisitview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const EditCompletedVisitView()),
-    ),
+GoRoute(
+  path: '/editcompletedvisitview',
+  name: 'editcompletedvisitview',
+  pageBuilder: (context, state) {
+    final extra = state.extra as Map<String, dynamic>;
+
+    final sourceBookingId =
+        extra['sourceBookingId'] as int;
+
+    final visit =
+        extra['visit'] as PackageVisitEntity;
+
+    final reading =
+        extra['reading'] as ReadingEntity?;
+
+    return buildTransitionPage(
+      EditCompletedVisitView(
+        sourceBookingId: sourceBookingId,
+        visit: visit,
+        reading: reading,
+      ),
+    );
+  },
+),
     GoRoute(
       path: '/companyrescontactusview',
       name: 'companyrescontactusview',

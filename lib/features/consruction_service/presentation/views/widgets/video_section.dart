@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:plupool/core/utils/size_config.dart';
+import 'package:plupool/features/consruction_service/presentation/views/full_screen_video_view.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoSection extends StatefulWidget {
   final String? videoUrl;
 
-  const VideoSection({
-    super.key,
-    required this.videoUrl,
-  });
+  const VideoSection({super.key, required this.videoUrl});
 
   @override
   State<VideoSection> createState() => _VideoSectionState();
@@ -28,9 +26,8 @@ class _VideoSectionState extends State<VideoSection> {
       return;
     }
 
-    _controller = VideoPlayerController.networkUrl(
-      Uri.parse(widget.videoUrl!),
-    )..initialize().then((_) {
+    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl!))
+      ..initialize().then((_) {
         if (mounted) {
           setState(() {});
         }
@@ -86,18 +83,21 @@ class _VideoSectionState extends State<VideoSection> {
               : SizeConfig.h(191),
           color: Colors.grey.shade300,
           child: const Center(
-            child: Icon(
-              Icons.videocam_off,
-              color: Colors.grey,
-              size: 40,
-            ),
+            child: Icon(Icons.videocam_off, color: Colors.grey, size: 40),
           ),
         ),
       );
     }
 
     return GestureDetector(
-      onTap: _togglePlay,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => FullScreenVideoView(videoUrl: widget.videoUrl!),
+          ),
+        );
+      },
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -117,9 +117,7 @@ class _VideoSectionState extends State<VideoSection> {
                         child: VideoPlayer(_controller),
                       ),
                     )
-                  : const Center(
-                      child: CircularProgressIndicator(),
-                    ),
+                  : const Center(child: CircularProgressIndicator()),
             ),
           ),
 

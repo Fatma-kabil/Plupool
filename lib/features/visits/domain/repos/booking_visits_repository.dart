@@ -23,7 +23,7 @@ abstract class BookingVisitsRepository {
 
   Future<Either<Failure, void>> updateLatestReading({
     required int sourceBookingId,
-    required int latestCompletedVisitBookingId,
+    required int selectedVisitBookingId,
     required ReadingRequestEntity reading,
   });
 }

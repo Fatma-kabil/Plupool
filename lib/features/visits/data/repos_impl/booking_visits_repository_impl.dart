@@ -72,7 +72,7 @@ class BookingVisitsRepositoryImpl
   @override
   Future<Either<Failure, void>> updateLatestReading({
     required int sourceBookingId,
-    required int latestCompletedVisitBookingId,
+    required int selectedVisitBookingId,
     required ReadingRequestEntity reading,
   }) async {
     try {
@@ -88,8 +88,8 @@ class BookingVisitsRepositoryImpl
 
       await remoteDataSource.updateLatestReading(
         sourceBookingId: sourceBookingId,
-        latestCompletedVisitBookingId:
-            latestCompletedVisitBookingId,
+        selectedVisitBookingId:
+            selectedVisitBookingId,
         model: model,
       );
 
