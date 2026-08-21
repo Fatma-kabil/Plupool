@@ -309,9 +309,11 @@ import 'package:plupool/features/technicains/domain/usecases/update_tech_rating_
 import 'package:plupool/features/technicains/presentation/manager/tech_rating_cubit/tech_rating_cubit.dart';
 import 'package:plupool/features/visits/data/remote_data_source/booking_visits_remote_data_source.dart';
 import 'package:plupool/features/visits/data/repos_impl/booking_visits_repository_impl.dart';
-import 'package:plupool/features/visits/domain/entities/booking_visits_repository.dart';
+import 'package:plupool/features/visits/domain/repos/booking_visits_repository.dart';
+import 'package:plupool/features/visits/domain/usecases/add_reading_use_case.dart';
 import 'package:plupool/features/visits/domain/usecases/get_booking_visits_use_case.dart';
-import 'package:plupool/features/visits/presentation/manager/booking_visits_cubit.dart';
+import 'package:plupool/features/visits/domain/usecases/update_latest_reading_use_case.dart';
+import 'package:plupool/features/visits/presentation/manager/visits-cubit/booking_visits_cubit.dart';
 
 final sl = GetIt.instance;
 
@@ -1503,11 +1505,21 @@ Future<void> initServiceLocator() async {
     () => GetBookingVisitsUseCase(repository: sl<BookingVisitsRepository>()),
   );
 
+  sl.registerLazySingleton(
+    () => UpdateLatestReadingUseCase(repository: sl<BookingVisitsRepository>()),
+  );
+
+  sl.registerLazySingleton(
+    () => AddReadingUseCase(repository: sl<BookingVisitsRepository>()),
+  );
+
   // Cubit
 
   sl.registerFactory(
     () => BookingVisitsCubit(
       getBookingVisitsUseCase: sl<GetBookingVisitsUseCase>(),
+      addVisitReadingUseCase: sl<AddReadingUseCase>(),
+      updateLatestReadingUseCase: sl<UpdateLatestReadingUseCase>(),
     ),
   );
 }

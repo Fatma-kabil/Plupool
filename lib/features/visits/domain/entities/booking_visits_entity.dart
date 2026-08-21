@@ -5,6 +5,18 @@ class BookingVisitsEntity extends Equatable {
   final int packageId;
   final String packageName;
   final int userId;
+
+  // ================= IDs المهمة للإضافة والتعديل =================
+
+  /// الزيارة الحالية اللي المفروض نضيف لها Reading
+  final int? currentVisitBookingId;
+
+  /// آخر زيارة مكتملة اللي مسموح نعدل آخر Reading فيها
+  final int? latestCompletedVisitBookingId;
+
+  /// آخر Reading مكتوب في آخر زيارة مكتملة
+  final int? latestCompletedReadingId;
+
   final int total;
   final List<PackageVisitEntity> visits;
 
@@ -13,6 +25,9 @@ class BookingVisitsEntity extends Equatable {
     required this.packageId,
     required this.packageName,
     required this.userId,
+    this.currentVisitBookingId,
+    this.latestCompletedVisitBookingId,
+    this.latestCompletedReadingId,
     required this.total,
     required this.visits,
   });
@@ -23,14 +38,22 @@ class BookingVisitsEntity extends Equatable {
         packageId,
         packageName,
         userId,
+        currentVisitBookingId,
+        latestCompletedVisitBookingId,
+        latestCompletedReadingId,
         total,
         visits,
       ];
 }
 
+// ================================================================
+// Package Visit
+// ================================================================
+
 class PackageVisitEntity extends Equatable {
   final int visitNumber;
   final int bookingId;
+
   final int? packageId;
   final int? userId;
   final String? userName;
@@ -113,6 +136,10 @@ class PackageVisitEntity extends Equatable {
       ];
 }
 
+// ================================================================
+// Ideal Ranges
+// ================================================================
+
 class IdealRangesEntity extends Equatable {
   final String? chlorinePpm;
   final String? phLevel;
@@ -132,8 +159,13 @@ class IdealRangesEntity extends Equatable {
       ];
 }
 
+// ================================================================
+// Reading
+// ================================================================
+
 class ReadingEntity extends Equatable {
   final int id;
+
   final int? taskId;
   final int? technicianId;
   final String? technicianName;

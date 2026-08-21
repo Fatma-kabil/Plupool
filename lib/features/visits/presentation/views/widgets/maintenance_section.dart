@@ -15,7 +15,8 @@ class MaintenanceSection extends StatefulWidget {
   final List<PackageVisitEntity> visits;
 
   @override
-  State<MaintenanceSection> createState() => _MaintenanceSectionState();
+  State<MaintenanceSection> createState() =>
+      _MaintenanceSectionState();
 }
 
 class _MaintenanceSectionState extends State<MaintenanceSection> {
@@ -26,13 +27,18 @@ class _MaintenanceSectionState extends State<MaintenanceSection> {
     // ================= الزيارات المكتملة فقط =================
 
     final completedVisits = widget.visits
-        .where((visit) => visit.status == 'completed')
+        .where(
+          (visit) => visit.status == 'completed',
+        )
         .toList();
 
     // ================= آخر زيارة فوق =================
     // رقم الزيارة الأكبر فوق
+
     completedVisits.sort(
-      (a, b) => b.visitNumber.compareTo(a.visitNumber),
+      (a, b) => b.visitNumber.compareTo(
+        a.visitNumber,
+      ),
     );
 
     return Column(
@@ -69,6 +75,7 @@ class _MaintenanceSectionState extends State<MaintenanceSection> {
                   ),
                 ],
               ),
+
               AnimatedRotation(
                 turns: isExpanded ? 0 : 0.5,
                 duration: const Duration(
@@ -86,36 +93,41 @@ class _MaintenanceSectionState extends State<MaintenanceSection> {
           height: SizeConfig.h(8),
         ),
 
-        // ================= History =================
+        // ================= Content =================
 
-        AnimatedCrossFade(
-          duration: const Duration(
-            milliseconds: 250,
-          ),
-          crossFadeState: isExpanded
-              ? CrossFadeState.showFirst
-              : CrossFadeState.showSecond,
+        if (isExpanded)
+          completedVisits.isEmpty
+              ? Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: SizeConfig.h(20),
+                  ),
+                  child: Center(
+                    child: Text(
+                      "لا توجد قراءات بعد",
+                      style: AppTextStyles.styleMedium16(
+                        context,
+                      ).copyWith(
+                        color: AppColors.ktextcolor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+              : Column(
+                  children: completedVisits.map(
+                    (visit) {
+                      return AdminMaintenanceCard(
+                        visit: visit,
 
-          // ================= Expanded =================
-
-          firstChild: Column(
-            children: completedVisits.map((visit) {
-              return AdminMaintenanceCard(
-                visit: visit,
-
-                // لو فيه Reading خد أول Reading
-                // لو مفيش ابعت null
-                reading: visit.readings.isNotEmpty
-                    ? visit.readings.first
-                    : null,
-              );
-            }).toList(),
-          ),
-
-          // ================= Collapsed =================
-
-          secondChild: const SizedBox.shrink(),
-        ),
+                        // لو فيه Reading استخدمه
+                        // لو مفيش ابعت null
+                        reading: visit.readings.isNotEmpty
+                            ? visit.readings.first
+                            : null,
+                      );
+                    },
+                  ).toList(),
+                ),
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:plupool/core/error/failure.dart';
 import 'package:plupool/features/visits/domain/entities/booking_visits_entity.dart';
-import 'package:plupool/features/visits/domain/entities/booking_visits_repository.dart';
+import 'package:plupool/features/visits/domain/repos/booking_visits_repository.dart';
 
 class GetBookingVisitsUseCase {
   final BookingVisitsRepository repository;

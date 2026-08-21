@@ -29,19 +29,7 @@ class MaintenanceCardFooter extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: SizeConfig.w(12)),
-        Container(
-          padding: EdgeInsets.all(SizeConfig.w(6)),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xffFAD7DA),
-          ),
-          child: Icon(
-            Icons.delete_outline_rounded,
-            color: Color(0xffE63946),
-            size:SizeConfig.isWideScreen ? SizeConfig.w(17) : SizeConfig.w(20),
-          ),
-        ),
+       
       ],
     );
   }

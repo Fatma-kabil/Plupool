@@ -64,7 +64,7 @@ import 'package:plupool/features/support/presentation/manager/cubits/message_cub
 
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/tasks_cubit.dart';
 import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/week_tasks_cubit.dart';
-import 'package:plupool/features/visits/presentation/manager/booking_visits_cubit.dart';
+import 'package:plupool/features/visits/presentation/manager/visits-cubit/booking_visits_cubit.dart';
 
 class PlupoolApp extends StatelessWidget {
   const PlupoolApp({super.key});

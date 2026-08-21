@@ -611,12 +611,19 @@ final GoRouter appRouter = GoRouter(
         return buildTransitionPage(VisitView(bookingId: id));
       },
     ),
-
     GoRoute(
       path: '/addcompletedvisitview',
       name: 'addcompletedvisitview',
-      pageBuilder: (context, state) =>
-          buildTransitionPage(const AddCompletedVisitView()),
+      pageBuilder: (context, state) {
+        final extra = state.extra as Map<String, dynamic>;
+
+        return buildTransitionPage(
+          AddCompletedVisitView(
+            sourceBookingId: extra['sourceBookingId'] as int,
+            currentVisitBookingId: extra['currentVisitBookingId'] as int,
+          ),
+        );
+      },
     ),
     GoRoute(
       path: '/editcompletedvisitview',

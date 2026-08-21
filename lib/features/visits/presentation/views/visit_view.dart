@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/app_drawer.dart';
 import 'package:plupool/features/home/presentaation/views/admin/widgets/custom_app_bar.dart';
-import 'package:plupool/features/visits/presentation/manager/booking_visits_cubit.dart';
+import 'package:plupool/features/visits/presentation/manager/visits-cubit/booking_visits_cubit.dart';
 import 'package:plupool/features/visits/presentation/views/widgets/visits_view_body.dart';
 class VisitView extends StatefulWidget {
   const VisitView({
@@ -25,7 +25,7 @@ class _VisitViewState extends State<VisitView> {
     super.initState();
 
     context.read<BookingVisitsCubit>().getBookingVisits(
-          bookingId:190
+          bookingId:200
           // widget.bookingId,
         );
   }

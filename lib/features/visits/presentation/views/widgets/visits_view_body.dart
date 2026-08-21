@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
-import 'package:plupool/features/visits/presentation/manager/booking_visits_cubit.dart';
+import 'package:plupool/features/visits/presentation/manager/visits-cubit/booking_visits_cubit.dart';
 
 import 'package:plupool/features/visits/presentation/manager/visits-cubit/booking_visits_state.dart';
 
 import 'package:plupool/features/visits/presentation/views/widgets/maintenance_section.dart';
 import 'package:plupool/features/visits/presentation/views/widgets/visit_table.dart';
 import 'package:plupool/features/visits/presentation/views/widgets/visits_view_header.dart';
+import 'package:plupool/features/visits/presentation/views/widgets/visits_view_shimmer.dart';
 
 class VisitsViewBody extends StatelessWidget {
   const VisitsViewBody({super.key});
@@ -18,18 +19,12 @@ class VisitsViewBody extends StatelessWidget {
       builder: (context, state) {
         // Loading
         if (state is BookingVisitsLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return VisitsViewShimmer();
         }
 
         // Error
         if (state is BookingVisitsError) {
-          return Center(
-            child: ErrorText(message: 
-              state.message,
-            ),
-          );
+          return Center(child: ErrorText(message: state.message));
         }
 
         // Success
@@ -38,28 +33,21 @@ class VisitsViewBody extends StatelessWidget {
 
           return CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(
-                child: VisitsViewHeader(),
-              ),
-
               SliverToBoxAdapter(
-                child: SizedBox(height: 12),
-              ),
-
-              SliverToBoxAdapter(
-                child: VisitsTable(
-                  visits: data.visits,
+                child: VisitsViewHeader(
+                  sourceBookingId: data.sourceBookingId,
+                  currentVisitBookingId: data.currentVisitBookingId,
                 ),
               ),
 
-              SliverToBoxAdapter(
-                child: SizedBox(height: 25),
-              ),
+              SliverToBoxAdapter(child: SizedBox(height: 12)),
+
+              SliverToBoxAdapter(child: VisitsTable(visits: data.visits)),
+
+              SliverToBoxAdapter(child: SizedBox(height: 25)),
 
               SliverToBoxAdapter(
-                child: MaintenanceSection(
-                  visits: data.visits,
-                ),
+                child: MaintenanceSection(visits: data.visits),
               ),
             ],
           );
