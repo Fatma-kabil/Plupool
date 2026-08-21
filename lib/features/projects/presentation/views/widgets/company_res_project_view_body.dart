@@ -6,6 +6,7 @@ import 'package:plupool/core/theme/app_text_styles.dart';
 import 'package:plupool/core/utils/functions/request_status.dart';
 import 'package:plupool/core/utils/size_config.dart';
 import 'package:plupool/core/utils/widgets/error_text.dart';
+import 'package:plupool/core/utils/widgets/show_custom_snackbar.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 import 'package:plupool/features/customers/presentation/manager/users_cubit/users_state.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
@@ -134,7 +135,24 @@ class _CompanyResProjectViewBodyState extends State<CompanyResProjectViewBody> {
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(18))),
 
         // ================= قائمة المشاريع =================
-        BlocBuilder<CompanyProjectCubit, CompanyProjectState>(
+       BlocConsumer<CompanyProjectCubit, CompanyProjectState>(
+          listenWhen: (previous, current) {
+            return previous.progressChangeSuccess == false &&
+                current.progressChangeSuccess == true;
+          },
+          listener: (context, state) {
+            if (state.progressChangeSuccess) {
+              showCustomSnackBar(
+                context: context,
+                message: 'تم تحديث نسبة الإنجاز بنجاح ✅',
+                isSuccess: true,
+              );
+            }
+            // Error
+            if (!state.isChangingProgress && state.error != null) {
+              showCustomSnackBar(context: context, message: state.error!);
+            }
+          },
           builder: (context, state) {
             if (state.isLoading) {
               return SliverList(

@@ -13,15 +13,22 @@ abstract class CompanyProjectsRepository {
   });
 
   Future<ProjectStatisticsEntity> getProjectStatistics();
-  
+
   Future<Either<Failure, List<CompanyProjectEntity>>> getClientProjects({
     required ClientProjectsParams params,
   });
 
-   Future<Either<Failure, void>> deleteProject(int projectId);
-Future<Either<Failure, void>> updateProjectProgress(
-  UpdateProjectProgressParams params,
-);
+  Future<Either<Failure, void>> deleteProject(int projectId);
+  Future<Either<Failure, void>> updateProjectProgress(
+    UpdateProjectProgressParams params,
+  );
+  Future<Either<Failure, void>> increaseProjectProgress({
+    required int projectId,
+    double? step,
+  });
 
-  
+  Future<Either<Failure, void>> decreaseProjectProgress({
+    required int projectId,
+    double? step,
+  });
 }

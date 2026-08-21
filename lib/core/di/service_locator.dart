@@ -176,13 +176,14 @@ import 'package:plupool/features/projects/data/repo_impl/project_repo_impl.dart'
 import 'package:plupool/features/projects/domain/repos/company_project_repo.dart';
 import 'package:plupool/features/projects/domain/repos/project_repo.dart';
 import 'package:plupool/features/projects/domain/usecases/create_project_usecase.dart';
+import 'package:plupool/features/projects/domain/usecases/decrease_project_progress_use_case.dart';
 import 'package:plupool/features/projects/domain/usecases/delete_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_client_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_company_project_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_our_projects_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/get_projects_statistics_usecse.dart';
+import 'package:plupool/features/projects/domain/usecases/increase_project_progress_use_case.dart';
 import 'package:plupool/features/projects/domain/usecases/toggle_project_active_usecase.dart';
-import 'package:plupool/features/projects/domain/usecases/update_project_progress_usecase.dart';
 import 'package:plupool/features/projects/domain/usecases/update_project_usecase.dart';
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
 import 'package:plupool/features/projects/presentation/manager/project_cubit/project_cubit.dart';
@@ -890,21 +891,31 @@ Future<void> initServiceLocator() async {
     () => GetProjectStatisticsUseCase(sl<CompanyProjectsRepository>()),
   );
   sl.registerLazySingleton(() => UpdateProjectUseCase(sl<OurProjectsRepo>()));
-  sl.registerLazySingleton(
-    () => UpdateProjectProgressUseCase(sl<CompanyProjectsRepository>()),
-  );
+ sl.registerLazySingleton(
+  () => IncreaseProjectProgressUseCase(
+    sl<CompanyProjectsRepository>(),
+  ),
+);
+
+sl.registerLazySingleton(
+  () => DecreaseProjectProgressUseCase(
+    sl<CompanyProjectsRepository>(),
+  ),
+);
+
   // Cubit
-  sl.registerFactory(
-    () => CompanyProjectCubit(
-      sl<GetCompanyProjectsUseCase>(),
-      sl<GetProjectStatisticsUseCase>(),
-      sl<GetClientProjectsUseCase>(),
-      sl<DeleteProjectUseCase>(),
-      sl<UpdateProjectUseCase>(),
-      sl<AddProjectUseCase>(),
-      sl<UpdateProjectProgressUseCase>(),
-    ),
-  );
+ sl.registerFactory(
+  () => CompanyProjectCubit(
+    sl<GetCompanyProjectsUseCase>(),
+    sl<GetProjectStatisticsUseCase>(),
+    sl<GetClientProjectsUseCase>(),
+    sl<DeleteProjectUseCase>(),
+    sl<UpdateProjectUseCase>(),
+    sl<AddProjectUseCase>(),
+    sl<IncreaseProjectProgressUseCase>(),
+    sl<DecreaseProjectProgressUseCase>(),
+  ),
+);
   sl.registerLazySingleton<GetClientProjectsUseCase>(
     () => GetClientProjectsUseCase(sl<CompanyProjectsRepository>()),
   );

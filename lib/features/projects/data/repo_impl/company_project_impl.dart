@@ -31,12 +31,13 @@ class CompanyProjectsRepositoryImpl implements CompanyProjectsRepository {
   }
 
   @override
-  @override
   Future<Either<Failure, List<CompanyProjectEntity>>> getClientProjects({
     required ClientProjectsParams params,
   }) async {
     try {
-      final result = await remote.getClientProjects(params: params);
+      final result = await remote.getClientProjects(
+        params: params,
+      );
 
       return right(result);
     } catch (e) {
@@ -45,7 +46,9 @@ class CompanyProjectsRepositoryImpl implements CompanyProjectsRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteProject(int projectId) async {
+  Future<Either<Failure, void>> deleteProject(
+    int projectId,
+  ) async {
     try {
       await remote.deleteProject(projectId);
 
@@ -61,6 +64,40 @@ class CompanyProjectsRepositoryImpl implements CompanyProjectsRepository {
   ) async {
     try {
       await remote.updateProjectProgress(params);
+
+      return right(null);
+    } catch (e) {
+      return left(mapDioError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> increaseProjectProgress({
+    required int projectId,
+    double? step,
+  }) async {
+    try {
+      await remote.increaseProjectProgress(
+        projectId: projectId,
+        step: step,
+      );
+
+      return right(null);
+    } catch (e) {
+      return left(mapDioError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> decreaseProjectProgress({
+    required int projectId,
+    double? step,
+  }) async {
+    try {
+      await remote.decreaseProjectProgress(
+        projectId: projectId,
+        step: step,
+      );
 
       return right(null);
     } catch (e) {

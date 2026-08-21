@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:go_router/go_router.dart';
+
 import 'package:plupool/core/theme/app_colors.dart';
+
 import 'package:plupool/core/utils/size_config.dart';
+
 import 'package:plupool/features/projects/domain/entities/company_project_entity.dart';
-import 'package:plupool/features/projects/domain/params/update_project_progress_params.dart';
+
 import 'package:plupool/features/projects/presentation/manager/company_project_cubit/company_project_cubit.dart';
+
 import 'package:plupool/features/projects/presentation/views/widgets/delete_project_btn.dart';
 
 class AdminProjectCardFooter extends StatelessWidget {
@@ -17,21 +23,24 @@ class AdminProjectCardFooter extends StatelessWidget {
 
   final CompanyProjectEntity project;
 
-  // هيتنفذ بعد Edit أو Delete
+  // هيتنفذ بعد Edit أو Delete أو تغيير التقدم
   final VoidCallback? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        // ================= INCREASE =================
+
         GestureDetector(
-          onTap: () {
-            context.read<CompanyProjectCubit>().updateProjectProgress(
-              UpdateProjectProgressParams(
-                projectId: project.id,
-                progressPercentage: project.progressPercentage!,
-              ),
+          onTap: () async {
+            await context.read<CompanyProjectCubit>().increaseProgress(
+              projectId: project.id,
             );
+
+            if (context.mounted) {
+              onChanged?.call();
+            }
           },
           child: Container(
             padding: EdgeInsets.symmetric(
@@ -52,25 +61,38 @@ class AdminProjectCardFooter extends StatelessWidget {
 
         SizedBox(width: SizeConfig.w(8)),
 
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: SizeConfig.w(6),
-            vertical: SizeConfig.h(4),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: AppColors.kprimarycolor,
-          ),
-          child: Icon(
-            Icons.remove,
-            color: Color(0xffD4D4D4),
-            size: SizeConfig.w(18),
+        // ================= DECREASE =================
+
+        GestureDetector(
+          onTap: () async {
+            await context.read<CompanyProjectCubit>().decreaseProgress(
+              projectId: project.id,
+            );
+
+            if (context.mounted) {
+              onChanged?.call();
+            }
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.w(6),
+              vertical: SizeConfig.h(4),
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: AppColors.kprimarycolor,
+            ),
+            child:  Icon(
+              Icons.remove, color: Colors.white,
+              size: SizeConfig.w(18),
+            ),
           ),
         ),
 
         const Spacer(),
 
         // ================= EDIT =================
+
         GestureDetector(
           onTap: () async {
             final result = await context.push(
@@ -99,6 +121,7 @@ class AdminProjectCardFooter extends StatelessWidget {
         SizedBox(width: SizeConfig.w(12)),
 
         // ================= DELETE =================
+
         DeleteProjectBtn(
           projectId: project.id,
           onDeleted: onChanged,

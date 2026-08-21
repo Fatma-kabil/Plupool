@@ -81,4 +81,43 @@ class CompanyProjectsRemoteDataSourceImpl {
       options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
   }
+  Future<void> increaseProjectProgress({
+  required int projectId,
+  double? step,
+}) async {
+  final storage = sl<FlutterSecureStorage>();
+  final token = await storage.read(key: 'token');
+
+  await api.patch(
+    '${Endpoints.projects}/$projectId/progress/increase',
+    queryParams: {
+      if (step != null) 'step': step,
+    },
+    options: Options(
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    ),
+  );
+}
+
+Future<void> decreaseProjectProgress({
+  required int projectId,
+  double? step,
+}) async {
+  final storage = sl<FlutterSecureStorage>();
+  final token = await storage.read(key: 'token');
+
+  await api.patch(
+    '${Endpoints.projects}/$projectId/progress/decrease',
+    queryParams: {
+      if (step != null) 'step': step,
+    },
+    options: Options(
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+    ),
+  );
+}
 }

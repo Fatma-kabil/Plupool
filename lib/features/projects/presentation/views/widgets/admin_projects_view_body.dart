@@ -71,17 +71,20 @@ class _AdminProjectsViewBodyState extends State<AdminProjectsViewBody> {
         SliverToBoxAdapter(child: SizedBox(height: SizeConfig.h(18))),
 
         BlocConsumer<CompanyProjectCubit, CompanyProjectState>(
+          listenWhen: (previous, current) {
+            return previous.progressChangeSuccess == false &&
+                current.progressChangeSuccess == true;
+          },
           listener: (context, state) {
-            if (state.progressUpdated) {
+            if (state.progressChangeSuccess) {
               showCustomSnackBar(
                 context: context,
-                message: "تم تحديث نسبة الإنجاز بنجاح ✅",
+                message: 'تم تحديث نسبة الإنجاز بنجاح ✅',
                 isSuccess: true,
               );
-              context.read<CompanyProjectCubit>().refreshClientProjects();
             }
-
-            if (!state.isUpdatingProgress && state.error != null) {
+            // Error
+            if (!state.isChangingProgress && state.error != null) {
               showCustomSnackBar(context: context, message: state.error!);
             }
           },
