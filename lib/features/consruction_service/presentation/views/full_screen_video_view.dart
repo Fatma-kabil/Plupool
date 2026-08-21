@@ -25,11 +25,6 @@ class _FullScreenVideoViewState extends State<FullScreenVideoView> {
       SystemUiMode.immersiveSticky,
     );
 
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
-
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(widget.videoUrl),
     )..initialize().then((_) {
@@ -47,11 +42,6 @@ class _FullScreenVideoViewState extends State<FullScreenVideoView> {
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.edgeToEdge,
     );
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
 
     super.dispose();
   }
@@ -81,24 +71,29 @@ class _FullScreenVideoViewState extends State<FullScreenVideoView> {
                 ),
               )
             else
-              const CircularProgressIndicator(),
+               Center(
+                child: CircularProgressIndicator(
+                  color: Colors.grey[100],
+                  
+                ),
+              ),
 
             // ================= BACK =================
             Positioned(
-              top: 15,
-              left: 15,
+              top: screenSize.height * 0.02,
+              left: screenSize.width * 0.02,
               child: GestureDetector(
                 onTap: () => Navigator.pop(context),
                 child: Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
+                  padding: EdgeInsets.all(screenSize.width * 0.02),
+                  decoration: const BoxDecoration(
                     color: Colors.black54,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
+                  child: Icon(
                     Icons.arrow_back,
                     color: Colors.white,
-                    size: 28,
+                    size: screenSize.width * 0.06,
                   ),
                 ),
               ),
@@ -117,14 +112,8 @@ class _FullScreenVideoViewState extends State<FullScreenVideoView> {
                   });
                 },
                 child: Container(
-                  width: screenSize.width * 0.08,
-                  height: screenSize.width * 0.08,
-                  constraints: const BoxConstraints(
-                    minWidth: 50,
-                    minHeight: 50,
-                    maxWidth: 80,
-                    maxHeight: 80,
-                  ),
+                  width: (screenSize.width * 0.12).clamp(50.0, 80.0),
+                  height: (screenSize.width * 0.12).clamp(50.0, 80.0),
                   decoration: const BoxDecoration(
                     color: Colors.black54,
                     shape: BoxShape.circle,
@@ -134,7 +123,7 @@ class _FullScreenVideoViewState extends State<FullScreenVideoView> {
                         ? Icons.pause
                         : Icons.play_arrow,
                     color: Colors.white,
-                    size: screenSize.width * 0.04,
+                    size: (screenSize.width * 0.06).clamp(25.0, 45.0),
                   ),
                 ),
               ),

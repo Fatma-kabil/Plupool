@@ -58,18 +58,7 @@ class _VideoSectionState extends State<VideoSection> {
     super.dispose();
   }
 
-  void _togglePlay() {
-    if (!_hasVideo) return;
-
-    if (_controller.value.isPlaying) {
-      _controller.pause();
-    } else {
-      if (_controller.value.position >= _controller.value.duration) {
-        _controller.seekTo(Duration.zero);
-      }
-      _controller.play();
-    }
-  }
+ 
 
   @override
   Widget build(BuildContext context) {

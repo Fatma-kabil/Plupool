@@ -25,8 +25,8 @@ class _VisitViewState extends State<VisitView> {
     super.initState();
 
     context.read<BookingVisitsCubit>().getBookingVisits(
-          bookingId:182
-          // widget.bookingId,
+          bookingId
+          : widget.bookingId,
         );
   }
 

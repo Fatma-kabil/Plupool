@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +9,7 @@ import 'package:plupool/core/utils/widgets/custom_loading_indecator.dart';
 
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_cubit.dart';
 import 'package:plupool/features/auth/presentation/manager/auth_cubit/auth_state.dart';
+import 'package:plupool/features/customers/presentation/manager/users_cubit/uers_cubit.dart';
 
 import 'package:plupool/features/home/presentaation/views/customer/widgets/reviews_list.dart';
 import 'package:plupool/features/home/presentaation/views/guest_widgets/guest_appbar.dart';
@@ -18,11 +18,15 @@ import 'package:plupool/features/home/presentaation/views/tech/widgets/tech_info
 import 'package:plupool/features/home/presentaation/views/tech/widgets/weekly_request_test.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/offer_section.dart';
 import 'package:plupool/features/home/presentaation/views/widgets/projects_section.dart';
+import 'package:plupool/features/offers/presentation/manager/cubits/product_offer_cubit/product_offer_cubit.dart';
 
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_cubit.dart';
 import 'package:plupool/features/profile/presentation/manager/user_cubit/user_state.dart';
+import 'package:plupool/features/projects/presentation/manager/project_cubit/project_cubit.dart';
+import 'package:plupool/features/rating/presentation/manager/cubits/rating_cubit/ratings_cubit.dart';
 
 import 'package:plupool/features/select_role/presentation/views/manager/select_role_cubit/select_role_cubit.dart';
+import 'package:plupool/features/tasks/presentation/views/manager/tasks_cubit/week_tasks_cubit.dart';
 
 class TechHomeView extends StatefulWidget {
   const TechHomeView({super.key});
@@ -43,9 +47,7 @@ class _TechHomeViewState extends State<TechHomeView> {
 
       context.read<SelectRoleCubit>().getSavedRole();
 
-      _handleAuthState(
-        context.read<AuthCubit>().state,
-      );
+      _handleAuthState(context.read<AuthCubit>().state);
     });
   }
 
@@ -82,6 +84,21 @@ class _TechHomeViewState extends State<TechHomeView> {
     context.read<UserCubit>().fetchCurrentUser(token);
   }
 
+  Future<void> _refreshHome({int? userId}) async {
+    final futures = <Future<void>>[
+      context.read<ProductOfferCubit>().getOffers(),
+      context.read<OurProjectsCubit>().getProjects(),
+      context.read<RatingsCubit>().getRatings(status: "approved"),
+    ];
+
+    if (userId != null) {
+      futures.add(context.read<UsersCubit>().getUserDetails(userId));
+      futures.add(context.read<WeekTasksCubit>().getWeekTasks());
+    }
+
+    await Future.wait(futures);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthCubit, AuthState>(
@@ -91,9 +108,7 @@ class _TechHomeViewState extends State<TechHomeView> {
       child: BlocBuilder<SelectRoleCubit, SelectRoleState>(
         builder: (context, roleState) {
           if (roleState is! GetRoleSuccess) {
-            return const Center(
-              child: CustomLoadingIndecator(),
-            );
+            return const Center(child: CustomLoadingIndecator());
           }
 
           return BlocBuilder<AuthCubit, AuthState>(
@@ -106,9 +121,7 @@ class _TechHomeViewState extends State<TechHomeView> {
                   authState.token == null ||
                   authState.token!.isEmpty) {
                 return buildHomeLayout(
-                  appbar: GuestAppbar(
-                    role: roleState.roleName,
-                  ),
+                  appbar: GuestAppbar(role: roleState.roleName),
                   showWeekly: false,
                 );
               }
@@ -120,34 +133,24 @@ class _TechHomeViewState extends State<TechHomeView> {
               return BlocBuilder<UserCubit, UserState>(
                 builder: (context, userState) {
                   if (userState is UserLoading) {
-                    return const Center(
-                      child: CustomLoadingIndecator(),
-                    );
+                    return const Center(child: CustomLoadingIndecator());
                   }
 
                   if (userState is UserError) {
-                    return Center(
-                      child: Text(
-                        "خطأ: ${userState.message}",
-                      ),
-                    );
+                    return Center(child: Text("خطأ: ${userState.message}"));
                   }
 
                   if (userState is UserLoaded) {
                     final user = userState.user;
 
                     return buildHomeLayout(
-                      appbar: TechAppbar(
-                        model: user,
-                      ),
+                      appbar: TechAppbar(model: user),
                       userId: user.id,
                       showWeekly: true,
                     );
                   }
 
-                  return const Center(
-                    child: CustomLoadingIndecator(),
-                  );
+                  return const Center(child: CustomLoadingIndecator());
                 },
               );
             },
@@ -168,71 +171,68 @@ class _TechHomeViewState extends State<TechHomeView> {
         left: SizeConfig.w(17),
         right: SizeConfig.w(17),
       ),
-      child: ListView(
-        children: [
-          appbar,
-
-          const SizedBox(height: 30),
-
-          // ==========================================
-          // Logged In فقط
-          // ==========================================
-
-          if (showWeekly && userId != null) ...[
-            TechInfoCardRow(
-              userId: userId,
-            ),
+      child: RefreshIndicator(
+       color: Colors.black54,
+        backgroundColor: AppColors.kScaffoldColor,
+        onRefresh: () => _refreshHome(userId: userId),
+        child: ListView(
+          children: [
+            appbar,
 
             const SizedBox(height: 30),
 
-            Row(
-              textDirection: TextDirection.rtl,
-              children: [
-                Text(
-                  "مهام الأسبوع",
-                  style: AppTextStyles.styleBold20(
-                    context,
-                  ).copyWith(
-                    color: AppColors.ktextcolor,
-                  ),
-                ),
+            // ==========================================
+            // Logged In فقط
+            // ==========================================
+            if (showWeekly && userId != null) ...[
+              TechInfoCardRow(userId: userId),
 
-                const Spacer(),
+              const SizedBox(height: 30),
 
-                GestureDetector(
-                  onTap: () {
-                    context.push('/weeklytasksview');
-                  },
-                  child: Text(
-                    "عرض المزيد",
-                    style: AppTextStyles.styleSemiBold16(
+              Row(
+                textDirection: TextDirection.rtl,
+                children: [
+                  Text(
+                    "مهام الأسبوع",
+                    style: AppTextStyles.styleBold20(
                       context,
-                    ).copyWith(
-                      color: AppColors.kprimarycolor,
-                      decoration: TextDecoration.underline,
+                    ).copyWith(color: AppColors.ktextcolor),
+                  ),
+
+                  const Spacer(),
+
+                  GestureDetector(
+                    onTap: () {
+                      context.push('/weeklytasksview');
+                    },
+                    child: Text(
+                      "عرض المزيد",
+                      style: AppTextStyles.styleSemiBold16(context).copyWith(
+                        color: AppColors.kprimarycolor,
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            const WeeklyRequestsList(),
+              const WeeklyRequestsList(),
 
-            const SizedBox(height: 30),
+              const SizedBox(height: 30),
+            ],
+
+            // ==========================================
+            // Guest + Logged In
+            // ==========================================
+            const OfferSection(),
+
+            const ProjectsSection(),
+
+            const ReviewsList(),
           ],
-
-          // ==========================================
-          // Guest + Logged In
-          // ==========================================
-
-          const OfferSection(),
-
-          const ProjectsSection(),
-
-          const ReviewsList(),
-        ],
+        ),
       ),
     );
   }

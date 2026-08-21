@@ -97,8 +97,8 @@ class _EditCompletedVisitViewBodyState
     );
 
     await context.read<BookingVisitsCubit>().updateLatestReading(
-          sourceBookingId:182,
-         //  widget.sourceBookingId,
+          sourceBookingId:
+           widget.sourceBookingId,
           selectedVisitBookingId: widget.visit.bookingId,
           reading: reading,
         );
